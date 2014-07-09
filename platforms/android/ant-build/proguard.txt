@@ -1,0 +1,22 @@
+# view AndroidManifest.xml #generated:6
+-keep class com.coolappz.Vocadb.Vocadb { <init>(...); }
+
+# view AndroidManifest.xml #generated:12
+-keep class com.google.zxing.client.android.CaptureActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:24
+-keep class com.google.zxing.client.android.HelpActivity { <init>(...); }
+
+# view ldpi\res/layout-ldpi/capture.xml #generated:25
+# view res/layout/capture.xml #generated:25
+-keep class com.google.zxing.client.android.ViewfinderView { <init>(...); }
+
+# view res/layout/search_book_contents_list_item.xml #generated:17
+-keep class com.google.zxing.client.android.book.SearchBookContentsListItem { <init>(...); }
+
+# view AndroidManifest.xml #generated:18
+-keep class com.google.zxing.client.android.encode.EncodeActivity { <init>(...); }
+
+# view res/xml/preferences.xml #generated:98
+-keep class com.google.zxing.client.android.pref.BSPlusPreference { <init>(...); }
+

@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+
+<html ng-app="vocadb">
+    <head>
+        <title>VocaDB - Vocaloid Database</title>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+        <link href="ionic/css/ionic.min.css" rel="stylesheet">
+        <script src="ionic/js/ionic.bundle.min.js"></script>
+        <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+        <script src="js/angular-resource.js"></script>
+        <script src="js/ng-infinite-scroll.min.js"></script>
+        <script src="js/moment.js"></script>
+        <script src="js/angular-moment.min.js"></script>
+        <script type="text/javascript" src="js/app.js"></script>
+        <style>
+            .video-container {
+                position: relative;
+                padding-bottom: 56.25%;
+                padding-top: 30px; height: 0; overflow: hidden;
+            }
+
+            .video-container iframe,
+            .video-container object,
+            .video-container embed {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+            }
+             .padding-bottom {
+                padding-bottom: 10px;
+            }
+        </style>
+    </head>
+    <body ng-controller="mainCtrl">
+ 
+    <ion-nav-view animation="slide-left-right">
+    </ion-nav-view>
+    
+    <script id="menu.html" type="text/ng-template">
+        <ion-side-menus  >
+        <ion-side-menu side="right">
+        <ion-header-bar class="bar-dark">
+        <h1 class="title">Categories</h1>
+        </ion-header-bar>
+        <ion-content>
+        <ul class="list">
+        
+        <a nav-clear menu-close href="#/tab/recentPV" class="item item-icon-left " menu-toggle="left"><i class="icon ion-ios7-pulse-strong"></i> Recent PVs</a>
+        <a nav-clear menu-close href="#/tab/song" class="item item-icon-left" menu-toggle="left"><i class="icon ion-music-note"></i> Song</a>
+        <a nav-clear menu-close href="#/tab/artist" class="item item-icon-left" menu-toggle="left"><i class="icon ion-person"></i> Artist</a>
+        <a nav-clear menu-close href="#/tab/album" class="item item-icon-left" menu-toggle="left"><i class="icon ion-disc"></i> Album</a>
+        <a nav-clear menu-close href="#/tab/tag" class="item item-icon-left" menu-toggle="left"><i class="icon ion-ios7-pricetags"></i> Tag</a>
+        </ul>
+        </ion-content>
+        </ion-side-menu>
+
+        <ion-side-menu-content>    
+        <ion-nav-bar class="bar-positive nav-title-slide-ios7">
+        <ion-nav-back-button class="button-icon ion-chevron-left">
+        <ion-nav-buttons side="right">
+        <button class="button button-icon button-clear ion-search" ng-click="openSearchModal()"></button>
+        <button class="button button-icon button-clear ion-navicon" ng-click="toggleRight()"></button>
+        </ion-nav-buttons>
+        </ion-nav-back-button>
+  </ion-nav-bar>
+        <ion-nav-view name="menuContent" animation="slide-left-right"></ion-nav-view>
+
+        </ion-side-menu-content>
+
+
+        </ion-side-menus>
+    </script>   
+    
+    <script id="recentPV.html" type="text/ng-template">
+         <ion-view title="Recent PVs" hide-back-button="true">
+       
+             <ion-content >
+             <!--<center ng-show="loading" class="padding"><i class="icon ion-loading-a"></i></center>-->
+             <ion-refresher
+                pulling-text="Pull to refresh..."
+                on-refresh="doRefresh()">
+              </ion-refresher>
+            <ion-list ng-show="songs.length">
+                <ion-item class="item-thumbnail-left" 
+                    ng-repeat="song in songs" 
+                    ng-href="#/tab/song/{{song.id}}" >
+                    <img ng-src="{{song.thumbUrl}}"  >
+                    <h2>{{song.defaultName}}</h2>
+                    <p>{{song.artistString}}</p>
+                    <p am-time-ago="{{getMoment(song.createDate)}}" ></p> 
+                </ion-item>
+               
+            </ion-list>
+            <ion-infinite-scroll on-infinite="loadMore()" distance="10%">
+            </ion-infinite-scroll>
+        </ion-content>
+    </ion-view>
+    </script>
+    
+    <script id="songlist.html" type="text/ng-template">
+         <ion-view title="Songs" hide-back-button="true">
+        <ion-header-bar class="bar bar-light bar-subheader item-input-inset ">
+             <label class="item-input-wrapper">
+                    <i ng-class="loading? 'icon placeholder-icon ion-loading-a' : 'icon placeholder-icon ion-ios7-search' " ></i>
+                    <input type="text" placeholder="search"  ng-model="query" ng-change="search()">
+                </label>
+        </ion-header-bar>
+             <ion-content has-bouncing="true" ng-init="search()">
+             
+            <ion-list ng-show="songs.length">
+                <ion-item class="item-thumbnail-left" ng-repeat="song in songs"  ng-href="#/tab/song/{{song.id}}" >
+                    <img ng-src="{{song.thumbUrl}}">
+                    <h2>{{song.defaultName}}</h2>
+                    <p>{{song.artistString}}</p>
+                </ion-item>
+            </ion-list>
+            
+    
+        </ion-content>
+    </ion-view>
+    </script>
+    <script id="songdetail.html" type="text/ng-template">
+           <ion-view title="Song Info">
+           <ion-content  has-bouncing="true">
+        <div class="list card">
+            <ion-item class="item item-thumbnail-left">
+                <img ng-src="{{song.thumbUrl}}">
+                <h2>{{song.defaultName}}</h2>
+                <p>{{song.songType}}<br>{{getDuration(song.lengthSeconds)}}</p>
+               
+            </ion-item>
+            <ion-item class="item" ng-show="song.tags.length">
+                <a ng-href="#tab/tag/detail/{{tag}}" ng-repeat="tag in song.tags" class="dark" style="text-decoration: none; font-size:12px;">#{{tag}}&nbsp;&nbsp;</a>
+            </ion-item>
+        </div>  
+        
+        <div class="list card" ng-show="PVs.length">
+            <div class="item item-divider">
+                <h2>Media</h2>
+            </div>
+            <ion-item class="item item-avatar item-text-wrap" ng-repeat="pv in PVs" ng-click="open(pv.url)">
+                <img ng-src="{{getMediaIcon(pv.service)}}">
+                <h2>{{pv.name}}</h2>
+                <p>{{pv.service}}</p>
+            </ion-item>
+        </div>
+        <div class="list card">
+            <ion-item class="item item-divider">
+                <h2>Artists</h2>
+            </ion-item>
+            <ion-item class="item item-avatar" ng-repeat="artist in artists" ng-href="#/tab/artist/{{artist.artist.id}}">
+                <img ng-src="{{getArtistImage(artist.artist.id)}}">
+                <h2>{{artist.name}}</h2>
+                <p>{{artist.artist.artistType}}</p>
+            </ion-item>
+        </div>
+
+        <div class="list card" ng-show="albums.length">
+            <ion-item class="item-divider">
+                <h2>Album</h2>
+            </ion-item>
+            <ion-item class="item-thumbnail-left" ng-repeat="album in albums" ng-href="#/tab/album/{{album.id}}">
+                <img ng-src="{{getAlbumImage(album.id)}}"> 
+                <h2>{{album.name}}</h2>
+                <p>{{album.discType}}</p>
+            </ion-item>
+        </div>
+        <div class="padding-bottom">
+        </div>
+    </ion-content>
+           </ion-view>
+    </script>
+    
+    <script id="artistlist.html" type="text/ng-template">
+           <ion-view title="Artists" hide-back-button="true">
+           
+         <ion-header-bar class="bar bar-light bar-subheader item-input-inset ">
+             <label class="item-input-wrapper">
+                    <i ng-class="loading? 'icon placeholder-icon ion-loading-a' : 'icon placeholder-icon ion-ios7-search' " ></i>
+                    <input type="search" placeholder="search" ng-model="query" ng-change="search()">
+                </label>
+        </ion-header-bar>
+
+           <ion-content has-bouncing="true" ng-init="search()">
+                <ion-list ng-show="artists.length">
+                    <ion-item class="item-avatar" ng-repeat="artist in artists" ng-href="#/tab/artist/{{artist.id}}">
+                        <img ng-src="{{getArtistImage(artist.id)}}"">
+                        <h2>{{artist.defaultName}}</h2>
+                        <p>{{artist.artistType}}</p>
+                    </ion-item>
+                </ion-list>
+            </ion-content>
+
+           </ion-view>
+    </script>
+    
+    <script id="artistTab.html" type="text/ng-template">
+           <ion-view title="Artists" hide-back-button="true">
+           
+        <ion-tabs class="tabs-dark tabs-icon-top" >
+            <ion-tab title="Basic" icon='ion-ios7-information-outline' href="#/tab/artist/:Id/basic">
+                 <ion-nav-view name="basic"></ion-nav-view>
+            </ion-tab>
+            <ion-tab title="Recent albums" icon='ion-disc' href="#/tab/artist/:Id/recent">
+                <ion-nav-view name="recent"></ion-nav-view>
+            </ion-tab>
+            <ion-tab title="Popular albums" icon='ion-star' href="#/tab/artist/:Id/popular">
+                <ion-nav-view name="popular"></ion-nav-view>
+            </ion-tab>
+
+        </ion-tabs>
+
+           </ion-view>
+    </script>
+    
+    <script id="artistdetail.html" type="text/ng-template">
+           <ion-view title="Artist Info" >
+           <ion-content has-bouncing="true" >
+                <div class="list card">
+                    <ion-item class="item-thumbnail-left">
+                        <img ng-src="{{getArtistImage(artist.id)}}" ng-click="openModal(artist.defaultName,getArtistImage(artist.id))">
+                        <h2>{{artist.defaultName}}</h2> 
+                        <p>{{artist.artistType}}</p>
+                    </ion-item>
+                    <ion-item class="item" ng-show="artist.tags.length">
+                        <a ng-href="#tab/tag/detail/{{tag.name}}" ng-repeat="tag in artist.tags" class="dark" style="text-decoration: none; font-size:12px;">#{{tag.name}}&nbsp;&nbsp;</a>
+                    </ion-item>
+                    <ion-item class="item-text-wrap" ng-show="artist.description" >
+                        <p>{{artist.description}}</p>
+                    </ion-item>
+                </div>
+        
+                <div class="list card" ng-show="latestAlbums.length" >
+                    <ion-item class="item-divider" ng-show="latestAlbums.length">
+                        <h2>Recent albums</h2>
+                    </ion-item>
+                    <ion-item class="item-thumbnail-left item-text-wrap" ng-repeat="album in latestAlbums" ng-href="#/tab/album/{{album.id}}">
+                        <img ng-src="{{getAlbumImage(album.id)}}">
+                        <h2>{{album.name}}</h2>
+                        <p>{{album.artistString}}<br>{{album.discType}}</p>
+                    </ion-item>
+            
+                    
+                </div>
+        
+                <div class="list card" ng-show="popularAlbums.length" >
+                         <ion-item class="item-divider" ng-show="popularAlbums.length">
+                                <h2>Popular albums</h2>
+                            </ion-item>
+                            <ion-item class="item-thumbnail-left item-text-wrap" ng-repeat="album in popularAlbums" ng-href="#/tab/album/{{album.id}}">
+                                <img ng-src="{{getAlbumImage(album.id)}}">
+                                <h2>{{album.name}}</h2>
+                                <p>{{album.artistString}}<br>{{album.discType}}</p>
+                            </ion-item>
+                </div>
+        
+                <div class="list card" ng-show="artist.webLinks.length" >
+                    <ion-item class="item-divider" ng-show="(artist.webLinks | filter:{category:'Official'}).length">
+                        <h2>Official links</h2>
+                    </ion-item>
+                    <ion-item class="item-icon-left" ng-repeat="weblink in artist.webLinks  | filter:{category:'Official'} | orderBy:'description'" ng-click="open(weblink.url)">
+                        <i class="icon {{getIcon(weblink.url)}}"></i>
+                        <h2>{{weblink.description}}</h2>
+                    </ion-item>
+            
+                    <ion-item class="item-divider" ng-show="(artist.webLinks | filter:{category:'!Official'}).length">
+                        <h2>Unofficial links</h2>
+                    </ion-item>
+                    <ion-item class="item-icon-left" ng-repeat="weblink in artist.webLinks  | filter:{category:'!Official'} | orderBy:'description'" ng-click="open(weblink.url)">
+                        <i class="icon {{getIcon(weblink.url)}}"></i>
+                        <h2>{{weblink.description}}</h2>
+                    </ion-item>
+                </div>
+        <div class="padding-bottom">
+        </div> 
+            </ion-content>
+           </ion-view>
+    </script>
+    
+    <script id="albumlist.html" type="text/ng-template">
+           <ion-view title="Albums" hide-back-button="true">
+           
+           <ion-header-bar class="bar bar-light bar-subheader item-input-inset ">
+            <button class="button button-icon icon fa fa-barcode" ng-click="scan()"></button>
+             <label class="item-input-wrapper">
+                    <i ng-class="loading? 'icon placeholder-icon ion-loading-a' : 'icon placeholder-icon ion-ios7-search' " ></i>
+                    <input type="search" placeholder="search"  ng-model="query" ng-change="search()">
+                </label>
+        </ion-header-bar>
+
+           <ion-content has-bouncing="true" ng-init="search()">
+            <ion-list>
+                <ion-item class="item-thumbnail-left item-text-wrap" ng-click="selectAlbum(album)"  ng-repeat="album in albums" ng-href="#/tab/album/{{album.id}}">
+                    <img ng-src="{{getAlbumImage(album.id)}}">
+                    <h2>{{album.defaultName}}</h2>
+                    <p>{{album.artistString}}<br>{{getDiscType(album.discType)}}</p>
+                </ion-item>
+            </ion-list>
+    
+     <div class="padding-bottom">
+        </div>
+        </ion-content>
+           </ion-view>
+    </script>
+    
+    <script id="albumdetail.html" type="text/ng-template">
+           <ion-view title="Album info">
+           <ion-content has-bouncing="true">
+            <div class="list card">
+                <div class="item item-divider">
+                    <h2>{{album.defaultName}}</h2>
+                    <p>{{getDiscType(album.discType)}}</p>
+                </div>
+               <div class="item item-image">
+                    <img  src="{{getAlbumImage(album.id)}}"> 
+                </div> 
+                <ion-item class="item" ng-show="album.tags.length">
+                    <a ng-href="#tab/tag/detail/{{tag}}" ng-repeat="tag in album.tags" class="dark" style="text-decoration: none; font-size:12px;">#{{tag}}&nbsp;&nbsp;</a>
+                </ion-item>
+            </div>
+            <div class="list card">
+                <div class="item item-divider">
+                    <h2>Release date</h2>
+                </div>
+                <div class="item">
+                    <p>{{album.releaseDate.formatted}}</p>
+                    <p>{{album.releaseEvent}}</p>
+                </div>
+            </div>
+            <div class="list card">
+                <ion-item class="item-divider">
+                    <h2>Tracklist</h2>
+                </ion-item>
+                <ion-item class="item" ng-repeat="track in tracks"  ng-href="#/tab/song/{{track.song.id}}">
+                    <div class="row">  
+                        <div class="col col-10">{{track.trackNumber}}</div>
+                        <div class="col">{{track.song.name}} {{getDuration(track.song.lengthSeconds)}}<br>{{track.song.artistString}}</div>
+                    </div>
+                </ion-item>
+            </div>
+
+
+        <!--    <div class="list card">
+                <div class="item item-divider">
+                    <h2>Web links</h2>
+                </div>
+                <div class="item item-icon-left">
+                    <i class="icon ion-ios7-world"></i>
+                    <h2>Toranoana</h2>
+                </div>
+                <div class="item item-icon-left">
+                    <i class="icon ion-ios7-world"></i>
+                    <h2>Pixiv / Artwork</h2>
+                </div>
+            </div> -->
+
+            <div class="padding-bottom">
+            </div>
+        </ion-content>
+           </ion-view>
+    </script>
+    
+    <script id="taglist.html" type="text/ng-template">
+         <ion-view title="Tags" hide-back-button="true">
+        <ion-header-bar class="bar bar-light bar-subheader item-input-inset ">
+             <label class="item-input-wrapper">
+                    <i ng-class="loading? 'icon placeholder-icon ion-loading-a' : 'icon placeholder-icon ion-ios7-search' " ></i>
+                    <input type="text" placeholder="search"  ng-model="query" ng-change="search()">
+                </label>
+        </ion-header-bar>
+             <ion-content has-bouncing="true" ng-init="search()">
+             
+            <ion-list ng-show="tags.length">
+                <ion-item ng-repeat="tag in tags"  ng-href="#/tab/tag/detail/{{tag.name}}" >
+                    <h2>{{tag.name}}</h2>
+                    <p>{{tag.categoryName}}</p>
+                </ion-item>
+            </ion-list>
+            
+    
+        </ion-content>
+    </ion-view>
+    </script>
+    
+    
+    <script id="tagdetail.html" type="text/ng-template">
+         <ion-view title="{{title}}" hide-back-button="true">
+           <ion-tabs class="tabs-positive tabs-icon-top">
+           
+            <ion-tab title="Song" icon='ion-music-note' ng-show="tags.songs.length" >
+               <ion-content>
+                    <ion-list ng-show="tags.songs.length">
+                        <ion-item class="item-thumbnail-left" ng-repeat="song in tags.songs"  ng-href="#/tab/song/{{song.id}}"  >
+                            <img ng-src="{{song.thumbUrl}}">
+                            <h2>{{song.defaultName}}</h2>
+                            <p>{{song.artistString}}</p>
+                        </ion-item>
+                    </ion-list>
+               </ion-content>
+            </ion-tab>
+            <ion-tab title="Artist" icon='ion-person' >
+               <ion-content>
+                    <ion-list ng-show="tags.artists.length">
+                        <ion-item class="item-thumbnail-left" ng-repeat="artist in tags.artists"  ng-href="#/tab/artist/{{artist.id}}" >
+                            <img ng-src="{{getArtistImage(artist.id)}}"">
+                            <h2>{{artist.defaultName}}</h2>
+                            <p>{{artist.artistType}}</p>
+                        </ion-item>
+                    </ion-list>
+               </ion-content>
+            </ion-tab>
+            <ion-tab title="Album" icon='ion-disc' ng-show="tags.albums.length">
+               <ion-content>
+                    <ion-list ng-show="tags.albums.length">
+                        
+                        <ion-item class="item-thumbnail-left" ng-repeat="album in tags.albums"  ng-href="#/tab/album/{{album.id}}" >
+                            <img ng-src="{{getAlbumImage(album.id)}}">
+                            <h2>{{album.defaultName}}</h2>
+                            <p>{{album.artistString}}<br>{{getDiscType(album.discType)}}</p>
+                        </ion-item>
+                    </ion-list>
+               </ion-content>
+            </ion-tab>
+        </ion-tabs>
+
+    </ion-view>
+    </script>
+    <script id="searchModal.html" type="text/ng-template">
+
+        <div class="modal" ng-controller="searchModal">
+
+         <ion-header-bar class="bar-positive item-input-inset">
+            <label class="item-input-wrapper">
+            <i ng-class="loading? 'icon placeholder-icon ion-loading-a' : 'icon placeholder-icon ion-ios7-search' " ></i>
+            <input type="search" placeholder="Anything" ng-model="searchQuery" ng-change="search()">
+            </label>
+            <button class="button button-clear" ng-click="closeSearchModal()">
+              Cancel
+            </button>
+          </ion-header-bar >
+
+          <ion-content >
+             <ion-list>
+                <ion-item ng-repeat="item in items" ng-href="{{getEntry(item.id,item.entryType)}}" ng-click="closeSearchModal()">
+                    <h2>{{item.defaultName}}</h2>
+                     <p>{{item.entryType}}</p>
+                </ion-item>
+            </ion-list>
+          </ion-content>
+
+        </div>
+
+  </script>
+    
+    <script id="imageModal.html" type="text/ng-template">
+
+        <div class="modal">
+
+          <!-- Modal header bar -->
+          <ion-header-bar class="bar-secondary">
+            <button class="button button-clear button-positive" ng-click="closeModal()">Close</button>
+          </ion-header-bar>
+            
+          <!-- Modal content area -->
+          <ion-content>
+            <div class="list">
+                 <div class="item item-image">
+                    <img ng-src="{{modal.src}}">
+                  </div>
+            </div>
+          <!--  <center> <img ng-src="{{modal.src}}" /></center> -->
+          </ion-content>
+
+        </div>
+
+  </script>
+
+    
+    <script type="text/javascript" src="cordova.js"></script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+# This is a list of plugins installed in your project
+# You can delete or add new plugins
+#
+# Format is following:
+# name.of.plugin=url_of_repository
+#
+# This list contains all core cordova plugins.
+#
+# For more information about plugins see http://cordova.apache.org/blog/releases/2013/07/23/cordova-3.html
+#
+
+org.apache.cordova.device=https://git-wip-us.apache.org/repos/asf/cordova-plugin-device.git
+org.apache.cordova.network-information=https://git-wip-us.apache.org/repos/asf/cordova-plugin-network-information.git
+org.apache.cordova.media-capture=https://git-wip-us.apache.org/repos/asf/cordova-plugin-media-capture.git
+org.apache.cordova.media=https://git-wip-us.apache.org/repos/asf/cordova-plugin-media.git
+org.apache.cordova.dialogs=https://git-wip-us.apache.org/repos/asf/cordova-plugin-dialogs.git
+org.apache.cordova.splashscreen=https://git-wip-us.apache.org/repos/asf/cordova-plugin-splashscreen.git
