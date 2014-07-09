@@ -4,14 +4,14 @@ A mobile version of http://vocadb.net for presents information about vocaloid so
 
 Tools & Resource
 ============
-Netbeans 8.0 : https://netbeans.org
-Cordova : http://cordova.apache.org
-PhoneGap : http://phonegap.com
-VocaDB API : http://vocadb.net/api
-ionic framework : http://ionicframework.com
-AngularJS : https://angularjs.org
-AngularMoment : https://github.com/urish/angular-moment
-Font Icon : http://fortawesome.github.io/Font-Awesome
+- Netbeans 8.0 : https://netbeans.org
+- Cordova : http://cordova.apache.org
+- PhoneGap : http://phonegap.com
+- VocaDB API : http://vocadb.net/api
+- ionic framework : http://ionicframework.com
+- AngularJS : https://angularjs.org
+- AngularMoment : https://github.com/urish/angular-moment
+- Font Icon : http://fortawesome.github.io/Font-Awesome
 
 
 Licence
