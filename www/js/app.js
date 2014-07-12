@@ -17,7 +17,7 @@
  * under the License.
  */
 
-var app = angular.module('vocadb', ['ionic', 'ngResource', 'angularMoment']);
+var app = angular.module('vocadb', ['ionic', 'ngResource','angularMoment']);
 
 
 app.factory('Song', function($resource, $q, $cacheFactory) {
@@ -196,7 +196,7 @@ app.factory('Artist', function($resource, $q, $cacheFactory) {
             (cache) ? q.resolve(cache) : getById.load({
                 Id: artistId,
                 fields: field,
-                relations: 'PopularAlbums,LatestAlbums'
+                relations: 'All'
             }, function(resp) {
                 cacheEngine.put(artistId, resp);
                 q.resolve(resp);
@@ -214,6 +214,7 @@ app.factory('Album', function($resource, $q, $cacheFactory) {
     var queryAlbums = $resource(endPoint,
             {
                 fields: 'artists,tags',
+                maxResults:25,
                 getTotalCount: false,
                 nameMatchMode: 'Auto',
                 callback: 'JSON_CALLBACK'
@@ -227,7 +228,7 @@ app.factory('Album', function($resource, $q, $cacheFactory) {
 
     var getById = $resource(endPoint + '/:Id',
             {
-                fields: 'artists,tags',
+                fields: 'artists,names,pvs,tags,webLinks',
                 callback: 'JSON_CALLBACK'
             },
     {
@@ -259,7 +260,8 @@ app.factory('Album', function($resource, $q, $cacheFactory) {
                 var cache = cacheEngine.get(query);
                 var q = $q.defer();
                 (cache) ? q.resolve(cache) : queryAlbums.load({
-                    query: query
+                    query: query,
+                    sort: (query)? 'Name' :'ReleaseDate'
                 }, function(resp) {
                     cacheEngine.put(query, resp);
                     q.resolve(resp);
@@ -335,6 +337,7 @@ app.factory('Entry', function($resource, $q, $cacheFactory) {
     var cacheEngine = $cacheFactory('Entry');
     var queryEntry = $resource('http://vocadb.net/api/entries',
             {
+                fields:'MainPicture',
                 getTotalCount: false,
                 nameMatchMode: 'Auto',
                 callback: 'JSON_CALLBACK'
@@ -385,6 +388,18 @@ app.factory('Tag', function($resource, $q, $cacheFactory) {
             'cache': true
         }
     });
+    
+    var queryCategories = $resource('http://vocadb.net/api/tags/categoryNames',
+            {
+                callback: 'JSON_CALLBACK'
+            },
+        {
+        'load': {
+            'method': 'JSONP',
+            'cache': true,
+            'isArray': true
+        }
+    });
 
     return {
         term: "",
@@ -404,6 +419,37 @@ app.factory('Tag', function($resource, $q, $cacheFactory) {
                 q.promise.then(callback);
             }, 500);
             doSearch(query, callback);
+        },
+        searchByCategory: function(query,category, callback) {
+            this.term = query;
+            var doSearch = ionic.debounce(function(query,category, callback) {
+                var cache = cacheEngine.get(query+"_"+category);
+                var q = $q.defer();
+                (cache) ? q.resolve(cache) : queryTag.load({
+                    query: query,
+                    categoryName:category
+                }, function(resp) {
+                    cacheEngine.put(query+"_"+category, resp);
+                    q.resolve(resp);
+                }, function(err) {
+                    q.reject(err);
+                });
+                q.promise.then(callback);
+            }, 500);
+            doSearch(query,category, callback);
+        },listCategories: function(callback) {
+            var doSearch = ionic.debounce(function(callback) {
+                var cache = cacheEngine.get("Categories");
+                var q = $q.defer();
+                (cache) ? q.resolve(cache) : queryCategories.load({}, function(resp) {
+                    cacheEngine.put("Categories", resp);
+                    q.resolve(resp);
+                }, function(err) {
+                    q.reject(err);
+                });
+                q.promise.then(callback);
+            }, 500);
+            doSearch(callback);
         }
     };
 });
@@ -451,13 +497,22 @@ app.config(function($stateProvider, $urlRouterProvider) {
         views: {
             'menuContent': {
                 templateUrl: "songdetail.html",
-                controller: function($scope, Song, $stateParams) {
+                controller: function($scope, Song,$ionicScrollDelegate, $stateParams) {
+                    $scope.accordian = [false,false,false];
+                    $scope.toggle = function(index) {
+                         $scope.accordian[index] =  !$scope.accordian[index];
+                         $ionicScrollDelegate.resize();
+                    };
+                    $scope.isShown = function(index) {
+                      return $scope.accordian[index];
+                    };
                     //get song and fields
-                    Song.getByField($stateParams.Id, 'ThumbUrl,Artists,PVs,Albums,Tags', function(resp) {
+                    Song.getByField($stateParams.Id, 'ThumbUrl,Artists,PVs,Albums,Tags,Names', function(resp) {
                         $scope.song = resp;
                         $scope.artists = resp.artists;
                         $scope.PVs = resp.pVs;
                         $scope.albums = resp.albums;
+                        
                     });
                 }
             }
@@ -491,11 +546,22 @@ app.config(function($stateProvider, $urlRouterProvider) {
                 views: {
                     'menuContent': {
                         templateUrl: "artistdetail.html",
-                        controller: function($scope, $stateParams, Artist) {
-                            Artist.getArtistInfo($stateParams.Id, 'Description,WebLinks,Tags', function(resp) {
+                        controller: function($scope, $stateParams,$ionicScrollDelegate, Artist) {
+                            Artist.getArtistInfo($stateParams.Id, 'Description,WebLinks,Tags,Names', function(resp) {
                                 $scope.artist = resp;
                                 $scope.latestAlbums = resp.relations.latestAlbums;
                                 $scope.popularAlbums = resp.relations.popularAlbums;
+                                 $scope.latestSongs = resp.relations.latestSongs;
+                                $scope.popularSongs = resp.relations.popularSongs;
+
+                                $scope.accordian = [false,false,false,false];
+                                  $scope.toggle = function(index) {
+                                       $scope.accordian[index] =  !$scope.accordian[index];
+                                       $ionicScrollDelegate.resize();
+                                  };
+                                  $scope.isShown = function(index) {
+                                    return $scope.accordian[index];
+                                  };
                             });
                         }
                     }
@@ -542,23 +608,27 @@ app.config(function($stateProvider, $urlRouterProvider) {
         views: {
             'menuContent': {
                 templateUrl: "albumdetail.html",
-                controller: function($scope, Album, $stateParams) {
-                    if (!Album.selectAlbum) {
-                        Album.getAlbumById($stateParams.Id, function(resp) {
+                controller: function($scope, Album,$ionicScrollDelegate, $stateParams) {
+                    
+                    $scope.trackGroup = [];
+                    $scope.accordian = [false,false,false];
+                            $scope.toggle = function(index) {
+                                 $scope.accordian[index] =  !$scope.accordian[index];
+                                 $ionicScrollDelegate.resize();
+                            };
+                            $scope.isShown = function(index) {
+                              return $scope.accordian[index];
+                    };
+                 
+                    Album.getAlbumById($stateParams.Id, function(resp) {
                             $scope.album = resp;
                             Album.getTracksById($stateParams.Id, function(resp) {
                                 $scope.tracks = resp;
+                                for(i=1;i<$scope.tracks.length;i++)
+                                    if($scope.tracks[i].discNumber!=$scope.tracks[i-1].discNumber || i==1) $scope.trackGroup.push($scope.tracks[i].discNumber);
                             });
-
-
                         });
 
-                    } else {
-                        $scope.album = Album.selectAlbum;
-                        Album.getTracksById($stateParams.Id, function(resp) {
-                            $scope.tracks = resp;
-                        });
-                    }
 
 
                 }
@@ -571,10 +641,12 @@ app.config(function($stateProvider, $urlRouterProvider) {
                 templateUrl: "recentPV.html",
                 controller: function($scope, Song) {
                     $scope.songs = [];
+                   
                     $scope.doRefresh = function() {
                         Song.loadRecentPVs(0, function(resp) {
                             $scope.songs = resp.items;
                             $scope.$broadcast('scroll.refreshComplete');
+                            
                         });
                     };
 
@@ -585,6 +657,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
                                     $scope.songs.push(value);
                                 });
                                 $scope.$broadcast('scroll.infiniteScrollComplete');
+                                
                             });
 
                     };
@@ -599,15 +672,52 @@ app.config(function($stateProvider, $urlRouterProvider) {
         views: {
             'menuContent': {
                 templateUrl: "taglist.html",
-                controller: function($scope,Tag) {
-                    //Function
+                controller: function($scope,Tag,$ionicScrollDelegate) {
+                    
+                    //$scope.categories = ["Copyrights","Genres"];
+                    Tag.listCategories(function(resp){
+                        $scope.categories = resp;
+                    });
+                    
+                    $scope.selected = null;
                     $scope.search = function() {
-                        $scope.loading = true;
-                        Tag.search($scope.query, function(resp) {
-                            $scope.loading = false;
-                            $scope.tags = resp.items;
-                        });
+                        if($scope.selected){
+                            $scope.loading = true;
+                             Tag.searchByCategory($scope.query,$scope.selected, function(resp) {
+                                $scope.loading = false;
+                                $scope.tags = resp.items;
+                            });
+                        }else{
+                            
+                            if(!$scope.query) $scope.tags=[];
+                            else
+                            {
+                                $scope.loading = true;
+                                 Tag.search($scope.query, function(resp) {
+                                $scope.loading = false;
+                                $scope.tags = resp.items;
+                                });
+                            }
+                        }
                     }; 
+                    $scope.isShow = function(){
+                            return !($scope.tags.length && $scope.query);
+                    }
+                     $scope.select = function(category){
+                         if($scope.selected!=category){
+                            $scope.selected=category;
+                            $scope.loading = true;
+                            Tag.searchByCategory($scope.query,category, function(resp) {
+                                $scope.loading = false;
+                                $scope.tags = resp.items;
+                            });
+                         }else{
+                             $scope.selected=null;
+                             $scope.search();
+                             
+                         }
+                        $ionicScrollDelegate.resize();
+                    };
                 }
             }
         }})
@@ -632,7 +742,14 @@ app.config(function($stateProvider, $urlRouterProvider) {
                         });   
                 }
             }
-        }});
+        }}).state('tab.about', {
+            url: "/about",
+            views: {
+              'menuContent' :{
+                templateUrl: "about.html"
+              }
+            } 
+          });
 
 
     $urlRouterProvider.otherwise("/tab/song");
@@ -700,7 +817,7 @@ app.controller('mainCtrl', function($scope, $ionicSideMenuDelegate, $ionicModal,
 
     //Get moment
     $scope.getMoment = function(strDateTime) {
-        return new Date(strDateTime + "+03:00");
+         return new Date(strDateTime + "+03:00");
     };
     
     //Get Calculate Duration
@@ -711,6 +828,22 @@ app.controller('mainCtrl', function($scope, $ionicSideMenuDelegate, $ionicModal,
 
         var result = (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds  < 10 ? "0" + seconds : seconds);
         return "("+result+")";
+    };
+    
+    $scope.getRating = function(rating){
+           var count = Math.round(rating);
+           var star = "";
+           for(x=0;x<5;x++) (x<count)? star+="★" : star+="☆";
+           return star;
+    };
+    
+    $scope.getAdditionName = function(names){
+                  var additionName = "";
+                  if(names.length>1){
+                       for(i=1;i<names.length;i++)
+                           additionName+=names[i].value+", ";
+                       return additionName.slice(0,additionName.length-2);
+                  }
     };
     
     //Get Disc type
@@ -734,6 +867,10 @@ app.controller('mainCtrl', function($scope, $ionicSideMenuDelegate, $ionicModal,
     $scope.closeModal = function() {
         $scope.imageModal.hide();
     };
+    
+    $scope.stringToHTML = function(text) {
+        return text.replace(/\n/g,'<br/>').replace(/\r/g,'<br/>').replace(/\r\n/g,'<br/>');
+    };
 
     //Search Modal
     $ionicModal.fromTemplateUrl('searchModal.html', function(modal) {
@@ -750,7 +887,12 @@ app.controller('mainCtrl', function($scope, $ionicSideMenuDelegate, $ionicModal,
     $scope.closeSearchModal = function() {
         $scope.searchModal.hide();
     };
-
+    
+    //Test Collection Repeat
+    $scope.getItemHeight = function() {
+        return 100;
+    };
+    
 
 });
 app.controller('searchModal', function($scope, Entry) {
@@ -770,5 +912,7 @@ app.controller('searchModal', function($scope, Entry) {
             if (angular.equals(entryType, 'Album'))
                 return '#/tab/album/' + id;
         };
+        
+        
     };
 });
