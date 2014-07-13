@@ -30,6 +30,7 @@
         <script src="js/angular-resource.js"></script>
         <script src="js/moment.js"></script>
         <script src="js/angular-moment.min.js"></script>
+        <script src="js/angular-vocadb.js"></script>
         <script type="text/javascript" src="js/app.js"></script>
         <style>
          .myitem{
@@ -77,8 +78,7 @@
         <ion-nav-bar class="bar-positive nav-title-slide-ios7">
         <ion-nav-back-button class="button-icon ion-chevron-left">
         <ion-nav-buttons side="right">
-        <button class="button button-icon button-clear ion-search" ng-click="openSearchModal()"></button>
-        <button class="button button-icon button-clear ion-navicon" ng-click="toggleRight()"></button>
+        <button class="button button-icon button-clear ion-search" ng-click="openSearchModal()"></button><button class="button button-icon button-clear ion-navicon" ng-click="toggleRight()" ></button>
         </ion-nav-buttons>
         </ion-nav-back-button>
   </ion-nav-bar>
@@ -228,6 +228,7 @@
                         <img ng-src="{{getArtistImage(artist.id)}}" ng-click="openModal(artist.defaultName,getArtistImage(artist.id))">
                         <h2>{{artist.defaultName}}</h2> 
                         <p>{{getAdditionName(artist.names)}}</p>
+                        
                         <p>{{artist.artistType}}</p>
                     </ion-item>
                     <ion-item class="item-text-wrap" ng-show="artist.tags.length">
