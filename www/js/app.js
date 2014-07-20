@@ -773,6 +773,16 @@ app.controller('mainCtrl', function($scope, $ionicSideMenuDelegate, $ionicModal,
     $scope.getAlbumImage = function(albumId) {
         return 'http://vocadb.net/Album/CoverPicture/' + albumId;
     };
+    
+    $scope.shareSong = function(songId){
+        window.plugins.socialsharing.share(null, null, null, 'http://vocadb.net/S/'+songId);
+    }
+    $scope.shareArtist = function(artistId){
+        window.plugins.socialsharing.share(null, null, null, 'http://vocadb.net/Ar/'+artistId);
+    }
+    $scope.shareAlbum = function(albumId){
+        window.plugins.socialsharing.share(null, null, null, 'http://vocadb.net/Al/'+albumId);
+    }
 
     $scope.getMediaIcon = function(service) {
         if (angular.equals(service, 'NicoNicoDouga'))
