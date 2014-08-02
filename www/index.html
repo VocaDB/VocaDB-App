@@ -31,6 +31,12 @@
         <script src="js/moment.js"></script>
         <script src="js/angular-moment.min.js"></script>
         <script type="text/javascript" src="js/app.js"></script>
+        <style>
+            .myitem{
+            left: 0 !important;
+            right: 0 !important;
+          }
+        </style>
     </head>
     <body ng-controller="mainCtrl">
  
@@ -77,19 +83,22 @@
              <ion-content has-bouncing="true" class="stable-bg">
              <ion-refresher
                 pulling-text="Pull to refresh..."
-                on-refresh="doRefresh()">
+                on-refresh="doRefresh()"
+                >
               </ion-refresher>
             <ion-list ng-show="songs.length">
-                <ion-item class="item-thumbnail-left" 
-                    ng-repeat="song in songs" 
+                <ion-item class="myitem item-thumbnail-left" 
+                    collection-repeat="song in songs" 
+                     collection-item-width="'100%'"
+                     collection-item-height="getItemHeight()"
                     ng-href="#/tab/song/{{song.id}}" >
                     <img ng-src="{{song.thumbUrl}}"  >
                     <h2>{{song.defaultName}}</h2>
                     <p>{{song.artistString}}</p>
-                    <p><i class="icon ion-ios7-clock-outline" ></i>&nbsp;<span am-time-ago="getMoment(song.createDate)"></span></p>
+                    <p>{{getMomentFromNow(song.createDate)}}</p>
                 </ion-item>
             </ion-list>
-        <ion-infinite-scroll  on-infinite="loadMore()" distance="1%"></ion-infinite-scroll> 
+        <ion-infinite-scroll icon="none"  on-infinite="loadMore()" distance="1%"></ion-infinite-scroll> 
         </ion-content>
     </ion-view>
     </script>
