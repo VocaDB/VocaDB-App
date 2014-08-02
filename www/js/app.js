@@ -752,7 +752,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
           });
 
 
-    $urlRouterProvider.otherwise("/tab/song");
+    $urlRouterProvider.otherwise("/tab/recentPV");
 });
 app.controller('mainCtrl', function($scope, $ionicSideMenuDelegate, $ionicModal, Entry) {
 
@@ -828,6 +828,10 @@ app.controller('mainCtrl', function($scope, $ionicSideMenuDelegate, $ionicModal,
     //Get moment
     $scope.getMoment = function(strDateTime) {
          return new Date(strDateTime + "+03:00");
+    };
+    
+    $scope.getMomentFromNow = function(strDateTime) {
+         return  moment(strDateTime + "+03:00").fromNow();
     };
     
     //Get Calculate Duration
