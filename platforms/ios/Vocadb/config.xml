@@ -37,4 +37,7 @@
     <feature name="SocialSharing">
         <param name="ios-package" value="SocialSharing" />
     </feature>
+    <feature name="InAppBrowser">
+        <param name="ios-package" value="CDVInAppBrowser" />
+    </feature>
 </widget>

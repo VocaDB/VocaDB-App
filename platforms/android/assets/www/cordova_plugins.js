@@ -28,6 +28,13 @@ module.exports = [
         "clobbers": [
             "window.plugins.socialsharing"
         ]
+    },
+    {
+        "file": "plugins/org.apache.cordova.inappbrowser/www/inappbrowser.js",
+        "id": "org.apache.cordova.inappbrowser.inappbrowser",
+        "clobbers": [
+            "window.open"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -35,7 +42,8 @@ module.exports.metadata =
 {
     "org.apache.cordova.network-information": "0.2.11-dev",
     "com.phonegap.plugins.barcodescanner": "1.0.1",
-    "nl.x-services.plugins.socialsharing": "4.3.2"
+    "nl.x-services.plugins.socialsharing": "4.3.2",
+    "org.apache.cordova.inappbrowser": "0.5.0"
 }
 // BOTTOM OF METADATA
 });

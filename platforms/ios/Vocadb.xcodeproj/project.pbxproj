@@ -51,6 +51,7 @@
 		7983ABFD5EFB4BE3B35792AE /* SocialSharing.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C0A518E41D148849172F11C /* SocialSharing.m */; };
 		1E62A49144A34ABDAED3BE02 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A123BACA893412FA8FCADAD /* Social.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		17FD9F3D7F644F39A1A36365 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28D3C99D7FFB484986BD60F7 /* MessageUI.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		67C121A72A044F019AE528E0 /* CDVInAppBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = A69C27F42B5E4D9995A08B88 /* CDVInAppBrowser.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -132,6 +133,8 @@
 		9A5387C5B4B64940AE2B471C /* SocialSharing.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "SocialSharing.h"; path = "nl.x-services.plugins.socialsharing/SocialSharing.h"; sourceTree = "<group>"; fileEncoding = 4; };
 		6A123BACA893412FA8FCADAD /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "Social.framework"; path = "System/Library/Frameworks/Social.framework"; sourceTree = SDKROOT; fileEncoding = 4; };
 		28D3C99D7FFB484986BD60F7 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "MessageUI.framework"; path = "System/Library/Frameworks/MessageUI.framework"; sourceTree = SDKROOT; fileEncoding = 4; };
+		A69C27F42B5E4D9995A08B88 /* CDVInAppBrowser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "CDVInAppBrowser.m"; path = "org.apache.cordova.inappbrowser/CDVInAppBrowser.m"; sourceTree = "<group>"; fileEncoding = 4; };
+		6C1763D7BAE24B759F5B6E9A /* CDVInAppBrowser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "CDVInAppBrowser.h"; path = "org.apache.cordova.inappbrowser/CDVInAppBrowser.h"; sourceTree = "<group>"; fileEncoding = 4; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -276,6 +279,8 @@
 				87C89FFF394949C2A98CB81C /* CDVReachability.h */,
 				3C0A518E41D148849172F11C /* SocialSharing.m */,
 				9A5387C5B4B64940AE2B471C /* SocialSharing.h */,
+				A69C27F42B5E4D9995A08B88 /* CDVInAppBrowser.m */,
+				6C1763D7BAE24B759F5B6E9A /* CDVInAppBrowser.h */,
 			);
 			name = Plugins;
 			path = "Vocadb/Plugins";
@@ -476,6 +481,7 @@
 				4CB625B1171341C8B51CBA38 /* CDVConnection.m in Sources */,
 				11035EED132744488AB8E175 /* CDVReachability.m in Sources */,
 				7983ABFD5EFB4BE3B35792AE /* SocialSharing.m in Sources */,
+				67C121A72A044F019AE528E0 /* CDVInAppBrowser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
