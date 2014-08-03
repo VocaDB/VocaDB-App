@@ -23,4 +23,7 @@
     </author>
     <content src="index.html" />
     <access origin="*" />
+    <feature name="SocialSharing">
+        <param name="android-package" value="nl.xservices.plugins.SocialSharing" />
+    </feature>
 </widget>

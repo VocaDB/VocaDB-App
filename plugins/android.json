@@ -19,6 +19,10 @@
                         {
                             "xml": "<feature name=\"BarcodeScanner\"><param name=\"android-package\" value=\"com.phonegap.plugins.barcodescanner.BarcodeScanner\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"SocialSharing\"><param name=\"android-package\" value=\"nl.xservices.plugins.SocialSharing\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -38,6 +42,10 @@
                         },
                         {
                             "xml": "<uses-feature android:name=\"android.hardware.camera\" android:required=\"false\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" />",
                             "count": 1
                         }
                     ],
@@ -558,6 +566,9 @@
             "PACKAGE_NAME": "com.coolappz.Vocadb"
         },
         "com.phonegap.plugins.barcodescanner": {
+            "PACKAGE_NAME": "com.coolappz.Vocadb"
+        },
+        "nl.x-services.plugins.socialsharing": {
             "PACKAGE_NAME": "com.coolappz.Vocadb"
         }
     },

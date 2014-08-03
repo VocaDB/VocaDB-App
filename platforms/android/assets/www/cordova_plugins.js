@@ -21,13 +21,21 @@ module.exports = [
         "clobbers": [
             "cordova.plugins.barcodeScanner"
         ]
+    },
+    {
+        "file": "plugins/nl.x-services.plugins.socialsharing/www/SocialSharing.js",
+        "id": "nl.x-services.plugins.socialsharing.SocialSharing",
+        "clobbers": [
+            "window.plugins.socialsharing"
+        ]
     }
 ];
 module.exports.metadata = 
 // TOP OF METADATA
 {
     "org.apache.cordova.network-information": "0.2.11-dev",
-    "com.phonegap.plugins.barcodescanner": "1.0.1"
+    "com.phonegap.plugins.barcodescanner": "1.0.1",
+    "nl.x-services.plugins.socialsharing": "4.3.2"
 }
 // BOTTOM OF METADATA
 });
