@@ -765,7 +765,8 @@ app.controller('mainCtrl', function($scope, $ionicSideMenuDelegate, $ionicModal,
         $ionicSideMenuDelegate.toggleLeft();
     };
     $scope.open = function(url) {
-        navigator.app.loadUrl(url, {openExternal: true});
+        //navigator.app.loadUrl(url, {openExternal: true});
+               window.open(url,'_system');
     };
     $scope.getArtistImage = function(artistId) {
         return 'http://vocadb.net/Artist/Picture/' + artistId;

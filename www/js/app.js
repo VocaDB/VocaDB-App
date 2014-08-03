@@ -765,7 +765,7 @@ app.controller('mainCtrl', function($scope, $ionicSideMenuDelegate, $ionicModal,
         $ionicSideMenuDelegate.toggleLeft();
     };
     $scope.open = function(url) {
-               console.log('open url = '+url);
+        alert('open url = '+url);
         //navigator.app.loadUrl(url, {openExternal: true}); for android
          window.open(url,'_system');
     };
