@@ -45,7 +45,7 @@
         
     <script id="menu.html" type="text/ng-template">
         <ion-side-menus  >
-        <ion-side-menu side="right">
+        <ion-side-menu side="left">
         <ion-header-bar class="bar-dark">
         <h1 class="title">Categories</h1>
         </ion-header-bar>
@@ -64,11 +64,10 @@
 
         <ion-side-menu-content>    
         <ion-nav-bar class="bar-positive nav-title-slide-ios7">
-        <ion-nav-back-button class="button-icon ion-chevron-left">
+        <ion-nav-back-button class="button-clear"><i class="icon ion-ios7-arrow-back"></i> Back</ion-nav-back-button>
         <ion-nav-buttons side="right">
-        <button class="button button-icon button-clear ion-search" ng-click="openSearchModal()"></button><button class="button button-icon button-clear ion-navicon" ng-click="toggleRight()" ></button>
+        <button class="button button-icon button-clear ion-search" ng-click="openSearchModal()"></button>
         </ion-nav-buttons>
-        </ion-nav-back-button>
   </ion-nav-bar>
         <ion-nav-view name="menuContent" animation="slide-left-right"></ion-nav-view>
 
@@ -80,6 +79,10 @@
     
     <script id="recentPV.html" type="text/ng-template">
          <ion-view title="Recent PVs" hide-back-button="true">
+            <ion-nav-buttons side="left">
+               <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+            </ion-nav-buttons>
+         
              <ion-content has-bouncing="true" class="stable-bg">
              <ion-refresher
                 pulling-text="Pull to refresh..."
@@ -105,7 +108,9 @@
     
     <script id="songlist.html" type="text/ng-template">
          <ion-view title="Songs" hide-back-button="true">
-        <ion-header-bar class="bar bar-light bar-subheader item-input-inset ">
+         <ion-nav-buttons side="left">
+         <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+         </ion-nav-buttons>        <ion-header-bar class="bar bar-light bar-subheader item-input-inset ">
              <label class="item-input-wrapper">
                     <i ng-class="loading? 'icon placeholder-icon ion-loading-a' : 'icon placeholder-icon ion-ios7-search' " ></i>
                     <input type="text" placeholder="search"  ng-model="query" ng-change="search()">

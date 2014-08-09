@@ -756,6 +756,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
 });
 app.controller('mainCtrl', function($scope, $ionicSideMenuDelegate, $ionicModal, Entry) {
 
+               ionic.Platform.ready(function(){ StatusBar.hide(); });
+               
     //Utility Function
     $scope.toggleRight = function() {
         $ionicSideMenuDelegate.toggleRight();

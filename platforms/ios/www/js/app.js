@@ -18,8 +18,21 @@
  */
 
 var app = angular.module('vocadb', ['ionic', 'ngResource','angularMoment']);
-
-
+app.run(function($ionicPlatform) {
+     $ionicPlatform.ready(function() {
+                          // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
+                          // for form inputs)
+                          if(window.cordova && window.cordova.plugins.Keyboard) {
+                          cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+                          }
+                          if(window.StatusBar) {
+                          // org.apache.cordova.statusbar required
+                          StatusBar.styleDefault();
+                          }
+                          
+                          ionic.Platform.fullScreen();
+                          });
+     })
 app.factory('Song', function($resource, $q, $cacheFactory) {
     var endPoint = 'http://vocadb.net/api/songs';
     var cacheEngine = $cacheFactory('Song');
@@ -756,7 +769,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 });
 app.controller('mainCtrl', function($scope, $ionicSideMenuDelegate, $ionicModal, Entry) {
 
-    //Utility Function
+               //Utility Function
     $scope.toggleRight = function() {
         $ionicSideMenuDelegate.toggleRight();
     };
@@ -775,23 +788,25 @@ app.controller('mainCtrl', function($scope, $ionicSideMenuDelegate, $ionicModal,
         return 'http://vocadb.net/Album/CoverPicture/' + albumId;
     };
     
-    $scope.shareSong = function(songId){
-        window.plugins.socialsharing.share(null, null, null, 'http://vocadb.net/S/'+songId);
+    $scope.shareSong = function(song){
+        window.plugins.socialsharing.share("[Song] "+song.defaultName+" - "+song.artistString, null, song.thumbUrl, 'http://vocadb.net/S/'+song.id);
     }
-    $scope.shareArtist = function(artistId){
-        window.plugins.socialsharing.share(null, null, null, 'http://vocadb.net/Ar/'+artistId);
+    $scope.shareArtist = function(artist){
+        window.plugins.socialsharing.share("[Artist] "+artist.defaultName, null, 'http://vocadb.net/Artist/Picture/' + artist.id, 'http://vocadb.net/Ar/'+artist.id);
     }
-    $scope.shareAlbum = function(albumId){
-        window.plugins.socialsharing.share(null, null, null, 'http://vocadb.net/Al/'+albumId);
+    $scope.shareAlbum = function(album){
+        window.plugins.socialsharing.share("[Album] "+album.defaultName+" - "+album.artistString, null, 'http://vocadb.net/Album/CoverPicture/' + album.id, 'http://vocadb.net/Al/'+album.id);
     }
-
     $scope.getMediaIcon = function(service) {
         if (angular.equals(service, 'NicoNicoDouga'))
             return 'img/niconico.png';
         if (angular.equals(service, 'Youtube'))
             return 'img/youtube.png';
         if (angular.equals(service, 'Piapro'))
-            return 'img/Piapro.jpeg';
+            return 'img/piapro.jpeg';
+        if (angular.equals(service, 'SoundCloud'))
+            return 'img/soundcloud.png';
+               
     };
 
     $scope.getOfficialLinks = function(weblinks) {

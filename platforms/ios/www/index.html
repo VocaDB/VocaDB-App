@@ -45,7 +45,7 @@
         
     <script id="menu.html" type="text/ng-template">
         <ion-side-menus  >
-        <ion-side-menu side="right">
+        <ion-side-menu side="left">
         <ion-header-bar class="bar-dark">
         <h1 class="title">Categories</h1>
         </ion-header-bar>
@@ -62,25 +62,26 @@
         </ion-content>
         </ion-side-menu>
 
-        <ion-side-menu-content>    
-        <ion-nav-bar class="bar-positive nav-title-slide-ios7">
-        <ion-nav-back-button class="button-icon ion-chevron-left">
-        <ion-nav-buttons side="right">
-        <button class="button button-icon button-clear ion-search" ng-click="openSearchModal()"></button><button class="button button-icon button-clear ion-navicon" ng-click="toggleRight()" ></button>
-        </ion-nav-buttons>
-        </ion-nav-back-button>
-  </ion-nav-bar>
-        <ion-nav-view name="menuContent" animation="slide-left-right"></ion-nav-view>
-
-        </ion-side-menu-content>
+<ion-side-menu-content>
+<ion-nav-bar class="bar-positive nav-title-slide-ios7">
+<ion-nav-back-button class="button-clear"><i class="icon ion-ios7-arrow-back"></i> Back</ion-nav-back-button>
+<ion-nav-buttons side="right">
+<button class="button button-icon button-clear ion-search" ng-click="openSearchModal()"></button>
+</ion-nav-buttons>
+</ion-nav-bar>
+<ion-nav-view name="menuContent" animation="slide-left-right"></ion-nav-view>
+</ion-side-menu-content>
 
 
         </ion-side-menus>
-    </script>   
+    </script>
     
     <script id="recentPV.html" type="text/ng-template">
          <ion-view title="Recent PVs" hide-back-button="true">
-             <ion-content has-bouncing="true" class="stable-bg">
+         <ion-nav-buttons side="left">
+         <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+         </ion-nav-buttons>
+         <ion-content has-bouncing="true" class="stable-bg">
              <ion-refresher
                 pulling-text="Pull to refresh..."
                 on-refresh="doRefresh()"
@@ -105,7 +106,9 @@
     
     <script id="songlist.html" type="text/ng-template">
          <ion-view title="Songs" hide-back-button="true">
-        <ion-header-bar class="bar bar-light bar-subheader item-input-inset ">
+         <ion-nav-buttons side="left">
+         <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+         </ion-nav-buttons>        <ion-header-bar class="bar bar-light bar-subheader item-input-inset ">
              <label class="item-input-wrapper">
                     <i ng-class="loading? 'icon placeholder-icon ion-loading-a' : 'icon placeholder-icon ion-ios7-search' " ></i>
                     <input type="text" placeholder="search"  ng-model="query" ng-change="search()">
@@ -129,7 +132,7 @@
            <ion-view title="Song Info">
            <ion-content class="stable-bg">
         <div class="list card">
-            <ion-item class="item item-thumbnail-left">
+            <ion-item class="item item-text-wrap item-thumbnail-left">
                 <img ng-src="{{song.thumbUrl}}">
                 <h2>{{song.defaultName}}</h2>
                 <p>{{getAdditionName(song.names)}}</p>
@@ -141,7 +144,7 @@
             </ion-item>
         </div> 
         <div class="list card">
-            <ion-item class="item-icon-left" ng-click="shareSong(song.id)">
+            <ion-item class="item-icon-left" ng-click="shareSong(song)">
                 <i class="icon ion-android-share"></i>
                 <h2>Share</h2>
             </ion-item>
@@ -196,6 +199,9 @@
     
     <script id="artistlist.html" type="text/ng-template">
            <ion-view title="Artists" hide-back-button="true">
+           <ion-nav-buttons side="left">
+           <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+           </ion-nav-buttons>
          <ion-header-bar class="bar bar-light bar-subheader item-input-inset ">
              <label class="item-input-wrapper">
                     <i ng-class="loading? 'icon placeholder-icon ion-loading-a' : 'icon placeholder-icon ion-ios7-search' " ></i>
@@ -235,7 +241,7 @@
                     </ion-item>
                 </div>
         <div class="list card">
-            <ion-item class="item-icon-left" ng-click="shareArtist(artist.id)">
+            <ion-item class="item-icon-left" ng-click="shareArtist(artist)">
                 <i class="icon ion-android-share"></i>
                 <h2>Share</h2>
             </ion-item>
@@ -284,7 +290,7 @@
                 ng-href="#/tab/song/{{song.id}}"
                 ng-show="isShown(_recentSong)">
                 <img ng-src="{{song.thumbUrl}}">
-                <h2>{{song.defaultName}}</h2>
+                <h2>{{song.name}}</h2>
                 <p>{{song.artistString}}</p>
             </ion-item>
             <ion-item 
@@ -299,7 +305,7 @@
                 ng-href="#/tab/song/{{song.id}}"
                 ng-show="isShown(_popularSong)">
                 <img ng-src="{{song.thumbUrl}}">
-                <h2>{{song.defaultName}}</h2>
+                <h2>{{song.name}}</h2>
                 <p>{{song.artistString}}</p>
              </ion-item>
         </div>
@@ -312,7 +318,9 @@
     
     <script id="albumlist.html" type="text/ng-template">
            <ion-view title="Albums" hide-back-button="true">
-           
+           <ion-nav-buttons side="left">
+           <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+           </ion-nav-buttons>
            <ion-header-bar class="bar bar-light bar-subheader item-input-inset ">
             <button class="button button-icon icon ion-qr-scanner" ng-click="scan()"></button>
              <label class="item-input-wrapper">
@@ -339,7 +347,7 @@
     </script>
     
     <script id="albumdetail.html" type="text/ng-template">
-           <ion-view title="Album info">
+    <ion-view title="Album info">
           <ion-content class="stable-bg">
             <div class="list card">
                 <div class="item item-text-wrap item-thumbnail-left">
@@ -354,7 +362,7 @@
             </div>
             
              <div class="list card">
-            <ion-item class="item-icon-left" ng-click="shareAlbum(album.id)">
+            <ion-item class="item-icon-left" ng-click="shareAlbum(album)">
                 <i class="icon ion-android-share"></i>
                 <h2>Share</h2>
             </ion-item>
@@ -439,8 +447,11 @@
     </script>
     
     <script id="taglist.html" type="text/ng-template">
-         <ion-view title="Tags" hide-back-button="true">
-        <ion-header-bar class="bar bar-light bar-subheader item-input-inset ">
+     <ion-view title="Tags" hide-back-button="true">
+     <ion-nav-buttons side="left">
+     <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+     </ion-nav-buttons>
+     <ion-header-bar class="bar bar-light bar-subheader item-input-inset ">
              <label class="item-input-wrapper">
                     <i ng-class="loading? 'icon placeholder-icon ion-loading-a' : 'icon placeholder-icon ion-ios7-search' " ></i>
                     <input type="text" placeholder="search"  ng-model="query" ng-change="search()">
@@ -471,7 +482,7 @@
     
     
     <script id="tagdetail.html" type="text/ng-template">
-         <ion-view title="{{title}}" hide-back-button="true">
+         <ion-view title="{{title}}" >
            <ion-tabs class="tabs-positive tabs-icon-top">
            
             <ion-tab title="Song" icon='ion-music-note' ng-show="tags.songs.length" >
@@ -565,7 +576,9 @@
   
   <script id="about.html" type="text/ng-template">
           <ion-view title="About">
-           <ion-content class="stable-bg">
+          <ion-nav-buttons side="left">
+          <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+          </ion-nav-buttons>           <ion-content class="stable-bg">
            <div class="list card">
             <ion-item class="item-text-wrap">
                 VocaDB is a Vocaloid database that includes information, PVs and translations about Vocaloid artists, discography and songs
