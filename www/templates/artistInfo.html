@@ -1,0 +1,95 @@
+<ion-view title="Artist Info">
+    <ion-content class="stable-bg">
+        <div class="list card">
+            <ion-item class="item-thumbnail-left">
+                <img ng-src="{{getArtistImage(artist.id)}}" ng-click="openModal(artist.defaultName, getArtistImage(artist.id))">
+                <h2>{{artist.defaultName}}</h2> 
+                <p>{{getAdditionName(artist.names)}}</p>
+
+                <p>{{artist.artistType}}</p>
+            </ion-item>
+            <ion-item class="item-text-wrap" ng-show="artist.tags.length">
+                <a ng-href="#tab/tag/detail/{{tag.name}}" ng-repeat="tag in artist.tags" class="dark" style="text-decoration: none; font-size:12px;">#{{tag.name}}&nbsp;&nbsp;</a>
+            </ion-item>
+            <ion-item class="item-text-wrap" ng-show="artist.description" >
+                <p ng-bind-html="stringToHTML(artist.description)"></p>
+            </ion-item>
+        </div>
+        <div class="list card">
+            <ion-item class="item-icon-left" ng-click="shareArtist(artist.id)">
+                <i class="icon ion-android-share"></i>
+                <h2>Share</h2>
+            </ion-item>
+        </div>
+
+        <div class="list card" ng-init="accordian = [false, false, false, false];
+                _recentAlbum = 0;
+                _popularAlbum = 1;
+                _recentSong = 2;
+                _popularSong = 3;">
+            <ion-item 
+                ng-show="latestAlbums.length"
+                ng-click="toggle(_recentAlbum)"
+                ng-class="{active: isShown(_recentAlbum)}">
+                <i class="icon" ng-class="isShown(_recentAlbum) ? 'ion-ios7-minus-outline' : 'ion-ios7-plus-outline'"></i>
+                &nbsp;Recent albums
+            </ion-item>
+            <ion-item class="item-accordion item-thumbnail-left"
+                      ng-repeat="album in latestAlbums"
+                      ng-href="#/tab/album/{{album.id}}"
+                      ng-show="isShown(_recentAlbum)">
+                <img ng-src="{{getAlbumImage(album.id)}}"> 
+                <h2>{{album.name}}</h2>
+                <p>{{album.discType}}</p>
+            </ion-item>
+            <ion-item 
+                ng-show="popularAlbums.length"
+                ng-click="toggle(_popularAlbum)"
+                ng-class="{active: isShown(_popularAlbum)}">
+                <i class="icon" ng-class="isShown(_popularAlbum) ? 'ion-ios7-minus-outline' : 'ion-ios7-plus-outline'"></i>
+                &nbsp;Poppular albums
+            </ion-item>
+            <ion-item class="item-accordion item-thumbnail-left"
+                      ng-repeat="album in popularAlbums"
+                      ng-href="#/tab/album/{{album.id}}"
+                      ng-show="isShown(_popularAlbum)">
+                <img ng-src="{{getAlbumImage(album.id)}}"> 
+                <h2>{{album.name}}</h2>
+                <p>{{album.discType}}</p>
+            </ion-item>
+            <ion-item 
+                ng-show="latestSongs.length"
+                ng-click="toggle(_recentSong)"
+                ng-class="{active: isShown(_recentSong)}">
+                <i class="icon" ng-class="isShown(_recentSong) ? 'ion-ios7-minus-outline' : 'ion-ios7-plus-outline'"></i>
+                &nbsp;Recent songs / PVs
+            </ion-item>
+            <ion-item class="item-accordion item-thumbnail-left"
+                      ng-repeat="song in latestSongs"
+                      ng-href="#/tab/song/{{song.id}}"
+                      ng-show="isShown(_recentSong)">
+                <img ng-src="{{song.thumbUrl}}">
+                <h2>{{song.name}}</h2>
+                <p>{{song.artistString}}</p>
+            </ion-item>
+            <ion-item 
+                ng-show="popularSongs.length"
+                ng-click="toggle(_popularSong)"
+                ng-class="{active: isShown(_popularSong)}">
+                <i class="icon" ng-class="isShown(_popularSong) ? 'ion-ios7-minus-outline' : 'ion-ios7-plus-outline'"></i>
+                &nbsp;Popular songs
+            </ion-item>
+            <ion-item class="item-accordion item-thumbnail-left"
+                      ng-repeat="song in popularSongs"
+                      ng-href="#/tab/song/{{song.id}}"
+                      ng-show="isShown(_popularSong)">
+                <img ng-src="{{song.thumbUrl}}">
+                <h2>{{song.name}}</h2>
+                <p>{{song.artistString}}</p>
+            </ion-item>
+        </div>
+
+        <div class="padding-bottom">
+        </div> 
+    </ion-content>
+</ion-view>

@@ -1,0 +1,95 @@
+<ion-view title="Album info">
+    <ion-content class="stable-bg">
+        <div class="list card">
+            <div class="item item-text-wrap item-thumbnail-left">
+                <img ng-src="{{getAlbumImage(album.id)}}" ng-click="openModal(album.defaultName, getAlbumImage(album.id))">
+                <h2>{{album.defaultName}}</h2>
+                <p>{{getDiscType(album.discType)}}</p>
+                <p class="rating">{{getRating(album.ratingAverage)}} (<i class="icon ion-ios7-person"></i>{{album.ratingCount}})</p>
+            </div>
+            <ion-item class="item-text-wrap" ng-show="album.tags.length">
+                <a ng-href="#tab/tag/detail/{{tag}}" ng-repeat="tag in album.tags" class="dark" style="text-decoration: none; font-size:12px;">#{{tag}}&nbsp;&nbsp;</a>
+            </ion-item>
+        </div>
+
+        <div class="list card">
+            <ion-item class="item-icon-left" ng-click="shareAlbum(album.id)">
+                <i class="icon ion-android-share"></i>
+                <h2>Share</h2>
+            </ion-item>
+        </div>
+
+        <div class="list card">
+            <div class="item">
+                <p><i class="icon ion-ios7-calendar-outline"></i> {{album.releaseDate.formatted}}</p>
+                <p>{{album.releaseEvent}}</p>
+            </div>
+        </div>
+        <div class="list card" ng-show="album.pVs.length">
+            <ion-item class="item item-avatar item-text-wrap" ng-repeat="pv in album.pVs" ng-click="open(pv.url)">
+                <img ng-src="{{getMediaIcon(pv.service)}}">
+                <h2>{{pv.name}}</h2>
+            </ion-item>
+        </div>
+        <div class="list card" ng-init="accordian = [false, false, false];
+                _artist = 0;
+                _weblink = 1;
+                _track = 2">
+            <ion-item 
+                ng-show="album.artists.length"
+                ng-click="toggle(_artist)"
+                ng-class="{active: isShown(_artist)}">
+                <i class="icon" ng-class="isShown(_artist) ? 'ion-ios7-minus-outline' : 'ion-ios7-plus-outline'"></i>
+                &nbsp;Artists
+            </ion-item>
+            <ion-item class="item-accordion item-thumbnail-left"
+                      ng-href="#/tab/artist/{{artist.artist.id}}"
+                      ng-repeat="artist in album.artists"
+                      ng-show="isShown(_artist)">
+                <img ng-src="{{getArtistImage(artist.artist.id)}}" />
+                <h2>{{artist.artist.name}}</h2>
+                <p>{{artist.artist.artistType}}</p>
+            </ion-item>
+            <ion-item 
+                ng-show="album.webLinks.length"
+                ng-click="toggle(_weblink)"
+                ng-class="{active: isShown(_weblink)}">
+                <i class="icon" ng-class="isShown(_weblink) ? 'ion-ios7-minus-outline' : 'ion-ios7-plus-outline'"></i>
+                &nbsp;Web link
+            </ion-item>
+            <ion-item class="item-accordion item-avatar-left"
+                      ng-repeat="web in album.webLinks"
+                      ng-click="open(web.url)"
+                      ng-show="isShown(_weblink)">
+                <img ng-src="{{getWeblinkIcon(web.url)}}" />
+                <p>{{web.description}}</p>
+            </ion-item>
+
+            <ion-item ng-click="toggle(_track)"
+                      ng-show="tracks.length"
+                      ng-class="{active: isShown(_track)}">
+                <i class="icon" ng-class="isShown(_track) ? 'ion-ios7-minus-outline' : 'ion-ios7-plus-outline'"></i>
+                &nbsp;Tracks
+            </ion-item>
+            <ion-item class="item-accordion"
+                      ng-show="isShown(_track)">
+                <div class="list card" >
+                    <div ng-repeat="group in trackGroup">
+                        <ion-item class="item-stable" ng-show="trackGroup.length > 1">
+                            <h2>Disc {{group}}</h2>
+                        </ion-item>
+                        <ion-item class="item" ng-href="#/tab/song/{{track.song.id}}" ng-repeat="track in tracks| filter:{discNumber:group}">
+                            <div class="row">  
+                                <div class="col col-10">{{track.trackNumber}}</div>
+                                <div class="col">{{track.song.name}}<p>{{track.song.artistString}}</p></div>
+                            </div>
+                        </ion-item>
+                    </div>
+                </div>
+            </ion-item>
+        </div>
+
+        <div class="padding-bottom">
+        </div>
+    </ion-content>
+</ion-view>
