@@ -213,9 +213,8 @@ angular.module('vocadb.controllers', [])
                 $ionicSideMenuDelegate.toggleLeft();
             };
             $scope.open = function(url) {
-                alert('open url = ' + url);
-                //navigator.app.loadUrl(url, {openExternal: true}); for android
-                window.open(url, '_system');
+                navigator.app.loadUrl(url, {openExternal: true}); //for android
+//                window.open(url, '_system');
             };
             $scope.getArtistImage = function(artistId) {
                 return 'http://vocadb.net/Artist/Picture/' + artistId;
@@ -283,6 +282,7 @@ angular.module('vocadb.controllers', [])
             };
 
             $scope.getMomentFromNow = function(strDateTime) {
+                if(typeof strDateTime === 'undefined') return;
                 return  moment(strDateTime + "+03:00").fromNow();
             };
 
@@ -307,6 +307,7 @@ angular.module('vocadb.controllers', [])
 
             $scope.getAdditionName = function(names) {
                 var additionName = "";
+                if(typeof names === 'undefined') return;
                 if (names.length > 1) {
                     for (i = 1; i < names.length; i++)
                         additionName += names[i].value + ", ";
