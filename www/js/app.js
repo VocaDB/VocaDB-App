@@ -20,9 +20,9 @@
 var app = angular.module('vocadb', ['ionic', 'vocadb.services', 'vocadb.controllers'])
 
         .run(function($ionicPlatform) {
-            $ionicPlatform.ready(function() {
-                console.log("Ready...isAndroid : "+ionic.Platform.isAndroid());
-            });
+//            $ionicPlatform.ready(function() {
+//                console.log("Ready...isAndroid : "+ionic.Platform.isAndroid());
+//            });
         })
         
         .config(function($stateProvider, $urlRouterProvider) {
