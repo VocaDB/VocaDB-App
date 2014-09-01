@@ -9,7 +9,7 @@
 
             </ion-item>
             <ion-item class="item item-text-wrap" ng-show="song.tags.length">
-                <a ng-href="#tab/tag/detail/{{tag}}" ng-repeat="tag in song.tags" class="dark" style="text-decoration: none; font-size:12px;">#{{tag}}&nbsp;&nbsp;</a>
+                <a ng-href="#tab/tag/detail/{{tag.name}}" ng-repeat="tag in song.tags" class="dark" style="text-decoration: none; font-size:12px;">#{{tag.name}}&nbsp;&nbsp;</a>
             </ion-item>
         </div> 
         <div class="list card">
