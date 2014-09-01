@@ -8,7 +8,7 @@
                 <p class="rating">{{getRating(album.ratingAverage)}} (<i class="icon ion-ios7-person"></i>{{album.ratingCount}})</p>
             </div>
             <ion-item class="item-text-wrap" ng-show="album.tags.length">
-                <a ng-href="#tab/tag/detail/{{tag}}" ng-repeat="tag in album.tags" class="dark" style="text-decoration: none; font-size:12px;">#{{tag}}&nbsp;&nbsp;</a>
+                <a ng-href="#tab/tag/detail/{{tag.name}}" ng-repeat="tag in album.tags" class="dark" style="text-decoration: none; font-size:12px;">#{{tag.name}}&nbsp;&nbsp;</a>
             </ion-item>
         </div>
 
