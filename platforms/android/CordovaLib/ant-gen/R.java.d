@@ -1,1 +1,1 @@
- : D:\Development\Project\Vocadb\Application\Vocadb\platforms\android\CordovaLib\ant-build\AndroidManifest.xml \
+ : F:\Development\Project\Vocadb\Application\VocaDB-App\platforms\android\CordovaLib\ant-build\AndroidManifest.xml \

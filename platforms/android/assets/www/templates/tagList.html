@@ -1,0 +1,31 @@
+<ion-view title="Tags" hide-back-button="true">
+    <ion-nav-buttons side="left">
+        <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+    </ion-nav-buttons>
+    <ion-header-bar class="bar bar-light bar-subheader item-input-inset ">
+        <label class="item-input-wrapper">
+            <i ng-class="loading? 'icon placeholder-icon ion-loading-a' : 'icon placeholder-icon ion-ios7-search'" ></i>
+            <input type="text" placeholder="search"  ng-model="query" ng-change="search()">
+        </label>
+    </ion-header-bar>
+    <ion-content class="stable-bg" >
+
+        <div class="list card" ng-hide="(!selected && query)">
+            <ion-item 
+                class="item-icon-left"
+                ng-hide="(selected && selected != category)" 
+                ng-repeat="category in categories"
+                ng-click="select(category)"
+                ng-class="{active:selected == category}">
+                <i class="icon" ng-class="(selected==category)? 'ion-ios7-arrow-back' : 'ion-ios7-pricetags'"></i>
+                <h2>{{category}}</h2>
+            </ion-item>
+        </div>
+
+        <ion-list ng-show="tags.length">
+            <ion-item ng-repeat="tag in tags"  ng-href="#/tab/tag/detail/{{tag.name}}" >
+                <h2>{{tag.name}}</h2>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-view>

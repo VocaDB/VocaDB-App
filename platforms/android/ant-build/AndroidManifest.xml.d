@@ -1,2 +1,2 @@
-D:\Development\Project\Vocadb\Application\Vocadb\platforms\android\ant-build\AndroidManifest.xml : \
-D:\Development\Project\Vocadb\Application\Vocadb\platforms\android\AndroidManifest.xml \
+F:\Development\Project\Vocadb\Application\VocaDB-App\platforms\android\ant-build\AndroidManifest.xml : \
+F:\Development\Project\Vocadb\Application\VocaDB-App\platforms\android\AndroidManifest.xml \
