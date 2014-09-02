@@ -1,8 +1,20 @@
 cordova.define('cordova/plugin_list', function(require, exports, module) {
 module.exports = [
     {
+<<<<<<< HEAD
         "file": "plugins/com.phonegap.plugins.barcodescanner/www/barcodescanner.js",
         "id": "com.phonegap.plugins.barcodescanner.BarcodeScanner",
+=======
+        "file": "plugins/org.apache.cordova.device/www/device.js",
+        "id": "org.apache.cordova.device.device",
+        "clobbers": [
+            "device"
+        ]
+    },
+    {
+        "file": "plugins/org.apache.cordova.network-information/www/network.js",
+        "id": "org.apache.cordova.network-information.network",
+>>>>>>> 13f79e036fc078a42eac10b4e09874ef7a4bd225
         "clobbers": [
             "cordova.plugins.barcodeScanner"
         ]
@@ -35,15 +47,31 @@ module.exports = [
         "clobbers": [
             "Connection"
         ]
+    },
+    {
+        "file": "plugins/org.apache.cordova.statusbar/www/statusbar.js",
+        "id": "org.apache.cordova.statusbar.statusbar",
+        "clobbers": [
+            "window.StatusBar"
+        ]
     }
 ];
 module.exports.metadata = 
 // TOP OF METADATA
 {
+<<<<<<< HEAD
     "com.phonegap.plugins.barcodescanner": "1.0.1",
     "nl.x-services.plugins.socialsharing": "4.3.2",
     "org.apache.cordova.device": "0.2.10",
     "org.apache.cordova.network-information": "0.2.11-dev"
+=======
+    "org.apache.cordova.device": "0.2.10",
+    "org.apache.cordova.network-information": "0.2.11-dev",
+    "com.phonegap.plugins.barcodescanner": "1.0.1",
+    "nl.x-services.plugins.socialsharing": "4.3.2",
+    "org.apache.cordova.inappbrowser": "0.5.0",
+    "org.apache.cordova.statusbar": "0.1.6"
+>>>>>>> 13f79e036fc078a42eac10b4e09874ef7a4bd225
 }
 // BOTTOM OF METADATA
 });

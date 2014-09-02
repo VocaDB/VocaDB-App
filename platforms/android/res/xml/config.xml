@@ -26,4 +26,16 @@
     </author>
     <content src="index.html" />
     <access origin="*" />
+<<<<<<< HEAD
+=======
+    <feature name="SocialSharing">
+        <param name="android-package" value="nl.xservices.plugins.SocialSharing" />
+    </feature>
+    <feature name="InAppBrowser">
+        <param name="android-package" value="org.apache.cordova.inappbrowser.InAppBrowser" />
+    </feature>
+    <feature name="StatusBar">
+        <param name="android-package" onload="true" value="org.apache.cordova.statusbar.StatusBar" />
+    </feature>
+>>>>>>> 13f79e036fc078a42eac10b4e09874ef7a4bd225
 </widget>
