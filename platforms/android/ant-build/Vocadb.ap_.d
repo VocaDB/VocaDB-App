@@ -104,7 +104,6 @@ F:\Development\Project\Vocadb\Application\VocaDB-App\platforms\android\assets\ww
 F:\Development\Project\Vocadb\Application\VocaDB-App\platforms\android\assets\www\js \
 F:\Development\Project\Vocadb\Application\VocaDB-App\platforms\android\assets\www\lib \
 F:\Development\Project\Vocadb\Application\VocaDB-App\platforms\android\assets\www\plugins \
-F:\Development\Project\Vocadb\Application\VocaDB-App\platforms\android\assets\www\res \
 F:\Development\Project\Vocadb\Application\VocaDB-App\platforms\android\assets\www\templates \
 F:\Development\Project\Vocadb\Application\VocaDB-App\platforms\android\assets\www\img\facebook.png \
 F:\Development\Project\Vocadb\Application\VocaDB-App\platforms\android\assets\www\img\niconico.png \
@@ -162,12 +161,6 @@ F:\Development\Project\Vocadb\Application\VocaDB-App\platforms\android\assets\ww
 F:\Development\Project\Vocadb\Application\VocaDB-App\platforms\android\assets\www\plugins\org.apache.cordova.network-information\www \
 F:\Development\Project\Vocadb\Application\VocaDB-App\platforms\android\assets\www\plugins\org.apache.cordova.network-information\www\Connection.js \
 F:\Development\Project\Vocadb\Application\VocaDB-App\platforms\android\assets\www\plugins\org.apache.cordova.network-information\www\network.js \
-F:\Development\Project\Vocadb\Application\VocaDB-App\platforms\android\assets\www\res\icons \
-F:\Development\Project\Vocadb\Application\VocaDB-App\platforms\android\assets\www\res\icons\android \
-F:\Development\Project\Vocadb\Application\VocaDB-App\platforms\android\assets\www\res\icons\android\icon-36-ldpi.png \
-F:\Development\Project\Vocadb\Application\VocaDB-App\platforms\android\assets\www\res\icons\android\icon-48-mdpi.png \
-F:\Development\Project\Vocadb\Application\VocaDB-App\platforms\android\assets\www\res\icons\android\icon-72-hdpi.png \
-F:\Development\Project\Vocadb\Application\VocaDB-App\platforms\android\assets\www\res\icons\android\icon-96-xhdpi.png \
 F:\Development\Project\Vocadb\Application\VocaDB-App\platforms\android\assets\www\templates\about.html \
 F:\Development\Project\Vocadb\Application\VocaDB-App\platforms\android\assets\www\templates\albumInfo.html \
 F:\Development\Project\Vocadb\Application\VocaDB-App\platforms\android\assets\www\templates\albumList.html \

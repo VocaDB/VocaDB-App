@@ -23,10 +23,6 @@
                         {
                             "xml": "<feature name=\"NetworkStatus\"><param name=\"android-package\" value=\"org.apache.cordova.networkinformation.NetworkManager\" /></feature>",
                             "count": 1
-                        },
-                        {
-                            "xml": "<feature name=\"StatusBar\"><param name=\"android-package\" onload=\"true\" value=\"org.apache.cordova.statusbar.StatusBar\" /></feature>",
-                            "count": 1
                         }
                     ]
                 }
@@ -567,16 +563,7 @@
         "org.apache.cordova.device": {
             "PACKAGE_NAME": "com.coolappz.Vocadb"
         },
-<<<<<<< HEAD
         "org.apache.cordova.network-information": {
-=======
-        "org.apache.cordova.statusbar": {
-            "PACKAGE_NAME": "com.coolappz.Vocadb"
-        }
-    },
-    "dependent_plugins": {
-        "org.apache.cordova.file": {
->>>>>>> 13f79e036fc078a42eac10b4e09874ef7a4bd225
             "PACKAGE_NAME": "com.coolappz.Vocadb"
         }
     },
