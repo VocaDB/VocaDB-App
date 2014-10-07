@@ -5,9 +5,14 @@ angular.module('vocadb.controllers', [])
                 $ionicSideMenuDelegate.toggleLeft();
             };
         })
+        
+        .controller('homeCtrl',function($scope){
+            
+        })
 
-        .controller('recentPVCtrl', function($scope, Song) {
+        .controller('recentPVCtrl', function($scope, Song, Dialog) {
             $scope.songs = [];
+            $scope.loadSuccess = false;
             $scope.doRefresh = function() {
                 Song.loadRecentPVs(0, function(resp) {
                     $scope.songs = resp.items;
@@ -16,17 +21,21 @@ angular.module('vocadb.controllers', [])
             };
             $scope.loadMore = function() {
                 Song.loadRecentPVs($scope.songs.length, function(resp) {
+                   console.log("asddddddddddddasd");
                     angular.forEach(resp.items, function(value, key) {
                         $scope.songs.push(value);
                     });
                     $scope.$broadcast('scroll.infiniteScrollComplete');
                 });
             };
+            $scope.onRetry = function() {
+                Dialog.showAlert("Title","And Message",null);
+            };
         })
 
         .controller('songListCtrl', function($scope, Song) {
             //Init
-            $scope.songs = Song.songs;
+            $scope.songs = [];
             $scope.query = Song.term;
             //Function
             $scope.selectSong = function(song) {
@@ -38,6 +47,15 @@ angular.module('vocadb.controllers', [])
                     Song.songs = resp.items;
                     $scope.loading = false;
                     $scope.songs = Song.songs;
+                });
+            };
+            
+             $scope.loadMore = function() {
+                Song.loadMore($scope.query,$scope.songs.length, function(resp) {
+                    angular.forEach(resp.items, function(value, key) {
+                        $scope.songs.push(value);
+                    });
+                    $scope.$broadcast('scroll.infiniteScrollComplete');
                 });
             };
         })
@@ -58,10 +76,18 @@ angular.module('vocadb.controllers', [])
                 $scope.PVs = resp.pVs;
                 $scope.albums = resp.albums;
             });
+            
+            $scope.isFavorites = function(songId) {
+                return Song.isFavorites(songId);
+            };
+            
+            $scope.addFavorites = function(song) {
+                Song.addFavorites(song);
+            }
         })
 
         .controller('albumListCtrl', function($scope, Album) {
-            $scope.albums = Album.albums;
+            $scope.albums = [];
             $scope.query = Album.term;
             $scope.selectAlbum = function(album) {
                 Album.selectAlbum = album;
@@ -81,6 +107,16 @@ angular.module('vocadb.controllers', [])
                     Album.albums = resp.items;
                     $scope.loading = false;
                     $scope.albums = resp.items;
+                });
+            };
+            
+            $scope.loadMore = function() {
+                Album.loadMore($scope.query,$scope.albums.length, function(resp) {
+                    
+                    angular.forEach(resp.items, function(value, key) {
+                        $scope.albums.push(value);
+                    });
+                    $scope.$broadcast('scroll.infiniteScrollComplete');
                 });
             };
         })
@@ -104,10 +140,18 @@ angular.module('vocadb.controllers', [])
                             $scope.trackGroup.push($scope.tracks[i].discNumber);
                 });
             });
+            
+            $scope.isFavorites = function(albumId) {
+                return Album.isFavorites(albumId);
+            };
+            
+            $scope.addFavorites = function(album) {
+                Album.addFavorites(album);
+            }
         })
 
         .controller('artistListCtrl', function($scope, Artist) {
-            $scope.artists = Artist.artists;
+            $scope.artists = [];
             $scope.query = Artist.term;
             //Function
             $scope.search = function() {
@@ -116,6 +160,15 @@ angular.module('vocadb.controllers', [])
                     Artist.artists = resp.items;
                     $scope.loading = false;
                     $scope.artists = resp.items;
+                });
+            };
+            
+            $scope.loadMore = function() {
+                Artist.loadMore($scope.query,$scope.artists.length, function(resp) {
+                    angular.forEach(resp.items, function(value, key) {
+                        $scope.artists.push(value);
+                    });
+                    $scope.$broadcast('scroll.infiniteScrollComplete');
                 });
             };
         })
@@ -135,7 +188,21 @@ angular.module('vocadb.controllers', [])
                 $scope.isShown = function(index) {
                     return $scope.accordian[index];
                 };
+                
+                $scope.isFavorites = function(artistId) {
+                    return Artist.isFavorites(artistId);
+                };
+
+                $scope.addFavorites = function(artist) {
+                    Artist.addFavorites(artist);
+                }
             });
+        })
+        
+        .controller('favoriteCtrl', function($scope, Song, Artist, Album) {
+            $scope.songs = Song.getFavoritesList();
+            $scope.artists = Artist.getFavoritesList();
+            $scope.albums = Album.getFavoritesList();
         })
 
         .controller('tagListCtrl', function($scope, Tag, $ionicScrollDelegate) {
@@ -201,6 +268,8 @@ angular.module('vocadb.controllers', [])
         .controller('aboutCtrl', function($scope) {
 
         })
+
+        
 
         .controller('mainCtrl', function($scope, $ionicSideMenuDelegate, $ionicModal, Entry) {
 
@@ -349,7 +418,9 @@ angular.module('vocadb.controllers', [])
                 animation: 'slide-in-up'
             });
 
+              
             $scope.openSearchModal = function() {
+               
                 $scope.searchModal.show();
             };
 

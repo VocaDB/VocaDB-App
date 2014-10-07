@@ -1,10 +1,15 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="com.coolappz.Vocadb" version="1.1.4" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <preference name="loglevel" value="DEBUG" />
-    <preference name="AndroidLaunchMode" value="singleTop" />
-    <feature name="App">
-        <param name="android-package" value="org.apache.cordova.App" />
-    </feature>
+    <name>Vocadb</name>
+    <description>
+        Vocaloid Database
+    </description>
+    <author email="augsorn.chanklad@gmail.com" href="http://www.facebook.com/augsorn">
+        up2up
+    </author>
+    <content src="index.html" />
+    <access origin="*" />
     <feature name="BarcodeScanner">
         <param name="android-package" value="com.phonegap.plugins.barcodescanner.BarcodeScanner" />
     </feature>
@@ -17,13 +22,4 @@
     <feature name="NetworkStatus">
         <param name="android-package" value="org.apache.cordova.networkinformation.NetworkManager" />
     </feature>
-    <name>Vocadb</name>
-    <description>
-        Vocaloid Database
-    </description>
-    <author email="augsorn.chanklad@gmail.com" href="http://www.facebook.com/augsorn">
-        up2up
-    </author>
-    <content src="index.html" />
-    <access origin="*" />
 </widget>

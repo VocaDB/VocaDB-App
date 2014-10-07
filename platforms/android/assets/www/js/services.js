@@ -1,6 +1,6 @@
 angular.module('vocadb.services', ['ngResource'])
 
-.factory('Song', function($resource, $q, $cacheFactory) {
+.factory('Song', function($resource, $q, $cacheFactory,$ionicPopup) {
     var endPoint = 'http://vocadb.net/api/songs';
     var cacheEngine = $cacheFactory('Song');
     var querySong = $resource(endPoint, {
@@ -46,6 +46,19 @@ angular.module('vocadb.services', ['ngResource'])
             }, 500);
             doSearch(query, callback);
         },
+        loadMore: ionic.debounce(function(query,start, callback) {
+            var q = $q.defer();
+            querySong.load({
+                query: query,
+                start: start,
+                maxResults: 15
+            }, function(resp) {
+                q.resolve(resp);
+            }, function(err) {
+                q.reject(err);
+            });
+            q.promise.then(callback);
+        }, 500),
         searchByTag: function(tag, callback) {
             var doSearch = ionic.debounce(function(tag, callback) {
                 var cache = cacheEngine.get(tag+"_song");
@@ -102,7 +115,33 @@ angular.module('vocadb.services', ['ngResource'])
                 q.reject(err);
             });
             q.promise.then(callback);
-        }, 500)
+        }, 500),
+        getFavoritesList : function() {
+            var songString = window.localStorage['songs'];
+            if(songString) {
+              return angular.fromJson(songString);
+            }
+            return [];
+        },
+        isFavorites: function(songId) {
+            var songs = this.getFavoritesList();
+            for(var i=0;i<songs.length;i++)
+                if(songs[i].id==songId) return true;
+            return false;
+        },
+        addFavorites: function(song) {
+            var songs = this.getFavoritesList();
+            for(var i=0;i<songs.length;i++)
+            {   
+                if(songs[i].id==song.id){
+                    songs.splice(i,1);
+                    window.localStorage['songs'] = angular.toJson(songs);
+                    return;
+                }
+            }
+            songs.push(song);
+            window.localStorage['songs'] = angular.toJson(songs);
+        }
     };
 })
 
@@ -154,6 +193,19 @@ angular.module('vocadb.services', ['ngResource'])
             }, 500);
             doSearch(query, callback);
         },
+        loadMore: ionic.debounce(function(query,start, callback) {
+            var q = $q.defer();
+            queryArtist.load({
+                query: query,
+                start: start,
+                maxResults: 15
+            }, function(resp) {
+                q.resolve(resp);
+            }, function(err) {
+                q.reject(err);
+            });
+            q.promise.then(callback);
+        }, 500),
         searchByTag: function(tag, callback) {
             var doSearch = ionic.debounce(function(tag, callback) {
                 var cache = cacheEngine.get(tag+"_artist");
@@ -184,6 +236,32 @@ angular.module('vocadb.services', ['ngResource'])
                 q.reject(err);
             });
             q.promise.then(callback);
+        },
+        getFavoritesList : function() {
+            var artistString = window.localStorage['artists'];
+            if(artistString) {
+              return angular.fromJson(artistString);
+            }
+            return [];
+        },
+        isFavorites: function(artistId) {
+            var artists = this.getFavoritesList();
+            for(var i=0;i<artists.length;i++)
+                if(artists[i].id==artistId) return true;
+            return false;
+        },
+        addFavorites: function(artist) {
+            var artists = this.getFavoritesList();
+            for(var i=0;i<artists.length;i++)
+            {   
+                if(artists[i].id==artist.id){
+                    artists.splice(i,1);
+                    window.localStorage['artists'] = angular.toJson(artist);
+                    return;
+                }
+            }
+            artists.push(artist);
+            window.localStorage['artists'] = angular.toJson(artists);
         }
     };
 })
@@ -252,6 +330,20 @@ angular.module('vocadb.services', ['ngResource'])
             }, 500);
             doSearch(query, callback);
         },
+        loadMore: ionic.debounce(function(query,start, callback) {
+            var q = $q.defer();
+            queryAlbums.load({
+                query: query,
+                sort: (query)? 'Name' :'ReleaseDate',
+                start: start,
+                maxResults: 15
+            }, function(resp) {
+                q.resolve(resp);
+            }, function(err) {
+                q.reject(err);
+            });
+            q.promise.then(callback);
+        }, 500),
         searchByTag: function(tag, callback) {
             var doSearch = ionic.debounce(function(tag, callback) {
                 var cache = cacheEngine.get(tag+"_album");
@@ -307,6 +399,32 @@ angular.module('vocadb.services', ['ngResource'])
                 q.reject(err);
             });
             q.promise.then(callback);
+        },
+        getFavoritesList : function() {
+            var albumString = window.localStorage['albums'];
+            if(albumString) {
+              return angular.fromJson(albumString);
+            }
+            return [];
+        },
+        isFavorites: function(albumId) {
+            var albums = this.getFavoritesList();
+            for(var i=0;i<albums.length;i++)
+                if(albums[i].id==albumId) return true;
+            return false;
+        },
+        addFavorites: function(album) {
+            var albums = this.getFavoritesList();
+            for(var i=0;i<albums.length;i++)
+            {   
+                if(albums[i].id==album.id){
+                    albums.splice(i,1);
+                    window.localStorage['albums'] = angular.toJson(album);
+                    return;
+                }
+            }
+            albums.push(album);
+            window.localStorage['albums'] = angular.toJson(albums);
         }
     };
 })
@@ -432,6 +550,90 @@ angular.module('vocadb.services', ['ngResource'])
             doSearch(callback);
         }
     };
-});
+})
+
+.service("Dialog",function($ionicPopup){
+       this.showAlert = function(title,message,callback) {
+           $ionicPopup.alert({
+               title: title,
+               template: message
+           }).then(callback);
+       }     
+})
+
+.service("Loading",function($ionicLoading){
+    this.show = function() {
+        $ionicLoading.show({
+            template: 'Loading...'
+        });
+    };
+            
+    this.hide = function(){
+        $ionicLoading.hide();
+    };
+ }) 
+ 
+ .service("Storage",function(){
+     this.addArtist = function(artistId) {
+         var artists = getArtists();
+         artists.push(artistId);
+     };
+     
+     this.addAlbum = function(albumId) {
+         var albums = getAlbums();
+         albums.push(albumId);
+     };
+     
+     this.addSong = function(songId) {
+         var songs = getSongs();
+         songs.push(songId);
+     };
+     
+     this.getArtists = function() {
+        var artistString = window.localStorage['artists'];
+        if(artistString) {
+          return angular.fromJson(artistString);
+        }
+        return [];
+     };
+     
+     this.getAlbums = function() {
+         var albumString = window.localStorage['albums'];
+        if(albumString) {
+          return angular.fromJson(albumString);
+        }
+        return [];
+     };
+     
+     this.getSongs = function() {
+        var songString = window.localStorage['songs'];
+        if(songString) {
+          return angular.fromJson(songString);
+        }
+        return [];
+     };
+     
+     this.export = function() {
+         
+     };
+     
+     this.import = function(list) {
+         
+     };
+     
+     this.isFavoriteArtist = function(artist) {
+         var artists = getArtists();
+     };
+     
+     this.isFavoriteAlbum = function(album) {
+         var albums = getAlbums();
+     };
+     
+     this.isFavoriteSong = function(song) {
+         var songs = getSongs();
+     }
+ })
+
+
 
 

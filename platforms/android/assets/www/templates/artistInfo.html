@@ -15,12 +15,27 @@
                 <p ng-bind-html="stringToHTML(artist.description)"></p>
             </ion-item>
         </div>
-        <div class="list card">
-            <ion-item class="item-icon-left" ng-click="shareArtist(artist.id)">
-                <i class="icon ion-android-share"></i>
-                <h2>Share</h2>
-            </ion-item>
-        </div>
+        
+        <div class="row">
+            <div class="col col-50">
+                <button class="button button-block button-light "  ng-click="shareArtist(artist.id)">
+                    <i class="icon ion-android-share"></i>&nbsp;Share
+                </button>
+            </div>
+            <div class="col col-50">
+                <div ng-if="!isFavorites(artist.id)">
+                     <button class="button button-block button-light" ng-click="addFavorites(artist)">
+                    <i class="icon ion-star"></i>&nbsp;Favorites
+                 </button>
+                </div>
+                <div ng-if="isFavorites(artist.id)">
+                     <button class="button button-block button-energized" ng-click="addFavorites(artist)">
+                    <i class="icon ion-star"></i>&nbsp;Favorites
+                 </button>
+                </div>
+             
+            </div>
+      </div>
 
         <div class="list card" ng-init="accordian = [false, false, false, false];
                 _recentAlbum = 0;

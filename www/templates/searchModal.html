@@ -3,7 +3,7 @@
     <ion-header-bar class="bar-positive item-input-inset">
         <label class="item-input-wrapper">
             <i ng-class="loading? 'icon placeholder-icon ion-loading-a' : 'icon placeholder-icon ion-ios7-search' " ></i>
-            <input type="search" placeholder="Anything" ng-model="searchQuery" ng-change="search()">
+            <input type="search" placeholder="{{searchType}}" ng-model="searchQuery" ng-change="search()">
         </label>
         <button class="button button-clear" ng-click="closeSearchModal()">
             Cancel

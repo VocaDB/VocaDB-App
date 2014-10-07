@@ -12,12 +12,26 @@
             </ion-item>
         </div>
 
-        <div class="list card">
-            <ion-item class="item-icon-left" ng-click="shareAlbum(album.id)">
-                <i class="icon ion-android-share"></i>
-                <h2>Share</h2>
-            </ion-item>
-        </div>
+        <div class="row">
+            <div class="col col-50">
+                <button class="button button-block button-light "  ng-click="shareAlbum(album.id)">
+                    <i class="icon ion-android-share"></i>&nbsp;Share
+                </button>
+            </div>
+            <div class="col col-50">
+                <div ng-if="!isFavorites(album.id)">
+                     <button class="button button-block button-light" ng-click="addFavorites(album)">
+                    <i class="icon ion-star"></i>&nbsp;Favorites
+                 </button>
+                </div>
+                <div ng-if="isFavorites(album.id)">
+                     <button class="button button-block button-energized" ng-click="addFavorites(album)">
+                    <i class="icon ion-star"></i>&nbsp;Favorites
+                 </button>
+                </div>
+             
+            </div>
+      </div>
 
         <div class="list card">
             <div class="item">

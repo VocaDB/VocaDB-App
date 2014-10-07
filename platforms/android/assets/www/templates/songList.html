@@ -8,7 +8,7 @@
             <input type="text" placeholder="search"  ng-model="query" ng-change="search()">
         </label>
     </ion-header-bar>
-    <ion-content class="stable-bg" has-bouncing="true" ng-init="search()">
+    <ion-content class="stable-bg" has-bouncing="true" >
 
         <ion-list ng-show="songs.length">
             <ion-item class="item-thumbnail-left" ng-repeat="song in songs"  ng-href="#/tab/song/{{song.id}}" >
@@ -17,7 +17,6 @@
                 <p>{{song.artistString}}</p>
             </ion-item>
         </ion-list>
-
-
+        <ion-infinite-scroll icon="none"  on-infinite="loadMore()" distance="1%"></ion-infinite-scroll> 
     </ion-content>
 </ion-view>
