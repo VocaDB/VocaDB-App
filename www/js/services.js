@@ -256,7 +256,7 @@ angular.module('vocadb.services', ['ngResource'])
             {   
                 if(artists[i].id==artist.id){
                     artists.splice(i,1);
-                    window.localStorage['artists'] = angular.toJson(artist);
+                    window.localStorage['artists'] = angular.toJson(artists);
                     return;
                 }
             }
@@ -419,7 +419,7 @@ angular.module('vocadb.services', ['ngResource'])
             {   
                 if(albums[i].id==album.id){
                     albums.splice(i,1);
-                    window.localStorage['albums'] = angular.toJson(album);
+                    window.localStorage['albums'] = angular.toJson(albums);
                     return;
                 }
             }

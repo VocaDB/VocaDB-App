@@ -11,27 +11,16 @@
                 <a ng-href="#tab/tag/detail/{{tag.name}}" ng-repeat="tag in album.tags" class="dark" style="text-decoration: none; font-size:12px;">#{{tag.name}}&nbsp;&nbsp;</a>
             </ion-item>
         </div>
-
-        <div class="row">
-            <div class="col col-50">
-                <button class="button button-block button-light "  ng-click="shareAlbum(album.id)">
-                    <i class="icon ion-android-share"></i>&nbsp;Share
+        
+         <div class="button-bar padding">
+            <button class="button button-light" ng-click="shareAlbum(album.id)"><i class="icon ion-android-share"></i>&nbsp;Share</button>
+             <button ng-if="!isFavorites(album.id)" class="button button-light" ng-click="addFavorites(album)"><i class="icon ion-star"></i>&nbsp;Favorites
                 </button>
-            </div>
-            <div class="col col-50">
-                <div ng-if="!isFavorites(album.id)">
-                     <button class="button button-block button-light" ng-click="addFavorites(album)">
+            
+            <button  ng-if="isFavorites(album.id)"class="button button-energized"  ng-click="addFavorites(album)">
                     <i class="icon ion-star"></i>&nbsp;Favorites
-                 </button>
-                </div>
-                <div ng-if="isFavorites(album.id)">
-                     <button class="button button-block button-energized" ng-click="addFavorites(album)">
-                    <i class="icon ion-star"></i>&nbsp;Favorites
-                 </button>
-                </div>
-             
-            </div>
-      </div>
+            </button>
+        </div>
 
         <div class="list card">
             <div class="item">

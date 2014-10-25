@@ -12,12 +12,12 @@
     <ion-content class="stable-bg" has-bouncing="true" ng-init="search()">
         <ion-list ng-show="artists.length">
             <ion-item class="item-avatar" ng-repeat="artist in artists" ng-href="#/tab/artist/{{artist.id}}">
-                <img ng-src="{{getArtistImage(artist.id)}}"">
+                <img ng-src="{{getArtistImage(artist.id)}}">
                 <h2>{{artist.defaultName}}</h2>
                 <p>{{artist.artistType}}</p>
             </ion-item>
         </ion-list>
-        <ion-infinite-scroll icon="none"  on-infinite="loadMore()" distance="1%"></ion-infinite-scroll> 
+        <!--<ion-infinite-scroll icon="none"  on-infinite="loadMore()" distance="1%"></ion-infinite-scroll>--> 
     </ion-content>
 
 </ion-view>

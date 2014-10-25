@@ -21,7 +21,6 @@ angular.module('vocadb.controllers', [])
             };
             $scope.loadMore = function() {
                 Song.loadRecentPVs($scope.songs.length, function(resp) {
-                   console.log("asddddddddddddasd");
                     angular.forEach(resp.items, function(value, key) {
                         $scope.songs.push(value);
                     });
@@ -111,6 +110,7 @@ angular.module('vocadb.controllers', [])
             };
             
             $scope.loadMore = function() {
+//                console.log("Album load more....");
                 Album.loadMore($scope.query,$scope.albums.length, function(resp) {
                     
                     angular.forEach(resp.items, function(value, key) {

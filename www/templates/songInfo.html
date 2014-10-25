@@ -12,26 +12,20 @@
                 <a ng-href="#tab/tag/detail/{{tag.name}}" ng-repeat="tag in song.tags" class="dark" style="text-decoration: none; font-size:12px;">#{{tag.name}}&nbsp;&nbsp;</a>
             </ion-item>
         </div> 
-        <div class="row">
-            <div class="col col-50">
-                <button class="button button-block button-light "  ng-click="shareSong(song.id)">
-                    <i class="icon ion-android-share"></i>&nbsp;Share
+         
+         <div class="button-bar padding">
+            <button class="button button-light "   ng-click="shareSong(song.id)">
+                <i class="icon ion-android-share"></i>&nbsp;Share
+            </button>
+            
+             <button ng-if="!isFavorites(song.id)" class="button button-light" ng-click="addFavorites(song)">
+                    <i class="icon ion-star"></i>&nbsp;Favorites
                 </button>
-            </div>
-            <div class="col col-50">
-                <div ng-if="!isFavorites(song.id)">
-                     <button class="button button-block button-light" ng-click="addFavorites(song)">
+            
+            <button ng-if="isFavorites(song.id)" class="button button-energized" ng-click="addFavorites(song)">
                     <i class="icon ion-star"></i>&nbsp;Favorites
-                 </button>
-                </div>
-                <div ng-if="isFavorites(song.id)">
-                     <button class="button button-block button-energized" ng-click="addFavorites(song)">
-                    <i class="icon ion-star"></i>&nbsp;Favorites
-                 </button>
-                </div>
-             
-            </div>
-      </div>
+            </button>
+        </div>
 
         <div class="list card" ng-show="PVs.length">
             <ion-item class="item item-avatar item-text-wrap" ng-repeat="pv in PVs" ng-click="open(pv.url)">
