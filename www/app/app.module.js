@@ -8,9 +8,10 @@
         'app.core',
         'app.service',
         'app.component.modal',
+        'app.widgets',
         
         /*
-         * Module areas
+         * Module area
          */
         'app.menus',
         'app.allsong', 'app.songinfo', 
