@@ -1,0 +1,15 @@
+<ion-item 
+    ng-show="vm.items.length"
+    ng-click="vm.toggle(isShown)"
+    ng-class="{active: vm.isShown}">
+    <i class="icon" ng-class="vm.isShown ? 'ion-ios7-minus-outline' : 'ion-ios7-plus-outline'"></i>
+    &nbsp;{{vm.header}}
+</ion-item>
+<ion-item class="item-accordion item-thumbnail-left"
+          ng-repeat="item in vm.items"
+          ng-href="{{vm.href}}/{{item.id}}"
+          ng-show="vm.isShown">
+    <img ng-src="{{item[vm.image]}}">
+    <h2>{{item[vm.title]}} </h2>
+    <p>{{item[vm.subtitle]}}</p>
+</ion-item>
