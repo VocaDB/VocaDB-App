@@ -2,7 +2,7 @@
     <ion-content class="stable-bg">
         <div class="list card">
             <ion-item class="item-thumbnail-left">
-                <img ng-src="{{vm.artist.image}}" ng-click="openModal(vm.artist.defaultName, getArtistImage(vm.artist.id))">
+                <img ng-src="{{vm.artist.image}}" >
                 <h2>{{vm.artist.defaultName}}</h2> 
                 <p>{{vm.artist.additionNames}}</p>
 
@@ -15,110 +15,43 @@
                 <p ng-bind-html="vm.artist.description"></p>
             </ion-item>
         </div>
-
-
+        
         <div class="button-bar padding">
-            <button class="button button-light "  ng-click="vm.shareArtist(vm.artist.id)">
-                <i class="icon ion-android-share"></i>&nbsp;Share
-            </button>
-            
-             <button ng-if="!vm.isFavorites(vm.artist.id)" class="button button-light" ng-click="vm.addFavorites(vm.artist)">
-                    <i class="icon ion-star"></i>&nbsp;Favorites
-                </button>
-            
-            <button ng-if="vm.isFavorites(vm.artist.id)" class="button button-energized" ng-click="vm.addFavorites(vm.artist)">
-                    <i class="icon ion-star"></i>&nbsp;Favorites
-            </button>
+            <vc-share-button category="artist" id="{{vm.artist.id}}"></vc-share-button>
+            <vc-fav-button category="artist" item="{{vm.artist}}"></vc-fav-button>
         </div>
-        <!--        
-                <div class="row">
-                    <div class="col col-50">
-                        <button class="button button-block button-light "  ng-click="shareArtist(vm.artist.id)">
-                            <i class="icon ion-android-share"></i>&nbsp;Share
-                        </button>
-                    </div>
-                    <div class="col col-50">
-                        <div ng-if="!isFavorites(vm.artist.id)">
-                             <button class="button button-block button-light" ng-click="addFavorites(vm.artist)">
-                            <i class="icon ion-star"></i>&nbsp;Favorites
-                         </button>
-                        </div>
-                        <div ng-if="isFavorites(vm.artist.id)">
-                             <button class="button button-block button-energized" ng-click="addFavorites(vm.artist)">
-                            <i class="icon ion-star"></i>&nbsp;Favorites
-                         </button>
-                        </div>
-                     
-                    </div>
-              </div>-->
 
-
-        <div class="list card" ng-init="vm.accordian = [false, false, false, false];
-                _recentAlbum = 0;
-                _popularAlbum = 1;
-                _recentSong = 2;
-                _popularSong = 3;">
-            <ion-item 
-                ng-show="vm.latestAlbums.length"
-                ng-click="vm.toggle(_recentAlbum)"
-                ng-class="{active: vm.isShown(_recentAlbum)}">
-                <i class="icon" ng-class="isShown(_recentAlbum) ? 'ion-ios7-minus-outline' : 'ion-ios7-plus-outline'"></i>
-                &nbsp;Recent albums
-            </ion-item>
-            <ion-item class="item-accordion item-thumbnail-left"
-                      ng-repeat="album in vm.latestAlbums"
-                      ng-href="#/menu/album/{{album.id}}"
-                      ng-show="vm.isShown(_recentAlbum)">
-                <img ng-src="{{getAlbumImage(album.id)}}"> 
-                <h2>{{album.name}}</h2>
-                <p>{{album.discType}}</p>
-            </ion-item>
-            <ion-item 
-                ng-show="vm.popularAlbums.length"
-                ng-click="vm.toggle(_popularAlbum)"
-                ng-class="{active: vm.isShown(_popularAlbum)}">
-                <i class="icon" ng-class="vm.isShown(_popularAlbum) ? 'ion-ios7-minus-outline' : 'ion-ios7-plus-outline'"></i>
-                &nbsp;Poppular albums
-            </ion-item>
-            <ion-item class="item-accordion item-thumbnail-left"
-                      ng-repeat="album in vm.popularAlbums"
-                      ng-href="#/tab/album/{{album.id}}"
-                      ng-show="vm.isShown(_popularAlbum)">
-                <img ng-src="{{getAlbumImage(album.id)}}"> 
-                <h2>{{album.name}}</h2>
-                <p>{{album.discType}}</p>
-            </ion-item>
-            <ion-item 
-                ng-show="vm.latestSongs.length"
-                ng-click="vm.toggle(_recentSong)"
-                ng-class="{active: vm.isShown(_recentSong)}">
-                <i class="icon" ng-class="vm.isShown(_recentSong) ? 'ion-ios7-minus-outline' : 'ion-ios7-plus-outline'"></i>
-                &nbsp;Recent songs / PVs
-            </ion-item>
-            <ion-item class="item-accordion item-thumbnail-left"
-                      ng-repeat="song in vm.latestSongs"
-                      ng-href="#/tab/song/{{song.id}}"
-                      ng-show="vm.isShown(_recentSong)">
-                <img ng-src="{{song.thumbUrl}}">
-                <h2>{{song.name}}</h2>
-                <p>{{song.vm.artistString}}</p>
-            </ion-item>
-            <ion-item 
-                ng-show="vm.popularSongs.length"
-                ng-click="vm.toggle(_popularSong)"
-                ng-class="{active: vm.isShown(_popularSong)}">
-                <i class="icon" ng-class="vm.isShown(_popularSong) ? 'ion-ios7-minus-outline' : 'ion-ios7-plus-outline'"></i>
-                &nbsp;Popular songs
-            </ion-item>
-            <ion-item class="item-accordion item-thumbnail-left"
-                      ng-repeat="song in vm.popularSongs"
-                      ng-href="#/menu/song/{{song.id}}"
-                      ng-show="vm.isShown(_popularSong)">
-                <img ng-src="{{song.thumbUrl}}">
-                <h2>{{song.name}}</h2>
-                <p>{{song.vm.artistString}}</p>
-            </ion-item>
+        <div class="list card">
+            <vc-accordian header="Recent albums" 
+                          items="vm.latestAlbums" 
+                          title="name" 
+                          subtitle="artistString" 
+                          image="thumbUrl" 
+                          href="#/menu/songs"></vc-accordian>
+            
+            <vc-accordian header="Poppular albums" 
+                          items="vm.popularAlbums" 
+                          title="name" 
+                          subtitle="artistString" 
+                          image="thumbUrl" 
+                          href="#/menu/songs"></vc-accordian>
+            
+            <vc-accordian header="Recent songs / PVs" 
+                          items="vm.latestSongs" 
+                          title="name" 
+                          subtitle="artistString" 
+                          image="thumbUrl" 
+                          href="#/menu/songs"></vc-accordian>
+            
+            <vc-accordian header="Popular songs " 
+                          items="vm.popularSongs" 
+                          title="name" 
+                          subtitle="artistString" 
+                          image="thumbUrl" 
+                          href="#/menu/songs"></vc-accordian>
         </div>
+        
+        
 
         <div class="padding-bottom">
         </div> 
