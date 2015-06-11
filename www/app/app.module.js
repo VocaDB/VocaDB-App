@@ -15,6 +15,9 @@
          */
         'app.menus',
         'app.allsong', 'app.songinfo', 
-        'app.allartist', 'app.artistinfo'
+        'app.allartist', 'app.artistinfo',
+        'app.allalbum', 'app.albuminfo',
+        'app.alltag', 'app.taginfo',
+        'app.recentpv', 'app.favorites'
     ]);
 })();
