@@ -1,0 +1,54 @@
+<ion-view title="Album info">
+    <ion-content class="stable-bg">
+        <div class="list card">
+            <div class="item item-text-wrap item-thumbnail-left">
+                <img ng-src="http://vocadb.net/Album/CoverPicture/{{vm.album.id}}">
+                <h2>{{vm.album.defaultName}}</h2>
+                <p>{{vm.album.discType}}</p>
+                <p class="rating">{{vm.album.ratingAverage}} (<i class="icon ion-ios-person"></i>{{vm.album.ratingCount}})</p>
+            </div>
+            <ion-item class="item-text-wrap" ng-show="album.tags.length">
+                <a ng-href="#menu/tag/detail/{{tag.name}}" ng-repeat="tag in vm.album.tags" class="dark" style="text-decoration: none; font-size:12px;">#{{tag.name}}&nbsp;&nbsp;</a>
+            </ion-item>
+        </div>
+        
+         <div class="button-bar padding">
+             
+            <vc-share-button category="album" id="{{vm.album.id}}"></vc-share-button>
+            <vc-fav-button category="album" item="{{vm.album}}"></vc-fav-button>
+             
+        </div>
+
+        <div class="list card">
+            <div class="item">
+                <p><i class="icon ion-ios7-calendar-outline"></i> {{vm.album.releaseDate.formatted}}</p>
+                <p>{{vm.album.releaseEvent}}</p>
+            </div>
+        </div>
+        <div class="list card" ng-show="vm.album.pVs.length">
+            <ion-item class="item item-avatar item-text-wrap" ng-repeat="pv in vm.album.pVs" ng-click="open(pv.url)">
+                <img ng-src="{{getMediaIcon(pv.service)}}">
+                <h2>{{pv.name}}</h2>
+            </ion-item>
+        </div>
+        <div class="list card">
+            <vc-accordian header="Artists" 
+              items="vm.album.artists" 
+              title="name" 
+              subtitle="artistType" 
+              image="thumbUrl" 
+              href="#/menu/artist"></vc-accordian>
+            
+            <vc-accordian header="Web link"
+              weblink="true"
+              items="vm.album.webLinks" 
+              title="description" ></vc-accordian>
+            
+           <!-- Tracks -->
+       
+        </div>
+
+        <div class="padding-bottom">
+        </div>
+    </ion-content>
+</ion-view>

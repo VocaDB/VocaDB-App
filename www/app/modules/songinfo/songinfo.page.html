@@ -14,17 +14,10 @@
         </div> 
          
          <div class="button-bar padding">
-            <button class="button button-light "   ng-click="shareSong(vm.song.id)">
-                <i class="icon ion-android-share"></i>&nbsp;Share
-            </button>
-            
-             <button ng-if="!isFavorites(vm.song.id)" class="button button-light" ng-click="vm.addFavorites(vm.song)">
-                    <i class="icon ion-star"></i>&nbsp;Favorites
-                </button>
-            
-            <button ng-if="isFavorites(vm.song.id)" class="button button-energized" ng-click="vm.addFavorites(vm.song)">
-                    <i class="icon ion-star"></i>&nbsp;Favorites
-            </button>
+             
+             <vc-share-button category="song" id="{{vm.song.id}}"></vc-share-button>
+             
+             <vc-fav-button category="song" item="{{vm.song}}"></vc-fav-button>
         </div>
 
         <div class="list card" ng-show="vm.PVs.length">
@@ -34,40 +27,19 @@
                 <p>{{pv.pvType}}</p>
             </ion-item>
         </div>
-        <div class="list card" ng-init="vm.accordian = [false, false];
-                _artist = 0;
-                _album = 1;">
-            <ion-item 
-                ng-show="vm.artists.length"
-                ng-click="vm.toggle(_artist)"
-                ng-class="{active: vm.isShown(_artist)}">
-                <i class="icon" ng-class="vm.isShown(_artist) ? 'ion-ios7-minus-outline' : 'ion-ios7-plus-outline'"></i>
-                &nbsp;Artists
-            </ion-item>
-            <ion-item class="item-accordion item-thumbnail-left"
-                      ng-repeat="artist in vm.artists"
-                      ng-href="#/menu/artist/{{artist.artist.id}}"
-                      ng-show="vm.isShown(_artist)">
-                <img ng-src="{{vm.getArtistImage(artist.artist.id)}}">
-                <h2>{{artist.name}}</h2>
-                <p>{{artist.artist.artistType}}</p>
-            </ion-item>
-
-            <ion-item 
-                ng-show="vm.albums.length"
-                ng-click="vm.toggle(_album)"
-                ng-class="{active: vm.isShown(_album)}">
-                <i class="icon" ng-class="vm.isShown(_album) ? 'ion-ios7-minus-outline' : 'ion-ios7-plus-outline'"></i>
-                &nbsp;Album
-            </ion-item>
-            <ion-item class="item-accordion item-thumbnail-left"
-                      ng-repeat="album in vm.albums"
-                      ng-href="#/menu/album/{{album.id}}"
-                      ng-show="vm.isShown(_album)">
-                <img ng-src="{{vm.getAlbumImage(album.id)}}"> 
-                <h2>{{album.name}}</h2>
-                <p>{{album.discType}}</p>
-            </ion-item>
+        <div class="list card">
+            
+            <vc-accordian header="Artists" 
+              items="vm.artists" 
+              title="name" 
+              subtitle="artistType" 
+              href="#/menu/artist"></vc-accordian>
+            
+            <vc-accordian header="Album" 
+              items="vm.albums" 
+              title="name" 
+              subtitle="discType" 
+              href="#/menu/album"></vc-accordian>
 
         </div>
         <div class="padding-bottom">

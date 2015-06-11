@@ -23,7 +23,7 @@
             return $q.all(promises);
         }
         
-        function getDefaultResource(apiUrl) {
+        function getDefaultResource(apiUrl,load) {
             var paramDefaults = {callback: 'JSON_CALLBACK'};
             var actions = {
                 'load': {
@@ -31,21 +31,24 @@
                     'cache': true
                 }
             };
+            
+            for (var prop in load) 
+                actions['load'][prop] = load[prop];
 
             return $resource(apiUrl, paramDefaults, actions);
         }
         
-        function callApi(endPoint,params) {
+        function callApi(endPoint,params,load) {
             var q = $q.defer();
             var apiUrl = apiurl(endPoint);
             
             logger.info("callapi url : ",apiUrl);
             logger.info("callapi params : ",angular.toJson(params));
             
-            getDefaultResource(apiUrl).load(params, success, failure);
+            getDefaultResource(apiUrl,load).load(params, success, failure);
 
             function success(resp) {
-                logger.info("return : ",angular.toJson(resp));
+                //logger.info("return : ",angular.toJson(resp));
                 q.resolve(resp);
             };
             

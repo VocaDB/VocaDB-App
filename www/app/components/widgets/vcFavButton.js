@@ -12,7 +12,7 @@
                 'item' : '@',
                 'category' : '@'
             },
-            template: '<button ng-if="!vm.isFavorites(vm.item.id)" class="button button-light" ng-click="vm.addFavorites(vm.item)">' +
+            template: '<button class="button button-light" >' +
                       '<i class="icon ion-star"></i>&nbsp;Favorites' +
                       '</button>',
             controller: FavButtonController,
@@ -34,7 +34,7 @@
         
         
         function addFavorites(item) {
-            alert("not implemented yet "+vm.item.id);
+            //alert("not implemented yet "+vm.item.id);
         }
         
         function isFavorites(id) {

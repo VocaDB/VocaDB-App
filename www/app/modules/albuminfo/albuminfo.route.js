@@ -16,7 +16,6 @@
     function configure($stateProvider, $urlRouterProvider)
     {
         $stateProvider.state('menu.albuminfo', getRoutes());
-
     }
 
     function getRoutes() {
