@@ -2,10 +2,12 @@
     <ion-content class="stable-bg">
         <div class="list card">
             <ion-item class="item item-thumbnail-left">
-                <img ng-src="{{vm.song.thumbUrl}}">
+<!--                <img ng-src="{{vm.song.thumbUrl}}">-->
+                <vc-image category="song" url="{{vm.song.thumbUrl}}"></vc-image>
                 <h2>{{vm.song.defaultName}}</h2>
                 <p>{{getAdditionName(song.names)}}</p>
-                <p>{{vm.song.songType}}&nbsp;{{getDuration(song.lengthSeconds)}}</p>
+<!--                <p>{{vm.song.songType}}&nbsp;{{getDuration(song.lengthSeconds)}}</p>-->
+                <p>{{vm.song.songType}}&nbsp;<vc-duration length-second="{{vm.song.lengthSeconds}}"></vc-duration></p>
 
             </ion-item>
             <ion-item class="item item-text-wrap" ng-show="vm.song.tags.length">
@@ -19,23 +21,25 @@
              
              <vc-fav-button category="song" item="{{vm.song}}"></vc-fav-button>
         </div>
-
-        <div class="list card" ng-show="vm.PVs.length">
-            <ion-item class="item item-avatar item-text-wrap" ng-repeat="pv in vm.PVs" ng-click="open(pv.url)">
-                <img ng-src="{{vm.getMediaIcon(pv.service)}}">
-                <h2>{{pv.name}}</h2>
-                <p>{{pv.pvType}}</p>
-            </ion-item>
-        </div>
-        <div class="list card">
+        
+        <vc-pv-list items="vm.PVs"
+            url="url" 
+            title="name"
+            subtitle="pvType"
+            service="service" 
+            ></vc-pv-list>
+        
+        <div class="list card" ng-show="vm.artists.length || vm.albums.length">
             
-            <vc-accordian header="Artists" 
+            <vc-accordian header="Artists"
+              category="artist"
               items="vm.artists" 
               title="name" 
               subtitle="artistType" 
               href="#/menu/artist"></vc-accordian>
             
             <vc-accordian header="Album" 
+              category="album"
               items="vm.albums" 
               title="name" 
               subtitle="discType" 

@@ -2,11 +2,12 @@
     <ion-content class="stable-bg">
         <div class="list card">
             <div class="item item-text-wrap item-thumbnail-left">
-                <img ng-src="http://vocadb.net/Album/CoverPicture/{{vm.album.id}}">
+                <vc-image category="album" item-id="{{vm.album.id}}"></vc-image>
                 <h2>{{vm.album.defaultName}}</h2>
                 <p>{{vm.album.discType}}</p>
-                <p class="rating">{{vm.album.ratingAverage}} (<i class="icon ion-ios-person"></i>{{vm.album.ratingCount}})</p>
+                <vc-rating rating="{{vm.album.ratingAverage}}" count="{{vm.album.ratingCount}}" ></vc-rating>    
             </div>
+            
             <ion-item class="item-text-wrap" ng-show="album.tags.length">
                 <a ng-href="#menu/tag/detail/{{tag.name}}" ng-repeat="tag in vm.album.tags" class="dark" style="text-decoration: none; font-size:12px;">#{{tag.name}}&nbsp;&nbsp;</a>
             </ion-item>
@@ -21,16 +22,17 @@
 
         <div class="list card">
             <div class="item">
-                <p><i class="icon ion-ios7-calendar-outline"></i> {{vm.album.releaseDate.formatted}}</p>
-                <p>{{vm.album.releaseEvent}}</p>
+                <p><i class="icon ion-ios7-calendar-outline"></i>Release date : {{vm.album.releaseDate.formatted}}</p>
+                <p>Event : {{vm.album.releaseEvent}}</p>
             </div>
         </div>
-        <div class="list card" ng-show="vm.album.pVs.length">
-            <ion-item class="item item-avatar item-text-wrap" ng-repeat="pv in vm.album.pVs" ng-click="open(pv.url)">
-                <img ng-src="{{getMediaIcon(pv.service)}}">
-                <h2>{{pv.name}}</h2>
-            </ion-item>
-        </div>
+        
+        <vc-pv-list items="vm.album.pVs"
+                    url="url" 
+                    title="name"
+                    service="service" 
+                    ></vc-pv-list>
+        
         <div class="list card">
             <vc-accordian header="Artists" 
               items="vm.album.artists" 
@@ -44,9 +46,15 @@
               items="vm.album.webLinks" 
               title="description" ></vc-accordian>
             
-           <!-- Tracks -->
+            <!-- Tracks -->
+            <vc-track-list tracks="vm.tracks"></vc-track-list>
+            
        
         </div>
+        
+
+        
+        
 
         <div class="padding-bottom">
         </div>

@@ -21,7 +21,7 @@
         init(); 
  
         function init() {
-            var promises = [getAlbum(),getTracks()];
+            var promises = [getTracks(),getAlbum()];
             return albumservice.ready(promises).then(function(){
                 logger.info('Album loaded');
             });
@@ -37,6 +37,7 @@
         function getTracks() {
             return albumservice.getTracks(vm.id).then(function(data) {
                 vm.tracks = data;
+                logger.info("get tracks length = "+vm.tracks.length);
 //                for (var i = 1; i < vm.tracks.length; i++)
 //                    if (vm.tracks[i].discNumber != vm.tracks[i - 1].discNumber || i == 1)
 //                        vm.trackGroup.push(vm.tracks[i].discNumber);
