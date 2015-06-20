@@ -23,20 +23,21 @@
 
         <div class="list card">
             <vc-accordian header="Recent albums" 
+                          category="album"
                           items="vm.latestAlbums" 
                           title="name" 
                           subtitle="artistString" 
-                          image="thumbUrl" 
-                          href="#/menu/songs"></vc-accordian>
+                          href="#/menu/album"></vc-accordian>
             
             <vc-accordian header="Poppular albums" 
+                          category="album"
                           items="vm.popularAlbums" 
                           title="name" 
                           subtitle="artistString" 
-                          image="thumbUrl" 
-                          href="#/menu/songs"></vc-accordian>
+                          href="#/menu/album"></vc-accordian>
             
             <vc-accordian header="Recent songs / PVs" 
+                          category="song"
                           items="vm.latestSongs" 
                           title="name" 
                           subtitle="artistString" 
@@ -44,6 +45,7 @@
                           href="#/menu/songs"></vc-accordian>
             
             <vc-accordian header="Popular songs " 
+                          category="song"
                           items="vm.popularSongs" 
                           title="name" 
                           subtitle="artistString" 

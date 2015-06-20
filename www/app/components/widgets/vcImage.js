@@ -30,6 +30,7 @@
         vm.getImage = getImage;
         
         
+        
         function getImage() {
             
             if(!vm.itemId && !vm.url) 

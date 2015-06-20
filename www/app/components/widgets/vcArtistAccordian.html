@@ -9,8 +9,8 @@
           ng-repeat="item in vm.items"
           ng-href="{{vm.href}}/{{item.id}}"
           ng-show="vm.isShown">
-    <vc-image category='{{vm.category}}' url="{{item[vm.image]}}" item-id="{{item.id}}"></vc-image>
+    <vc-image category="artist" item-id="{{item.artist.id}}"></vc-image>
 <!--    <img ng-src="{{item[vm.image]}}">-->
-    <h2>{{item[vm.title]}} </h2>
-    <p>{{item[vm.subtitle]}}</p>
+    <h2>{{item.artist.name}} </h2>
+    <p>{{item.artist.artistType}}</p>
 </ion-item>

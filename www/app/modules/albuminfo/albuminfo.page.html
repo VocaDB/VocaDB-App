@@ -34,18 +34,29 @@
                     ></vc-pv-list>
         
         <div class="list card">
+            
+            <vc-artist-accordian header="Artists" 
+              items="vm.album.artists" ></vc-artist-accordian>
+            
+<!--
             <vc-accordian header="Artists" 
               items="vm.album.artists" 
               title="name" 
               subtitle="artistType" 
               image="thumbUrl" 
               href="#/menu/artist"></vc-accordian>
+-->
+       
+            <vc-weblink-accordian header="Web link" 
+              items="vm.album.webLinks" ></vc-weblink-accordian>
             
+<!--
             <vc-accordian header="Web link"
               weblink="true"
               items="vm.album.webLinks" 
               title="description" ></vc-accordian>
             
+-->
             <!-- Tracks -->
             <vc-track-list tracks="vm.tracks"></vc-track-list>
             

@@ -9,6 +9,7 @@
     function vcAccordian () {
         var directive = {
             scope: {
+                'category' : '@',
                 'header' : '@',
                 'items': '=',
                 'href' : '@',
@@ -34,10 +35,18 @@
         
         vm.isShown = false;
         vm.toggle = toggle;
+        vm.getImage = getImage;
   
         function toggle(isShown) {
             vm.isShown = !vm.isShown;
             $ionicScrollDelegate.resize();
+        }
+        
+        function getImage(item) {
+            if(vm.image)
+                return "<img src='"+item[vm.image]+"'>";
+            else
+                return "<vc-image category='artist' item-id='"+item.id+"'></vc-image>";
         }
 
     }

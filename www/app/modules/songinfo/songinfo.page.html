@@ -31,12 +31,9 @@
         
         <div class="list card" ng-show="vm.artists.length || vm.albums.length">
             
-            <vc-accordian header="Artists"
+            <vc-artist-accordian header="Artists"
               category="artist"
-              items="vm.artists" 
-              title="name" 
-              subtitle="artistType" 
-              href="#/menu/artist"></vc-accordian>
+              items="vm.artists" ></vc-artist-accordian>
             
             <vc-accordian header="Album" 
               category="album"
