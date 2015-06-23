@@ -7,7 +7,7 @@
 </ion-item>
 <ion-item class="item-accordion item-thumbnail-left"
           ng-repeat="item in vm.items"
-          ng-href="{{vm.href}}/{{item.id}}"
+          ng-href="#/menu/artist/{{item.artist.id}}"
           ng-show="vm.isShown">
     <vc-image category="artist" item-id="{{item.artist.id}}"></vc-image>
 <!--    <img ng-src="{{item[vm.image]}}">-->
