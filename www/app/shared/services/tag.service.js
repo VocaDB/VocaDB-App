@@ -4,11 +4,11 @@
             .module('app.service')
             .factory('tagservice', tagservice);
 
-    tagservice.$inject = ['dataservice', 'exception'];
+    tagservice.$inject = ['dataservice', 'exception','logger'];
 
 
     /* @ngInject */
-    function tagservice(dataservice, exception)
+    function tagservice(dataservice, exception, logger)
     {
         var service = {
             ready: dataservice.ready,
@@ -44,7 +44,7 @@
         function getTagsByCategory(query, category) {
             var parms = {
                 query: query,
-                categoryName: categoryName,
+                categoryName: category,
                 getTotalCount: false,
                 maxResults:25,
                 nameMatchMode: 'Auto'   
@@ -58,6 +58,7 @@
                     });
 
             function getTagsByCategoryComplete(data, status, headers, config) {
+                
                 return data;
             }
         }
