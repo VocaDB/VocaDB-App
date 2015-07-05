@@ -14,7 +14,8 @@
             ready: dataservice.ready,
             getAlbumById: getAlbumById,
             getTracks: getTracks,
-            queryAlbum: queryAlbum
+            queryAlbum: queryAlbum,
+            queryAlbumByTag : queryAlbumByTag
         };
 
         return service;
@@ -65,7 +66,6 @@
                 fields: 'artists,tags',
                 maxResults:25,
                 getTotalCount: false,
-                nameMatchMode: 'Auto',
                 nameMatchMode: 'Auto'
             };
 
@@ -78,7 +78,26 @@
             function queryAlbumComplete(data, status, headers, config) {
                 return data;
             }
-            
+        }
+        
+        function queryAlbumByTag(tag) {
+            var parms = {
+                tag: tag,
+                fields: 'artists,tags',
+                maxResults:25,
+                getTotalCount: false,
+                nameMatchMode: 'Auto'
+            };
+
+            return dataservice.callApi('/api/albums', parms)
+                    .then(queryAlbumByTagComplete)
+                    .catch(function (message) {
+                        exception.catcher('Call API Failed for queryAlbumByTag')(message);
+                    });
+
+            function queryAlbumByTagComplete(data, status, headers, config) {
+                return data;
+            }
         }
 
     }

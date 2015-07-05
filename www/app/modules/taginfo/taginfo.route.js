@@ -22,7 +22,7 @@
     function getRoutes() {
 
         var routeConfig = {
-            url: "/tag/:Name",
+            url: "/tag/detail/:Name",
             views: {
                 'menuContent': {
                     templateUrl: "app/modules/taginfo/taginfo.page.html",

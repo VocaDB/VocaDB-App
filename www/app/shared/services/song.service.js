@@ -23,8 +23,9 @@
             ready: dataservice.ready,
             getSongById: getSongById,
             getCommentList: getCommentList,
-            getSongListByName: getSongListByName,
-            getSongListByPV: getSongListByPV
+            querySongByName: querySongByName,
+            getSongListByPV: getSongListByPV,
+            querySongByTag: querySongByTag
         };
 
         return service;
@@ -71,7 +72,25 @@
          * @param {String} query
          * @param {Function} callback
          */
-        function getSongListByName(query, callback) {
+        function querySongByName(query, callback) {
+            var parms = {
+                query: query,
+                getTotalCount: false,
+                fields: 'ThumbUrl',
+                nameMatchMode: 'Auto'
+            };
+            
+            return dataservice.callApi('/api/songs', parms)
+                    .then(querySongByNameComplete)
+                    .catch(function (message) {
+                        exception.catcher('Call API Failed for querySongByNameComplete')(message);
+                        //$location.url('/');
+                    });
+
+            function querySongByNameComplete(data, status, headers, config) {
+                return data;
+            }
+
         }
         ;
 
@@ -89,7 +108,38 @@
                 fields: 'ThumbUrl'
             };
 
-            return dataservice.callApi('/api/songs', parms);
+            return dataservice.callApi('/api/songs', parms)
+                    .then(getSongListByPVComplete)
+                    .catch(function (message) {
+                        exception.catcher('Call API Failed for getSongListByPVComplete')(message);
+                        //$location.url('/');
+                    });
+
+            function getSongListByPVComplete(data, status, headers, config) {
+                return data;
+            }
+        }
+        ;
+        
+        
+        function querySongByTag(tag, callback) {
+            var parms = {
+                tag: tag,
+                getTotalCount: false,
+                fields: 'ThumbUrl',
+                nameMatchMode: 'Auto'
+            };
+            
+            return dataservice.callApi('/api/songs', parms)
+                    .then(querySongByTag)
+                    .catch(function (message) {
+                        exception.catcher('Call API Failed for querySongByTag')(message);
+                        //$location.url('/');
+                    });
+
+            function querySongByTag(data, status, headers, config) {
+                return data;
+            }
         }
         ;
 

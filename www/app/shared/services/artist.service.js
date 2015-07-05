@@ -22,7 +22,8 @@
         var service = {
             ready: dataservice.ready,
             queryArtist: queryArtist,
-            getArtistById : getArtistById
+            getArtistById : getArtistById,
+            queryArtistByTag : queryArtistByTag
         };
 
         return service;
@@ -102,6 +103,27 @@
                         additionName += names[i].value + ", ";
                     return additionName.slice(0, additionName.length - 2);
                 }
+            }
+
+        }
+        
+        
+        function queryArtistByTag(tag) {
+            var parms = {
+                tag: tag,
+                getTotalCount: false,
+                nameMatchMode: 'Auto'
+            };
+
+            return dataservice.callApi('/api/artists', parms)
+                    .then(queryArtistByTagComplete)
+                    .catch(function (message) {
+                        exception.catcher('Call API Failed for queryArtistByTag')(message);
+                        //$location.url('/');
+                    });
+
+            function queryArtistByTagComplete(data, status, headers, config) {
+                return data;
             }
 
         }

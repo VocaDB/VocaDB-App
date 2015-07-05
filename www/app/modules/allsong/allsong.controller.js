@@ -35,7 +35,7 @@
 
         function getSongList() {
             vm.loading = true;
-            return songservice.getSongListByPV("").then(function(data) {
+            return songservice.querySongByName(vm.query).then(function(data) {
                 vm.songs = data.items;
                 vm.loading = false;
                 return vm.songs;
