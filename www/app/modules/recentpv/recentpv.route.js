@@ -26,7 +26,7 @@
             views: {
                 'menuContent': {
                     templateUrl: "app/modules/recentpv/recentpv.page.html",
-                    controller: "RecentPVController as vm"
+                    controller: "RecentPvController as vm"
                 }
             }      
         };
