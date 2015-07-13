@@ -5,7 +5,7 @@
     <ion-content class="stable-bg" has-bouncing="true" ng-init="search()">
         <ion-list ng-show="vm.artists.length">
             <ion-item class="item-avatar" ng-repeat="artist in vm.artists" ng-href="#/menu/artist/{{artist.id}}">
-                <img ng-src="{{getArtistImage(artist.id)}}">
+                <vc-image category="artist" item-id="{{artist.id}}"></vc-image>
                 <h2>{{artist.defaultName}}</h2>
                 <p>{{artist.artistType}}</p>
             </ion-item>
