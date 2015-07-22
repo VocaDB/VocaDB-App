@@ -19,11 +19,16 @@
     /* @ngInject */
     function artistservice(dataservice, exception)
     {
+        var storageId = 'artists';
+        
         var service = {
             ready: dataservice.ready,
             queryArtist: queryArtist,
             getArtistById : getArtistById,
-            queryArtistByTag : queryArtistByTag
+            queryArtistByTag : queryArtistByTag,
+            getFavoritesList : getFavoritesList,
+            isFavorite : isFavorite,
+            addFavorite : addFavorite
         };
 
         return service;
@@ -127,6 +132,35 @@
                 return data;
             }
 
+        }
+        
+        function getFavoritesList() {
+            var artistString = window.localStorage[storageId];
+            if(artistString) {
+              return angular.fromJson(artistString);
+            }
+            return [];
+        }
+        
+        function isFavorite(artistId) {
+            var artists = getFavoritesList();
+            for(var i=0;i<artists.length;i++)
+                if(artists[i].id==artistId) return true;
+            return false;
+        }
+        
+        function addFavorite(artist) {
+            var artists = getFavoritesList();
+            for(var i=0;i<artists.length;i++)
+            {   
+                if(artists[i].id==artist.id){
+                    artists.splice(i,1);
+                    window.localStorage[storageId] = angular.toJson(artists);
+                    return;
+                }
+            }
+            artists.push(artist);
+            window.localStorage[storageId] = angular.toJson(artists);
         }
 
     }

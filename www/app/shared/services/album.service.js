@@ -10,12 +10,17 @@
     /* @ngInject */
     function albumservice(dataservice, exception)
     {
+        var storageId = 'albums';
+        
         var service = {
             ready: dataservice.ready,
             getAlbumById: getAlbumById,
             getTracks: getTracks,
             queryAlbum: queryAlbum,
-            queryAlbumByTag : queryAlbumByTag
+            queryAlbumByTag : queryAlbumByTag,
+            getFavoritesList : getFavoritesList,
+            isFavorite : isFavorite,
+            addFavorite : addFavorite
         };
 
         return service;
@@ -98,6 +103,35 @@
             function queryAlbumByTagComplete(data, status, headers, config) {
                 return data;
             }
+        }
+        
+        function getFavoritesList() {
+            var albumString = window.localStorage[storageId];
+            if(albumString) {
+              return angular.fromJson(albumString);
+            }
+            return [];
+        }
+        
+        function isFavorite(albumId) {
+            var albums = this.getFavoritesList();
+            for(var i=0;i<albums.length;i++)
+                if(albums[i].id==albumId) return true;
+            return false;
+        }
+        
+        function addFavorite(album) {
+            var albums = this.getFavoritesList();
+            for(var i=0;i<albums.length;i++)
+            {   
+                if(albums[i].id==album.id){
+                    albums.splice(i,1);
+                    window.localStorage[storageId] = angular.toJson(albums);
+                    return;
+                }
+            }
+            albums.push(album);
+            window.localStorage[storageId] = angular.toJson(albums);
         }
 
     }

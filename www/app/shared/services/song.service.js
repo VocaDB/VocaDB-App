@@ -19,13 +19,18 @@
     /* @ngInject */
     function songService(dataservice, exception)
     {
+        var storageId = 'songs';
+        
         var service = {
             ready: dataservice.ready,
             getSongById: getSongById,
             getCommentList: getCommentList,
             querySongByName: querySongByName,
             querySongtByPV: querySongtByPV,
-            querySongByTag: querySongByTag
+            querySongByTag: querySongByTag,
+            getFavoritesList : getFavoritesList,
+            isFavorite : isFavorite,
+            addFavorite : addFavorite
         };
 
         return service;
@@ -138,8 +143,35 @@
             function querySongByTag(data, status, headers, config) {
                 return data;
             }
-        }
-        ;
+        };
 
+
+        function getFavoritesList() {
+            var songString = window.localStorage[storageId];
+            if(songString) {
+              return angular.fromJson(songString);
+            }
+            return [];
+        };
+        
+        function isFavorite(songId) {
+            var songs = getFavoritesList();
+            for(var i=0;i<songs.length;i++)
+                if(songs[i].id==songId) return true;
+            return false;
+        }
+        function addFavorite(song) {
+            var songs = getFavoritesList();
+            for(var i=0;i<songs.length;i++)
+            {   
+                if(songs[i].id==song.id){
+                    songs.splice(i,1);
+                    window.localStorage[storageId] = angular.toJson(songs);
+                    return;
+                }
+            }
+            songs.push(song);
+            window.localStorage[storageId] = angular.toJson(songs);
+        }
     }
 })();
