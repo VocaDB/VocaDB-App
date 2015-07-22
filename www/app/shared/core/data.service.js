@@ -5,11 +5,12 @@
         .module('app.core')
         .factory('dataservice', dataservice);
 
-    dataservice.$inject = ['$q','$resource', 'logger', 'apiurl'];
+    dataservice.$inject = ['$q','$resource', 'logger', 'apiurl','$cacheFactory'];
 
     /* @ngInject */
-    function dataservice($q,$resource, logger, apiurl) {
+    function dataservice($q,$resource, logger, apiurl, $cacheFactory) {
         
+        var cacheEngine = $cacheFactory("1");
         var service = {
             ready : ready,
             callApi : callApi
@@ -41,21 +42,29 @@
         function callApi(endPoint,params,load) {
             var q = $q.defer();
             var apiUrl = apiurl(endPoint);
+            var cacheId = angular.toJson(params);
+            var cache = (cacheId) ? cacheEngine.get(cacheId) : null;
             
             logger.info("callapi url : ",apiUrl);
             logger.info("callapi params : ",angular.toJson(params));
             
-            getDefaultResource(apiUrl,load).load(params, success, failure);
-
+            if(cache) {
+                logger.info("get from cache");
+                q.resolve(cache);
+            } else {
+                logger.info("get from "+endPoint);
+                getDefaultResource(apiUrl,load).load(params, success, failure);
+            }
+            
             function success(resp) {
                 //logger.info("return : ",angular.toJson(resp));
+                cacheEngine.put(cacheId, resp);
                 q.resolve(resp);
             };
             
             function failure(err) {
                 q.reject(err);
-            }
-            ;
+            };
             
             return q.promise;
         }
