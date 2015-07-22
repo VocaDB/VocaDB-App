@@ -29,7 +29,6 @@
                 fields: 'artists,names,pvs,tags,webLinks',
                 nameMatchMode: 'Auto'
             };
-
             return dataservice.callApi('/api/albums/:Id', parms)
                     .then(getAlbumByIdComplete)
                     .catch(function (message) {
@@ -60,9 +59,10 @@
             }
         }
         
-        function queryAlbum(query) {
+        function queryAlbum(query,start) {
             var parms = {
                 query: query,
+                start: start,
                 fields: 'artists,tags',
                 maxResults:25,
                 getTotalCount: false,

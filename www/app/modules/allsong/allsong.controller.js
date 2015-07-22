@@ -5,9 +5,9 @@
         .module('app.allsong')
         .controller('SongListController', SongListController);
 
-    SongListController.$inject = ['songservice','logger'];
+    SongListController.$inject = ['$scope', 'songservice','logger'];
 
-    function SongListController(songservice,logger) {
+    function SongListController($scope,songservice,logger) {
         
         logger.info('enter SongListController');
         
@@ -19,8 +19,9 @@
         vm.query = '';
         vm.loading = false;
         vm.search = search;
-
-        init(); 
+        vm.querySong = querySong;
+        
+        //init(); 
  
         function init() {
             var promises = [getSongList()];
@@ -33,11 +34,16 @@
             logger.info("Songs search..."+vm.query);
         }
 
-        function getSongList() {
+        function querySong() {
             vm.loading = true;
-            return songservice.querySongByName(vm.query).then(function(data) {
-                vm.songs = data.items;
+            return songservice.querySongByName(vm.query,vm.songs.length).then(function(data) {
+                //vm.songs = data.items;
+                angular.forEach(data.items, function(value, key) {
+                        vm.songs.push(value);
+                });
                 vm.loading = false;
+                $scope.$broadcast('scroll.infiniteScrollComplete');
+                
                 return vm.songs;
             });
         }

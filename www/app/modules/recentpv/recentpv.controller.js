@@ -5,9 +5,9 @@
         .module('app.recentpv')
         .controller('RecentPvController', RecentPvController);
 
-    RecentPvController.$inject = ['songservice','logger'];
+    RecentPvController.$inject = ['$scope','songservice','logger'];
 
-    function RecentPvController(songservice,logger) {
+    function RecentPvController($scope,songservice,logger) {
         
         logger.info('enter RecentPvController');
         
@@ -18,26 +18,29 @@
         vm.title = 'Recent PV';
         vm.query = '';
         vm.loading = false;
-        vm.search = search;
+        vm.queryRecentPv = queryRecentPv;
 
-        init(); 
+        //init(); 
  
         function init() {
-            var promises = [getSongList()];
+            var promises = [queryRecentPv()];
             return songservice.ready(promises).then(function(){
                 logger.info('Songs pv loaded');
             });
         }
         
-        function search() {
-            logger.info("Songs pv search..."+vm.query);
-        }
 
-        function getSongList() {
+        function queryRecentPv() {
             vm.loading = true;
-            return songservice.querySongByName(vm.query).then(function(data) {
-                vm.songs = data.items;
+            return songservice.querySongtByPV(vm.songs.length).then(function(data) {
+                
+                angular.forEach(data.items, function(value, key) {
+                        vm.songs.push(value);
+                });
+                //vm.songs = data.items;
                 vm.loading = false;
+                $scope.$broadcast('scroll.infiniteScrollComplete');
+                
                 return vm.songs;
             });
         }

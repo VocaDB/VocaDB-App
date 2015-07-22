@@ -6,11 +6,11 @@
         <button class="button button-icon icon ion-qr-scanner" ng-click="vm.scan()"></button>
         <label class="item-input-wrapper">
             <i ng-class="loading? 'icon placeholder-icon ion-loading-a' : 'icon placeholder-icon ion-ios7-search'" ></i>
-            <input type="search" placeholder="search"  ng-model="query" ng-change="vm.search()">
+            <input type="search" placeholder="search"  ng-model="vm.query" ng-change="vm.search()">
         </label>
     </ion-header-bar>
 
-    <ion-content class="stable-bg" has-bouncing="true" ng-init="search()">
+    <ion-content class="stable-bg" has-bouncing="true">
         <ion-list>
             <ion-item class="item-thumbnail-left" ng-click="vm.selectAlbum(album)"  ng-repeat="album in vm.albums" ng-href="#/menu/album/{{album.id}}">
                 <img ng-src="http://vocadb.net/Album/CoverPicture/{{album.id}}">
@@ -20,6 +20,6 @@
 
             </ion-item>
         </ion-list>
-        <!-- <ion-infinite-scroll icon="none"  on-infinite="loadMore()" distance="1%"></ion-infinite-scroll>  -->
+         <ion-infinite-scroll icon="none"  on-infinite="vm.queryAlbum()" distance="1%"></ion-infinite-scroll>  
     </ion-content>
 </ion-view>

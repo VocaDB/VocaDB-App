@@ -16,7 +16,7 @@
             <input type="text" placeholder="search"  ng-model="vm.query" ng-change="vm.search()">
         </label>
     </ion-header-bar>
-    <ion-content class="stable-bg" has-bouncing="true" >
+    <ion-content class="stable-bg" >
 
         <ion-list>
             <ion-item class="item-thumbnail-left" ng-repeat="song in vm.songs"  ng-href="#/menu/songs/{{song.id}}" >
@@ -25,6 +25,6 @@
                 <p>{{song.artistString}}</p>
             </ion-item>
         </ion-list>
-        <ion-infinite-scroll icon="none"  on-infinite="loadMore()" distance="1%"></ion-infinite-scroll> 
+        <ion-infinite-scroll icon="none"  on-infinite="vm.querySong()" distance="5%"></ion-infinite-scroll> 
     </ion-content>
 </ion-view>

@@ -5,9 +5,9 @@
         .module('app.allalbum')
         .controller('AllAlbumController', AllAlbumController);
 
-    AllAlbumController.$inject = ['albumservice','logger'];
+    AllAlbumController.$inject = ['$scope','albumservice','logger'];
 
-    function AllAlbumController(albumservice,logger) {
+    function AllAlbumController($scope,albumservice,logger) {
        
         /*jshint validthis: true */
         var vm = this;
@@ -16,20 +16,23 @@
         vm.albums = [];
         vm.scan = scan;
         vm.search = search;
+        vm.queryAlbum = queryAlbum;
         
-        init(); 
+//        init(); 
  
         function init() {
-            var promises = [getAllAlbum()];
+            var promises = [queryAlbum()];
             return albumservice.ready(promises).then(function(){
                 logger.info('Albums loaded');
             });
         }
 
-        function getAllAlbum() {
-            return albumservice.queryAlbum(vm.query).then(function(data) {
-                vm.albums = data.items;
-                return vm.albums;
+        function queryAlbum() {
+            albumservice.queryAlbum(vm.query,vm.albums.length).then(function(data) {
+                angular.forEach(data.items, function(value, key) {
+                        vm.albums.push(value);
+                });
+                $scope.$broadcast('scroll.infiniteScrollComplete');
             });
         }
         
@@ -38,7 +41,11 @@
         
         function search() {
             logger.info("Albums search..."+vm.query);
+            albumservice.queryAlbum(vm.query,0).then(function(data) {
+                vm.albums = data.items;
+            });
         }
+        
     }
 })();
     

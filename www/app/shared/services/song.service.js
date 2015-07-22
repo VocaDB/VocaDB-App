@@ -24,7 +24,7 @@
             getSongById: getSongById,
             getCommentList: getCommentList,
             querySongByName: querySongByName,
-            getSongListByPV: getSongListByPV,
+            querySongtByPV: querySongtByPV,
             querySongByTag: querySongByTag
         };
 
@@ -60,9 +60,8 @@
          * Gets a list of comments for a song.
          * Reference : http://vocadb.net/apiHelp/Api/GET-api-songs-songId-comments
          * @param {String} songId
-         * @param {Function} callback
          */
-        function getCommentList(songId, callback) {
+        function getCommentList(songId) {
         }
         ;
 
@@ -70,11 +69,12 @@
          * Gets a list of song names.
          * Reference : http://vocadb.net/apiHelp/Api/GET-api-songs-names_query_nameMatchMode_maxResults
          * @param {String} query
-         * @param {Function} callback
+         * @param {Number} start
          */
-        function querySongByName(query, callback) {
+        function querySongByName(query, start) {
             var parms = {
                 query: query,
+                start: start,
                 getTotalCount: false,
                 fields: 'ThumbUrl',
                 nameMatchMode: 'Auto'
@@ -96,14 +96,13 @@
 
         /*
          * Reference : http://vocadb.net/apiHelp/Api/GET-api-songs_pvService_pvId_fields_lang
-         * @param {String} query
-         * @param {Function} callback
+         * @param {Number} start
          */
-        function getSongListByPV(query) {
+        function querySongtByPV(start) {
             var parms = {
                 onlyWithPvs: true,
                 sort: 'AdditionDate',
-                start: 0,
+                start: start,
                 maxResults: 15,
                 fields: 'ThumbUrl'
             };
@@ -118,11 +117,10 @@
             function getSongListByPVComplete(data, status, headers, config) {
                 return data;
             }
-        }
-        ;
+        };
         
         
-        function querySongByTag(tag, callback) {
+        function querySongByTag(tag) {
             var parms = {
                 tag: tag,
                 getTotalCount: false,

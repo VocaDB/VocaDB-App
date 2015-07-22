@@ -38,9 +38,10 @@
          * @returns {promises}
          * @memberOf Factories.ArtistService
          */
-        function queryArtist(query) {
+        function queryArtist(query,start) {
             var parms = {
                 query: query,
+                start: start,
                 getTotalCount: false,
                 nameMatchMode: 'Auto'
             };
