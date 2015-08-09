@@ -13,18 +13,18 @@
         var vm = this;
         
         vm.query = "";
+        vm.enableScan = false;
         vm.albums = [];
         vm.scan = scan;
         vm.search = search;
         vm.queryAlbum = queryAlbum;
         
-//        init(); 
- 
         function init() {
-            var promises = [queryAlbum()];
-            return albumservice.ready(promises).then(function(){
-                logger.info('Albums loaded');
-            });
+            if(ionic.Platform.isWebView()()) {
+                vm.enableScan = true;
+            } else {
+                vm.enableScan = false;
+            }
         }
 
         function queryAlbum() {
@@ -36,12 +36,29 @@
             });
         }
         
-        function scan() {
-        }
-        
         function search() {
             logger.info("Albums search..."+vm.query);
             albumservice.queryAlbum(vm.query,0).then(function(data) {
+                vm.albums = data.items;
+            });
+        }
+        
+        function scan() {
+            if(ionic.Platform.isWebView()()) {
+                cordova.plugins.barcodeScanner.scan(scanCallback);
+            }
+        }
+        
+        function scanCallback(result) {
+            if (!result.cancelled) {
+                getAlbumByBarcode(result.text);
+            }
+        }
+        
+        function getAlbumByBarcode(barcode) {
+            logger.info("Barcode scan..."+barcode);
+            albumservice.getAlbumByBarcode(barcode).then(function(data) {
+                logger.info("barcode result : "+data);
                 vm.albums = data.items;
             });
         }

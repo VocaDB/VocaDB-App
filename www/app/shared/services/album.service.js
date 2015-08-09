@@ -45,6 +45,26 @@
             }
         }
         
+        function getAlbumByBarcode(barcode) {
+            var parms = {
+                barcode: barcode,
+                fields: 'artists,tags',
+                maxResults:25,
+                getTotalCount: false,
+                nameMatchMode: 'Auto'
+            };
+
+            return dataservice.callApi('/api/albums', parms)
+                    .then(getAlbumByBarcodeComplete)
+                    .catch(function (message) {
+                        exception.catcher('Call API Failed for getAlbumByBarcode')(message);
+                    });
+
+            function getAlbumByBarcodeComplete(data, status, headers, config) {
+                return data;
+            }
+        }
+        
         function getTracks(albumId) {
             var parms = {
                 Id: albumId
