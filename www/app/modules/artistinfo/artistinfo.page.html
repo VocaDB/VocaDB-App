@@ -6,7 +6,7 @@
                 <h2>{{vm.artist.defaultName}}</h2> 
                 <p>{{vm.artist.additionNames}}</p>
 
-                <p>{{vm.artist.vm.artistType}}</p>
+                <p>{{vm.artist.artistType}}</p>
             </ion-item>
             <ion-item class="item-text-wrap" ng-show="vm.artist.tags.length">
                 <a ng-href="#menu/tag/detail/{{tag.name}}" ng-repeat="tag in vm.artist.tags" class="dark" style="text-decoration: none; font-size:12px;">#{{tag.name}}&nbsp;&nbsp;</a>

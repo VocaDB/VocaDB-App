@@ -15,8 +15,8 @@
         vm.artists = [];
         vm.title = 'Artists';
         vm.query = '';
-        vm.scan = scan;
         vm.queryArtist = queryArtist;
+        vm.search = search;
 
         //init(); 
  
@@ -38,14 +38,10 @@
             });
         }
         
-        function scan() {
-            
-        }
-        
         function search() {
             logger.info("Artist search..."+vm.query);
             artistservice.queryArtist(vm.query,0).then(function(data) {
-                vm.albums = data.items;
+                vm.artists = data.items;
             });
         }
     }

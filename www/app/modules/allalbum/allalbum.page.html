@@ -5,7 +5,7 @@
     <ion-header-bar class="bar bar-light bar-subheader item-input-inset ">
         <button ng-show="vm.enableScan" class="button button-icon icon ion-qr-scanner" ng-click="vm.scan()"></button>
         <label class="item-input-wrapper">
-            <i ng-class="loading? 'icon placeholder-icon ion-loading-a' : 'icon placeholder-icon ion-ios7-search'" ></i>
+            <i ng-class="loading? 'icon placeholder-icon ion-loading-a' : 'icon placeholder-icon ion-ios-search'" ></i>
             <input type="search" placeholder="search"  ng-model="vm.query" ng-change="vm.search()">
         </label>
     </ion-header-bar>
@@ -13,10 +13,11 @@
     <ion-content class="stable-bg" has-bouncing="true">
         <ion-list>
             <ion-item class="item-thumbnail-left" ng-click="vm.selectAlbum(album)"  ng-repeat="album in vm.albums" ng-href="#/menu/album/{{album.id}}">
-                <img ng-src="http://vocadb.net/Album/CoverPicture/{{album.id}}">
+                <vc-image category="album" item-id="{{album.id}}"></vc-image>
 
                 <h2>{{album.defaultName}}</h2>
-                <p>{{album.artistString}}<br><span style="float:right;"><i class="icon ion-ios7-calendar-outline"></i> {{album.releaseDate.formatted}}</span>{{getDiscType(album.discType)}}</p>
+                <p>{{album.artistString}}<br><span style="float:right;"><i class="icon ion-ios-calendar-outline"></i> {{album.releaseDate.formatted}}</span>{{album.discType}}</p>
+                
 
             </ion-item>
         </ion-list>

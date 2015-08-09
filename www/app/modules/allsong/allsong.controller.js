@@ -32,6 +32,10 @@
         
         function search() {
             logger.info("Songs search..."+vm.query);
+            songservice.querySongByName(vm.query,0).then(function(data) {
+                vm.songs = data.items;
+                vm.loading = false;
+            });
         }
 
         function querySong() {
