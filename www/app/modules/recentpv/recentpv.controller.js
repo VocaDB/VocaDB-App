@@ -19,6 +19,7 @@
         vm.query = '';
         vm.loading = false;
         vm.queryRecentPv = queryRecentPv;
+        vm.getMomentFromNow = getMomentFromNow;
 
         //init(); 
  
@@ -43,6 +44,11 @@
                 
                 return vm.songs;
             });
+        }
+        
+        function getMomentFromNow(strDateTime) {
+            if(typeof strDateTime === 'undefined') return;
+            return  moment(strDateTime + "+03:00").fromNow();
         }
         
         

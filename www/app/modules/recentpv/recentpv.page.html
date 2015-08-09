@@ -8,6 +8,7 @@
                 <img ng-src="{{song.thumbUrl}}">
                 <h2>{{song.defaultName}}</h2>
                 <p>{{song.artistString}}</p>
+                <p>{{vm.getMomentFromNow(song.createDate)}}</p>
             </ion-item>
         </ion-list>
         <ion-infinite-scroll icon="none"  on-infinite="vm.queryRecentPv()" distance="1%"></ion-infinite-scroll> 
