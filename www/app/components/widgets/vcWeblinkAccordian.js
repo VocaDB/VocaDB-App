@@ -36,6 +36,16 @@
             $ionicScrollDelegate.resize();
         }
         
+        vm.open = function(url) {
+            if(ionic.Platform.isAndroid()) {
+                navigator.app.loadUrl(url, {openExternal: true});
+            }
+            else
+            {
+                window.open(url, '_system');
+            }
+        };
+        
         function getWeblinkIcon(domain) {
             if (domain.indexOf('nicovideo') >= 0)
                 return 'assets/img/niconico.png';

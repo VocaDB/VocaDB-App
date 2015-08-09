@@ -13,8 +13,13 @@
         var vm = this;
         
         vm.open = function(url) {
-            //navigator.app.loadUrl(url, {openExternal: true}); //for android
-            //window.open(url, '_system');
+            if(ionic.Platform.isAndroid()) {
+                navigator.app.loadUrl(url, {openExternal: true});
+            }
+            else
+            {
+                window.open(url, '_system');
+            }
         };
     }
 })();
