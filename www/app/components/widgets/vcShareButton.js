@@ -32,7 +32,20 @@
         vm.share = share;
         
         function share() {
-            alert("not implemented yet "+vm.id);
+            if(vm.category=="song") {
+                window.plugins.socialsharing.share(null, null, null, 'http://vocadb.net/S/' + vm.id);
+            }
+            
+            else if(vm.category=="artist") {
+                window.plugins.socialsharing.share(null, null, null, 'http://vocadb.net/Ar/' + vm.id);
+            }
+            
+            else if(vm.category=="album") {
+                window.plugins.socialsharing.share(null, null, null, 'http://vocadb.net/Al/' + vm.id);
+            }
+            else {
+                return false
+            }
         }
         
     }

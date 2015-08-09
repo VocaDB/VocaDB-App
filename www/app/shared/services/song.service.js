@@ -46,7 +46,7 @@
         function getSongById(songId) {
             var parms = {
                 Id: songId,
-                fields: 'ThumbUrl,Artists,PVs,Albums,Tags,Names'
+                fields: 'ThumbUrl,Artists,PVs,Albums,Tags,Names,Lyrics'
             };
             return dataservice.callApi('/api/songs/:Id', parms)
                     .then(getSongByIdComplete)

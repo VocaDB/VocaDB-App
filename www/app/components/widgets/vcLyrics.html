@@ -1,0 +1,28 @@
+<div class="list card" ng-show="vm.lyrics">
+   <div class="item item-divider">
+       <center>Lyrics</center>
+   </div>
+  <div side="left" class="item tabs">
+    <a ng-click="vm.chooseLang(vm.lang.japanese)" 
+       ng-show="vm.hasLang(vm.lang.japanese)" 
+       ng-class="vm.isSelect(vm.lang.japanese)? 'tab-item active' : 'tab-item'">
+      {{vm.lang.japanese}}
+    </a>
+    <a ng-click="vm.chooseLang(vm.lang.romaji)" 
+       ng-show="vm.hasLang(vm.lang.romaji)" 
+       ng-class="vm.isSelect(vm.lang.romaji)? 'tab-item active' : 'tab-item'" >
+      {{vm.lang.romaji}}
+    </a>
+    <a ng-click="vm.chooseLang(vm.lang.english)" 
+       ng-show="vm.hasLang(vm.lang.english)" 
+       ng-class="vm.isSelect(vm.lang.english)? 'tab-item active' : 'tab-item'" >
+      {{vm.lang.english}}
+    </a>
+  </div>
+    
+  <div class="item item-text-wrap item-body" ng-show="vm.lyric">
+      <p ng-bind-html="vm.lyric" ng-show="vm.lyric"></p>
+  </div>
+    
+    
+</div>

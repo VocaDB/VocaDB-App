@@ -20,8 +20,7 @@
         vm.accordian = [false, false, false];
         vm.toggle = toggle;
         vm.isShown = isShown;
-        vm.isFavorites = isFavorites;
-        vm.addFavorites = addFavorites;
+        vm.hasLyric = hasLyric;
 
         init(); 
  
@@ -51,11 +50,13 @@
             return vm.accordian[index];
         }
         
-        function isFavorites() {
-            return false;
-        }
-        
-        function addFavorites() {
+        function hasLyric() {
+            if(vm.song.lyrics) {
+                return (vm.song.lyrics.length) ? true : false;
+            }
+            else {
+                return false;
+            }
             
         }
     }

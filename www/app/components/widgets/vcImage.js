@@ -13,7 +13,7 @@
                 'url' : '@',
                 'itemId' : '@'
             },
-            template: '<img src="{{vm.getImage()}}" >',
+            template: '<img ng-src="{{vm.getImage()}}" >',
             controller: ImageController,
             controllerAs: 'vm',
             bindToController: true ,
@@ -34,7 +34,7 @@
         function getImage() {
             
             if(!vm.itemId && !vm.url) 
-                return;
+                return "";
             
             switch(vm.category) {
                 case "artist" :
@@ -43,6 +43,8 @@
                     return 'http://vocadb.net/Album/CoverPicture/' + vm.itemId;
                 case "song" :
                     return vm.url;
+                default : 
+                    return "";
             }
         }
     }
