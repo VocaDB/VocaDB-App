@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-            .module('app.allartist')
+            .module('app.alltag')
             .run(appRun)
             .config(configure);
 

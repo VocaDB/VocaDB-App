@@ -15,21 +15,19 @@
         vm.title = "#" + vm.tag;
         vm.tags = {songs: [], artists: [], albums: []};
         vm.querySongByTag = querySongByTag;
-        vm.queryArtistByTag = queryArtistByTag
+        vm.queryArtistByTag = queryArtistByTag;
         vm.queryAlbumByTag = queryAlbumByTag;
         
         init();
         
         function init() {
-            queryAlbumByTag();
+            querySongByTag();
             queryArtistByTag();
             queryAlbumByTag();
         }
         
-        
-        
         function querySongByTag() {
-            return songService.querySongByTag(vm.tag).then(function(data) {
+            return songservice.querySongByTag(vm.tag).then(function(data) {
                 vm.tags.songs = data.items;
                 $ionicScrollDelegate.resize();
                 return data;
@@ -51,7 +49,5 @@
                 return data;
             });
         }
-        
-
     }
 })();

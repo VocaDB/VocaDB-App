@@ -2,7 +2,10 @@
     <ion-tabs class="tabs-positive tabs-icon-top">
 
         <ion-tab title="Song" icon='ion-music-note' ng-show="vm.songs.length" >
-            
+            <!-- Fixed overlap header -->
+            <ion-header-bar>
+            </ion-header-bar>
+                        
             <ion-content>
                 <div ng-hide="vm.songs.length" >
                    <div class="card">
@@ -23,6 +26,11 @@
             </ion-content>
         </ion-tab>
         <ion-tab title="Artist" icon='ion-person' >
+            
+                       <!-- Fixed overlap header -->
+            <ion-header-bar>
+            </ion-header-bar>
+                       
             <ion-content>
                 <div ng-hide="vm.artists.length" >
                    <div class="card">
@@ -43,6 +51,11 @@
             </ion-content>
         </ion-tab>
         <ion-tab title="Album" icon='ion-disc' ng-show="vm.albums.length">
+            
+                       <!-- Fixed overlap header -->
+            <ion-header-bar>
+            </ion-header-bar>
+                       
             <ion-content>
                 <div ng-hide="vm.albums.length" >
                    <div class="card">

@@ -23,6 +23,7 @@
 
         var routeConfig = {
             url: "/favorites",
+            cache: false,
             views: {
                 'menuContent': {
                     templateUrl: "app/modules/favorites/favorites.page.html",

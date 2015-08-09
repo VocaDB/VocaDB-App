@@ -16,13 +16,13 @@
     function configure($stateProvider, $urlRouterProvider)
     {
         $stateProvider.state('menu.taginfo', getRoutes());
-
     }
 
     function getRoutes() {
 
         var routeConfig = {
             url: "/tag/detail/:Name",
+            cache: false,
             views: {
                 'menuContent': {
                     templateUrl: "app/modules/taginfo/taginfo.page.html",
