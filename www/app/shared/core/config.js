@@ -8,21 +8,24 @@
         appTitle: 'VocaDB App',
         version: '1.0.0'
     };
-    
-    configure.$inject = ['$logProvider', 'exceptionHandlerProvider'];
+
+    configure.$inject = ['$logProvider', 'exceptionHandlerProvider','$ionicConfigProvider'];
 
     core.value('config', config);
 
     core.config(configure);
-    
-    
+
+
 
     /* @ngInject */
-    function configure ($logProvider, exceptionHandlerProvider) {
+    function configure ($logProvider, exceptionHandlerProvider, $ionicConfigProvider) {
         // turn debugging off/on (no info or warn)
         if ($logProvider.debugEnabled) {
             $logProvider.debugEnabled(true);
         }
+
+        $ionicConfigProvider.tabs.position('bottom');
+        $ionicConfigProvider.navBar.alignTitle('center');
 
         // Configure the common route provider
 //        routehelperConfigProvider.config.$routeProvider = $routeProvider;
