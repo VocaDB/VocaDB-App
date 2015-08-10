@@ -1,7 +1,9 @@
+var cordova = require('cordova');
+
 function SocialSharing() {
 }
 
-// Override this method to set the location where you want the iPad popup arrow to appear.
+// Override this method (after deviceready) to set the location where you want the iPad popup arrow to appear.
 // If not overridden with different values, the popup is not used. Example:
 //
 //   window.plugins.socialsharing.iPadPopupCoordinates = function() {
@@ -10,6 +12,11 @@ function SocialSharing() {
 SocialSharing.prototype.iPadPopupCoordinates = function () {
   // left,top,width,height
   return "-1,-1,-1,-1";
+};
+
+SocialSharing.prototype.setIPadPopupCoordinates = function (coords) {
+  // left,top,width,height
+  cordova.exec(function() {}, this._getErrorCallback(function() {}, "setIPadPopupCoordinates"), "SocialSharing", "setIPadPopupCoordinates", [coords]);
 };
 
 SocialSharing.prototype.available = function (callback) {
@@ -36,12 +43,21 @@ SocialSharing.prototype.shareViaFacebook = function (message, fileOrFileArray, u
   cordova.exec(successCallback, this._getErrorCallback(errorCallback, "shareViaFacebook"), "SocialSharing", "shareViaFacebook", [message, null, this._asArray(fileOrFileArray), url]);
 };
 
+SocialSharing.prototype.shareViaFacebookWithPasteMessageHint = function (message, fileOrFileArray, url, pasteMessageHint, successCallback, errorCallback) {
+  pasteMessageHint = pasteMessageHint || "If you like you can paste a message from your clipboard";
+  cordova.exec(successCallback, this._getErrorCallback(errorCallback, "shareViaFacebookWithPasteMessageHint"), "SocialSharing", "shareViaFacebookWithPasteMessageHint", [message, null, this._asArray(fileOrFileArray), url, pasteMessageHint]);
+};
+
 SocialSharing.prototype.shareViaWhatsApp = function (message, fileOrFileArray, url, successCallback, errorCallback) {
   cordova.exec(successCallback, this._getErrorCallback(errorCallback, "shareViaWhatsApp"), "SocialSharing", "shareViaWhatsApp", [message, null, this._asArray(fileOrFileArray), url]);
 };
 
-SocialSharing.prototype.shareViaSMS = function (message, phonenumbers, successCallback, errorCallback) {
-  cordova.exec(successCallback, this._getErrorCallback(errorCallback, "shareViaSMS"), "SocialSharing", "shareViaSMS", [message, phonenumbers]);
+SocialSharing.prototype.shareViaSMS = function (options, phonenumbers, successCallback, errorCallback) {
+  var opts = options;
+  if (typeof options == "string") {
+    opts = {"message":options}; // for backward compatibility as the options param used to be the message
+  }
+  cordova.exec(successCallback, this._getErrorCallback(errorCallback, "shareViaSMS"), "SocialSharing", "shareViaSMS", [opts, phonenumbers]);
 };
 
 SocialSharing.prototype.shareViaEmail = function (message, subject, toArray, ccArray, bccArray, fileOrFileArray, successCallback, errorCallback) {
@@ -58,6 +74,10 @@ SocialSharing.prototype.canShareViaEmail = function (successCallback, errorCallb
 
 SocialSharing.prototype.shareVia = function (via, message, subject, fileOrFileArray, url, successCallback, errorCallback) {
   cordova.exec(successCallback, this._getErrorCallback(errorCallback, "shareVia"), "SocialSharing", "shareVia", [message, subject, this._asArray(fileOrFileArray), url, via]);
+};
+
+SocialSharing.prototype.saveToPhotoAlbum = function (fileOrFileArray, successCallback, errorCallback) {
+  cordova.exec(successCallback, this._getErrorCallback(errorCallback, "saveToPhotoAlbum"), "SocialSharing", "saveToPhotoAlbum", [this._asArray(fileOrFileArray)]);
 };
 
 SocialSharing.prototype._asArray = function (param) {

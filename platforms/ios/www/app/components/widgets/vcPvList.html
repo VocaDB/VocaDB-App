@@ -1,0 +1,7 @@
+  <div class="list card" ng-show="vm.items.length">
+        <ion-item class="item item-avatar item-text-wrap" ng-repeat="pv in vm.items" ng-click="open(pv.url)">
+            <img ng-src="{{vm.getMediaIcon(pv.service)}}">
+            <h2>{{pv[vm.title]}}</h2>
+            <p>{{pv[vm.subtitle]}}</p>
+        </ion-item>
+    </div>

@@ -8,27 +8,37 @@
 
 @implementation SocialSharing {
   UIPopoverController *_popover;
+  NSString *_popupCoordinates;
+}
+
+- (void)pluginInitialize {
+  if ([self isEmailAvailable]) {
+    [self cycleTheGlobalMailComposer];
+  }
 }
 
 - (void)available:(CDVInvokedUrlCommand*)command {
-  NSString *callbackId = command.callbackId;
-  
-  BOOL avail = false;
+  BOOL avail = NO;
   if (NSClassFromString(@"UIActivityViewController")) {
-    avail = true;
+    avail = YES;
   }
-  
   CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsInt:avail];
-  [self writeJavascript:[pluginResult toSuccessCallbackString:callbackId]];
+  [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
 - (NSString*)getIPadPopupCoordinates {
+  if (_popupCoordinates != nil) {
+    return _popupCoordinates;
+  }
   return [self.webView stringByEvaluatingJavaScriptFromString:@"window.plugins.socialsharing.iPadPopupCoordinates();"];
 }
 
-- (CGRect)getPopupRectFromIPadPopupCoordinates {
+- (void)setIPadPopupCoordinates:(CDVInvokedUrlCommand*)command {
+  _popupCoordinates  = [command.arguments objectAtIndex:0];
+}
+
+- (CGRect)getPopupRectFromIPadPopupCoordinates:(NSArray*)comps {
   CGRect rect = CGRectZero;
-  NSArray *comps = [[self getIPadPopupCoordinates] componentsSeparatedByString:@","];
   if ([comps count] == 4) {
     rect = CGRectMake([[comps objectAtIndex:0] integerValue], [[comps objectAtIndex:1] integerValue], [[comps objectAtIndex:2] integerValue], [[comps objectAtIndex:3] integerValue]);
   }
@@ -39,7 +49,7 @@
   
   if (!NSClassFromString(@"UIActivityViewController")) {
     CDVPluginResult * pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"not available"];
-    [self writeJavascript:[pluginResult toErrorCallbackString:command.callbackId]];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
     return;
   }
   
@@ -50,18 +60,20 @@
   
   NSMutableArray *activityItems = [[NSMutableArray alloc] init];
   [activityItems addObject:message];
-
+  
   NSMutableArray *files = [[NSMutableArray alloc] init];
-  for (NSString* filename in filenames) {
-    NSObject *file = [self getImage:filename];
-    if (file == nil) {
-      file = [self getFile:filename];
+  if (filenames != (id)[NSNull null] && filenames.count > 0) {
+    for (NSString* filename in filenames) {
+      NSObject *file = [self getImage:filename];
+      if (file == nil) {
+        file = [self getFile:filename];
+      }
+      if (file != nil) {
+        [files addObject:file];
+      }
     }
-    if (file != nil) {
-      [files addObject:file];
-    }
+    [activityItems addObjectsFromArray:files];
   }
-  [activityItems addObjectsFromArray:files];
   
   if (urlString != (id)[NSNull null]) {
     [activityItems addObject:[NSURL URLWithString:urlString]];
@@ -77,22 +89,46 @@
   [activityVC setCompletionHandler:^(NSString *activityType, BOOL completed) {
     [self cleanupStoredFiles];
     CDVPluginResult * pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:completed];
-    [self writeJavascript:[pluginResult toSuccessCallbackString:command.callbackId]];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
   }];
-  
-  // possible future addition: exclude some share targets.. if building locally you may uncomment these lines
-  //    NSArray * excludeActivities = @[UIActivityTypeAssignToContact, UIActivityTypeCopyToPasteboard];
-  //    activityVC.excludedActivityTypes = excludeActivities;
-  
-  if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad && ![[self getIPadPopupCoordinates] isEqual:@"-1,-1,-1,-1"]) {
-    CGRect rect = [self getPopupRectFromIPadPopupCoordinates];
-    _popover = [[UIPopoverController alloc] initWithContentViewController:activityVC];
-    _popover.delegate = self;
-    [_popover presentPopoverFromRect:rect inView:self.webView permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-  } else {
-    [self.viewController presentViewController:activityVC animated:YES completion:nil];
+
+   NSArray * socialSharingExcludeActivities = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"SocialSharingExcludeActivities"];
+   if (socialSharingExcludeActivities!=nil && [socialSharingExcludeActivities count] > 0) {
+       activityVC.excludedActivityTypes = socialSharingExcludeActivities;
+   }
+
+  // iPad on iOS >= 8 needs a different approach
+  if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
+    NSString* iPadCoords = [self getIPadPopupCoordinates];
+    if (iPadCoords != nil && ![iPadCoords isEqual:@"-1,-1,-1,-1"]) {
+      NSArray *comps = [iPadCoords componentsSeparatedByString:@","];
+      CGRect rect = [self getPopupRectFromIPadPopupCoordinates:comps];
+      if ([activityVC respondsToSelector:@selector(popoverPresentationController)]) {
+        #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 80000 // iOS 8.0 supported
+          activityVC.popoverPresentationController.sourceView = self.webView;
+          activityVC.popoverPresentationController.sourceRect = rect;
+        #endif
+      } else {
+        _popover = [[UIPopoverController alloc] initWithContentViewController:activityVC];
+        _popover.delegate = self;
+        [_popover presentPopoverFromRect:rect inView:self.webView permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+      }
+    } else if ([activityVC respondsToSelector:@selector(popoverPresentationController)]) {
+      #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 80000 // iOS 8.0 supported
+        activityVC.popoverPresentationController.sourceView = self.webView;
+        // position the popup at the bottom, just like iOS < 8 did (and iPhone still does on iOS 8)
+        NSArray *comps = [NSArray arrayWithObjects:
+            [NSNumber numberWithInt:(self.viewController.view.frame.size.width/2)-200],
+            [NSNumber numberWithInt:self.viewController.view.frame.size.height],
+            [NSNumber numberWithInt:400],
+            [NSNumber numberWithInt:400],
+            nil];
+        CGRect rect = [self getPopupRectFromIPadPopupCoordinates:comps];
+        activityVC.popoverPresentationController.sourceRect = rect;
+      #endif
+    }
   }
-  
+  [self.viewController presentViewController:activityVC animated:YES completion:nil];
 }
 
 - (void)shareViaTwitter:(CDVInvokedUrlCommand*)command {
@@ -103,37 +139,56 @@
   [self shareViaInternal:command type:SLServiceTypeFacebook];
 }
 
+- (void)shareViaFacebookWithPasteMessageHint:(CDVInvokedUrlCommand*)command {
+  // If Fb app is installed a message is not prefilled.
+  // When shared through the default iOS widget (iOS Settings > Facebook) the message is prefilled already.
+  NSString *message = [command.arguments objectAtIndex:0];
+  if (message != (id)[NSNull null]) {
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1000 * NSEC_PER_MSEC), dispatch_get_main_queue(), ^{
+      BOOL fbAppInstalled = [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"fb://"]];
+      if (fbAppInstalled) {
+        UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+        [pasteboard setValue:message forPasteboardType:@"public.text"];
+        NSString *hint = [command.arguments objectAtIndex:4];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:hint delegate:nil cancelButtonTitle:nil otherButtonTitles:nil];
+        [alert show];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 2800 * NSEC_PER_MSEC), dispatch_get_main_queue(), ^{
+          [alert dismissWithClickedButtonIndex:-1 animated:YES];
+        });
+      }
+    });
+  }
+  [self shareViaInternal:command type:SLServiceTypeFacebook];
+}
+
 - (void)shareVia:(CDVInvokedUrlCommand*)command {
   [self shareViaInternal:command type:[command.arguments objectAtIndex:4]];
 }
 
 - (void)canShareVia:(CDVInvokedUrlCommand*)command {
   NSString *via = [command.arguments objectAtIndex:4];
+  CDVPluginResult * pluginResult;
   if ([@"sms" caseInsensitiveCompare:via] == NSOrderedSame && [self canShareViaSMS]) {
-    CDVPluginResult * pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-    [self writeJavascript:[pluginResult toSuccessCallbackString:command.callbackId]];
+    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
   } else if ([@"email" caseInsensitiveCompare:via] == NSOrderedSame && [self isEmailAvailable]) {
-    CDVPluginResult * pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-    [self writeJavascript:[pluginResult toSuccessCallbackString:command.callbackId]];
+    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
   } else if ([@"whatsapp" caseInsensitiveCompare:via] == NSOrderedSame && [self canShareViaWhatsApp]) {
-    CDVPluginResult * pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-    [self writeJavascript:[pluginResult toSuccessCallbackString:command.callbackId]];
+    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
   } else if ([self isAvailableForSharing:command type:via]) {
-    CDVPluginResult * pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-    [self writeJavascript:[pluginResult toSuccessCallbackString:command.callbackId]];
+    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
   } else {
-    CDVPluginResult * pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"not available"];
-    [self writeJavascript:[pluginResult toErrorCallbackString:command.callbackId]];
+    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"not available"];
   }
+  [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
 - (void)canShareViaEmail:(CDVInvokedUrlCommand*)command {
   if ([self isEmailAvailable]) {
     CDVPluginResult * pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-    [self writeJavascript:[pluginResult toSuccessCallbackString:command.callbackId]];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
   } else {
     CDVPluginResult * pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"not available"];
-    [self writeJavascript:[pluginResult toErrorCallbackString:command.callbackId]];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
   }
 }
 
@@ -144,6 +199,14 @@
 
 - (bool)isAvailableForSharing:(CDVInvokedUrlCommand*)command
                          type:(NSString *) type {
+  // isAvailableForServiceType returns true if you pass it a type that is not
+  // in the defined constants, this is probably a bug on apples part
+  if(!([type isEqualToString:SLServiceTypeFacebook]
+       || [type isEqualToString:SLServiceTypeTwitter]
+       || [type isEqualToString:SLServiceTypeTencentWeibo]
+       || [type isEqualToString:SLServiceTypeSinaWeibo])) {
+    return false;
+  }
   // wrapped in try-catch, because isAvailableForServiceType may crash if an invalid type is passed
   @try {
     return [SLComposeViewController isAvailableForServiceType:type];
@@ -163,7 +226,9 @@
   
   // boldly invoke the target app, because the phone will display a nice message asking to configure the app
   SLComposeViewController *composeViewController = [SLComposeViewController composeViewControllerForServiceType:type];
-  [composeViewController setInitialText:message];
+  if (message != (id)[NSNull null]) {
+    [composeViewController setInitialText:message];
+  }
   
   for (NSString* filename in filenames) {
     UIImage* image = [self getImage:filename];
@@ -175,47 +240,60 @@
   if (urlString != (id)[NSNull null]) {
     [composeViewController addURL:[NSURL URLWithString:urlString]];
   }
-  [self.viewController presentViewController:composeViewController animated:YES completion:nil];
-  
+
   [composeViewController setCompletionHandler:^(SLComposeViewControllerResult result) {
-    // now check for availability of the app and invoke the correct callback
-    if ([self isAvailableForSharing:command type:type]) {
+    if (SLComposeViewControllerResultCancelled == result) {
+      CDVPluginResult * pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"cancelled"];
+      [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+    } else if ([self isAvailableForSharing:command type:type]) {
       CDVPluginResult * pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:SLComposeViewControllerResultDone == result];
-      [self writeJavascript:[pluginResult toSuccessCallbackString:command.callbackId]];
+      [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
     } else {
       CDVPluginResult * pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"not available"];
-      [self writeJavascript:[pluginResult toErrorCallbackString:command.callbackId]];
-      // required for iOS6 when sharing via Twitter and no account has been setup [#162]
-      [self.viewController dismissViewControllerAnimated:YES completion:nil];
+      [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
     }
+    // required for iOS6 (issues #162 and #167)
+    [self.viewController dismissViewControllerAnimated:YES completion:nil];
   }];
+
+  [self.viewController presentViewController:composeViewController animated:YES completion:nil];
 }
 
 - (void)shareViaEmail:(CDVInvokedUrlCommand*)command {
   if ([self isEmailAvailable]) {
-    MFMailComposeViewController* draft = [[MFMailComposeViewController alloc] init];
-    draft.mailComposeDelegate = self;
+    
+    if (TARGET_IPHONE_SIMULATOR && IsAtLeastiOSVersion(@"8.0")) {
+      UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"SocialSharing plugin"
+                                                      message:@"Sharing via email is not supported on the iOS 8 simulator."
+                                                     delegate:nil
+                                            cancelButtonTitle:@"OK"
+                                            otherButtonTitles:nil];
+      [alert show];
+      return;
+    }
+    
+    self.globalMailComposer.mailComposeDelegate = self;
     
     if ([command.arguments objectAtIndex:0] != (id)[NSNull null]) {
       NSString *message = [command.arguments objectAtIndex:0];
       BOOL isHTML = [message rangeOfString:@"<[^>]+>" options:NSRegularExpressionSearch].location != NSNotFound;
-      [draft setMessageBody:message isHTML:isHTML];
+      [self.globalMailComposer setMessageBody:message isHTML:isHTML];
     }
     
     if ([command.arguments objectAtIndex:1] != (id)[NSNull null]) {
-      [draft setSubject: [command.arguments objectAtIndex:1]];
+      [self.globalMailComposer setSubject: [command.arguments objectAtIndex:1]];
     }
     
     if ([command.arguments objectAtIndex:2] != (id)[NSNull null]) {
-      [draft setToRecipients:[command.arguments objectAtIndex:2]];
+      [self.globalMailComposer setToRecipients:[command.arguments objectAtIndex:2]];
     }
     
     if ([command.arguments objectAtIndex:3] != (id)[NSNull null]) {
-      [draft setCcRecipients:[command.arguments objectAtIndex:3]];
+      [self.globalMailComposer setCcRecipients:[command.arguments objectAtIndex:3]];
     }
     
     if ([command.arguments objectAtIndex:4] != (id)[NSNull null]) {
-      [draft setBccRecipients:[command.arguments objectAtIndex:4]];
+      [self.globalMailComposer setBccRecipients:[command.arguments objectAtIndex:4]];
     }
     
     if ([command.arguments objectAtIndex:5] != (id)[NSNull null]) {
@@ -225,24 +303,34 @@
         NSURL *file = [self getFile:path];
         NSData* data = [fileManager contentsAtPath:file.path];
         
+        NSString* fileName;
+        NSString* mimeType;
         NSString* basename = [self getBasenameFromAttachmentPath:path];
-        NSString* fileName = [basename pathComponents].lastObject;
-        NSString* mimeType = [self getMimeTypeFromFileExtension:[basename pathExtension]];
-        
-        [draft addAttachmentData:data mimeType:mimeType fileName:fileName];
+
+        if ([basename hasPrefix:@"data:"]) {
+          mimeType = (NSString*)[[[basename substringFromIndex:5] componentsSeparatedByString: @";"] objectAtIndex:0];
+          fileName = @"attachment.";
+          fileName = [fileName stringByAppendingString:(NSString*)[[mimeType componentsSeparatedByString: @"/"] lastObject]];
+          NSString *base64content = (NSString*)[[basename componentsSeparatedByString: @","] lastObject];
+          data = [SocialSharing dataFromBase64String:base64content];
+        } else {
+          fileName = [basename pathComponents].lastObject;
+          mimeType = [self getMimeTypeFromFileExtension:[basename pathExtension]];
+        }
+        [self.globalMailComposer addAttachmentData:data mimeType:mimeType fileName:fileName];
       }
     }
     
     // remember the command, because we need it in the didFinishWithResult method
     _command = command;
-    
+
     [self.commandDelegate runInBackground:^{
-      [self.viewController presentViewController:draft animated:YES completion:NULL];
+      [self.viewController presentViewController:self.globalMailComposer animated:YES completion:nil];
     }];
     
   } else {
     CDVPluginResult * pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"not available"];
-    [self writeJavascript:[pluginResult toErrorCallbackString:command.callbackId]];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
   }
 }
 
@@ -262,7 +350,10 @@
   CFStringRef ext = (CFStringRef)CFBridgingRetain(extension);
   CFStringRef type = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, ext, NULL);
   // Converting UTI to a mime type
-  return (NSString*)CFBridgingRelease(UTTypeCopyPreferredTagWithClass(type, kUTTagClassMIMEType));
+  NSString *result = (NSString*)CFBridgingRelease(UTTypeCopyPreferredTagWithClass(type, kUTTagClassMIMEType));
+  CFRelease(ext);
+  CFRelease(type);
+  return result;
 }
 
 /**
@@ -273,9 +364,15 @@
            didFinishWithResult:(MFMailComposeResult)result
                          error:(NSError*)error {
   bool ok = result == MFMailComposeResultSent;
-  [self.viewController dismissViewControllerAnimated:YES completion:nil];
+  [self.globalMailComposer dismissViewControllerAnimated:YES completion:^{[self cycleTheGlobalMailComposer];}];
   CDVPluginResult * pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:ok];
-  [self writeJavascript:[pluginResult toSuccessCallbackString:_command.callbackId]];
+  [self.commandDelegate sendPluginResult:pluginResult callbackId:_command.callbackId];
+}
+
+-(void)cycleTheGlobalMailComposer {
+  // we are cycling the damned GlobalMailComposer: http://stackoverflow.com/questions/25604552/i-have-real-misunderstanding-with-mfmailcomposeviewcontroller-in-swift-ios8-in/25604976#25604976
+  self.globalMailComposer = nil;
+  self.globalMailComposer = [[MFMailComposeViewController alloc] init];
 }
 
 - (bool)canShareViaSMS {
@@ -285,22 +382,30 @@
 
 - (void)shareViaSMS:(CDVInvokedUrlCommand*)command {
   if ([self canShareViaSMS]) {
+    NSDictionary* options = [command.arguments objectAtIndex:0];
+    NSString *phonenumbers = [command.arguments objectAtIndex:1];
+    NSString *message = [options objectForKey:@"message"];
+    NSString *subject = [options objectForKey:@"subject"];
+    NSString *image = [options objectForKey:@"image"];
+    
     MFMessageComposeViewController *picker = [[MFMessageComposeViewController alloc] init];
     picker.messageComposeDelegate = (id) self;
-    picker.body = [command.arguments objectAtIndex:0];
+    if (message != (id)[NSNull null]) {
+      picker.body = message;
+    }
+    if (subject != (id)[NSNull null]) {
+      [picker setSubject:subject];
+    }
+    if (image != nil && image != (id)[NSNull null]) {
+      BOOL canSendAttachments = [[MFMessageComposeViewController class] respondsToSelector:@selector(canSendAttachments)];
+      if (canSendAttachments) {
+        NSURL *file = [self getFile:image];
+        if (file != nil) {
+          [picker addAttachmentURL:file withAlternateFilename:nil];
+        }
+      }
+    }
     
-    // TODO this needs work
-    /*
-     BOOL canSendAttachments = [[MFMessageComposeViewController class] respondsToSelector:@selector(canSendAttachments)];
-     if (canSendAttachments) {
-     //        NSURL *theurl = [NSURL URLWithString:@"https://www.google.nl/images/srpr/logo4w.png"];
-     NSURL *theurl = [NSURL URLWithString:@"www/img/logo.png"];
-     BOOL attached = [picker addAttachmentURL:theurl withAlternateFilename:nil];
-     //        NSArray *arr = picker.attachments;
-     }
-     */
-    
-    NSString *phonenumbers = [command.arguments objectAtIndex:1];
     if (phonenumbers != (id)[NSNull null]) {
       [picker setRecipients:[phonenumbers componentsSeparatedByString:@","]];
     }
@@ -311,7 +416,7 @@
     }];
   } else {
     CDVPluginResult * pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"not available"];
-    [self writeJavascript:[pluginResult toErrorCallbackString:command.callbackId]];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
   }
 }
 
@@ -320,7 +425,7 @@
   bool ok = result == MessageComposeResultSent;
   [self.viewController dismissViewControllerAnimated:YES completion:nil];
   CDVPluginResult * pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:ok];
-  [self writeJavascript:[pluginResult toSuccessCallbackString:_command.callbackId]];
+  [self.commandDelegate sendPluginResult:pluginResult callbackId:_command.callbackId];
 }
 
 - (bool)canShareViaWhatsApp {
@@ -383,11 +488,42 @@
       [[UIApplication sharedApplication] openURL: whatsappURL];
     }
     CDVPluginResult * pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-    [self writeJavascript:[pluginResult toSuccessCallbackString:command.callbackId]];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
     
   } else {
     CDVPluginResult * pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"not available"];
-    [self writeJavascript:[pluginResult toErrorCallbackString:command.callbackId]];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+  }
+}
+
+- (void)saveToPhotoAlbum:(CDVInvokedUrlCommand*)command {
+  self.command = command;
+  NSArray *filenames = [command.arguments objectAtIndex:0];
+  [self.commandDelegate runInBackground:^{
+    bool shared = false;
+    for (NSString* filename in filenames) {
+      UIImage* image = [self getImage:filename];
+      if (image != nil) {
+        shared = true;
+        UIImageWriteToSavedPhotosAlbum(image, self, @selector(thisImage:wasSavedToPhotoAlbumWithError:contextInfo:), nil);
+      }
+    }
+    if (!shared) {
+      CDVPluginResult * pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"no valid image was passed"];
+      [self.commandDelegate sendPluginResult:pluginResult callbackId:self.command.callbackId];
+    }
+  }];
+}
+
+// called from saveToPhotoAlbum, note that we only send feedback for the first image that's being saved (not keeping the callback)
+// but since the UIImageWriteToSavedPhotosAlbum function is only called with valid images that should not be a problem
+- (void)thisImage:(UIImage *)image wasSavedToPhotoAlbumWithError:(NSError *)error contextInfo:(void*)ctxInfo {
+  if (error) {
+    CDVPluginResult * pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:error.localizedDescription];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:self.command.callbackId];
+  } else {
+    CDVPluginResult * pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:self.command.callbackId];
   }
 }
 
@@ -402,6 +538,11 @@
       image = [UIImage imageWithData:[NSData dataWithContentsOfFile:[[NSURL URLWithString:imageName] path]]];
     } else if ([imageName hasPrefix:@"data:"]) {
       // using a base64 encoded string
+      NSURL *imageURL = [NSURL URLWithString:imageName];
+      NSData *imageData = [NSData dataWithContentsOfURL:imageURL];
+      image = [UIImage imageWithData:imageData];
+    } else if ([imageName hasPrefix:@"assets-library://"]) {
+      // use assets-library
       NSURL *imageURL = [NSURL URLWithString:imageName];
       NSData *imageData = [NSData dataWithContentsOfURL:imageURL];
       image = [UIImage imageWithData:imageData];
@@ -433,7 +574,7 @@
       NSString *fileType = (NSString*)[[[fileName substringFromIndex:5] componentsSeparatedByString: @";"] objectAtIndex:0];
       fileType = (NSString*)[[fileType componentsSeparatedByString: @"/"] lastObject];
       NSString *base64content = (NSString*)[[fileName componentsSeparatedByString: @","] lastObject];
-      NSData *fileData = [NSData dataFromBase64String:base64content];
+      NSData *fileData = [SocialSharing dataFromBase64String:base64content];
       file = [NSURL fileURLWithPath:[self storeInFile:[NSString stringWithFormat:@"%@.%@", @"file", fileType] fileData:fileData]];
     } else {
       // assume anywhere else, on the local filesystem
@@ -460,10 +601,17 @@
   }
 }
 
++ (NSData*) dataFromBase64String:(NSString*)aString {
+  size_t outputLength = 0;
+  void* outputBuffer = CDVNewBase64Decode([aString UTF8String], [aString length], &outputLength);
+  return [NSData dataWithBytesNoCopy:outputBuffer length:outputLength freeWhenDone:YES];
+}
+
 #pragma mark - UIPopoverControllerDelegate methods
 
 - (void)popoverController:(UIPopoverController *)popoverController willRepositionPopoverToRect:(inout CGRect *)rect inView:(inout UIView **)view {
-  CGRect newRect = [self getPopupRectFromIPadPopupCoordinates];
+  NSArray *comps = [[self getIPadPopupCoordinates] componentsSeparatedByString:@","];
+  CGRect newRect = [self getPopupRectFromIPadPopupCoordinates:comps];
   rect->origin = newRect.origin;
 }
 

@@ -1,25 +1,82 @@
 cordova.define('cordova/plugin_list', function(require, exports, module) {
 module.exports = [
     {
-        "file": "plugins/com.phonegap.plugins.barcodescanner/www/barcodescanner.js",
-        "id": "com.phonegap.plugins.barcodescanner.BarcodeScanner",
+        "file": "plugins/cordova-plugin-camera/www/CameraConstants.js",
+        "id": "cordova-plugin-camera.Camera",
         "clobbers": [
-            "cordova.plugins.barcodeScanner"
+            "Camera"
         ]
     },
     {
-        "file": "plugins/org.apache.cordova.network-information/www/network.js",
-        "id": "org.apache.cordova.network-information.network",
+        "file": "plugins/cordova-plugin-camera/www/CameraPopoverOptions.js",
+        "id": "cordova-plugin-camera.CameraPopoverOptions",
+        "clobbers": [
+            "CameraPopoverOptions"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-camera/www/Camera.js",
+        "id": "cordova-plugin-camera.camera",
+        "clobbers": [
+            "navigator.camera"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-camera/www/ios/CameraPopoverHandle.js",
+        "id": "cordova-plugin-camera.CameraPopoverHandle",
+        "clobbers": [
+            "CameraPopoverHandle"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-console/www/logger.js",
+        "id": "cordova-plugin-console.logger",
+        "clobbers": [
+            "cordova.logger"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-console/www/console-via-logger.js",
+        "id": "cordova-plugin-console.console",
+        "clobbers": [
+            "console"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-device/www/device.js",
+        "id": "cordova-plugin-device.device",
+        "clobbers": [
+            "device"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-inappbrowser/www/inappbrowser.js",
+        "id": "cordova-plugin-inappbrowser.inappbrowser",
+        "clobbers": [
+            "cordova.InAppBrowser.open",
+            "window.open"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-network-information/www/network.js",
+        "id": "cordova-plugin-network-information.network",
         "clobbers": [
             "navigator.connection",
             "navigator.network.connection"
         ]
     },
     {
-        "file": "plugins/org.apache.cordova.network-information/www/Connection.js",
-        "id": "org.apache.cordova.network-information.Connection",
+        "file": "plugins/cordova-plugin-network-information/www/Connection.js",
+        "id": "cordova-plugin-network-information.Connection",
         "clobbers": [
             "Connection"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-splashscreen/www/splashscreen.js",
+        "id": "cordova-plugin-splashscreen.SplashScreen",
+        "clobbers": [
+            "navigator.splashscreen"
         ]
     },
     {
@@ -30,36 +87,25 @@ module.exports = [
         ]
     },
     {
-        "file": "plugins/org.apache.cordova.inappbrowser/www/inappbrowser.js",
-        "id": "org.apache.cordova.inappbrowser.inappbrowser",
+        "file": "plugins/phonegap-plugin-barcodescanner/www/barcodescanner.js",
+        "id": "phonegap-plugin-barcodescanner.BarcodeScanner",
         "clobbers": [
-            "window.open"
-        ]
-    },
-    {
-        "file": "plugins/org.apache.cordova.device/www/device.js",
-        "id": "org.apache.cordova.device.device",
-        "clobbers": [
-            "device"
-        ]
-    },
-    {
-        "file": "plugins/org.apache.cordova.statusbar/www/statusbar.js",
-        "id": "org.apache.cordova.statusbar.statusbar",
-        "clobbers": [
-            "window.StatusBar"
+            "cordova.plugins.barcodeScanner"
         ]
     }
 ];
 module.exports.metadata = 
 // TOP OF METADATA
 {
-    "com.phonegap.plugins.barcodescanner": "1.0.1",
-    "org.apache.cordova.network-information": "0.2.11-dev",
-    "nl.x-services.plugins.socialsharing": "4.3.2",
-    "org.apache.cordova.inappbrowser": "0.5.0",
-    "org.apache.cordova.device": "0.2.10",
-    "org.apache.cordova.statusbar": "0.1.6"
+    "cordova-plugin-camera": "1.2.0",
+    "cordova-plugin-console": "1.0.1",
+    "cordova-plugin-device": "1.0.1",
+    "cordova-plugin-inappbrowser": "1.0.1",
+    "cordova-plugin-network-information": "1.0.1",
+    "cordova-plugin-splashscreen": "2.1.0",
+    "cordova-plugin-whitelist": "1.0.0",
+    "nl.x-services.plugins.socialsharing": "4.3.19",
+    "phonegap-plugin-barcodescanner": "4.0.1"
 }
 // BOTTOM OF METADATA
 });

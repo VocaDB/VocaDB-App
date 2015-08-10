@@ -223,6 +223,9 @@ made subject to such option by the copyright holder.
     </target>
 
     <target name="ios-run-simulator" unless="build.for.device">
+        <exec executable="killall" dir="platforms/ios/build">
+            <arg value="launchd_sim"/>
+        </exec>
         <exec executable="${ios.sim.exec}" dir="platforms/ios/build" spawn="true">
             <arg line="launch ${project.name}.app ${ios.device.args}"/>
         </exec> 

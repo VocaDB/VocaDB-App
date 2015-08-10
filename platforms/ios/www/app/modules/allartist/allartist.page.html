@@ -1,0 +1,22 @@
+<ion-view title="Artists" hide-back-button="true">
+    <ion-nav-buttons side="left">
+        <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+    </ion-nav-buttons>
+    <ion-header-bar class="bar bar-light bar-subheader item-input-inset ">
+        <label class="item-input-wrapper">
+            <i ng-class="loading? 'icon placeholder-icon ion-loading-a' : 'icon placeholder-icon ion-ios-search'" ></i>
+            <input type="search" placeholder="search"  ng-model="vm.query" ng-change="vm.search()">
+        </label>
+    </ion-header-bar>
+    <ion-content class="stable-bg" has-bouncing="true" >
+        <ion-list ng-show="vm.artists.length">
+            <ion-item class="item-avatar" ng-repeat="artist in vm.artists" ng-href="#/menu/artist/{{artist.id}}">
+                <vc-image category="artist" item-id="{{artist.id}}"></vc-image>
+                <h2>{{artist.defaultName}}</h2>
+                <p>{{artist.artistType}}</p>
+            </ion-item>
+        </ion-list>
+        <ion-infinite-scroll icon="none"  on-infinite="vm.queryArtist()" distance="1%"></ion-infinite-scroll> 
+    </ion-content>
+
+</ion-view>
