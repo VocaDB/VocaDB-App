@@ -18,6 +18,7 @@
         vm.title = 'Recent PV';
         vm.query = '';
         vm.loading = false;
+        vm.doRefresh = doRefresh;
         vm.queryRecentPv = queryRecentPv;
         vm.getMomentFromNow = getMomentFromNow;
 
@@ -32,6 +33,7 @@
         
 
         function queryRecentPv() {
+            logger.info("RecentPvController : queryRecentPv completed....");
             vm.loading = true;
             return songservice.querySongtByPV(vm.songs.length).then(function(data) {
                 
@@ -42,6 +44,16 @@
                 vm.loading = false;
                 $scope.$broadcast('scroll.infiniteScrollComplete');
                 
+                return vm.songs;
+            });
+        }
+        
+        function doRefresh() {
+                return songservice.querySongtByPV(0).then(function(data) {
+                vm.songs = data.items;
+                vm.loading = false;
+                
+                $scope.$broadcast('scroll.refreshComplete');
                 return vm.songs;
             });
         }

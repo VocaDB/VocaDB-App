@@ -3,6 +3,11 @@
         <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
     </ion-nav-buttons>
     <ion-content class="stable-bg" has-bouncing="true" >
+        <ion-refresher
+            pulling-text="Pull to refresh..."
+            on-refresh="vm.doRefresh()"
+            >
+        </ion-refresher>
         <ion-list>
             <ion-item class="item-thumbnail-left" ng-repeat="song in vm.songs"  ng-href="#/menu/songs/{{song.id}}" >
                 <img ng-src="{{song.thumbUrl}}">
