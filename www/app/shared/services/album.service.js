@@ -85,9 +85,10 @@
             }
         }
         
-        function queryAlbum(query,start) {
+        function queryAlbum(query,barcode,start) {
             var parms = {
                 query: query,
+                barcode: barcode,
                 start: start,
                 sort: (query)? 'Name' :'ReleaseDate',
                 fields: 'artists,tags',

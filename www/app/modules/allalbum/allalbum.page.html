@@ -11,6 +11,15 @@
     </ion-header-bar>
 
     <ion-content class="stable-bg" has-bouncing="true">
+        <div ng-show="vm.albums.length==0 && vm.inited">
+           <div class="card">
+            <div class="item item-text-wrap">
+                <center>
+                    <h2 style="opacity: 0.5;">No result</h2>
+                </center>
+            </div>
+          </div>
+        </div>
         <ion-list>
             <ion-item class="item-thumbnail-left" ng-click="vm.selectAlbum(album)"  ng-repeat="album in vm.albums" ng-href="#/menu/album/{{album.id}}">
                 <vc-image category="album" item-id="{{album.id}}"></vc-image>
@@ -21,6 +30,6 @@
 
             </ion-item>
         </ion-list>
-         <ion-infinite-scroll icon="none"  on-infinite="vm.queryAlbum()" distance="1%"></ion-infinite-scroll>  
+         <ion-infinite-scroll icon="none"  on-infinite="vm.loadMore()" distance="1%"></ion-infinite-scroll>  
     </ion-content>
 </ion-view>

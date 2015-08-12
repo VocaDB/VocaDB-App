@@ -40,13 +40,21 @@
         }
         
         function callApi(endPoint,params,load) {
+            
+            var enableCahce = false;
+            
             var q = $q.defer();
             var apiUrl = apiurl(endPoint);
-            var cacheId = angular.toJson(params);
-            var cache = (cacheId) ? cacheEngine.get(cacheId) : null;
+            
+            if(enableCahce)
+            {
+                var cacheId = angular.toJson(params);
+                var cache = (cacheId) ? cacheEngine.get(cacheId) : null;
+            }
             
             logger.info("callapi url : ",apiUrl);
             logger.info("callapi params : ",angular.toJson(params));
+            logger.info("full callapi url : "+apiUrl + "?" + serialize(params));
             
             if(cache) {
                 logger.info("get from cache");
@@ -58,7 +66,8 @@
             
             function success(resp) {
                 //logger.info("return : ",angular.toJson(resp));
-                cacheEngine.put(cacheId, resp);
+                if(enableCahce)
+                    cacheEngine.put(cacheId, resp);
                 q.resolve(resp);
             };
             
@@ -68,5 +77,14 @@
             
             return q.promise;
         }
+        
+        function serialize(obj) {
+         var str = [];
+         for(var p in obj)
+           if (obj.hasOwnProperty(p)) {
+             str.push(p + "=" + obj[p]);
+           }
+         return str.join("&");
+       }
     }
 })();
