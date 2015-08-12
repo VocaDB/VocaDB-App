@@ -5,7 +5,13 @@
     <ion-header-bar class="bar bar-light bar-subheader item-input-inset ">
         <button ng-show="vm.enableScan" class="button button-icon icon ion-qr-scanner" ng-click="vm.scan()"></button>
         <label class="item-input-wrapper">
-            <i ng-class="loading? 'icon placeholder-icon ion-loading-a' : 'icon placeholder-icon ion-ios-search'" ></i>
+            <div ng-if='vm.loading'>
+                 <ion-spinner icon="ios-small"></ion-spinner>
+            </div>
+            
+            <div ng-if='!vm.loading'>
+                 <i class='icon placeholder-icon ion-ios-search' ></i>
+            </div>
             <input type="search" placeholder="search"  ng-model="vm.query" ng-change="vm.search()">
         </label>
     </ion-header-bar>

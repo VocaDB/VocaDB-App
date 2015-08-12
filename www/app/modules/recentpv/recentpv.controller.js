@@ -18,44 +18,45 @@
         vm.title = 'Recent PV';
         vm.query = '';
         vm.loading = false;
+        vm.inited = false; //For check if data loaded at first time
+        vm.enableLoadMore = true; //Need to prevent from infinite load when got empty result
         vm.doRefresh = doRefresh;
+        vm.loadMore = loadMore;
         vm.queryRecentPv = queryRecentPv;
         vm.getMomentFromNow = getMomentFromNow;
 
-        //init(); 
- 
-        function init() {
-            var promises = [queryRecentPv()];
-            return songservice.ready(promises).then(function(){
-                logger.info('Songs pv loaded');
-            });
-        }
-        
-
-        function queryRecentPv() {
-            logger.info("RecentPvController : queryRecentPv completed....");
+        function queryRecentPv(start,replace) {
             vm.loading = true;
-            return songservice.querySongtByPV(vm.songs.length).then(function(data) {
+            return songservice.querySongtByPV(start).then(function(data) {
+                vm.inited = true;
                 
-                angular.forEach(data.items, function(value, key) {
+                if(replace) {
+                    vm.songs = data.items;
+                } else {
+                  angular.forEach(data.items, function(value, key) {
                         vm.songs.push(value);
-                });
-                //vm.songs = data.items;
+                    });                  
+                }
+                
+                //Prevent from infinite load
+                if(data.items.length==0)
+                    vm.enableLoadMore = false;
+                
                 vm.loading = false;
                 $scope.$broadcast('scroll.infiniteScrollComplete');
+                $scope.$broadcast('scroll.refreshComplete');
                 
                 return vm.songs;
             });
+        }
+        
+        function loadMore() {
+            if(vm.enableLoadMore)
+                queryRecentPv(vm.songs.length,false);
         }
         
         function doRefresh() {
-                return songservice.querySongtByPV(0).then(function(data) {
-                vm.songs = data.items;
-                vm.loading = false;
-                
-                $scope.$broadcast('scroll.refreshComplete');
-                return vm.songs;
-            });
+            queryRecentPv(0,true);
         }
         
         function getMomentFromNow(strDateTime) {

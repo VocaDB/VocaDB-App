@@ -2,7 +2,13 @@
 
     <ion-header-bar class="bar-positive item-input-inset">
         <label class="item-input-wrapper">
-            <i ng-class="loading? 'icon placeholder-icon ion-loading-a' : 'icon placeholder-icon ion-ios7-search' " ></i>
+            <div ng-if='vm.loading'>
+                 <ion-spinner icon="ios-small"></ion-spinner>
+            </div>
+            
+            <div ng-if='!vm.loading'>
+                 <i class='icon placeholder-icon ion-ios-search' ></i>
+            </div>
             <input type="search"  ng-model="vm.query" ng-change="vm.search()">
         </label>
         <button class="button button-clear" ng-click="vm.closeEntryModal()">
@@ -12,7 +18,7 @@
 
     <ion-content >
         <ion-list>
-            <ion-item class="item-thumbnail-left" ng-repeat="item in vm.items" ng-href="{{getEntryUrl(item.id, item.entryType)}}" ng-click="vm.closeEntryModal()">
+            <ion-item class="item-thumbnail-left" ng-repeat="item in vm.items" ng-href="{{vm.getEntryUrl(item.id, item.entryType)}}" ng-click="vm.closeEntryModal()">
                 <img ng-src="{{item.mainPicture.urlThumb}}" />
                 <h2>{{item.defaultName}}</h2>
                 <p>{{item.entryType}}</p>

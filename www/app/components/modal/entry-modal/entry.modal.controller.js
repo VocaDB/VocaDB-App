@@ -46,7 +46,7 @@
         function getEntryUrl(id, entryType)
         {
             if (angular.equals(entryType, 'Song'))
-                return '#/menu/song/' + id;
+                return '#/menu/songs/' + id;
             if (angular.equals(entryType, 'Artist'))
                 return '#/menu/artist/' + id;
             if (angular.equals(entryType, 'Album'))

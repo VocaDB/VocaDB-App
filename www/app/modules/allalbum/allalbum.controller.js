@@ -14,6 +14,7 @@
         
         vm.query = "";
         vm.barcode = "";
+        vm.loading = false;
         vm.inited = false; //For check if data loaded at first time
         vm.enableScan = false;
         vm.enableLoadMore = true; //Need to prevent from infinite load when got empty result
@@ -35,8 +36,10 @@
         }
 
         function queryAlbum(query,barcode,start,replace) {
+            vm.loading = true;
             albumservice.queryAlbum(query,barcode,start).then(function(data) {
                 vm.inited = true;
+                vm.loading = false;
                 
                 if(replace) {
                     vm.albums = data.items;
@@ -72,11 +75,6 @@
         }
         
         function scanCallback(result) {
-            alert("We got a barcode\n" +
-                "Result: " + result.text + "\n" +
-                "Format: " + result.format + "\n" +
-                "Cancelled: " + result.cancelled);
-        
             if (!result.cancelled) {
                 vm.barcode = result.text;
                 getAlbumByBarcode();

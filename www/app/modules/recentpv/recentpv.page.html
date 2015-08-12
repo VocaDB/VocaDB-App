@@ -16,6 +16,6 @@
                 <p>{{vm.getMomentFromNow(song.createDate)}}</p>
             </ion-item>
         </ion-list>
-        <ion-infinite-scroll icon="none"  on-infinite="vm.queryRecentPv()" distance="1%"></ion-infinite-scroll> 
+        <ion-infinite-scroll icon="none"  on-infinite="vm.loadMore()" distance="1%"></ion-infinite-scroll> 
     </ion-content>
 </ion-view>
