@@ -24,6 +24,7 @@
         vm.queryAlbum = queryAlbum;
         vm.loadMore = loadMore;
         vm.init = init;
+        vm.convertDiscType = convertDiscType;
         
         init();
         
@@ -88,6 +89,10 @@
         function getAlbumByBarcode() {
             logger.info("Albums barcode search..."+vm.barcode);
             queryAlbum("",vm.barcode,0,true);
+        }
+        
+        function convertDiscType(discType) {
+             return (angular.equals(discType, 'Album')) ? 'Original album' : discType;
         }
         
     }

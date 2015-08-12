@@ -42,6 +42,15 @@
                     });
 
             function getAlbumByIdComplete(data, status, headers, config) {
+                return transform(data);
+            }
+            
+            function transform(data) {
+                if(data.description)
+                    data.description = data.description.replace(/\n/g, '<br/>').replace(/\r/g, '<br/>').replace(/\r\n/g, '<br/>');
+                if(data.discType)
+                    data.discType = (angular.equals(data.discType, 'Album')) ? 'Original album' : data.discType;
+                
                 return data;
             }
         }

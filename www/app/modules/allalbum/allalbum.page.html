@@ -31,7 +31,7 @@
                 <vc-image category="album" item-id="{{album.id}}"></vc-image>
 
                 <h2>{{album.defaultName}}</h2>
-                <p>{{album.artistString}}<br><span style="float:right;"><i class="icon ion-ios-calendar-outline"></i> {{album.releaseDate.formatted}}</span>{{album.discType}}</p>
+                <p>{{album.artistString}}<br><span style="float:right;"><i class="icon ion-ios-calendar-outline"></i> {{album.releaseDate.formatted}}</span>{{vm.convertDiscType(album.discType)}}</p>
                 
 
             </ion-item>

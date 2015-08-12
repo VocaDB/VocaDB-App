@@ -3,12 +3,13 @@
     ng-click="vm.toggle(isShown)"
     ng-class="{active: vm.isShown}">
     <i class="icon" ng-class="vm.isShown ? 'ion-ios-minus-outline' : 'ion-ios-plus-outline'"></i>
-    &nbsp;{{vm.header}}
+    &nbsp;{{vm.header}}&nbsp;({{vm.items.length}})
 </ion-item>
 <ion-item class="item-accordion item-avatar-left"
-          ng-repeat="web in vm.items"
+          ng-repeat="web in vm.items | orderBy : 'category' "
           ng-click="vm.open(web.url)"
           ng-show="vm.isShown">
     <img ng-src="{{vm.getWeblinkIcon(web.url)}}" />
-    <p>{{web.description}}</p>
+    <h2>{{web.description}}</h2>
+    <p>{{web.category}}</p>
 </ion-item>

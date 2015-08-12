@@ -24,10 +24,9 @@
         return directive;
     }
     
-    ShareButtonController.$inject = ['$scope'];
+    ShareButtonController.$inject = [];
     
-    function ShareButtonController ($scope) {
-        // Injecting $scope just for comparison
+    function ShareButtonController () {
         var vm = this;
         vm.share = share;
         

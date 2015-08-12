@@ -22,8 +22,6 @@
         vm.accordian = [false, false, false];
         vm.toggle = toggle;
         vm.isShown = isShown;
-        vm.isFavorites = isFavorites;
-        vm.addFavorites = addFavorites;
 
         init(); 
  
@@ -52,14 +50,6 @@
         
         function isShown(index) {
             return vm.accordian[index];
-        }
-        
-        function isFavorites() {
-            return false;
-        }
-        
-        function addFavorites() {
-            
         }
     }
 })();

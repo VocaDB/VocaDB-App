@@ -11,6 +11,8 @@
        
         /*jshint validthis: true */
         var vm = this;
+        
+        vm.open = open;
         vm.contacts = [
             {
                 name:'Website',
@@ -79,11 +81,15 @@
             }
         ]
         
-        vm.open = function(url) {
+
+        function open(url) {
             if(url) {
-              window.open(url, '_system');
-          }
-//            navigator.app.loadUrl(url, {openExternal: true});
+                if(ionic.Platform.isIOS()) {
+                    navigator.app.loadUrl(url, {openExternal: true});
+                } else {
+                    window.open(url, '_system');
+                }
+            }
         };
     }
 })();

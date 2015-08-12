@@ -29,7 +29,7 @@
         
         <ion-list>
             <ion-item class="item-thumbnail-left" ng-repeat="song in vm.songs"  ng-href="#/menu/songs/{{song.id}}" >
-                <img ng-src="{{song.thumbUrl}}">
+                <vc-image category="song" url="{{song.thumbUrl}}"></vc-image>
                 <h2>{{song.defaultName}}</h2>
                 <p>{{song.artistString}}</p>
             </ion-item>

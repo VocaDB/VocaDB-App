@@ -2,11 +2,9 @@
     <ion-content class="stable-bg">
         <div class="list card">
             <ion-item class="item item-thumbnail-left">
-<!--                <img ng-src="{{vm.song.thumbUrl}}">-->
-                <vc-image category="song" url="{{vm.song.thumbUrl}}"></vc-image>
+                <vc-image category="song" url="{{vm.song.thumbUrl}}" can-view="true"></vc-image>
                 <h2>{{vm.song.defaultName}}</h2>
                 <p>{{getAdditionName(song.names)}}</p>
-<!--                <p>{{vm.song.songType}}&nbsp;{{getDuration(song.lengthSeconds)}}</p>-->
                 <p>{{vm.song.songType}}&nbsp;<vc-duration length-second="{{vm.song.lengthSeconds}}"></vc-duration></p>
 
             </ion-item>
