@@ -19,6 +19,7 @@
             queryAlbum: queryAlbum,
             queryAlbumByTag : queryAlbumByTag,
             getFavoritesList : getFavoritesList,
+            getAlbumByBarcode : getAlbumByBarcode,
             isFavorite : isFavorite,
             addFavorite : addFavorite
         };
@@ -88,6 +89,7 @@
             var parms = {
                 query: query,
                 start: start,
+                sort: (query)? 'Name' :'ReleaseDate',
                 fields: 'artists,tags',
                 maxResults:25,
                 getTotalCount: false,
