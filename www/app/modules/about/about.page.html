@@ -4,30 +4,46 @@
     </ion-nav-buttons>
     <ion-content class="stable-bg">
         <div class="list card">
-            <ion-item class="item-text-wrap">
-                VocaDB is a Vocaloid database that includes information, PVs and translations about Vocaloid artists, discography and songs
-            </ion-item>
-        </div>
-        <div class="list card">
             <ion-item class="item-divider">
                 <h2>Contact</h2>
             </ion-item>
-            <ion-item class="item-icon-left" ng-click="vm.open('http://vocadb.net')">
-                <i class="icon ion-earth"></i>
-                <h2>Website</h2>
+            <ion-item class="item-text-wrap">
+                VocaDB is a Vocaloid database that includes information, PVs and translations about Vocaloid artists, discography and songs
             </ion-item>
-            <ion-item class="item-icon-left" ng-click="vm.open('https://www.facebook.com/vocadb')">
-                <i class="icon ion-social-facebook"></i>
-                <h2>Facebook</h2>
+            
+            <div ng-repeat="contact in vm.contacts">
+            <ion-item class="item-icon-left item-text-wrap" ng-click="vm.open(contact.url)">
+                <i ng-class="contact.icon"></i>
+                <h2>{{contact.name}}</h2>
+                <p>{{contact.description}}</p>
             </ion-item>
-            <ion-item class="item-icon-left" ng-click="vm.open('https://twitter.com/VocaDB')">
-                <i class="icon ion-social-twitter"></i>
-                <h2>Twitter</h2>
-            </ion-item>
-            <ion-item class="item-icon-left" ng-click="vm.open('https://plus.google.com/+VocaDbNet')">
-                <i class="icon ion-social-googleplus"></i>
-                <h2>Google+</h2>
-            </ion-item>
+            </div>
         </div> 
+        
+        <div class="list card">
+            <ion-item class="item-divider">
+                <h2>VocaDB App Developer</h2>
+            </ion-item>
+            <ion-item class="item-text-wrap">
+                Any suggestion or feedback? Here is my contact
+            </ion-item>
+            
+            <div ng-repeat="contact in vm.devContacts">
+            <ion-item class="item-icon-left item-text-wrap" ng-click="vm.open(contact.url)">
+                <i ng-class="contact.icon"></i>
+                <h2>{{contact.name}}</h2>
+                <p>{{contact.description}}</p>
+            </ion-item>
+            </div>
+        </div> 
+        
+        <div class="list card">
+            <ion-item class="item">
+                <center>
+                    <h2>Thank you for support us!</h2>
+                </center>
+                
+            </ion-item>
+        </div>
     </ion-content>
 </ion-view>
