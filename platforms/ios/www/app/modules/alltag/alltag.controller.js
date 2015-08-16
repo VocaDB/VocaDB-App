@@ -14,6 +14,7 @@
         vm.tags = [];
         vm.query = "";
         vm.selected = null;
+        vm.loading = false;
         vm.search = search;
         vm.isShow = isShow;
         vm.select = select;
@@ -45,6 +46,7 @@
         function listCategories() {
             vm.loading = true;
             return tagservice.listCategories().then(function(data) {
+                vm.loading = false;
                 vm.categories = data;
                 return vm.categories;
             });

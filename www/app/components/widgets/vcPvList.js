@@ -45,15 +45,7 @@
         }
         
         function open(url) {
-            
-           // window.open(url, '_system');
-//             if(ionic.Platform.isAndroid()) {
-//                navigator.app.loadUrl(url, {openExternal: true});
-//            }
-//            else
-//            {
-                window.open(url, '_system');
-//            }
+           window.open(url, '_system');
         }
     }
     

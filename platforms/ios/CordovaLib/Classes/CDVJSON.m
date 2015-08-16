@@ -17,13 +17,24 @@
  under the License.
  */
 
-#import "CDVJSON_private.h"
+#import "CDVJSON.h"
+#import <Foundation/NSJSONSerialization.h>
 
 @implementation NSArray (CDVJSONSerializing)
 
 - (NSString*)JSONString
 {
-    return [self cdv_JSONString];
+    NSError* error = nil;
+    NSData* jsonData = [NSJSONSerialization dataWithJSONObject:self
+                                                       options:NSJSONWritingPrettyPrinted
+                                                         error:&error];
+
+    if (error != nil) {
+        NSLog(@"NSArray JSONString error: %@", [error localizedDescription]);
+        return nil;
+    } else {
+        return [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    }
 }
 
 @end
@@ -32,7 +43,17 @@
 
 - (NSString*)JSONString
 {
-    return [self cdv_JSONString];
+    NSError* error = nil;
+    NSData* jsonData = [NSJSONSerialization dataWithJSONObject:self
+                                                       options:NSJSONWritingPrettyPrinted
+                                                         error:&error];
+
+    if (error != nil) {
+        NSLog(@"NSDictionary JSONString error: %@", [error localizedDescription]);
+        return nil;
+    } else {
+        return [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    }
 }
 
 @end
@@ -41,12 +62,16 @@
 
 - (id)JSONObject
 {
-    return [self cdv_JSONObject];
-}
+    NSError* error = nil;
+    id object = [NSJSONSerialization JSONObjectWithData:[self dataUsingEncoding:NSUTF8StringEncoding]
+                                                options:NSJSONReadingMutableContainers
+                                                  error:&error];
 
-- (id)JSONFragment
-{
-    return [self cdv_JSONFragment];
+    if (error != nil) {
+        NSLog(@"NSString JSONObject error: %@", [error localizedDescription]);
+    }
+
+    return object;
 }
 
 @end

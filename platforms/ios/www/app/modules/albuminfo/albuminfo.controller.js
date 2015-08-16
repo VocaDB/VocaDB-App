@@ -12,6 +12,7 @@
         /*jshint validthis: true */
         var vm = this;
 
+        
         vm.id = $stateParams.Id;
         vm.trackGroup = [];
         vm.album = {};
@@ -43,6 +44,8 @@
 //                        vm.trackGroup.push(vm.tracks[i].discNumber);
             });
         }
+        
+
         
     }
 })();

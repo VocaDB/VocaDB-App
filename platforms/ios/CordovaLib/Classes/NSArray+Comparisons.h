@@ -18,10 +18,9 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "CDVAvailabilityDeprecated.h"
 
 @interface NSArray (Comparisons)
 
-- (id)objectAtIndex:(NSUInteger)index withDefault:(id)aDefault CDV_DEPRECATED(3.8 .0, "Use [command argumentAtIndex] instead.");
+- (id)objectAtIndex:(NSUInteger)index withDefault:(id)aDefault;
 
 @end

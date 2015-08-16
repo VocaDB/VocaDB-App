@@ -18,7 +18,7 @@
         $stateProvider.state('menu',getRoutes());
         
         //Default
-        $urlRouterProvider.otherwise("/menu/songs");
+        $urlRouterProvider.otherwise("/menu/recentpv");
     }
     
     function getRoutes() {

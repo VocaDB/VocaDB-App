@@ -9,85 +9,85 @@
                 "parents": {
                     "ImageIO.framework": [
                         {
-                            "xml": true,
+                            "xml": "true",
                             "count": 1
                         }
                     ],
                     "CoreLocation.framework": [
                         {
-                            "xml": false,
+                            "xml": "false",
                             "count": 1
                         }
                     ],
                     "CoreGraphics.framework": [
                         {
-                            "xml": false,
+                            "xml": "false",
                             "count": 5
                         }
                     ],
                     "AssetsLibrary.framework": [
                         {
-                            "xml": false,
+                            "xml": "false",
                             "count": 2
                         }
                     ],
                     "MobileCoreServices.framework": [
                         {
-                            "xml": false,
+                            "xml": "false",
                             "count": 1
                         }
                     ],
                     "AVFoundation.framework": [
                         {
-                            "xml": false,
+                            "xml": "false",
                             "count": 2
                         }
                     ],
                     "SystemConfiguration.framework": [
                         {
-                            "xml": true,
+                            "xml": "true",
                             "count": 1
                         }
                     ],
                     "Social.framework": [
                         {
-                            "xml": true,
+                            "xml": "true",
                             "count": 1
                         }
                     ],
                     "MessageUI.framework": [
                         {
-                            "xml": true,
+                            "xml": "true",
                             "count": 1
                         }
                     ],
                     "libiconv.dylib": [
                         {
-                            "xml": false,
+                            "xml": "false",
                             "count": 1
                         }
                     ],
                     "CoreVideo.framework": [
                         {
-                            "xml": false,
+                            "xml": "false",
                             "count": 1
                         }
                     ],
                     "QuartzCore.framework": [
                         {
-                            "xml": false,
+                            "xml": "false",
                             "count": 1
                         }
                     ],
                     "CoreImage.framework": [
                         {
-                            "xml": false,
+                            "xml": "false",
                             "count": 1
                         }
                     ],
                     "AudioToolbox.framework": [
                         {
-                            "xml": false,
+                            "xml": "false",
                             "count": 1
                         }
                     ]

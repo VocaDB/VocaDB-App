@@ -25,9 +25,9 @@
         return directive;
     }
     
-    PvListController.$inject = ['$scope'];
+    PvListController.$inject = [];
     
-    function PvListController ($scope) {
+    function PvListController () {
         var vm = this;
         
         vm.getMediaIcon = getMediaIcon;
@@ -45,7 +45,7 @@
         }
         
         function open(url) {
-            //navigator.app.loadUrl(url, {openExternal: true}); 
+           window.open(url, '_system');
         }
     }
     

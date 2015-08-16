@@ -18,7 +18,6 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "CDVAvailabilityDeprecated.h"
 
 @interface UIDevice (org_apache_cordova_UIDevice_Extension)
 
@@ -27,6 +26,6 @@
     Upgrading and/or deleting the app and re-installing will get you a new GUID, so
     this is only unique per install per device.
  */
-- (NSString*)uniqueAppInstanceIdentifier CDV_DEPRECATED(3.8 .0, "API is slated for removal in 4.0.0");
+- (NSString*)uniqueAppInstanceIdentifier;
 
 @end

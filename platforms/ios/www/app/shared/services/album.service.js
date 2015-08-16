@@ -19,6 +19,7 @@
             queryAlbum: queryAlbum,
             queryAlbumByTag : queryAlbumByTag,
             getFavoritesList : getFavoritesList,
+            getAlbumByBarcode : getAlbumByBarcode,
             isFavorite : isFavorite,
             addFavorite : addFavorite
         };
@@ -41,6 +42,15 @@
                     });
 
             function getAlbumByIdComplete(data, status, headers, config) {
+                return transform(data);
+            }
+            
+            function transform(data) {
+                if(data.description)
+                    data.description = data.description.replace(/\n/g, '<br/>').replace(/\r/g, '<br/>').replace(/\r\n/g, '<br/>');
+                if(data.discType)
+                    data.discType = (angular.equals(data.discType, 'Album')) ? 'Original album' : data.discType;
+                
                 return data;
             }
         }
@@ -84,10 +94,12 @@
             }
         }
         
-        function queryAlbum(query,start) {
+        function queryAlbum(query,barcode,start) {
             var parms = {
                 query: query,
+                barcode: barcode,
                 start: start,
+                sort: (query)? 'Name' :'ReleaseDate',
                 fields: 'artists,tags',
                 maxResults:25,
                 getTotalCount: false,

@@ -10,7 +10,8 @@
         var directive = {
             scope: {
                 'header' : '@',
-                'items': '='
+                'items': '=',
+                'official': '@'
             },
             templateUrl: 'app/components/widgets/vcWeblinkAccordian.html',
             controller: WeblinkAccordianController,
@@ -21,27 +22,40 @@
         return directive;
     }
     
-    WeblinkAccordianController.$inject = ['$scope','$ionicScrollDelegate'];
+    WeblinkAccordianController.$inject = ['$ionicScrollDelegate'];
     
-    function WeblinkAccordianController ($scope, $ionicScrollDelegate) {
+    function WeblinkAccordianController ($ionicScrollDelegate) {
         // Injecting $scope just for comparison
         var vm = this;
         
         vm.isShown = false;
         vm.toggle = toggle;
         vm.getWeblinkIcon = getWeblinkIcon;
+        vm.open = open;
+        vm.filter = filter;
   
-        function toggle(isShown) {
+        function toggle() {
             vm.isShown = !vm.isShown;
             $ionicScrollDelegate.resize();
         }
         
-        vm.open = function(url) {
-            if(ionic.Platform.isAndroid()) {
-                navigator.app.loadUrl(url, {openExternal: true});
+        function filter() {
+            return function(web) {
+                if(vm.official == 'true') {
+                    return web.category == 'Official';
+                } else if(vm.official == 'false') {
+                    return web.category != 'Official';
+                } else {
+                    return web.category != '';
+                }
             }
-            else
-            {
+        }
+        
+        
+        function open(url) {
+            if(ionic.Platform.isIOS()) {
+                navigator.app.loadUrl(url, {openExternal: true});
+            } else {
                 window.open(url, '_system');
             }
         };

@@ -3,7 +3,7 @@
     ng-click="vm.toggle(isShown)"
     ng-class="{active: vm.isShown}">
     <i class="icon" ng-class="vm.isShown ? 'ion-ios-minus-outline' : 'ion-ios-plus-outline'"></i>
-    &nbsp;{{vm.header}}
+    &nbsp;{{vm.header}}&nbsp;({{vm.items.length}})
 </ion-item>
 <ion-item class="item-accordion item-thumbnail-left"
           ng-repeat="item in vm.items"

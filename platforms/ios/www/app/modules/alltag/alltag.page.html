@@ -4,7 +4,13 @@
     </ion-nav-buttons>
     <ion-header-bar class="bar bar-light bar-subheader item-input-inset ">
         <label class="item-input-wrapper">
-            <i ng-class="vm.loading? 'icon placeholder-icon ion-loading-a' : 'icon placeholder-icon ion-ios-search'" ></i>
+            <div ng-if='vm.loading'>
+                 <ion-spinner icon="ios-small"></ion-spinner>
+            </div>
+            
+            <div ng-if='!vm.loading'>
+                 <i class='icon placeholder-icon ion-ios-search' ></i>
+            </div>
             <input type="text" placeholder="search"  ng-model="vm.query" ng-change="vm.search()">
         </label>
     </ion-header-bar>

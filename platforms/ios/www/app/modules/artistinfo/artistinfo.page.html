@@ -2,7 +2,8 @@
     <ion-content class="stable-bg">
         <div class="list card">
             <ion-item class="item-thumbnail-left">
-                <img ng-src="{{vm.artist.image}}" >
+                <!--<img ng-src="{{vm.artist.image}}" >-->
+                <vc-image category="artist" item-id="{{vm.artist.id}}" can-view="true"></vc-image>
                 <h2>{{vm.artist.defaultName}}</h2> 
                 <p>{{vm.artist.additionNames}}</p>
 
@@ -22,6 +23,11 @@
         </div>
 
         <div class="list card">
+            
+            <vc-weblink-accordian header="Web links" 
+              items="vm.artist.webLinks"></vc-weblink-accordian>
+            
+            
             <vc-accordian header="Recent albums" 
                           category="album"
                           items="vm.latestAlbums" 

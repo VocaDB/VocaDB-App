@@ -26,6 +26,10 @@
 #import "CDVWhitelist.h"
 #import "CDVViewController.h"
 
+@interface CDVHTTPURLResponse : NSHTTPURLResponse
+@property (nonatomic) NSInteger statusCode;
+@end
+
 static CDVWhitelist* gWhitelist = nil;
 // Contains a set of NSNumbers of addresses of controllers. It doesn't store
 // the actual pointer to avoid retaining.
@@ -162,8 +166,8 @@ static CDVViewController *viewControllerForRequest(NSURLRequest* request)
                 // We have the asset!  Get the data and send it along.
                 ALAssetRepresentation* assetRepresentation = [asset defaultRepresentation];
                 NSString* MIMEType = (__bridge_transfer NSString*)UTTypeCopyPreferredTagWithClass((__bridge CFStringRef)[assetRepresentation UTI], kUTTagClassMIMEType);
-                Byte* buffer = (Byte*)malloc((unsigned long)[assetRepresentation size]);
-                NSUInteger bufferSize = [assetRepresentation getBytes:buffer fromOffset:0.0 length:(NSUInteger)[assetRepresentation size] error:nil];
+                Byte* buffer = (Byte*)malloc([assetRepresentation size]);
+                NSUInteger bufferSize = [assetRepresentation getBytes:buffer fromOffset:0.0 length:[assetRepresentation size] error:nil];
                 NSData* data = [NSData dataWithBytesNoCopy:buffer length:bufferSize freeWhenDone:YES];
                 [self sendResponseWithResponseCode:200 data:data mimeType:MIMEType];
             } else {
@@ -200,14 +204,29 @@ static CDVViewController *viewControllerForRequest(NSURLRequest* request)
     if (mimeType == nil) {
         mimeType = @"text/plain";
     }
-
-    NSHTTPURLResponse* response = [[NSHTTPURLResponse alloc] initWithURL:[[self request] URL] statusCode:statusCode HTTPVersion:@"HTTP/1.1" headerFields:@{@"Content-Type" : mimeType}];
+    NSString* encodingName = [@"text/plain" isEqualToString : mimeType] ? @"UTF-8" : nil;
+    CDVHTTPURLResponse* response =
+        [[CDVHTTPURLResponse alloc] initWithURL:[[self request] URL]
+                                       MIMEType:mimeType
+                          expectedContentLength:[data length]
+                               textEncodingName:encodingName];
+    response.statusCode = statusCode;
 
     [[self client] URLProtocol:self didReceiveResponse:response cacheStoragePolicy:NSURLCacheStorageNotAllowed];
     if (data != nil) {
         [[self client] URLProtocol:self didLoadData:data];
     }
     [[self client] URLProtocolDidFinishLoading:self];
+}
+
+@end
+
+@implementation CDVHTTPURLResponse
+@synthesize statusCode;
+
+- (NSDictionary*)allHeaderFields
+{
+    return nil;
 }
 
 @end

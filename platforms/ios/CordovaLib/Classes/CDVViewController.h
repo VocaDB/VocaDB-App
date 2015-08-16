@@ -48,18 +48,7 @@
 @property (nonatomic, readwrite, copy) NSString* startPage;
 @property (nonatomic, readonly, strong) CDVCommandQueue* commandQueue;
 @property (nonatomic, readonly, strong) id <CDVCommandDelegate> commandDelegate;
-
-/**
- The complete user agent that Cordova will use when sending web requests.
- */
 @property (nonatomic, readonly) NSString* userAgent;
-
-/**
- The base user agent data that Cordova will use to build its user agent.  If this
- property isn't set, Cordova will use the standard web view user agent as its
- base.
- */
-@property (nonatomic, readwrite, copy) NSString* baseUserAgent;
 
 + (NSDictionary*)getBundlePlist:(NSString*)plistName;
 + (NSString*)applicationDocumentsDirectory;
@@ -79,6 +68,5 @@
 - (void)registerPlugin:(CDVPlugin*)plugin withPluginName:(NSString*)pluginName;
 
 - (BOOL)URLisAllowed:(NSURL*)url;
-- (void)processOpenUrl:(NSURL*)url;
 
 @end
