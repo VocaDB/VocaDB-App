@@ -37,7 +37,7 @@
             var minutes = parseInt(lengthSeconds / 60) % 60;
             var seconds = lengthSeconds % 60;
 
-            var result = (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds < 10 ? "0" + seconds : seconds);
+            var result = minutes + ":" + (seconds < 10 ? "0" + seconds : seconds);
             return "(" + result + ")";
         }
     }
