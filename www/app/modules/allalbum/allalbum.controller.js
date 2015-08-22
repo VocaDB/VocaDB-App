@@ -25,6 +25,7 @@
         vm.loadMore = loadMore;
         vm.init = init;
         vm.convertDiscType = convertDiscType;
+        vm.convertMoment = convertMoment;
         
         init();
         
@@ -42,7 +43,10 @@
                 vm.inited = true;
                 vm.loading = false;
                 
-                if(replace) {
+                if(barcode && data.items.length==1) {
+                    document.location.href = "#/menu/album/"+data.items[0].id;
+                }
+                else if(replace) {
                     vm.albums = data.items;
                 }
                 else {
@@ -93,6 +97,17 @@
         
         function convertDiscType(discType) {
              return (angular.equals(discType, 'Album')) ? 'Original album' : discType;
+        }
+        
+        function convertMoment(releaseDate) {
+            if(releaseDate.isEmpty) {
+                return "";
+            }
+            else {
+                var dayFormatted = releaseDate.year+"-"+releaseDate.month+"-"+releaseDate.day;
+                var momented = moment(releaseDate.formatted).format("MMMM Do YYYY");
+                return momented;
+            }
         }
         
     }
