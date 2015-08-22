@@ -10,6 +10,11 @@
     function entrymodalservice($ionicModal, logger)
     {
         var pageUri = 'app/components/modal/entry-modal/entry.modal.page.html';
+        
+        if(ionic.Platform.isIPad()) {
+            pageUri = 'app/components/modal/entry-modal/entry.modal.page-ipad.html'
+        }
+        
         var options = {
             animation: 'slide-in-up'
         };
