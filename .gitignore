@@ -1,0 +1,7 @@
+# Exclude netbean project
+nbproject/*
+
+# Exclude platforms
+# Because it is better to create platfrom by cordova command
+platforms/*
+
