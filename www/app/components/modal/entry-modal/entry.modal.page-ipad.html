@@ -1,25 +1,20 @@
 <div class="modal" ng-controller="EntryModalController as vm">
-    
-    <ion-header-bar class="bar bar-positive item-input-inset">
-        
+
+    <ion-header-bar class="bar-positive item-input-inset" style="padding-bottom:26px;">
         <label class="item-input-wrapper">
             <div ng-if='vm.loading'>
-                <ion-spinner icon="ios-small"></ion-spinner>
+                 <ion-spinner icon="ios-small"></ion-spinner>
             </div>
             
             <div ng-if='!vm.loading'>
-                <i class='icon placeholder-icon ion-ios-search' ></i>
+                 <i class='icon placeholder-icon ion-ios-search' ></i>
             </div>
             <input type="search"  ng-model="vm.query" ng-change="vm.search()">
-                </label>
-        
-        <button class="button button-clear" ng-click="vm.closeEntryModal()">
-            Cancels
-        </button>
+        </label>
     </ion-header-bar >
-    
-    <ion-content>
-    <ion-list>
+
+    <ion-content >
+        <ion-list>
             <ion-item class="item-thumbnail-left" ng-repeat="item in vm.items" ng-href="{{vm.getEntryUrl(item.id, item.entryType)}}" ng-click="vm.closeEntryModal()">
                 <img ng-src="{{item.mainPicture.urlThumb}}" />
                 <h2>{{item.defaultName}}</h2>

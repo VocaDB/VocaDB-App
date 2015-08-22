@@ -19,7 +19,7 @@
         vm.getEntryUrl = getEntryUrl;
         vm.search = search;
         vm.queryEntry = queryEntry;
-        
+ 
         function search() {
             queryEntry(vm.query);
         }

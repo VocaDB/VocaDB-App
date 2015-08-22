@@ -39,6 +39,14 @@
         
         
         function chooseLang(lang) {
+            
+            if(vm.isSelect(lang)) {
+                vm.selected = "";
+                vm.lyric="";
+                $ionicScrollDelegate.resize();
+                return;
+            }
+            
             vm.selected = lang;
             var index = -1;
             

@@ -18,7 +18,7 @@
                 </div>
                 <ion-list ng-show="vm.songs.length">
                     <ion-item class="item-thumbnail-left" ng-repeat="song in vm.songs"  ng-href="#/menu/songs/{{song.id}}"  >
-                        <img ng-src="{{song.thumbUrl}}">
+                        <vc-image category="song" url="{{song.thumbUrl}}" ></vc-image>
                         <h2>{{song.defaultName}}</h2>
                         <p>{{song.artistString}}</p>
                     </ion-item>
@@ -43,7 +43,7 @@
                 </div>
                 <ion-list ng-show="vm.artists.length">
                     <ion-item class="item-thumbnail-left" ng-repeat="artist in vm.artists"  ng-href="#/menu/artist/{{artist.id}}" >
-                        <img ng-src="{{getArtistImage(artist.id)}}">
+                        <vc-image category="artist" item-id="{{artist.id}}" ></vc-image>
                         <h2>{{artist.defaultName}}</h2>
                         <p>{{artist.artistType}}</p>
                     </ion-item>
@@ -69,7 +69,7 @@
                 <ion-list ng-show="vm.albums.length">
 
                     <ion-item class="item-thumbnail-left" ng-repeat="album in vm.albums"  ng-href="#/menu/album/{{album.id}}" >
-                        <img ng-src="{{getAlbumImage(album.id)}}">
+                        <vc-image category="album" item-id="{{album.id}}" ></vc-image>
                         <h2>{{album.defaultName}}</h2>
                         <p>{{album.artistString}}<br>{{getDiscType(album.discType)}}</p>
                     </ion-item>
