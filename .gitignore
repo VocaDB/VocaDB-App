@@ -5,3 +5,6 @@ nbproject/*
 # Because it is better to create platfrom by cordova command
 platforms/*
 
+# Exclude building info files
+build.json
+
