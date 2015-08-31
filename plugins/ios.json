@@ -149,31 +149,31 @@
     },
     "installed_plugins": {
         "cordova-plugin-camera": {
-            "PACKAGE_NAME": "com.coolappz.Vocadb"
+            "PACKAGE_NAME": "com.up2up.vocadb"
         },
         "cordova-plugin-console": {
-            "PACKAGE_NAME": "com.coolappz.Vocadb"
+            "PACKAGE_NAME": "com.up2up.vocadb"
         },
         "cordova-plugin-device": {
-            "PACKAGE_NAME": "com.coolappz.Vocadb"
+            "PACKAGE_NAME": "com.up2up.vocadb"
         },
         "cordova-plugin-inappbrowser": {
-            "PACKAGE_NAME": "com.coolappz.Vocadb"
+            "PACKAGE_NAME": "com.up2up.vocadb"
         },
         "cordova-plugin-network-information": {
-            "PACKAGE_NAME": "com.coolappz.Vocadb"
+            "PACKAGE_NAME": "com.up2up.vocadb"
         },
         "cordova-plugin-splashscreen": {
-            "PACKAGE_NAME": "com.coolappz.Vocadb"
+            "PACKAGE_NAME": "com.up2up.vocadb"
         },
         "cordova-plugin-whitelist": {
-            "PACKAGE_NAME": "com.coolappz.Vocadb"
+            "PACKAGE_NAME": "com.up2up.vocadb"
         },
         "nl.x-services.plugins.socialsharing": {
-            "PACKAGE_NAME": "com.coolappz.Vocadb"
+            "PACKAGE_NAME": "com.up2up.vocadb"
         },
         "phonegap-plugin-barcodescanner": {
-            "PACKAGE_NAME": "com.coolappz.Vocadb"
+            "PACKAGE_NAME": "com.up2up.vocadb"
         }
     },
     "dependent_plugins": {}
