@@ -10,6 +10,54 @@ Tools & Resource
 - AngularJS : https://angularjs.org
 - AngularMoment : https://github.com/urish/angular-moment
 - Font Icon : http://fortawesome.github.io/Font-Awesome
+- Node.js : https://nodejs.org/en
+
+Setting development environment
+============
+### Prerequisites
+* Download and install [Node.js](https://nodejs.org/en/download/). You should be able to run **npm** command
+
+### Clone project
+```
+git clone https://github.com/VocaDB/VocaDB-App.git
+```
+
+### Initialize 
+* Open terminal and run
+```
+npm install
+```
+
+### Install cordova
+
+* on Windows
+```
+npm install -g cordova
+```
+* on OS X and Linux
+```
+sudo npm install -g cordova
+```
+
+Now you can run dev environment by run
+```
+gulp
+```
+This will run simple server and watching source file for live reload by automatic
+
+
+### Add platforms
+* Android
+```
+cordova platform add android
+```
+* iOS
+```
+cordova platform add ios
+```
+
+You need to install SDK for each platform to emulate them. See also at [Platform Guides](http://cordova.apache.org/docs/en/5.0.0/guide_platforms_index.md.html#Platform%20Guides)
+
 
 
 Licence
