@@ -1,9 +1,10 @@
-# Exclude netbean project
-nbproject/*
+# Specifies intentionally untracked files to ignore when using Git
+# http://git-scm.com/docs/gitignore
 
-# Exclude platforms
-# Because it is better to create platfrom by cordova command
-platforms/*
+nbproject/
+node_modules/
+platforms/
+plugins/
+bower_components/
 
-# Exclude building file
-build.json
+*.DS_Store

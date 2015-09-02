@@ -1,0 +1,10 @@
+{
+     "android": {
+         "release": {
+             "keystore": "../Release/vocadb-release-key.keystore",
+             "storePassword": "vocadbapp",
+             "alias": "vocadb",
+             "password" : "vocadbapp"
+         }
+     }
+ }

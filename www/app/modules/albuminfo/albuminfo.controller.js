@@ -8,33 +8,33 @@
     AlbumInfoController.$inject = ['albumservice','logger','$stateParams'];
 
     function AlbumInfoController(albumservice,logger,$stateParams) {
-       
+
         /*jshint validthis: true */
         var vm = this;
 
-        
+
         vm.id = $stateParams.Id;
         vm.trackGroup = [];
         vm.album = {};
         vm.tracks = [];
-        
-        
-        init(); 
- 
+        vm.test = "";
+
+        init();
+
         function init() {
             var promises = [getTracks(),getAlbum()];
             return albumservice.ready(promises).then(function(){
                 logger.info('Album loaded');
             });
         }
-        
+
         function getAlbum() {
             return albumservice.getAlbumById(vm.id).then(function(data) {
                 vm.album = data;
                 return data;
             });
         }
-        
+
         function getTracks() {
             return albumservice.getTracks(vm.id).then(function(data) {
                 vm.tracks = data;
@@ -44,8 +44,8 @@
 //                        vm.trackGroup.push(vm.tracks[i].discNumber);
             });
         }
-        
 
-        
+
+
     }
 })();
