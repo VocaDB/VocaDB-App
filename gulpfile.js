@@ -2,26 +2,18 @@
 
 var gulp = require('gulp');
 var plugins = require('gulp-load-plugins')();
-var del = require('del');
 var beep = require('beepbeep');
 var express = require('express');
 var connectLr = require('connect-livereload');
-var streamqueue = require('streamqueue');
 var runSequence = require('run-sequence');
-var path = require('path');
-var open = require('open');
 
 var targetDir = 'www'
 var port = 9000
 
 // global error handler
 var errorHandler = function(error) {
-  if (build) {
-    throw error;
-  } else {
     beep(2, 170);
     plugins.util.log(error);
-  }
 };
 
 // start local express server
