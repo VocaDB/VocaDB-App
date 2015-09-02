@@ -6,6 +6,7 @@ var beep = require('beepbeep');
 var express = require('express');
 var connectLr = require('connect-livereload');
 var runSequence = require('run-sequence');
+var open = require('open')
 
 var targetDir = 'www'
 var port = 9000
