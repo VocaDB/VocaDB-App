@@ -19,29 +19,29 @@ Setting development environment
 
 ### Clone project
 ```
-git clone https://github.com/VocaDB/VocaDB-App.git
+$ git clone https://github.com/VocaDB/VocaDB-App.git
 ```
 
 ### Initialize 
 * Open terminal and run
 ```
-npm install
+$ npm install
 ```
 
 ### Install cordova
 
 * on Windows
 ```
-npm install -g cordova
+$ npm install -g cordova
 ```
 * on OS X and Linux
 ```
-sudo npm install -g cordova
+$ sudo npm install -g cordova
 ```
 
 Now you can run dev environment by run
 ```
-gulp
+$ gulp
 ```
 This will run simple server and watching source file for live reload by automatic
 
@@ -49,11 +49,11 @@ This will run simple server and watching source file for live reload by automati
 ### Add platforms
 * Android
 ```
-cordova platform add android
+$ cordova platform add android
 ```
 * iOS
 ```
-cordova platform add ios
+$ cordova platform add ios
 ```
 
 You need to install SDK for each platform to emulate them. See also at [Platform Guides](http://cordova.apache.org/docs/en/5.0.0/guide_platforms_index.md.html#Platform%20Guides)
