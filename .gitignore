@@ -7,4 +7,10 @@ platforms/
 plugins/
 bower_components/
 
+<<<<<<< HEAD
 *.DS_Store
+=======
+# Exclude building info files
+build.json
+
+>>>>>>> 1.2.0
