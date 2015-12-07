@@ -7,7 +7,7 @@
             <div ng-if='vm.loading'>
                  <ion-spinner icon="ios-small"></ion-spinner>
             </div>
-            
+
             <div ng-if='!vm.loading'>
                  <i class='icon placeholder-icon ion-ios-search' ></i>
             </div>
@@ -17,9 +17,9 @@
     <ion-content class="stable-bg" >
 
         <div class="list card" ng-hide="(!vm.selected && vm.query)">
-            <ion-item 
+            <ion-item
                 class="item-icon-left"
-                ng-hide="(vm.selected && vm.selected != category)" 
+                ng-hide="(vm.selected && vm.selected != category)"
                 ng-repeat="category in vm.categories"
                 ng-click="vm.select(category)"
                 ng-class="{active:vm.selected == category}">
@@ -29,7 +29,7 @@
         </div>
 
         <ion-list ng-show="vm.tags.length">
-            <ion-item ng-repeat="tag in vm.tags"  ng-href="#/menu/tag/detail/{{tag.name}}" >
+            <ion-item ng-repeat="tag in vm.tags"  ng-href="#/menu/tag/detail/{{tag.id}}" >
                 <h2>{{tag.name}}</h2>
             </ion-item>
         </ion-list>

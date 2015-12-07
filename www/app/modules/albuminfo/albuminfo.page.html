@@ -5,22 +5,22 @@
                 <vc-image category="album" item-id="{{vm.album.id}}" can-view="true"></vc-image>
                 <h2>{{vm.album.defaultName}}</h2>
                 <p>{{vm.album.discType}}</p>
-                <vc-rating rating="{{vm.album.ratingAverage}}" count="{{vm.album.ratingCount}}" ></vc-rating>    
+                <vc-rating rating="{{vm.album.ratingAverage}}" count="{{vm.album.ratingCount}}" ></vc-rating>
             </div>
-            
-            <ion-item class="item-text-wrap" ng-show="album.tags.length">
-                <a ng-href="#menu/tag/detail/{{tag.name}}" ng-repeat="tag in vm.album.tags" class="dark" style="text-decoration: none; font-size:12px;">#{{tag.name}}&nbsp;&nbsp;</a>
+
+            <ion-item class="item-text-wrap" ng-show="vm.album.tags.length">
+                <a ng-href="#menu/tag/detail/{{tagItem.tag.id}}" ng-repeat="tagItem in vm.album.tags" class="dark" style="text-decoration: none; font-size:12px;">#{{tagItem.tag.name}}&nbsp;&nbsp;</a>
             </ion-item>
             <ion-item class="item-text-wrap" ng-show="vm.album.description" >
                 <p ng-bind-html="vm.album.description"></p>
             </ion-item>
         </div>
-        
+
          <div class="button-bar padding">
-             
+
             <vc-share-button category="album" id="{{vm.album.id}}"></vc-share-button>
             <vc-fav-button category="album" item="vm.album"></vc-fav-button>
-             
+
         </div>
 
         <div class="list card">
@@ -29,46 +29,46 @@
                 <p ng-show="vm.album.releaseEvent">Event : {{vm.album.releaseEvent}}</p>
             </div>
         </div>
-        
+
         <vc-pv-list items="vm.album.pVs"
-                    url="url" 
+                    url="url"
                     title="name"
-                    service="service" 
+                    service="service"
                     ></vc-pv-list>
-        
+
         <div class="list card">
-            
-            <vc-artist-accordian header="Artists" 
+
+            <vc-artist-accordian header="Artists"
               items="vm.album.artists" ></vc-artist-accordian>
-            
+
 <!--
-            <vc-accordian header="Artists" 
-              items="vm.album.artists" 
-              title="name" 
-              subtitle="artistType" 
-              image="thumbUrl" 
+            <vc-accordian header="Artists"
+              items="vm.album.artists"
+              title="name"
+              subtitle="artistType"
+              image="thumbUrl"
               href="#/menu/artist"></vc-accordian>
 -->
-       
-            <vc-weblink-accordian header="Web link" 
+
+            <vc-weblink-accordian header="Web link"
               items="vm.album.webLinks" ></vc-weblink-accordian>
-            
+
 <!--
             <vc-accordian header="Web link"
               weblink="true"
-              items="vm.album.webLinks" 
+              items="vm.album.webLinks"
               title="description" ></vc-accordian>
-            
+
 -->
             <!-- Tracks -->
             <vc-track-list tracks="vm.tracks"></vc-track-list>
-            
-       
-        </div>
-        
 
-        
-        
+
+        </div>
+
+
+
+
 
         <div class="padding-bottom">
         </div>

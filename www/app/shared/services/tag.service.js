@@ -14,8 +14,9 @@
             ready: dataservice.ready,
             queryTag: queryTag,
             getTagsByCategory: getTagsByCategory,
-            listCategories: listCategories
-            
+            listCategories: listCategories,
+            getTagInfo: getTagInfo
+
         };
 
         return service;
@@ -40,14 +41,14 @@
                 return data;
             }
         }
-        
+
         function getTagsByCategory(query, category) {
             var parms = {
                 query: query,
                 categoryName: category,
                 getTotalCount: false,
                 maxResults:25,
-                nameMatchMode: 'Auto'   
+                nameMatchMode: 'Auto'
             };
 
             return dataservice.callApi('/api/tags', parms)
@@ -58,11 +59,11 @@
                     });
 
             function getTagsByCategoryComplete(data, status, headers, config) {
-                
+
                 return data;
             }
         }
-        
+
         function listCategories() {
             var parms = {};
             var load = {
@@ -77,6 +78,19 @@
                     });
 
             function listCategoriesComplete(data, status, headers, config) {
+                return data;
+            }
+        }
+
+        function getTagInfo(tagId) {
+            return dataservice.callApi('/api/tags/'+tagId)
+                    .then(getTagInfoComplete)
+                    .catch(function (message) {
+                        exception.catcher('Call API Failed for getTagInfo')(message);
+                        //$location.url('/');
+                    });
+
+            function getTagInfoComplete(data, status, headers, config) {
                 return data;
             }
         }

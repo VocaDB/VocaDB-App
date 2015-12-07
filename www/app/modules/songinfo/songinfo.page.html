@@ -9,41 +9,41 @@
 
             </ion-item>
             <ion-item class="item item-text-wrap" ng-show="vm.song.tags.length">
-                <a ng-href="#menu/tag/detail/{{tag.name}}" ng-repeat="tag in vm.song.tags" class="dark" style="text-decoration: none; font-size:12px;">#{{tag.name}}&nbsp;&nbsp;</a>
+                <a ng-href="#menu/tag/detail/{{tagItem.tag.id}}" ng-repeat="tagItem in vm.song.tags" class="dark" style="text-decoration: none; font-size:12px;">#{{tagItem.tag.name}}&nbsp;&nbsp;</a>
             </ion-item>
-        </div> 
-         
+        </div>
+
          <div class="button-bar padding">
-             
+
              <vc-share-button category="song" id="{{vm.song.id}}"></vc-share-button>
-             
+
              <vc-fav-button category="song" item="vm.song"></vc-fav-button>
         </div>
-        
+
         <vc-pv-list items="vm.PVs"
-            url="url" 
+            url="url"
             title="name"
             subtitle="pvType"
-            service="service" 
+            service="service"
             ></vc-pv-list>
-        
+
         <div class="list card" ng-show="vm.artists.length || vm.albums.length">
-            
+
             <vc-artist-accordian header="Artists"
               category="artist"
               items="vm.artists" ></vc-artist-accordian>
-            
-            <vc-accordian header="Album" 
+
+            <vc-accordian header="Album"
               category="album"
-              items="vm.albums" 
-              title="name" 
-              subtitle="discType" 
+              items="vm.albums"
+              title="name"
+              subtitle="discType"
               href="#/menu/album"></vc-accordian>
 
         </div>
-        
+
         <vc-lyrics lyrics="vm.song.lyrics" ng-show="vm.hasLyric()"></vc-lyrics>
-        
+
         <div class="padding-bottom">
         </div>
     </ion-content>

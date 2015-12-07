@@ -21,14 +21,14 @@
     function getRoutes() {
 
         var routeConfig = {
-            url: "/tag/detail/:Name",
+            url: "/tag/detail/:tagId",
             cache: false,
             views: {
                 'menuContent': {
                     templateUrl: "app/modules/taginfo/taginfo.page.html",
                     controller: "TagInfoController as vm"
                 }
-            }      
+            }
         };
 
         return routeConfig;

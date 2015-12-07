@@ -20,7 +20,7 @@
     function songService(dataservice, exception)
     {
         var storageId = 'songs';
-        
+
         var service = {
             ready: dataservice.ready,
             getSongById: getSongById,
@@ -84,7 +84,7 @@
                 fields: 'ThumbUrl',
                 nameMatchMode: 'Auto'
             };
-            
+
             return dataservice.callApi('/api/songs', parms)
                     .then(querySongByNameComplete)
                     .catch(function (message) {
@@ -123,16 +123,16 @@
                 return data;
             }
         };
-        
-        
+
+
         function querySongByTag(tag) {
             var parms = {
-                tag: tag,
+                tagId: tag,
                 getTotalCount: false,
                 fields: 'ThumbUrl',
                 nameMatchMode: 'Auto'
             };
-            
+
             return dataservice.callApi('/api/songs', parms)
                     .then(querySongByTag)
                     .catch(function (message) {
@@ -141,7 +141,7 @@
                     });
 
             function querySongByTag(data, status, headers, config) {
-                
+
                 return data;
             }
         };
@@ -154,7 +154,7 @@
             }
             return [];
         };
-        
+
         function isFavorite(songId) {
             var songs = getFavoritesList();
             for(var i=0;i<songs.length;i++)
@@ -164,7 +164,7 @@
         function addFavorite(song) {
             var songs = getFavoritesList();
             for(var i=0;i<songs.length;i++)
-            {   
+            {
                 if(songs[i].id==song.id){
                     songs.splice(i,1);
                     window.localStorage[storageId] = angular.toJson(songs);

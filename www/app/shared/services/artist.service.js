@@ -20,7 +20,7 @@
     function artistservice(dataservice, exception)
     {
         var storageId = 'artists';
-        
+
         var service = {
             ready: dataservice.ready,
             queryArtist: queryArtist,
@@ -37,7 +37,7 @@
 
         /**
          * @name queryArtist
-         * @desc Find artists. 
+         * @desc Find artists.
          * Reference : http://vocadb.net/apiHelp/Api/GET-api-artists_query_artistTypes_tag_followedByUserId_status_start_maxResults_getTotalCount_sort_preferAccurateMatches_nameMatchMode_fields_lang
          * @param {String} query Query string
          * @returns {promises}
@@ -92,14 +92,14 @@
             function getArtistByIdComplete(data, status, headers, config) {
                 return transform(data);
             }
-            
+
             function transform(data) {
                 data.image = 'http://vocadb.net/Artist/Picture/' + artistId;
                 data.description = data.description.replace(/\n/g, '<br/>').replace(/\r/g, '<br/>').replace(/\r\n/g, '<br/>');
                 data.additionNames = displayAdditionNames(data.names);
                 return data;
             }
-            
+
             //Helper function
             function displayAdditionNames(names) {
                 var additionName = "";
@@ -112,11 +112,11 @@
             }
 
         }
-        
-        
+
+
         function queryArtistByTag(tag) {
             var parms = {
-                tag: tag,
+                tagId: tag,
                 getTotalCount: false,
                 nameMatchMode: 'Auto'
             };
@@ -133,7 +133,7 @@
             }
 
         }
-        
+
         function getFavoritesList() {
             var artistString = window.localStorage[storageId];
             if(artistString) {
@@ -141,18 +141,18 @@
             }
             return [];
         }
-        
+
         function isFavorite(artistId) {
             var artists = getFavoritesList();
             for(var i=0;i<artists.length;i++)
                 if(artists[i].id==artistId) return true;
             return false;
         }
-        
+
         function addFavorite(artist) {
             var artists = getFavoritesList();
             for(var i=0;i<artists.length;i++)
-            {   
+            {
                 if(artists[i].id==artist.id){
                     artists.splice(i,1);
                     window.localStorage[storageId] = angular.toJson(artists);

@@ -5,14 +5,14 @@
         .module('app.taginfo')
         .controller('TagInfoController', TagInfoController);
 
-    TagInfoController.$inject = ['logger','$stateParams','albumservice','songservice','artistservice','$ionicScrollDelegate'];
+    TagInfoController.$inject = ['logger','$stateParams','albumservice','songservice','artistservice','tagservice','$ionicScrollDelegate'];
 
-    function TagInfoController(logger,$stateParams,albumservice,songservice,artistservice,$ionicScrollDelegate) {
-       
+    function TagInfoController(logger,$stateParams,albumservice,songservice,artistservice,tagservice,$ionicScrollDelegate) {
+
         /*jshint validthis: true */
         var vm = this;
-        vm.tag = $stateParams.Name;
-        vm.title = "#" + vm.tag;
+        vm.tag = $stateParams.tagId;
+        vm.title = "#";
         vm.tags = {songs: [], artists: [], albums: []};
         vm.songLoaded = false;
         vm.artistLoaded = false;
@@ -21,15 +21,26 @@
         vm.queryArtistByTag = queryArtistByTag;
         vm.queryAlbumByTag = queryAlbumByTag;
         vm.convertDiscType = convertDiscType;
-        
+
         init();
-        
+
         function init() {
-            querySongByTag();
-            queryArtistByTag();
-            queryAlbumByTag();
+          var promises = [getTagInfo()];
+          return tagservice.ready(promises).then(function(){
+              logger.info('Tag Info loaded');
+              querySongByTag();
+              queryArtistByTag();
+              queryAlbumByTag();
+          });
         }
-        
+
+        function getTagInfo() {
+          return tagservice.getTagInfo(vm.tag).then(function(data) {
+              vm.title = "#" + data.name;
+              return data;
+          });
+        }
+
         function querySongByTag() {
             return songservice.querySongByTag(vm.tag).then(function(data) {
                 vm.songLoaded = true;
@@ -38,7 +49,7 @@
                 return data;
             });
         }
-        
+
         function queryArtistByTag() {
             return artistservice.queryArtistByTag(vm.tag).then(function(data) {
                 vm.tags.artists = data.items;
@@ -47,7 +58,7 @@
                 return data;
             });
         }
-        
+
         function queryAlbumByTag() {
             return albumservice.queryAlbumByTag(vm.tag).then(function(data) {
                 vm.tags.albums = data.items;
@@ -56,7 +67,7 @@
                 return data;
             });
         }
-        
+
         function convertDiscType(discType) {
              return (angular.equals(discType, 'Album')) ? 'Original album' : discType;
         }

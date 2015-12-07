@@ -11,7 +11,7 @@
     function albumservice(dataservice, exception)
     {
         var storageId = 'albums';
-        
+
         var service = {
             ready: dataservice.ready,
             getAlbumById: getAlbumById,
@@ -28,7 +28,7 @@
 
         ///////////////////////////////////////
 
-        
+
         function getAlbumById(albumId) {
             var parms = {
                 Id: albumId,
@@ -44,17 +44,17 @@
             function getAlbumByIdComplete(data, status, headers, config) {
                 return transform(data);
             }
-            
+
             function transform(data) {
                 if(data.description)
                     data.description = data.description.replace(/\n/g, '<br/>').replace(/\r/g, '<br/>').replace(/\r\n/g, '<br/>');
                 if(data.discType)
                     data.discType = (angular.equals(data.discType, 'Album')) ? 'Original album' : data.discType;
-                
+
                 return data;
             }
         }
-        
+
         function getAlbumByBarcode(barcode) {
             var parms = {
                 barcode: barcode,
@@ -74,7 +74,7 @@
                 return data;
             }
         }
-        
+
         function getTracks(albumId) {
             var parms = {
                 Id: albumId
@@ -93,7 +93,7 @@
                 return data;
             }
         }
-        
+
         function queryAlbum(query,barcode,start) {
             var parms = {
                 query: query,
@@ -116,10 +116,10 @@
                 return data;
             }
         }
-        
+
         function queryAlbumByTag(tag) {
             var parms = {
-                tag: tag,
+                tagId: tag,
                 fields: 'artists,tags',
                 maxResults:25,
                 getTotalCount: false,
@@ -136,7 +136,7 @@
                 return data;
             }
         }
-        
+
         function getFavoritesList() {
             var albumString = window.localStorage[storageId];
             if(albumString) {
@@ -144,18 +144,18 @@
             }
             return [];
         }
-        
+
         function isFavorite(albumId) {
             var albums = this.getFavoritesList();
             for(var i=0;i<albums.length;i++)
                 if(albums[i].id==albumId) return true;
             return false;
         }
-        
+
         function addFavorite(album) {
             var albums = this.getFavoritesList();
             for(var i=0;i<albums.length;i++)
-            {   
+            {
                 if(albums[i].id==album.id){
                     albums.splice(i,1);
                     window.localStorage[storageId] = angular.toJson(albums);
