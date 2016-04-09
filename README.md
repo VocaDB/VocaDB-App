@@ -6,7 +6,7 @@ Tools & Resource
 ============
 - Cordova : http://cordova.apache.org
 - VocaDB API : http://vocadb.net/api
-- ionic framework : http://ionicframework.com
+- Ionic framework : http://ionicframework.com
 - AngularJS : https://angularjs.org
 - AngularMoment : https://github.com/urish/angular-moment
 - Font Icon : http://fortawesome.github.io/Font-Awesome
@@ -15,50 +15,47 @@ Tools & Resource
 Setting development environment
 ============
 ### Prerequisites
-* Download and install [Node.js](https://nodejs.org/en/download/). You should be able to run **npm** command
+* Download and install [Node.js](https://nodejs.org/en/download/). You should be able to run **npm** command.
 
 ### Clone project
 ```
 $ git clone https://github.com/VocaDB/VocaDB-App.git
 ```
 
-### Initialize 
-* Open terminal and run
+### Initialize
+* At VocaDB-App directory. Open terminal and run
 ```
 $ npm install
 ```
 
 ### Install cordova
-
-* on Windows
 ```
 $ npm install -g cordova
 ```
-* on OS X and Linux
+
+### Install Ionic
 ```
-$ sudo npm install -g cordova
+$ npm install -g ionic
 ```
 
-Now you can run dev environment by run
-```
-$ gulp
-```
-This will run simple server and watching source file for live reload by automatic
+Ionic had provide a useful command line utility (CLI). See also at http://ionicframework.com/docs/cli/
 
+For example. Start a local development for testing on web browser.
+```
+$ ionic serve
+```
 
-### Add platforms
-* Android
+### Adding a platform target
 ```
-$ cordova platform add android
+$ ionic platform ios android
 ```
-* iOS
+
+### Building app
 ```
-$ cordova platform add ios
+$ ionic build android
 ```
 
 You need to install SDK for each platform to emulate them. See also at [Platform Guides](http://cordova.apache.org/docs/en/5.0.0/guide_platforms_index.md.html#Platform%20Guides)
-
-
 
 Licence
 ============
