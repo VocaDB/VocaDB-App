@@ -1,16 +1,10 @@
 # Specifies intentionally untracked files to ignore when using Git
 # http://git-scm.com/docs/gitignore
 
-nbproject/
 node_modules/
 platforms/
 plugins/
 bower_components/
 
-<<<<<<< HEAD
 *.DS_Store
-=======
-# Exclude building info files
 build.json
-
->>>>>>> 1.2.0
