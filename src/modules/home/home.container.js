@@ -2,7 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import HomeView from './home.component'
-import { listRecentSongRequest, listRecentAlbumRequest, viewSong, viewSearch, listRecentEventRequest } from './home.action'
+import { listRecentSongRequest, listRecentAlbumRequest, listRecentEventRequest } from './home.action'
+import { viewSong, viewSearch } from './../nav/nav.action'
 
 HomeView.propTypes = {
     songs: PropTypes.array.isRequired
