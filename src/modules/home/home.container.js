@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import HomeView from './home.component'
 import { listRecentSongRequest, listRecentAlbumRequest, listRecentEventRequest } from './home.action'
-import { viewSong, viewSearch } from './../nav/nav.action'
+import { viewSong, viewSearch, viewAlbum } from './../nav/nav.action'
 
 HomeView.propTypes = {
     songs: PropTypes.array.isRequired
@@ -22,6 +22,7 @@ const mapDispatchToProps = dispatch => ({
     fetchRecentAlbums: () => dispatch(listRecentAlbumRequest()),
     fetchEvents: () => dispatch(listRecentEventRequest()),
     viewSong: id => dispatch(viewSong(id)),
+    viewAlbum: id => dispatch(viewAlbum(id)),
     viewSearch: () => dispatch(viewSearch())
 })
 

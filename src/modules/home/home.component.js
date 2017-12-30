@@ -52,7 +52,7 @@ class HomeView extends React.Component {
                 horizontal={true}
                 image={item.mainPicture.urlSmallThumb}
                 title={item.defaultName}
-                onMediaClick={() => console.log('tap album')}
+                onMediaClick={() => this.props.viewAlbum(item.id)}
                 subtitle={item.artistString} />
         )
 
@@ -60,7 +60,7 @@ class HomeView extends React.Component {
             <View>
                 <ListContainer
                     minimum={5}
-                    title='Recent album'
+                    title='Recent albums'
                     items={this.props.albums}
                     displayItem={renderItem}
                     horizontal={true}
@@ -80,7 +80,7 @@ class HomeView extends React.Component {
                 horizontal={true}
                 image={item.mainPicture ? item.mainPicture.urlSmallThumb : ''}
                 title={item.defaultName}
-                onMediaClick={() => console.log('tap album')}
+                onMediaClick={() => this.props.viewAlbum(item.id)}
                 subtitle={item.artistString} />
         )
 
