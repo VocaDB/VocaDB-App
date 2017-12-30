@@ -1,0 +1,6 @@
+
+export const USERNAME_CHANGE = 'USERNAME_CHANGE'
+export const PASSWORD_CHANGE = 'PASSWORD_CHANGE'
+export const LOG_IN = 'LOG_IN'
+export const LOG_IN_SUCCESS = 'LOG_IN_SUCCESS'
+export const LOG_IN_ERROR = 'LOG_IN_ERROR'
