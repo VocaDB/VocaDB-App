@@ -1,11 +1,6 @@
-import React from 'react'
-import { View, Text } from 'react-native'
+import AlbumView from './album.container';
 
-
-const AlbumView = () => (
-    <View>
-        <Text>Album</Text>
-    </View>
-)
-
-export default AlbumView;
+const route = {
+    screen : AlbumView
+}
+export default route;
