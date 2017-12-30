@@ -1,5 +1,8 @@
 VocaDB Mobile App
 ============
+
+# This version had deprecated. New version as revamp is under PoC (See also in poc/revamp branch)
+
 A mobile version of http://vocadb.net for presents information about vocaloid song,artist or album.
 
 Tools & Resource
