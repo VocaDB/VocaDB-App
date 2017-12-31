@@ -9,7 +9,7 @@ const request = (endpoint, params, mockData) => {
     if(config.useMock) {
         return new Promise((resolve, reject) => setTimeout(() => resolve(mockData), 3000))
     }
-    return axiosAPI.get(endpoint).then(response => response.data)
+    return axiosAPI.get(endpoint, { params }).then(response => response.data)
 }
 
 export default request

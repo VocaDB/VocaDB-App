@@ -4,10 +4,11 @@ import { put, takeLatest, all, call } from 'redux-saga/effects'
 import Api from './home.api'
 import * as actions from './home.action'
 import { RECENT_SONGS_REQUEST, RECENT_ALBUMS_REQUEST, EVENTS_REQUEST } from './home.action.type'
+import myAPI from './../../api'
 
 const fetchSongList = function* fetchSongList() {
     try {
-        const response = yield call(Api.songs.list);
+        const response = yield call(myAPI.songs.find, { 'sort': 'AdditionDate', 'fields': 'thumbUrl' });
         yield put(actions.listRecentSongSuccess(response.items));
     } catch (e) {
         yield put(actions.listRecentSongError(e));

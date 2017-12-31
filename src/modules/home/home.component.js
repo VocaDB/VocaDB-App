@@ -16,14 +16,12 @@ class HomeView extends React.Component {
         this.props.fetchEvents()
     }
 
-    _keyExtractor = (item) => item.id;
-
     renderRecentSongsSection() {
         let renderItem = (item) => (
 
             <MediaItem
                 key={item.id}
-                image={item.thumbUrl}
+                image={(item.thumbUrl)}
                 onMediaClick={() => this.props.viewSong(item.id)}
                 title={item.defaultName}
                 subtitle={item.artistString} />

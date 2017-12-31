@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { View, Image, StyleSheet, TouchableOpacity } from 'react-native'
 import { Grid, Row, Col, Text, Container, Content } from 'native-base'
+import images from './../../assets/images'
 
 class MediaItem extends React.Component {
 
@@ -11,7 +12,9 @@ class MediaItem extends React.Component {
                     <View style={styles.imageContainer}>
                         <Image
                             style={styles.image}
-                            source={{ uri: this.props.image }} />
+                            source={{ uri: this.props.image }}
+                            defaultSource={images.unknownSong}
+                            />
                     </View>
 
                     <View style={styles.infoContainer}>
@@ -118,7 +121,7 @@ MediaItem.propTypes = {
 }
 
 MediaItem.defaultProps = {
-    image: 'http://tn.smilevideo.jp/smile?i=30237236'
+    image: ''
 };
 
 export default MediaItem;
