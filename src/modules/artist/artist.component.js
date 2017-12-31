@@ -1,11 +1,11 @@
 import React from 'react'
 import { TouchableOpacity } from 'react-native'
 import { Container, ListItem, Content, Text, Button, Header, Left, Right, Grid, Row, Col, Title, Icon, StyleProvider, Body, Thumbnail } from 'native-base'
-import data from './../../sample/album'
+import data from './../../sample/artist'
 import images from './../../assets/images'
 import ListContainer from './../../components/ListContainer'
 
-class AlbumView extends React.Component {
+class ArtistView extends React.Component {
 
     render () {
         return (
@@ -17,7 +17,7 @@ class AlbumView extends React.Component {
                         </Button>
                     </Left>
                     <Body>
-                        <Title>Detail</Title>
+                    <Title>Detail</Title>
                     </Body>
                     <Right>
                         <Button transparent onPress={() => this.props.viewSearch()}>
@@ -30,29 +30,15 @@ class AlbumView extends React.Component {
                     <Grid style={{ marginVertical: 16 }}>
                         <Row>
                             <Body>
-                                <Thumbnail square large source={{ uri: images.getAlbumUri(data.id) }} />
-                                <Text>{data.defaultName}</Text>
+                            <Thumbnail square large source={{ uri: images.getArtistUri(data.id) }} resizeMode='contain' />
+                            <Text>{data.defaultName}</Text>
                             </Body>
                         </Row>
                     </Grid>
-
-                    <ListContainer
-                        title='Artists'
-                        items={data.artists.map(a => a.artist)}
-                        displayItem={artist => (
-                            <TouchableOpacity style={{ margin: 8 }} key={artist.id}  onPress={() => this.props.viewArtist(artist.id)}>
-                                <Thumbnail large source={{ uri: images.getArtistUri(artist.id) }}  />
-                                <Text>{artist.name}</Text>
-                                <Text note>{artist.artistType}</Text>
-                            </TouchableOpacity>
-
-                        )}
-                        horizontal={true}
-                    />
                 </Content>
             </Container>
         )
     }
 }
 
-export default AlbumView;
+export default ArtistView;

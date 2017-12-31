@@ -32,7 +32,7 @@ class SongView extends React.Component {
                 title='Artists'
                 items={data.artists.map(a => a.artist)}
                 displayItem={artist => (
-                    <TouchableOpacity key={artist.id} style={{ margin: 8 }} onPress={() => console.log('press')}>
+                    <TouchableOpacity key={artist.id} style={{ margin: 8 }} onPress={() => this.props.viewArtist(artist.id)}>
                         <Thumbnail large source={{ uri: images.getArtistUri(artist.id) }} resizeMode='contain' />
                         <Text>{artist.name}</Text>
                         <Text note>{artist.artistType}</Text>

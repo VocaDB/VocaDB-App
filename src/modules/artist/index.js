@@ -1,11 +1,6 @@
-import React from 'react'
-import { View, Text } from 'react-native'
+import ArtistView from './artist.container';
 
-
-const ArtistView = () => (
-    <View>
-        <Text>Artist</Text>
-    </View>
-)
-
-export default ArtistView;
+const route = {
+    screen : ArtistView
+}
+export default route;
