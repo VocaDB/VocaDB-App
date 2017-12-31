@@ -1,16 +1,12 @@
-import axios from 'axios'
+import request from './request'
+import mockSongs from './../sample/songList'
+import mockSong from './../sample/song'
 
-const api = axios.create({
-    baseURL: 'http://127.0.0.1:8080'
-});
-
-const passResponse = response => response.data
-
-const vocadb = {
+const api = {
     songs: {
-        list: () => api(`/songs`).then(passResponse),
-        get: id => api(`/songs/${id}`).then(passResponse)
+        find: params => request('/songs', params, mockSongs),
+        get: (id, params) => request(`/songs/${id}`, params, mockSong)
     }
 }
 
-export default vocadb
+export default api;
