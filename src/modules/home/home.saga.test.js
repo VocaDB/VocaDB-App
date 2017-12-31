@@ -1,6 +1,6 @@
 import { put, call } from 'redux-saga/effects'
 import { fetchSongList } from './home.saga'
-import Api from './home.api'
+import Api from './../../api'
 import * as actions from './home.action'
 
 describe('fetchSongList Saga',() => {
@@ -8,7 +8,7 @@ describe('fetchSongList Saga',() => {
     const mockResponse = { items: [ { id: 1, name: 'A' } ] }
 
     it('must call api', () => {
-        expect(gen.next().value).toEqual(call(Api.songs.list))
+        expect(gen.next().value).toEqual(call(Api.songs.find, {"fields": "thumbUrl", "sort": "AdditionDate"}))
     })
 
     it('must dispatch an success action', () => {
@@ -25,7 +25,7 @@ describe('fetchSongList Saga error',() => {
     const error = new Error('test error')
 
     it('must call api', () => {
-        expect(gen.next().value).toEqual(call(Api.songs.list))
+        expect(gen.next().value).toEqual(call(Api.songs.find, {"fields": "thumbUrl", "sort": "AdditionDate"}))
     })
 
     it('must dispatch an error action', () => {
