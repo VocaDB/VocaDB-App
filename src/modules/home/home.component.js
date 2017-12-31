@@ -3,6 +3,7 @@ import { View, Text, ScrollView, Alert, Button, RefreshControl } from 'react-nat
 import ListContainer from './../../components/ListContainer'
 import MediaItem from './../../components/MediaItem';
 import EventItem from './../../components/EventItem';
+import images from './../../assets/images'
 
 class HomeView extends React.Component {
 
@@ -48,7 +49,7 @@ class HomeView extends React.Component {
             <MediaItem
                 key={item.id}
                 horizontal={true}
-                image={item.mainPicture.urlSmallThumb}
+                image={images.getAlbumUri(item.id)}
                 title={item.defaultName}
                 onMediaClick={() => this.props.viewAlbum(item.id)}
                 subtitle={item.artistString} />
@@ -76,7 +77,7 @@ class HomeView extends React.Component {
             <MediaItem
                 key={item.id}
                 horizontal={true}
-                image={item.mainPicture ? item.mainPicture.urlSmallThumb : ''}
+                image={images.getAlbumUri(item.id)}
                 title={item.defaultName}
                 onMediaClick={() => this.props.viewAlbum(item.id)}
                 subtitle={item.artistString} />
@@ -102,7 +103,7 @@ class HomeView extends React.Component {
             <EventItem
                 key={item.id}
                 horizontal={true}
-                image={item.mainPicture ? item.mainPicture.urlSmallThumb : 'https://static.vocadb.net/img/releaseevent/mainSmall/1584.png?v=2'}
+                image={item.mainPicture ? { uri: item.mainPicture.urlSmallThumb } : images.unknownSong}
                 title={item.name}
                 dateTime={item.date}
                 onMediaClick={() => console.log('tap album')}

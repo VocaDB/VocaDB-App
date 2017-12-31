@@ -17,7 +17,7 @@ const fetchSongList = function* fetchSongList() {
 
 const fetchRecentAlbum = function* fetchRecentAlbum() {
     try {
-        const response = yield call(Api.albums.list);
+        const response = yield call(myAPI.albums.find, { 'sort': 'AdditionDate' });
         yield put(actions.listRecentAlbumSuccess(response.items));
     } catch (e) {
         yield put(actions.listRecentAlbumError(e));
@@ -26,8 +26,7 @@ const fetchRecentAlbum = function* fetchRecentAlbum() {
 
 const fetchEvents = function* fetchEvents() {
     try {
-        console.log('fetchEvent')
-        const response = yield call(Api.events.list);
+        const response = yield call(myAPI.events.find);
         yield put(actions.listRecentEventSuccess(response.items));
     } catch (e) {
         yield put(actions.listRecentEventError(e));

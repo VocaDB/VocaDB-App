@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native'
+import images from './../../assets/images'
 
 class EventItem extends React.Component {
 
@@ -10,7 +11,8 @@ class EventItem extends React.Component {
                 <View style={styles.imageContainer}>
                     <Image
                         style={styles.image}
-                        source={{ uri: this.props.image }} />
+                        source={this.props.image}
+                        defaultSource={images.unknownSong} />
                 </View>
 
                 <View style={styles.infoContainer}>
@@ -29,7 +31,8 @@ class EventItem extends React.Component {
                     <Image
                         resizeMode='contain'
                         style={hStyles.image}
-                        source={{ uri: this.props.image }} />
+                        source={this.props.image}
+                        defaultSource={images.unknownSong} />
                 </View>
 
                 <View style={hStyles.infoContainer}>
@@ -109,7 +112,6 @@ const hStyles = StyleSheet.create({
 })
 
 EventItem.propTypes = {
-    image: PropTypes.string,
     title: PropTypes.string.isRequired,
     subtitle: PropTypes.string,
     dateTime: PropTypes.string,
@@ -118,7 +120,7 @@ EventItem.propTypes = {
 }
 
 EventItem.defaultProps = {
-    image: 'http://tn.smilevideo.jp/smile?i=30237236'
+    image: ''
 };
 
 export default EventItem;

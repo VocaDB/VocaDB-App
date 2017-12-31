@@ -32,7 +32,8 @@ class MediaItem extends React.Component {
                     <View style={hStyles.imageContainer}>
                         <Image
                             style={hStyles.image}
-                            source={{ uri: this.props.image }} />
+                            source={{ uri: this.props.image }}
+                            defaultSource={images.unknownSong} />
                     </View>
 
                     <View style={hStyles.infoContainer}>
