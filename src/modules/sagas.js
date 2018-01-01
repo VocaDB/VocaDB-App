@@ -4,6 +4,7 @@ import searchSagas from './search/search.saga'
 import storageSagas from './storage/storage.saga'
 import loginSagas from './login/login.saga'
 import songSagas from './song/song.saga'
+import albumSagas from './album/album.saga'
 
 const rootSaga = function* rootSaga() {
   yield all([
@@ -11,7 +12,8 @@ const rootSaga = function* rootSaga() {
       searchSagas(),
       storageSagas(),
       loginSagas(),
-      songSagas()
+      songSagas(),
+      albumSagas()
   ])
 }
 
