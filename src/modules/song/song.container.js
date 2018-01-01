@@ -17,7 +17,7 @@ const mapDispatchToProps = dispatch => ({
     back: () => dispatch(NavigationActions.back()),
     getSong: id => dispatch(getSong(id)),
     viewSearch: () => dispatch(viewSearch()),
-    viewArtist: () => dispatch(viewArtist())
+    viewArtist: id => dispatch(viewArtist(id))
 })
 
 SongView.propTypes = {
