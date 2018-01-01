@@ -14,18 +14,6 @@ class SearchView extends React.Component {
                 <ListItem itemHeader first>
                     <Text>Recent searches</Text>
                 </ListItem>
-                <ListItem onPress={() => this.props.searchEntry('Romeo')}>
-                    <Text>Miku</Text>
-                </ListItem>
-                <ListItem onPress={() => this.props.searchEntry('Gumi')}>
-                    <Text>Gumi</Text>
-                </ListItem>
-                <ListItem onPress={() => this.props.searchEntry('Gumi')}>
-                    <Text>Test 1</Text>
-                </ListItem>
-                <ListItem last onPress={() => this.props.searchEntry('Gumi')}>
-                    <Text>Test 2</Text>
-                </ListItem>
             </List>
         )
     }
@@ -37,20 +25,30 @@ class SearchView extends React.Component {
                 <Text>No result</Text>
             </View>
         )
+
+        const listItem = entry => {
+
+            const imageUri = (entry.mainPicture)? entry.mainPicture.urlThumb : ''
+
+            console.log(entry)
+
+            return (
+                <ListItem key={entry.id} onPress={() => this.props.viewEntry(entry.id,entry.entryType)}>
+                    <Thumbnail square size={80} source={{ uri: imageUri }} defaultSource={images.unknownSong} />
+                    <Body>
+                        <Text>{entry.defaultName}</Text>
+                        <Text note>{entry.entryType}</Text>
+                    </Body>
+                </ListItem>
+            )
+        }
+
         const result = (
             <List>
                 <ListItem itemHeader first>
                     <Text>Results</Text>
                 </ListItem>
-                {this.props.entries.map(entry => (
-                    <ListItem key={entry.id} onPress={() => this.props.viewSong(entry.id)}>
-                        <Thumbnail square size={80} source={images.logo} />
-                        <Body>
-                        <Text>{entry.defaultName}</Text>
-                        <Text note>{entry.entryType}</Text>
-                        </Body>
-                    </ListItem>
-                ))}
+                {this.props.entries.map(listItem)}
             </List>
         )
 
@@ -73,13 +71,13 @@ class SearchView extends React.Component {
                             </Button>
                             <Item>
                                 <Icon name="ios-search" />
-                                <Input placeholder="Search" onChangeText={text => this.props.searchEntry(text)} value={this.props.q} />
+                                <Input placeholder="Search" onChangeText={text => this.props.searchEntry(text)} value={this.props.query} />
                             </Item>
                         </Header>
                         <Content>
                             {this.props.loading && <Spinner color='blue' />}
-                            {this.props.q != '' && this.renderResult()}
-                            {this.props.q == '' && this.renderRecent()}
+                            {this.props.query != '' && this.renderResult()}
+                            {this.props.query == '' && this.renderRecent()}
                         </Content>
                     </Container>
                 </StyleProvider>

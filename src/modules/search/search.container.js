@@ -13,13 +13,22 @@ const mapStateToProps = (state, props) => ({
     loading: state.search.loading,
     error: state.search.error,
     entries: state.search.entries,
-    q: state.search.q
+    query: state.search.query
 })
 
 const mapDispatchToProps = dispatch => ({
     back: () => dispatch(NavigationActions.back()),
     clear: () => dispatch(searchCancel()),
     searchEntry: q => (q)? dispatch(entryRequest(q)) : dispatch(searchCancel()),
+    viewEntry: (id,entryType) => {
+        if (entryType.toLowerCase() == 'song') {
+            dispatch(viewSong(id))
+        } else if (entryType.toLowerCase() == 'album') {
+            dispatch(viewAlbum(id))
+        } else if (entryType.toLowerCase() == 'artist') {
+            dispatch(viewArtist(id))
+        }
+    },
     viewSong: id => dispatch(viewSong(id)),
     viewAlbum: id => dispatch(viewAlbum(id)),
     viewArtist: id => dispatch(viewArtist(id))

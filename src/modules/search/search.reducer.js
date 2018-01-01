@@ -2,15 +2,15 @@ import { entrySuccess, entryRequest, entryError, searchCancel, searchTyping } fr
 import { createReducer } from 'redux-act'
 
 const defaultState = {
-    q: '',
+    query: '',
     loading: false,
     entries: []
 }
 
 const reducer = createReducer({
-    [searchTyping]: (state, payload) => ({ ...state, q: payload.q }),
-    [searchCancel]: (state) => ({ ...state, loading: false, entries: [], q: '' }),
-    [entryRequest]: (state, payload) => ({ ...state, loading: true, q: payload.q }),
+    [searchTyping]: (state, payload) => ({ ...state, query: payload.query }),
+    [searchCancel]: (state) => ({ ...state, loading: false, entries: [], query: '' }),
+    [entryRequest]: (state, payload) => ({ ...state, loading: true, query: payload.query }),
     [entrySuccess]: (state, payload) => ({ ...state, loading: false, entries: payload.entries }),
     [entryError]: (state, error) => ({ ...state, loading: false, error })
 }, defaultState)
