@@ -19,7 +19,7 @@ const api = {
         get: (id, params) => request(`/albums/${id}`, params, mockAlbum)
     },
     artists: {
-        get: params => request('/artists', params, mockArtst)
+        get: (id, params) => request(`/artists/${id}`, params, mockArtst)
     },
     events: {
         find: params => request('/releaseEvents', params, mockEvents),
@@ -29,7 +29,7 @@ const api = {
         find: params => request('/entries', params, mockEntries)
     },
     tags: {
-        get: params => request('/tags', params, mockTag)
+        get: (id, params) => request(`/tags/${id}`, params, mockTag)
     }
 }
 
