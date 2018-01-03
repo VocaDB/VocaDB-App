@@ -8,7 +8,7 @@ describe('Artist Saga',() => {
     const mockResponse = { id: 1, name: 'A' }
 
     it('must call api', () => {
-        expect(gen.next().value).toEqual(call(Api.artists.get, 1, { 'fields': 'Tags,WebLinks', 'relations': 'all' }))
+        expect(gen.next().value).toEqual(call(Api.artists.get, 1, { 'fields': 'Description,Tags,WebLinks', 'relations': 'all' }))
     })
 
     it('must dispatch an success action', () => {
