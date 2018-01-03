@@ -9,11 +9,21 @@ class SearchView extends React.Component {
 
     renderRecent ()  {
 
+        const recentList = this.props.recentList
+
         return (
             <List>
                 <ListItem itemHeader first>
                     <Text>Recent searches</Text>
                 </ListItem>
+                {recentList.map(entry => (
+                    <ListItem key={entry.id} onPress={() => this.props.viewEntry(entry)}>
+                        <Body>
+                        <Text>{entry.defaultName}</Text>
+                        <Text note>{entry.entryType}</Text>
+                        </Body>
+                    </ListItem>
+                ))}
             </List>
         )
     }
@@ -28,12 +38,10 @@ class SearchView extends React.Component {
 
         const listItem = entry => {
 
-            const imageUri = (entry.mainPicture)? entry.mainPicture.urlThumb : ''
-
-            console.log(entry)
+            const imageUri = (entry.mainPicture)? entry.mainPicture.urlThumb : images.placeholderUri
 
             return (
-                <ListItem key={entry.id} onPress={() => this.props.viewEntry(entry.id,entry.entryType)}>
+                <ListItem key={entry.id} onPress={() => this.props.viewEntry(entry)}>
                     <Thumbnail square size={80} source={{ uri: imageUri }} defaultSource={images.unknownSong} />
                     <Body>
                         <Text>{entry.defaultName}</Text>
