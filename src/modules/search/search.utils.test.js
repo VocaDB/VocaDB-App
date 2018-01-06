@@ -22,6 +22,10 @@ describe('Prepend entries test', () => {
         expect(prependEntries([{ id: 1, name: 'Miku' }], { id: 2, name: 'Luka' })).toEqual([{ id: 2, name: 'Luka' }, { id: 1, name: 'Miku' }])
     })
 
+    it('should not prepend duplicated id', () => {
+        expect(prependEntries([{ id: 1, name: 'Miku' }], { id: 1, name: 'Luka' })).toEqual([{ id: 1, name: 'Miku' }])
+    })
+
     it('should remove last item when prepend exceed maximum', () => {
 
         let recentList = genEntries(config.maxRecentSearch);

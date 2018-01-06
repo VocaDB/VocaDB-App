@@ -1,11 +1,15 @@
 import React from 'react'
-import { View, TextInput, ScrollView, TouchableOpacity } from 'react-native'
+import { View, Alert, TextInput, ScrollView, TouchableOpacity } from 'react-native'
 import { Container, Content, Header, Left, Right, Thumbnail, Body, Text, H2, Spinner,  Title, StyleProvider, Button, Icon, Item, Input, Picker, List, ListItem } from 'native-base'
 import getTheme from './../../../native-base-theme/components';
 import material from './../../../native-base-theme/variables/material';
 import images from './../../assets/images'
 
 class SearchView extends React.Component {
+
+    componentDidMount () {
+        this.props.initRecentSearch()
+    }
 
     renderRecent ()  {
 
@@ -65,6 +69,12 @@ class SearchView extends React.Component {
 
 
     render () {
+
+        const { error } = this.props;
+
+        if(error) {
+            Alert.alert('Error', error.message);
+        }
 
         return (
             <View style={{

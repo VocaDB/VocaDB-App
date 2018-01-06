@@ -19,12 +19,17 @@ const saveRecent = function* saveRecent(action) {
 
     try {
         let recentList = yield call(AsyncStorage.getItem, key.RECENT_SEARCH);
-        let newEntry = action.payload.newEntry
 
+        if(recentList) {
+            recentList = JSON.parse(recentList);
+        }
+
+        let newEntry = action.payload.newEntry
         let newRecentList = prependEntries(recentList, newEntry)
 
         yield call(AsyncStorage.setItem, key.RECENT_SEARCH ,JSON.stringify(newRecentList));
-        yield put(actions.saveRecentSuccess(recentList));
+        yield put(actions.saveRecentSuccess(newRecentList));
+
     } catch (e) {
         yield put(actions.saveRecentError(e));
     }
