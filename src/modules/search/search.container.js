@@ -1,7 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import SearchView from './search.component'
-import {entryRequest, searchCancel, searchTyping, saveRecent, readRecent} from './search.action'
+import {
+    entryRequest, searchCancel, searchTyping, saveRecent, deleteRecent,
+    clearRecent
+} from './search.action'
 import { NavigationActions } from "react-navigation";
 import { viewSong, viewAlbum, viewArtist } from "../nav/nav.action";
 
@@ -19,7 +22,6 @@ const mapStateToProps = (state, props) => ({
 
 const mapDispatchToProps = dispatch => ({
     back: () => dispatch(NavigationActions.back()),
-    initRecentSearch: () => dispatch(readRecent()),
     clear: () => dispatch(searchCancel()),
     searchEntry: q => (q)? dispatch(entryRequest(q)) : dispatch(searchCancel()),
     viewEntry: entry => {
@@ -39,7 +41,9 @@ const mapDispatchToProps = dispatch => ({
     },
     viewSong: id => dispatch(viewSong(id)),
     viewAlbum: id => dispatch(viewAlbum(id)),
-    viewArtist: id => dispatch(viewArtist(id))
+    viewArtist: id => dispatch(viewArtist(id)),
+    deleteRecent: id => dispatch(deleteRecent(id)),
+    clearRecent: () => dispatch(clearRecent())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchView)

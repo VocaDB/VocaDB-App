@@ -7,28 +7,27 @@ import images from './../../assets/images'
 
 class SearchView extends React.Component {
 
-    componentDidMount () {
-        this.props.initRecentSearch()
-    }
-
     renderRecent ()  {
 
         const recentList = this.props.recentList
 
         return (
-            <List>
-                <ListItem itemHeader first>
-                    <Text>Recent searches</Text>
-                </ListItem>
-                {recentList.map(entry => (
-                    <ListItem key={entry.id} onPress={() => this.props.viewEntry(entry)}>
-                        <Body>
-                        <Text>{entry.defaultName}</Text>
-                        <Text note>{entry.entryType}</Text>
-                        </Body>
+            <View>
+                <List>
+                    <ListItem itemHeader first>
+                        <Text>Recent searches</Text>
                     </ListItem>
-                ))}
-            </List>
+                    {recentList.map(entry => (
+                        <ListItem key={entry.id} onPress={() => this.props.viewEntry(entry)}>
+                            <Body>
+                            <Text>{entry.defaultName}</Text>
+                            <Text note>{entry.entryType}</Text>
+                            </Body>
+                        </ListItem>
+                    ))}
+                </List>
+            </View>
+
         )
     }
 
@@ -93,6 +92,7 @@ class SearchView extends React.Component {
                             </Item>
                         </Header>
                         <Content>
+
                             {this.props.loading && <Spinner color='blue' />}
                             {this.props.query != '' && this.renderResult()}
                             {this.props.query == '' && this.renderRecent()}
