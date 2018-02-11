@@ -1,0 +1,132 @@
+export default {
+    "items": [
+        {
+            "activityDate": "2018-02-08T00:00:00Z",
+            "artistString": "NIYMORIY feat. 巡音ルカ",
+            "createDate": "2018-02-08T16:41:58",
+            "defaultName": "chip",
+            "defaultNameLanguage": "English",
+            "entryType": "Song",
+            "id": 183715,
+            "name": "chip",
+            "songType": "Original",
+            "status": "Finished",
+            "version": 2
+        },
+        {
+            "activityDate": "2012-09-22T00:00:00Z",
+            "artistString": "ShizuSogune feat. 齟齬音シズ",
+            "createDate": "2018-02-08T15:15:28",
+            "defaultName": "Hohoemi no Bakudan",
+            "defaultNameLanguage": "Japanese",
+            "entryType": "Song",
+            "id": 183711,
+            "name": "Hohoemi no Bakudan",
+            "songType": "Cover",
+            "status": "Finished",
+            "version": 2
+        },
+        {
+            "artistType": "Producer",
+            "createDate": "2018-02-08T15:12:47",
+            "defaultName": "4PoL10",
+            "defaultNameLanguage": "English",
+            "entryType": "Artist",
+            "id": 64383,
+            "name": "4PoL10",
+            "status": "Finished",
+            "version": 2
+        },
+        {
+            "artistType": "Illustrator",
+            "createDate": "2018-02-08T12:42:50",
+            "defaultName": "hashi0",
+            "defaultNameLanguage": "English",
+            "entryType": "Artist",
+            "id": 64376,
+            "name": "hashi0",
+            "status": "Finished",
+            "version": 1
+        },
+        {
+            "activityDate": "2008-11-30T00:00:00",
+            "artistString": "アロエP feat. 初音ミク",
+            "createDate": "2018-02-07T22:21:16",
+            "defaultName": "Aloertherapy",
+            "defaultNameLanguage": "English",
+            "discType": "Album",
+            "entryType": "Album",
+            "id": 24230,
+            "name": "Aloertherapy",
+            "status": "Finished",
+            "version": 2
+        },
+        {
+            "activityDate": "2016-10-05T00:00:00",
+            "artistString": "sofubi-p feat. MEIKO V3 (English)",
+            "createDate": "2018-02-07T18:16:35",
+            "defaultName": "Behind Closed Eyes",
+            "defaultNameLanguage": "English",
+            "discType": "Album",
+            "entryType": "Album",
+            "id": 24225,
+            "name": "Behind Closed Eyes",
+            "status": "Finished",
+            "version": 3
+        },
+        {
+            "activityDate": "2010-05-05T00:00:00",
+            "artistString": "籠 結城 feat. 初音ミク, 巡音ルカ",
+            "createDate": "2018-02-06T23:11:31",
+            "defaultName": "COOL ＆ CUTE",
+            "defaultNameLanguage": "English",
+            "discType": "Album",
+            "entryType": "Album",
+            "id": 24222,
+            "name": "COOL ＆ CUTE",
+            "status": "Finished",
+            "version": 2
+        },
+        {
+            "activityDate": "2018-02-05T00:00:00",
+            "artistString": "Yin-P feat. Bunny",
+            "createDate": "2018-02-06T03:39:04",
+            "defaultName": "Anti↓↑Christ",
+            "defaultNameLanguage": "English",
+            "discType": "Single",
+            "entryType": "Album",
+            "id": 24215,
+            "name": "Anti↓↑Christ",
+            "status": "Finished",
+            "version": 5
+        },
+        {
+            "activityDate": "2018-01-21T00:00:00Z",
+            "createDate": "0001-01-01T00:00:00",
+            "defaultName": "COMIC CITY 福岡 45",
+            "defaultNameLanguage": "English",
+            "entryType": "ReleaseEvent",
+            "eventCategory": "Convention",
+            "id": 1671,
+            "name": "COMIC CITY 福岡 45",
+            "status": "Finished",
+            "releaseEventSeriesName": "COMIC CITY 福岡",
+            "urlSlug": "comic-city--45",
+            "version": 3
+        },
+        {
+            "activityDate": "2017-12-04T00:00:00Z",
+            "createDate": "0001-01-01T00:00:00",
+            "defaultName": "Interspace Love Message (Remix Contest)",
+            "defaultNameLanguage": "English",
+            "entryType": "ReleaseEvent",
+            "eventCategory": "Contest",
+            "id": 1681,
+            "name": "Interspace Love Message (Remix Contest)",
+            "status": "Finished",
+            "urlSlug": "interspace-love-message-remix-",
+            "version": 11
+        }
+    ],
+    "totalCount": 0
+}

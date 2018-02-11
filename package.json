@@ -4,10 +4,10 @@
   "version": "2.0.0",
   "private": false,
   "devDependencies": {
-    "@storybook/addon-actions": "^3.3.10",
-    "@storybook/addon-links": "^3.3.10",
-    "@storybook/addons": "^3.3.10",
-    "@storybook/react-native": "^3.3.10",
+    "@storybook/addon-actions": "^3.3.12",
+    "@storybook/addon-links": "^3.3.12",
+    "@storybook/addons": "^3.3.12",
+    "@storybook/react-native": "^3.3.12",
     "babel-core": "^6.26.0",
     "babel-plugin-root-import": "^5.1.0",
     "fetch-mock": "^5.13.1",
@@ -48,7 +48,7 @@
       "searchDir": [
         "./src"
       ],
-      "pattern": "**/*.stories.js",
+      "pattern": "**/stories.js",
       "outputFile": "./storybook/storyLoader.js"
     }
   },
@@ -62,16 +62,20 @@
     "immutable": "^3.8.2",
     "isomorphic-fetch": "^2.2.1",
     "jest-cli": "^21.2.1",
-    "native-base": "^2.3.5",
+    "native-base": "^2.3.8",
+    "normalizr": "^3.2.4",
     "react": "16.0.0-beta.5",
     "react-native": "^0.49.5",
     "react-native-scrollable-tab-view": "^0.8.0",
     "react-native-vector-icons": "^4.4.2",
-    "react-navigation": "^1.0.0-beta.21",
+    "react-navigation": "^1.0.0",
+    "react-navigation-redux-helpers": "^1.0.0",
     "redux-act": "^1.5.1",
     "redux-actions": "^2.2.1",
+    "redux-immutable": "^4.0.0",
     "redux-logger": "^3.0.6",
     "redux-saga": "^0.16.0",
-    "redux-thunk": "^2.2.0"
+    "redux-thunk": "^2.2.0",
+    "reselect": "^3.0.1"
   }
 }
