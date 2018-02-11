@@ -1,22 +1,43 @@
 import React from 'react'
 import { Image, View, Text, TouchableOpacity, StyleSheet } from 'react-native'
+import { Avatar } from 'react-native-elements'
 import PropTypes from 'prop-types';
 import images from './../../assets/images'
+import style from './style'
 
 class Artist extends React.Component {
 
+    componentWillMount () {
+        this.styleSelected = style[this.props.display]
+    }
+
     renderImage () {
-        return (<Image
-            style={styles.image}
-            resizeMode={Image.resizeMode.contain}
-            source={{ uri: images.getArtistUri(this.props.id) }}
-            defaultSource={images.unknownSong}
-        />)
+        return (
+            <Avatar
+                large
+                rounded
+                source={{uri: images.getArtistUri(this.props.id)}}
+                onPress={() => console.log("Works!")}
+                activeOpacity={0.7}
+            />
+        )
     }
 
     render () {
 
-
+        if(this.props.display == 'avatar') {
+            return (
+                <View style={{ margin: 4 }}>
+                    <Avatar
+                        large
+                        rounded
+                        source={{uri: images.getArtistUri(this.props.id)}}
+                        onPress={this.props.onPress}
+                        activeOpacity={0.7}
+                    />
+                </View>
+            )
+        }
 
         return (
             <TouchableOpacity onPress={this.props.onPress}>
@@ -39,10 +60,14 @@ class Artist extends React.Component {
 Artist.propTypes = {
     name: PropTypes.string,
     type: PropTypes.string,
-    role: PropTypes.string
+    role: PropTypes.string,
+    horizontal: PropTypes.bool,
+    display: PropTypes.oneOf(['row', 'avatar'])
 };
 
 Artist.defaultProps = {
+    horizontal: false,
+    display: 'row'
 };
 
 const styles =  StyleSheet.create({

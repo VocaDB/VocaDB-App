@@ -1,19 +1,18 @@
 import React from 'react'
-import { View, Text } from 'react-native'
+import { View, Text, ScrollView } from 'react-native'
 import Artist from './../Artist'
 import PropTypes from 'prop-types';
 import images from './../../assets/images'
 
 class ArtistList extends React.Component {
 
-    render () {
-
+    renderVertical () {
         const renderItem = artist => {
 
             return  (
                 <Artist
                     key={artist.id}
-                    image={images.getArtistUri(artist.id)}
+                    id={artist.id}
                     name={artist.name}
                     artist={artist.artistString}
                     onPress={() => this.props.onPressItem(artist.id)}
@@ -27,15 +26,41 @@ class ArtistList extends React.Component {
             </View>
         )
     }
+
+    renderHorizontal () {
+        const renderItem = artist => {
+
+            return  (
+                <Artist
+                    key={artist.id}
+                    id={artist.id}
+                    display='avatar'
+                    onPress={() => this.props.onPressItem(artist.id)}
+                />
+            )
+        }
+
+        return (
+            <ScrollView horizontal={true}>
+                {this.props.artists.map(renderItem)}
+            </ScrollView>
+        )
+    }
+
+    render () {
+        return (this.props.horizontal) ? this.renderHorizontal() : this.renderVertical()
+    }
 }
 
 ArtistList.propTypes = {
     artists: PropTypes.array,
-    onPressItem: PropTypes.func
+    onPressItem: PropTypes.func,
+    horizontal: PropTypes.bool
 };
 
 ArtistList.defaultProps = {
     artists: [],
+    horizontal: false,
     onPressItem: () => {}
 };
 

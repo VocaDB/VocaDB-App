@@ -30,4 +30,11 @@ storiesOf('Artist', module)
             role='Vocaloid'
             onPress={action("Press artist")}
         />
+    ))
+    .add('only avatar', () => (
+        <Artist
+            id={1}
+            display='avatar'
+            onPress={action("Press artist")}
+        />
     ));

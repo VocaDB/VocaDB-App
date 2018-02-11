@@ -15,3 +15,12 @@ storiesOf('ArtistList', module)
             onPressItem={action('press artist')}
         />
     ));
+
+storiesOf('ArtistList', module)
+    .add('with horizontal', () => (
+        <ArtistList
+            artists={mockArtists.items}
+            horizontal={true}
+            onPressItem={action('press album')}
+        />
+    ));
