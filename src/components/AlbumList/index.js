@@ -14,7 +14,7 @@ class AlbumList extends React.Component {
                     <Text style={style.title}>{this.props.title}</Text>
                 </View>
                 <View style={style.headerRight}>
-                    <Button style={style.button} title='More' onPress={() => this.props.onPressMore()} />
+                    {!this.props.hideMoreButton && <Button style={style.button} title='More' onPress={() => this.props.onPressMore()} />}
                 </View>
             </View>
         )
@@ -26,7 +26,7 @@ class AlbumList extends React.Component {
                 <Album
                     key={album.id}
                     image={images.getAlbumUri(album.id)}
-                    name={album.defaultName}
+                    name={album.name}
                     artist={album.artistString}
                     onPress={() => this.props.onPressItem(album.id)}
                 />
@@ -52,7 +52,7 @@ class AlbumList extends React.Component {
                 <Album
                     key={album.id}
                     image={images.getAlbumUri(album.id)}
-                    name={album.defaultName}
+                    name={album.name}
                     artist={album.artistString}
                     display='box'
                     onPress={() => this.props.onPressItem(album.id)}
@@ -60,17 +60,21 @@ class AlbumList extends React.Component {
             )
         }
 
+        const Header = () => (
+            <View style={{ height: 40, flexDirection: 'row', alignItems: 'center', paddingHorizontal: 4 }}>
+                <View style={{ flex: 1 }}>
+                    <Text>{this.props.title}</Text>
+                </View>
+                <View style={{ flex: 1 }}>
+                    {!this.props.hideMoreButton && <Button title='More' onPress={() => this.props.onPressMore()} />}
+                </View>
+            </View>
+        )
+
         return (
             <View style={{ height: 300 }}>
 
-                <View style={{ height: 40, flexDirection: 'row', alignItems: 'center', paddingHorizontal: 4 }}>
-                    <View style={{ flex: 1 }}>
-                        <Text>{this.props.title}</Text>
-                    </View>
-                    <View style={{ flex: 1 }}>
-                        <Button title='More' onPress={() => this.props.onPressMore()} />
-                    </View>
-                </View>
+                {this.props.showHeader && <Header />}
 
                 <ScrollView horizontal={true} style={{ flex: 1 }}>
                     {albums.map(renderItem)}
@@ -91,7 +95,8 @@ AlbumList.propTypes = {
     onPressItem: PropTypes.func,
     onPressMore: PropTypes.func,
     showHeader: PropTypes.bool,
-    horizontal: PropTypes.bool
+    horizontal: PropTypes.bool,
+    hideMoreButton: PropTypes.bool
 };
 
 AlbumList.defaultProps = {
@@ -99,6 +104,7 @@ AlbumList.defaultProps = {
     max: 10,
     showHeader: false,
     horizontal: false,
+    hideMoreButton: false,
     albums: [],
     onPressItem: () => {},
     onPressMore: () => {}
