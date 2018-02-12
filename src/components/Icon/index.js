@@ -6,18 +6,16 @@ import PropTypes from 'prop-types';
 class Icon extends React.Component {
 
     render () {
-
         const size = {
             small: 16,
             medium: 24,
             large: 32,
             xlarge: 64
         }
-
         return (
             <TouchableOpacity style={style.container} onPress={this.props.onPress}>
                 <IconVector name={this.props.name} size={size[this.props.size]} color={this.props.color} style={style.icon}  />
-                {this.props.text && <Text style={style.label}>{this.props.text}</Text>}
+                {this.props.text && <Text style={[style.label, { color: this.props.color }]}>{this.props.text}</Text>}
             </TouchableOpacity>
         )
     }
@@ -26,15 +24,15 @@ class Icon extends React.Component {
 const style = StyleSheet.create({
     container: {
         flex: 1,
-        flexDirection: 'row',
-        alignItems: 'center'
+        alignItems: 'center',
+        justifyContent: 'center'
     },
     icon: {
         textAlign: 'center',
         margin: 8
     },
     label: {
-
+        fontSize: 12
     }
 })
 
