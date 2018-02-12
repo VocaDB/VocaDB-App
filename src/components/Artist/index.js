@@ -3,14 +3,8 @@ import { Image, View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import { Avatar } from 'react-native-elements'
 import PropTypes from 'prop-types';
 import images from './../../assets/images'
-import style from './style'
 
 class Artist extends React.Component {
-
-    componentWillMount () {
-        this.styleSelected = style[this.props.display]
-    }
-
     renderImage () {
         return (
             <Avatar

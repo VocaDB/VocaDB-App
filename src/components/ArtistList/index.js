@@ -41,9 +41,12 @@ class ArtistList extends React.Component {
         }
 
         return (
-            <ScrollView horizontal={true}>
-                {this.props.artists.map(renderItem)}
-            </ScrollView>
+            <View>
+                <Text style={{ paddingHorizontal: 4 }}>Artists</Text>
+                <ScrollView horizontal={true}>
+                    {this.props.artists.map(renderItem)}
+                </ScrollView>
+            </View>
         )
     }
 
@@ -55,12 +58,16 @@ class ArtistList extends React.Component {
 ArtistList.propTypes = {
     artists: PropTypes.array,
     onPressItem: PropTypes.func,
-    horizontal: PropTypes.bool
+    horizontal: PropTypes.bool,
+    showHeader: PropTypes.bool,
+    hideMoreButton: PropTypes.bool
 };
 
 ArtistList.defaultProps = {
     artists: [],
     horizontal: false,
+    showHeader: false,
+    hideMoreButton: false,
     onPressItem: () => {}
 };
 
