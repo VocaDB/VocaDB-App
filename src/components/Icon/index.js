@@ -1,6 +1,6 @@
 import React from 'react'
 import { Text, TouchableOpacity, StyleSheet } from 'react-native'
-import IconVector from 'react-native-vector-icons/FontAwesome';
+import IconVector from 'react-native-vector-icons/Ionicons';
 import PropTypes from 'prop-types';
 
 class Icon extends React.Component {
