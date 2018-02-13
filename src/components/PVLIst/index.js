@@ -47,7 +47,7 @@ PVList.propTypes = {
 PVList.defaultProps = {
     pvs: [],
     title: 'PVs',
-    showHeader: true
+    showHeader: false
 };
 
 export default PVList;
