@@ -29,6 +29,7 @@ TagGroup.propTypes = {
 }
 
 TagGroup.defaultProps = {
+    tags: []
 }
 
 export default TagGroup;
