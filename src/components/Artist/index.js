@@ -3,6 +3,7 @@ import { Image, View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import { Avatar } from 'react-native-elements'
 import PropTypes from 'prop-types';
 import images from './../../assets/images'
+import Theme from './../../theme'
 
 class Artist extends React.Component {
     renderImage () {
@@ -41,9 +42,9 @@ class Artist extends React.Component {
                     </View>
 
                     <View style={styles.infoContainer}>
-                        <Text style={styles.title}>{this.props.name}</Text>
-                        {this.props.type && <Text>{this.props.type}</Text>}
-                        {this.props.role && <Text>{this.props.role}</Text>}
+                        <Text style={Theme.title}>{this.props.name}</Text>
+                        {this.props.type && <Text style={Theme.subHeading}>{this.props.type}</Text>}
+                        {this.props.role && <Text style={Theme.subHeading}>{this.props.role}</Text>}
                     </View>
                 </View>
             </TouchableOpacity>

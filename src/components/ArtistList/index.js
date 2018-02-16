@@ -3,6 +3,7 @@ import { View, Text, ScrollView } from 'react-native'
 import Artist from './../Artist'
 import PropTypes from 'prop-types';
 import images from './../../assets/images'
+import Theme from './../../theme'
 
 class ArtistList extends React.Component {
 
@@ -42,7 +43,7 @@ class ArtistList extends React.Component {
 
         return (
             <View>
-                <Text style={{ paddingHorizontal: 4 }}>Artists</Text>
+                <Text style={Theme.title}>Artists</Text>
                 <ScrollView horizontal={true}>
                     {this.props.artists.map(renderItem)}
                 </ScrollView>

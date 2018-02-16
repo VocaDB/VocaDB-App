@@ -13,7 +13,8 @@ export default {
         flex: 1
     },
     title: {
-
+        fontSize: 18,
+        opacity: 0.87
     },
     button: {
     }

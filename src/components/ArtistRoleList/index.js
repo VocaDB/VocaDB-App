@@ -3,6 +3,7 @@ import { View, Text } from 'react-native'
 import Artist from './../Artist'
 import PropTypes from 'prop-types';
 import images from './../../assets/images'
+import Theme from './../../theme'
 
 class ArtistRole extends React.Component {
 
@@ -45,7 +46,7 @@ class ArtistRole extends React.Component {
         return (
             <View>
                 <View style={{ padding: 8 }}>
-                    <Text>{this.props.title}</Text>
+                    <Text style={Theme.title}>{this.props.title}</Text>
                 </View>
                 {artists.map(renderItem)}
             </View>

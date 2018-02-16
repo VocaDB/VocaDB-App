@@ -2,6 +2,7 @@ import React from 'react'
 import { Image, View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import PropTypes from 'prop-types';
 import images from './../../assets/images'
+import Theme from '../../theme'
 
 class Song extends React.Component {
 
@@ -22,8 +23,8 @@ class Song extends React.Component {
                     </View>
 
                     <View style={styles.infoContainer}>
-                        <Text style={styles.title}>{this.props.name}</Text>
-                        <Text note numberOfLines={1}>{this.props.artist}</Text>
+                        <Text style={Theme.title}>{this.props.name}</Text>
+                        <Text style={Theme.subHeading} numberOfLines={2}>{this.props.artist}</Text>
                         <Text note>{this.props.dateTime}</Text>
                     </View>
                 </View>

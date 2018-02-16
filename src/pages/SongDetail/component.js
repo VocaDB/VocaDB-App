@@ -11,6 +11,7 @@ import ArtistRoleList from './../../components/ArtistRoleList'
 import WebLinkList from './../../components/WebLinkList'
 import ScrollableTabView from 'react-native-scrollable-tab-view'
 import PVList from './../../components/PVLIst'
+import Theme from './../../theme'
 
 export default class SongDetailPage extends React.Component {
 
@@ -23,20 +24,20 @@ export default class SongDetailPage extends React.Component {
         const song = this.props.song
 
 
-        const Section = props => (<View style={[{ marginVertical: 8},props.style]}>{props.children}</View>)
+        const Section = props => (<View style={[{ marginVertical: 8, paddingHorizontal: 4 },props.style]}>{props.children}</View>)
 
         const InfoPage = props => {
 
             return (
-                <ScrollView style={{ flex: 1 }}>
-                    <View style={{ height: 180, backgroundColor: '#FFFFFF' }}>
-                        <CenterView style={{ backgroundColor: '#FFFFFF', justifyContent: 'space-around', padding: 10 }}>
+                <ScrollView style={{ flex: 1, backgroundColor: 'white' }}>
+                    <View style={{ height: 180, backgroundColor: '#B0BEC5' }}>
+                        <CenterView style={{ backgroundColor: '#546E7A', justifyContent: 'space-around', padding: 10 }}>
                             <Image
                                 style={{ width: 160 , height: 100 }}
                                 source={{ uri: song.thumbUrl }}
                             />
-                            <Text style={{ fontSize: 18}}>{song.defaultName}</Text>
-                            <Text>{song.artistString}</Text>
+                            <Text style={Theme.displayReverse_1}>{song.defaultName}</Text>
+                            <Text style={Theme.displayReverse_2}>{song.artistString}</Text>
                         </CenterView>
                     </View>
                     <Section style={{ flex: 1, flexDirection: 'row' }}>
@@ -57,7 +58,7 @@ export default class SongDetailPage extends React.Component {
         }
 
         const PVListPage = () => (
-            <ScrollView style={{ flex: 1 }}>
+            <ScrollView style={{ flex: 1, backgroundColor: 'white' }}>
                 <PVList pvs={song.pvs} type='Original' title='Original' showHeader />
                 <PVList pvs={song.pvs} type='Reprint' title='Reprint' showHeader />
                 <PVList pvs={song.pvs} type='Other' title='Other' showHeader />
@@ -65,7 +66,7 @@ export default class SongDetailPage extends React.Component {
         )
 
         const ArtistRoleListPage = () => (
-            <ScrollView style={{ flex: 1 }}>
+            <ScrollView style={{ flex: 1, backgroundColor: 'white' }}>
                 <ArtistRoleList artists={song.artists} title='Producer' category='Producer' />
                 <ArtistRoleList artists={song.artists} title='Vocalist' category='Vocalist' />
                 <ArtistRoleList artists={song.artists} title='Other' category='Other' displayRole />
@@ -73,7 +74,7 @@ export default class SongDetailPage extends React.Component {
         )
 
         const AlbumListPage = () => (
-            <ScrollView style={{ flex: 1 }}>
+            <ScrollView style={{ flex: 1, backgroundColor: 'white' }}>
                 <AlbumList albums={song.albums} title='Albums' />
             </ScrollView>
         )

@@ -2,6 +2,7 @@ import React from 'react'
 import { View, Text } from 'react-native'
 import PropTypes from 'prop-types'
 import WebLink from './../WebLink'
+import Theme from './../../theme'
 
 class WebLinkList extends React.Component {
     render () {
@@ -20,7 +21,7 @@ class WebLinkList extends React.Component {
 
         return (
             <View>
-                <Text style={{ fontSize: 10, color: '#455A64', fontWeight: 'bold', margin: 4 }}>{this.props.title}</Text>
+                <Text style={Theme.title}>{this.props.title}</Text>
                 {webLinks.map(renderItem)}
             </View>
         )

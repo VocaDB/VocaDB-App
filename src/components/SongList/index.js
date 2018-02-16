@@ -3,6 +3,7 @@ import { View, Text, Button } from 'react-native'
 import Song from './../Song'
 import PropTypes from 'prop-types';
 import style from './style'
+import Theme from '../../theme'
 
 class SongList extends React.Component {
 
@@ -10,10 +11,9 @@ class SongList extends React.Component {
         return (
             <View style={style.header}>
                 <View style={style.headerLeft}>
-                    <Text style={style.title}>{this.props.title}</Text>
+                    <Text style={Theme.headline}>{this.props.title}</Text>
                 </View>
                 <View style={style.headerRight}>
-                    <Button style={style.button} title='More' onPress={() => this.props.onPressMore()} />
                 </View>
             </View>
         )

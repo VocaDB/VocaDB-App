@@ -3,6 +3,7 @@ import { Image, View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import PropTypes from 'prop-types';
 import images from './../../assets/images'
 import style from './style'
+import Theme from './../../theme'
 
 class Album extends React.Component {
 
@@ -27,7 +28,7 @@ class Album extends React.Component {
                     </View>
 
                     <View style={this.styleSelected.infoContainer}>
-                        <Text style={this.styleSelected.title}>{this.props.name}</Text>
+                        <Text style={Theme.title}>{this.props.name}</Text>
                     </View>
                 </View>
             </TouchableOpacity>

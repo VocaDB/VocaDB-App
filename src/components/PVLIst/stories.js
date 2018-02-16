@@ -13,8 +13,8 @@ storiesOf('PVList', module)
         <PVList pvs={mockPVs.pvs} />
     ))
     .add('Only original', () => (
-        <PVList pvs={mockPVs.pvs} type='Original' title='Original' />
+        <PVList pvs={mockPVs.pvs} type='Original' title='Original' showHeader={true} />
     ))
     .add('Only youtube', () => (
-        <PVList pvs={mockPVs.pvs} service='Youtube' title='Youtube' />
+        <PVList pvs={mockPVs.pvs} service='Youtube' title='Youtube' showHeader={true} />
     ));

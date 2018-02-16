@@ -2,6 +2,7 @@ import React from 'react'
 import { View, Text } from 'react-native'
 import PV from './../PV'
 import PropTypes from 'prop-types';
+import Theme from './../../theme'
 
 class PVList extends React.Component {
 
@@ -24,7 +25,7 @@ class PVList extends React.Component {
         return (
             <View style={{ paddingHorizontal: 4 }}>
                 <View style={{ margin: 4}}>
-                    {this.props.showHeader && <Text>{this.props.title}</Text>}
+                    {this.props.showHeader && <Text style={Theme.title}>{this.props.title}</Text>}
                 </View>
                 {pvs.map(pv => (
                     <PV

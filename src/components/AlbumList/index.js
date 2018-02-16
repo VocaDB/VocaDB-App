@@ -4,6 +4,7 @@ import Album from './../Album'
 import PropTypes from 'prop-types';
 import images from './../../assets/images'
 import style from './style'
+import Theme from './../../theme'
 
 class AlbumList extends React.Component {
 
@@ -11,7 +12,7 @@ class AlbumList extends React.Component {
         const Header = () => (
             <View style={style.header}>
                 <View style={style.headerLeft}>
-                    <Text style={style.title}>{this.props.title}</Text>
+                    <Text style={Theme.title}>{this.props.title}</Text>
                 </View>
                 <View style={style.headerRight}>
                     {!this.props.hideMoreButton && <Button style={style.button} title='More' onPress={() => this.props.onPressMore()} />}
@@ -67,7 +68,7 @@ class AlbumList extends React.Component {
         const Header = () => (
             <View style={{ height: 40, flexDirection: 'row', alignItems: 'center', paddingHorizontal: 4 }}>
                 <View style={{ flex: 1 }}>
-                    <Text>{this.props.title}</Text>
+                    <Text style={Theme.title}>{this.props.title}</Text>
                 </View>
                 <View style={{ flex: 1 }}>
                     {!this.props.hideMoreButton && <Button title='More' onPress={() => this.props.onPressMore()} />}
