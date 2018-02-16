@@ -5,15 +5,12 @@ export default StyleSheet.create({
         fontSize: 20,
         fontWeight: '800',
         lineHeight: 26,
-        color: 'white',
-        opacity: 0.87
+        color: 'white'
     },
     displayReverse_2: {
         fontSize: 16,
-        fontWeight: '600',
         lineHeight: 26,
-        color: 'white',
-        opacity: 0.87
+        color: 'white'
     },
     headline: {
         fontSize: 20,
