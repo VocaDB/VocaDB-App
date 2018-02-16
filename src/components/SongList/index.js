@@ -36,6 +36,10 @@ class SongList extends React.Component {
             )
         }
 
+        if(!songs.length) {
+            return (<View></View>)
+        }
+
         return (
             <View>
                 {this.props.showHeader && this.renderHeader()}

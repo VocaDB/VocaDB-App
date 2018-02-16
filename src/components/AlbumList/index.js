@@ -60,6 +60,10 @@ class AlbumList extends React.Component {
             )
         }
 
+        if(!albums.length) {
+            return (<View></View>)
+        }
+
         const Header = () => (
             <View style={{ height: 40, flexDirection: 'row', alignItems: 'center', paddingHorizontal: 4 }}>
                 <View style={{ flex: 1 }}>

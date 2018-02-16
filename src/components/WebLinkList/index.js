@@ -12,6 +12,10 @@ class WebLinkList extends React.Component {
             webLinks = webLinks.filter(webLink => webLink.category == this.props.category)
         }
 
+        if(!webLinks.length) {
+            return (<View></View>)
+        }
+
         const renderItem = webLink => (<WebLink key={webLink.id} name={webLink.description} url={webLink.url} />)
 
         return (
