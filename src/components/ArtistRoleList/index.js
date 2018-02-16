@@ -36,6 +36,10 @@ class ArtistRole extends React.Component {
             artists = this.props.artists.filter(artistRole => artistRole.roles == this.props.roles)
         }
 
+        if(!artists.length) {
+            return (<View></View>)
+        }
+
         // artists = artists.map(artistRole => artistRole.artist)
 
         return (
@@ -50,7 +54,7 @@ class ArtistRole extends React.Component {
 }
 
 ArtistRole.propTypes = {
-    artists: PropTypes.array,
+    artists: PropTypes.arrayOf(PropTypes.object),
     title: PropTypes.string,
     role: PropTypes.string,
     displayRole: PropTypes.bool,
@@ -64,6 +68,7 @@ ArtistRole.defaultProps = {
     title: 'Artist',
     displayRole: false,
     showHeader: true,
+    category: '',
     onPressItem: () => {}
 };
 

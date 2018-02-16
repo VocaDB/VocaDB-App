@@ -17,6 +17,10 @@ class PVList extends React.Component {
             pvs = pvs.filter(pv => pv.service == this.props.service)
         }
 
+        if(!pvs.length) {
+            return (<View></View>)
+        }
+
         return (
             <View style={{ paddingHorizontal: 4 }}>
                 <View style={{ margin: 4}}>
