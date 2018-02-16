@@ -5,6 +5,7 @@ import { selectSongEntity } from './../../selectors'
 const selectHome = () => (state) => state.get('home');
 const selectRecentSongsResult = () => createSelector(selectHome(), home => home.get('recentSongs', []))
 const selectPopularSongsResult = () => createSelector(selectHome(), home => home.get('popularSongs', []))
+const selecrRefreshing = () => createSelector(selectHome(), home => home.get('refreshing', false))
 
 const selectRecentSongs = () => createSelector(
     selectSongEntity(),
@@ -34,5 +35,6 @@ const selectPopularSongs = () => createSelector(
 
 export {
     selectRecentSongs,
-    selectPopularSongs
+    selectPopularSongs,
+    selecrRefreshing
 };
