@@ -81,9 +81,9 @@ export default class SongDetailPage extends React.Component {
         return (
             <ScrollableTabView>
                 <InfoPage tabLabel='Info' />
-                <PVListPage tabLabel='PVs' />
+                {song.pvs.length > 0 && <PVListPage tabLabel='PVs' />}
                 <ArtistRoleListPage tabLabel='Artists' />
-                <AlbumListPage tabLabel='Albums' />
+                {song.albums.length > 0 && <AlbumListPage tabLabel='Albums' />}
             </ScrollableTabView>
         )
     }
