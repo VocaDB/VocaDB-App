@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import SongDetailPage from './component'
 import * as actions from './actions'
 import { createSelector } from 'reselect';
-import { selectSong } from './selector'
+import { selectSongResult } from './selector'
 
 SongDetailPage.navigationOptions = () => ({
     title: 'Detail'
@@ -14,12 +14,12 @@ SongDetailPage.propTypes = {
 }
 
 const songDetailStateSelect = createSelector(
-    selectSong(),
+    selectSongResult(),
     (song) => ({ song })
 );
 
 const mapDispatchToProps = dispatch => ({
-    fetchSong: () => dispatch(actions.getSong())
+    fetchSong: id => dispatch(actions.getSong(id))
 })
 
 export default connect(songDetailStateSelect, mapDispatchToProps)(SongDetailPage)
