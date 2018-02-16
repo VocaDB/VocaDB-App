@@ -17,7 +17,7 @@ storiesOf('Pages/SongDetail', module)
             fetchSong={action('Fetch song')}
             song={mockSong}
             artists={artists}
-            navigation={{ navigate }}
+            navigation={{ navigate, state : { params: { id: 1 } } }}
             onPressLine={action('Press like')}
             onPressShare={action('Press share')}
             onPressWebLink={action('Press web link')}

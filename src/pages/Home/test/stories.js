@@ -12,6 +12,7 @@ const navigate = action('navigate')
 storiesOf('Pages/Home', module)
     .add('general', () => (
         <Home
+            refreshing={false}
             recentSongs={recentSongs}
             popularSongs={popularSongs}
             popularAlbums={popularAlbums}
