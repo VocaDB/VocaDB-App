@@ -15,15 +15,18 @@ import PVList from './../../components/PVLIst'
 export default class SongDetailPage extends React.Component {
 
     componentDidMount () {
-        this.props.fetchSong()
+        const { params } = this.props.navigation.state;
+        this.props.fetchSong(params.id)
     }
 
     render () {
         const song = this.props.song
 
+
         const Section = props => (<View style={[{ marginVertical: 8},props.style]}>{props.children}</View>)
 
         const InfoPage = props => {
+
             return (
                 <ScrollView style={{ flex: 1 }}>
                     <View style={{ height: 180, backgroundColor: '#FFFFFF' }}>
