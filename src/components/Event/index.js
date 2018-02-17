@@ -2,16 +2,20 @@ import React from 'react'
 import { Image, View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import PropTypes from 'prop-types';
 import images from './../../assets/images'
+import Theme from './../../theme'
 
 class Event extends React.Component {
     render () {
         return (
-            <TouchableOpacity onPress={this.props.onPress}>
-                <View style={styles.listItem}>
-                    <View style={styles.infoContainer}>
-                        <Text style={styles.title}>{this.props.name}</Text>
-                        <Text note numberOfLines={1}>{this.props.artist}</Text>
-                    </View>
+            <TouchableOpacity onPress={this.props.onPress} style={[{ height: 180, backgroundColor: 'black', justifyContent: 'flex-end', margin: 8 }]}>
+                <Image style={{ flex: 1, opacity: 0.57 }}
+                       source={{ uri: this.props.thumbnail }} >
+
+                </Image>
+                <View style={{ backgroundColor:'transparent', position: 'absolute', padding: 8 }}>
+                    <Text style={{ color: 'white' }}>{this.props.date}</Text>
+                    <Text style={Theme.displayReverse_1}>{this.props.name}</Text>
+                    <Text style={Theme.displayReverse_2}>MOGRA, Akihabara, Tokyo, Japan</Text>
                 </View>
             </TouchableOpacity>
         )
@@ -19,10 +23,14 @@ class Event extends React.Component {
 }
 
 Event.propTypes = {
-    name: PropTypes.string
+    name: PropTypes.string,
+    thumbnail: PropTypes.string,
+    location: PropTypes.string,
+    date: PropTypes.string
 };
 
 Event.defaultProps = {
+    thumbnail: 'http://via.placeholder.com/350x150/000000/ffffff?text=EVENT'
 };
 
 const styles =  StyleSheet.create({

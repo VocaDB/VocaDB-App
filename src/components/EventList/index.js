@@ -10,10 +10,14 @@ class EventList extends React.Component {
 
         const renderItem = event => {
 
+            const thumbnailUrl = (event.mainPicture) ? event.mainPicture.urlThumb.replace('mainThumb', 'mainOrig') : undefined
             return  (
                 <Event
                     key={event.id}
                     name={event.name}
+                    thumbnail={thumbnailUrl}
+                    location={event.venueName}
+                    date={event.date}
                     onPress={() => this.props.onPressItem(event.id)}
                 />
             )
