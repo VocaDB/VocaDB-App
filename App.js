@@ -4,7 +4,21 @@ import { Provider } from 'react-redux'
 import store from './src/store'
 import { StyleProvider } from 'native-base'
 import { View } from 'react-native'
+import { Font } from 'expo';
 import StorybookUI from './storybook';
+import { COLOR, ThemeProvider } from 'react-native-material-ui';
+
+const uiTheme = {
+    palette: {
+        primaryColor: COLOR.indigo600,
+    },
+    toolbar: {
+        container: {
+            height: 50,
+        },
+    },
+};
+
 
 class App extends React.Component {
     constructor(props) {
@@ -30,12 +44,14 @@ class App extends React.Component {
         }
 
         return (
-            <Provider store={store}>
-                <AppNav />
-            </Provider>
+            <ThemeProvider uiTheme={uiTheme}>
+                    <Provider store={store}>
+                        <AppNav />
+                    </Provider>
+            </ThemeProvider>
         )
     }
 }
 
-// export default App
-module.exports = __DEV__ ? StorybookUI : App;
+export default App
+// module.exports = __DEV__ ? StorybookUI : App;
