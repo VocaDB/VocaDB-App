@@ -9,7 +9,10 @@ import mockEntries from './mock'
 storiesOf('Pages/Search', module)
     .add('with result', () => (
         <SearchPage
-            query='miku'
+            query=''
+            loading={false}
             entries={mockEntries.items}
+            searchEntries={action('Search entry')}
+            clearSearch={action('Clear search')}
         />
     ));
