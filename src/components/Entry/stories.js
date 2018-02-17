@@ -8,10 +8,44 @@ import CenterView from './../CenterView'
 
 storiesOf('Entry', module)
     .addDecorator(getStory => <CenterView type='vertical'>{getStory()}</CenterView>)
-    .add('general', () => (
+    .add('song', () => (
         <Entry
-            name='桜華P'
-            type='Song'
+            id={184450}
+            name='crystal mic'
+            entryType='Song'
+            thumbnail='http://tn.smilevideo.jp/smile?i=32748137'
+            onPress={action("Press entry")}
+        />
+    ))
+    .add('song without thumbnail', () => (
+        <Entry
+            id={184450}
+            name='crystal mic'
+            entryType='Song'
+            onPress={action("Press entry")}
+        />
+    ))
+    .add('artist', () => (
+        <Entry
+            id={64568}
+            name='earthborn'
+            entryType='Artist'
+            onPress={action("Press entry")}
+        />
+    ))
+    .add('album', () => (
+        <Entry
+            id={24251}
+            name='Cakes And Stroke'
+            entryType='Album'
+            onPress={action("Press entry")}
+        />
+    ))
+    .add('other', () => (
+        <Entry
+            id={1715}
+            name="KAITO's Birthday 2018"
+            entryType='Event'
             onPress={action("Press entry")}
         />
     ));

@@ -10,11 +10,15 @@ class EntryList extends React.Component {
 
         const renderItem = entry => {
 
+            const thumbnailUrl = (entry.mainPicture) ? entry.mainPicture.urlThumb : undefined
+
             return  (
                 <Entry
                     key={entry.id}
+                    id={entry.id}
                     name={entry.defaultName}
                     entryType={entry.entryType}
+                    thumbnail={thumbnailUrl}
                     onPress={() => this.props.onPressItem(entry.id)}
                 />
             )
