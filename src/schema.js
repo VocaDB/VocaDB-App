@@ -21,7 +21,9 @@ export const song = new schema.Entity('songs', {
         }
     ]
 });
+export const event = new schema.Entity('events')
 
 export default  {
-    'songs' : song
+    'songs': song,
+    'events': event
 }

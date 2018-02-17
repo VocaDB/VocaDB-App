@@ -21,9 +21,19 @@ const fetchRecentSongs = function* fetchRecentSongs() {
     }
 }
 
+const fetchLatestEvents = function* fetchLatestEvents() {
+    try {
+        const response = yield call(api.events.find, { 'sort': 'AdditionDate', 'fields': 'MainPicture' });
+        yield put(actions.getLatestEventsSuccess(response.items));
+    } catch (e) {
+        console.log(e)
+    }
+}
+
 const homeSaga = function* homeSagaAsync() {
     yield takeLatest(actions.getPopularSongs, fetchPopularSongs)
     yield takeLatest(actions.getRecentSongs, fetchRecentSongs)
+    yield takeLatest(actions.getLatestEvents, fetchLatestEvents)
 }
 
 export { fetchPopularSongs, fetchRecentSongs }

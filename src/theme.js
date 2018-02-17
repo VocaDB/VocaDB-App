@@ -12,15 +12,20 @@ export default StyleSheet.create({
         lineHeight: 26,
         color: 'white'
     },
+    displayReverse_3: {
+        fontSize: 14,
+        lineHeight: 20,
+        color: 'white'
+    },
     headline: {
         fontSize: 20,
-        fontWeight: '500',
+        fontWeight: '300',
         lineHeight: 26,
         opacity: 0.87
     },
     title: {
         fontSize: 16,
-        fontWeight: '500',
+        fontWeight: '300',
         lineHeight: 25,
         opacity: 0.87
     },

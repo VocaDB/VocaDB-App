@@ -5,7 +5,8 @@ import { fromJS } from 'immutable';
 const defaultState = fromJS({
     refreshing: false,
     recentSongs: [],
-    popularSongs: []
+    popularSongs: [],
+    latestEvents: []
 })
 
 const reducer = createReducer({
@@ -21,6 +22,13 @@ const reducer = createReducer({
     },
     [actions.getRecentSongsSuccess]: (state, payload) => {
         return state.set('recentSongs', fromJS(payload.result))
+            .set('refreshing', false)
+    },
+    [actions.getLatestEvents]: (state, payload) => {
+        return state.set('refreshing', true)
+    },
+    [actions.getLatestEventsSuccess]: (state, payload) => {
+        return state.set('latestEvents', fromJS(payload.result))
             .set('refreshing', false)
     }
 }, defaultState)

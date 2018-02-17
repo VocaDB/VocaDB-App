@@ -1,10 +1,11 @@
 import { createSelector } from 'reselect';
 import { List, Map } from 'immutable'
-import { selectSongEntity } from './../../selectors'
+import { selectSongEntity, selectEventEntity } from './../../selectors'
 
 const selectHome = () => (state) => state.get('home');
 const selectRecentSongsResult = () => createSelector(selectHome(), home => home.get('recentSongs', []))
 const selectPopularSongsResult = () => createSelector(selectHome(), home => home.get('popularSongs', []))
+const selectLatestEventsResult = () => createSelector(selectHome(), home => home.get('latestEvents', []))
 const selecrRefreshing = () => createSelector(selectHome(), home => home.get('refreshing', false))
 
 const selectRecentSongs = () => createSelector(
@@ -33,8 +34,22 @@ const selectPopularSongs = () => createSelector(
     }
 );
 
+const selectLatestEvents = () => createSelector(
+    selectEventEntity(),
+    selectLatestEventsResult(),
+    (eventEntity, latestEventResult) => {
+
+        if(!latestEventResult) {
+            return [];
+        }
+
+        return latestEventResult.map(id => eventEntity.get(id.toString())).toJS();
+    }
+);
+
 export {
     selectRecentSongs,
     selectPopularSongs,
-    selecrRefreshing
+    selecrRefreshing,
+    selectLatestEvents
 };
