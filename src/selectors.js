@@ -4,6 +4,7 @@ import { Map } from 'immutable'
 export const selectEntities = () => (state) => state.get('entities');
 const createEntitySelector = name => () => createSelector(selectEntities(), entities => entities.get(name, Map({})))
 
+export const selectEntryEntity = createEntitySelector('entries')
 export const selectSongEntity = createEntitySelector('songs')
 export const selectAlbumEntity = createEntitySelector('albums')
 export const selectArtistEntity = createEntitySelector('artists')

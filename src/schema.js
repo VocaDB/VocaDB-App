@@ -1,5 +1,6 @@
 import { schema } from 'normalizr'
 
+export const entry = new schema.Entity('entries');
 export const album = new schema.Entity('albums');
 export const artist = new schema.Entity('artists');
 export const lyric = new schema.Entity('lyrics');
@@ -26,5 +27,6 @@ export const event = new schema.Entity('events')
 export default  {
     'songs': song,
     'events': event,
-    'albums': album
+    'albums': album,
+    'entries': entry
 }
