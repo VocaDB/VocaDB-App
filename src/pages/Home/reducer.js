@@ -6,7 +6,8 @@ const defaultState = fromJS({
     refreshing: false,
     recentSongs: [],
     popularSongs: [],
-    latestEvents: []
+    latestEvents: [],
+    recentAlbums: []
 })
 
 const reducer = createReducer({
@@ -29,6 +30,13 @@ const reducer = createReducer({
     },
     [actions.getLatestEventsSuccess]: (state, payload) => {
         return state.set('latestEvents', fromJS(payload.result))
+            .set('refreshing', false)
+    },
+    [actions.getRecentAlbums]: (state, payload) => {
+        return state.set('refreshing', true)
+    },
+    [actions.getRecentAlbumsSuccess]: (state, payload) => {
+        return state.set('recentAlbums', fromJS(payload.result))
             .set('refreshing', false)
     }
 }, defaultState)

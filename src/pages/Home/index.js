@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import HomePage from './component'
 import * as actions from './actions'
 import { createSelector } from 'reselect';
-import { selectRecentSongs, selectPopularSongs, selectLatestEvents, selecrRefreshing } from './selector'
+import { selectRecentSongs, selectPopularSongs, selectLatestEvents, selecrRefreshing, selectRecentAlbums } from './selector'
 
 HomePage.navigationOptions = () => ({
     title: 'Home',
@@ -19,13 +19,15 @@ const homeStateSelect = createSelector(
     selectPopularSongs(),
     selecrRefreshing(),
     selectLatestEvents(),
-    (recentSongs, popularSongs, refreshing, latestEvents) => ({ recentSongs, popularSongs, refreshing, latestEvents })
+    selectRecentAlbums(),
+    (recentSongs, popularSongs, refreshing, latestEvents, recentAlbums) => ({ recentSongs, popularSongs, refreshing, latestEvents, recentAlbums })
 );
 
 const mapDispatchToProps = (dispatch, props) => ({
     fetchRecentSongs: () => dispatch(actions.getRecentSongs()),
     fetchPopularSongs: () => dispatch(actions.getPopularSongs()),
     fetchLatestEvents: () => dispatch(actions.getLatestEvents()),
+    fetchRecentAlbums: () => dispatch(actions.getRecentAlbums()),
     onPressSong: id => props.navigation.navigate('SongDetail', { id })
 })
 
