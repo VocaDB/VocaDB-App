@@ -11,6 +11,7 @@ import ArtistRoleList from './../../components/ArtistRoleList'
 import WebLinkList from './../../components/WebLinkList'
 import ScrollableTabView from 'react-native-scrollable-tab-view'
 import PVList from './../../components/PVLIst'
+import LyricGroup from './../../components/LyricGroup'
 import Theme from './../../theme'
 
 export default class SongDetailPage extends React.Component {
@@ -79,12 +80,19 @@ export default class SongDetailPage extends React.Component {
             </ScrollView>
         )
 
+        const LyricGropuPage = () => (
+            <ScrollView style={{ flex: 1, backgroundColor: 'white' }}>
+                <LyricGroup lyrics={song.lyrics} />
+            </ScrollView>
+        )
+
         return (
             <ScrollableTabView>
                 <InfoPage tabLabel='Info' />
                 {song.pvs.length > 0 && <PVListPage tabLabel='PVs' />}
                 <ArtistRoleListPage tabLabel='Artists' />
                 {song.albums.length > 0 && <AlbumListPage tabLabel='Albums' />}
+                {song.lyrics.length > 0 && <LyricGropuPage tabLabel='Lyrics' />}
             </ScrollableTabView>
         )
     }
