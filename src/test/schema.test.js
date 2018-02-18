@@ -100,4 +100,90 @@ describe('Normalize', () => {
 
         expect(normalize([ data ], [ schemas['events'] ])).toEqual(expected)
     })
+
+    it('should normalize artist detail', () => {
+        const data = {
+            'id': 1,
+            'name': 'Hatsune Miku',
+            'relations': {
+                'latestAlbums': [
+                    {
+                        'id': 24202,
+                        'name': 'EXIT TUNES'
+                    }
+                ],
+                'latestEvents': [
+                    {
+                        'id': 1618,
+                        'name': 'SNOW MIKU LIVE! 2018'
+                    }
+                ],
+                'latestSongs': [
+                    {
+                        'id': 184598,
+                        'name': 'ユメノメモリ'
+                    }
+                ],
+                'popularAlbums': [
+                    {
+                        'id': 1227,
+                        'name': 'アカツキアライヴァル'
+                    }
+                ],
+                'popularSongs': [
+                    {
+                        'id': 1501,
+                        'name': 'ローリンガール'
+                    }
+                ]
+            }
+        }
+
+        const expected = {
+            'entities': {
+                'artists': {
+                    '1': {
+                        'id': 1,
+                        'name': 'Hatsune Miku',
+                        'relations': {
+                            'latestAlbums': [ 24202 ],
+                            'latestEvents': [ 1618 ],
+                            'latestSongs': [ 184598 ],
+                            'popularAlbums': [ 1227 ],
+                            'popularSongs': [ 1501 ]
+                        }
+                    }
+                },
+                'events': {
+                    '1618': {
+                        'id': 1618,
+                        'name': 'SNOW MIKU LIVE! 2018'
+                    }
+                },
+                'albums': {
+                    '24202': {
+                        'id': 24202,
+                        'name': 'EXIT TUNES'
+                    },
+                    '1227': {
+                        'id': 1227,
+                        'name': 'アカツキアライヴァル'
+                    }
+                },
+                'songs': {
+                    '184598': {
+                        'id': 184598,
+                        'name': 'ユメノメモリ'
+                    },
+                    '1501': {
+                        'id': 1501,
+                        'name': 'ローリンガール'
+                    }
+                }
+            },
+            'result': 1
+        }
+
+        expect(normalize(data, schemas['artists'])).toEqual(expected)
+    })
 })
