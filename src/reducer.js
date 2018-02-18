@@ -2,6 +2,7 @@ import { fromJS } from 'immutable';
 import { combineReducers } from 'redux-immutable';
 import home from './pages/Home/reducer'
 import songDetail from './pages/SongDetail/reducer'
+import artistDetail from './pages/ArtistDetail/reducer'
 import search from './pages/Search/reducer'
 
 const entities = (state = fromJS({}), action) => {
@@ -15,6 +16,7 @@ const rootReducers = combineReducers({
     entities,
     home,
     songDetail,
+    artistDetail,
     search
 })
 

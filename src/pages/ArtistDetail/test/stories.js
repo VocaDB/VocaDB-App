@@ -11,5 +11,11 @@ storiesOf('Pages/ArtistDetail', module)
         <ArtistDetail
             id={1}
             artist={mockArtist}
+            loading={false}
+            fetchArtist={action('Fetch artist')}
+            onPressTag={action('Press Tag')}
+            onPressSong={action('Press song')}
+            onPressAlbum={action('Press album')}
+            onPressEvent={action('Press event')}
         />
     ));

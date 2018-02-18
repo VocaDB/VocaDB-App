@@ -13,7 +13,16 @@ import ScrollableTabView from 'react-native-scrollable-tab-view'
 import AlbumList from './../../components/AlbumList'
 
 class ArtistDetailPage extends React.Component {
+
+    componentDidMount () {
+        const { params } = this.props.navigation.state;
+        this.props.fetchArtist(params.id)
+    }
+
     render () {
+
+        const { params } = this.props.navigation.state;
+        const imageUri = images.getArtistUri(params.id)
 
         const artist = this.props.artist
 
@@ -24,7 +33,7 @@ class ArtistDetailPage extends React.Component {
                 <View style={{ height: 240, backgroundColor: '#000000', justifyContent: 'center' }}>
                     <Image
                         style={{flex: 1, backgroundColor: '#FFFFFF', opacity: 0.57 }}
-                        source={{ uri: images.getArtistUri(this.props.id) }}
+                        source={{ uri: imageUri }}
                         resizeMode='cover'
                         blurRadius={10}
                     />
@@ -37,7 +46,7 @@ class ArtistDetailPage extends React.Component {
                         justifyContent: 'center'
                     }}>
                         <Image style={{ width: 128, height: 128 }}
-                               source={{ uri: images.getArtistUri(this.props.id) }}
+                               source={{ uri: imageUri }}
                                resizeMode='contain'
                         />
                         <Text style={Theme.displayReverse_1}>{artist.name}</Text>
@@ -66,21 +75,21 @@ class ArtistDetailPage extends React.Component {
 
         const SongListPage = () => (
             <ScrollView style={{ flex: 1, backgroundColor: 'white' }}>
-                <SongList songs={artist.relations.latestSongs} title='Latest' showHeader={true} />
-                <SongList songs={artist.relations.popularSongs} title='Popular' showHeader={true} />
+                <SongList songs={artist.latestSongs} title='Latest' showHeader={true} />
+                <SongList songs={artist.popularSongs} title='Popular' showHeader={true} />
             </ScrollView>
         )
 
         const AlbumListPage = () => (
             <ScrollView style={{ flex: 1, backgroundColor: 'white' }}>
-                <AlbumList albums={artist.relations.latestAlbums} title='Latest' showHeader={true} />
-                <AlbumList albums={artist.relations.popularAlbums} title='Popular' showHeader={true} />
+                <AlbumList albums={artist.latestAlbums} title='Latest' showHeader={true} />
+                <AlbumList albums={artist.popularAlbums} title='Popular' showHeader={true} />
             </ScrollView>
         )
 
         const EventListPage = () => (
             <ScrollView style={{ flex: 1, backgroundColor: 'white' }}>
-                <EventList events={artist.relations.latestEvents} />
+                <EventList events={artist.latestEvents} />
             </ScrollView>
         )
 
