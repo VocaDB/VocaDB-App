@@ -14,5 +14,6 @@ storiesOf('Pages/Search', module)
             entries={mockEntries.items}
             searchEntries={action('Search entry')}
             clearSearch={action('Clear search')}
+            back={action('Back')}
         />
     ));

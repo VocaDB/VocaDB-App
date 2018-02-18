@@ -57,7 +57,21 @@ export const selectArtistRoles = () => createSelector(
         return song.get('artists', List())
             .filter(id => artistRoleEntity.has(id.toString()))
             .map(id => artistRoleEntity.get(id.toString()))
-            .map(artistRole => artistRole.set('artist', artistEntity.get(artistRole.get('artist').toString())))
+            .map(artistRole => {
+
+                const artistId = artistRole.get('artist')
+
+                if(artistId) {
+                    return artistRole.set('artist', artistEntity.get(artistRole.get('artist').toString()))
+                } else {
+                    const artist = Map().set('id', 465807)
+                        .set('name', artistRole.get('name'))
+                        .set('artistType', artistRole.get('roles'))
+                    return artistRole.set('artist', artist)
+                }
+
+                return artistRole.set('artist', artistEntity.get(artistRole.get('artist').toString()))
+            })
     }
 )
 

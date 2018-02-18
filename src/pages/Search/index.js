@@ -4,6 +4,8 @@ import SearchPage from './component'
 import * as actions from './actions'
 import { createSelector } from 'reselect';
 import { selecrLoading, selectEntries } from './selector'
+import { Toolbar } from 'react-native-material-ui';
+import { TextInput } from 'react-native'
 
 SearchPage.navigationOptions = () => ({
     title: 'Search',
@@ -26,7 +28,13 @@ const searchStateSelect = createSelector(
 
 const mapDispatchToProps = (dispatch, props) => ({
     searchEntries: query => dispatch(actions.searchEntries(query)),
-    clearSearch: () => dispatch(actions.clearSearch())
+    clearSearch: () => dispatch(actions.clearSearch()),
+    back: () => props.navigation.goBack(),
+    onPressEntry: (id, entryType) => {
+        if(entryType === 'Song') {
+            props.navigation.navigate('SongDetail', { id })
+        }
+    }
 })
 
 export default connect(searchStateSelect, mapDispatchToProps)(SearchPage)
