@@ -42,7 +42,6 @@ export default class HomePage extends React.Component {
         return (
             <ScrollableTabView renderTabBar={() => <CustomTabBar />}>
                 <HomeTabPage tabLabel="ios-home" />
-                <View tabLabel="ios-search"><Text>Search</Text></View>
                 <EventTabPage tabLabel="ios-calendar"></EventTabPage>
                 <View tabLabel="ios-menu"><Text>Menu</Text></View>
             </ScrollableTabView>
