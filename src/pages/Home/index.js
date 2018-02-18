@@ -3,11 +3,17 @@ import { connect } from 'react-redux'
 import HomePage from './component'
 import * as actions from './actions'
 import { createSelector } from 'reselect';
+import { Button } from 'react-native'
+import Icon from './../../components/Icon'
 import { selectRecentSongs, selectPopularSongs, selectLatestEvents, selecrRefreshing, selectRecentAlbums } from './selector'
+import { COLOR } from 'react-native-material-ui';
 
-HomePage.navigationOptions = () => ({
+HomePage.navigationOptions = ({ navigation }) => ({
     title: 'Home',
     drawerLabel: 'Home',
+    headerRight: (
+        <Icon name='ios-search' color='white' onPress={() => navigation.navigate('Search')} />
+    ),
 })
 
 HomePage.propTypes = {

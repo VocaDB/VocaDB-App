@@ -3,6 +3,7 @@ import MainPage from './pages/Main'
 import SongDetailPage from './pages/SongDetail'
 import SearchPage from './pages/Search'
 import { StackNavigator } from "react-navigation";
+import { primaryColor } from './theme'
 
 
 const AppNavigator = StackNavigator({
@@ -10,7 +11,16 @@ const AppNavigator = StackNavigator({
     SongDetail: { screen: SongDetailPage },
     Search: { screen: SearchPage }
 }, {
-    initialRouteName: 'Search'
+    initialRouteName: 'Home',
+    navigationOptions: {
+        headerStyle: {
+            backgroundColor: primaryColor,
+        },
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+            fontWeight: 'bold',
+        },
+    },
 })
 
 

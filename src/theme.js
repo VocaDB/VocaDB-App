@@ -1,4 +1,9 @@
 import { StyleSheet } from 'react-native'
+import { COLOR } from 'react-native-material-ui';
+
+export const primaryColor = COLOR.indigo600
+export const statusBarColor = COLOR.indigo800
+export const rootBackgroundColor = COLOR.blueGrey100
 
 export default StyleSheet.create({
     displayReverse_1: {
