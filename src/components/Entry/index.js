@@ -11,22 +11,22 @@ class Entry extends React.Component {
 
     renderThumbnail () {
 
-        const getImage = uri => (<Image style={[styles.image]} source={{ uri }} />)
-
-        if(this.props.thumbnail) {
-            return (
-                    <Image style={styles.image}
-                           source={{ url: this.props.thumbnail }} />
-            )
-        }
-
-        switch(this.props.entryType) {
-            case 'Artist' :
-                return getImage(images.getArtistUri(this.props.id))
-                break;
-            case 'Album' :
-                return getImage(images.getAlbumUri(this.props.id))
-        }
+        // const getImage = uri => (<Image style={[styles.image]} source={{ uri }} />)
+        //
+        // if(this.props.thumbnail) {
+        //     return (
+        //             <Image style={styles.image}
+        //                    source={{ url: this.props.thumbnail }} />
+        //     )
+        // }
+        //
+        // switch(this.props.entryType) {
+        //     case 'Artist' :
+        //         return getImage(images.getArtistUri(this.props.id))
+        //         break;
+        //     case 'Album' :
+        //         return getImage(images.getAlbumUri(this.props.id))
+        // }
 
         const SearchIcon = () => (<Icon name='ios-search' />)
         const SongIcon = () => (<Icon name='ios-musical-notes' />)
@@ -56,6 +56,7 @@ class Entry extends React.Component {
                     </View>
                     <View style={{ flex: 1, justifyContent: 'center', padding: 4 }}>
                         <Text numberOfLines={1}>{this.props.name}</Text>
+                        <Text style={Theme.caption} numberOfLines={1}>{this.props.caption}</Text>
                     </View>
                 </View>
             </TouchableOpacity>
@@ -66,6 +67,7 @@ class Entry extends React.Component {
 Entry.propTypes = {
     id: PropTypes.number,
     name: PropTypes.string,
+    caption: PropTypes.string,
     entryType: PropTypes.string,
     thumbnail: PropTypes.string
 };
