@@ -1,5 +1,4 @@
 import HomePage from './pages/Home'
-import MainPage from './pages/Main'
 import SongDetailPage from './pages/SongDetail'
 import ArtistDetailPage from './pages/ArtistDetail'
 import SearchPage from './pages/Search'
