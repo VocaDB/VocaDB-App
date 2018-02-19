@@ -29,7 +29,7 @@ class AlbumList extends React.Component {
                     image={images.getAlbumUri(album.id)}
                     name={album.name}
                     artist={album.artistString}
-                    onPress={() => this.props.onPressItem(album.id)}
+                    onPress={() => this.props.onPressItem(album)}
                 />
             )
         }
@@ -56,7 +56,7 @@ class AlbumList extends React.Component {
                     name={album.name}
                     artist={album.artistString}
                     display='box'
-                    onPress={() => this.props.onPressItem(album.id)}
+                    onPress={() => this.props.onPressItem(album)}
                 />
             )
         }

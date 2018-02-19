@@ -18,7 +18,7 @@ class EventList extends React.Component {
                     thumbnail={thumbnailUrl}
                     location={event.venueName}
                     date={event.date}
-                    onPress={() => this.props.onPressItem(event.id)}
+                    onPress={() => this.props.onPressItem(event)}
                 />
             )
         }

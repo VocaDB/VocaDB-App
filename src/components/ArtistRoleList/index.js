@@ -22,7 +22,7 @@ class ArtistRole extends React.Component {
                     name={artist.name}
                     artist={artist.artistString}
                     role={(this.props.displayRole)? artistRole.roles : undefined}
-                    onPress={() => this.props.onPressItem(artist.id)}
+                    onPress={() => this.props.onPressItem(artist)}
                 />
             )
         }

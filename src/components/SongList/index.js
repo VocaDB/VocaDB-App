@@ -31,7 +31,7 @@ class SongList extends React.Component {
                     image={imageUrl}
                     name={song.defaultName}
                     artist={song.artistString}
-                    onPress={() => this.props.onPressItem(song.id)}
+                    onPress={() => this.props.onPressItem(song)}
                 />
             )
         }

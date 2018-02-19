@@ -20,7 +20,7 @@ class EntryList extends React.Component {
                     entryType={entry.entryType}
                     caption={entry.artistString}
                     thumbnail={thumbnailUrl}
-                    onPress={() => this.props.onPressItem(entry.id, entry.entryType)}
+                    onPress={() => this.props.onPressItem(entry)}
                 />
             )
         }

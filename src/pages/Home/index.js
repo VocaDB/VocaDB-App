@@ -34,7 +34,7 @@ const mapDispatchToProps = (dispatch, props) => ({
     fetchPopularSongs: () => dispatch(actions.getPopularSongs()),
     fetchLatestEvents: () => dispatch(actions.getLatestEvents()),
     fetchRecentAlbums: () => dispatch(actions.getRecentAlbums()),
-    onPressSong: id => props.navigation.navigate('SongDetail', { id })
+    onPressSong: song => props.navigation.navigate('SongDetail', { id: song.id })
 })
 
 export default connect(homeStateSelect, mapDispatchToProps)(HomePage)

@@ -16,7 +16,7 @@ class ArtistList extends React.Component {
                     id={artist.id}
                     name={artist.name}
                     artist={artist.artistString}
-                    onPress={() => this.props.onPressItem(artist.id)}
+                    onPress={() => this.props.onPressItem(artist)}
                 />
             )
         }
@@ -36,7 +36,7 @@ class ArtistList extends React.Component {
                     key={artist.id}
                     id={artist.id}
                     display='avatar'
-                    onPress={() => this.props.onPressItem(artist.id)}
+                    onPress={() => this.props.onPressItem(artist)}
                 />
             )
         }
