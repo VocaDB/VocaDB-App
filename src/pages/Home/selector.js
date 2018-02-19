@@ -62,6 +62,7 @@ const selectRecentAlbums = () => createSelector(
 );
 
 export {
+    selectHome,
     selectRecentSongs,
     selectPopularSongs,
     selecrRefreshing,
