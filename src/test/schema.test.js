@@ -1,5 +1,6 @@
 import { normalize } from 'normalizr'
 import schemas from './../schema'
+import * as mockGenerator from './../helper/mockGenerator'
 
 describe('Normalize', () => {
     it('should normalize song with albums', () => {
@@ -185,5 +186,53 @@ describe('Normalize', () => {
         }
 
         expect(normalize(data, schemas['artists'])).toEqual(expected)
+    })
+
+
+    it('should normalize album', () => {
+        const album = mockGenerator.CreateAlbum({ id: 1 })
+        const artist_1 = mockGenerator.CreateArtist({ id: 1 })
+        const artistRole_1 = mockGenerator.CreateArtistRole({ id: 2 })
+        delete artistRole_1.id
+        artistRole_1.artist = artist_1
+        const tag_1 = mockGenerator.CreateTag({ id: 1 })
+        const pv_1 = mockGenerator.CreatePV({ id: 1 })
+        const releaseEvent = mockGenerator.CreateEvent({ id: 1 })
+        album.artists = [ artistRole_1 ]
+        album.tags = [ { count: 1, tag: tag_1 } ]
+        album.pvs = [ pv_1 ]
+        album.releaseEvent = releaseEvent
+
+        const expectedAlbum = mockGenerator.CreateAlbum({ id: 1 })
+        const expectedArtistRole_1 = mockGenerator.CreateArtistRole({ id: 2 })
+        delete expectedArtistRole_1.id
+        expectedArtistRole_1.artist = artist_1.id
+        expectedAlbum.artists = [ expectedArtistRole_1 ]
+        expectedAlbum.tags = [ { count: 1, tag: tag_1.id }  ]
+        expectedAlbum.pvs = [ pv_1.id ]
+        expectedAlbum.releaseEvent = releaseEvent.id
+
+        const expected = {
+            'entities': {
+                'albums': {
+                    '1': expectedAlbum
+                },
+                'artists': {
+                    '1': artist_1
+                },
+                'tags': {
+                    '1': tag_1
+                },
+                'pvs': {
+                    '1': pv_1
+                },
+                'events': {
+                    '1': releaseEvent
+                }
+            },
+            'result': album.id
+        }
+
+        expect(normalize(album, schemas['albums'])).toEqual(expected)
     })
 })

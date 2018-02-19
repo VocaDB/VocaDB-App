@@ -76,7 +76,7 @@ export default class SongDetailPage extends React.Component {
 
         const AlbumListPage = () => (
             <ScrollView style={{ flex: 1, backgroundColor: 'white' }}>
-                <AlbumList albums={song.albums} title='Albums' />
+                <AlbumList albums={song.albums} title='Albums' onPressItem={this.props.onPressAlbum} />
             </ScrollView>
         )
 
