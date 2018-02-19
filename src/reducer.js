@@ -12,7 +12,16 @@ const entities = (state = fromJS({}), action) => {
     return state;
 }
 
+const error = (state = false, action) => {
+    if(action.error) {
+        alert(action.payload)
+        return action.payload
+    }
+    return false
+}
+
 const rootReducers = combineReducers({
+    error,
     entities,
     home,
     songDetail,

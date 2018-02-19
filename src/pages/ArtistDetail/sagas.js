@@ -1,13 +1,14 @@
 import { put, takeLatest, call } from 'redux-saga/effects'
 import * as actions from './actions'
 import api from './../../api'
+import * as globalActions from './../../actions'
 
 const fetchArtist = function* fetchArtist(action) {
     try {
         const response = yield call(api.artists.get, action.payload.id, { 'relations': 'All', 'fields': 'Description,Tags,WebLinks' });
         yield put(actions.getArtistSuccess(response));
     } catch (e) {
-        console.log(e)
+        yield put(globalActions.requestError(e));
     }
 }
 
