@@ -30,9 +30,13 @@ const mapDispatchToProps = (dispatch, props) => ({
     searchEntries: query => dispatch(actions.searchEntries(query)),
     clearSearch: () => dispatch(actions.clearSearch()),
     back: () => props.navigation.goBack(),
-    onPressEntry: (id, entryType) => {
-        if(entryType === 'Song') {
-            props.navigation.navigate('SongDetail', { id })
+    onPressEntry: entry => {
+        if(entry.entryType === 'Song') {
+            props.navigation.navigate('SongDetail', { id: entry.id })
+        } else if(entry.entryType === 'Artist') {
+            props.navigation.navigate('ArtistDetail', { id: entry.id })
+        } else if(entry.entryType === 'Album') {
+            props.navigation.navigate('AlbumDetail', { id: entry.id })
         }
     }
 })
