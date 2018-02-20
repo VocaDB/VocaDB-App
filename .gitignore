@@ -1,10 +1,6 @@
-# Specifies intentionally untracked files to ignore when using Git
-# http://git-scm.com/docs/gitignore
-
 node_modules/
-platforms/
-plugins/
-bower_components/
-
-*.DS_Store
-build.json
+.expo/
+npm-debug.*
+package-lock.json
+yarn.lock
+.idea

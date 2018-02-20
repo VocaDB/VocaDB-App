@@ -1,85 +1,75 @@
-VocaDB Mobile App
-============
+# VocaDB App (PoC)
+This project is still under PoC to see how to build VocaDB App with React native + Redux.
 
-# This version had deprecated. New version as revamp is under PoC (See also in poc/revamp branch)
+***NOTICE : FOR TESTING ONLY, MANY FUNCTIONALITIES ARE UNUSABLE YET.***
 
-A mobile version of http://vocadb.net for presents information about vocaloid song,artist or album.
+## Prerequisite
+- [NodeJS](https://nodejs.org/en/)
+- [Expo Client](https://expo.io) (Availiable on both [iOS](https://itunes.apple.com/app/apple-store/id982107779?ct=www&mt=8) and [Android](https://play.google.com/store/apps/details?id=host.exp.exponent&referrer=www))
+- [Storybook](https://storybook.js.org) like a component dictionary.
 
-Tools & Resource
-============
-- Cordova : http://cordova.apache.org
-- VocaDB API : http://vocadb.net/api
-- Ionic framework : http://ionicframework.com
-- AngularJS : https://angularjs.org
-- AngularMoment : https://github.com/urish/angular-moment
-- Font Icon : http://fortawesome.github.io/Font-Awesome
-- Node.js : https://nodejs.org/en
+## Setup
 
-Setting development environment
-============
-### Prerequisites
-* Download and install [Node.js](https://nodejs.org/en/download/). You should be able to run **npm** command.
-
-### Clone project
-```
-$ git clone https://github.com/VocaDB/VocaDB-App.git
-```
-
-### Initialize
-* At VocaDB-App directory. Open terminal and run
-```
+```shell
+$ git clone -b poc/revamp https://github.com/VocaDB/VocaDB-App.git
+$ cd VocaDB-App
 $ npm install
 ```
 
-### Install cordova
-```
-$ npm install -g cordova
-```
+## Storybook
 
-### Install Ionic
-```
-$ npm install -g ionic
+In case if you never used storybook before
+```shell
+$ npm i -g @storybook/cli
 ```
 
-Ionic had provide a useful command line utility (CLI). See also at http://ionicframework.com/docs/cli/
+Then you can start storybook by running
 
-For example. Start a local development for testing on web browser.
-```
-$ ionic serve
-```
-
-### Adding a platform target
-```
-$ ionic platform ios android
+```shell
+$ npm run storybook
 ```
 
-### Building app
+## Run App
+
+There was several ways to run app.
+
+### iOS
+Mac OS Only. You must have Xcode installed first.
+
+```shell
+$ npm run ios
 ```
-$ ionic build android
+
+### Android
+
+I never tried this before but you can try if you have android emulator or with actual device.
+```shell
+$ npm run android
 ```
 
-You need to install SDK for each platform to emulate them. See also at [Platform Guides](http://cordova.apache.org/docs/en/5.0.0/guide_platforms_index.md.html#Platform%20Guides)
+### Default Expo
 
-Licence
-============
-The MIT License (MIT)
+```shell
+$ npm start
+```
 
-Copyright (c) 2014 Augsorn Chanklad
+Now you can use Expo app to scan QR code that display in terminal (make sure you are in the same network with your PC)
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+### Expo XDE
+[Expo XDE](https://docs.expo.io/versions/latest/introduction/installation.html) is required.
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+- Open Expo XDE
+- Open Project
+- Locate to VocaDB-App directory
+- Wait for building script
+- When done. You can sacn QR code from `Share` button via `Expo Client` from your phone.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+### Using storybook
+
+See in `App.js` file.
+
+- Export `StorybookUI` if you want to run with storybook.
+- Export `App` if you want to test real app.
+
+## Config
+in *src/constants/config* you can switch **useMock** to **false** to fetch real data from VocaDB API instead of mock.

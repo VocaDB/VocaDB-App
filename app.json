@@ -1,0 +1,14 @@
+{
+  "expo": {
+    "name": "VocaDB",
+    "sdkVersion": "22.0.0",
+    "version": "0.0.1",
+    "slug": "vocadb-app",
+    "ios": {
+      "bundleIdentifier": "com.vocadb.app"
+    },
+    "android": {
+      "package": "com.vocadb.app"
+    }
+  }
+}
