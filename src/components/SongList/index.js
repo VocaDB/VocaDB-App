@@ -12,7 +12,7 @@ class SongList extends React.Component {
         return (
             <View style={style.header}>
                 <View style={style.headerLeft}>
-                    <Text style={material.title}>{this.props.title}</Text>
+                    <Text style={material.subheading}>{this.props.title}</Text>
                 </View>
                 <View style={style.headerRight}>
                 </View>

@@ -4,6 +4,7 @@ import Artist from './../Artist'
 import PropTypes from 'prop-types';
 import images from './../../assets/images'
 import Theme from './../../theme'
+import { material } from 'react-native-typography'
 
 class ArtistList extends React.Component {
 
@@ -23,6 +24,7 @@ class ArtistList extends React.Component {
 
         return (
             <View>
+                <Text style={[material.subheading, { margin: 8 }]}>{this.props.title}</Text>
                 {this.props.artists.map(renderItem)}
             </View>
         )
@@ -57,6 +59,7 @@ class ArtistList extends React.Component {
 }
 
 ArtistList.propTypes = {
+    title: PropTypes.string,
     artists: PropTypes.array,
     onPressItem: PropTypes.func,
     horizontal: PropTypes.bool,
@@ -65,6 +68,7 @@ ArtistList.propTypes = {
 };
 
 ArtistList.defaultProps = {
+    title: 'Artists',
     artists: [],
     horizontal: false,
     showHeader: false,

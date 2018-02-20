@@ -3,6 +3,7 @@ import { View, Text } from 'react-native'
 import Entry from './../Entry'
 import PropTypes from 'prop-types';
 import images from './../../assets/images'
+import { material } from 'react-native-typography'
 
 class EntryList extends React.Component {
 
@@ -27,6 +28,7 @@ class EntryList extends React.Component {
 
         return (
             <View>
+                <Text style={[material.subheading, { margin: 8 }]}>{this.props.title}</Text>
                 {this.props.entries.map(renderItem)}
             </View>
         )
@@ -34,11 +36,13 @@ class EntryList extends React.Component {
 }
 
 EntryList.propTypes = {
+    title: PropTypes.string,
     entries: PropTypes.array,
     onPressItem: PropTypes.func
 };
 
 EntryList.defaultProps = {
+    title: 'Entries',
     entries: [],
     onPressItem: () => {}
 };

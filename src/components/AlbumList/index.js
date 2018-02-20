@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import images from './../../assets/images'
 import style from './style'
 import Theme from './../../theme'
+import { material } from 'react-native-typography'
 
 class AlbumList extends React.Component {
 
@@ -12,10 +13,7 @@ class AlbumList extends React.Component {
         const Header = () => (
             <View style={style.header}>
                 <View style={style.headerLeft}>
-                    <Text style={Theme.title}>{this.props.title}</Text>
-                </View>
-                <View style={style.headerRight}>
-                    {!this.props.hideMoreButton && <Button style={style.button} title='More' onPress={() => this.props.onPressMore()} />}
+                    <Text style={material.subheading}>{this.props.title}</Text>
                 </View>
             </View>
         )
@@ -80,7 +78,6 @@ class AlbumList extends React.Component {
             <View style={{ height: 300 }}>
 
                 {this.props.showHeader && <Header />}
-
                 <ScrollView horizontal={true} style={{ flex: 1 }}>
                     {albums.map(renderItem)}
                 </ScrollView>
@@ -105,7 +102,7 @@ AlbumList.propTypes = {
 };
 
 AlbumList.defaultProps = {
-    title: 'Album list',
+    title: 'Albums',
     max: 10,
     showHeader: false,
     horizontal: false,
