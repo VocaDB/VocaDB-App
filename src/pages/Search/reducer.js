@@ -9,8 +9,9 @@ const defaultState = fromJS({
 })
 
 const reducer = createReducer({
-    [actions.searchEntries]: (state) => {
+    [actions.searchEntries]: (state, payload) => {
         return state.set('loading', true)
+            .set('query', payload.query)
     },
     [actions.searchEntriesSuccess]: (state, payload) => {
         return state.set('entries', fromJS(payload.result))

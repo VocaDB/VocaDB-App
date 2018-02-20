@@ -3,6 +3,7 @@ import { List, Map } from 'immutable'
 import { selectEntryEntity } from './../../selectors'
 
 const selectSearch = () => (state) => state.get('search');
+const selectQuery = () => createSelector(selectSearch(), home => home.get('query', ''))
 const selectEntriesResult = () => createSelector(selectSearch(), home => home.get('entries', []))
 const selecrLoading = () => createSelector(selectSearch(), home => home.get('loading', false))
 
@@ -21,5 +22,6 @@ const selectEntries = () => createSelector(
 
 export {
     selectEntries,
-    selecrLoading
+    selecrLoading,
+    selectQuery
 };

@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import SearchPage from './component'
 import * as actions from './actions'
 import { createSelector } from 'reselect';
-import { selecrLoading, selectEntries } from './selector'
+import { selecrLoading, selectEntries, selectQuery } from './selector'
 import { Toolbar } from 'react-native-material-ui';
 import { TextInput } from 'react-native'
 
@@ -16,14 +16,11 @@ SearchPage.propTypes = {
 
 }
 
-// const mapStateToProps = state => ({
-//
-// })
-
 const searchStateSelect = createSelector(
     selecrLoading(),
     selectEntries(),
-    (loading, entries) => ({ loading, entries })
+    selectQuery(),
+    (loading, entries, query) => ({ loading, entries, query })
 );
 
 const mapDispatchToProps = (dispatch, props) => ({
