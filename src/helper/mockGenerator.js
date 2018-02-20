@@ -1,6 +1,7 @@
 
 export const CreateSong = (config = {}) => ({
     id: (config.id) ? config.id : 1032,
+    artistString: (config.artistString) ? config.artistString : 'doriko feat. 初音ミク',
     defaultName: (config.defaultName) ? config.defaultName : 'ロミオとシンデレラ',
     songType: (config.songType) ? config.songType : 'Original',
     createDate: (config.createDate) ? config.createDate : '2011-10-30T01:07:43',
