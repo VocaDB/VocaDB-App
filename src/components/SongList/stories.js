@@ -2,7 +2,7 @@ import React from 'react';
 
 import { storiesOf } from '@storybook/react-native';
 import { action } from '@storybook/addon-actions';
-import { ScrollView } from 'react-native'
+import { ScrollView, Button } from 'react-native'
 
 import SongList from './index'
 import mockSongs from './mock'
@@ -29,5 +29,13 @@ storiesOf('SongList', module)
             showHeader={true}
             onPressItem={action('press song')}
             onPressMore={action('press more')}
+        />
+    ))
+    .add('with footer', () => (
+        <SongList
+            songs={mockSongs.items}
+            max={3}
+            onPressItem={action('press song')}
+            footer={<Button title='See more song' onPress={action('Press footer')} />}
         />
     ));

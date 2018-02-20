@@ -4,6 +4,7 @@ import Song from './../Song'
 import PropTypes from 'prop-types';
 import style from './style'
 import Theme from '../../theme'
+import { material } from 'react-native-typography'
 
 class SongList extends React.Component {
 
@@ -11,7 +12,7 @@ class SongList extends React.Component {
         return (
             <View style={style.header}>
                 <View style={style.headerLeft}>
-                    <Text style={Theme.headline}>{this.props.title}</Text>
+                    <Text style={material.title}>{this.props.title}</Text>
                 </View>
                 <View style={style.headerRight}>
                 </View>
@@ -44,6 +45,7 @@ class SongList extends React.Component {
             <View>
                 {this.props.showHeader && this.renderHeader()}
                 {songs.map(renderItem)}
+                {this.props.footer}
             </View>
         )
     }
@@ -55,7 +57,8 @@ SongList.propTypes = {
     max: PropTypes.number,
     onPressItem: PropTypes.func,
     onPressMore: PropTypes.func,
-    showHeader: PropTypes.bool
+    showHeader: PropTypes.bool,
+    footer: PropTypes.element
 };
 
 SongList.defaultProps = {
@@ -63,8 +66,7 @@ SongList.defaultProps = {
     max: 10,
     showHeader: false,
     songs: [],
-    onPressItem: () => {},
-    onPressMore: () => {}
+    onPressItem: () => {}
 };
 
 export default SongList;
