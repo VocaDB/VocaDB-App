@@ -1,7 +1,7 @@
-# VocaDB App (PoC)
-This project is still under PoC to see how to build VocaDB App with React native + Redux.
+# VocaDB App (WIP)
+New VocaDB app with React native.
 
-***NOTICE : FOR TESTING ONLY, MANY FUNCTIONALITIES ARE UNUSABLE YET.***
+***NOTICE : THIS PROJECT STILL IN DEVELOPMENT, MANY FUNCTIONALITIES ARE UNUSABLE YET.***
 
 ## Prerequisite
 - [NodeJS](https://nodejs.org/en/)
@@ -11,7 +11,7 @@ This project is still under PoC to see how to build VocaDB App with React native
 ## Setup
 
 ```shell
-$ git clone -b poc/revamp https://github.com/VocaDB/VocaDB-App.git
+$ git clone https://github.com/VocaDB/VocaDB-App.git
 $ cd VocaDB-App
 $ npm install
 ```
