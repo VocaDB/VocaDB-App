@@ -12,6 +12,7 @@ import WebLinkList from './../../components/WebLinkList'
 import ScrollableTabView from 'react-native-scrollable-tab-view'
 import PVList from './../../components/PVLIst'
 import LyricGroup from './../../components/LyricGroup'
+import Cover from './../../components/Cover'
 import Theme from './../../theme'
 
 export default class SongDetailPage extends React.Component {
@@ -31,16 +32,11 @@ export default class SongDetailPage extends React.Component {
 
             return (
                 <ScrollView style={{ flex: 1, backgroundColor: 'white' }}>
-                    <View style={{ height: 180, backgroundColor: '#B0BEC5' }}>
-                        <CenterView style={{ backgroundColor: '#546E7A', justifyContent: 'space-around', padding: 10 }}>
-                            <Image
-                                style={{ width: 160 , height: 100 }}
-                                source={{ uri: song.thumbUrl }}
-                            />
-                            <Text style={Theme.displayReverse_1}>{song.defaultName}</Text>
-                            <Text style={Theme.displayReverse_2}>{song.artistString}</Text>
-                        </CenterView>
-                    </View>
+                    <Cover
+                        imageUri={song.thumbUrl}
+                        title={song.defaultName}
+                        subtitle={song.artistString}
+                    />
                     <Section style={{ flex: 1, flexDirection: 'row' }}>
                         <Icon name='md-heart' text='Favorite' />
                         <Icon name='md-share' text='Share' />
