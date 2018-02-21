@@ -1,4 +1,5 @@
 import React from 'react'
+import { Share } from 'react-native'
 import { connect } from 'react-redux'
 import SongDetailPage from './component'
 import * as actions from './actions'
@@ -20,6 +21,16 @@ const songDetailStateSelect = createSelector(
 
 const mapDispatchToProps = (dispatch, props) => ({
     fetchSong: id => dispatch(actions.getSong(id)),
+    onPressShare: song => {
+        const url = 'http://vocadb.net/S/' + song.id
+        Share.share({
+            message: url,
+            url: url,
+            title: song.defaultName,
+        },{
+            dialogTitle: 'Share ' + song.defaultName,
+        })
+    },
     onPressArtist: artist => props.navigation.navigate('ArtistDetail', { id: artist.id }),
     onPressAlbum: album => props.navigation.navigate('AlbumDetail', { id: album.id }),
 })

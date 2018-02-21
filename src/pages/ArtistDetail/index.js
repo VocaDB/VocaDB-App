@@ -4,6 +4,7 @@ import ArtistDetailPage from './component'
 import * as actions from './actions'
 import { createSelector } from 'reselect';
 import { selectArtistResult } from './selector'
+import { Share } from 'react-native'
 
 ArtistDetailPage.navigationOptions = () => ({
     title: 'Detail',
@@ -20,6 +21,16 @@ const artistDetailStateSelect = createSelector(
 
 const mapDispatchToProps = (dispatch, props) => ({
     fetchArtist: id => dispatch(actions.getArtist(id)),
+    onPressShare: artist => {
+        const url = 'http://vocadb.net/Ar/' + artist.id
+        Share.share({
+            message: url,
+            url: url,
+            title: artist.defaultName,
+        },{
+            dialogTitle: 'Share ' + artist.defaultName,
+        })
+    },
     onPressSong: song => props.navigation.navigate('SongDetail', { id: song.id }),
     onPressAlbum: album => props.navigation.navigate('AlbumDetail', { id: album.id }),
 })

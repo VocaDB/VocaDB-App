@@ -39,7 +39,7 @@ export default class SongDetailPage extends React.Component {
                     />
                     <Section style={{ flex: 1, flexDirection: 'row' }}>
                         <Icon name='md-heart' text='Favorite' />
-                        <Icon name='md-share' text='Share' />
+                        <Icon name='md-share' text='Share' onPress={() => this.props.onPressShare(song)} />
                         <Icon name='md-chatbubbles' text='Comment' />
                         <Icon name='md-information-circle'  text='Report' />
                     </Section>
