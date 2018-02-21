@@ -3,6 +3,7 @@ import SongDetailPage from './pages/SongDetail'
 import ArtistDetailPage from './pages/ArtistDetail'
 import AlbumDetailPage from './pages/AlbumDetail'
 import SearchPage from './pages/Search'
+import SongListPage from './pages/SongList'
 import { StackNavigator } from "react-navigation";
 import Theme from './theme'
 
@@ -12,7 +13,8 @@ const AppNavigator = StackNavigator({
     SongDetail: { screen: SongDetailPage },
     ArtistDetail: { screen: ArtistDetailPage },
     AlbumDetail: { screen: AlbumDetailPage },
-    Search: { screen: SearchPage }
+    Search: { screen: SearchPage },
+    SongList: { screen: SongListPage }
 }, {
     initialRouteName: 'Home',
     navigationOptions: {

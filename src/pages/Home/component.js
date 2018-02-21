@@ -28,7 +28,13 @@ export default class HomePage extends React.Component {
                     refreshing={this.props.refreshing}
                     onRefresh={this.refresh.bind(this)}
                 />}>
-                <SongList title='Recent songs' max={5} showHeader={true} songs={this.props.recentSongs} onPressItem={this.props.onPressSong} hideMoreButton={true} />
+                <SongList
+                    title='Recent songs'
+                    max={5} showHeader={true}
+                    songs={this.props.recentSongs}
+                    onPressItem={this.props.onPressSong}
+                    hideMoreButton={true}
+                    footer={<Button title='More' onPress={this.props.onPressMoreRecentSongs} />} />
                 <AlbumList title='Recent albums' max={10} horizontal={true} showHeader={true} albums={this.props.recentAlbums} onPressItem={this.props.onPressAlbum} />
             </ScrollView>
         )

@@ -35,7 +35,15 @@ const mapDispatchToProps = (dispatch, props) => ({
     fetchLatestEvents: () => dispatch(actions.getLatestEvents()),
     fetchRecentAlbums: () => dispatch(actions.getRecentAlbums()),
     onPressSong: song => props.navigation.navigate('SongDetail', { id: song.id }),
-    onPressAlbum: album => props.navigation.navigate('AlbumDetail', { id: album.id })
+    onPressAlbum: album => props.navigation.navigate('AlbumDetail', { id: album.id }),
+    onPressMoreRecentSongs: () => props.navigation.navigate('SongList', {
+        title: 'Recent songs',
+        params: {
+            'maxResults': 20,
+            'sort': 'AdditionDate',
+            'fields': 'thumbUrl'
+        }
+    }),
 })
 
 export default connect(homeStateSelect, mapDispatchToProps)(HomePage)
