@@ -8,6 +8,7 @@ import WebLinkList from './../../components/WebLinkList'
 import EventList from './../../components/EventList'
 import ScrollableTabView from 'react-native-scrollable-tab-view'
 import ArtistRoleList from './../../components/ArtistRoleList'
+import Cover from './../../components/Cover'
 
 class AlbumDetailPage extends React.Component {
     componentDidMount () {
@@ -26,29 +27,11 @@ class AlbumDetailPage extends React.Component {
 
         const InfoPage = () => (
             <ScrollView style={{ flex: 1 }}>
-                <View style={{ height: 240, backgroundColor: '#000000', justifyContent: 'center' }}>
-                    <Image
-                        style={{flex: 1, backgroundColor: '#FFFFFF', opacity: 0.57 }}
-                        source={{ uri: imageUri }}
-                        resizeMode='cover'
-                        blurRadius={2}
-                    />
-                    <View style={{
-                        position: 'absolute',
-                        backgroundColor: 'transparent',
-                        flex: 1,
-                        alignItems: 'center',
-                        alignSelf: 'center',
-                        justifyContent: 'center'
-                    }}>
-                        <Image style={{ width: 128, height: 128 }}
-                               source={{ uri: imageUri }}
-                               resizeMode='contain'
-                        />
-                        <Text style={Theme.displayReverse_1}>{album.name}</Text>
-                        <Text style={Theme.displayReverse_2}>{album.artistString}</Text>
-                    </View>
-                </View>
+                <Cover
+                    imageUri={imageUri}
+                    title={album.name}
+                    subtitle={album.artistString}
+                />
                 <Section style={{ flex: 1, flexDirection: 'row' }}>
                     <Icon name='md-heart' text='Follow' />
                     <Icon name='md-share' text='Share' onPress={() => this.props.onPressShare(album)} />
