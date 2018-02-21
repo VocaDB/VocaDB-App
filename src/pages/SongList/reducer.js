@@ -12,7 +12,9 @@ const reducer = createReducer({
         return state.set('refreshing', true)
     },
     [actions.getSongsSuccess]: (state, payload) => {
-        return state.set('songs', fromJS(payload.result))
+        let result = fromJS(payload.result)
+        let newList = state.get('songs').concat(result)
+        return state.set('songs', newList)
             .set('refreshing', false)
     }
 }, defaultState)

@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, Button } from 'react-native'
+import { View, Text, Button, FlatList } from 'react-native'
 import Song from './../Song'
 import PropTypes from 'prop-types';
 import style from './style'
@@ -20,9 +20,6 @@ class SongList extends React.Component {
     }
 
     render () {
-
-        const songs = this.props.songs.slice(0, this.props.max)
-
         const renderItem = song => {
             const imageUrl = (song.thumbUrl) ? song.thumbUrl : undefined;
             return  (
@@ -36,17 +33,37 @@ class SongList extends React.Component {
             )
         }
 
-        if(!songs.length) {
+        if(!this.props.songs.length) {
             return (<View></View>)
         }
 
-        return (
-            <View>
-                {this.props.showHeader && this.renderHeader()}
-                {songs.map(renderItem)}
-                {this.props.footer}
-            </View>
-        )
+        if(this.props.flatList) {
+            return (
+                <FlatList
+                    removeClippedSubviews
+                    disableVirtualization
+                    data={this.props.songs}
+                    keyExtractor={(item) => item.id}
+                    renderItem={({item}) => renderItem(item)}
+                    refreshing={this.props.refreshing}
+                    onRefresh={this.props.onRefresh}
+                    onEndReached={this.props.onEndReached}
+                    onEndReachedThreshold={0.3}
+                />
+            )
+        } else {
+
+            let songs = this.props.songs.slice(0, this.props.max)
+
+            return (
+                <View>
+                    {this.props.showHeader && this.renderHeader()}
+                    {songs.map(renderItem)}
+                    {this.props.footer}
+                </View>
+            )
+        }
+
     }
 }
 
@@ -57,7 +74,11 @@ SongList.propTypes = {
     onPressItem: PropTypes.func,
     onPressMore: PropTypes.func,
     showHeader: PropTypes.bool,
-    footer: PropTypes.element
+    footer: PropTypes.element,
+    flatList: PropTypes.bool,
+    refreshing: PropTypes.bool,
+    onRefresh: PropTypes.func,
+    onEndReached: PropTypes.func
 };
 
 SongList.defaultProps = {
@@ -65,6 +86,7 @@ SongList.defaultProps = {
     max: 10,
     showHeader: false,
     songs: [],
+    flatList: false,
     onPressItem: () => {}
 };
 
