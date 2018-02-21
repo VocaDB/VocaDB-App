@@ -9,6 +9,7 @@ import EventList from './../../components/EventList'
 import ScrollableTabView from 'react-native-scrollable-tab-view'
 import ArtistRoleList from './../../components/ArtistRoleList'
 import Cover from './../../components/Cover'
+import Content from './../../components/Content'
 
 class AlbumDetailPage extends React.Component {
     componentDidMount () {
@@ -26,7 +27,7 @@ class AlbumDetailPage extends React.Component {
         const Section = props => (<View style={[{ marginVertical: 8, paddingHorizontal: 4 },props.style]}>{props.children}</View>)
 
         const InfoPage = () => (
-            <ScrollView style={{ flex: 1 }}>
+            <Content>
                 <Cover
                     imageUri={imageUri}
                     title={album.name}
@@ -49,19 +50,19 @@ class AlbumDetailPage extends React.Component {
                     <WebLinkList webLinks={album.webLinks} category='Commercial' title='Commercial' />
                     <WebLinkList webLinks={album.webLinks} category='Reference' title='Reference' />
                 </Section>
-            </ScrollView>
+            </Content>
         )
 
         const ArtistRoleListPage = () => (
-            <ScrollView style={{ flex: 1, backgroundColor: 'white' }}>
+            <Content>
                 <ArtistRoleList artists={album.artists} onPressItem={this.props.onPressArtist} />
-            </ScrollView>
+            </Content>
         )
 
         const EventListPage = () => (
-            <ScrollView style={{ flex: 1, backgroundColor: 'white' }}>
+            <Content>
                 <EventList events={album.releaseEvents} />
-            </ScrollView>
+            </Content>
         )
 
         return (

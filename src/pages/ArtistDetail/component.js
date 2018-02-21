@@ -11,6 +11,7 @@ import EventList from './../../components/EventList'
 import SongList from './../../components/SongList'
 import ScrollableTabView from 'react-native-scrollable-tab-view'
 import AlbumList from './../../components/AlbumList'
+import Content from './../../components/Content'
 
 class ArtistDetailPage extends React.Component {
 
@@ -29,7 +30,7 @@ class ArtistDetailPage extends React.Component {
         const Section = props => (<View style={[{ marginVertical: 8, paddingHorizontal: 4 },props.style]}>{props.children}</View>)
 
         const InfoPage = () => (
-            <ScrollView style={{ flex: 1 }}>
+            <Content>
                 <View style={{ height: 240, backgroundColor: '#000000', justifyContent: 'center' }}>
                     <Image
                         style={{flex: 1, backgroundColor: '#FFFFFF', opacity: 0.57 }}
@@ -70,27 +71,27 @@ class ArtistDetailPage extends React.Component {
                     <WebLinkList webLinks={artist.webLinks} category='Commercial' title='Commercial' />
                     <WebLinkList webLinks={artist.webLinks} category='Reference' title='Reference' />
                 </Section>
-            </ScrollView>
+            </Content>
         )
 
         const SongListPage = () => (
-            <ScrollView style={{ flex: 1, backgroundColor: 'white' }}>
+            <Content>
                 <SongList songs={artist.latestSongs} title='Latest' showHeader={true} onPressItem={this.props.onPressSong} />
                 <SongList songs={artist.popularSongs} title='Popular' showHeader={true} onPressItem={this.props.onPressSong} />
-            </ScrollView>
+            </Content>
         )
 
         const AlbumListPage = () => (
-            <ScrollView style={{ flex: 1, backgroundColor: 'white' }}>
+            <Content>
                 <AlbumList albums={artist.latestAlbums} title='Latest' showHeader={true} onPressItem={this.props.onPressAlbum} />
                 <AlbumList albums={artist.popularAlbums} title='Popular' showHeader={true} onPressItem={this.props.onPressAlbum} />
-            </ScrollView>
+            </Content>
         )
 
         const EventListPage = () => (
-            <ScrollView style={{ flex: 1, backgroundColor: 'white' }}>
+            <Content>
                 <EventList events={artist.latestEvents} />
-            </ScrollView>
+            </Content>
         )
 
         return (

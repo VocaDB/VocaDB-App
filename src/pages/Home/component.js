@@ -6,6 +6,7 @@ import ScrollableTabView from 'react-native-scrollable-tab-view'
 import CustomTabBar from './../../components/CustomTabBar'
 import mockEvent from './../../components/EventList/mock'
 import EventList from './../../components/EventList'
+import Content from './../../components/Content'
 
 export default class HomePage extends React.Component {
 
@@ -23,7 +24,7 @@ export default class HomePage extends React.Component {
     render () {
 
         const HomeTabPage = () => (
-            <ScrollView refreshControl={
+            <Content refreshControl={
                 <RefreshControl
                     refreshing={this.props.refreshing}
                     onRefresh={this.refresh.bind(this)}
@@ -34,9 +35,8 @@ export default class HomePage extends React.Component {
                     songs={this.props.recentSongs}
                     onPressItem={this.props.onPressSong}
                     hideMoreButton={true}
-                    footer={<Button title='More' onPress={this.props.onPressMoreRecentSongs} />} />
-                <AlbumList title='Recent albums' max={10} horizontal={true} showHeader={true} albums={this.props.recentAlbums} onPressItem={this.props.onPressAlbum} />
-            </ScrollView>
+                    footer={<Button style={{ backgroundColor: 'transparent' }} title='More' onPress={this.props.onPressMoreRecentSongs} />} />
+            </Content>
         )
 
         const EventTabPage = () => (

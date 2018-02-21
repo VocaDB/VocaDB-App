@@ -5,6 +5,7 @@ export default {
     primaryColor: COLOR.indigo600,
     statusBarColor: COLOR.indigo800,
     rootBackgroundColor: COLOR.blueGrey100,
+    contentBackgroundColor: COLOR.white,
     title: human.title3,
     headline: human.headline,
     subhead: human.subhead,
