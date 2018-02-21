@@ -75,15 +75,15 @@ class ArtistDetailPage extends React.Component {
 
         const SongListPage = () => (
             <ScrollView style={{ flex: 1, backgroundColor: 'white' }}>
-                <SongList songs={artist.latestSongs} title='Latest' showHeader={true} />
-                <SongList songs={artist.popularSongs} title='Popular' showHeader={true} />
+                <SongList songs={artist.latestSongs} title='Latest' showHeader={true} onPressItem={this.props.onPressSong} />
+                <SongList songs={artist.popularSongs} title='Popular' showHeader={true} onPressItem={this.props.onPressSong} />
             </ScrollView>
         )
 
         const AlbumListPage = () => (
             <ScrollView style={{ flex: 1, backgroundColor: 'white' }}>
-                <AlbumList albums={artist.latestAlbums} title='Latest' showHeader={true} />
-                <AlbumList albums={artist.popularAlbums} title='Popular' showHeader={true} />
+                <AlbumList albums={artist.latestAlbums} title='Latest' showHeader={true} onPressItem={this.props.onPressAlbum} />
+                <AlbumList albums={artist.popularAlbums} title='Popular' showHeader={true} onPressItem={this.props.onPressAlbum} />
             </ScrollView>
         )
 

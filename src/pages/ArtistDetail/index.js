@@ -19,7 +19,9 @@ const artistDetailStateSelect = createSelector(
 );
 
 const mapDispatchToProps = (dispatch, props) => ({
-    fetchArtist: id => dispatch(actions.getArtist(id))
+    fetchArtist: id => dispatch(actions.getArtist(id)),
+    onPressSong: song => props.navigation.navigate('SongDetail', { id: song.id }),
+    onPressAlbum: album => props.navigation.navigate('AlbumDetail', { id: album.id }),
 })
 
 export default connect(artistDetailStateSelect, mapDispatchToProps)(ArtistDetailPage)
