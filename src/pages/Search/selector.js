@@ -21,7 +21,9 @@ const selectEntries = () => createSelector(
 );
 
 export {
+    selectSearch,
     selectEntries,
     selecrLoading,
-    selectQuery
+    selectQuery,
+    selectEntriesResult
 };
