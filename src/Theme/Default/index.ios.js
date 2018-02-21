@@ -12,4 +12,5 @@ export default {
     caption: human.caption1,
     titleWhite: human.title3White,
     headlineWhite: human.headlineWhite,
+    subheadWhite: human.subheadWhite,
 }

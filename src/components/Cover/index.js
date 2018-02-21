@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, Text, Image } from 'react-native'
 import PropTypes from 'prop-types'
-import { material, materialColors } from 'react-native-typography'
+import Theme from './../../theme'
 
 class Cover extends React.Component {
     render () {
@@ -25,8 +25,8 @@ class Cover extends React.Component {
                            source={{ uri: this.props.imageUri }}
                            resizeMode='contain'
                     />
-                    <Text style={[material.title, { color: materialColors.whitePrimary }]}>{this.props.title}</Text>
-                    <Text style={[material.subheading, { color: materialColors.whitePrimary }]}>{this.props.subtitle}</Text>
+                    <Text style={[Theme.titleWhite]}>{this.props.title}</Text>
+                    <Text style={[Theme.subheadWhite]}>{this.props.subtitle}</Text>
                 </View>
             </View>
         )
