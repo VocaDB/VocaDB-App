@@ -28,7 +28,7 @@ class Album extends React.Component {
                     </View>
 
                     <View style={this.styleSelected.infoContainer}>
-                        <Text style={Theme.title}>{this.props.name}</Text>
+                        <Text style={Theme.subhead}>{this.props.name}</Text>
                     </View>
                 </View>
             </TouchableOpacity>
@@ -37,8 +37,10 @@ class Album extends React.Component {
 }
 
 Album.propTypes = {
+    id: PropTypes.number,
     name: PropTypes.string,
-    display: PropTypes.oneOf(['row', 'box'])
+    display: PropTypes.oneOf(['row', 'box']),
+    image: PropTypes.string
 };
 
 Album.defaultProps = {

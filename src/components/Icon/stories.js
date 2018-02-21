@@ -9,8 +9,8 @@ import CenterView from './../CenterView'
 storiesOf('Icon', module)
     .addDecorator(getStory => <CenterView>{getStory()}</CenterView>)
     .add('alone', () => (
-        <Icon name='rocket' />
+        <Icon name='ios-share' />
     ))
     .add('with text', () => (
-        <Icon name='share' text='Share' />
+        <Icon name='ios-share' text='Share' />
     ));

@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import images from './../../assets/images'
 import style from './style'
 import Theme from './../../theme'
-import { material } from 'react-native-typography'
 
 class AlbumList extends React.Component {
 
@@ -13,7 +12,7 @@ class AlbumList extends React.Component {
         const Header = () => (
             <View style={style.header}>
                 <View style={style.headerLeft}>
-                    <Text style={material.subheading}>{this.props.title}</Text>
+                    <Text style={Theme.title}>{this.props.title}</Text>
                 </View>
             </View>
         )
@@ -64,12 +63,11 @@ class AlbumList extends React.Component {
         }
 
         const Header = () => (
-            <View style={{ height: 40, flexDirection: 'row', alignItems: 'center', paddingHorizontal: 4 }}>
-                <View style={{ flex: 1 }}>
-                    <Text style={Theme.title}>{this.props.title}</Text>
+            <View style={{ height: 40, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 4 }}>
+                <View>
+                    <Text style={Theme.subhead}>{this.props.title}</Text>
                 </View>
-                <View style={{ flex: 1 }}>
-                    {!this.props.hideMoreButton && <Button title='More' onPress={() => this.props.onPressMore()} />}
+                <View>
                 </View>
             </View>
         )

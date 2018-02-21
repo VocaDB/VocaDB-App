@@ -1,7 +1,6 @@
 import React from 'react'
 import { Image, View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import PropTypes from 'prop-types';
-import images from './../../assets/images'
 import Theme from '../../theme'
 
 class Song extends React.Component {
@@ -10,7 +9,6 @@ class Song extends React.Component {
         return (<Image
             style={styles.image}
             source={{ uri: this.props.image }}
-            defaultSource={images.unknownSong}
         />)
     }
 
@@ -23,8 +21,8 @@ class Song extends React.Component {
                     </View>
 
                     <View style={styles.infoContainer}>
-                        <Text style={Theme.title}>{this.props.name}</Text>
-                        <Text style={Theme.subHeading} numberOfLines={2}>{this.props.artist}</Text>
+                        <Text style={Theme.subhead}>{this.props.name}</Text>
+                        <Text style={Theme.caption} numberOfLines={2}>{this.props.artist}</Text>
                         <Text note>{this.props.dateTime}</Text>
                     </View>
                 </View>

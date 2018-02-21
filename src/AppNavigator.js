@@ -4,7 +4,7 @@ import ArtistDetailPage from './pages/ArtistDetail'
 import AlbumDetailPage from './pages/AlbumDetail'
 import SearchPage from './pages/Search'
 import { StackNavigator } from "react-navigation";
-import { primaryColor } from './theme'
+import Theme from './theme'
 
 
 const AppNavigator = StackNavigator({
@@ -17,7 +17,7 @@ const AppNavigator = StackNavigator({
     initialRouteName: 'Home',
     navigationOptions: {
         headerStyle: {
-            backgroundColor: primaryColor,
+            backgroundColor: Theme.primaryColor,
         },
         headerTintColor: '#fff',
         headerTitleStyle: {

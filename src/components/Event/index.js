@@ -14,8 +14,8 @@ class Event extends React.Component {
                 </Image>
                 <View style={{ backgroundColor:'transparent', position: 'absolute', padding: 8 }}>
                     <Text style={{ color: 'white' }}>{this.props.date}</Text>
-                    <Text style={Theme.displayReverse_1}>{this.props.name}</Text>
-                    <Text style={Theme.displayReverse_2}>MOGRA, Akihabara, Tokyo, Japan</Text>
+                    <Text style={Theme.headlineWhite}>{this.props.name}</Text>
+                    <Text style={Theme.headlineWhite}>{this.props.location}</Text>
                 </View>
             </TouchableOpacity>
         )

@@ -4,7 +4,6 @@ import Song from './../Song'
 import PropTypes from 'prop-types';
 import style from './style'
 import Theme from '../../theme'
-import { material } from 'react-native-typography'
 
 class SongList extends React.Component {
 
@@ -12,7 +11,7 @@ class SongList extends React.Component {
         return (
             <View style={style.header}>
                 <View style={style.headerLeft}>
-                    <Text style={material.subheading}>{this.props.title}</Text>
+                    <Text style={Theme.subhead}>{this.props.title}</Text>
                 </View>
                 <View style={style.headerRight}>
                 </View>

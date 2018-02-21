@@ -21,7 +21,7 @@ class WebLinkList extends React.Component {
 
         return (
             <View>
-                <Text style={Theme.title}>{this.props.title}</Text>
+                <Text style={Theme.headline}>{this.props.title}</Text>
                 {webLinks.map(renderItem)}
             </View>
         )

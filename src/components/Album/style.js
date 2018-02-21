@@ -30,7 +30,7 @@ export default {
     },
     box: {
         listItem: {
-            flex: 1,
+            height: 260,
             width: 200,
             padding: 4
         },
