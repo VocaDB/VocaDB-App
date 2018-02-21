@@ -36,6 +36,7 @@ export default class HomePage extends React.Component {
                     onPressItem={this.props.onPressSong}
                     hideMoreButton={true}
                     footer={<Button style={{ backgroundColor: 'transparent' }} title='More' onPress={this.props.onPressMoreRecentSongs} />} />
+                <AlbumList title='Recent albums' max={10} horizontal={true} showHeader={true} albums={this.props.recentAlbums} onPressItem={this.props.onPressAlbum} />
             </Content>
         )
 

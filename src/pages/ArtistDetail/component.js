@@ -12,6 +12,7 @@ import SongList from './../../components/SongList'
 import ScrollableTabView from 'react-native-scrollable-tab-view'
 import AlbumList from './../../components/AlbumList'
 import Content from './../../components/Content'
+import Cover from './../../components/Cover'
 
 class ArtistDetailPage extends React.Component {
 
@@ -31,29 +32,11 @@ class ArtistDetailPage extends React.Component {
 
         const InfoPage = () => (
             <Content>
-                <View style={{ height: 240, backgroundColor: '#000000', justifyContent: 'center' }}>
-                    <Image
-                        style={{flex: 1, backgroundColor: '#FFFFFF', opacity: 0.57 }}
-                        source={{ uri: imageUri }}
-                        resizeMode='cover'
-                        blurRadius={10}
-                    />
-                    <View style={{
-                        position: 'absolute',
-                        backgroundColor: 'transparent',
-                        flex: 1,
-                        alignItems: 'center',
-                        alignSelf: 'center',
-                        justifyContent: 'center'
-                    }}>
-                        <Image style={{ width: 128, height: 128 }}
-                               source={{ uri: imageUri }}
-                               resizeMode='contain'
-                        />
-                        <Text style={Theme.displayReverse_1}>{artist.name}</Text>
-                        <Text style={Theme.displayReverse_2}>{artist.artistType}</Text>
-                    </View>
-                </View>
+                <Cover
+                    imageUri={imageUri}
+                    title={artist.name}
+                    subtitle={artist.artistType}
+                />
                 <Section style={{ flex: 1, flexDirection: 'row' }}>
                     <Icon name='md-heart' text='Follow' />
                     <Icon name='md-share' text='Share' onPress={() => this.props.onPressShare(artist)} />
