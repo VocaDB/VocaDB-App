@@ -5,8 +5,14 @@ import { selectEntryEntity } from './../../selectors'
 const selectSearch = () => (state) => state.get('search');
 const selectQuery = () => createSelector(selectSearch(), home => home.get('query', ''))
 const selectEntriesResult = () => createSelector(selectSearch(), home => home.get('entries', []))
-const selecrLoading = () => createSelector(selectSearch(), home => home.get('loading', false))
+const selectLoading = () => createSelector(selectSearch(), home => home.get('loading', false))
 
+const selectSearching = () => createSelector(selectQuery(), query => (query) ? true : false)
+const selectHasResult = () => createSelector(
+    selectSearching(),
+    selectEntriesResult(),
+    (searching, entries) => (searching && entries.size > 0) ? true : false
+)
 const selectEntries = () => createSelector(
     selectEntryEntity(),
     selectEntriesResult(),
@@ -20,10 +26,15 @@ const selectEntries = () => createSelector(
     }
 );
 
+const selectRecentList = () => createSelector(selectSearch(), home => home.get('recent').toJS())
+
 export {
     selectSearch,
     selectEntries,
-    selecrLoading,
+    selectLoading,
     selectQuery,
-    selectEntriesResult
+    selectEntriesResult,
+    selectSearching,
+    selectHasResult,
+    selectRecentList
 };

@@ -1,4 +1,4 @@
-import Immutable from 'immutable'
+import { fromJS, Map, List } from 'immutable'
 import * as selectors from './../selector'
 import schemas from './../../../schema'
 import { normalize } from 'normalizr'
@@ -7,19 +7,51 @@ import mockEntries from './mock'
 describe('Search selector test', () => {
 
     let state = {}
-    let searchState = {}
+    let searchState = Map()
 
     beforeEach(() => {
+        searchState = searchState.set('entries', List().push(1032))
+            .set('query', '')
+            .set('recent', List())
 
-        searchState = Immutable.fromJS({
-            entries: [ 1032 ]
-        })
-
-        state = Immutable.fromJS(normalize(mockEntries.items, [ schemas['entries'] ]))
+        state = fromJS(normalize(mockEntries.items, [ schemas['entries'] ]))
             .set('search', searchState)
     });
 
     it('should get search state', () => {
-        expect(selectors.selectSearch()(state)).toEqual(Immutable.fromJS({ entries: [ 1032 ] }))
+        expect(selectors.selectSearch()(state)).toEqual(searchState)
+    });
+
+    it('should searching return true', () => {
+        state = state.setIn(['search', 'query'], 'miku')
+
+        expect(selectors.selectSearching()(state)).toEqual(true)
+    });
+
+    it('should searching return false', () => {
+        state = state.setIn(['search', 'query'], '')
+
+        expect(selectors.selectSearching()(state)).toEqual(false)
+    });
+
+    it('should return has result is true', () => {
+        state = state.setIn(['search', 'query'], 'miku')
+            .setIn(['search', 'entries'], List().push(1))
+
+        expect(selectors.selectHasResult()(state)).toEqual(true)
+    });
+
+    it('should return has result is false when query is empty', () => {
+        state = state.setIn(['search', 'query'], '')
+            .setIn(['search', 'entries'], List().push(1))
+
+        expect(selectors.selectHasResult()(state)).toEqual(false)
+    });
+
+    it('should return has result is false when entries is empty', () => {
+        state = state.setIn(['search', 'query'], 'miku')
+            .setIn(['search', 'entries'], List())
+
+        expect(selectors.selectHasResult()(state)).toEqual(false)
     });
 })

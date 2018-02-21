@@ -3,9 +3,7 @@ import { connect } from 'react-redux'
 import SearchPage from './component'
 import * as actions from './actions'
 import { createSelector } from 'reselect';
-import { selecrLoading, selectEntries, selectQuery } from './selector'
-import { Toolbar } from 'react-native-material-ui';
-import { TextInput } from 'react-native'
+import { selectLoading, selectEntries, selectQuery, selectRecentList, selectHasResult, selectSearching } from './selector'
 
 SearchPage.navigationOptions = () => ({
     title: 'Search',
@@ -17,10 +15,13 @@ SearchPage.propTypes = {
 }
 
 const searchStateSelect = createSelector(
-    selecrLoading(),
+    selectLoading(),
     selectEntries(),
     selectQuery(),
-    (loading, entries, query) => ({ loading, entries, query })
+    selectRecentList(),
+    selectHasResult(),
+    selectSearching(),
+    (loading, entries, query, recentList, hasResult, searching) => ({ loading, entries, query, recentList, hasResult, searching })
 );
 
 const mapDispatchToProps = (dispatch, props) => ({
@@ -28,6 +29,9 @@ const mapDispatchToProps = (dispatch, props) => ({
     clearSearch: () => dispatch(actions.clearSearch()),
     back: () => props.navigation.goBack(),
     onPressEntry: entry => {
+
+        dispatch(actions.saveRecentSearch(entry))
+
         if(entry.entryType === 'Song') {
             props.navigation.navigate('SongDetail', { id: entry.id })
         } else if(entry.entryType === 'Artist') {
@@ -35,7 +39,10 @@ const mapDispatchToProps = (dispatch, props) => ({
         } else if(entry.entryType === 'Album') {
             props.navigation.navigate('AlbumDetail', { id: entry.id })
         }
-    }
+
+
+    },
+    onPressClearRecent: () => dispatch(actions.clearRecentSearch())
 })
 
 export default connect(searchStateSelect, mapDispatchToProps)(SearchPage)

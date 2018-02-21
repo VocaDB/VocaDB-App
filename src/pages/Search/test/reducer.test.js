@@ -17,6 +17,7 @@ describe('Search reducer test state', () => {
             .set('query', '')
             .set('loading', false)
             .set('entries', List())
+            .set('recent', List())
     });
 
     it('Should change to loading state while searching', () => {
