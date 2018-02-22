@@ -26,8 +26,8 @@ describe('Event detail selector', () => {
         expect(selectors.selectEventDetail()(state)).toEqual(eventDetailState)
     });
 
-    it('should get evemt', () => {
-        expect(selectors.selectEvent()(state)).toEqual(state.getIn(['entities', 'event', '1']).toJS())
+    it('should get event', () => {
+        expect(selectors.selectEvent()(state)).toEqual(state.getIn(['entities', 'events', '1']).toJS())
     });
 
     it('should get empty event', () => {
