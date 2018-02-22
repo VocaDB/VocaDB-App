@@ -40,7 +40,7 @@ class AlbumDetailPage extends React.Component {
                     <Icon name='md-information-circle'  text='Report' />
                 </Section>
                 <Section>
-                    <TagGroup tags={album.tags} max={5} />
+                    <TagGroup tags={album.tags} max={5} onPressTag={this.props.onPressTag} />
                 </Section>
                 <Section>
                     <Text style={Theme.body}>{album.description}</Text>

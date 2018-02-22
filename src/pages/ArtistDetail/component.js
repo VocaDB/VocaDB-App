@@ -44,7 +44,7 @@ class ArtistDetailPage extends React.Component {
                     <Icon name='md-information-circle'  text='Report' />
                 </Section>
                 <Section>
-                    <TagGroup tags={artist.tags} max={5} />
+                    <TagGroup tags={artist.tags} max={5} onPressTag={this.props.onPressTag} />
                 </Section>
                 <Section>
                     <Text style={Theme.body}>{artist.description}</Text>
