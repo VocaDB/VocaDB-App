@@ -42,7 +42,7 @@ export default class HomePage extends React.Component {
 
         const EventTabPage = () => (
             <ScrollView>
-                <EventList events={this.props.latestEvents} />
+                <EventList events={this.props.latestEvents} onPressItem={this.props.onPressEvent} />
             </ScrollView>
         )
 

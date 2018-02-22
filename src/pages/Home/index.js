@@ -28,7 +28,7 @@ const homeStateSelect = createSelector(
     selectRecentAlbums(),
     (recentSongs, popularSongs, refreshing, latestEvents, recentAlbums) => ({ recentSongs, popularSongs, refreshing, latestEvents, recentAlbums })
 );
-
+ 
 const mapDispatchToProps = (dispatch, props) => ({
     fetchRecentSongs: () => dispatch(actions.getRecentSongs()),
     fetchPopularSongs: () => dispatch(actions.getPopularSongs()),
@@ -36,6 +36,7 @@ const mapDispatchToProps = (dispatch, props) => ({
     fetchRecentAlbums: () => dispatch(actions.getRecentAlbums()),
     onPressSong: song => props.navigation.navigate('SongDetail', { id: song.id }),
     onPressAlbum: album => props.navigation.navigate('AlbumDetail', { id: album.id }),
+    onPressEvent: event => props.navigation.navigate('EventDetail', { id: event.id, title: event.name }),
     onPressMoreRecentSongs: () => props.navigation.navigate('SongList', {
         title: 'Recent songs',
         params: {
