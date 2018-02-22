@@ -114,7 +114,7 @@ export const CreateEvent = (config = {}) => ({
     id: (config.id) ? config.id : 1716,
     mainPicture: {
         urlSmallThumb: 'https://static.vocadb.net/img/releaseeventseries/mainSmall/88.png?v=4',
-        urlThumb: 'https://static.vocadb.net/img/releaseeventseries/mainThumb/88.png?v=4',
+        urlThumb: 'https://static.vocadb.net/img/releaseeventseries/mainOrig/88.png?v=4',
         urlTinyThumb: 'https://static.vocadb.net/img/releaseeventseries/mainTiny/88.png?v=4'
     },
     name: (config.name) ? config.name : 'VOCALOID-ManiaX 39',

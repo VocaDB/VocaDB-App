@@ -4,6 +4,7 @@ import EventDetailPage from './component'
 import { createSelector } from 'reselect';
 import * as actions from './actions'
 import { selectLoading, selectEvent } from './selector'
+import { Linking } from 'react-native'
 
 EventDetailPage.navigationOptions = ({ navigation }) => {
 
@@ -23,6 +24,9 @@ const tagStateSelect = createSelector(
 
 const mapDispatchToProps = (dispatch, props) => ({
     fetchEvent: id => dispatch(actions.getEvent(id)),
+    onPressDate: date => console.log(date),
+    onPressLocation: location => console.log(location),
+    onPressWebsite: url => Linking.openURL(url).catch(err => console.error('An error occurred', err))
 })
 
 export default connect(tagStateSelect, mapDispatchToProps)(EventDetailPage)

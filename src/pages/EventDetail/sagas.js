@@ -5,9 +5,7 @@ import * as globalActions from './../../actions'
 
 const fetchEvent = function* fetchEvent(action) {
     try {
-        const response = yield call(api.events.get, action.payload.id, {});
-        console.log('get event')
-        console.log(response)
+        const response = yield call(api.events.get, action.payload.id, { fields: 'MainPicture' });
         yield put(actions.getEventSuccess(response));
     } catch (e) {
         yield put(globalActions.requestError(e));
