@@ -28,6 +28,7 @@ class SongList extends React.Component {
                     image={imageUrl}
                     name={song.defaultName}
                     artist={song.artistString}
+                    dateTime={song.createDate}
                     onPress={() => this.props.onPressItem(song)}
                 />
             )

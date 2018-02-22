@@ -2,6 +2,7 @@ import React from 'react'
 import { Image, View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import PropTypes from 'prop-types';
 import Theme from '../../theme'
+import moment from 'moment'
 
 class Song extends React.Component {
 
@@ -23,7 +24,8 @@ class Song extends React.Component {
                     <View style={styles.infoContainer}>
                         <Text style={Theme.subhead}>{this.props.name}</Text>
                         <Text style={Theme.caption} numberOfLines={2}>{this.props.artist}</Text>
-                        <Text note>{this.props.dateTime}</Text>
+                        <Text style={Theme.caption}>{this.props.dateTime}</Text>
+                        <Text style={Theme.caption}>{moment(this.props.dateTime).fromNow()}</Text>
                     </View>
                 </View>
             </TouchableOpacity>
