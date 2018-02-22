@@ -21,7 +21,7 @@ class SongList extends React.Component {
 
     render () {
         const renderItem = song => {
-            const imageUrl = (song.thumbUrl) ? song.thumbUrl : undefined;
+            const imageUrl = (song.thumbUrl) ? song.thumbUrl : 'http://via.placeholder.com/350x150/000000/ffffff?text=NO_IMAGE';
             return  (
                 <Song
                     key={song.id}
