@@ -68,5 +68,6 @@ export default  {
     'albums': album,
     'entries': entry,
     'artists': artist,
-    'artistRoles': artistRole
+    'artistRoles': artistRole,
+    'tags': tag
 }

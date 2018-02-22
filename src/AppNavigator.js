@@ -4,6 +4,7 @@ import ArtistDetailPage from './pages/ArtistDetail'
 import AlbumDetailPage from './pages/AlbumDetail'
 import SearchPage from './pages/Search'
 import SongListPage from './pages/SongList'
+import TagDetailPage from './pages/TagDetail'
 import { StackNavigator } from "react-navigation";
 import Theme from './theme'
 
@@ -14,7 +15,8 @@ const AppNavigator = StackNavigator({
     ArtistDetail: { screen: ArtistDetailPage },
     AlbumDetail: { screen: AlbumDetailPage },
     Search: { screen: SearchPage },
-    SongList: { screen: SongListPage }
+    SongList: { screen: SongListPage },
+    TagDetail: { screen: TagDetailPage }
 }, {
     initialRouteName: 'Home',
     navigationOptions: {

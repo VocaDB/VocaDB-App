@@ -44,7 +44,7 @@ export default class SongDetailPage extends React.Component {
                         <Icon name='md-information-circle'  text='Report' />
                     </Section>
                     <Section>
-                        <TagGroup tags={song.tags} max={5} />
+                        <TagGroup tags={song.tags} max={5} onPressTag={this.props.onPressTag} />
                     </Section>
                     <Section>
                         <WebLinkList webLinks={song.webLinks} category='Official' title='Official' />

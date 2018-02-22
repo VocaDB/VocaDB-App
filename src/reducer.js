@@ -5,6 +5,7 @@ import songDetail from './pages/SongDetail/reducer'
 import artistDetail from './pages/ArtistDetail/reducer'
 import albumDetail from './pages/AlbumDetail/reducer'
 import songList from './pages/SongList/reducer'
+import tagDetail from './pages/TagDetail/reducer'
 import search from './pages/Search/reducer'
 
 const entities = (state = fromJS({}), action) => {
@@ -30,7 +31,8 @@ const rootReducers = combineReducers({
     artistDetail,
     albumDetail,
     search,
-    songList
+    songList,
+    tagDetail
 })
 
 export default rootReducers

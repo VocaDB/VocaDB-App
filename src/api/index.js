@@ -19,6 +19,7 @@ const api = {
         get: (id, params) => request(`/albums/${id}`, params, mockAlbum)
     },
     artists: {
+        find: params => request('/artists', params, {}),
         get: (id, params) => request(`/artists/${id}`, params, mockArtst)
     },
     events: {

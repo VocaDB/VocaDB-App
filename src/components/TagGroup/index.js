@@ -12,7 +12,7 @@ class TagGroup extends React.Component {
             tags = tags.slice(0, this.props.max)
         }
 
-        tags = tags.map(tagCount => (<Tag key={tagCount.tag.id} name={tagCount.tag.name} style={{ margin: 4 }} />))
+        tags = tags.map(tagCount => (<Tag key={tagCount.tag.id} name={tagCount.tag.name} style={{ margin: 4 }} onPress={() => this.props.onPressTag(tagCount.tag)} />))
 
         return (
             <View style={{ flexDirection: 'row', flexWrap: 'wrap', alignItems: 'flex-start' }}>

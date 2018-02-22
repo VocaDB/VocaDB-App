@@ -33,6 +33,7 @@ const mapDispatchToProps = (dispatch, props) => ({
     },
     onPressArtist: artist => props.navigation.navigate('ArtistDetail', { id: artist.id }),
     onPressAlbum: album => props.navigation.navigate('AlbumDetail', { id: album.id }),
+    onPressTag: tag => props.navigation.navigate('TagDetail', { id: tag.id, title: tag.name }),
 })
 
 export default connect(songDetailStateSelect, mapDispatchToProps)(SongDetailPage)
