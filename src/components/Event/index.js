@@ -3,6 +3,7 @@ import { Image, View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import PropTypes from 'prop-types';
 import images from './../../assets/images'
 import Theme from './../../theme'
+import moment from 'moment'
 
 class Event extends React.Component {
     render () {
@@ -13,7 +14,7 @@ class Event extends React.Component {
 
                 </Image>
                 <View style={{ backgroundColor:'transparent', position: 'absolute', padding: 8 }}>
-                    <Text style={{ color: 'white' }}>{this.props.date}</Text>
+                    <Text style={{ color: 'white' }}>{moment(this.props.date).format('dddd, MMMM Do YYYY')}</Text>
                     <Text style={Theme.headlineWhite}>{this.props.name}</Text>
                     <Text style={Theme.headlineWhite}>{this.props.location}</Text>
                 </View>
