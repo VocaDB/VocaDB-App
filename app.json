@@ -4,6 +4,11 @@
     "sdkVersion": "22.0.0",
     "version": "0.0.1",
     "slug": "vocadb-app",
+    "icon": "./resources/icon-v1.png",
+    "splash": {
+      "backgroundColor": "#FFFFFF",
+      "image": "./resources/splash.png"
+    },
     "ios": {
       "bundleIdentifier": "com.vocadb.app"
     },
