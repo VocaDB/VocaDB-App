@@ -16,7 +16,7 @@ class Page extends React.Component {
             return (
                 <View style={{ flex: 1 }}>
                     <View style={{ height: Constants.statusBarHeight, backgroundColor: Theme.statusBarColor }}></View>
-                    <View style={{ flex: 1, backgroundColor: rootBackgroundColor }}>
+                    <View style={{ flex: 1, backgroundColor: Theme.rootBackgroundColor }}>
                         {this.props.children}
                     </View>
                 </View>
