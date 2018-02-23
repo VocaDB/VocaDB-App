@@ -6,6 +6,7 @@ import ArtistList from './../../components/ArtistList'
 import AlbumList from './../../components/AlbumList'
 import Page from './../../components/Page'
 import PropTypes from 'prop-types'
+import SearchBar from './../../components/SearchBar'
 
 class SearchPage extends React.Component {
 
@@ -18,8 +19,6 @@ class SearchPage extends React.Component {
     }
 
     renderRecentList () {
-
-        console.log(this.props.recentList)
         return (
             <ScrollView style={{ flex: 1 }}>
                 <EntryList title='Recently search' entries={this.props.recentList} onPressItem={this.props.onPressEntry} />
@@ -36,12 +35,16 @@ class SearchPage extends React.Component {
         const songEntries = this.props.entries.filter(entry => entry.entryType === 'Song')
         const artistEntries = this.props.entries.filter(entry => entry.entryType === 'Artist')
         const albumEntries = this.props.entries.filter(entry => entry.entryType === 'Album')
+        const eventEntries = this.props.entries.filter(entry => entry.entryType === 'ReleaseEvent')
+        const tagEntries = this.props.entries.filter(entry => entry.entryType === 'Tag')
 
         const ResultContent = () => (
             <ScrollView style={{ flex: 1 }}>
                 {songEntries.length > 0 && <EntryList title='Songs' entries={songEntries} onPressItem={this.props.onPressEntry} />}
                 {artistEntries.length > 0 && <ArtistList artists={artistEntries} onPressItem={this.props.onPressEntry} />}
                 {albumEntries.length > 0 && <AlbumList albums={albumEntries} onPressItem={this.props.onPressEntry} showHeader />}
+                {eventEntries.length > 0 && <EntryList title='Events' entries={eventEntries} onPressItem={this.props.onPressEntry} />}
+                {tagEntries.length > 0 && <EntryList title='Tags' entries={tagEntries} onPressItem={this.props.onPressEntry} />}
             </ScrollView>
         )
 
@@ -52,22 +55,16 @@ class SearchPage extends React.Component {
     render () {
         return (
             <Page>
-                <Toolbar
-                    leftElement="arrow-back"
-                    centerElement='Search'
-                    searchable={{
-                        autoFocus: true,
-                        onChangeText: text => {
-                            if(text) {
-                                this.props.searchEntries(text)
-                            } else {
-                                this.props.clearSearch()
-                            }
-                        },
-                        onSearchClosed: this.props.clearSearch
-                    }}
+                <SearchBar
                     onLeftElementPress={this.props.back}
                     onRightElementPress={this.props.clearSearch}
+                    onChangeText={text => {
+                        if(text) {
+                            this.props.searchEntries(text)
+                        } else {
+                            this.props.clearSearch()
+                        }
+                    }}
                 />
                 <View style={{ backgroundColor: 'white', flex: 1 }}>
                     {(this.props.searching) ? this.renderResult() : this.renderRecentList()}

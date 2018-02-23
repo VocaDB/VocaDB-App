@@ -33,12 +33,14 @@ class Entry extends React.Component {
         const ArtistIcon = () => (<Icon name='ios-person' />)
         const AlbumIcon = () => (<Icon name='ios-disc' />)
         const EventIcon = () => (<Icon name='ios-calendar' />)
+        const TagIcon = () => (<Icon name='ios-pricetag' />)
 
         const Icons = {
             'Song': (<SongIcon />),
             'Artist': (<ArtistIcon />),
             'Album': (<AlbumIcon />),
-            'ReleaseEvent': (<EventIcon />)
+            'ReleaseEvent': (<EventIcon />),
+            'Tag': (<TagIcon />)
         }
 
         return (
