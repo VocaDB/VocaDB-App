@@ -10,6 +10,10 @@ import SearchBar from './../../components/SearchBar'
 
 class SearchPage extends React.Component {
 
+    componentDidMount () {
+        this.props.clearSearch()
+    }
+
     renderResultNotFound () {
         return (
             <View>

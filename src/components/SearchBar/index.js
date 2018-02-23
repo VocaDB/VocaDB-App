@@ -19,15 +19,21 @@ class SearchBar extends React.Component {
         return (
             <View>
                 <Toolbar
+                    style={{
+                        container: { backgroundColor: 'white' },
+                        leftElement: { color: 'black' },
+                        rightElement: { color: 'black' }
+                    }}
+
                     leftElement="arrow-back"
-                    centerElement={<TextInput style={{ color: 'white' }}
+                    centerElement={<TextInput
+                                              underlineColorAndroid='transparent'
                                               autoFocus
                                               value={queryText}
                                               onChangeText={text => {
                                                   this.setState({ text })
                                                   this.props.onChangeText(text)
-                                              }}
-                                              selectionColor='white' />}
+                                              }} />}
                     rightElement={(queryText.length)? 'clear' : undefined}
                     onRightElementPress={() => {
                         this.setState({ text: '' })
