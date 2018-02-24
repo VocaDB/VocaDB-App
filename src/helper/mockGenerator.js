@@ -127,6 +127,14 @@ export const CreateEvent = (config = {}) => ({
 
 })
 
+export const CreateTrack = (config = {}) => ({
+    discNumber: (config.discNumber) ? config.discNumber : 1,
+    id: (config.id) ? config.id : 1,
+    name: (config.name) ? config.name : 'Melt',
+    song: {},
+    trackNumber: (config.trackNumber) ? config.trackNumber : 1,
+})
+
 export const CreateEntry = (entryType, config = {}) => {
     let entry = {}
 

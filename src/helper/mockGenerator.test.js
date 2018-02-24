@@ -80,4 +80,11 @@ describe('Test mock generator', () => {
         expect(artistEntry.id).toEqual(1)
         expect(artistEntry.defaultName).toEqual('Hatsune Miku')
     })
+
+    it('Should create track', () => {
+        const track = mockGenerator.CreateTrack({ name: 'abc' })
+        expect(track).toBeTruthy()
+        expect(track.id).toEqual(1)
+        expect(track.name).toEqual('abc')
+    })
 })
