@@ -12,7 +12,7 @@ class AlbumList extends React.Component {
         const Header = () => (
             <View style={style.header}>
                 <View style={style.headerLeft}>
-                    <Text style={Theme.title}>{this.props.title}</Text>
+                    <Text style={Theme.subhead}>{this.props.title}</Text>
                 </View>
             </View>
         )

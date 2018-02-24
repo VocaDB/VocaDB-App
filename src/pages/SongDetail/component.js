@@ -27,9 +27,35 @@ export default class SongDetailPage extends React.Component {
         const song = this.props.song
 
 
-        const Section = props => (<View style={[{ marginVertical: 8, paddingHorizontal: 4 },props.style]}>{props.children}</View>)
+        const Section = props => (<View style={[{ paddingHorizontal: 4 },props.style]}>{props.children}</View>)
 
         const InfoPage = props => {
+
+            const renderTagGroup = () => (
+                <Section>
+                    <Divider />
+                    <TagGroup tags={song.tags} max={5} onPressTag={this.props.onPressTag} />
+                </Section>
+            )
+
+            const renderPVList = () => (
+                <Section>
+                    <Divider />
+                    <PVList pvs={song.pvs} type='Original' title='Original PVs' showHeader />
+                </Section>
+            )
+
+            const renderAlbumList = () => (
+                <Section>
+                    <Divider />
+                    <AlbumList max={3} albums={song.albums} title='Albums' onPressItem={this.props.onPressAlbum} showHeader />
+                </Section>
+            )
+
+
+            console.log('tag length : ' + song.tags.length)
+            console.log('pv length : ' + song.pvs.length)
+            console.log('album legnth : ' + song.albums.length)
 
             return (
                 <ScrollView style={{ flex: 1, backgroundColor: 'white' }}>
@@ -44,14 +70,11 @@ export default class SongDetailPage extends React.Component {
                         <Icon name='md-chatbubbles' text='Comment' />
                         <Icon name='md-information-circle'  text='Report' />
                     </Section>
-                    <Divider />
-                    <Section>
-                        <TagGroup tags={song.tags} max={5} onPressTag={this.props.onPressTag} />
-                    </Section>
-                    <Divider />
-                    <Section>
-                        <PVList pvs={song.pvs} type='Original' title='Original PVs' showHeader />
-                    </Section>
+
+                    {song.tags.length > 0 && renderTagGroup()}
+                    {song.pvs.length > 0 && renderPVList()}
+                    {song.albums.length > 0 && renderAlbumList()}
+
                     <Section>
                         <WebLinkList webLinks={song.webLinks} category='Official' title='Official' />
                         <WebLinkList webLinks={song.webLinks} category='Reference' title='Reference' />
@@ -60,25 +83,11 @@ export default class SongDetailPage extends React.Component {
             )
         }
 
-        const PVListPage = () => (
-            <ScrollView style={{ flex: 1, backgroundColor: 'white' }}>
-                <PVList pvs={song.pvs} type='Original' title='Original' showHeader />
-                <PVList pvs={song.pvs} type='Reprint' title='Reprint' showHeader />
-                <PVList pvs={song.pvs} type='Other' title='Other' showHeader />
-            </ScrollView>
-        )
-
         const ArtistRoleListPage = () => (
             <ScrollView style={{ flex: 1, backgroundColor: 'white' }}>
                 <ArtistRoleList artists={song.artists} title='Producer' category='Producer' onPressItem={this.props.onPressArtist} />
                 <ArtistRoleList artists={song.artists} title='Vocalist' category='Vocalist' onPressItem={this.props.onPressArtist} />
                 <ArtistRoleList artists={song.artists} title='Other' category='Other' onPressItem={this.props.onPressArtist} displayRole />
-            </ScrollView>
-        )
-
-        const AlbumListPage = () => (
-            <ScrollView style={{ flex: 1, backgroundColor: 'white' }}>
-                <AlbumList albums={song.albums} title='Albums' onPressItem={this.props.onPressAlbum} />
             </ScrollView>
         )
 
@@ -92,7 +101,6 @@ export default class SongDetailPage extends React.Component {
             <ScrollableTabView>
                 <InfoPage tabLabel='Info' />
                 <ArtistRoleListPage tabLabel='Artists' />
-                {song.albums.length > 0 && <AlbumListPage tabLabel='Albums' />}
                 {song.lyrics.length > 0 && <LyricGropuPage tabLabel='Lyrics' />}
             </ScrollableTabView>
         )
