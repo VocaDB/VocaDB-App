@@ -1,14 +1,15 @@
 import { COLOR } from 'react-native-material-ui';
-import { material } from 'react-native-typography'
+import { material, materialColors, systemWeights } from 'react-native-typography'
 
 export default {
+    divider: '#1FFFFF',
     primaryColor: COLOR.indigo600,
     statusBarColor: COLOR.indigo800,
     rootBackgroundColor: COLOR.blueGrey100,
     contentBackgroundColor: COLOR.white,
     title: material.title,
     headline: material.headline,
-    subhead: material.subheading,
+    subhead: [material.subheading, systemWeights.semibold, { color:  materialColors.blackSecondary }],
     body: material.body1,
     caption: material.caption,
     titleWhite: material.titleWhite,

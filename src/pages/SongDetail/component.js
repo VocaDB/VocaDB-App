@@ -13,6 +13,7 @@ import ScrollableTabView from 'react-native-scrollable-tab-view'
 import PVList from './../../components/PVLIst'
 import LyricGroup from './../../components/LyricGroup'
 import Cover from './../../components/Cover'
+import Divider from './../../components/Divider'
 import Theme from './../../theme'
 
 export default class SongDetailPage extends React.Component {
@@ -43,8 +44,13 @@ export default class SongDetailPage extends React.Component {
                         <Icon name='md-chatbubbles' text='Comment' />
                         <Icon name='md-information-circle'  text='Report' />
                     </Section>
+                    <Divider />
                     <Section>
                         <TagGroup tags={song.tags} max={5} onPressTag={this.props.onPressTag} />
+                    </Section>
+                    <Divider />
+                    <Section>
+                        <PVList pvs={song.pvs} type='Original' title='Original PVs' showHeader />
                     </Section>
                     <Section>
                         <WebLinkList webLinks={song.webLinks} category='Official' title='Official' />
@@ -85,7 +91,6 @@ export default class SongDetailPage extends React.Component {
         return (
             <ScrollableTabView>
                 <InfoPage tabLabel='Info' />
-                {song.pvs.length > 0 && <PVListPage tabLabel='PVs' />}
                 <ArtistRoleListPage tabLabel='Artists' />
                 {song.albums.length > 0 && <AlbumListPage tabLabel='Albums' />}
                 {song.lyrics.length > 0 && <LyricGropuPage tabLabel='Lyrics' />}

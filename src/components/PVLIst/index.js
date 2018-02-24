@@ -25,7 +25,7 @@ class PVList extends React.Component {
         return (
             <View style={{ paddingHorizontal: 4 }}>
                 <View style={{ margin: 4}}>
-                    {this.props.showHeader && <Text style={Theme.title}>{this.props.title}</Text>}
+                    {this.props.showHeader && <Text style={Theme.subhead}>{this.props.title}</Text>}
                 </View>
                 {pvs.map(pv => (
                     <PV
