@@ -6,7 +6,8 @@ import {
     selectWebLinkEntity,
     selectArtistRoleEntity,
     selectEventEntity,
-    selectPVEntity
+    selectPVEntity,
+    selectTrackEntity
 } from './../../selectors'
 import { Map, List } from 'immutable'
 
@@ -69,6 +70,7 @@ export const selectArtists = () => createSelector(
 
 export const selectWebLinks = generateSelector(['webLinks'], selectWebLinkEntity)
 export const selectPVs = generateSelector(['pvs'], selectPVEntity)
+export const selectTrack = generateSelector(['tracks'], selectTrackEntity)
 
 export const selectReleaseEvent = () => createSelector(
     selectAlbum(),
@@ -90,12 +92,14 @@ export const selectAlbumResult = () => createSelector(
     selectWebLinks(),
     selectArtists(),
     selectReleaseEvent(),
-    (album, tags, webLinks, artists, releaseEvent) => {
+    selectTrack(),
+    (album, tags, webLinks, artists, releaseEvent, tracks) => {
         return Map({}).merge(album)
             .set('tags', tags)
             .set('artists', artists)
             .set('webLinks', webLinks)
             .set('releaseEvent', releaseEvent)
+            .set('tracks', tracks)
             .toJS()
     }
 )

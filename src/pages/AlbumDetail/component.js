@@ -10,6 +10,7 @@ import ScrollableTabView from 'react-native-scrollable-tab-view'
 import ArtistRoleList from './../../components/ArtistRoleList'
 import Cover from './../../components/Cover'
 import Content from './../../components/Content'
+import TrackList from './../../components/TrackList'
 
 class AlbumDetailPage extends React.Component {
     componentDidMount () {
@@ -23,6 +24,8 @@ class AlbumDetailPage extends React.Component {
         const imageUri = images.getAlbumUri(params.id)
 
         const album = this.props.album
+
+        console.log(album)
 
         const Section = props => (<View style={[{ marginVertical: 8, paddingHorizontal: 4 },props.style]}>{props.children}</View>)
 
@@ -44,6 +47,9 @@ class AlbumDetailPage extends React.Component {
                 </Section>
                 <Section>
                     <Text style={Theme.body}>{album.description}</Text>
+                </Section>
+                <Section>
+                    <TrackList tracks={album.tracks} />
                 </Section>
                 <Section>
                     <WebLinkList webLinks={album.webLinks} category='Official' title='Official' />
