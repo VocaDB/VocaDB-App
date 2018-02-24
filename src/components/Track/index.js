@@ -15,8 +15,7 @@ class Track extends React.Component {
                     {this.props.artist && <Text style={Theme.caption}>{this.props.artist}</Text>}
                 </View>
                 <View style={{ justifyContent: 'center' }}>
-                    <Text style={Theme.body}></Text>
-                    <Text style={Theme.caption}></Text>
+                    <Icon name='md-more' />
                 </View>
             </TouchableOpacity>
         )
