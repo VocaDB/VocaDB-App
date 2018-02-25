@@ -1,10 +1,11 @@
 import React from 'react'
-import { View, Text, Button, ScrollView } from 'react-native'
+import { View, Text, ScrollView } from 'react-native'
 import Album from './../Album'
 import PropTypes from 'prop-types';
 import images from './../../assets/images'
 import style from './style'
 import Theme from './../../theme'
+import { ListItem, Button } from 'react-native-material-ui';
 
 class AlbumList extends React.Component {
 
@@ -17,7 +18,8 @@ class AlbumList extends React.Component {
             </View>
         )
 
-        const albums = this.props.albums.slice(0, this.props.max)
+        const albums = (this.props.max)? this.props.albums.slice(0, this.props.max) : this.props.albums
+        const isOverLimit = albums.length < this.props.albums.length
 
         const renderItem = album => {
             return  (
@@ -36,6 +38,7 @@ class AlbumList extends React.Component {
                 {this.props.showHeader && <Header />}
                 <View>
                     {albums.map(renderItem)}
+                    {isOverLimit && <Button primary text="See more" onPress={this.props.onPressMore} />}
                 </View>
             </View>
         )
@@ -101,7 +104,7 @@ AlbumList.propTypes = {
 
 AlbumList.defaultProps = {
     title: 'Albums',
-    max: 10,
+    max: 0,
     showHeader: false,
     horizontal: false,
     hideMoreButton: false,
