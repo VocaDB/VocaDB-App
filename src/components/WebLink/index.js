@@ -9,7 +9,7 @@ class WebLink extends React.Component {
     render () {
         return (
             <ListItem
-                leftElement={<Icon name='ios-globe' />}
+                leftElement={<Icon name='ios-globe' pureIcon />}
                 centerElement={{
                     primaryText: this.props.name,
                 }}

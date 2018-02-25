@@ -58,21 +58,21 @@ export default class HomePage extends React.Component {
                 </CenterView>
                 <View style={{ flex: 1, backgroundColor: 'white' }}>
                     <ListItem
-                        leftElement={<Icon name='ios-settings' />}
+                        leftElement={<Icon name='ios-settings' pureIcon />}
                         centerElement={{
                             primaryText: 'Settings',
                         }}
                         onPress={() => {}}
                     />
                     <ListItem
-                        leftElement={<Icon name='ios-lock' />}
+                        leftElement={<Icon name='ios-lock' pureIcon />}
                         centerElement={{
                             primaryText: 'Terms & privacy policy',
                         }}
                         onPress={() => {}}
                     />
                     <ListItem
-                        leftElement={<Icon name='ios-help-circle' />}
+                        leftElement={<Icon name='ios-help-circle' pureIcon />}
                         centerElement={{
                             primaryText: 'Help & feedback',
                         }}
