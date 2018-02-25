@@ -3,6 +3,7 @@ import { View, Text } from 'react-native'
 import PropTypes from 'prop-types'
 import WebLink from './../WebLink'
 import Theme from './../../theme'
+import { ListItem, Button } from 'react-native-material-ui';
 
 class WebLinkList extends React.Component {
     render () {
@@ -21,7 +22,7 @@ class WebLinkList extends React.Component {
 
         return (
             <View>
-                <Text style={Theme.headline}>{this.props.title}</Text>
+                <Text style={[Theme.subhead, { paddingHorizontal: 8 }]}>{this.props.title}</Text>
                 {webLinks.map(renderItem)}
             </View>
         )

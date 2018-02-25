@@ -52,10 +52,12 @@ export default class SongDetailPage extends React.Component {
                 </Section>
             )
 
-
-            console.log('tag length : ' + song.tags.length)
-            console.log('pv length : ' + song.pvs.length)
-            console.log('album legnth : ' + song.albums.length)
+            const renderWebLinkList = () => (
+                <Section>
+                    <Divider />
+                    <WebLinkList webLinks={song.webLinks} category='Official' title='Official' />
+                </Section>
+            )
 
             return (
                 <ScrollView style={{ flex: 1, backgroundColor: 'white' }}>
@@ -74,11 +76,8 @@ export default class SongDetailPage extends React.Component {
                     {song.tags.length > 0 && renderTagGroup()}
                     {song.pvs.length > 0 && renderPVList()}
                     {song.albums.length > 0 && renderAlbumList()}
+                    {song.webLinks.length > 0 && renderWebLinkList()}
 
-                    <Section>
-                        <WebLinkList webLinks={song.webLinks} category='Official' title='Official' />
-                        <WebLinkList webLinks={song.webLinks} category='Reference' title='Reference' />
-                    </Section>
                 </ScrollView>
             )
         }
