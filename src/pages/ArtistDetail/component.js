@@ -13,6 +13,7 @@ import ScrollableTabView from 'react-native-scrollable-tab-view'
 import AlbumList from './../../components/AlbumList'
 import Content from './../../components/Content'
 import Cover from './../../components/Cover'
+import Divider from './../../components/Divider'
 
 class ArtistDetailPage extends React.Component {
 
@@ -44,12 +45,14 @@ class ArtistDetailPage extends React.Component {
                     <Icon name='md-information-circle'  text='Report' />
                 </Section>
                 <Section>
+                    <Divider />
                     <TagGroup tags={artist.tags} max={5} onPressTag={this.props.onPressTag} />
                 </Section>
                 <Section>
                     <Text style={Theme.body}>{artist.description}</Text>
                 </Section>
                 <Section>
+                    <Divider />
                     <WebLinkList webLinks={artist.webLinks} category='Official' title='Official' />
                     <WebLinkList webLinks={artist.webLinks} category='Commercial' title='Commercial' />
                     <WebLinkList webLinks={artist.webLinks} category='Reference' title='Reference' />
@@ -59,15 +62,17 @@ class ArtistDetailPage extends React.Component {
 
         const SongListPage = () => (
             <Content>
-                <SongList songs={artist.latestSongs} title='Latest' showHeader={true} onPressItem={this.props.onPressSong} />
-                <SongList songs={artist.popularSongs} title='Popular' showHeader={true} onPressItem={this.props.onPressSong} />
+                <SongList max={10} songs={artist.latestSongs} title='Latest' showHeader={true} onPressItem={this.props.onPressSong} />
+                <Divider />
+                <SongList max={10} songs={artist.popularSongs} title='Popular' showHeader={true} onPressItem={this.props.onPressSong} />
             </Content>
         )
 
         const AlbumListPage = () => (
             <Content>
-                <AlbumList albums={artist.latestAlbums} title='Latest' showHeader={true} onPressItem={this.props.onPressAlbum} />
-                <AlbumList albums={artist.popularAlbums} title='Popular' showHeader={true} onPressItem={this.props.onPressAlbum} />
+                <AlbumList max={10} albums={artist.latestAlbums} title='Latest' showHeader={true} onPressItem={this.props.onPressAlbum} />
+                <Divider />
+                <AlbumList max={10} albums={artist.popularAlbums} title='Popular' showHeader={true} onPressItem={this.props.onPressAlbum} />
             </Content>
         )
 
