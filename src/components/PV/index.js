@@ -2,20 +2,39 @@ import React from 'react'
 import { View, Text, TouchableOpacity, Linking, Image } from 'react-native'
 import PropTypes from 'prop-types'
 import Icon from './../../components/Icon'
+import images from './../../assets/images'
 
 class PV extends React.Component {
     render () {
 
-        const PVIcon = () => (<Icon name='logo-youtube' />)
+        const renderPVIcon = () => {
+
+            const iconSources = {
+                'Youtube': images.iconYoutube,
+                'Soundcloud': images.iconSoundcloud,
+                'NicoNicoDouga': images.iconNicoNicoDouga
+            }
+
+            if(iconSources[this.props.service]) {
+                return (
+                    <Image style={{ width: 32, height: 32, alignSelf: 'center' }} resizeMode='cover' source={iconSources[this.props.service]} />
+                )
+            } else {
+                return (
+                    <Icon name='ios-film' size='medium'  />
+                )
+            }
+        }
+
         const PVThumbnail = () => (<Image style={{ width: 120, height: 60 }} source={{ url: this.props.thumbUrl }} />)
         return (
             <TouchableOpacity style={{ padding: 4, flexDirection: 'row', backgroundColor: 'white' }}
                               onPress={() => Linking.openURL(this.props.url).catch(err => console.error('An error occurred', err))}>
 
                 <View style={{ flex: 1, flexDirection: 'row' }}>
-                    <View>
+                    <View style={{ justifyContent: 'center', marginHorizontal: 8 }}>
                         {this.props.thumbnail && <PVThumbnail/>}
-                        {this.props.icon && <PVIcon/>}
+                        {this.props.icon && renderPVIcon()}
                     </View>
                     <View style={{ flex: 1, justifyContent: 'center', padding: 4 }}>
                         <Text numberOfLines={1}>{this.props.name}</Text>
