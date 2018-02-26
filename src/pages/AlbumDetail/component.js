@@ -11,6 +11,7 @@ import ArtistRoleList from './../../components/ArtistRoleList'
 import Cover from './../../components/Cover'
 import Content from './../../components/Content'
 import TrackList from './../../components/TrackList'
+import Divider from './../../components/Divider'
 
 class AlbumDetailPage extends React.Component {
     componentDidMount () {
@@ -29,6 +30,35 @@ class AlbumDetailPage extends React.Component {
 
         const Section = props => (<View style={[{ marginVertical: 8, paddingHorizontal: 4 },props.style]}>{props.children}</View>)
 
+        const renderTagGroup = () => (
+            <Section>
+                <Divider />
+                <TagGroup tags={album.tags} max={5} onPressTag={this.props.onPressTag} />
+            </Section>
+        )
+
+        const renderDescription = () => (
+            <Section>
+                <Text style={Theme.body}>{album.description}</Text>
+            </Section>
+        )
+
+        const renderTracks = () => (
+            <Section>
+                <Divider />
+                <TrackList tracks={album.tracks} onPressItem={this.props.onPressTrack} />
+            </Section>
+        )
+
+        const renderWebLinks = () => (
+            <Section>
+                <Divider />
+                <WebLinkList webLinks={album.webLinks} category='Official' title='Official' />
+                <WebLinkList webLinks={album.webLinks} category='Commercial' title='Commercial' />
+                <WebLinkList webLinks={album.webLinks} category='Reference' title='Reference' />
+            </Section>
+        )
+
         const InfoPage = () => (
             <Content>
                 <Cover
@@ -42,20 +72,12 @@ class AlbumDetailPage extends React.Component {
                     <Icon name='md-chatbubbles' text='Comment' />
                     <Icon name='md-information-circle'  text='Report' />
                 </Section>
-                <Section>
-                    <TagGroup tags={album.tags} max={5} onPressTag={this.props.onPressTag} />
-                </Section>
-                <Section>
-                    <Text style={Theme.body}>{album.description}</Text>
-                </Section>
-                <Section>
-                    <TrackList tracks={album.tracks} onPressItem={this.props.onPressTrack} />
-                </Section>
-                <Section>
-                    <WebLinkList webLinks={album.webLinks} category='Official' title='Official' />
-                    <WebLinkList webLinks={album.webLinks} category='Commercial' title='Commercial' />
-                    <WebLinkList webLinks={album.webLinks} category='Reference' title='Reference' />
-                </Section>
+
+                {album.tags.length > 0 && renderTagGroup()}
+                {album.description > 0 && renderDescription()}
+                {album.tracks.length > 0 && renderTracks()}
+                {album.webLinks.length > 0 && renderWebLinks()}
+
             </Content>
         )
 
@@ -75,7 +97,7 @@ class AlbumDetailPage extends React.Component {
             <ScrollableTabView>
                 <InfoPage tabLabel='Info' />
                 <ArtistRoleListPage tabLabel='Artists' />
-                <EventListPage tabLabel='Events' />
+                {album.releaseEvents != undefined && <EventListPage tabLabel='Events' />}
             </ScrollableTabView>
         )
     }

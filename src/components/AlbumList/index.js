@@ -68,7 +68,7 @@ class AlbumList extends React.Component {
         const Header = () => (
             <View style={{ height: 40, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 4 }}>
                 <View>
-                    <Text style={Theme.rowTitle}>{this.props.title}</Text>
+                    <Text style={Theme.subhead}>{this.props.title}</Text>
                 </View>
                 <View>
                 </View>

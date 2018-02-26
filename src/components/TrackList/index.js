@@ -38,7 +38,7 @@ class TrackList extends React.Component {
 
                 return (
                     <View key={discNumber}>
-                        <Text style={Theme.subhead}>Disc {discNumber}</Text>
+                        <Text style={[Theme.subhead, { alignSelf: 'center' }]}>Disc {discNumber}</Text>
                         {renderTrackList()}
                     </View>
                 )
@@ -46,6 +46,9 @@ class TrackList extends React.Component {
 
             return (
                 <View>
+                    <View style={{ margin: 4}}>
+                        <Text style={Theme.subhead}>Tracklist</Text>
+                    </View>
                     {uniqueDiscs}
                 </View>
             )
@@ -70,6 +73,9 @@ class TrackList extends React.Component {
 
             return (
                 <View>
+                    <View style={{ margin: 4}}>
+                        <Text style={Theme.subhead}>Tracklist</Text>
+                    </View>
                     {renderTrackList()}
                 </View>
             )

@@ -7,7 +7,7 @@ class Content extends React.Component {
         return (
             <ScrollView
                 refreshControl={this.props.refreshControl}
-                style={{ flex: 1, backgroundColor: Theme.contentBackgroundColor }}>
+                style={{ flex: 1, backgroundColor: Theme.contentBackgroundColor, paddingBottom: 8 }}>
                 {this.props.children}
             </ScrollView>
         )
