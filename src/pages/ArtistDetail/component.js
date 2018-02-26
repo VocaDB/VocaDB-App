@@ -31,6 +31,28 @@ class ArtistDetailPage extends React.Component {
 
         const Section = props => (<View style={[{ marginVertical: 8, paddingHorizontal: 4 },props.style]}>{props.children}</View>)
 
+        const renderTagGroup = () => (
+            <Section>
+                <Divider />
+                <TagGroup tags={artist.tags} max={5} onPressTag={this.props.onPressTag} />
+            </Section>
+        )
+
+        const renderDescription = () => (
+            <Section>
+                <Text style={Theme.body}>{artist.description}</Text>
+            </Section>
+        )
+
+        const renderWebLink = () => (
+            <Section>
+                <Divider />
+                <WebLinkList webLinks={artist.webLinks} category='Official' title='Official' />
+                <WebLinkList webLinks={artist.webLinks} category='Commercial' title='Commercial' />
+                <WebLinkList webLinks={artist.webLinks} category='Reference' title='Reference' />
+            </Section>
+        )
+
         const InfoPage = () => (
             <Content>
                 <Cover
@@ -44,37 +66,56 @@ class ArtistDetailPage extends React.Component {
                     <Icon name='md-chatbubbles' text='Comment' />
                     <Icon name='md-information-circle'  text='Report' />
                 </Section>
-                <Section>
-                    <Divider />
-                    <TagGroup tags={artist.tags} max={5} onPressTag={this.props.onPressTag} />
-                </Section>
-                <Section>
-                    <Text style={Theme.body}>{artist.description}</Text>
-                </Section>
-                <Section>
-                    <Divider />
-                    <WebLinkList webLinks={artist.webLinks} category='Official' title='Official' />
-                    <WebLinkList webLinks={artist.webLinks} category='Commercial' title='Commercial' />
-                    <WebLinkList webLinks={artist.webLinks} category='Reference' title='Reference' />
-                </Section>
+                {artist.tags.length > 0 && renderTagGroup()}
+                {artist.description != undefined && renderDescription()}
+                {artist.webLinks.length > 0 && renderWebLink()}
             </Content>
         )
 
-        const SongListPage = () => (
-            <Content>
-                <SongList max={10} songs={artist.latestSongs} title='Latest' showHeader={true} onPressItem={this.props.onPressSong} />
-                <Divider />
-                <SongList max={10} songs={artist.popularSongs} title='Popular' showHeader={true} onPressItem={this.props.onPressSong} />
-            </Content>
-        )
+        const SongListPage = () => {
 
-        const AlbumListPage = () => (
-            <Content>
+            const renderLatestSongs = () => (
+                <SongList max={10}
+                          songs={artist.latestSongs}
+                          title='Latest'
+                          showHeader={true}
+                          onPressItem={this.props.onPressSong} />
+            )
+
+            const renderPopularSongs = () => (
+                <SongList max={10}
+                          songs={artist.popularSongs}
+                          title='Popular'
+                          showHeader={true}
+                          onPressItem={this.props.onPressSong} />
+            )
+
+            return (<Content>
+                {artist.latestSongs.length > 0 && renderLatestSongs()}
+                {artist.latestSongs.length > 0 && artist.popularSongs.length > 0 && <Divider />}
+                {artist.popularSongs.length > 0 && renderPopularSongs()}
+            </Content>)
+        }
+
+        const AlbumListPage = () => {
+
+            const renderLatestAlbum = () => (
                 <AlbumList max={10} albums={artist.latestAlbums} title='Latest' showHeader={true} onPressItem={this.props.onPressAlbum} />
-                <Divider />
+            )
+
+            const renderPopularAlbum = () => (
                 <AlbumList max={10} albums={artist.popularAlbums} title='Popular' showHeader={true} onPressItem={this.props.onPressAlbum} />
-            </Content>
-        )
+            )
+            return (
+                <Content>
+                    {artist.latestAlbums.length > 0 && renderLatestAlbum()}
+                    {artist.latestAlbums.length > 0 && artist.popularAlbums.length > 0 && <Divider />}
+                    {artist.popularAlbums.length > 0 && renderPopularAlbum()}
+                </Content>
+            )
+        }
+
+
 
         const EventListPage = () => (
             <Content>
@@ -86,8 +127,8 @@ class ArtistDetailPage extends React.Component {
             <ScrollableTabView>
                 <InfoPage tabLabel='Info' />
                 <SongListPage tabLabel='Songs' />
-                <AlbumListPage tabLabel='Albums' />
-                <EventListPage tabLabel='Events' />
+                {artist.latestAlbums.length > 0 || artist.popularAlbums.length > 0 && <AlbumListPage tabLabel='Albums' />}
+                {artist.latestEvents.length > 0 && <EventListPage tabLabel='Events' />}
             </ScrollableTabView>
         )
     }
