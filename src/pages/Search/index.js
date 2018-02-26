@@ -42,7 +42,18 @@ const mapDispatchToProps = (dispatch, props) => ({
 
 
     },
-    onPressClearRecent: () => dispatch(actions.clearRecentSearch())
+    onPressClearRecent: () => dispatch(actions.clearRecentSearch()),
+    onPressMoreSong: query => {
+        const params = {
+            title: 'More of ' + query,
+            params: {
+                'query': query,
+                'maxResults': 20,
+                'fields': 'thumbUrl'
+            }
+        }
+        props.navigation.navigate('SongList', params)
+    }
 })
 
 export default connect(searchStateSelect, mapDispatchToProps)(SearchPage)

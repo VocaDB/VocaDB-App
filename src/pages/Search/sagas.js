@@ -7,7 +7,7 @@ import * as globalActions from './../../actions'
 const searchEntries = function* searchEntries(action) {
     try {
         yield call(delay, 500)
-        const response = yield call(api.entries.find, { 'query': action.payload.query, 'sort': 'AdditionDate', 'fields': 'MainPicture' });
+        const response = yield call(api.entries.find, { 'query': action.payload.query, 'fields': 'MainPicture' });
         yield put(actions.searchEntriesSuccess(response.items));
     } catch (e) {
         yield put(globalActions.requestError(e));

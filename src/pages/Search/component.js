@@ -44,7 +44,7 @@ class SearchPage extends React.Component {
 
         const ResultContent = () => (
             <ScrollView style={{ flex: 1 }}>
-                {songEntries.length > 0 && <EntryList title='Songs' entries={songEntries} onPressItem={this.props.onPressEntry} />}
+                {songEntries.length > 0 && <EntryList max={5} title='Songs' entries={songEntries} onPressItem={this.props.onPressEntry} onPressMore={() => this.props.onPressMoreSong(this.props.query)} />}
                 {artistEntries.length > 0 && <ArtistList artists={artistEntries} onPressItem={this.props.onPressEntry} />}
                 {albumEntries.length > 0 && <AlbumList albums={albumEntries} onPressItem={this.props.onPressEntry} showHeader />}
                 {eventEntries.length > 0 && <EntryList title='Events' entries={eventEntries} onPressItem={this.props.onPressEntry} />}

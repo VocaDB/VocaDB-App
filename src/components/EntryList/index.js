@@ -4,6 +4,7 @@ import Entry from './../Entry'
 import PropTypes from 'prop-types';
 import images from './../../assets/images'
 import { material } from 'react-native-typography'
+import { Button } from 'react-native-material-ui';
 
 class EntryList extends React.Component {
 
@@ -26,10 +27,14 @@ class EntryList extends React.Component {
             )
         }
 
+        let entries = this.props.entries.slice(0, this.props.max)
+        const isOverLimit = entries.length < this.props.entries.length
+
         return (
             <View>
                 <Text style={[material.subheading, { margin: 8 }]}>{this.props.title}</Text>
-                {this.props.entries.map(renderItem)}
+                {entries.map(renderItem)}
+                {isOverLimit && <Button primary text="See more" onPress={this.props.onPressMore} />}
             </View>
         )
     }
@@ -38,13 +43,16 @@ class EntryList extends React.Component {
 EntryList.propTypes = {
     title: PropTypes.string,
     entries: PropTypes.array,
-    onPressItem: PropTypes.func
+    onPressItem: PropTypes.func,
+    onPressMore: PropTypes.func,
+    max: PropTypes.number
 };
 
 EntryList.defaultProps = {
     title: 'Entries',
     entries: [],
-    onPressItem: () => {}
+    onPressItem: () => {},
+    onPressMore: () => {}
 };
 
 export default EntryList;
