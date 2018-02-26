@@ -2,6 +2,7 @@ import React from 'react'
 import { Image, View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import PropTypes from 'prop-types';
 import Theme from '../../theme'
+import Icon from './../../components/Icon'
 import moment from 'moment'
 
 class Song extends React.Component {
@@ -21,10 +22,22 @@ class Song extends React.Component {
                         {this.renderImage()}
                     </View>
 
-                    <View style={styles.infoContainer}>
-                        <Text style={Theme.rowTitle} numberOfLines={1}>{this.props.name}</Text>
-                        <Text style={Theme.caption} numberOfLines={2}>{this.props.artist}</Text>
-                        <Text style={Theme.caption}>{moment.utc(this.props.dateTime).fromNow()}</Text>
+                    <View style={[styles.infoContainer, { justifyContent: 'space-between'}]}>
+                        <View>
+                            <Text style={Theme.rowTitle} numberOfLines={1}>{this.props.name}</Text>
+                            <Text style={Theme.caption} numberOfLines={2}>{this.props.artist}</Text>
+                            <Text style={Theme.caption}>{moment.utc(this.props.dateTime).fromNow()}</Text>
+                        </View>
+                        <View>
+                            {this.props.pvServices.length > 0 && (
+                                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                    {this.props.pvServices.map(pvService =>
+                                        <Icon style={{ marginRight: 4 }} key={pvService} name={pvService} size='small' site />)}
+                                </View>
+                            )}
+                        </View>
+
+
                     </View>
                 </View>
             </TouchableOpacity>
@@ -36,13 +49,15 @@ Song.propTypes = {
     name: PropTypes.string,
     artist: PropTypes.string,
     hideArtist: PropTypes.bool,
+    pvServices: PropTypes.array,
     onPress: PropTypes.func
 };
 
 Song.defaultProps = {
-    name: 'Title',
-    artist: 'hatsune misku',
-    hideArtist: false
+    name: 'Unknown',
+    artist: 'Unknown',
+    hideArtist: false,
+    pvServices: []
 };
 
 const styles =  StyleSheet.create({

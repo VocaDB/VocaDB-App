@@ -29,6 +29,7 @@ class SongList extends React.Component {
                     name={song.defaultName}
                     artist={song.artistString}
                     dateTime={song.createDate}
+                    pvServices={song.pvServices.split(',').map(pvService => pvService.trim())}
                     onPress={() => this.props.onPressItem(song)}
                 />
             )
