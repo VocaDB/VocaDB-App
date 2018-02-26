@@ -8,6 +8,7 @@ export default {
     rootBackgroundColor: COLOR.blueGrey100,
     contentBackgroundColor: COLOR.white,
     title: material.title,
+    rowTitle: [material.subheading],
     headline: material.headline,
     subhead: [material.subheading, systemWeights.semibold, { color:  materialColors.blackSecondary }],
     body: material.body1,

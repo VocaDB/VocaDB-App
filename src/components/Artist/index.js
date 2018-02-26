@@ -42,7 +42,7 @@ class Artist extends React.Component {
                     </View>
 
                     <View style={styles.infoContainer}>
-                        <Text style={[Theme.subhead, { marginBottom: 4 }]}>{this.props.name}</Text>
+                        <Text style={[Theme.rowTitle, { marginBottom: 4 }]}>{this.props.name}</Text>
                         {this.props.type && <Text style={Theme.caption}>{this.props.type}</Text>}
                         {this.props.role && <Text style={Theme.caption}>{this.props.role}</Text>}
                     </View>

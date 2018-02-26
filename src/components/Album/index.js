@@ -28,7 +28,7 @@ class Album extends React.Component {
                     </View>
 
                     <View style={this.styleSelected.infoContainer}>
-                        <Text style={Theme.subhead}>{this.props.name}</Text>
+                        <Text style={Theme.rowTitle}>{this.props.name}</Text>
                     </View>
                 </View>
             </TouchableOpacity>

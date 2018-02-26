@@ -8,6 +8,7 @@ export default {
     rootBackgroundColor: COLOR.blueGrey100,
     contentBackgroundColor: COLOR.white,
     title: human.title3,
+    rowTitle: [human.subhead],
     headline: human.headline,
     subhead: [human.subhead, { color: iOSColors.black }],
     body: human.body,
