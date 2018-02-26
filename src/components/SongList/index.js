@@ -1,9 +1,10 @@
 import React from 'react'
-import { View, Text, Button, FlatList } from 'react-native'
+import { View, Text, FlatList } from 'react-native'
 import Song from './../Song'
 import PropTypes from 'prop-types';
 import style from './style'
 import Theme from '../../theme'
+import { Button } from 'react-native-material-ui';
 
 class SongList extends React.Component {
 
@@ -56,12 +57,13 @@ class SongList extends React.Component {
         } else {
 
             let songs = this.props.songs.slice(0, this.props.max)
+            const isOverLimit = songs.length < this.props.songs.length
 
             return (
                 <View>
                     {this.props.showHeader && this.renderHeader()}
                     {songs.map(renderItem)}
-                    {this.props.footer}
+                    {isOverLimit && <Button primary text="See more" onPress={this.props.onPressMore} />}
                 </View>
             )
         }

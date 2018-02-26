@@ -75,15 +75,16 @@ class ArtistDetailPage extends React.Component {
         const SongListPage = () => {
 
             const renderLatestSongs = () => (
-                <SongList max={10}
+                <SongList max={7}
                           songs={artist.latestSongs}
                           title='Latest'
                           showHeader={true}
-                          onPressItem={this.props.onPressSong} />
+                          onPressItem={this.props.onPressSong}
+                          onPressMore={() => this.props.onPressMoreLatestSongs(artist)} />
             )
 
             const renderPopularSongs = () => (
-                <SongList max={10}
+                <SongList max={7}
                           songs={artist.popularSongs}
                           title='Popular'
                           showHeader={true}
@@ -100,11 +101,11 @@ class ArtistDetailPage extends React.Component {
         const AlbumListPage = () => {
 
             const renderLatestAlbum = () => (
-                <AlbumList max={10} albums={artist.latestAlbums} title='Latest' showHeader={true} onPressItem={this.props.onPressAlbum} />
+                <AlbumList max={7} albums={artist.latestAlbums} title='Latest' showHeader={true} onPressItem={this.props.onPressAlbum} />
             )
 
             const renderPopularAlbum = () => (
-                <AlbumList max={10} albums={artist.popularAlbums} title='Popular' showHeader={true} onPressItem={this.props.onPressAlbum} />
+                <AlbumList max={7} albums={artist.popularAlbums} title='Popular' showHeader={true} onPressItem={this.props.onPressAlbum} />
             )
             return (
                 <Content>
