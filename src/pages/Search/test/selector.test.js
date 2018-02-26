@@ -54,4 +54,13 @@ describe('Search selector test', () => {
 
         expect(selectors.selectHasResult()(state)).toEqual(false)
     });
+
+    it('should get recent search', () => {
+        state = state.setIn(['search', 'recent'], List().push(64568))
+        let expectedResult = [
+            state.getIn(['entities', 'entries', '64568']).toJS()
+        ]
+
+        expect(selectors.selectRecentList()(state)).toEqual(expectedResult)
+    })
 })

@@ -26,7 +26,22 @@ const selectEntries = () => createSelector(
     }
 );
 
-const selectRecentList = () => createSelector(selectSearch(), home => home.get('recent').toJS())
+const generateSelector = (keys, selectEntity) => {
+    return () => createSelector(
+        selectSearch(),
+        selectEntity(),
+        (domain, entity) => {
+            return domain.getIn(keys, List())
+                .filter(id => entity.has(id.toString()))
+                .map(id => entity.get(id.toString()))
+                .toJS()
+        }
+    )
+}
+
+// const selectRecentList = () => createSelector(selectSearch(), home => home.get('recent').toJS())
+
+const selectRecentList = generateSelector(['recent'], selectEntryEntity)
 
 export {
     selectSearch,

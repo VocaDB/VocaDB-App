@@ -42,4 +42,27 @@ describe('Search reducer test state', () => {
 
         expect(store.getState().toJS()).toEqual(expectedState.toJS());
     });
+
+    it('Should save entry', () => {
+        let mockSongEntry = mockGenerator.CreateEntry('Song')
+        let mockArtistEntry = mockGenerator.CreateEntry('Artist')
+        let expectedState = state
+            .set('recent', [ mockArtistEntry.id, mockSongEntry.id ])
+
+        store.dispatch(actions.saveRecentSearch(mockSongEntry))
+        store.dispatch(actions.saveRecentSearch(mockArtistEntry))
+
+        expect(store.getState().toJS()).toEqual(expectedState.toJS());
+    })
+
+    it('Should not save duplicate entry', () => {
+        let mockSongEntry = mockGenerator.CreateEntry('Song')
+        let expectedState = state
+            .set('recent', [ mockSongEntry.id ])
+
+        store.dispatch(actions.saveRecentSearch(mockSongEntry))
+        store.dispatch(actions.saveRecentSearch(mockSongEntry))
+
+        expect(store.getState().toJS()).toEqual(expectedState.toJS());
+    })
 })

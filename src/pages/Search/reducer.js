@@ -25,7 +25,10 @@ const reducer = createReducer({
     [actions.saveRecentSearch]: (state, payload) => {
         const recentList = state.get('recent')
         let newEntry = payload.entry
-        return state.set('recent', recentList.unshift(newEntry))
+        if(recentList.indexOf(newEntry.id) != 0) {
+            return state.set('recent', recentList.unshift(newEntry.id))
+        }
+        return state
     },
     [actions.clearRecentSearch]: (state) => {
         return state.set('recent', List())
