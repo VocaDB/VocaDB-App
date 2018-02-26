@@ -9,7 +9,7 @@ class ArtistRole extends React.Component {
 
     render () {
 
-        const renderItem = artistRole => {
+        const renderItem = (artistRole, displayRole) => {
 
             const artist = artistRole.artist;
 
@@ -21,34 +21,40 @@ class ArtistRole extends React.Component {
                     image={images.getArtistUri(artist.id)}
                     name={artist.name}
                     artist={artist.artistString}
-                    role={(this.props.displayRole)? artistRole.roles : undefined}
+                    role={(displayRole)? artistRole.roles : undefined}
                     onPress={() => this.props.onPressItem(artist)}
                 />
             )
         }
 
-        let artists = this.props.artists;
+        let artistRoles = this.props.artists;
 
-        if(this.props.category) {
-            artists = this.props.artists.filter(artistRole => artistRole.categories == this.props.category)
-        }
+        let uniqueCategories = artistRoles
+            .map(artistRole => artistRole.categories)
+            .filter((v, i, a) => a.indexOf(v) === i)
+            .map(category => {
 
-        if(this.props.role) {
-            artists = this.props.artists.filter(artistRole => artistRole.roles == this.props.roles)
-        }
+                const displayRole = (category === 'Other')? true : false;
 
-        if(!artists.length) {
+                return (
+                    <View key={category}>
+                        <View style={{ padding: 8 }}>
+                            <Text style={Theme.subhead}>{category}</Text>
+                        </View>
+                        {artistRoles
+                            .filter(artistRole => artistRole.categories === category)
+                            .map(artistRole => renderItem(artistRole, displayRole))}
+                    </View>
+                )
+            })
+
+        if(!artistRoles.length) {
             return (<View></View>)
         }
 
-        // artists = artists.map(artistRole => artistRole.artist)
-
         return (
             <View>
-                <View style={{ padding: 8 }}>
-                    <Text style={Theme.title}>{this.props.title}</Text>
-                </View>
-                {artists.map(renderItem)}
+                {uniqueCategories}
             </View>
         )
     }
@@ -56,20 +62,11 @@ class ArtistRole extends React.Component {
 
 ArtistRole.propTypes = {
     artists: PropTypes.arrayOf(PropTypes.object),
-    title: PropTypes.string,
-    role: PropTypes.string,
-    displayRole: PropTypes.bool,
-    showHeader: PropTypes.bool,
-    category: PropTypes.string,
     onPressItem: PropTypes.func
 };
 
 ArtistRole.defaultProps = {
     artists: [],
-    title: 'Artist',
-    displayRole: false,
-    showHeader: true,
-    category: '',
     onPressItem: () => {}
 };
 

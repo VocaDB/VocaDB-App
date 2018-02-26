@@ -84,9 +84,7 @@ export default class SongDetailPage extends React.Component {
 
         const ArtistRoleListPage = () => (
             <ScrollView style={{ flex: 1, backgroundColor: 'white' }}>
-                <ArtistRoleList artists={song.artists} title='Producer' category='Producer' onPressItem={this.props.onPressArtist} />
-                <ArtistRoleList artists={song.artists} title='Vocalist' category='Vocalist' onPressItem={this.props.onPressArtist} />
-                <ArtistRoleList artists={song.artists} title='Other' category='Other' onPressItem={this.props.onPressArtist} displayRole />
+                <ArtistRoleList artists={song.artists} onPressItem={this.props.onPressArtist} displayRole />
             </ScrollView>
         )
 

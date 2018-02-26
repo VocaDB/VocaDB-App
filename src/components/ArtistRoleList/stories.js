@@ -9,6 +9,13 @@ import mockArtists from './mock'
 
 storiesOf('ArtistRoleList', module)
     .addDecorator(getStory => <ScrollView>{getStory()}</ScrollView>)
+    .add('All', () => (
+        <ArtistRoleList
+            artists={mockArtists.artists}
+            title='Artists'
+            onPressItem={action('press artist')}
+        />
+    ))
     .add('Vocaloid', () => (
         <ArtistRoleList
             artists={mockArtists.artists}
