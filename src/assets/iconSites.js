@@ -3,6 +3,7 @@ const sites = [
     { match: /youtube/gi, source: require('./img/icon_youtube.png') },
     { match: /(NND|Nico)/gi, source: require('./img/icon_niconicodouga.jpg') },
     { match: /(soundcloud)/gi, source: require('./img/icon_soundcloud.png') },
+    { match: /(piapro)/gi, source: require('./img/icon_piapro.png') },
 ]
 
 export default {
