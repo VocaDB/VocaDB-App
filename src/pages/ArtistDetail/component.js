@@ -38,7 +38,7 @@ class ArtistDetailPage extends React.Component {
                     title={artist.name}
                     subtitle={artist.artistType}
                 />
-                <Section style={{ flex: 1, flexDirection: 'row' }}>
+                <Section style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around' }}>
                     <Icon name='md-heart' text='Follow' />
                     <Icon name='md-share' text='Share' onPress={() => this.props.onPressShare(artist)} />
                     <Icon name='md-chatbubbles' text='Comment' />

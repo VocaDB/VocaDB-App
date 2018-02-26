@@ -36,7 +36,7 @@ class AlbumDetailPage extends React.Component {
                     title={album.name}
                     subtitle={album.artistString}
                 />
-                <Section style={{ flex: 1, flexDirection: 'row' }}>
+                <Section style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around' }}>
                     <Icon name='md-heart' text='Follow' />
                     <Icon name='md-share' text='Share' onPress={() => this.props.onPressShare(album)} />
                     <Icon name='md-chatbubbles' text='Comment' />
@@ -49,7 +49,7 @@ class AlbumDetailPage extends React.Component {
                     <Text style={Theme.body}>{album.description}</Text>
                 </Section>
                 <Section>
-                    <TrackList tracks={album.tracks} />
+                    <TrackList tracks={album.tracks} onPressItem={this.props.onPressTrack} />
                 </Section>
                 <Section>
                     <WebLinkList webLinks={album.webLinks} category='Official' title='Official' />

@@ -7,6 +7,7 @@ export const CreateSong = (config = {}) => ({
     createDate: (config.createDate) ? config.createDate : '2011-10-30T01:07:43',
     additionalNames: (config.additionalNames) ? config.additionalNames : 'Romeo to Cinderella, Romeo and Cinderella',
     status: (config.status) ? config.status : 'Finished',
+    pvServices: (config.pvServices)? config.pvServices : 'Youtube, SoundCloud',
     names: [],
     albums: [],
     artists: [],

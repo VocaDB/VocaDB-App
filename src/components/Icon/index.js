@@ -16,18 +16,20 @@ class Icon extends React.Component {
 
         const renderIcon = () => {
 
+            const selectedSize = size[this.props.size]
+
             if(this.props.site) {
 
                 if(IconSites.find(this.props.name)) {
                     const iconSiteSource = IconSites.find(this.props.name)
-                    return <Image style={{ width: 32, height: 32, alignSelf: 'center' }} resizeMode='cover' source={iconSiteSource} />
+                    return <Image style={{ width: selectedSize, height: selectedSize, alignSelf: 'center' }} resizeMode='cover' source={iconSiteSource} />
                 } else {
-                    return <IconVector name='ios-globe' size={size[this.props.size]} color={this.props.color} style={style.icon}  />
+                    return <IconVector name='ios-globe' size={selectedSize} color={this.props.color} style={style.icon}  />
                 }
 
             }
 
-            return <IconVector name={this.props.name} size={size[this.props.size]} color={this.props.color} style={style.icon}  />
+            return <IconVector name={this.props.name} size={selectedSize} color={this.props.color} style={style.icon}  />
 
         }
 
@@ -35,8 +37,9 @@ class Icon extends React.Component {
             return renderIcon()
         } else {
             return (
-                <TouchableOpacity style={style.container} onPress={this.props.onPress}>
-                    <View>
+                <TouchableOpacity style={[this.props.style ,style.container]} onPress={this.props.onPress}>
+                    <View style={{
+                    }}>
                         {renderIcon()}
                         {this.props.text && <Text style={[style.label, { color: this.props.color }]}>{this.props.text}</Text>}
                     </View>
@@ -49,9 +52,9 @@ class Icon extends React.Component {
 
 const style = StyleSheet.create({
     container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center'
+        // flex: 1,
+        // alignItems: 'center',
+        // justifyContent: 'center'
     },
     icon: {
         textAlign: 'center',

@@ -12,6 +12,20 @@ storiesOf('TrackList', module)
     .add('Single disc', () => (
         <TrackList tracks={singleDiscTracks} />
     ))
+    .add('Single disc (song null)', () => {
+        singleDiscTracks.map(track => {
+            delete track.song
+            return track
+        })
+        return  <TrackList tracks={singleDiscTracks} />
+    })
     .add('Multi disc', () => (
         <TrackList tracks={multiDiscTracks} />
-    ));
+    ))
+    .add('Multi disc (song null)', () => {
+        multiDiscTracks.map(track => {
+            delete track.song
+            return track
+        })
+        return <TrackList tracks={multiDiscTracks} />
+    });

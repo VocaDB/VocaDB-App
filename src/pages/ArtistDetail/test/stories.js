@@ -17,5 +17,6 @@ storiesOf('Pages/ArtistDetail', module)
             onPressSong={action('Press song')}
             onPressAlbum={action('Press album')}
             onPressEvent={action('Press event')}
+            navigation={{ state: { params: { id: 1 }} }}
         />
     ));

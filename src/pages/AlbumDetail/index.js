@@ -31,7 +31,7 @@ const mapDispatchToProps = (dispatch, props) => ({
             dialogTitle: 'Share ' + album.name,
         })
     },
-    onPressSong: song => props.navigation.navigate('SongDetail', { id: song.id }),
+    onPressTrack: track => props.navigation.navigate('SongDetail', { id: track.song.id }),
     onPressArtist: artist => props.navigation.navigate('ArtistDetail', { id: artist.id }),
     onPressTag: tag => props.navigation.navigate('TagDetail', { id: tag.id, title: tag.name }),
 })

@@ -18,7 +18,23 @@ class TrackList extends React.Component {
 
                 let renderTrackList = () => tracks
                     .filter(track => track.discNumber === discNumber)
-                    .map(track => <Track key={track.id} name={track.name} artist={track.song.artistString} />)
+                    .map(track => {
+
+                        let song = (track.song)? track.song : {}
+                        let artistString = (song.artistString)? song.artistString : ''
+                        let pvServices = (song.pvServices) ? song.pvServices
+                            .split(',')
+                            .map(pvService => pvService.trim())
+                            .filter(pvService => pvService.toLowerCase() != 'nothing'): []
+
+                        return (
+                            <Track key={track.id}
+                                   name={track.name}
+                                   pvServices={pvServices}
+                                   artist={artistString}
+                                   onPress={() => this.props.onPressItem(track) } />
+                        )
+                    })
 
                 return (
                     <View key={discNumber}>
@@ -35,7 +51,22 @@ class TrackList extends React.Component {
             )
 
         } else {
-            let renderTrackList = () => tracks.map(track => <Track key={track.id} name={track.name} artist={track.song.artistString} />)
+            let renderTrackList = () => tracks.map(track => {
+                let song = (track.song)? track.song : {}
+                let artistString = (song.artistString)? song.artistString : ''
+                let pvServices = (song.pvServices) ? song.pvServices
+                    .split(',')
+                    .map(pvService => pvService.trim())
+                    .filter(pvService => pvService.toLowerCase() != 'nothing') : []
+
+                return (
+                    <Track key={track.id}
+                           name={track.name}
+                           pvServices={pvServices}
+                           artist={artistString}
+                           onPress={() => this.props.onPressItem(track) } />
+                )
+            })
 
             return (
                 <View>

@@ -66,7 +66,7 @@ export default class SongDetailPage extends React.Component {
                         title={song.defaultName}
                         subtitle={song.artistString}
                     />
-                    <Section style={{ flex: 1, flexDirection: 'row' }}>
+                    <Section style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around' }}>
                         <Icon name='md-heart' text='Favorite' />
                         <Icon name='md-share' text='Share' onPress={() => this.props.onPressShare(song)} />
                         <Icon name='md-chatbubbles' text='Comment' />

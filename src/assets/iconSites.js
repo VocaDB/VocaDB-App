@@ -1,8 +1,8 @@
 // Site or service name
 const sites = [
-    { match: 'Youtube', source: require('./img/icon_youtube.png') },
-    { match: /(NND|Nico)/g, source: require('./img/icon_niconicodouga.jpg') },
-    { match: /(SoundCloud)/g, source: require('./img/icon_soundcloud.png') },
+    { match: /youtube/gi, source: require('./img/icon_youtube.png') },
+    { match: /(NND|Nico)/gi, source: require('./img/icon_niconicodouga.jpg') },
+    { match: /(soundcloud)/gi, source: require('./img/icon_soundcloud.png') },
 ]
 
 export default {
