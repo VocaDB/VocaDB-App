@@ -2,6 +2,7 @@ import React from 'react'
 import { View, Text, TouchableOpacity, Linking, Image } from 'react-native'
 import PropTypes from 'prop-types'
 import Icon from './../../components/Icon'
+import IconSites from './../../assets/iconSites'
 import images from './../../assets/images'
 
 class PV extends React.Component {
@@ -15,9 +16,9 @@ class PV extends React.Component {
                 'NicoNicoDouga': images.iconNicoNicoDouga
             }
 
-            if(iconSources[this.props.service]) {
+            if(IconSites.find(this.props.service)) {
                 return (
-                    <Image style={{ width: 32, height: 32, alignSelf: 'center' }} resizeMode='cover' source={iconSources[this.props.service]} />
+                    <Icon name={this.props.service} site />
                 )
             } else {
                 return (
