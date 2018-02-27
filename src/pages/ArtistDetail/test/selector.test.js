@@ -2,6 +2,7 @@ import Immutable from 'immutable'
 import * as selectors from './../selector'
 import schemas from './../../../schema'
 import mockArtist from './mock'
+import * as mockGenerator from './../../../helper/mockGenerator'
 import { normalize } from 'normalizr'
 
 describe('Artist detail selector', () => {
@@ -65,5 +66,31 @@ describe('Artist detail selector', () => {
     it('should get web links', () => {
         const expectedResult = Immutable.fromJS(mockArtist.webLinks);
         expect(selectors.selectWebLinks()(state)).toEqual(expectedResult);
+    })
+
+    it('should return true if this is followed artist', () => {
+        state = state.set('user', Immutable.fromJS({
+            follow: {
+                artists: {
+                    '1': mockArtist
+                }
+            }
+        }))
+
+        expect(selectors.selectIsFollowedArtist()(state)).toEqual(true);
+
+    })
+
+    it('should return false if not followed artist', () => {
+        state = state.set('user', Immutable.fromJS({
+            follow: {
+                artists: {
+                    '2': mockArtist
+                }
+            }
+        }))
+
+        expect(selectors.selectIsFollowedArtist()(state)).toEqual(false);
+
     })
 })

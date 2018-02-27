@@ -61,7 +61,8 @@ class ArtistDetailPage extends React.Component {
                     subtitle={artist.artistType}
                 />
                 <Section style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around' }}>
-                    <Icon name='md-heart' text='Follow' />
+                    {!this.props.followed && <Icon name='md-heart' text='Follow' onPress={() => this.props.onPressFollow(artist)} />}
+                    {this.props.followed && <Icon name='md-heart' text='Followed' color={Theme.buttonActiveColor} onPress={() => this.props.onPressUnFollow(artist)} />}
                     <Icon name='md-share' text='Share' onPress={() => this.props.onPressShare(artist)} />
                     <Icon name='md-chatbubbles' text='Comment' />
                     <Icon name='md-information-circle'  text='Report' />

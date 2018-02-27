@@ -2,8 +2,9 @@ import React from 'react'
 import { connect } from 'react-redux'
 import ArtistDetailPage from './component'
 import * as actions from './actions'
+import * as userActions from './../../modules/user/actions'
 import { createSelector } from 'reselect';
-import { selectArtistResult } from './selector'
+import { selectArtistResult, selectIsFollowedArtist } from './selector'
 import { Share } from 'react-native'
 
 ArtistDetailPage.navigationOptions = () => ({
@@ -16,11 +17,14 @@ ArtistDetailPage.propTypes = {
 
 const artistDetailStateSelect = createSelector(
     selectArtistResult(),
-    (artist) => ({ artist })
+    selectIsFollowedArtist(),
+    (artist, followed) => ({ artist, followed })
 );
 
 const mapDispatchToProps = (dispatch, props) => ({
     fetchArtist: id => dispatch(actions.getArtist(id)),
+    onPressFollow: artist => dispatch(userActions.followArtist(artist)),
+    onPressUnFollow: artist => dispatch(userActions.unFollowArtist(artist)),
     onPressShare: artist => {
         const url = 'http://vocadb.net/Ar/' + artist.id
         Share.share({

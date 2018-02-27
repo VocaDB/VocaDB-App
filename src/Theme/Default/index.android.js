@@ -3,6 +3,7 @@ import { material, materialColors, systemWeights } from 'react-native-typography
 
 export default {
     divider: '#1FFFFF',
+    buttonActiveColor: COLOR.pink400,
     primaryColor: COLOR.indigo600,
     statusBarColor: COLOR.indigo800,
     rootBackgroundColor: COLOR.blueGrey100,

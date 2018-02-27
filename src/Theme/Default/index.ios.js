@@ -3,6 +3,7 @@ import { human, iOSColors } from 'react-native-typography'
 
 export default {
     divider: COLOR.lightBlue300,
+    buttonActiveColor: COLOR.pink400,
     primaryColor: COLOR.indigo600,
     statusBarColor: COLOR.indigo800,
     rootBackgroundColor: COLOR.blueGrey100,

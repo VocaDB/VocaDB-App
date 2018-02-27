@@ -7,6 +7,7 @@ import {
     selectWebLinkEntity,
     selectEventEntity
 } from './../../selectors'
+import { selectFollowedArtists } from './../../modules/user/selector'
 import { Map, List } from 'immutable'
 
 export const selectArtistDetail = () => (state) => state.get('artistDetail');
@@ -57,6 +58,14 @@ export const selectPopularAlbums = generateSelector(['relations', 'popularAlbums
 export const selectPopularSongs = generateSelector(['relations', 'popularSongs'], selectSongEntity)
 export const selectLatestEvents = generateSelector(['relations', 'latestEvents'], selectEventEntity)
 export const selectWebLinks = generateSelector(['webLinks'], selectWebLinkEntity)
+
+export const selectIsFollowedArtist = () => createSelector(
+    selectArtist(),
+    selectFollowedArtists(),
+    (artist, followedArtist) => {
+        return (artist.has('id') && followedArtist.has(artist.get('id').toString()))? true : false
+    }
+)
 
 export const selectArtistResult = () => createSelector(
     selectArtist(),
