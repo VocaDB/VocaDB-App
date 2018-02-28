@@ -40,4 +40,20 @@ describe('User selector test', () => {
 
         expect(selectors.selectFollowedArtists()(state)).toEqual(follwedArtists)
     });
+
+    it('should get followed artists as array', () => {
+
+        const artist1 = mockGenerator.CreateArtist({ id: 1 })
+        const artist2 = mockGenerator.CreateArtist({ id: 2 })
+        const follwedArtists = Map()
+            .set('1', artist1)
+            .set('2', artist2);
+
+        state = state.setIn(['user', 'follow', 'artists'], follwedArtists)
+
+        const expectedResult = [ artist1, artist2 ]
+        const actualResult = selectors.selectFollowedArtistsAsArray()(state)
+        expect(actualResult).toEqual(expectedResult)
+        expect(actualResult.map(a => a.id)).toEqual(expectedResult.map(a => a.id))
+    });
 })
