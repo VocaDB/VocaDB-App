@@ -10,7 +10,6 @@ class ArtistList extends React.Component {
 
     renderVertical () {
         const renderItem = artist => {
-
             return  (
                 <Artist
                     key={artist.id}
@@ -24,7 +23,7 @@ class ArtistList extends React.Component {
 
         return (
             <View>
-                <Text style={[material.subheading, { margin: 8 }]}>{this.props.title}</Text>
+                {this.props.showHeader && <Text style={[material.subheading, { margin: 8 }]}>{this.props.title}</Text>}
                 {this.props.artists.map(renderItem)}
             </View>
         )
@@ -45,7 +44,7 @@ class ArtistList extends React.Component {
 
         return (
             <View>
-                <Text style={Theme.title}>Artists</Text>
+                {this.props.showHeader && <Text style={Theme.subheading}>{this.props.title}</Text>}
                 <ScrollView horizontal={true}>
                     {this.props.artists.map(renderItem)}
                 </ScrollView>
