@@ -10,6 +10,7 @@ import Content from './../../components/Content'
 import CenterView from './../../components/CenterView'
 import Icon from './../../components/Icon'
 import { ListItem, Button } from 'react-native-material-ui';
+import Divider from './../../components/Divider'
 import Theme from './../../theme'
 
 export default class HomePage extends React.Component {
@@ -49,6 +50,16 @@ export default class HomePage extends React.Component {
             </ScrollView>
         )
 
+        const createMenuItem = (icon, text, onPress) => (
+            <ListItem
+                leftElement={<Icon name={icon} pureIcon />}
+                centerElement={{
+                    primaryText: text,
+                }}
+                onPress={onPress}
+            />
+        )
+
         const MenuTabPage =() => (
             <View style={{ flex: 1 }}>
                 <CenterView>
@@ -56,27 +67,11 @@ export default class HomePage extends React.Component {
                     <Button raised text="Sign in" />
                 </CenterView>
                 <View style={{ flex: 1, backgroundColor: 'white' }}>
-                    <ListItem
-                        leftElement={<Icon name='ios-settings' pureIcon />}
-                        centerElement={{
-                            primaryText: 'Settings',
-                        }}
-                        onPress={() => {}}
-                    />
-                    <ListItem
-                        leftElement={<Icon name='ios-lock' pureIcon />}
-                        centerElement={{
-                            primaryText: 'Terms & privacy policy',
-                        }}
-                        onPress={() => {}}
-                    />
-                    <ListItem
-                        leftElement={<Icon name='ios-help-circle' pureIcon />}
-                        centerElement={{
-                            primaryText: 'Help & feedback',
-                        }}
-                        onPress={() => {}}
-                    />
+                    {createMenuItem('ios-people', 'Followed artists', this.props.onPressMenuFollowArtists)}
+                    <Divider />
+                    {createMenuItem('ios-settings', 'Settings', () => {})}
+                    {createMenuItem('ios-lock', 'Terms & privacy policy', () => {})}
+                    {createMenuItem('ios-help-circle', 'Help & feedback', () => {})}
                 </View>
             </View>
         )

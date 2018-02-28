@@ -6,7 +6,7 @@ import { createSelector } from 'reselect';
 import { Button } from 'react-native'
 import Icon from './../../components/Icon'
 import { selectRecentSongs, selectPopularSongs, selectLatestEvents, selecrRefreshing, selectRecentAlbums } from './selector'
-import { COLOR } from 'react-native-material-ui';
+import { Page } from './../../AppNavigator'
 
 HomePage.navigationOptions = ({ navigation }) => ({
     title: 'Home',
@@ -34,10 +34,10 @@ const mapDispatchToProps = (dispatch, props) => ({
     fetchPopularSongs: () => dispatch(actions.getPopularSongs()),
     fetchLatestEvents: () => dispatch(actions.getLatestEvents()),
     fetchRecentAlbums: () => dispatch(actions.getRecentAlbums()),
-    onPressSong: song => props.navigation.navigate('SongDetail', { id: song.id }),
-    onPressAlbum: album => props.navigation.navigate('AlbumDetail', { id: album.id }),
-    onPressEvent: event => props.navigation.navigate('EventDetail', { id: event.id, title: event.name }),
-    onPressMoreRecentSongs: () => props.navigation.navigate('SongList', {
+    onPressSong: song => props.navigation.navigate(Page.SongDetail, { id: song.id }),
+    onPressAlbum: album => props.navigation.navigate(Page.AlbumDetail, { id: album.id }),
+    onPressEvent: event => props.navigation.navigate(Page.SongDetail, { id: event.id, title: event.name }),
+    onPressMoreRecentSongs: () => props.navigation.navigate(Page.SongList, {
         title: 'Recent songs',
         params: {
             'maxResults': 20,
@@ -45,6 +45,7 @@ const mapDispatchToProps = (dispatch, props) => ({
             'fields': 'thumbUrl'
         }
     }),
+    onPressMenuFollowArtists: () => props.navigation.navigate(Page.FollowedArtists)
 })
 
 export default connect(homeStateSelect, mapDispatchToProps)(HomePage)
