@@ -5,7 +5,8 @@ import * as actions from './actions'
 import { createSelector } from 'reselect';
 import { Button } from 'react-native'
 import Icon from './../../components/Icon'
-import { selectRecentSongs, selectPopularSongs, selectLatestEvents, selecrRefreshing, selectRecentAlbums } from './selector'
+import { selectRecentSongs, selectPopularSongs, selectLatestEvents, selecrRefreshing, selectRecentAlbums, selectFollowedSongs } from './selector'
+import { selectUser, selectFollowedArtists } from './../../modules/user/selector'
 import { Page } from './../../AppNavigator'
 
 HomePage.navigationOptions = ({ navigation }) => ({
@@ -26,7 +27,15 @@ const homeStateSelect = createSelector(
     selecrRefreshing(),
     selectLatestEvents(),
     selectRecentAlbums(),
-    (recentSongs, popularSongs, refreshing, latestEvents, recentAlbums) => ({ recentSongs, popularSongs, refreshing, latestEvents, recentAlbums })
+    selectFollowedSongs(),
+    (recentSongs, popularSongs, refreshing, latestEvents, recentAlbums, followedSongs) => ({
+        recentSongs,
+        popularSongs,
+        refreshing,
+        latestEvents,
+        recentAlbums,
+        followedSongs
+    })
 );
  
 const mapDispatchToProps = (dispatch, props) => ({
@@ -34,6 +43,7 @@ const mapDispatchToProps = (dispatch, props) => ({
     fetchPopularSongs: () => dispatch(actions.getPopularSongs()),
     fetchLatestEvents: () => dispatch(actions.getLatestEvents()),
     fetchRecentAlbums: () => dispatch(actions.getRecentAlbums()),
+    fetchFollowedSongs: () => dispatch(actions.getFollowedSongs([4])),
     onPressSong: song => props.navigation.navigate(Page.SongDetail, { id: song.id }),
     onPressAlbum: album => props.navigation.navigate(Page.AlbumDetail, { id: album.id }),
     onPressEvent: event => props.navigation.navigate(Page.SongDetail, { id: event.id, title: event.name }),

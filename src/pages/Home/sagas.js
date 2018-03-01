@@ -39,11 +39,22 @@ const fetchRecentAlbums = function* fetchRecentAlbums() {
     }
 }
 
+const fetchFollowedSongs = function* fetchFollowedSongs(action) {
+    try {
+        const response = yield call(api.songs.find, { 'sort': 'AdditionDate', 'fields': 'thumbUrl', 'artistId': action.payload.artists });
+        yield put(actions.getFollowedSongsSuccess(response.items));
+    } catch (e) {
+        yield put(globalActions.requestError(e));
+    }
+}
+
+
 const homeSaga = function* homeSagaAsync() {
     yield takeLatest(actions.getPopularSongs, fetchPopularSongs)
     yield takeLatest(actions.getRecentSongs, fetchRecentSongs)
     yield takeLatest(actions.getLatestEvents, fetchLatestEvents)
     yield takeLatest(actions.getRecentAlbums, fetchRecentAlbums)
+    yield takeLatest(actions.getFollowedSongs, fetchFollowedSongs)
 }
 
 export { fetchPopularSongs, fetchRecentSongs }

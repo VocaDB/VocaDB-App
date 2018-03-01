@@ -4,7 +4,6 @@ import SongList from '../../components/SongList'
 import AlbumList from '../../components/AlbumList'
 import ScrollableTabView from 'react-native-scrollable-tab-view'
 import CustomTabBar from './../../components/CustomTabBar'
-import mockEvent from './../../components/EventList/mock'
 import EventList from './../../components/EventList'
 import Content from './../../components/Content'
 import CenterView from './../../components/CenterView'
@@ -24,10 +23,10 @@ export default class HomePage extends React.Component {
         this.props.fetchPopularSongs()
         this.props.fetchLatestEvents()
         this.props.fetchRecentAlbums()
+        this.props.fetchFollowedSongs()
     }
 
     render () {
-
         const HomeTabPage = () => (
             <Content refreshControl={
                 <RefreshControl
@@ -42,6 +41,12 @@ export default class HomePage extends React.Component {
                     onPressMore={this.props.onPressMoreRecentSongs} />
                 <AlbumList title='Recent albums' max={10} horizontal={true} showHeader={true} albums={this.props.recentAlbums} onPressItem={this.props.onPressAlbum} />
             </Content>
+        )
+
+        const FollowedTabPage = () => (
+            <ScrollView>
+                <SongList songs={this.props.followedSongs} onPressItem={this.props.onPressSong} />
+            </ScrollView>
         )
 
         const EventTabPage = () => (
@@ -79,6 +84,7 @@ export default class HomePage extends React.Component {
         return (
             <ScrollableTabView renderTabBar={() => <CustomTabBar />}>
                 <HomeTabPage tabLabel="ios-home" />
+                <FollowedTabPage tabLabel="ios-heart" />
                 <EventTabPage tabLabel="ios-calendar"></EventTabPage>
                 <MenuTabPage tabLabel="ios-menu"></MenuTabPage>
             </ScrollableTabView>

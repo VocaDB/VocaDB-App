@@ -7,10 +7,18 @@ const defaultState = fromJS({
     recentSongs: [],
     popularSongs: [],
     latestEvents: [],
-    recentAlbums: []
+    recentAlbums: [],
+    followedSongs: []
 })
 
 const reducer = createReducer({
+    [actions.getFollowedSongs]: (state, payload) => {
+        return state.set('refreshing', true)
+    },
+    [actions.getFollowedSongsSuccess]: (state, payload) => {
+        return state.set('followedSongs', fromJS(payload.result))
+            .set('refreshing', false)
+    },
     [actions.getPopularSongs]: (state, payload) => {
         return state.set('refreshing', true)
     },

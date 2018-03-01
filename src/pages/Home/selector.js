@@ -7,7 +7,21 @@ const selectRecentSongsResult = () => createSelector(selectHome(), home => home.
 const selectPopularSongsResult = () => createSelector(selectHome(), home => home.get('popularSongs', []))
 const selectLatestEventsResult = () => createSelector(selectHome(), home => home.get('latestEvents', []))
 const selectRecentAlbumsResult = () => createSelector(selectHome(), home => home.get('recentAlbums', []))
+const selectFollowedSongsResult = () => createSelector(selectHome(), home => home.get('followedSongs', []))
 const selecrRefreshing = () => createSelector(selectHome(), home => home.get('refreshing', false))
+
+const selectFollowedSongs = () => createSelector(
+    selectSongEntity(),
+    selectFollowedSongsResult(),
+    (songs, followedSongsResult) => {
+
+        if(!followedSongsResult) {
+            return [];
+        }
+
+        return followedSongsResult.map(id => songs.get(id.toString())).toJS();
+    }
+);
 
 const selectRecentSongs = () => createSelector(
     selectSongEntity(),
@@ -63,6 +77,7 @@ const selectRecentAlbums = () => createSelector(
 
 export {
     selectHome,
+    selectFollowedSongs,
     selectRecentSongs,
     selectPopularSongs,
     selecrRefreshing,
