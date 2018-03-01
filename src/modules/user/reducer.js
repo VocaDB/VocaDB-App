@@ -17,7 +17,12 @@ const reducer = createReducer({
         }
 
         const keys = ['follow', 'artists'];
-        const artistMap = Map().set(artist.id.toString(), fromJS(artist));
+        const reducedArtist = Map()
+            .set('id', artist.id)
+            .set('defaultName', artist.defaultName)
+            .set('artistType', artist.artistType)
+
+        const artistMap = Map().set(artist.id.toString(), reducedArtist);
 
         return state.mergeDeepIn(keys, artistMap);
     },

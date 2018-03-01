@@ -9,6 +9,12 @@ describe('User reducer test state', () => {
     let state = Map()
     let store = {};
 
+    const reducedArtist = artist => ({
+        id: artist.id,
+        defaultName: artist.defaultName,
+        artistType: artist.artistType
+    })
+
     beforeEach(() => {
         store = createStore(reducer);
         state = fromJS({
@@ -21,7 +27,7 @@ describe('User reducer test state', () => {
     it('Should follow artist', () => {
         const artist = mockGenerator.CreateArtist()
         let expectedState = state
-            .setIn(['follow', 'artists'], fromJS({ '1': artist }))
+            .setIn(['follow', 'artists'], fromJS({ '1': reducedArtist(artist) }))
 
         store.dispatch(actions.followArtist(artist))
 
@@ -32,7 +38,10 @@ describe('User reducer test state', () => {
         const artist1 = mockGenerator.CreateArtist({ id: 1 })
         const artist2 = mockGenerator.CreateArtist({ id: 2 })
         let expectedState = state
-            .setIn(['follow', 'artists'], fromJS({ '1': artist1, '2': artist2 }))
+            .setIn(['follow', 'artists'], fromJS({
+                '1': reducedArtist(artist1),
+                '2': reducedArtist(artist2)
+            }))
 
         store.dispatch(actions.followArtist(artist1))
         store.dispatch(actions.followArtist(artist2))
@@ -43,7 +52,7 @@ describe('User reducer test state', () => {
     it('Should return state when invalid action called', () => {
         const artist1 = mockGenerator.CreateArtist({ id: 1 })
         let expectedState = state
-            .setIn(['follow', 'artists'], fromJS({ '1': artist1 }))
+            .setIn(['follow', 'artists'], fromJS({ '1': reducedArtist(artist1) }))
 
         store.dispatch(actions.followArtist(artist1))
         store.dispatch(actions.followArtist())
@@ -55,7 +64,7 @@ describe('User reducer test state', () => {
         const artist1 = mockGenerator.CreateArtist({ id: 1 })
         const artist2 = mockGenerator.CreateArtist({ id: 2 })
         let expectedState = state
-            .setIn(['follow', 'artists'], fromJS({ '2': artist2 }))
+            .setIn(['follow', 'artists'], fromJS({ '2': reducedArtist(artist2) }))
 
         store.dispatch(actions.followArtist(artist1))
         store.dispatch(actions.followArtist(artist2))
