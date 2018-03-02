@@ -14,5 +14,5 @@ export const getLatestEventsSuccess = createAction('Get latest events success', 
 export const getRecentAlbums = createAction('Get recent albums')
 export const getRecentAlbumsSuccess = createAction('Get recent albums success', data => normalize(data, [ schemas['albums'] ]))
 
-export const getFollowedSongs = createAction('Get followed songs', (artists) => ({ artists }))
+export const getFollowedSongs = createAction('Get followed songs')
 export const getFollowedSongsSuccess = createAction('Get recent songs success', data => normalize(data, [ schemas['songs'] ]))

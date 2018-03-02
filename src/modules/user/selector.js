@@ -12,3 +12,9 @@ export const selectFollowedArtistsAsArray = () => createSelector(
     (followedArtists) => {
         return followedArtists.toList().toJS()
     })
+
+export const selectFollowedArtistIds = () => createSelector(
+    selectFollowedArtists(),
+    (followedArtists) => {
+        return followedArtists.toList().toJS().map(a => a.id)
+    })

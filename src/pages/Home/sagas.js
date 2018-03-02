@@ -1,4 +1,5 @@
-import { put, takeLatest, call } from 'redux-saga/effects'
+import { put, takeLatest, call, select } from 'redux-saga/effects'
+import { selectFollowedArtists } from './../../modules/user/selector'
 import * as actions from './actions'
 import * as globalActions from './../../actions'
 import api from './../../api'
@@ -41,8 +42,18 @@ const fetchRecentAlbums = function* fetchRecentAlbums() {
 
 const fetchFollowedSongs = function* fetchFollowedSongs(action) {
     try {
-        const response = yield call(api.songs.find, { 'sort': 'AdditionDate', 'fields': 'thumbUrl', 'artistId': action.payload.artists });
-        yield put(actions.getFollowedSongsSuccess(response.items));
+        let artistIds = yield select(selectFollowedArtists())
+
+        artistIds = artistIds.toList().toJS().map(a => a.id)
+
+        if(artistIds.length) {
+            const response = yield call(api.songs.find, { 'sort': 'AdditionDate', 'fields': 'thumbUrl', 'artistId': artistIds });
+            yield put(actions.getFollowedSongsSuccess(response.items));
+        } else {
+            yield put(actions.getFollowedSongsSuccess([]));
+        }
+
+
     } catch (e) {
         yield put(globalActions.requestError(e));
     }
