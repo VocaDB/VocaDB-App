@@ -1,13 +1,17 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import HomePage from './component'
-import * as actions from './actions'
 import { createSelector } from 'reselect';
-import { Button } from 'react-native'
 import Icon from './../../components/Icon'
-import { selectRecentSongs, selectPopularSongs, selectLatestEvents, selecrRefreshing, selectRecentAlbums, selectFollowedSongs } from './selector'
-import { selectUser, selectFollowedArtists } from './../../modules/user/selector'
 import { Page } from './../../AppNavigator'
+import { selectLatestSongs, selectFollowedSongs } from './../../modules/song/songSelector'
+import { selectLatestAlbums } from './../../modules/album/albumSelector'
+import { selectLatestReleaseEvents } from './../../modules/releaseEvent/releaseEventSelector'
+import { selectLoading } from './../../app/appSelector'
+import * as songActions from './../../modules/song/songActions'
+import * as albumActions from './../../modules/album/albumActions'
+import * as eventActions from './../../modules/releaseEvent/releaseEventActions'
+
 
 HomePage.navigationOptions = ({ navigation }) => ({
     title: 'Home',
@@ -22,15 +26,13 @@ HomePage.propTypes = {
 }
 
 const homeStateSelect = createSelector(
-    selectRecentSongs(),
-    selectPopularSongs(),
-    selecrRefreshing(),
-    selectLatestEvents(),
-    selectRecentAlbums(),
+    selectLatestSongs(),
+    selectLoading(),
+    selectLatestReleaseEvents(),
+    selectLatestAlbums(),
     selectFollowedSongs(),
-    (recentSongs, popularSongs, refreshing, latestEvents, recentAlbums, followedSongs) => ({
+    (recentSongs, refreshing, latestEvents, recentAlbums, followedSongs) => ({
         recentSongs,
-        popularSongs,
         refreshing,
         latestEvents,
         recentAlbums,
@@ -39,11 +41,10 @@ const homeStateSelect = createSelector(
 );
  
 const mapDispatchToProps = (dispatch, props) => ({
-    fetchRecentSongs: () => dispatch(actions.getRecentSongs()),
-    fetchPopularSongs: () => dispatch(actions.getPopularSongs()),
-    fetchLatestEvents: () => dispatch(actions.getLatestEvents()),
-    fetchRecentAlbums: () => dispatch(actions.getRecentAlbums()),
-    fetchFollowedSongs: () => dispatch(actions.getFollowedSongs()),
+    fetchRecentSongs: () => dispatch(songActions.fetchLatestSongs()),
+    fetchLatestEvents: () => dispatch(eventActions.fetchLatestReleaseEvents()),
+    fetchRecentAlbums: () => dispatch(albumActions.fetchLatestAlbums()),
+    fetchFollowedSongs: () => dispatch(songActions.fetchFollowedSongs()),
     onPressSong: song => props.navigation.navigate(Page.SongDetail, { id: song.id }),
     onPressAlbum: album => props.navigation.navigate(Page.AlbumDetail, { id: album.id }),
     onPressEvent: event => props.navigation.navigate(Page.SongDetail, { id: event.id, title: event.name }),

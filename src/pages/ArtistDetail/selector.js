@@ -7,7 +7,7 @@ import {
     selectWebLinkEntity,
     selectEventEntity
 } from './../../selectors'
-import { selectFollowedArtists } from './../../modules/user/selector'
+import { selectFollowedArtists } from '../../modules/user/userSelector'
 import { Map, List } from 'immutable'
 
 export const selectArtistDetail = () => (state) => state.get('artistDetail');

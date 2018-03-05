@@ -5,6 +5,10 @@ import { createSelector } from 'reselect';
 import * as actions from './actions'
 import { selectRefreshing, selectSongs } from './selector'
 
+import * as songActions from './../../modules/song/songActions'
+import { selectLatestSongs } from './../../modules/song/songSelector'
+import { selectLoading } from '../../app/appSelector'
+
 SongListPage.navigationOptions = ({ navigation }) => {
 
     const { params } = navigation.state;
@@ -15,14 +19,14 @@ SongListPage.navigationOptions = ({ navigation }) => {
 }
 
 const songListStateSelect = createSelector(
-    selectSongs(),
-    selectRefreshing(),
-    (songs, refreshing) => ({ songs, refreshing })
+    selectLatestSongs(),
+    selectLoading(),
+    (songs, loading) => ({ songs, loading })
 );
 
 
 const mapDispatchToProps = (dispatch, props) => ({
-    fetchSongs: params => dispatch(actions.getSongs(params)),
+    fetchSongs: params => dispatch(songActions.fetchLatestSongs()),
     onPressSong: song => props.navigation.navigate('SongDetail', { id: song.id }),
     onPressTag: tag => props.navigation.navigate('TagDetail', { id: tag.id })
 })

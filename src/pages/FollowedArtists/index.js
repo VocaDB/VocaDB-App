@@ -2,7 +2,6 @@ import React from 'react'
 import { connect } from 'react-redux'
 import FollowedArtistsPage from './component'
 import { createSelector } from 'reselect';
-import { selectFollowedArtistsAsArray } from './../../modules/user/selector'
 
 FollowedArtistsPage.navigationOptions = ({ navigation }) => {
 
@@ -13,14 +12,12 @@ FollowedArtistsPage.navigationOptions = ({ navigation }) => {
     }
 }
 
-const followedArtistsStateSelect = createSelector(
-    selectFollowedArtistsAsArray(),
-    (followedArtists) => ({ followedArtists })
-);
-
+const mapStateToProps = (state) => ({
+    followedArtists: []
+})
 
 const mapDispatchToProps = (dispatch, props) => ({
     onPressArtist: artist => props.navigation.navigate('ArtistDetail', { id: artist.id }),
 })
 
-export default connect(followedArtistsStateSelect, mapDispatchToProps)(FollowedArtistsPage)
+export default connect(mapStateToProps, mapDispatchToProps)(FollowedArtistsPage)

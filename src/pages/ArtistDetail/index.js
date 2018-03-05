@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import ArtistDetailPage from './component'
 import * as actions from './actions'
-import * as userActions from './../../modules/user/actions'
+import * as userActions from '../../modules/user/userActions'
 import { createSelector } from 'reselect';
 import { selectArtistResult, selectIsFollowedArtist } from './selector'
 import { Share } from 'react-native'

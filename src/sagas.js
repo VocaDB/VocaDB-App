@@ -7,6 +7,7 @@ import songListSagas from './pages/SongList/sagas'
 import searchSagas from './pages/Search/sagas'
 import tagDetailSagas from './pages/TagDetail/sagas'
 import eventDetailSagas from './pages/EventDetail/sagas'
+import songSagas from './modules/song/songSagas'
 
 const rootSaga = function* rootSaga() {
     yield all([
@@ -17,7 +18,8 @@ const rootSaga = function* rootSaga() {
         albumDetailSagas(),
         searchSagas(),
         tagDetailSagas(),
-        eventDetailSagas()
+        eventDetailSagas(),
+        songSagas()
     ])
 }
 

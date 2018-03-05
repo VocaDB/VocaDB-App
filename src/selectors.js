@@ -1,8 +1,8 @@
 import { createSelector } from 'reselect';
 import { Map } from 'immutable'
 
-export const selectEntities = () => (state) => state.get('entities');
-const createEntitySelector = name => () => createSelector(selectEntities(), entities => entities.get(name, Map({})))
+export const selectEntities = () => (state) => state.entities;
+const createEntitySelector = name => () => createSelector(selectEntities(), entities => (entities)? entities[name]: {})
 
 export const selectEntryEntity = createEntitySelector('entries')
 export const selectSongEntity = createEntitySelector('songs')

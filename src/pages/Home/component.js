@@ -20,7 +20,6 @@ export default class HomePage extends React.Component {
 
     refresh () {
         this.props.fetchRecentSongs()
-        this.props.fetchPopularSongs()
         this.props.fetchLatestEvents()
         this.props.fetchRecentAlbums()
         this.props.fetchFollowedSongs()

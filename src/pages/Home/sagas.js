@@ -1,5 +1,5 @@
 import { put, takeLatest, call, select } from 'redux-saga/effects'
-import { selectFollowedArtists } from './../../modules/user/selector'
+import { selectFollowedArtists } from '../../modules/user/userSelector'
 import * as actions from './actions'
 import * as globalActions from './../../actions'
 import api from './../../api'

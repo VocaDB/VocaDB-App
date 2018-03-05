@@ -1,9 +1,9 @@
 import { createSelector } from 'reselect';
 import { selectSongEntity } from './../../selectors'
 
-const selectHome = () => (state) => state.get('songList');
-const selectSongsResult = () => createSelector(selectHome(), home => home.get('songs', []))
-const selectRefreshing = () => createSelector(selectHome(), home => home.get('refreshing', false))
+const selectHome = () => (state) => state.songList;
+const selectSongsResult = () => createSelector(selectHome(), home => home.songs)
+const selectRefreshing = () => createSelector(selectHome(), home => home.refreshing)
 
 const selectSongs = () => createSelector(
     selectSongEntity(),
@@ -12,7 +12,7 @@ const selectSongs = () => createSelector(
         if(!songsResult) {
             return [];
         }
-        return songsResult.map(id => songs.get(id.toString())).toJS();
+        return songsResult.map(id => songs[id.toString()]);
     }
 );
 
