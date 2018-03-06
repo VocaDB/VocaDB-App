@@ -18,6 +18,33 @@ describe('Test song selector', () => {
         song1 = mockGenerator.CreateSong({ id: 1 })
         song2 = mockGenerator.CreateSong({ id: 2 })
 
+        let webLink1 = mockGenerator.CreateWebLink({ id: 1 })
+        let webLink2 = mockGenerator.CreateWebLink({ id: 2 })
+
+        let tag1 = mockGenerator.CreateTag({ id: 1 })
+        let tag2 = mockGenerator.CreateTag({ id: 2 })
+
+        let artist1 = mockGenerator.CreateArtist({ id: 1 })
+        let artist2 = mockGenerator.CreateArtist({ id: 2 })
+
+        let album1 = mockGenerator.CreateAlbum({ id: 1 })
+
+        let artistRole1 = mockGenerator.CreateArtistRole({ id: 1 })
+        artistRole1.artist = artist1
+
+        let artistRole2 = mockGenerator.CreateArtistRole({ id: 2 })
+        artistRole2.artist = artist2
+
+        song1.artists.push(artistRole1)
+        song1.artists.push(artistRole2)
+        song1.albums.push(album1.id)
+        song1.tags.push({ count: 1, tag: tag1 })
+        song1.tags.push({ count: 2, tag: tag2 })
+
+        song2.artists.push(artistRole2)
+        song2.webLinks.push(webLink1)
+        song2.webLinks.push(webLink2)
+
         entities = {
             songs: {
                 '1': song1,

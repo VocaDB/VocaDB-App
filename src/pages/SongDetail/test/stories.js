@@ -25,4 +25,33 @@ storiesOf('Pages/SongDetail', module)
             onPressAlbum={action('Press album')}
             onPressTag={action('Press tag')}
         />
+    ))
+    .add('empty', () => (
+        <SongDetail
+            id={0}
+            fetchSong={action('Fetch song')}
+            song={{}}
+            onPressLine={action('Press like')}
+            onPressShare={action('Press share')}
+            onPressWebLink={action('Press web link')}
+            onPressArtist={action('Press artist')}
+            onPressAlbum={action('Press album')}
+            onPressTag={action('Press tag')}
+        />
+    ))
+    .add('loading', () => (
+        <SongDetail
+            id={1032}
+            loading={true}
+            fetchSong={action('Fetch song')}
+            song={mockSong}
+            artists={artists}
+            navigation={{ navigate, state : { params: { id: 1 } } }}
+            onPressLine={action('Press like')}
+            onPressShare={action('Press share')}
+            onPressWebLink={action('Press web link')}
+            onPressArtist={action('Press artist')}
+            onPressAlbum={action('Press album')}
+            onPressTag={action('Press tag')}
+        />
     ));

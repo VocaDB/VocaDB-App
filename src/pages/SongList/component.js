@@ -41,10 +41,10 @@ export default class SongListPage extends React.Component {
                 onPressItem={this.props.onPressSong}
                 refreshing={this.props.loading}
                 onRefresh={this.refresh.bind(this)}
-                // onEndReached={() => {
-                //     const requestParams = this.getNavigationParams()
-                //     this.props.fetchSongs({ ...requestParams, start: this.props.songs.length })
-                // }}
+                onEndReached={() => {
+                    const requestParams = this.getNavigationParams()
+                    this.props.fetchSongs({ ...requestParams, start: this.props.songs.length })
+                }}
                 hideMoreButton={true} />
 
         )

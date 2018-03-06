@@ -2,6 +2,8 @@ import { combineReducers } from 'redux'
 import song from '../modules/song/songReducer'
 import album from '../modules/album/albumReducer'
 import artist from '../modules/artist/artistReducer'
+import user from '../modules/user/userReducer'
+import entry from '../modules/entry/entryReducer'
 import releaseEvent from '../modules/releaseEvent/releaseEventReducer'
 import merge from "lodash/merge";
 
@@ -21,7 +23,9 @@ const rootReducer = combineReducers({
     song,
     album,
     artist,
-    releaseEvent
+    releaseEvent,
+    user,
+    entry
 })
 
 export default rootReducer

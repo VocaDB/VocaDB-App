@@ -1,10 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import ArtistDetailPage from './component'
-import * as actions from './actions'
-import * as userActions from '../../modules/user/userActions'
+import * as artistActions from '../../modules/artist/artistActions'
+import { selectArtistDetail, selectFollowedArtistIds, selectIsFollowedArtist } from '../../modules/artist/artistSelector'
 import { createSelector } from 'reselect';
-import { selectArtistResult, selectIsFollowedArtist } from './selector'
 import { Share } from 'react-native'
 
 ArtistDetailPage.navigationOptions = () => ({
@@ -16,15 +15,24 @@ ArtistDetailPage.propTypes = {
 }
 
 const artistDetailStateSelect = createSelector(
-    selectArtistResult(),
+    selectFollowedArtistIds(),
+    selectArtistDetail(),
     selectIsFollowedArtist(),
-    (artist, followed) => ({ artist, followed })
-);
+    (followedArtistIds, artist, isFollowed) => {
+        return {
+            artist,
+            followedArtistIds,
+            followed: isFollowed
+        }
+    })
+
 
 const mapDispatchToProps = (dispatch, props) => ({
-    fetchArtist: id => dispatch(actions.getArtist(id)),
-    onPressFollow: artist => dispatch(userActions.followArtist(artist)),
-    onPressUnFollow: artist => dispatch(userActions.unFollowArtist(artist)),
+    fetchArtist: id => dispatch(artistActions.fetchArtistDetail(id)),
+    onPressFollow: artist => {
+        dispatch(artistActions.followArtist(artist))
+    },
+    onPressUnFollow: artist => dispatch(artistActions.unFollowArtist(artist)),
     onPressShare: artist => {
         const url = 'http://vocadb.net/Ar/' + artist.id
         Share.share({

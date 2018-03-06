@@ -21,12 +21,14 @@ class AlbumDetailPage extends React.Component {
 
     render () {
 
-        const { params } = this.props.navigation.state;
-        const imageUri = images.getAlbumUri(params.id)
-
         const album = this.props.album
 
-        console.log(album)
+        if(!album) {
+            return (<View></View>)
+        }
+
+        const { params } = this.props.navigation.state;
+        const imageUri = images.getAlbumUri(params.id)
 
         const Section = props => (<View style={[{ marginVertical: 8, paddingHorizontal: 4 },props.style]}>{props.children}</View>)
 
@@ -73,10 +75,10 @@ class AlbumDetailPage extends React.Component {
                     <Icon name='md-information-circle'  text='Report' />
                 </Section>
 
-                {album.tags.length > 0 && renderTagGroup()}
-                {album.description > 0 && renderDescription()}
-                {album.tracks.length > 0 && renderTracks()}
-                {album.webLinks.length > 0 && renderWebLinks()}
+                {album.tags != undefined && renderTagGroup()}
+                {album.description != undefined && renderDescription()}
+                {album.tracks != undefined && renderTracks()}
+                {album.webLinks != undefined && renderWebLinks()}
 
             </Content>
         )

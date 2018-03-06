@@ -1,10 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import AlbumDetailPage from './component'
-import * as actions from './actions'
 import { createSelector } from 'reselect';
-import { selectAlbumResult } from './selector'
 import { Share } from 'react-native'
+import { selectAlbumDetail } from './../../modules/album/albumSelector'
+import { fetchAlbumDetail } from './../../modules/album/albumActions'
 
 AlbumDetailPage.navigationOptions = () => ({
     title: 'Album',
@@ -15,12 +15,12 @@ AlbumDetailPage.propTypes = {
 }
 
 const albumDetailStateSelect = createSelector(
-    selectAlbumResult(),
+    selectAlbumDetail(),
     (album) => ({ album })
 );
 
 const mapDispatchToProps = (dispatch, props) => ({
-    fetchAlbum: id => dispatch(actions.getAlbum(id)),
+    fetchAlbum: id => dispatch(fetchAlbumDetail(id)),
     onPressShare: album => {
         const url = 'http://vocadb.net/Al/' + album.id
         Share.share({

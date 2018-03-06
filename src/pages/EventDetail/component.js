@@ -17,6 +17,11 @@ class EventDetailPage extends React.Component {
 
     render () {
         const event = this.props.event
+
+        if(!event) {
+            return (<View></View>)
+        }
+
         const webLinks = (event.webLinks)? event.webLinks : []
         const imageUrl = (event.mainPicture) ? event.mainPicture.urlThumb.replace('mainThumb', 'mainOrig')
             : 'http://via.placeholder.com/350x150/000000/ffffff/NO_IMAGE';

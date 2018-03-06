@@ -2,8 +2,14 @@ import React from 'react'
 import { connect } from 'react-redux'
 import TagDetailPage from './component'
 import { createSelector } from 'reselect';
-import * as actions from './actions'
-import { selectLoading, selectTag, selectTopSongs, selectTopAlbums, selectTopArtists } from './selector'
+import * as actions from './../../modules/tag/tagActions'
+import {
+    selectTagDetail,
+    selectTopSongs,
+    selectTopArtists,
+    selectTopAlbums
+} from './../../modules/tag/tagSelector'
+import { selectLoading } from './../../app/appSelector'
 
 TagDetailPage.navigationOptions = ({ navigation }) => {
 
@@ -15,7 +21,7 @@ TagDetailPage.navigationOptions = ({ navigation }) => {
 }
 
 const tagStateSelect = createSelector(
-    selectTag(),
+    selectTagDetail(),
     selectLoading(),
     selectTopSongs(),
     selectTopAlbums(),
@@ -25,10 +31,10 @@ const tagStateSelect = createSelector(
 
 
 const mapDispatchToProps = (dispatch, props) => ({
-    fetchTag: id => dispatch(actions.getTag(id)),
-    fetchTopSongs: tagId => dispatch(actions.getTopSongs(tagId)),
-    fetchTopArtists: tagId => dispatch(actions.getTopArtists(tagId)),
-    fetchTopAlbums: tagId => dispatch(actions.getTopAlbums(tagId)),
+    fetchTag: id => dispatch(actions.fetchTagDetail(id)),
+    fetchTopSongs: tagId => dispatch(actions.fetchTopSongsByTag(tagId)),
+    fetchTopArtists: tagId => dispatch(actions.fetchTopArtistsByTag(tagId)),
+    fetchTopAlbums: tagId => dispatch(actions.fetchTopAlbumsByTag(tagId)),
     onPressSong: song => props.navigation.navigate('SongDetail', { id: song.id }),
     onPressArtist: artist => props.navigation.navigate('ArtistDetail', { id: artist.id }),
     onPressAlbum: album => props.navigation.navigate('AlbumDetail', { id: album.id }),

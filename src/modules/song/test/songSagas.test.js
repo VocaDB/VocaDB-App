@@ -1,4 +1,4 @@
-import { fetchLatestSongs, fetchFollowedSongs, fetchSongDetail } from './../songSagas'
+import { fetchSearchSongs, fetchLatestSongs, fetchFollowedSongs, fetchSongDetail } from './../songSagas'
 import api from './../songApi'
 import { call, put, select } from 'redux-saga/effects'
 import * as actions from './../songActions'
@@ -7,6 +7,34 @@ import * as mock from './../../../helper/mockGenerator'
 import { selectFollowedArtistIds } from './../../user/userSelector'
 
 describe('Test song sagas', () => {
+    it('Should fetch search song success', () => {
+        const params = { artistIds: [ 1, 2 ] }
+        const action = actions.fetchSearchSongs(params)
+        const gen = fetchSearchSongs(action)
+
+        expect(gen.next().value).toEqual(call(api.find, params));
+
+        const mockSongItems = [ mock.CreateSong() ]
+        const mockResponse = { items: mockSongItems }
+        expect(gen.next(mockResponse).value).toEqual(put(actions.fetchSearchSongsSuccess(mockSongItems, false)));
+
+        expect(gen.next().done).toBeTruthy();
+    })
+
+    it('Should fetch search song success with append', () => {
+        const params = { artistIds: [ 1, 2 ], start: 20 }
+        const action = actions.fetchSearchSongs(params)
+        const gen = fetchSearchSongs(action)
+
+        expect(gen.next().value).toEqual(call(api.find, params));
+
+        const mockSongItems = [ mock.CreateSong() ]
+        const mockResponse = { items: mockSongItems }
+        expect(gen.next(mockResponse).value).toEqual(put(actions.fetchSearchSongsSuccess(mockSongItems, true)));
+
+        expect(gen.next().done).toBeTruthy();
+    })
+
     it('Should fetch song success', () => {
         const action = actions.fetchLatestSongs()
         const gen = fetchLatestSongs(action)

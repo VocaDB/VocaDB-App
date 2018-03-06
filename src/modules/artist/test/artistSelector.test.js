@@ -1,7 +1,8 @@
 import {
     selectArtist,
     selectArtistEntity,
-    selectArtistDetail } from './../artistSelector'
+    selectArtistDetail,
+    selectIsFollowedArtist } from './../artistSelector'
 import * as mockGenerator from './../../../helper/mockGenerator'
 
 describe('Test artist selector', () => {
@@ -52,5 +53,31 @@ describe('Test artist selector', () => {
 
         expect(actualResult).toBeTruthy();
         expect(actualResult).toEqual(expectedResult)
+    })
+
+    it('should return followed artist is true', () => {
+        state.artist.detail = artist1.id
+        state.user = {
+            followedArtists: [ 5, 4, 3, 2, 1 ]
+        }
+
+        const actualResult = selectIsFollowedArtist()(state);
+
+        expect(actualResult).toBeTruthy();
+    })
+
+    it('should return followed artist is false', () => {
+        let actualResult = selectIsFollowedArtist()(state);
+
+        expect(actualResult).toEqual(false);
+
+        state.artist.detail = artist1.id
+        state.user = {
+            followedArtists: [ 5, 4, 3, 2 ]
+        }
+
+        actualResult = selectIsFollowedArtist()(state);
+
+        expect(actualResult).toEqual(false);
     })
 })

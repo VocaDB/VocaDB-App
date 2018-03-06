@@ -2,8 +2,9 @@ import React from 'react'
 import { connect } from 'react-redux'
 import EventDetailPage from './component'
 import { createSelector } from 'reselect';
-import * as actions from './actions'
-import { selectLoading, selectEvent } from './selector'
+import { fetchReleaseEventDetail } from './../../modules/releaseEvent/releaseEventActions'
+import { selectReleaseEventDetail } from './../../modules/releaseEvent/releaseEventSelector'
+import { selectLoading } from './../../app/appSelector'
 import { Linking } from 'react-native'
 
 EventDetailPage.navigationOptions = ({ navigation }) => {
@@ -16,14 +17,14 @@ EventDetailPage.navigationOptions = ({ navigation }) => {
 }
 
 const tagStateSelect = createSelector(
-    selectEvent(),
+    selectReleaseEventDetail(),
     selectLoading(),
     (event, loading) => ({ event, loading })
 );
 
 
 const mapDispatchToProps = (dispatch, props) => ({
-    fetchEvent: id => dispatch(actions.getEvent(id)),
+    fetchEvent: id => dispatch(fetchReleaseEventDetail(id)),
     onPressDate: date => console.log(date),
     onPressLocation: location => console.log(location),
     onPressWebsite: url => Linking.openURL(url).catch(err => console.error('An error occurred', err))

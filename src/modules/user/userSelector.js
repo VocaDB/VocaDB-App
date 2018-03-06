@@ -1,16 +1,24 @@
 import { createSelector } from 'reselect';
 
-export const selectUser = () => (state) => state.user;
+export const selectUser = () => (state) => {
+    console.log('selectUser')
+    console.log(state.user)
+    return state.user;
+}
 
-export const selectArtistEntity = () => state => state.entities.artists
+export const selectArtistEntity = () => state => (state.entities && state.entities.artists) ? state.entities.artists : []
 
 export const selectFollowedArtistIds = () => createSelector(
     selectUser(),
-    userState => userState.followedArtists
+    userState => {
+        console.log('selectFollowedArtistIds')
+        console.log(userState)
+        return userState.followedArtists
+    }
 )
 
 export const selectFollowedArtists = () => createSelector(
     selectUser(),
     selectArtistEntity(),
-    (userState, artistEntity) => userState.followedArtists.map(id => artistEntity[id.toString()])
+    (userState, artistEntity) => (userState && artistEntity)? userState.followedArtists.map(id => artistEntity[id.toString()]) : []
 )

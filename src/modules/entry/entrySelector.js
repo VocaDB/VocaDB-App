@@ -6,6 +6,8 @@ export const selectQuery = () => createSelector(
     selectEntry(),
     entry => entry.query
 )
+export const selectSearching = () => createSelector(selectQuery(), query => (query) ? true : false)
+
 export const selectEntryIds = () => createSelector(
     selectEntry(),
     entry => entry.entries
@@ -30,4 +32,10 @@ export const selectRecent = () => createSelector(
     (entryIds, entryEntity) => entryIds
         .filter(id => (id != undefined && entryEntity[id.toString()]))
         .map(id => entryEntity[id.toString()])
+)
+
+export const selectHasResult = () => createSelector(
+    selectSearching(),
+    selectEntries(),
+    (searching, entries) => (searching && entries.length > 0) ? true : false
 )

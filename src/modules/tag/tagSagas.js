@@ -17,10 +17,41 @@ const fetchTagDetail = function* fetchLatestTags(action) {
     }
 }
 
-const tagSaga = function* tagSagaAsync() {
-    yield takeLatest(actions.fetchTagDetail, fetchTagDetail)
+const fetchTopSongsByTag = function* fetchTopSongs(action) {
+    try {
+        const response = yield call(api.getTopSongsByTag, action.payload.tagId);
+        yield put(actions.fetchTopSongsByTagSuccess(response.items));
+    } catch (e) {
+        yield put(appActions.requestError(e));
+    }
 }
 
-export { fetchTagDetail }
+const fetchTopArtistsByTag = function* fetchTopArtistsByTag(action) {
+    try {
+        const response = yield call(api.getTopArtistsByTag, action.payload.tagId);
+        yield put(actions.fetchTopArtistsByTagSuccess(response.items));
+    } catch (e) {
+        yield put(appActions.requestError(e));
+    }
+}
+
+const fetchTopAlbumsByTag = function* fetchTopAlbumsByTag(action) {
+    try {
+        const response = yield call(api.getTopAlbumsByTag, action.payload.tagId);
+        yield put(actions.fetchTopAlbumsByTagSuccess(response.items));
+    } catch (e) {
+        yield put(appActions.requestError(e));
+    }
+}
+
+const tagSaga = function* tagSagaAsync() {
+    yield takeLatest(actions.fetchTagDetail, fetchTagDetail)
+    yield takeLatest(actions.fetchTopSongsByTag, fetchTopSongsByTag)
+    yield takeLatest(actions.fetchTopArtistsByTag, fetchTopArtistsByTag)
+    yield takeLatest(actions.fetchTopAlbumsByTag, fetchTopAlbumsByTag)
+
+}
+
+export { fetchTagDetail, fetchTopSongsByTag, fetchTopArtistsByTag, fetchTopAlbumsByTag}
 
 export default tagSaga

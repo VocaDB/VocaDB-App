@@ -2,7 +2,18 @@ import { put, takeLatest, call, select } from 'redux-saga/effects'
 import * as actions from './songActions'
 import * as appActions from '../../app/appActions'
 import api from './songApi'
-import { selectFollowedArtistIds } from './../user/userSelector'
+import { selectFollowedArtistIds } from './../artist/artistSelector'
+
+const fetchSearchSongs = function* fetchSearchSongs(action) {
+    try {
+        const params = action.payload.params
+        const response = yield call(api.find, params);
+        let append = (params.start) ? true : false
+        yield put(actions.fetchSearchSongsSuccess(response.items, append));
+    } catch (e) {
+        yield put(appActions.requestError(e));
+    }
+}
 
 const fetchLatestSongs = function* fetchLatestSongs() {
     try {
@@ -50,8 +61,10 @@ const songSaga = function* songSagaAsync() {
     yield takeLatest(actions.fetchLatestSongs, fetchLatestSongs)
     yield takeLatest(actions.fetchFollowedSongs, fetchFollowedSongs)
     yield takeLatest(actions.fetchSongDetail, fetchSongDetail)
+    yield takeLatest(actions.fetchSongDetail, fetchSongDetail)
+    yield takeLatest(actions.fetchSearchSongs, fetchSearchSongs)
 }
 
-export { fetchLatestSongs, fetchFollowedSongs, fetchSongDetail }
+export { fetchSearchSongs, fetchLatestSongs, fetchFollowedSongs, fetchSongDetail }
 
 export default songSaga

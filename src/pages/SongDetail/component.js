@@ -26,6 +26,12 @@ export default class SongDetailPage extends React.Component {
     render () {
         const song = this.props.song
 
+        if(!song) {
+            return (<View>
+                <Text></Text>
+            </View>)
+        }
+
 
         const Section = props => (<View style={[{ paddingHorizontal: 4 },props.style]}>{props.children}</View>)
 

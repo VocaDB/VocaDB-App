@@ -19,6 +19,34 @@ describe('Test song reducer', () => {
         expect(nextState.a).toBeTruthy()
     })
 
+    it('should return state correctly when fetch search songs success', () => {
+        const mockResponse = [ song1, song2 ]
+        const expectedResult = [ song1.id, song2.id ]
+        let currentState = {
+            searchResult: [ 3, 4 ]
+        }
+
+        let nextState = reducer(currentState, actions.fetchSearchSongsSuccess(mockResponse))
+
+        expect(nextState).toBeTruthy()
+        expect(nextState.searchResult).toBeTruthy()
+        expect(nextState.searchResult).toEqual(expectedResult)
+    })
+
+    it('should append search result', () => {
+        const mockResponse = [ song1, song2 ]
+        const expectedResult = [ 3, 4, song1.id, song2.id ]
+        let currentState = {
+            searchResult: [ 3, 4 ]
+        }
+
+        let nextState = reducer(currentState, actions.fetchSearchSongsSuccess(mockResponse, true))
+
+        expect(nextState).toBeTruthy()
+        expect(nextState.searchResult).toBeTruthy()
+        expect(nextState.searchResult).toEqual(expectedResult)
+    })
+
     it('should return state correctly when fetch latest songs success', () => {
         const mockResponse = [ song1, song2 ]
         const expectedResult = [ song1.id, song2.id ]
@@ -39,17 +67,5 @@ describe('Test song reducer', () => {
         expect(nextState).toBeTruthy()
         expect(nextState.followed).toBeTruthy()
         expect(nextState.followed).toEqual(expectedResult)
-    })
-
-    it('should return state correctly when fetch song detail success', () => {
-        const song1 = mockGenerator.CreateSong({ id: 1 })
-        const mockResponse = song1
-        const expectedResult = song1.id
-
-        let nextState = reducer({}, actions.fetchSongDetailSuccess(mockResponse))
-
-        expect(nextState).toBeTruthy()
-        expect(nextState.detail).toBeTruthy()
-        expect(nextState.detail).toEqual(expectedResult)
     })
 })

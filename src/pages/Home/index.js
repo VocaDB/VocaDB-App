@@ -47,7 +47,7 @@ const mapDispatchToProps = (dispatch, props) => ({
     fetchFollowedSongs: () => dispatch(songActions.fetchFollowedSongs()),
     onPressSong: song => props.navigation.navigate(Page.SongDetail, { id: song.id }),
     onPressAlbum: album => props.navigation.navigate(Page.AlbumDetail, { id: album.id }),
-    onPressEvent: event => props.navigation.navigate(Page.SongDetail, { id: event.id, title: event.name }),
+    onPressEvent: event => props.navigation.navigate(Page.EventDetail, { id: event.id, title: event.name }),
     onPressMoreRecentSongs: () => props.navigation.navigate(Page.SongList, {
         title: 'Recent songs',
         params: {

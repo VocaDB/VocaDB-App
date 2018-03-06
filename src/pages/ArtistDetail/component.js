@@ -23,11 +23,16 @@ class ArtistDetailPage extends React.Component {
     }
 
     render () {
-
+        const artist = this.props.artist
         const { params } = this.props.navigation.state;
         const imageUri = images.getArtistUri(params.id)
 
-        const artist = this.props.artist
+        if(!artist) {
+            return (<View></View>)
+        }
+
+        console.log('is followed')
+        console.log(this.props.followed);
 
         const Section = props => (<View style={[{ marginVertical: 8, paddingHorizontal: 4 },props.style]}>{props.children}</View>)
 
@@ -67,9 +72,9 @@ class ArtistDetailPage extends React.Component {
                     <Icon name='md-chatbubbles' text='Comment' />
                     <Icon name='md-information-circle'  text='Report' />
                 </Section>
-                {artist.tags.length > 0 && renderTagGroup()}
+                {artist.tags != undefined && renderTagGroup()}
                 {artist.description != undefined && renderDescription()}
-                {artist.webLinks.length > 0 && renderWebLink()}
+                {artist.webLinks != undefined && renderWebLink()}
             </Content>
         )
 
@@ -93,9 +98,9 @@ class ArtistDetailPage extends React.Component {
             )
 
             return (<Content>
-                {artist.latestSongs.length > 0 && renderLatestSongs()}
-                {artist.latestSongs.length > 0 && artist.popularSongs.length > 0 && <Divider />}
-                {artist.popularSongs.length > 0 && renderPopularSongs()}
+                {artist.latestSongs != undefined && renderLatestSongs()}
+                {artist.latestSongs != undefined && artist.popularSongs != undefined && <Divider />}
+                {artist.popularSongs != undefined && renderPopularSongs()}
             </Content>)
         }
 
@@ -110,9 +115,9 @@ class ArtistDetailPage extends React.Component {
             )
             return (
                 <Content>
-                    {artist.latestAlbums.length > 0 && renderLatestAlbum()}
-                    {artist.latestAlbums.length > 0 && artist.popularAlbums.length > 0 && <Divider />}
-                    {artist.popularAlbums.length > 0 && renderPopularAlbum()}
+                    {artist.latestAlbums != undefined && renderLatestAlbum()}
+                    {artist.latestAlbums != undefined && artist.popularAlbums != undefined && <Divider />}
+                    {artist.popularAlbums != undefined && renderPopularAlbum()}
                 </Content>
             )
         }
@@ -129,8 +134,8 @@ class ArtistDetailPage extends React.Component {
             <ScrollableTabView>
                 <InfoPage tabLabel='Info' />
                 <SongListPage tabLabel='Songs' />
-                {artist.latestAlbums.length > 0 || artist.popularAlbums.length > 0 && <AlbumListPage tabLabel='Albums' />}
-                {artist.latestEvents.length > 0 && <EventListPage tabLabel='Events' />}
+                {artist.latestAlbums != undefined || artist.popularAlbums != undefined && <AlbumListPage tabLabel='Albums' />}
+                {artist.latestEvents != undefined && <EventListPage tabLabel='Events' />}
             </ScrollableTabView>
         )
     }
