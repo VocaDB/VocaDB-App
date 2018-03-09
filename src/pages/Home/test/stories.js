@@ -17,12 +17,14 @@ storiesOf('Pages/Home', module)
             popularSongs={popularSongs}
             popularAlbums={popularAlbums}
             latestEvents={latestEvents}
+            recentAlbums={popularAlbums}
             onPressSong={action('Select song')}
             onPressAlbum={action('Select album')}
             fetchRecentSongs={action('Fetch recent songs')}
             fetchPopularSongs={action('Fetch popular songs')}
             fetchLatestEvents={action('Fetch latest events')}
             fetchRecentAlbums={action('Fetch recent albums')}
+            fetchFollowedSongs={action('Fetch followed songs')}
             navigation={{ navigate }}
         />
     ));

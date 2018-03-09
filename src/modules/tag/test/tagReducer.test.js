@@ -1,6 +1,6 @@
 import reducer from './../tagReducer'
 import * as actions from './../tagActions'
-import * as mockGenerator from './../../../helper/mockGenerator'
+import * as mockGenerator from '../../../common/helper/mockGenerator'
 
 describe('Test tag reducer', () => {
 

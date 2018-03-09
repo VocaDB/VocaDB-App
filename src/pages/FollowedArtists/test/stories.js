@@ -4,7 +4,7 @@ import { storiesOf } from '@storybook/react-native';
 import { action } from '@storybook/addon-actions';
 
 import FollowedArtistsPage from '../component'
-import * as mockGenerator from './../../../helper/mockGenerator'
+import * as mockGenerator from '../../../common/helper/mockGenerator'
 
 const artist1 = mockGenerator.CreateArtist({ id: 1 })
 const artist2 = mockGenerator.CreateArtist({ id: 2 })

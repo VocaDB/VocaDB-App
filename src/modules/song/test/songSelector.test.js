@@ -4,7 +4,7 @@ import {
     selectSongEntity,
     selectFollowedSongs,
     selectSongDetail } from './../songSelector'
-import * as mockGenerator from './../../../helper/mockGenerator'
+import * as mockGenerator from '../../../common/helper/mockGenerator'
 
 describe('Test song selector', () => {
 

@@ -1,5 +1,5 @@
 import * as actions from "../tagActions";
-import * as mockGenerator from './../../../helper/mockGenerator';
+import * as mockGenerator from '../../../common/helper/mockGenerator';
 
 describe('Test tag action', () => {
     it('should create fetch tag detail action', () => {

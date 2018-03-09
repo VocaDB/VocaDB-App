@@ -2,7 +2,7 @@ import React from 'react'
 import { Text, TouchableOpacity, StyleSheet, View, Image } from 'react-native'
 import IconVector from 'react-native-vector-icons/Ionicons';
 import PropTypes from 'prop-types';
-import IconSites from './../../assets/iconSites'
+import IconSites from '../../common/assets/iconSites'
 
 class Icon extends React.Component {
 

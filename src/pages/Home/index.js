@@ -39,12 +39,13 @@ const homeStateSelect = createSelector(
         followedSongs
     })
 );
- 
+
 const mapDispatchToProps = (dispatch, props) => ({
     fetchRecentSongs: () => dispatch(songActions.fetchLatestSongs()),
     fetchLatestEvents: () => dispatch(eventActions.fetchLatestReleaseEvents()),
     fetchRecentAlbums: () => dispatch(albumActions.fetchLatestAlbums()),
     fetchFollowedSongs: () => dispatch(songActions.fetchFollowedSongs()),
+    onPressSongSearch: () => props.navigation.navigate(Page.SongList, { searchable: true, hideHeader: true }),
     onPressSong: song => props.navigation.navigate(Page.SongDetail, { id: song.id }),
     onPressAlbum: album => props.navigation.navigate(Page.AlbumDetail, { id: album.id }),
     onPressEvent: event => props.navigation.navigate(Page.EventDetail, { id: event.id, title: event.name }),

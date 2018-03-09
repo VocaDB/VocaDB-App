@@ -1,4 +1,4 @@
-import api from './../../api'
+import api from '../../common/api'
 
 const albumApi = {
     getRecentAlbums: () => api.albums.find({ 'sort': 'AdditionDate' }),

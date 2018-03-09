@@ -1,5 +1,5 @@
 import * as actions from '../entryActions';
-import * as mockGenerator from './../../../helper/mockGenerator'
+import * as mockGenerator from '../../../common/helper/mockGenerator'
 
 describe('Test entry action', () => {
     it('should create clear search action', () => {

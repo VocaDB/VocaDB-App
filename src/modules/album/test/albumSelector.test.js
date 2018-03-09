@@ -3,7 +3,7 @@ import {
     selectLatestAlbums,
     selectAlbumEntity,
     selectAlbumDetail } from './../albumSelector'
-import * as mockGenerator from './../../../helper/mockGenerator'
+import * as mockGenerator from '../../../common/helper/mockGenerator'
 
 describe('Test album selector', () => {
 

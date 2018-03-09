@@ -1,7 +1,7 @@
 import React from 'react'
-import { View, Text, Image, Linking } from 'react-native'
+import { View, Text, Image } from 'react-native'
 import Icon from './../../components/Icon'
-import { ListItem, Button } from 'react-native-material-ui';
+import { ListItem } from 'react-native-material-ui';
 import Content from './../../components/Content'
 import Theme from './../../theme'
 import moment from 'moment'

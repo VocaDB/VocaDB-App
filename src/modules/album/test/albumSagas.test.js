@@ -3,7 +3,7 @@ import api from './../albumApi'
 import { call, put } from 'redux-saga/effects'
 import * as actions from './../albumActions'
 import * as appActions from './../../../app/appActions'
-import * as mock from './../../../helper/mockGenerator'
+import * as mock from '../../../common/helper/mockGenerator'
 
 describe('Test album sagas', () => {
     it('Should fetch album success', () => {

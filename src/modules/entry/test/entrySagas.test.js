@@ -3,7 +3,7 @@ import api from './../entryApi'
 import { call, put } from 'redux-saga/effects'
 import { delay } from 'redux-saga'
 import * as actions from './../entryActions'
-import * as mock from './../../../helper/mockGenerator'
+import * as mock from '../../../common/helper/mockGenerator'
 
 describe('Test entry sagas', () => {
     it('Should search entries success', () => {

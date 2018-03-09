@@ -3,7 +3,7 @@ import {
     selectLatestReleaseEvents,
     selectReleaseEventEntity,
     selectReleaseEventDetail } from './../releaseEventSelector'
-import * as mockGenerator from './../../../helper/mockGenerator'
+import * as mockGenerator from '../../../common/helper/mockGenerator'
 
 describe('Test releaseEvent selector', () => {
 

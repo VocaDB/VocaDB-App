@@ -1,4 +1,4 @@
-import api from './../../api'
+import api from '../../common/api'
 
 const songApi = {
     find: params => api.songs.find(params),

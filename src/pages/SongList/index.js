@@ -6,13 +6,22 @@ import * as songActions from './../../modules/song/songActions'
 import { selectSearchResult } from './../../modules/song/songSelector'
 import { selectLoading } from '../../app/appSelector'
 
+
+SongListPage.modalVisible = true
+
 SongListPage.navigationOptions = ({ navigation }) => {
 
     const { params } = navigation.state;
 
-    return {
+    const navOptions = {
         title: params ? params.title : 'Songs',
     }
+
+    if(params.hideHeader) {
+        navOptions.header = null
+    }
+
+    return navOptions
 }
 
 const songListStateSelect = createSelector(
@@ -24,6 +33,7 @@ const songListStateSelect = createSelector(
 
 const mapDispatchToProps = (dispatch, props) => ({
     fetchSongs: params => dispatch(songActions.fetchSearchSongs(params)),
+    back: () => props.navigation.goBack(),
     onPressSong: song => props.navigation.navigate('SongDetail', { id: song.id }),
     onPressTag: tag => props.navigation.navigate('TagDetail', { id: tag.id })
 })

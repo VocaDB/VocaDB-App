@@ -1,16 +1,24 @@
 import React from 'react'
-import { RefreshControl, ScrollView, View, Text } from 'react-native'
-import SongList from './../../components/SongList'
+import { RefreshControl, ScrollView, View, Text, Button, Modal } from 'react-native'
+import Icon from './../../components/Icon'
+import Page from './../../components/Page'
+import Content from './../../components/Content'
+import SearchBar from './../../components/SearchBar'
+import SongList from '../../modules/song/SongList'
+import ArtistSelectModal from '../../modules/artist/ArtistSelectModal'
+import Theme from './../../theme'
 
 export default class SongListPage extends React.Component {
 
+    constructor(props) {
+        super(props)
+    }
+
     componentDidMount () {
-        console.log('ComponentDidMount')
         this.refresh()
     }
 
     refresh() {
-        console.log('Try to Refresh')
         const requestParams = this.getNavigationParams()
         this.props.fetchSongs({ ...requestParams })
     }
@@ -23,15 +31,7 @@ export default class SongListPage extends React.Component {
         }
     }
 
-    // render () {
-    //     return (
-    //         <View>
-    //             <Text>ABC</Text>
-    //         </View>
-    //     )
-    // }
-
-    render () {
+    renderList () {
         return (
             <SongList
                 flatList
@@ -48,5 +48,32 @@ export default class SongListPage extends React.Component {
                 hideMoreButton={true} />
 
         )
+    }
+
+    renderSearchable () {
+        return (
+            <Page>
+                <SearchBar
+                    onLeftElementPress={this.props.back}
+                    onChangeText={text => {
+                        console.log(text)
+                    }}
+                />
+                <View style={{ flex: 1, backgroundColor: Theme.contentBackgroundColor, paddingBottom: 8 }}>
+                    {this.renderList()}
+                </View>
+            </Page>
+        )
+    }
+
+    render () {
+
+        const { params } = this.props.navigation.state;
+
+        if(this.props.searchable || params.searchable) {
+            return this.renderSearchable()
+        } else {
+            return this.renderList()
+        }
     }
 }

@@ -1,10 +1,10 @@
 import React from 'react'
 import { View, Text, ScrollView, RefreshControl } from 'react-native'
-import SongList from '../../components/SongList'
-import AlbumList from '../../components/AlbumList'
+import SongList from '../../modules/song/SongList'
+import AlbumList from '../../modules/album/AlbumList'
 import ScrollableTabView from 'react-native-scrollable-tab-view'
 import CustomTabBar from './../../components/CustomTabBar'
-import EventList from './../../components/EventList'
+import EventList from '../../modules/releaseEvent/EventList'
 import Content from './../../components/Content'
 import CenterView from './../../components/CenterView'
 import Icon from './../../components/Icon'
@@ -32,13 +32,48 @@ export default class HomePage extends React.Component {
                     refreshing={this.props.refreshing}
                     onRefresh={this.refresh.bind(this)}
                 />}>
+
+                <View>
+
+                    <View style={{ margin: 8 }}>
+                        <Text style={Theme.subhead}>Search for</Text>
+                    </View>
+
+                    <View style={{ flexDirection: 'row', height: 72, justifyContent: 'space-around' }}>
+                        <View>
+                            <Icon name='ios-musical-notes' text='Song' color='#546E7A' onPress={this.props.onPressSongSearch} />
+                        </View>
+                       <View>
+                           <Icon name='ios-person' text='Artist' color='#546E7A' />
+                       </View>
+                        <View>
+                            <Icon name='ios-disc' text='Album' color='#546E7A' />
+                        </View>
+                        <View>
+                            <Icon name='ios-calendar' text='Event' color='#546E7A' />
+                        </View>
+                    </View>
+                </View>
+
+                <Divider height={14} />
+
+                <AlbumList
+                    title='Recent albums'
+                    max={10}
+                    horizontal={true}
+                    showHeader={true}
+                    albums={this.props.recentAlbums}
+                    onPressItem={this.props.onPressAlbum} />
+
+                <Divider height={14} />
+
                 <SongList
                     title='Recent songs'
                     max={5} showHeader={true}
                     songs={this.props.recentSongs}
                     onPressItem={this.props.onPressSong}
                     onPressMore={this.props.onPressMoreRecentSongs} />
-                <AlbumList title='Recent albums' max={10} horizontal={true} showHeader={true} albums={this.props.recentAlbums} onPressItem={this.props.onPressAlbum} />
+
             </Content>
         )
 
@@ -84,7 +119,6 @@ export default class HomePage extends React.Component {
             <ScrollableTabView renderTabBar={() => <CustomTabBar />}>
                 <HomeTabPage tabLabel="ios-home" />
                 <FollowedTabPage tabLabel="ios-heart" />
-                <EventTabPage tabLabel="ios-calendar"></EventTabPage>
                 <MenuTabPage tabLabel="ios-menu"></MenuTabPage>
             </ScrollableTabView>
         )

@@ -1,6 +1,6 @@
 import reducer, { defaultState } from '../userReducer'
 import * as actions from '../userActions'
-import * as mockGenerator from './../../../helper/mockGenerator'
+import * as mockGenerator from '../../../common/helper/mockGenerator'
 
 describe('User reducer test state', () => {
 

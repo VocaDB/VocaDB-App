@@ -5,7 +5,7 @@ import {
     selectTopSongs,
     selectTopArtists,
     selectTopAlbums } from './../tagSelector'
-import * as mockGenerator from './../../../helper/mockGenerator'
+import * as mockGenerator from '../../../common/helper/mockGenerator'
 
 describe('Test tag selector', () => {
 

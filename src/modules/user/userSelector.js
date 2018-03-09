@@ -1,8 +1,6 @@
 import { createSelector } from 'reselect';
 
 export const selectUser = () => (state) => {
-    console.log('selectUser')
-    console.log(state.user)
     return state.user;
 }
 

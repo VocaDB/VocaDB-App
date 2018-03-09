@@ -1,5 +1,5 @@
 import * as selectors from '../userSelector'
-import * as mockGenerator from './../../../helper/mockGenerator'
+import * as mockGenerator from '../../../common/helper/mockGenerator'
 
 describe('User selector test', () => {
 

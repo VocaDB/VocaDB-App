@@ -3,10 +3,20 @@ import * as actions from './artistActions';
 
 export const defaultState = {
     detail: 0,
-    followed: []
+    followed: [],
+    searchResult: []
 }
 
 const reducer = createReducer({
+    [actions.fetchSearchArtistsSuccess]: (state, payload) => {
+        if(payload.append) {
+            let newSearchResult = state.searchResult;
+            newSearchResult = newSearchResult.concat(payload.result);
+
+            return { ...state, searchResult: newSearchResult }
+        }
+        return { ...state, searchResult: payload.result }
+    },
     [actions.fetchArtistDetailSuccess]: (state, payload) => {
         return { ...state, detail: payload.result }
     },
@@ -37,6 +47,10 @@ const reducer = createReducer({
         let currentArtists = state.followed.filter(id => id != artist.id)
 
         return { ...state, followed: currentArtists }
+    },
+    [actions.clearSearch]: (state) => {
+        console.log('clear')
+        return { ...state, searchResult: [] }
     }
 }, defaultState)
 

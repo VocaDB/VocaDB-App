@@ -1,11 +1,25 @@
-import { fetchArtistDetail } from './../artistSagas'
+import { fetchArtistDetail, fetchSearchArtists } from './../artistSagas'
 import api from './../artistApi'
 import { call, put } from 'redux-saga/effects'
 import * as actions from './../artistActions'
 import * as appActions from './../../../app/appActions'
-import * as mock from './../../../helper/mockGenerator'
+import * as mock from '../../../common/helper/mockGenerator'
 
 describe('Test artist sagas', () => {
+    it('Should fetch search artists', () => {
+        const params = { artistIds: [ 1, 2 ] }
+        const action = actions.fetchSearchArtists(params)
+        const gen = fetchSearchArtists(action)
+
+        expect(gen.next().value).toEqual(call(api.find, params));
+
+        const mockItems = [ mock.CreateArtist() ]
+        const mockResponse = { items: mockItems }
+        expect(gen.next(mockResponse).value).toEqual(put(actions.fetchSearchArtistsSuccess(mockItems, false)));
+
+        expect(gen.next().done).toBeTruthy();
+    })
+
     it('Should fetch artist detail success', () => {
         const action = actions.fetchArtistDetail(1)
         const gen = fetchArtistDetail(action)

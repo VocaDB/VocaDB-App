@@ -3,7 +3,7 @@ import api from './../releaseEventApi'
 import { call, put } from 'redux-saga/effects'
 import * as actions from './../releaseEventActions'
 import * as appActions from './../../../app/appActions'
-import * as mock from './../../../helper/mockGenerator'
+import * as mock from '../../../common/helper/mockGenerator'
 
 describe('Test releaseEvent sagas', () => {
     it('Should fetch releaseEvent success', () => {

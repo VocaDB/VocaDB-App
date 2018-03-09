@@ -3,7 +3,7 @@ import {
     selectArtistEntity,
     selectArtistDetail,
     selectIsFollowedArtist } from './../artistSelector'
-import * as mockGenerator from './../../../helper/mockGenerator'
+import * as mockGenerator from '../../../common/helper/mockGenerator'
 
 describe('Test artist selector', () => {
 
@@ -56,9 +56,9 @@ describe('Test artist selector', () => {
     })
 
     it('should return followed artist is true', () => {
-        state.artist.detail = artist1.id
-        state.user = {
-            followedArtists: [ 5, 4, 3, 2, 1 ]
+        state.artist = {
+            detail: artist1.id,
+            followed: [ 5, 4, 3, 2, 1 ]
         }
 
         const actualResult = selectIsFollowedArtist()(state);
@@ -72,8 +72,9 @@ describe('Test artist selector', () => {
         expect(actualResult).toEqual(false);
 
         state.artist.detail = artist1.id
-        state.user = {
-            followedArtists: [ 5, 4, 3, 2 ]
+        state.artist = {
+            detail: artist1.id,
+            followed: [ 5, 4, 3, 2 ]
         }
 
         actualResult = selectIsFollowedArtist()(state);

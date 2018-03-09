@@ -1,6 +1,6 @@
 import reducer from './../releaseEventReducer'
 import * as actions from './../releaseEventActions'
-import * as mockGenerator from './../../../helper/mockGenerator'
+import * as mockGenerator from '../../../common/helper/mockGenerator'
 
 describe('Test releaseEvent reducer', () => {
 

@@ -4,7 +4,7 @@ import {
     selectQuery,
     selectRecent,
     selectEntries } from './../entrySelector'
-import * as mockGenerator from './../../../helper/mockGenerator'
+import * as mockGenerator from '../../../common/helper/mockGenerator'
 
 describe('Test entry selector', () => {
 

@@ -3,7 +3,7 @@ import api from './../songApi'
 import { call, put, select } from 'redux-saga/effects'
 import * as actions from './../songActions'
 import * as appActions from './../../../app/appActions'
-import * as mock from './../../../helper/mockGenerator'
+import * as mock from '../../../common/helper/mockGenerator'
 import { selectFollowedArtistIds } from './../../user/userSelector'
 
 describe('Test song sagas', () => {

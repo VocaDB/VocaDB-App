@@ -2,7 +2,6 @@ import { put, takeLatest, call, select } from 'redux-saga/effects'
 import * as actions from './albumActions'
 import * as appActions from '../../app/appActions'
 import api from './albumApi'
-import { selectFollowedArtistIds } from './../user/userSelector'
 
 const fetchLatestAlbums = function* fetchLatestAlbums() {
     try {

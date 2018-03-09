@@ -1,6 +1,6 @@
 import reducer from './../songReducer'
 import * as actions from './../songActions'
-import * as mockGenerator from './../../../helper/mockGenerator'
+import * as mockGenerator from '../../../common/helper/mockGenerator'
 
 describe('Test song reducer', () => {
 

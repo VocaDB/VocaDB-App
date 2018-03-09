@@ -1,6 +1,6 @@
 import * as actions from './../entryActions';
 import reducer from './../entryReducer'
-import * as mockGenerator from './../../../helper/mockGenerator'
+import * as mockGenerator from '../../../common/helper/mockGenerator'
 
 describe('Search reducer test state', () => {
 

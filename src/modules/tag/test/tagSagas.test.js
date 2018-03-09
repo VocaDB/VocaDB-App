@@ -3,7 +3,7 @@ import api from './../tagApi'
 import { call, put } from 'redux-saga/effects'
 import * as actions from './../tagActions'
 import * as appActions from './../../../app/appActions'
-import * as mock from './../../../helper/mockGenerator'
+import * as mock from '../../../common/helper/mockGenerator'
 
 describe('Test tag sagas', () => {
     it('Should fetch tag detail success', () => {

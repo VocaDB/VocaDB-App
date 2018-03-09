@@ -1,6 +1,6 @@
 import reducer from './../albumReducer'
 import * as actions from './../albumActions'
-import * as mockGenerator from './../../../helper/mockGenerator'
+import * as mockGenerator from '../../../common/helper/mockGenerator'
 
 describe('Test album reducer', () => {
 
