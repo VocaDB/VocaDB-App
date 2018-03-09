@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import SongListPage from './component'
 import { createSelector } from 'reselect';
 import * as songActions from './../../modules/song/songActions'
-import { selectSearchResult } from './../../modules/song/songSelector'
+import { selectSearchResult, selectSearchParams, selectNoResult } from './../../modules/song/songSelector'
 import { selectLoading } from '../../app/appSelector'
 
 
@@ -26,8 +26,10 @@ SongListPage.navigationOptions = ({ navigation }) => {
 
 const songListStateSelect = createSelector(
     selectSearchResult(),
+    selectSearchParams(),
     selectLoading(),
-    (songs, loading) => ({ songs, loading })
+    selectNoResult(),
+    (songs, params, loading, isNoResult) => ({ songs, params, loading, isNoResult })
 );
 
 

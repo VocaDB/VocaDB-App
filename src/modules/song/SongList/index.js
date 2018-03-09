@@ -41,9 +41,6 @@ class SongList extends React.Component {
         }
 
         if(this.props.flatList) {
-
-            // const enableLoadMore = (this.props.songs.length > 20) ? this.props.onEndReached : null
-
             return (
                 <FlatList
                     removeClippedSubviews
@@ -53,7 +50,11 @@ class SongList extends React.Component {
                     renderItem={({item}) => renderItem(item)}
                     refreshing={this.props.refreshing}
                     onRefresh={this.props.onRefresh}
-                    onEndReached={this.props.onEndReached}
+                    onEndReached={() => {
+                        if(this.props.songs.length > 20) {
+                            this.props.onEndReached()
+                        }
+                    }}
                     onEndReachedThreshold={0.3}
                 />
             )

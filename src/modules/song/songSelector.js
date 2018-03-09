@@ -2,14 +2,22 @@ import { createSelector } from 'reselect';
 import { denormalize } from 'normalizr';
 import songSchema from './songSchema'
 
-export const convertSongIds = (songIds, songEntity) => songIds
+export const convertSongIds = (songIds, songEntity) => (songIds)? songIds
     .filter(id => (id != undefined && songEntity[id.toString()]))
-    .map(id => songEntity[id.toString()])
+    .map(id => songEntity[id.toString()]) : []
 
 
 export const selectSong = () => state => state.song
 export const selectSongEntity = () => state => (state.entities && state.entities.songs)? state.entities.songs : {}
 export const selectEntities = () => state => state.entities
+export const selectNoResult = () => createSelector(
+    selectSong(),
+    song => song.noResult
+)
+export const selectSearchParams = () => createSelector(
+    selectSong(),
+    song => song.searchParams
+)
 export const selectSearchResultIds = () => createSelector(
     selectSong(),
     song => song.searchResult

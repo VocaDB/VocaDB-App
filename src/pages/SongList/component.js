@@ -7,6 +7,7 @@ import SearchBar from './../../components/SearchBar'
 import SongList from '../../modules/song/SongList'
 import ArtistSelectModal from '../../modules/artist/ArtistSelectModal'
 import Theme from './../../theme'
+import merge from "lodash/merge";
 
 export default class SongListPage extends React.Component {
 
@@ -18,20 +19,20 @@ export default class SongListPage extends React.Component {
         this.refresh()
     }
 
-    refresh() {
-        const requestParams = this.getNavigationParams()
-        this.props.fetchSongs({ ...requestParams })
+    doSearch(params) {
+        this.props.fetchSongs(merge({}, this.props.params, params))
     }
 
-    getNavigationParams () {
+    refresh() {
         const {params} = this.props.navigation.state;
-        return (params) ? params.params : {
-            'maxResults': 50,
-            'fields': 'thumbUrl'
+
+        if(params && params.params) {
+            this.doSearch(params.params)
         }
     }
 
     renderList () {
+
         return (
             <SongList
                 flatList
@@ -42,8 +43,9 @@ export default class SongListPage extends React.Component {
                 refreshing={this.props.loading}
                 onRefresh={this.refresh.bind(this)}
                 onEndReached={() => {
-                    const requestParams = this.getNavigationParams()
-                    this.props.fetchSongs({ ...requestParams, start: this.props.songs.length })
+                    if(!this.props.isNoResult) {
+                        this.doSearch({ start: this.props.songs.length })
+                    }
                 }}
                 hideMoreButton={true} />
 
@@ -56,7 +58,7 @@ export default class SongListPage extends React.Component {
                 <SearchBar
                     onLeftElementPress={this.props.back}
                     onChangeText={text => {
-                        console.log(text)
+                        this.doSearch({ query: text, start: 0 })
                     }}
                 />
                 <View style={{ flex: 1, backgroundColor: Theme.contentBackgroundColor, paddingBottom: 8 }}>

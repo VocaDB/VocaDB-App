@@ -1,22 +1,34 @@
 import { createReducer } from 'redux-act'
 import * as actions from './songActions';
+import merge from "lodash/merge";
 
 export const defaultState = {
     searchResult: [],
+    searchParams: { maxResults: 50, fields: 'thumbUrl' },
+    noResult: false,
     all: [],
     followed: [],
     detail: 0
 }
 
 const reducer = createReducer({
+    [actions.fetchSearchSongs]: (state, payload) => {
+        let searchParams = merge({}, state.searchParams, payload.params)
+        return { ...state, searchParams }
+    },
     [actions.fetchSearchSongsSuccess]: (state, payload) => {
+
+        if(payload.result.length === 0) {
+            return { ...state, noResult: true }
+        }
+
         if(payload.append) {
           let newSearchResult = state.searchResult;
           newSearchResult = newSearchResult.concat(payload.result);
 
-          return { ...state, searchResult: newSearchResult }
+          return { ...state, searchResult: newSearchResult, noResult: false }
         }
-        return { ...state, searchResult: payload.result }
+        return { ...state, searchResult: payload.result, noResult: false }
     },
     [actions.fetchLatestSongsSuccess]: (state, payload) => {
         return { ...state, all: payload.result }
