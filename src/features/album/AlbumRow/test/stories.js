@@ -7,7 +7,7 @@ import Album from '../index'
 import CenterView from '../../../../components/CenterView'
 import images from '../../../../common/assets/images'
 
-storiesOf('Album', module)
+storiesOf('Album/AlbumRow', module)
     .addDecorator(getStory => <CenterView type='vertical'>{getStory()}</CenterView>)
     .add('as row', () => (
         <Album
@@ -20,7 +20,7 @@ storiesOf('Album', module)
         />
     ));
 
-storiesOf('Album', module)
+storiesOf('Album/AlbumRow', module)
     .addDecorator(getStory => <CenterView>{getStory()}</CenterView>)
     .add('as box', () => (
         <Album

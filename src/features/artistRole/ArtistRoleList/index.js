@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, Text } from 'react-native'
-import Artist from '../../artist/Artist/index'
+import Artist from '../../artist/ArtistRow/index'
 import PropTypes from 'prop-types';
 import images from '../../../common/assets/images'
 import Theme from '../../../theme'

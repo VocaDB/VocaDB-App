@@ -5,7 +5,7 @@ import images from '../../../common/assets/images'
 import style from './style'
 import Theme from '../../../theme'
 
-class Album extends React.Component {
+class AlbumRow extends React.Component {
 
     componentWillMount () {
         this.styleSelected = style[this.props.display]
@@ -36,16 +36,16 @@ class Album extends React.Component {
     }
 }
 
-Album.propTypes = {
+AlbumRow.propTypes = {
     id: PropTypes.number,
     name: PropTypes.string,
     display: PropTypes.oneOf(['row', 'box']),
     image: PropTypes.string
 };
 
-Album.defaultProps = {
+AlbumRow.defaultProps = {
     display: 'row'
 };
 
 
-export default Album;
+export default AlbumRow;

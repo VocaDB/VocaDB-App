@@ -4,11 +4,11 @@ import { storiesOf } from '@storybook/react-native';
 import { action } from '@storybook/addon-actions';
 import { ScrollView } from 'react-native'
 
-import AlbumList from './index'
-import Horizontal from './horizontal'
+import AlbumList from '../index'
+import Horizontal from '../horizontal'
 import mockAlbums from './mock'
 
-storiesOf('AlbumList', module)
+storiesOf('Album/AlbumList', module)
     .addDecorator(getStory => <ScrollView>{getStory()}</ScrollView>)
     .add('with items', () => (
         <AlbumList
@@ -33,7 +33,7 @@ storiesOf('AlbumList', module)
         />
     ))
 
-storiesOf('AlbumList', module)
+storiesOf('Album/AlbumList', module)
     .add('with horizontal', () => (
         <AlbumList
             albums={mockAlbums.items}

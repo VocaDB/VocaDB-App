@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, Text, Button, ScrollView, Image } from 'react-native'
-import Album from '../Album/index'
+import Album from '../AlbumRow/index'
 import PropTypes from 'prop-types';
 import images from '../../../common/assets/images'
 

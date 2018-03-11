@@ -3,9 +3,9 @@ import React from 'react';
 import { storiesOf } from '@storybook/react-native';
 import { action } from '@storybook/addon-actions';
 
-import SearchBar from './index'
+import SearchBar from '../index'
 
-storiesOf('SearchBar', module)
+storiesOf('Components/SearchBar', module)
     .add('general', () => (
         <SearchBar
             onPressClear={action('Press clear')}

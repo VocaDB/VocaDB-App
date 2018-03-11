@@ -4,9 +4,9 @@ import { storiesOf } from '@storybook/react-native';
 import { action } from '@storybook/addon-actions';
 import { View, Text } from 'react-native'
 
-import Divider from './index'
+import Divider from '../index'
 
-storiesOf('Divider', module)
+storiesOf('Components/Divider', module)
     .add('all', () => (
         <View>
             <Text>Some header 1</Text>

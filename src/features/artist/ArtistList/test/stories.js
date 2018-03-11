@@ -4,7 +4,7 @@ import { storiesOf } from '@storybook/react-native';
 import { action } from '@storybook/addon-actions';
 import { ScrollView } from 'react-native'
 
-import ArtistList from './index'
+import ArtistList from '../ArtistList'
 import mockArtists from './mock'
 
 storiesOf('ArtistList', module)

@@ -3,11 +3,11 @@ import React from 'react';
 import { storiesOf } from '@storybook/react-native';
 import { action } from '@storybook/addon-actions';
 
-import Icon from './index'
-import CenterView from './../CenterView'
+import Icon from '../index'
+import CenterView from '../../CenterView/index'
 import { View } from 'react-native'
 
-storiesOf('Icon', module)
+storiesOf('Components/Icon', module)
     .addDecorator(getStory => <CenterView>{getStory()}</CenterView>)
     .add('alone', () => (
         <Icon name='ios-share' />

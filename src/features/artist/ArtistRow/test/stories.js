@@ -3,20 +3,20 @@ import React from 'react';
 import { storiesOf } from '@storybook/react-native';
 import { action } from '@storybook/addon-actions';
 
-import Artist from './index'
-import CenterView from '../../../components/CenterView/index'
+import ArtistRow from '../ArtistRow'
+import CenterView from '../../../../components/CenterView/index'
 
-storiesOf('Artist', module)
+storiesOf('Artist/ArtistRow', module)
     .addDecorator(getStory => <CenterView type='vertical'>{getStory()}</CenterView>)
     .add('general', () => (
-        <Artist
+        <ArtistRow
             id={1910}
             name='桜華P'
             onPress={action("Press artist")}
         />
     ))
     .add('with type', () => (
-        <Artist
+        <ArtistRow
             id={1910}
             name='桜華P'
             type='Producer'
@@ -24,7 +24,7 @@ storiesOf('Artist', module)
         />
     ))
     .add('with role', () => (
-        <Artist
+        <ArtistRow
             id={1}
             name='初音ミク'
             role='Vocaloid'
@@ -32,7 +32,7 @@ storiesOf('Artist', module)
         />
     ))
     .add('only avatar', () => (
-        <Artist
+        <ArtistRow
             id={1}
             display='avatar'
             onPress={action("Press artist")}

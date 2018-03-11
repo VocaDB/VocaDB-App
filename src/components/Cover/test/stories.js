@@ -2,11 +2,11 @@ import React from 'react';
 
 import { storiesOf } from '@storybook/react-native';
 import { action } from '@storybook/addon-actions';
-import CenterView from './../CenterView'
+import CenterView from '../../CenterView/index'
 
-import Cover from './index'
+import Cover from '../index'
 
-storiesOf('Cover', module)
+storiesOf('Components/Cover', module)
     .add('empty', () => (
         <Cover />
     ))
