@@ -3,9 +3,9 @@ import React from 'react';
 import { storiesOf } from '@storybook/react-native';
 import { action } from '@storybook/addon-actions';
 
-import SongListPage from '../component'
+import SongSearch from '../SongSearch'
 
-import * as mockGenerator from './../../../common/helper/mockGenerator'
+import * as mockGenerator from '../../../../common/helper/mockGenerator'
 
 const song1 = mockGenerator.CreateSong({ id: 1 })
 const mockSongs = [
@@ -15,9 +15,12 @@ const mockSongs = [
     mockGenerator.CreateSong({ id: 4 })
 ]
 
-storiesOf('Pages/SongList', module)
-    .add('with result', () => (
-        <SongListPage
+storiesOf('Song/SongSearch', module)
+    .add('empty', () => (
+        <SongSearch />
+    ))
+    .add('params with result', () => (
+        <SongSearch
             title='Latest song'
             fetchSongs={action('Fetch song by params')}
             searchable={false}
@@ -26,8 +29,16 @@ storiesOf('Pages/SongList', module)
             navigation={{ state: { params: {} } }}
         />
     ))
+    .add('searchable initial', () => (
+        <SongSearch
+            fetchSongs={action('Fetch song by params')}
+            searchable={true}
+            loading={false}
+            navigation={{ state: { params: {} } }}
+        />
+    ))
     .add('searchable', () => (
-        <SongListPage
+        <SongSearch
             fetchSongs={action('Fetch song by params')}
             searchable={true}
             songs={mockSongs}

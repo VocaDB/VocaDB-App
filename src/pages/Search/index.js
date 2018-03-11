@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import SearchPage from './component'
-import * as actions from './../../modules/entry/entryActions'
+import * as actions from '../../features/entry/entryActions'
 import { createSelector } from 'reselect';
 import { selectLoading } from './../../app/appSelector'
 import {
@@ -10,7 +10,7 @@ import {
     selectQuery,
     selectHasResult,
     selectSearching
-} from './../../modules/entry/entrySelector'
+} from '../../features/entry/entrySelector'
 
 SearchPage.navigationOptions = () => ({
     title: 'Search',

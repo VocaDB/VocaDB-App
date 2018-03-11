@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, Text, FlatList } from 'react-native'
-import Song from '../Song/index'
+import Song from '../SongRow/index'
 import PropTypes from 'prop-types';
 import style from './style'
 import Theme from '../../../theme'

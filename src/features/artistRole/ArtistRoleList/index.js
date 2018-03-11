@@ -11,8 +11,7 @@ class ArtistRole extends React.Component {
 
         const renderItem = (artistRole, displayRole) => {
 
-            const artist = artistRole.artist;
-
+            let artist = (artistRole.artist)? artistRole.artist : artistRole;
 
             return  (
                 <Artist

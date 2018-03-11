@@ -5,7 +5,7 @@ import Theme from '../../../theme'
 import Icon from '../../../components/Icon/index'
 import moment from 'moment'
 
-class Song extends React.Component {
+class SongRow extends React.Component {
 
     renderImage () {
         return (<Image
@@ -45,7 +45,7 @@ class Song extends React.Component {
     }
 }
 
-Song.propTypes = {
+SongRow.propTypes = {
     name: PropTypes.string,
     artist: PropTypes.string,
     hideArtist: PropTypes.bool,
@@ -53,7 +53,7 @@ Song.propTypes = {
     onPress: PropTypes.func
 };
 
-Song.defaultProps = {
+SongRow.defaultProps = {
     name: 'Unknown',
     artist: 'Unknown',
     hideArtist: false,
@@ -90,4 +90,4 @@ const styles =  StyleSheet.create({
 })
 
 
-export default Song;
+export default SongRow;

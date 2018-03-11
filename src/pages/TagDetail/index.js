@@ -2,13 +2,13 @@ import React from 'react'
 import { connect } from 'react-redux'
 import TagDetailPage from './component'
 import { createSelector } from 'reselect';
-import * as actions from './../../modules/tag/tagActions'
+import * as actions from '../../features/tag/tagActions'
 import {
     selectTagDetail,
     selectTopSongs,
     selectTopArtists,
     selectTopAlbums
-} from './../../modules/tag/tagSelector'
+} from '../../features/tag/tagSelector'
 import { selectLoading } from './../../app/appSelector'
 
 TagDetailPage.navigationOptions = ({ navigation }) => {

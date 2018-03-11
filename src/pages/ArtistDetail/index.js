@@ -1,8 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import ArtistDetailPage from './component'
-import * as artistActions from '../../modules/artist/artistActions'
-import { selectArtistDetail, selectFollowedArtistIds, selectIsFollowedArtist } from '../../modules/artist/artistSelector'
+import * as artistActions from '../../features/artist/artistActions'
+import { selectArtistDetail, selectFollowedArtistIds, selectIsFollowedArtist } from '../../features/artist/artistSelector'
 import { createSelector } from 'reselect';
 import { Share } from 'react-native'
 

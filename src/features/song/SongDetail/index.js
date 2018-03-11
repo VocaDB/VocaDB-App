@@ -1,10 +1,11 @@
 import React from 'react'
 import { Share } from 'react-native'
 import { connect } from 'react-redux'
-import SongDetailPage from './component'
+import SongDetailPage from './SongDetail'
 import { createSelector } from 'reselect';
-import { fetchSongDetail } from './../../modules/song/songActions'
-import { selectSongDetail } from './../../modules/song/songSelector'
+import { fetchSongDetail } from '../songActions'
+import { selectSongDetail } from '../songSelector'
+import { Page } from './../../../AppNavigator'
 
 SongDetailPage.navigationOptions = () => ({
     title: 'Detail'
@@ -31,9 +32,9 @@ const mapDispatchToProps = (dispatch, props) => ({
             dialogTitle: 'Share ' + song.defaultName,
         })
     },
-    onPressArtist: artist => props.navigation.navigate('ArtistDetail', { id: artist.id }),
-    onPressAlbum: album => props.navigation.navigate('AlbumDetail', { id: album.id }),
-    onPressTag: tag => props.navigation.navigate('TagDetail', { id: tag.id, title: tag.name }),
+    onPressArtist: artist => props.navigation.navigate(Page.ArtistDetail, { id: artist.id }),
+    onPressAlbum: album => props.navigation.navigate(Page.AlbumDetail, { id: album.id }),
+    onPressTag: tag => props.navigation.navigate(Page.TagDetail, { id: tag.id, title: tag.name }),
 })
 
 export default connect(songDetailStateSelect, mapDispatchToProps)(SongDetailPage)

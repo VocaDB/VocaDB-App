@@ -4,10 +4,10 @@ import { storiesOf } from '@storybook/react-native';
 import { action } from '@storybook/addon-actions';
 import { ScrollView, Button } from 'react-native'
 
-import SongList from './index'
+import SongList from '../index'
 import mockSongs from './mock'
 
-storiesOf('SongList', module)
+storiesOf('Song/SongList', module)
     .addDecorator(getStory => <ScrollView>{getStory()}</ScrollView>)
     .add('with items', () => (
         <SongList

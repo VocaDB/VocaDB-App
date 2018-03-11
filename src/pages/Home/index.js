@@ -4,13 +4,13 @@ import HomePage from './component'
 import { createSelector } from 'reselect';
 import Icon from './../../components/Icon'
 import { Page } from './../../AppNavigator'
-import { selectLatestSongs, selectFollowedSongs } from './../../modules/song/songSelector'
-import { selectLatestAlbums } from './../../modules/album/albumSelector'
-import { selectLatestReleaseEvents } from './../../modules/releaseEvent/releaseEventSelector'
+import { selectLatestSongs, selectFollowedSongs } from '../../features/song/songSelector'
+import { selectLatestAlbums } from '../../features/album/albumSelector'
+import { selectLatestReleaseEvents } from '../../features/releaseEvent/releaseEventSelector'
 import { selectLoading } from './../../app/appSelector'
-import * as songActions from './../../modules/song/songActions'
-import * as albumActions from './../../modules/album/albumActions'
-import * as eventActions from './../../modules/releaseEvent/releaseEventActions'
+import * as songActions from '../../features/song/songActions'
+import * as albumActions from '../../features/album/albumActions'
+import * as eventActions from '../../features/releaseEvent/releaseEventActions'
 
 
 HomePage.navigationOptions = ({ navigation }) => ({

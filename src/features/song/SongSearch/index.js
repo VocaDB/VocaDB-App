@@ -1,13 +1,11 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import SongListPage from './component'
+import SongListPage from './SongSearch'
 import { createSelector } from 'reselect';
-import * as songActions from './../../modules/song/songActions'
-import { selectSearchResult, selectSearchParams, selectNoResult } from './../../modules/song/songSelector'
-import { selectLoading } from '../../app/appSelector'
-
-
-SongListPage.modalVisible = true
+import * as songActions from '../songActions'
+import { selectSearchResult, selectSearchParams, selectNoResult } from '../songSelector'
+import { selectLoading } from '../../../app/appSelector'
+import { Page } from './../../../AppNavigator'
 
 SongListPage.navigationOptions = ({ navigation }) => {
 
@@ -36,8 +34,7 @@ const songListStateSelect = createSelector(
 const mapDispatchToProps = (dispatch, props) => ({
     fetchSongs: params => dispatch(songActions.fetchSearchSongs(params)),
     back: () => props.navigation.goBack(),
-    onPressSong: song => props.navigation.navigate('SongDetail', { id: song.id }),
-    onPressTag: tag => props.navigation.navigate('TagDetail', { id: tag.id })
+    onPressSong: song => props.navigation.navigate(Page.SongDetail, { id: song.id })
 })
 
 export default connect(songListStateSelect, mapDispatchToProps)(SongListPage)

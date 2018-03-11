@@ -3,8 +3,8 @@ import { connect } from 'react-redux'
 import AlbumDetailPage from './component'
 import { createSelector } from 'reselect';
 import { Share } from 'react-native'
-import { selectAlbumDetail } from './../../modules/album/albumSelector'
-import { fetchAlbumDetail } from './../../modules/album/albumActions'
+import { selectAlbumDetail } from '../../features/album/albumSelector'
+import { fetchAlbumDetail } from '../../features/album/albumActions'
 
 AlbumDetailPage.navigationOptions = () => ({
     title: 'Album',

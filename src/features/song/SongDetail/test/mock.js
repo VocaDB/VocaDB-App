@@ -1,4 +1,4 @@
-import * as mockGenerator from '../../../common/helper/mockGenerator'
+import * as mockGenerator from '../../../../common/helper/mockGenerator'
 
 const mock = mockGenerator.CreateSong()
 

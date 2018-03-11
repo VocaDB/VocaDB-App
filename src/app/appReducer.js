@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux'
-import song from '../modules/song/songReducer'
-import album from '../modules/album/albumReducer'
-import artist from '../modules/artist/artistReducer'
-import user from '../modules/user/userReducer'
-import entry from '../modules/entry/entryReducer'
-import releaseEvent from '../modules/releaseEvent/releaseEventReducer'
+import song from '../features/song/songReducer'
+import album from '../features/album/albumReducer'
+import artist from '../features/artist/artistReducer'
+import user from '../features/user/userReducer'
+import entry from '../features/entry/entryReducer'
+import releaseEvent from '../features/releaseEvent/releaseEventReducer'
 import merge from "lodash/merge";
 
 const error = (state = false, action) => (action.error)? action.error : false

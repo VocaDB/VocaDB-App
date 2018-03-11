@@ -3,13 +3,16 @@ import React from 'react';
 import { storiesOf } from '@storybook/react-native';
 import { action } from '@storybook/addon-actions';
 
-import Song from './index'
-import CenterView from '../../../components/CenterView/index'
+import SongRow from '../index'
+import CenterView from '../../../../components/CenterView/index'
 
-storiesOf('Song', module)
+storiesOf('Song/SongRow', module)
     .addDecorator(getStory => <CenterView type='vertical'>{getStory()}</CenterView>)
-    .add('general', () => (
-        <Song
+    .add('empty', () => (
+        <SongRow />
+    ))
+    .add('with data', () => (
+        <SongRow
             image='https://i1.sndcdn.com/artworks-000261185615-mp8uiz-large.jpg'
             name='Melt'
             artist='Hatsune Miku'
@@ -17,14 +20,14 @@ storiesOf('Song', module)
         />
     ))
     .add('with long text', () => (
-        <Song
+        <SongRow
             image='https://i1.sndcdn.com/artworks-000261185615-mp8uiz-large.jpg'
             name='Anti Beat【UTAU cover w/ ECLIPSE_beta】'
             artist="SHASTA feat. ECLIPSE SHASTA feat. ECLIPSE"
         />
     ))
     .add('with no image', () => (
-        <Song
+        <SongRow
             name='Melt'
             artist="Hatsune Miku"
         />

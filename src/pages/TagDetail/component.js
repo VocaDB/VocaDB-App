@@ -1,8 +1,8 @@
 import React from 'react'
 import Content from './../../components/Content'
-import SongList from './../../modules/song/SongList'
-import ArtistList from './../../modules/artist/ArtistList'
-import AlbumList from './../../modules/album/AlbumList'
+import SongList from '../../features/song/SongList'
+import ArtistList from '../../features/artist/ArtistList'
+import AlbumList from '../../features/album/AlbumList'
 
 class TagDetailPage extends React.Component {
 

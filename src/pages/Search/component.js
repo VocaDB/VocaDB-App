@@ -1,9 +1,9 @@
 import React from 'react'
 import { View, Text, ScrollView, StatusBar, Button } from 'react-native'
 import { Toolbar } from 'react-native-material-ui';
-import EntryList from '../../modules/entry/EntryList'
-import ArtistList from '../../modules/artist/ArtistList'
-import AlbumList from '../../modules/album/AlbumList'
+import EntryList from '../../features/entry/EntryList'
+import ArtistList from '../../features/artist/ArtistList'
+import AlbumList from '../../features/album/AlbumList'
 import Page from './../../components/Page'
 import PropTypes from 'prop-types'
 import SearchBar from './../../components/SearchBar'
