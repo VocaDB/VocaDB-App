@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, Text } from 'react-native'
-import Event from '../Event/index'
+import Event from '../EventRow/index'
 import PropTypes from 'prop-types';
 import images from '../../../common/assets/images'
 

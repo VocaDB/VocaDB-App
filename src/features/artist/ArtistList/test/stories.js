@@ -7,7 +7,7 @@ import { ScrollView } from 'react-native'
 import ArtistList from '../ArtistList'
 import mockArtists from './mock'
 
-storiesOf('ArtistList', module)
+storiesOf('Artist/ArtistList', module)
     .addDecorator(getStory => <ScrollView>{getStory()}</ScrollView>)
     .add('with items', () => (
         <ArtistList
@@ -16,7 +16,7 @@ storiesOf('ArtistList', module)
         />
     ));
 
-storiesOf('ArtistList', module)
+storiesOf('Artist/ArtistList', module)
     .add('with horizontal', () => (
         <ArtistList
             artists={mockArtists.items}
