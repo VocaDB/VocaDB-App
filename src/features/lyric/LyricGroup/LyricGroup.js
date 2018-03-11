@@ -14,7 +14,16 @@ class LyricGroup extends React.Component {
 
     render () {
 
+
+
         const displayLyric = this.props.lyrics[this.state.selectedIndex]
+
+        if(!displayLyric) {
+            return (<View>
+                <Text>Empty lyrics</Text>
+            </View>)
+        }
+
         const translateGroup = this.props.lyrics.map((lyric, index) => {
             return (
                 <Button key={lyric.id}

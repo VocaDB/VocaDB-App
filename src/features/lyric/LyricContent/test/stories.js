@@ -9,6 +9,9 @@ import * as mockLyric from './mock'
 
 storiesOf('Lyric/LyricContent', module)
     .addDecorator(getStory => <ScrollView>{getStory()}</ScrollView>)
+    .add('Empty', () => (
+        <Lyric />
+    ))
     .add('in Jp', () => (
         <Lyric
             content={mockLyric.lyricJp.value}

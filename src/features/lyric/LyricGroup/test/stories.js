@@ -9,6 +9,9 @@ import mockLyrics from './mock'
 
 storiesOf('Lyric/LyricGroup', module)
     .addDecorator(getStory => <ScrollView>{getStory()}</ScrollView>)
+    .add('Empty', () => (
+        <LyricGroup lyrics={[]} />
+    ))
     .add('with lyrics', () => (
         <LyricGroup
             lyrics={mockLyrics.lyrics}
