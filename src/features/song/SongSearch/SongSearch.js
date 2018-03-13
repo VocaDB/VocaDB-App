@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text } from 'react-native'
+import { View, Text, Modal } from 'react-native'
 import { Button } from 'react-native-material-ui';
 import Page from '../../../components/Page/index'
 import SearchBar from '../../../components/SearchBar/index'
@@ -7,8 +7,13 @@ import CenterView from '../../../components/CenterView/index'
 import SongList from '../SongList/index'
 import Theme from '../../../theme'
 import merge from "lodash/merge";
+import SongFilter from './../SongFilter'
 
 export default class SongSearch extends React.Component {
+
+    state = {
+        filterVisible: false,
+    };
 
     constructor(props) {
         super(props)
@@ -75,8 +80,21 @@ export default class SongSearch extends React.Component {
                             container: {
                                 width: 128
                             }
-                        }} />
+                        }} onPress={() => this.setState({ filterVisible: true }) } />
                     </View>
+
+                    <Modal
+                        animationType="slide"
+                        transparent={false}
+                        visible={this.state.filterVisible} >
+                        <SongFilter
+                            onPressBack={() => this.setState({ filterVisible: false }) }
+                            onPressSave={p => {
+                                console.log('params')
+                                console.log(p)
+                                this.setState({ filterVisible: false })
+                            }} />
+                    </Modal>
                 </View>
             </Page>
         )

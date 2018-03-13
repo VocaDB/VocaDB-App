@@ -17,14 +17,6 @@ class SongFilter extends React.Component {
         }
     }
 
-    onPressSave() {
-        this.props.onPressSave(merge({}, this.state))
-    }
-
-    onPressBack() {
-        this.props.onPressBack()
-    }
-
     render () {
         return (
             <Page>
@@ -33,12 +25,14 @@ class SongFilter extends React.Component {
                     onLeftElementPress={this.props.onPressBack}
                     centerElement="Filter"
                     rightElement="done"
-                    onrightelementpress={() => this.props.onPressSave(merge({}, this.state))}
+                    onRightElementPress={() => this.props.onPressSave(merge({}, this.state))}
                 />
                 <Content>
                     <View style={{ marginHorizontal: 8 }}>
                         <Dropdown
                             label='Song type'
+                            value={this.state.songType}
+                            onChangeText={text => this.setState({ songType: text })}
                             data={[
                                 {
                                     value: 'Unspecified'
