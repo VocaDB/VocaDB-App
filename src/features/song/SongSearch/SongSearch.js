@@ -89,10 +89,9 @@ export default class SongSearch extends React.Component {
                         visible={this.state.filterVisible} >
                         <SongFilter
                             onPressBack={() => this.setState({ filterVisible: false }) }
-                            onPressSave={p => {
-                                console.log('params')
-                                console.log(p)
+                            onPressSave={param => {
                                 this.setState({ filterVisible: false })
+                                this.doSearch({ ...param, start: 0 })
                             }} />
                     </Modal>
                 </View>
