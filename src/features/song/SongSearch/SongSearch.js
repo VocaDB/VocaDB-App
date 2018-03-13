@@ -75,9 +75,15 @@ export default class SongSearch extends React.Component {
                     {this.props.songs.length === 0 && <CenterView>
                         <Text>No result</Text>
                     </CenterView>}
-                    <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                    <View
+                        style={{
+                            position: 'absolute',
+                            left: 0, right: 0, bottom: 8, alignItems: 'center',
+                        }}
+                    >
                         <Button raised primary icon='tune' text='Filter' style={{
                             container: {
+                                margin: 8,
                                 width: 128
                             }
                         }} onPress={() => this.setState({ filterVisible: true }) } />
@@ -86,7 +92,8 @@ export default class SongSearch extends React.Component {
                     <Modal
                         animationType="slide"
                         transparent={false}
-                        visible={this.state.filterVisible} >
+                        visible={this.state.filterVisible}
+                        onRequestClose={() => {}} >
                         <SongFilter
                             onPressBack={() => this.setState({ filterVisible: false }) }
                             onPressSave={param => {
