@@ -1,5 +1,6 @@
 import React from 'react'
-import { RefreshControl, ScrollView, View, Text, Button, Modal } from 'react-native'
+import { View, Text } from 'react-native'
+import { Button } from 'react-native-material-ui';
 import Page from '../../../components/Page/index'
 import SearchBar from '../../../components/SearchBar/index'
 import CenterView from '../../../components/CenterView/index'
@@ -69,6 +70,13 @@ export default class SongSearch extends React.Component {
                     {this.props.songs.length === 0 && <CenterView>
                         <Text>No result</Text>
                     </CenterView>}
+                    <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                        <Button raised primary icon='tune' text='Filter' style={{
+                            container: {
+                                width: 128
+                            }
+                        }} />
+                    </View>
                 </View>
             </Page>
         )
