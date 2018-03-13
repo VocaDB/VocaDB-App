@@ -13,7 +13,7 @@ class SongFilter extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            songType: 'Unspecified',
+            songTypes: 'Unspecified',
         }
     }
 
@@ -31,8 +31,8 @@ class SongFilter extends React.Component {
                     <View style={{ marginHorizontal: 8 }}>
                         <Dropdown
                             label='Song type'
-                            value={this.state.songType}
-                            onChangeText={text => this.setState({ songType: text })}
+                            value={this.state.songTypes}
+                            onChangeText={text => this.setState({ songTypes: text })}
                             data={[
                                 {
                                     value: 'Unspecified'
