@@ -1,5 +1,6 @@
 import React from 'react'
 import AppNav from './src/AppNavigator'
+import AppNavWithState from './src/app/AppWithNavigationState'
 import { Provider } from 'react-redux'
 import store from './src/app/appStore'
 import { StyleProvider } from 'native-base'
@@ -46,7 +47,7 @@ class App extends React.Component {
         return (
             <ThemeProvider uiTheme={uiTheme}>
                     <Provider store={store}>
-                        <AppNav />
+                        <AppNavWithState />
                     </Provider>
             </ThemeProvider>
         )
