@@ -28,6 +28,36 @@ export const selectArtistDetail = () => createSelector(
     (artistDetailId, artistEntity) => artistEntity[artistDetailId.toString()]
 )
 
+export const selectRelations = () => createSelector(
+    selectArtistDetail(),
+    (artistDetail) => (artistDetail)? artistDetail.relations : {}
+)
+
+export const selectLatestSongs = () => createSelector(
+    selectRelations(),
+    (relations) => (relations)? relations.latestSongs : []
+)
+
+export const selectPopularSongs = () => createSelector(
+    selectRelations(),
+    (relations) => (relations)? relations.popularSongs : []
+)
+
+export const selectLatestAlbums = () => createSelector(
+    selectRelations(),
+    (relations) => (relations)? relations.latestAlbums : []
+)
+
+export const selectPopularAlbums = () => createSelector(
+    selectRelations(),
+    (relations) => (relations)? relations.popularAlbums : []
+)
+
+export const selectLatestEvents = () => createSelector(
+    selectRelations(),
+    (relations) => (relations)? relations.latestEvents : []
+)
+
 export const selectFollowedArtistIds = () => createSelector(
     selectArtist(),
     artistState => {

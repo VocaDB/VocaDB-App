@@ -2,7 +2,15 @@ import React from 'react'
 import { connect } from 'react-redux'
 import ArtistDetail from './ArtistDetail'
 import * as artistActions from '../artistActions'
-import { selectArtistDetail, selectFollowedArtistIds, selectIsFollowedArtist } from '../artistSelector'
+import {
+    selectArtistDetail,
+    selectFollowedArtistIds,
+    selectIsFollowedArtist,
+    selectLatestSongs,
+    selectLatestAlbums,
+    selectPopularSongs,
+    selectPopularAlbums,
+    selectLatestEvents } from '../artistSelector'
 import { createSelector } from 'reselect';
 import { Share } from 'react-native'
 
@@ -18,11 +26,21 @@ const artistDetailStateSelect = createSelector(
     selectFollowedArtistIds(),
     selectArtistDetail(),
     selectIsFollowedArtist(),
-    (followedArtistIds, artist, isFollowed) => {
+    selectLatestSongs(),
+    selectPopularSongs(),
+    selectLatestAlbums(),
+    selectPopularAlbums(),
+    selectLatestEvents(),
+    (followedArtistIds, artist, isFollowed, latestSongs, popularSongs, latestAlbums, popularAlbums, latestEvents) => {
         return {
             artist,
             followedArtistIds,
-            followed: isFollowed
+            followed: isFollowed,
+            latestSongs,
+            popularSongs,
+            latestAlbums,
+            popularAlbums,
+            latestEvents
         }
     })
 

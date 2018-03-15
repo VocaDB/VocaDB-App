@@ -12,19 +12,19 @@ export const selectTag = () => state => state.tag
 export const selectTagEntity = () => state => (state.entities && state.entities.tags)? state.entities.tags : {}
 export const selectTagDetailId = () => createSelector(
     selectTag(),
-    tag => tag.detail
+    tag => (tag)? tag.detail : 0
 )
 export const selectTopSongIds = () => createSelector(
     selectTag(),
-    tag => tag.topSongs
+    tag => (tag)? tag.topSongs : []
 )
 export const selectTopArtistIds = () => createSelector(
     selectTag(),
-    tag => tag.topArtists
+    tag => (tag)? tag.topArtists : []
 )
 export const selectTopAlbumIds = () => createSelector(
     selectTag(),
-    tag => tag.topAlbums
+    tag => (tag)? tag.topAlbums : []
 )
 
 
