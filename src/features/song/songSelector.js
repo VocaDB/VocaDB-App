@@ -1,6 +1,8 @@
 import { createSelector } from 'reselect';
 import { denormalize } from 'normalizr';
 import songSchema from './songSchema'
+import { selectNav } from './../../app/appSelector'
+import { Page } from './../../AppNavigator'
 
 export const convertSongIds = (songIds, songEntity) => (songIds)? songIds
     .filter(id => (id != undefined && songEntity[id.toString()]))
@@ -31,8 +33,10 @@ export const selectFollowedSongIds = () => createSelector(
     song => song.followed
 )
 export const selectSongDetailId = () => createSelector(
-    selectSong(),
-    song => song.detail
+    selectNav(),
+    nav => (nav
+        && nav.routes[nav.index]
+        && nav.routes[nav.index].routeName === Page.SongDetail)? nav.routes[nav.index].params.id : 0
 )
 
 export const selectSearchResult = () => createSelector(
