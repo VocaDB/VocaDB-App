@@ -24,13 +24,11 @@ class ArtistDetailPage extends React.Component {
         const artist = this.props.artist
         const { params } = this.props.navigation.state;
         const imageUri = images.getArtistUri(params.id)
+        const { latestSongs, popularSongs, latestAlbums, popularAlbums, latestEvents } = this.props;
 
         if(!artist) {
             return (<View></View>)
         }
-
-        console.log('is followed')
-        console.log(this.props.followed);
 
         const Section = props => (<View style={[{ marginVertical: 8, paddingHorizontal: 4 },props.style]}>{props.children}</View>)
 
@@ -80,7 +78,7 @@ class ArtistDetailPage extends React.Component {
 
             const renderLatestSongs = () => (
                 <SongList max={7}
-                          songs={artist.latestSongs}
+                          songs={latestSongs}
                           title='Latest'
                           showHeader={true}
                           onPressItem={this.props.onPressSong}
@@ -89,33 +87,33 @@ class ArtistDetailPage extends React.Component {
 
             const renderPopularSongs = () => (
                 <SongList max={7}
-                          songs={artist.popularSongs}
+                          songs={popularSongs}
                           title='Popular'
                           showHeader={true}
                           onPressItem={this.props.onPressSong} />
             )
 
             return (<Content>
-                {artist.latestSongs != undefined && renderLatestSongs()}
-                {artist.latestSongs != undefined && artist.popularSongs != undefined && <Divider />}
-                {artist.popularSongs != undefined && renderPopularSongs()}
+                {latestSongs != undefined && renderLatestSongs()}
+                {latestSongs != undefined && popularSongs != undefined && <Divider />}
+                {popularSongs != undefined && renderPopularSongs()}
             </Content>)
         }
 
         const AlbumListPage = () => {
 
             const renderLatestAlbum = () => (
-                <AlbumList max={7} albums={artist.latestAlbums} title='Latest' showHeader={true} onPressItem={this.props.onPressAlbum} />
+                <AlbumList max={7} albums={latestAlbums} title='Latest' showHeader={true} onPressItem={this.props.onPressAlbum} />
             )
 
             const renderPopularAlbum = () => (
-                <AlbumList max={7} albums={artist.popularAlbums} title='Popular' showHeader={true} onPressItem={this.props.onPressAlbum} />
+                <AlbumList max={7} albums={popularAlbums} title='Popular' showHeader={true} onPressItem={this.props.onPressAlbum} />
             )
             return (
                 <Content>
-                    {artist.latestAlbums != undefined && renderLatestAlbum()}
-                    {artist.latestAlbums != undefined && artist.popularAlbums != undefined && <Divider />}
-                    {artist.popularAlbums != undefined && renderPopularAlbum()}
+                    {latestAlbums != undefined && renderLatestAlbum()}
+                    {latestAlbums != undefined && popularAlbums != undefined && <Divider />}
+                    {popularAlbums != undefined && renderPopularAlbum()}
                 </Content>
             )
         }
@@ -124,7 +122,7 @@ class ArtistDetailPage extends React.Component {
 
         const EventListPage = () => (
             <Content>
-                <EventList events={artist.latestEvents} />
+                <EventList events={latestEvents} />
             </Content>
         )
 
@@ -132,8 +130,8 @@ class ArtistDetailPage extends React.Component {
             <ScrollableTabView>
                 <InfoPage tabLabel='Info' />
                 <SongListPage tabLabel='Songs' />
-                {artist.latestAlbums != undefined || artist.popularAlbums != undefined && <AlbumListPage tabLabel='Albums' />}
-                {artist.latestEvents != undefined && <EventListPage tabLabel='Events' />}
+                {latestAlbums != undefined || popularAlbums != undefined && <AlbumListPage tabLabel='Albums' />}
+                {latestEvents != undefined && <EventListPage tabLabel='Events' />}
             </ScrollableTabView>
         )
     }

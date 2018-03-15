@@ -6,6 +6,7 @@ import user from '../features/user/userReducer'
 import entry from '../features/entry/entryReducer'
 import releaseEvent from '../features/releaseEvent/releaseEventReducer'
 import merge from "lodash/merge";
+import navReducer from '../features/nav/navReducer'
 
 const error = (state = false, action) => (action.error)? action.error : false
 const loading = (state = false, action) => (action.payload && action.payload.loading)? true : false
@@ -25,7 +26,8 @@ const rootReducer = combineReducers({
     artist,
     releaseEvent,
     user,
-    entry
+    entry,
+    nav: navReducer
 })
 
 export default rootReducer
