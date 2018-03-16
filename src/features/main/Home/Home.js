@@ -42,7 +42,7 @@ export default class Home extends React.Component {
                             <Avatar icon='music-note' />
                             <Text style={Theme.caption}>Songs</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={{ alignItems: 'center' }} onPress={() => {}}>
+                        <TouchableOpacity style={{ alignItems: 'center' }} onPress={this.props.onPressArtistSearch}>
                             <Avatar icon='person' />
                             <Text style={Theme.caption}>Artist</Text>
                         </TouchableOpacity>

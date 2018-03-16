@@ -1,18 +1,25 @@
 import { createReducer } from 'redux-act'
 import * as actions from './artistActions';
+import merge from "lodash/merge"
 
 export const defaultState = {
     detail: 0,
     followed: [],
-    searchResult: []
+    searchResult: [],
+    searchParams: { maxResults: 50, fields: 'MainPicture' },
+    noResult: false
 }
 
 const reducer = createReducer({
+    [actions.fetchSearchArtists]: (state, payload) => {
+        let searchParams = merge({}, state.searchParams, payload.params)
+        return { ...state, searchParams }
+    },
     [actions.fetchSearchArtistsSuccess]: (state, payload) => {
         if(payload.append) {
             let newSearchResult = state.searchResult;
             newSearchResult = newSearchResult.concat(payload.result);
-
+            console.log(newSearchResult)
             return { ...state, searchResult: newSearchResult }
         }
         return { ...state, searchResult: payload.result }

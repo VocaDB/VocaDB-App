@@ -8,6 +8,14 @@ export const convertArtistIds = (artistIds, artistEntity) => artistIds
 
 export const selectArtist = () => state => state.artist
 export const selectArtistEntity = () => state => (state.entities && state.entities.artists)? state.entities.artists : {}
+export const selectNoResult = () => createSelector(
+    selectArtist(),
+    artist => artist.noResult
+)
+export const selectSearchParams = () => createSelector(
+    selectArtist(),
+    artist => artist.searchParams
+)
 export const selectArtistDetailId = () => createSelector(
     selectNav(),
     nav => (nav

@@ -4,6 +4,7 @@ import ArtistDetailPage from './features/artist/ArtistDetail'
 import AlbumDetailPage from './features/album/AlbumDetail'
 import SearchPage from './features/entry/EntrySearch'
 import SongListPage from './features/song/SongSearch'
+import ArtistListPage from './features/artist/ArtistSearch'
 import TagDetailPage from './features/tag/TagDetail'
 import EventDetailPage from './features/releaseEvent/EventDetail'
 import FollowedArtistsPage from './features/artist/FollowedArtists'
@@ -17,6 +18,7 @@ export const Page = {
     AlbumDetail: 'AlbumDetail',
     Search: 'Search',
     SongList: 'SongList',
+    ArtistList: 'ArtistList',
     TagDetail: 'TagDetail',
     EventDetail: 'EventDetail',
     FollowedArtists: 'FollowedArtists'
@@ -29,6 +31,7 @@ const AppNavigator = StackNavigator({
     AlbumDetail: { screen: AlbumDetailPage },
     Search: { screen: SearchPage },
     SongList: { screen: SongListPage },
+    ArtistList: { screen: ArtistListPage },
     TagDetail: { screen: TagDetailPage },
     EventDetail: { screen: EventDetailPage },
     FollowedArtists: { screen: FollowedArtistsPage }
