@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, ScrollView, RefreshControl } from 'react-native'
+import { View, Text, ScrollView, RefreshControl, TouchableOpacity } from 'react-native'
 import SongList from '../../song/SongList/index'
 import AlbumList from '../../album/AlbumList/index'
 import ScrollableTabView from 'react-native-scrollable-tab-view'
@@ -11,6 +11,7 @@ import Icon from '../../../components/Icon/index'
 import { ListItem, Button } from 'react-native-material-ui';
 import Divider from '../../../components/Divider/index'
 import Theme from '../../../theme'
+import { Avatar } from 'react-native-material-ui';
 
 export default class Home extends React.Component {
 
@@ -33,25 +34,26 @@ export default class Home extends React.Component {
                     onRefresh={this.refresh.bind(this)}
                 />}>
 
-                <View>
+                <View style={{ marginVertical: 16 }}>
 
-                    <View style={{ margin: 8 }}>
-                        <Text style={Theme.subhead}>Search for</Text>
-                    </View>
 
                     <View style={{ flexDirection: 'row', height: 72, justifyContent: 'space-around' }}>
-                        <View>
-                            <Icon name='ios-musical-notes' text='Song' color='#546E7A' onPress={this.props.onPressSongSearch} />
-                        </View>
-                        <View>
-                            <Icon name='ios-person' text='Artist' color='#546E7A' />
-                        </View>
-                        <View>
-                            <Icon name='ios-disc' text='Album' color='#546E7A' />
-                        </View>
-                        <View>
-                            <Icon name='ios-calendar' text='Event' color='#546E7A' />
-                        </View>
+                        <TouchableOpacity style={{ alignItems: 'center' }} onPress={this.props.onPressSongSearch}>
+                            <Avatar icon='music-note' />
+                            <Text style={Theme.caption}>Songs</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={{ alignItems: 'center' }} onPress={() => {}}>
+                            <Avatar icon='person' />
+                            <Text style={Theme.caption}>Artist</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={{ alignItems: 'center' }} onPress={() => {}}>
+                            <Avatar icon='album' />
+                            <Text style={Theme.caption}>Album</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={{ alignItems: 'center' }} onPress={() => {}}>
+                            <Avatar icon='event' />
+                            <Text style={Theme.caption}>Event</Text>
+                        </TouchableOpacity>
                     </View>
                 </View>
 
