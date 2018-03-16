@@ -59,6 +59,15 @@ export default class Home extends React.Component {
 
                 <Divider height={14} />
 
+                <SongList
+                    title='Recent songs'
+                    max={5} showHeader={true}
+                    songs={this.props.recentSongs}
+                    onPressItem={this.props.onPressSong}
+                    onPressMore={this.props.onPressMoreRecentSongs} />
+
+                <Divider height={14} />
+
                 <AlbumList
                     title='Recent albums'
                     max={10}
@@ -69,12 +78,12 @@ export default class Home extends React.Component {
 
                 <Divider height={14} />
 
-                <SongList
-                    title='Recent songs'
-                    max={5} showHeader={true}
-                    songs={this.props.recentSongs}
-                    onPressItem={this.props.onPressSong}
-                    onPressMore={this.props.onPressMoreRecentSongs} />
+                <EventList
+                    title='Latest events'
+                    max={5}
+                    events={this.props.latestEvents}
+                    onPressItem={this.props.onPressEvent}
+                    onPressMore={() => console.log(' Press more ')} />
 
             </Content>
         )
@@ -82,12 +91,6 @@ export default class Home extends React.Component {
         const FollowedTabPage = () => (
             <ScrollView>
                 <SongList songs={this.props.followedSongs} onPressItem={this.props.onPressSong} />
-            </ScrollView>
-        )
-
-        const EventTabPage = () => (
-            <ScrollView>
-                <EventList events={this.props.latestEvents} onPressItem={this.props.onPressEvent} />
             </ScrollView>
         )
 
