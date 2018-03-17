@@ -104,7 +104,9 @@ class SongFilter extends React.Component {
                                     name={t.name}
                                     style={{ margin: 4 }}
                                     selected={selected}
-                                    onPress={() => this.props.onFilterChanged({ tagId: [ t.id ] })} />
+                                    onPress={() => {
+                                        this.props.onFilterChanged({ tagId: [ t.id ] }, selected)
+                                    }} />
                             })}
                         </View>
                     </View>
