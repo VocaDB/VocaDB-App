@@ -1,5 +1,6 @@
 import HomePage from './features/main/Home'
 import SongDetailPage from './features/song/SongDetail'
+import SongFilterPage from './features/song/SongFilter'
 import ArtistDetailPage from './features/artist/ArtistDetail'
 import AlbumDetailPage from './features/album/AlbumDetail'
 import SearchPage from './features/entry/EntrySearch'
@@ -18,6 +19,7 @@ export const Page = {
     AlbumDetail: 'AlbumDetail',
     Search: 'Search',
     SongList: 'SongList',
+    SongFilter: 'SongFilter',
     ArtistList: 'ArtistList',
     TagDetail: 'TagDetail',
     EventDetail: 'EventDetail',
@@ -27,6 +29,7 @@ export const Page = {
 const AppNavigator = StackNavigator({
     Home: { screen: HomePage },
     SongDetail: { screen: SongDetailPage },
+    SongFilter: { screen: SongFilterPage },
     ArtistDetail: { screen: ArtistDetailPage },
     AlbumDetail: { screen: AlbumDetailPage },
     Search: { screen: SearchPage },

@@ -3,6 +3,7 @@ import { denormalize } from 'normalizr';
 import songSchema from './songSchema'
 import { selectNav } from './../../app/appSelector'
 import { Page } from './../../AppNavigator'
+import { selectArtistEntity } from './../artist/artistSelector'
 
 export const convertSongIds = (songIds, songEntity) => (songIds)? songIds
     .filter(id => (id != undefined && songEntity[id.toString()]))
@@ -19,6 +20,17 @@ export const selectNoResult = () => createSelector(
 export const selectSearchParams = () => createSelector(
     selectSong(),
     song => song.searchParams
+)
+export const selectFilterArtists = () => createSelector(
+    selectSearchParams(),
+    selectArtistEntity(),
+    (searchParams, artistEntity) => {
+        if(!searchParams || !searchParams.artistId || !artistEntity) {
+            return []
+        }
+
+        return searchParams.artistId.map(id => artistEntity[id.toString()])
+    }
 )
 export const selectSearchResultIds = () => createSelector(
     selectSong(),

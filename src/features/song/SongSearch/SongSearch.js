@@ -7,7 +7,7 @@ import CenterView from '../../../components/CenterView/index'
 import SongList from '../SongList/index'
 import Theme from '../../../theme'
 import merge from "lodash/merge";
-import SongFilter from './../SongFilter'
+
 
 export default class SongSearch extends React.Component {
 
@@ -70,37 +70,23 @@ export default class SongSearch extends React.Component {
                         this.doSearch({ query: text, start: 0 })
                     }}
                 />
+
+                <View
+                    style={{ alignItems: 'center' }}
+                >
+                    <Button raised primary icon='tune' text='Filter' style={{
+                        container: {
+                            margin: 8,
+                            width: 128
+                        }
+                    }} onPress={this.props.onPressFilter} />
+                </View>
                 <View style={{ flex: 1, backgroundColor: Theme.contentBackgroundColor, paddingBottom: 8 }}>
                     {this.props.songs.length > 0 && this.renderList()}
                     {this.props.songs.length === 0 && <CenterView>
                         <Text>No result</Text>
                     </CenterView>}
-                    <View
-                        style={{
-                            position: 'absolute',
-                            left: 0, right: 0, bottom: 8, alignItems: 'center',
-                        }}
-                    >
-                        <Button raised primary icon='tune' text='Filter' style={{
-                            container: {
-                                margin: 8,
-                                width: 128
-                            }
-                        }} onPress={() => this.setState({ filterVisible: true }) } />
-                    </View>
 
-                    <Modal
-                        animationType="slide"
-                        transparent={false}
-                        visible={this.state.filterVisible}
-                        onRequestClose={() => {}} >
-                        <SongFilter
-                            onPressBack={() => this.setState({ filterVisible: false }) }
-                            onPressSave={param => {
-                                this.setState({ filterVisible: false })
-                                this.doSearch({ ...param, start: 0 })
-                            }} />
-                    </Modal>
                 </View>
             </Page>
         )

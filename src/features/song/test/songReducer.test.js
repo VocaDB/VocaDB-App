@@ -33,6 +33,19 @@ describe('Test song reducer', () => {
         expect(nextState.searchResult).toEqual(expectedResult)
     })
 
+    it('should append params when fetch search song', () => {
+        const expectedResult = { nameMatchMode: 'auto', artistId: [ 1 ] }
+        let currentState = {
+            searchParams: { nameMatchMode: 'auto' }
+        }
+
+        let nextState = reducer(currentState, actions.fetchSearchSongs({ artistId: [ 1 ] }))
+
+        expect(nextState).toBeTruthy()
+        expect(nextState.searchParams).toBeTruthy()
+        expect(nextState.searchParams).toEqual(expectedResult)
+    })
+
     it('should append search result', () => {
         const mockResponse = [ song1, song2 ]
         const expectedResult = [ 3, 4, song1.id, song2.id ]

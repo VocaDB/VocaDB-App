@@ -17,7 +17,8 @@ class ArtistSelectModal extends React.Component {
             <Modal
                 animationType="slide"
                 transparent={false}
-                visible={this.props.modalVisible}>
+                visible={this.props.modalVisible}
+                onRequestClose={() => {}}>
                 <Page>
                     <SearchBar
                         onLeftElementPress={() => {

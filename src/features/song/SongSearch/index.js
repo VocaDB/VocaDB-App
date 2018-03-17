@@ -34,7 +34,8 @@ const songListStateSelect = createSelector(
 const mapDispatchToProps = (dispatch, props) => ({
     fetchSongs: params => dispatch(songActions.fetchSearchSongs(params)),
     back: () => props.navigation.goBack(),
-    onPressSong: song => props.navigation.navigate(Page.SongDetail, { id: song.id })
+    onPressSong: song => props.navigation.navigate(Page.SongDetail, { id: song.id }),
+    onPressFilter: () => props.navigation.navigate(Page.SongFilter)
 })
 
 export default connect(songListStateSelect, mapDispatchToProps)(SongListPage)

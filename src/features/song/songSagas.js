@@ -3,10 +3,11 @@ import * as actions from './songActions'
 import * as appActions from '../../app/appActions'
 import api from './songApi'
 import { selectFollowedArtistIds } from './../artist/artistSelector'
+import { selectSearchParams } from './songSelector'
 
-const fetchSearchSongs = function* fetchSearchSongs(action) {
+const fetchSearchSongs = function* fetchSearchSongs() {
     try {
-        const params = action.payload.params
+        const params = yield select(selectSearchParams())
         const response = yield call(api.find, params);
         let append = (params.start) ? true : false
         yield put(actions.fetchSearchSongsSuccess(response.items, append));
