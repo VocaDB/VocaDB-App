@@ -1,6 +1,6 @@
 import { createReducer } from 'redux-act'
 import * as actions from './songActions';
-import merge from "lodash/merge";
+import merge from 'deepmerge';
 
 export const defaultState = {
     searchResult: [],
@@ -13,7 +13,7 @@ export const defaultState = {
 
 const reducer = createReducer({
     [actions.fetchSearchSongs]: (state, payload) => {
-        let searchParams = merge({}, state.searchParams, payload.params)
+        let searchParams = merge(state.searchParams, payload.params)
         return { ...state, searchParams }
     },
     [actions.fetchSearchSongsSuccess]: (state, payload) => {
