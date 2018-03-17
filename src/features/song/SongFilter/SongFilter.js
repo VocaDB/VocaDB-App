@@ -1,12 +1,14 @@
 import React from 'react'
-import { View, Text, TextInput, Picker, Modal } from 'react-native'
+import { View, Text } from 'react-native'
 import Content from '../../../components/Content'
 import PropTypes from 'prop-types'
 import Theme from '../../../theme'
 import { Dropdown } from 'react-native-material-dropdown';
-import { ListItem, Button } from 'react-native-material-ui';
+import { Button } from 'react-native-material-ui';
 import ArtistSelectModal from './../../artist/ArtistSelectModal'
 import ArtistList from './../../artist/ArtistList'
+import Tag from './../../tag/Tag'
+import { topTags } from './../../tag/tagConstant'
 
 class SongFilter extends React.Component {
 
@@ -19,20 +21,7 @@ class SongFilter extends React.Component {
 
     render () {
 
-        const removeArtistItem = artist => {
-            this.setState({ artists: this.state.artists.filter(a => a.id != artist.id) })
-        }
-
-        const createArtistItem = artist => (
-            <ListItem
-                key={artist.id}
-                centerElement={{
-                    primaryText: artist.defaultName,
-                }}
-                rightElement='clear'
-                onRightElementPress={() => removeArtistItem(artist)}
-            />
-        )
+        const filterParams = this.props.params
 
         return (
                 <Content>
@@ -104,6 +93,21 @@ class SongFilter extends React.Component {
                             this.setState({ showArtistModal: false })
                             this.props.onFilterChanged({ artistId: [ artist.id ] })
                         }} />
+
+                    <View>
+                        <Text style={[Theme.subhead, { marginHorizontal: 8 }]}>Tags</Text>
+                        <View style={{ flexDirection: 'row', flexWrap: 'wrap', alignItems: 'flex-start' }}>
+                            {topTags.map(t => {
+                                const selected = filterParams.tagId.indexOf(t.id) >= 0
+                                return <Tag
+                                    key={t.id}
+                                    name={t.name}
+                                    style={{ margin: 4 }}
+                                    selected={selected}
+                                    onPress={() => this.props.onFilterChanged({ tagId: [ t.id ] })} />
+                            })}
+                        </View>
+                    </View>
                 </Content>
 
         )

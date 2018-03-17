@@ -4,7 +4,7 @@ import merge from "lodash/merge";
 
 export const defaultState = {
     searchResult: [],
-    searchParams: { nameMatchMode: 'auto', maxResults: 50, fields: 'thumbUrl', songTypes: '', artistId: [] },
+    searchParams: { nameMatchMode: 'auto', maxResults: 50, fields: 'thumbUrl', songTypes: '', artistId: [], tagId: [] },
     noResult: false,
     all: [],
     followed: [],
