@@ -9,6 +9,9 @@ import CenterView from '../../../../components/CenterView/index'
 
 storiesOf('Tag/Tag', module)
     .addDecorator(getStory => <CenterView>{getStory()}</CenterView>)
-    .add('with name', () => (
+    .add('normal', () => (
         <Tag name='Project Diva' />
+    ))
+    .add('selected', () => (
+        <Tag name='Project Diva' selected />
     ));

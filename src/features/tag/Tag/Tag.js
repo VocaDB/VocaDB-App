@@ -1,25 +1,32 @@
 import React from 'react'
 import { View, Text, TouchableOpacity } from 'react-native'
 import PropTypes from 'prop-types'
+import style from './style'
 
 class Tag extends React.Component {
     render () {
+        const containerStyle = [
+            style.container,
+            this.props.style,
+            (this.props.selected)? style.selected : style.default
+        ]
+
         return (
-            <TouchableOpacity  onPress={this.props.onPress} style={
-                [{ backgroundColor: '#3949AB', padding: 8, flexDirection: 'row', justifyContent: 'space-between' },
-                    this.props.style]}>
-                <Text style={{ color: 'white', fontWeight: 'bold' }}>{'#' + this.props.name}</Text>
+            <TouchableOpacity  onPress={this.props.onPress} style={containerStyle}>
+                <Text style={style.text}>{'#' + this.props.name}</Text>
             </TouchableOpacity>
         )
     }
 }
 
 Tag.propTypes = {
+    selected: PropTypes.bool,
     name: PropTypes.string,
     onPress: PropTypes.func
 }
 
 Tag.defaultProps = {
+    selected: false,
     onPress: () => console.log('No action')
 }
 
