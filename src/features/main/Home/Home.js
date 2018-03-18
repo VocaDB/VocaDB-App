@@ -1,6 +1,9 @@
 import React from 'react'
 import { View, Text, ScrollView, RefreshControl, TouchableOpacity } from 'react-native'
 import SongList from '../../song/SongList/index'
+import SongCard from '../../song/SongCard'
+import AlbumCard from '../../album/AlbumCard'
+import EventCard from '../../releaseEvent/EventCard'
 import AlbumList from '../../album/AlbumList/index'
 import ScrollableTabView from 'react-native-scrollable-tab-view'
 import CustomTabBar from '../../../components/CustomTabBar/index'
@@ -12,6 +15,7 @@ import { ListItem, Button } from 'react-native-material-ui';
 import Divider from '../../../components/Divider/index'
 import Theme from '../../../theme'
 import { Avatar } from 'react-native-material-ui';
+import FeatureList from './../FeatureList'
 
 export default class Home extends React.Component {
 
@@ -27,6 +31,43 @@ export default class Home extends React.Component {
     }
 
     render () {
+
+        const renderSongCard = song => (
+            <SongCard key={song.id}
+                      id={song.id}
+                      name={song.defaultName}
+                      artist={song.artistString}
+                      image={song.thumbUrl}
+                      onPress={() => this.props.onPressSong(song)} />
+        )
+
+        const renderAlbumCard = album => (
+            <AlbumCard key={album.id}
+                       id={album.id}
+                       name={album.defaultName}
+                       onPress={() => this.props.onPressAlbum(album)} />
+        )
+
+        const renderEventCard = event => {
+            const thumbnailUrl = (event.mainPicture) ? event.mainPicture.urlThumb.replace('mainThumb', 'mainOrig') : undefined
+            return (
+                <EventCard  key={event.id}
+                            name={event.name}
+                            thumbnail={thumbnailUrl}
+                            location={event.venueName}
+                            date={event.date}
+                            onPress={() => this.props.onPressEvent(event)} />
+            )
+        }
+
+
+        const renderFeatureList = (title, items, renderItem, onPressMore) => (
+            <FeatureList
+                title={title}
+                items={items.map(renderItem)}
+                onPressMore={this.props.onPressMoreRecentSongs} />
+        )
+
         const HomeTabPage = () => (
             <Content refreshControl={
                 <RefreshControl
@@ -35,7 +76,6 @@ export default class Home extends React.Component {
                 />}>
 
                 <View style={{ marginVertical: 16 }}>
-
 
                     <View style={{ flexDirection: 'row', height: 72, justifyContent: 'space-around' }}>
                         <TouchableOpacity style={{ alignItems: 'center' }} onPress={this.props.onPressSongSearch}>
@@ -59,31 +99,17 @@ export default class Home extends React.Component {
 
                 <Divider height={14} />
 
-                <SongList
-                    title='Recent songs'
-                    max={5} showHeader={true}
-                    songs={this.props.recentSongs}
-                    onPressItem={this.props.onPressSong}
-                    onPressMore={this.props.onPressMoreRecentSongs} />
+                <View style={{ paddingBottom: 16}}>
+                    {renderFeatureList('Recent songs', this.props.recentSongs, renderSongCard, this.props.onPressMoreRecentSongs)}
 
-                <Divider height={14} />
+                    <Divider height={14} />
 
-                <AlbumList
-                    title='Recent albums'
-                    max={10}
-                    horizontal={true}
-                    showHeader={true}
-                    albums={this.props.recentAlbums}
-                    onPressItem={this.props.onPressAlbum} />
+                    {renderFeatureList('Recent albums', this.props.recentAlbums, renderAlbumCard, this.props.onPressMoreRecentSongs)}
 
-                <Divider height={14} />
+                    <Divider height={14} />
 
-                <EventList
-                    title='Latest events'
-                    max={5}
-                    events={this.props.latestEvents}
-                    onPressItem={this.props.onPressEvent}
-                    onPressMore={() => console.log(' Press more ')} />
+                    {renderFeatureList('Latest events', this.props.latestEvents, renderEventCard, this.props.onPressMoreRecentSongs)}
+                </View>
 
             </Content>
         )
