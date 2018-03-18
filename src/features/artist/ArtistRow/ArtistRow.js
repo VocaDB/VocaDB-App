@@ -4,18 +4,27 @@ import { Avatar } from 'react-native-elements'
 import PropTypes from 'prop-types';
 import images from '../../../common/assets/images'
 import Theme from '../../../theme'
+import Icon from './../../../components/Icon'
 
 class Artist extends React.Component {
     renderImage () {
         return (
             <Avatar
-                large
+                medium
                 rounded
                 source={{uri: images.getArtistUri(this.props.id)}}
                 onPress={() => console.log("Works!")}
                 activeOpacity={0.7}
             />
         )
+    }
+
+    renderRightIcon () {
+        return this.props.rightIcon ? (
+            <View style={styles.rightContainer}>
+                <Icon name={this.props.rightIcon} />
+            </View>
+        ) : null
     }
 
     render () {
@@ -46,6 +55,8 @@ class Artist extends React.Component {
                         {this.props.type && <Text style={Theme.caption}>{this.props.type}</Text>}
                         {this.props.role && <Text style={Theme.caption}>{this.props.role}</Text>}
                     </View>
+
+                    {this.renderRightIcon()}
                 </View>
             </TouchableOpacity>
         )
@@ -56,13 +67,16 @@ Artist.propTypes = {
     name: PropTypes.string,
     type: PropTypes.string,
     role: PropTypes.string,
+    rightIcon: PropTypes.string,
+    onRightElementPress: PropTypes.func,
     horizontal: PropTypes.bool,
     display: PropTypes.oneOf(['row', 'avatar'])
 };
 
 Artist.defaultProps = {
     horizontal: false,
-    display: 'row'
+    display: 'row',
+    onRightElementPress: () => console.log('Press right')
 };
 
 const styles =  StyleSheet.create({
@@ -70,17 +84,23 @@ const styles =  StyleSheet.create({
         flexDirection: 'row',
         backgroundColor: 'white',
         padding: 4,
-        height: 100
+        height: 72
     },
     imageContainer: {
         padding: 4,
-        // backgroundColor: '#546E7A',
+        alignItems: 'center',
+        justifyContent: 'center',
         width: 100
     },
     infoContainer: {
         flex: 1,
         justifyContent: 'center',
         padding: 4
+    },
+    rightContainer: {
+        width: 72,
+        alignItems: 'center',
+        justifyContent: 'center'
     },
     image: {
         flex: 1

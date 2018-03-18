@@ -37,4 +37,13 @@ storiesOf('Artist/ArtistRow', module)
             display='avatar'
             onPress={action("Press artist")}
         />
+    ))
+    .add('right icon', () => (
+        <ArtistRow
+            id={1}
+            name='初音ミク'
+            rightIcon='ios-close'
+            onPress={action("Press artist")}
+            onRightElementPress={action('Press right element')}
+        />
     ));
