@@ -5,7 +5,15 @@ import _ from 'lodash'
 
 export const defaultState = {
     searchResult: [],
-    searchParams: { nameMatchMode: 'auto', maxResults: 50, fields: 'thumbUrl', songTypes: '', artistId: [], tagId: [] },
+    searchParams: {
+        nameMatchMode: 'auto',
+        maxResults: 50,
+        fields: 'thumbUrl',
+        songTypes: '',
+        artistId: [],
+        tagId: [],
+        sort: 'AdditionDate'
+    },
     noResult: false,
     all: [],
     followed: [],
