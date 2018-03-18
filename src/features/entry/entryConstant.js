@@ -15,3 +15,24 @@ export const entryStatusItems = [
         value: 'Locked'
     }
 ]
+
+export const sortItems = [
+    {
+        value: ''
+    },
+    {
+        value: 'None'
+    },
+    {
+        value: 'Name'
+    },
+    {
+        value: 'AdditionDate'
+    },
+    {
+        value: 'FavoritedTimes'
+    },
+    {
+        value: 'RatingScore'
+    }
+]

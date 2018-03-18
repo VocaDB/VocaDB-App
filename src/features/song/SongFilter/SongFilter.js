@@ -10,7 +10,7 @@ import ArtistRow from './../../artist/ArtistRow'
 import Tag from './../../tag/Tag'
 import { topTags } from './../../tag/tagConstant'
 import { songTypeItems } from './../songConstant'
-import { entryStatusItems } from './../../entry/entryConstant'
+import { entryStatusItems, sortItems } from './../../entry/entryConstant'
 
 class SongFilter extends React.Component {
 
@@ -109,11 +109,27 @@ class SongFilter extends React.Component {
         )
     }
 
+    renderInputSort () {
+        return (
+            <View style={{ marginHorizontal: 8 }}>
+                <Dropdown
+                    label='Sort'
+                    value={this.props.params.sort}
+                    onChangeText={text => {
+                        this.props.onFilterChanged({ sort: text })
+                    }}
+                    data={sortItems}
+                />
+            </View>
+        )
+    }
+
     render () {
         return (
                 <Content>
                     {this.renderInputStatus()}
                     {this.renderInputSongType()}
+                    {this.renderInputSort()}
                     {this.renderInputArtists()}
                     {this.renderInputTags()}
                 </Content>
