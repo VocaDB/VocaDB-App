@@ -7,6 +7,7 @@ import { Dropdown } from 'react-native-material-dropdown';
 import { Button } from 'react-native-material-ui';
 import ArtistSelectModal from './../../artist/ArtistSelectModal'
 import ArtistList from './../../artist/ArtistList'
+import ArtistRow from './../../artist/ArtistRow'
 import Tag from './../../tag/Tag'
 import { topTags } from './../../tag/tagConstant'
 
@@ -74,7 +75,12 @@ class SongFilter extends React.Component {
                     <View>
                         <Text style={[Theme.subhead, { marginHorizontal: 8 }]}>Artist</Text>
                         <View>
-                            <ArtistList artists={this.props.filterArtists} />
+                            {this.props.filterArtists.map(a =>
+                                <ArtistRow
+                                    key={a.id}
+                                    name={a.defaultName}
+                                    rightIcon='ios-close'
+                                    onRightElementPress={() => this.props.onFilterChanged({ artistId: [ a.id ] }, true)} />)}
                         </View>
                         <Button
                             raised

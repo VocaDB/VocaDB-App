@@ -22,7 +22,7 @@ class Artist extends React.Component {
     renderRightIcon () {
         return this.props.rightIcon ? (
             <View style={styles.rightContainer}>
-                <Icon name={this.props.rightIcon} />
+                <Icon name={this.props.rightIcon} onPress={this.props.onRightElementPress} />
             </View>
         ) : null
     }
