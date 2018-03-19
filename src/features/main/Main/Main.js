@@ -14,7 +14,7 @@ import FeatureList from './../FeatureList'
 import MenuTab from './../MenuTab'
 import FollowedTab from './../FollowedTab'
 
-export default class Home extends React.Component {
+export default class Main extends React.Component {
 
     componentDidMount () {
         this.refresh()

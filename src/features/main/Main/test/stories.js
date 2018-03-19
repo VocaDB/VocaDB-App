@@ -3,15 +3,15 @@ import React from 'react';
 import { storiesOf } from '@storybook/react-native';
 import { action } from '@storybook/addon-actions';
 
-import Home from '../Home'
+import Main from '../Main'
 import { recentSongs, popularSongs, popularAlbums, latestEvents } from './mock'
 
 
 const navigate = action('navigate')
 
-storiesOf('Main/Home', module)
+storiesOf('Main/Main', module)
     .add('general', () => (
-        <Home
+        <Main
             refreshing={false}
             recentSongs={recentSongs}
             popularSongs={popularSongs}

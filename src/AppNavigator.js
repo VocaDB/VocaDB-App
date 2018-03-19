@@ -1,4 +1,4 @@
-import HomePage from './features/main/Home'
+import MainPage from './features/main/Main'
 import SongDetailPage from './features/song/SongDetail'
 import SongFilterPage from './features/song/SongFilter'
 import ArtistDetailPage from './features/artist/ArtistDetail'
@@ -13,7 +13,7 @@ import { StackNavigator } from "react-navigation";
 import Theme from './theme'
 
 export const Page = {
-    Home: 'Home',
+    Main: 'Main',
     SongDetail: 'SongDetail',
     ArtistDetail: 'ArtistDetail',
     AlbumDetail: 'AlbumDetail',
@@ -26,8 +26,10 @@ export const Page = {
     FollowedArtists: 'FollowedArtists'
 }
 
+export const INITIAL_ROUTE = Page.Main
+
 const AppNavigator = StackNavigator({
-    Home: { screen: HomePage },
+    Main: { screen: MainPage },
     SongDetail: { screen: SongDetailPage },
     SongFilter: { screen: SongFilterPage },
     ArtistDetail: { screen: ArtistDetailPage },
@@ -39,7 +41,7 @@ const AppNavigator = StackNavigator({
     EventDetail: { screen: EventDetailPage },
     FollowedArtists: { screen: FollowedArtistsPage }
 }, {
-    initialRouteName: 'Home',
+    initialRouteName: INITIAL_ROUTE,
     navigationOptions: {
         headerStyle: {
             backgroundColor: Theme.primaryColor,

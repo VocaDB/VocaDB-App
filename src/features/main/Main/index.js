@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import Home from './Home'
+import MainTab from './MainTab'
 import { createSelector } from 'reselect';
 import Icon from '../../../components/Icon/index'
 import { Page } from '../../../AppNavigator'
@@ -13,15 +13,15 @@ import * as albumActions from '../../album/albumActions'
 import * as eventActions from '../../releaseEvent/releaseEventActions'
 
 
-Home.navigationOptions = ({ navigation }) => ({
-    title: 'Home',
-    drawerLabel: 'Home',
+MainTab.navigationOptions = ({ navigation }) => ({
+    title: 'VocaDB',
+    drawerLabel: 'VocaDB',
     headerRight: (
         <Icon name='ios-search' color='white' onPress={() => navigation.navigate('Search')} />
     ),
 })
 
-Home.propTypes = {
+MainTab.propTypes = {
 
 }
 
@@ -61,4 +61,4 @@ const mapDispatchToProps = (dispatch, props) => ({
     onPressMenuFollowArtists: () => props.navigation.navigate(Page.FollowedArtists)
 })
 
-export default connect(homeStateSelect, mapDispatchToProps)(Home)
+export default connect(homeStateSelect, mapDispatchToProps)(MainTab)
