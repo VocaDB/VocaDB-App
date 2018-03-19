@@ -1,21 +1,18 @@
 import React from 'react'
 import { View, Text, ScrollView, RefreshControl, TouchableOpacity } from 'react-native'
-import SongList from '../../song/SongList/index'
+import SongList from '../../song/SongList'
 import SongCard from '../../song/SongCard'
 import AlbumCard from '../../album/AlbumCard'
 import EventCard from '../../releaseEvent/EventCard'
-import AlbumList from '../../album/AlbumList/index'
 import ScrollableTabView from 'react-native-scrollable-tab-view'
-import CustomTabBar from '../../../components/CustomTabBar/index'
-import EventList from '../../releaseEvent/EventList/index'
-import Content from '../../../components/Content/index'
-import CenterView from '../../../components/CenterView/index'
-import Icon from '../../../components/Icon/index'
-import { ListItem, Button } from 'react-native-material-ui';
-import Divider from '../../../components/Divider/index'
+import CustomTabBar from '../../../components/CustomTabBar'
+import Content from '../../../components/Content'
+import Divider from '../../../components/Divider'
 import Theme from '../../../theme'
 import { Avatar } from 'react-native-material-ui';
 import FeatureList from './../FeatureList'
+import MenuTab from './../MenuTab'
+import FollowedTab from './../FollowedTab'
 
 export default class Home extends React.Component {
 
@@ -114,43 +111,11 @@ export default class Home extends React.Component {
             </Content>
         )
 
-        const FollowedTabPage = () => (
-            <ScrollView>
-                <SongList songs={this.props.followedSongs} onPressItem={this.props.onPressSong} />
-            </ScrollView>
-        )
-
-        const createMenuItem = (icon, text, onPress) => (
-            <ListItem
-                leftElement={<Icon name={icon} pureIcon />}
-                centerElement={{
-                    primaryText: text,
-                }}
-                onPress={onPress}
-            />
-        )
-
-        const MenuTabPage =() => (
-            <View style={{ flex: 1 }}>
-                <CenterView>
-                    <Text style={[Theme.subhead,{ margin: 8 }]}>This app is still under development.</Text>
-                    <Button raised text="Sign in" />
-                </CenterView>
-                <View style={{ flex: 1, backgroundColor: 'white' }}>
-                    {createMenuItem('ios-people', 'Followed artists', this.props.onPressMenuFollowArtists)}
-                    <Divider />
-                    {createMenuItem('ios-settings', 'Settings', () => {})}
-                    {createMenuItem('ios-lock', 'Terms & privacy policy', () => {})}
-                    {createMenuItem('ios-help-circle', 'Help & feedback', () => {})}
-                </View>
-            </View>
-        )
-
         return (
             <ScrollableTabView renderTabBar={() => <CustomTabBar />}>
                 <HomeTabPage tabLabel="ios-home" />
-                <FollowedTabPage tabLabel="ios-heart" />
-                <MenuTabPage tabLabel="ios-menu"></MenuTabPage>
+                <FollowedTab tabLabel="ios-heart" songs={this.props.followedSongs} onPressSong={this.props.onPressSong} />
+                <MenuTab tabLabel="ios-menu"></MenuTab>
             </ScrollableTabView>
         )
     }
