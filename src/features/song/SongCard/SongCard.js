@@ -21,7 +21,7 @@ class SongCard extends React.Component {
                     {this.renderImage()}
                 </View>
                 <View style={[styles.infoContainer]}>
-                    <Text numberOfLines={1} style={[Theme.subhead]}>{this.props.name}</Text>
+                    <Text numberOfLines={1} style={[Theme.rowTitle]}>{this.props.name}</Text>
                     <Text numberOfLines={1} style={[Theme.caption]}>{this.props.artist}</Text>
                 </View>
             </TouchableOpacity>

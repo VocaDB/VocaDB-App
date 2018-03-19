@@ -12,7 +12,7 @@ class FeatureList extends React.Component {
         return (
             <View style={[styles.container]}>
                 <View style={[styles.headerContainer]}>
-                    <Text style={Theme.headline}>{this.props.title}</Text>
+                    <Text style={Theme.subhead}>{this.props.title}</Text>
                     <Button primary text="See more" onPress={this.props.onPressMore} />
                 </View>
                 <ScrollView horizontal>

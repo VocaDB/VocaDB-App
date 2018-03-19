@@ -21,7 +21,7 @@ class AlbumCard extends React.Component {
                     {this.renderImage()}
                 </View>
                 <View style={[styles.infoContainer]}>
-                    <Text numberOfLines={1} style={[Theme.subhead]}>{this.props.name}</Text>
+                    <Text numberOfLines={1} style={[Theme.rowTitle]}>{this.props.name}</Text>
                 </View>
             </TouchableOpacity>
         )
