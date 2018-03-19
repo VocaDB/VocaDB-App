@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import MainTab from './MainTab'
+import Main from './Main'
 import { createSelector } from 'reselect';
 import Icon from '../../../components/Icon/index'
 import { Page } from '../../../AppNavigator'
@@ -13,7 +13,7 @@ import * as albumActions from '../../album/albumActions'
 import * as eventActions from '../../releaseEvent/releaseEventActions'
 
 
-MainTab.navigationOptions = ({ navigation }) => ({
+Main.navigationOptions = ({ navigation }) => ({
     title: 'VocaDB',
     drawerLabel: 'VocaDB',
     headerRight: (
@@ -21,11 +21,11 @@ MainTab.navigationOptions = ({ navigation }) => ({
     ),
 })
 
-MainTab.propTypes = {
+Main.propTypes = {
 
 }
 
-const homeStateSelect = createSelector(
+const mapStateSelector = createSelector(
     selectLatestSongs(),
     selectLoading(),
     selectLatestReleaseEvents(),
@@ -61,4 +61,4 @@ const mapDispatchToProps = (dispatch, props) => ({
     onPressMenuFollowArtists: () => props.navigation.navigate(Page.FollowedArtists)
 })
 
-export default connect(homeStateSelect, mapDispatchToProps)(MainTab)
+export default connect(mapStateSelector, mapDispatchToProps)(Main)
