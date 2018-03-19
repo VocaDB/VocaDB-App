@@ -36,4 +36,9 @@ FollowedTab.propTypes = {
     onPressSong: PropTypes.func
 }
 
+FollowedTab.defaultProps = {
+    songs: [],
+    onPressSong: () => console.log('')
+}
+
 export default FollowedTab
