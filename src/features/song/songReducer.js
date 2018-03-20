@@ -26,7 +26,6 @@ const reducer = createReducer({
         return { ...state, highlighted: payload.result }
     },
     [actions.fetchSearchSongs]: (state, payload) => {
-
         let searchParams = merge({}, state.searchParams)
 
         if(payload.remove) {
@@ -34,7 +33,11 @@ const reducer = createReducer({
                 searchParams[key] = _.pullAll(state.searchParams[key], value)
             })
         } else {
-            searchParams = merge(state.searchParams, payload.params)
+            searchParams = merge(state.searchParams, payload.params, {
+                arrayMerge: (destinationArray, sourceArray) => {
+                    return _.union(destinationArray, sourceArray)
+                }
+            })
         }
 
         return { ...state, searchParams }
