@@ -29,6 +29,9 @@ export default class Main extends React.Component {
                     recentAlbums={this.props.recentAlbums}
                     topAlbums={this.props.topAlbums}
                     latestEvents={this.props.latestEvents}
+                    onPressSong={this.props.onPressSong}
+                    onPressAlbum={this.props.onPressAlbum}
+                    onPressEvent={this.props.onPressEvent}
                     onPressSongSearch={this.props.onPressSongSearch}
                     onPressArtistSearch={this.props.onPressArtistSearch}
                     onPressAlbumSearch={this.props.onPressAlbumSearch}

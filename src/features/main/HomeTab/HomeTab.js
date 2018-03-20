@@ -98,6 +98,9 @@ const styles = StyleSheet.create({
 })
 
 HomeTab.propTypes = {
+    onPressSong: PropTypes.func,
+    onPressAlbum: PropTypes.func,
+    onPressEvent: PropTypes.func,
     onPressSongSearch: PropTypes.func,
     onPressArtistSearch: PropTypes.func,
     onPressAlbumSearch: PropTypes.func,
