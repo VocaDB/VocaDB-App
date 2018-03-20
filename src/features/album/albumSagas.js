@@ -6,7 +6,7 @@ import api from './albumApi'
 const fetchLatestAlbums = function* fetchLatestAlbums() {
     try {
         const response = yield call(api.getRecentAlbums);
-        yield put(actions.fetchLatestAlbumsSuccess(response.items));
+        yield put(actions.fetchLatestAlbumsSuccess(response));
     } catch (e) {
         yield put(appActions.requestError(e));
     }
