@@ -34,7 +34,7 @@ const aritstListStateSelect = createSelector(
 const mapDispatchToProps = (dispatch, props) => ({
     fetchArtists: params => dispatch(artistActions.fetchSearchArtists(params)),
     back: () => props.navigation.goBack(),
-    onPressSong: artist => props.navigation.navigate(Page.ArtistDetail, { id: artist.id })
+    onPressArtist: artist => props.navigation.navigate(Page.ArtistDetail, { id: artist.id })
 })
 
 export default connect(aritstListStateSelect, mapDispatchToProps)(ArtistListPage)
