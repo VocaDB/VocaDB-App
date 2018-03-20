@@ -35,7 +35,7 @@ export default class SongSearch extends React.Component {
         const params = this.navParams()
 
         if(params && params.params) {
-            this.doSearch(params.params)
+            this.props.fetchSongsReplaceParams(params)
         }
     }
 

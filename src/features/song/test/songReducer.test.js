@@ -1,4 +1,4 @@
-import reducer from './../songReducer'
+import reducer, { defaultSearchParams } from './../songReducer'
 import * as actions from './../songActions'
 import * as mockGenerator from '../../../common/helper/mockGenerator'
 
@@ -66,6 +66,19 @@ describe('Test song reducer', () => {
         }
 
         let nextState = reducer(currentState, actions.fetchSearchSongs({ artistId: [ 2 ] }))
+
+        expect(nextState).toBeTruthy()
+        expect(nextState.searchParams).toBeTruthy()
+        expect(nextState.searchParams).toEqual(expectedResult)
+    })
+
+    it('should replace params when fetch search song', () => {
+        const expectedResult = { ...defaultSearchParams, nameMatchMode: 'auto', artistId: [ 1 ] }
+        let currentState = {
+            searchParams: { nameMatchMode: 'auto', artistId: [ 1, 2, 3, 4 ] }
+        }
+
+        let nextState = reducer(currentState, actions.fetchSearchSongs({ artistId: [ 1 ] }, false, true))
 
         expect(nextState).toBeTruthy()
         expect(nextState.searchParams).toBeTruthy()

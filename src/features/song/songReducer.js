@@ -3,17 +3,20 @@ import * as actions from './songActions';
 import merge from 'deepmerge';
 import _ from 'lodash'
 
+export const defaultSearchParams = {
+    nameMatchMode: 'auto',
+    maxResults: 50,
+    start: 0,
+    fields: 'thumbUrl',
+    songTypes: '',
+    artistId: [],
+    tagId: [],
+    sort: 'AdditionDate'
+}
+
 export const defaultState = {
     searchResult: [],
-    searchParams: {
-        nameMatchMode: 'auto',
-        maxResults: 50,
-        fields: 'thumbUrl',
-        songTypes: '',
-        artistId: [],
-        tagId: [],
-        sort: 'AdditionDate'
-    },
+    searchParams: defaultSearchParams,
     noResult: false,
     all: [],
     followed: [],
@@ -26,8 +29,14 @@ const reducer = createReducer({
         return { ...state, highlighted: payload.result }
     },
     [actions.fetchSearchSongs]: (state, payload) => {
-        let searchParams = merge({}, state.searchParams)
 
+        if(payload.replace) {
+            console.log(payload.params)
+            let searchParams = _.merge({}, defaultSearchParams, payload.params)
+            return { ...state, searchParams }
+        }
+
+        let searchParams = merge({}, state.searchParams)
         if(payload.remove) {
             _.forEach(payload.params, (value, key) => {
                 searchParams[key] = _.pullAll(state.searchParams[key], value)
