@@ -11,10 +11,13 @@ import mockTag from '../sample/tag'
 
 const api = {
     songs: {
+        highlighted: () => request('/songs/highlighted', {}, mockSong),
         find: params => request('/songs', params, mockSongs),
         get: (id, params) => request(`/songs/${id}`, params, mockSong)
     },
     albums: {
+        newAlbum: () => request('/albums/new', {}, mockAlbums),
+        top: () => request('/albums/top', {}, mockAlbums),
         find: params => request('/albums', params, mockAlbums),
         get: (id, params) => request(`/albums/${id}`, params, mockAlbum)
     },
