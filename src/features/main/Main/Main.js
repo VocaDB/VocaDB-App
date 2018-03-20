@@ -8,14 +8,18 @@ import FollowedTab from './../FollowedTab'
 export default class Main extends React.Component {
 
     componentDidMount () {
-        this.refresh()
+        this.refreshHome()
     }
 
-    refresh () {
+    refreshHome () {
         this.props.fetchHighlighted()
         this.props.fetchTopAlbums()
         this.props.fetchLatestEvents()
         this.props.fetchRecentAlbums()
+
+    }
+
+    refreshFollowedSongs () {
         this.props.fetchFollowedSongs()
     }
 
@@ -25,6 +29,8 @@ export default class Main extends React.Component {
             <ScrollableTabView renderTabBar={() => <CustomTabBar />}>
                 <HomeTab
                     tabLabel="ios-home"
+                    refreshing={this.props.refreshing}
+                    refresh={this.refreshHome.bind(this)}
                     recentSongs={this.props.recentSongs}
                     recentAlbums={this.props.recentAlbums}
                     topAlbums={this.props.topAlbums}
@@ -39,7 +45,12 @@ export default class Main extends React.Component {
                     onPressMoreRecentSongs={this.props.onPressMoreRecentSongs}
                     onPressMoreRecentAlbums={this.props.onPressMoreRecentAlbums}
                     onPressMoreLatestEvent={this.props.onPressMoreLatestEvent} />
-                <FollowedTab tabLabel="ios-heart" songs={this.props.followedSongs} onPressSong={this.props.onPressSong} />
+                <FollowedTab
+                    tabLabel="ios-heart"
+                    refreshing={this.props.refreshing}
+                    refresh={this.refreshFollowedSongs.bind(this)}
+                    songs={this.props.followedSongs}
+                    onPressSong={this.props.onPressSong} />
                 <MenuTab tabLabel="ios-menu"></MenuTab>
             </ScrollableTabView>
         )

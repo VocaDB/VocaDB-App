@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
+import { View, Text, TouchableOpacity, StyleSheet, RefreshControl } from 'react-native'
 import { Avatar } from 'react-native-material-ui';
 import PropTypes from 'prop-types'
 import FeatureList from './../FeatureList'
@@ -16,7 +16,7 @@ class HomeTab extends React.Component {
 
         const MenuIcon = (props) => (
             <TouchableOpacity style={{ alignItems: 'center' }} onPress={props.onPress}>
-                <Avatar icon={props.icon} />
+                <Avatar icon={props.icon}  />
                 <Text style={Theme.caption}>{props.text}</Text>
             </TouchableOpacity>
         )
@@ -58,8 +58,15 @@ class HomeTab extends React.Component {
                 onPressMore={this.props.onPressMoreRecentSongs} />
         )
 
+        const refreshControl = (
+            <RefreshControl
+                refreshing={this.props.refreshing}
+                onRefresh={this.props.refresh}
+            />
+        )
+
         return (
-            <Content>
+            <Content refreshControl={refreshControl}>
                 <View style={[styles.menuContainer]}>
                     <MenuIcon icon='music-note' text='Song' onPress={this.props.onPressSongSearch} />
                     <MenuIcon icon='person' text='Artist' onPress={this.props.onPressArtistSearch} />
@@ -99,6 +106,8 @@ const styles = StyleSheet.create({
 })
 
 HomeTab.propTypes = {
+    refreshing: PropTypes.bool,
+    refresh: PropTypes.func,
     onPressSong: PropTypes.func,
     onPressAlbum: PropTypes.func,
     onPressEvent: PropTypes.func,
@@ -113,6 +122,8 @@ HomeTab.propTypes = {
 }
 
 HomeTab.defaultProps = {
+    refreshing: false,
+    refresh: () => console.log('Home refresh'),
     recentSongs: [],
     recentAlbums: [],
     topAlbums: [],
