@@ -4,7 +4,7 @@ import Main from './Main'
 import { createSelector } from 'reselect';
 import Icon from '../../../components/Icon/index'
 import { Page } from '../../../AppNavigator'
-import { selectHighlighted, selectLatestSongs, selectFollowedSongs } from '../../song/songSelector'
+import { selectHighlighted, selectFollowedSongs } from '../../song/songSelector'
 import { selectLatestAlbums, selectTopAlbums } from '../../album/albumSelector'
 import { selectLatestReleaseEvents } from '../../releaseEvent/releaseEventSelector'
 import { selectLoading } from '../../../app/appSelector'
@@ -51,6 +51,7 @@ const mapDispatchToProps = (dispatch, props) => ({
     fetchFollowedSongs: () => dispatch(songActions.fetchFollowedSongs()),
     onPressSongSearch: () => props.navigation.navigate(Page.SongList, { searchable: true, hideHeader: true }),
     onPressArtistSearch: () => props.navigation.navigate(Page.ArtistList, { searchable: true, hideHeader: true }),
+    onPressAlbumSearch: () =>  props.navigation.navigate(Page.AlbumSearch, { searchable: true, hideHeader: true }),
     onPressSong: song => props.navigation.navigate(Page.SongDetail, { id: song.id }),
     onPressAlbum: album => props.navigation.navigate(Page.AlbumDetail, { id: album.id }),
     onPressEvent: event => props.navigation.navigate(Page.EventDetail, { id: event.id, title: event.name }),

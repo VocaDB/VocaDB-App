@@ -1,9 +1,21 @@
 import { createSelector } from 'reselect';
 import { selectNav } from './../../app/appSelector'
-import { Page } from './../../AppNavigator'
+import Page from './../../app/appRoutes'
 
 export const selectAlbum = () => state => state.album
 export const selectAlbumEntity = () => state => (state.entities && state.entities.albums)? state.entities.albums : {}
+export const selectNoResult = () => createSelector(
+    selectAlbum(),
+    album => album.noResult
+)
+export const selectSearchParams = () => createSelector(
+    selectAlbum(),
+    album => album.searchParams
+)
+export const selectSearchResultIds = () => createSelector(
+    selectAlbum(),
+    album => album.searchResult
+)
 export const selectLatestAlbumIds = () => createSelector(
     selectAlbum(),
     album => album.all
@@ -29,6 +41,13 @@ export const selectLatestAlbums = () => createSelector(
 
 export const selectTopAlbums = () => createSelector(
     selectTopAlbumIds(),
+    selectAlbumEntity(),
+    (albumIds, albumEntity) => albumIds
+        .filter(id => (id != undefined && albumEntity[id.toString()]))
+        .map(id => albumEntity[id.toString()])
+)
+export const selectSearchResult = () => createSelector(
+    selectSearchResultIds(),
     selectAlbumEntity(),
     (albumIds, albumEntity) => albumIds
         .filter(id => (id != undefined && albumEntity[id.toString()]))

@@ -3,7 +3,8 @@ import {
     selectLatestAlbums,
     selectTopAlbums,
     selectAlbumEntity,
-    selectAlbumDetail } from './../albumSelector'
+    selectAlbumDetail,
+    selectSearchResult } from './../albumSelector'
 import * as mockGenerator from '../../../common/helper/mockGenerator'
 
 describe('Test album selector', () => {
@@ -35,7 +36,6 @@ describe('Test album selector', () => {
         }
     });
 
-
     it('should return album state correctly', () => {
         const actualResult = selectAlbum()(state);
         expect(actualResult).toBeTruthy()
@@ -46,6 +46,16 @@ describe('Test album selector', () => {
         const actualResult = selectAlbumEntity()(state);
         expect(actualResult).toBeTruthy()
         expect(actualResult).toEqual(entities.albums)
+    })
+
+    it('should return result albums correctly', () => {
+        state.album.searchResult = [ album2.id, album1.id ]
+
+        const actualResult = selectSearchResult()(state);
+        const expectedResult = [ album2, album1 ];
+
+        expect(actualResult).toBeTruthy();
+        expect(actualResult).toEqual(expectedResult)
     })
 
     it('should return latest albums correctly', () => {

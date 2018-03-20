@@ -1,4 +1,4 @@
-import { fetchLatestAlbums, fetchTopAlbums, fetchAlbumDetail } from './../albumSagas'
+import { fetchSearchAlbums, fetchLatestAlbums, fetchTopAlbums, fetchAlbumDetail } from './../albumSagas'
 import api from './../albumApi'
 import { call, put } from 'redux-saga/effects'
 import * as actions from './../albumActions'
@@ -6,6 +6,20 @@ import * as appActions from './../../../app/appActions'
 import * as mock from '../../../common/helper/mockGenerator'
 
 describe('Test album sagas', () => {
+    it('Should fetch search album success', () => {
+        const params = { artistIds: [ 1, 2 ] }
+        const action = actions.fetchSearchAlbums(params)
+        const gen = fetchSearchAlbums(action)
+
+        expect(gen.next().value).toEqual(call(api.find, params));
+
+        const mockItems = [ mock.CreateAlbum() ]
+        const mockResponse = { items: mockItems }
+        expect(gen.next(mockResponse).value).toEqual(put(actions.fetchSearchAlbumsSuccess(mockItems, false)));
+
+        expect(gen.next().done).toBeTruthy();
+    })
+
     it('Should fetch album success', () => {
         const action = actions.fetchLatestAlbums()
         const gen = fetchLatestAlbums(action)

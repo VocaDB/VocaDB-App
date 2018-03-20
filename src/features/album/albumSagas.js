@@ -2,6 +2,18 @@ import { put, takeLatest, call, select } from 'redux-saga/effects'
 import * as actions from './albumActions'
 import * as appActions from '../../app/appActions'
 import api from './albumApi'
+import { selectSearchParams } from './albumSelector'
+
+const fetchSearchAlbums = function* fetchSearchAlbums() {
+    try {
+        const params = yield select(selectSearchParams())
+        const response = yield call(api.find, params);
+        let append = (params.start) ? true : false
+        yield put(actions.fetchSearchAlbumsSuccess(response.items, append));
+    } catch (e) {
+        yield put(appActions.requestError(e));
+    }
+}
 
 const fetchTopAlbums = function* fetchTopAlbums() {
     try {
@@ -36,11 +48,12 @@ const fetchAlbumDetail = function* fetchLatestAlbums(action) {
 }
 
 const albumSaga = function* albumSagaAsync() {
+    yield takeLatest(actions.fetchSearchAlbums, fetchSearchAlbums)
     yield takeLatest(actions.fetchLatestAlbums, fetchLatestAlbums)
     yield takeLatest(actions.fetchTopAlbums, fetchTopAlbums)
     yield takeLatest(actions.fetchAlbumDetail, fetchAlbumDetail)
 }
 
-export { fetchTopAlbums, fetchLatestAlbums, fetchAlbumDetail }
+export { fetchSearchAlbums, fetchTopAlbums, fetchLatestAlbums, fetchAlbumDetail }
 
 export default albumSaga

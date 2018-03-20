@@ -19,6 +19,33 @@ describe('Test album reducer', () => {
         expect(nextState.a).toBeTruthy()
     })
 
+    it('should append params when fetch search album', () => {
+        const expectedResult = { nameMatchMode: 'auto', artistId: [ 1 ] }
+        let currentState = {
+            searchParams: { nameMatchMode: 'auto' }
+        }
+
+        let nextState = reducer(currentState, actions.fetchSearchAlbums({ artistId: [ 1 ] }))
+
+        expect(nextState).toBeTruthy()
+        expect(nextState.searchParams).toBeTruthy()
+        expect(nextState.searchParams).toEqual(expectedResult)
+    })
+
+    it('should return state correctly when fetch search albums success', () => {
+        const mockResponse = [ album1, album2 ]
+        const expectedResult = [ album1.id, album2.id ]
+        let currentState = {
+            searchResult: [ 3, 4 ]
+        }
+
+        let nextState = reducer(currentState, actions.fetchSearchAlbumsSuccess(mockResponse))
+
+        expect(nextState).toBeTruthy()
+        expect(nextState.searchResult).toBeTruthy()
+        expect(nextState.searchResult).toEqual(expectedResult)
+    })
+
     it('should return state correctly when fetch latest albums success', () => {
         const mockResponse = [ album1, album2 ]
         const expectedResult = [ album1.id, album2.id ]
