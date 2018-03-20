@@ -49,6 +49,7 @@ class SongFilter extends React.Component {
                     {this.props.filterArtists.map(a =>
                         <ArtistRow
                             key={a.id}
+                            id={a.id}
                             name={a.defaultName}
                             rightIcon='ios-close'
                             onRightElementPress={() => this.props.onFilterChanged({ artistId: [ a.id ] }, true)} />)}
