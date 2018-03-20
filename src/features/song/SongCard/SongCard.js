@@ -1,7 +1,8 @@
 import React from 'react'
-import { View, Text, TouchableOpacity, Image } from 'react-native'
+import { View, Text, TouchableOpacity, Image, Linking } from 'react-native'
 import PropTypes from 'prop-types';
 import Theme from '../../../theme'
+import Icon from '../../../components/Icon/index'
 
 class SongCard extends React.Component {
 
@@ -24,6 +25,10 @@ class SongCard extends React.Component {
                     <Text numberOfLines={1} style={[Theme.rowTitle]}>{this.props.name}</Text>
                     <Text numberOfLines={1} style={[Theme.caption]}>{this.props.artist}</Text>
                 </View>
+                <View style={[styles.pvContainer]}>
+                    {this.props.pvs.filter(pv => pv.pvType === 'Original').map(pv =>
+                        <Icon key={pv.id} style={{ marginRight: 8 }} name={pv.service} size='medium' site onPress={() =>  Linking.openURL(pv.url).catch(err => console.error('An error occurred', err))} />)}
+                </View>
             </TouchableOpacity>
         )
     }
@@ -31,8 +36,8 @@ class SongCard extends React.Component {
 
 const styles = {
     container: {
-        width: 160,
-        height: 160,
+        width: 180,
+        height: 180,
         backgroundColor: 'white'
     },
     image: {
@@ -46,6 +51,11 @@ const styles = {
         backgroundColor: 'white',
         flex: 1,
         padding: 4
+    },
+    pvContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        height: 40
     }
 }
 
@@ -54,7 +64,7 @@ SongCard.propTypes = {
     artist: PropTypes.string,
     image: PropTypes.string,
     hideArtist: PropTypes.bool,
-    pvServices: PropTypes.array,
+    pvs: PropTypes.array,
     onPress: PropTypes.func
 };
 
@@ -63,7 +73,7 @@ SongCard.defaultProps = {
     artist: 'Unknown',
     image: 'http://via.placeholder.com/350x150/000000/ffffff?text=NO_IMAGE',
     hideArtist: false,
-    pvServices: []
+    pvs: []
 };
 
 export default SongCard

@@ -11,7 +11,7 @@ import mockTag from '../sample/tag'
 
 const api = {
     songs: {
-        highlighted: () => request('/songs/highlighted', {}, mockSong),
+        highlighted: params => request('/songs/highlighted', params, mockSong),
         find: params => request('/songs', params, mockSongs),
         get: (id, params) => request(`/songs/${id}`, params, mockSong)
     },

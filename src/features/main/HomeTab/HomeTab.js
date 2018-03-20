@@ -27,6 +27,7 @@ class HomeTab extends React.Component {
                       name={song.defaultName}
                       artist={song.artistString}
                       image={song.thumbUrl}
+                      pvs={song.pvs}
                       onPress={() => this.props.onPressSong(song)} />
         )
 
