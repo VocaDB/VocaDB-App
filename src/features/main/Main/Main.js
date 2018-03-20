@@ -12,7 +12,8 @@ export default class Main extends React.Component {
     }
 
     refresh () {
-        this.props.fetchRecentSongs()
+        this.props.fetchHighlighted()
+        this.props.fetchTopAlbums()
         this.props.fetchLatestEvents()
         this.props.fetchRecentAlbums()
         this.props.fetchFollowedSongs()
@@ -26,6 +27,7 @@ export default class Main extends React.Component {
                     tabLabel="ios-home"
                     recentSongs={this.props.recentSongs}
                     recentAlbums={this.props.recentAlbums}
+                    topAlbums={this.props.topAlbums}
                     latestEvents={this.props.latestEvents}
                     onPressSongSearch={this.props.onPressSongSearch}
                     onPressArtistSearch={this.props.onPressArtistSearch}

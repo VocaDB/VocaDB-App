@@ -33,7 +33,7 @@ class HomeTab extends React.Component {
         const renderAlbumCard = album => (
             <AlbumCard key={album.id}
                        id={album.id}
-                       name={album.defaultName}
+                       name={album.name}
                        onPress={() => this.props.onPressAlbum(album)} />
         )
 
@@ -69,15 +69,19 @@ class HomeTab extends React.Component {
                 <Divider height={14} />
 
                 <View style={{ paddingBottom: 16}}>
-                    {renderFeatureList('Recent songs', this.props.recentSongs, renderSongCard, this.props.onPressMoreRecentSongs)}
+                    {renderFeatureList('Highlighted PVs', this.props.recentSongs, renderSongCard, this.props.onPressMoreRecentSongs)}
 
                     <Divider height={14} />
 
-                    {renderFeatureList('Recent albums', this.props.recentAlbums, renderAlbumCard, this.props.onPressMoreRecentAlbums)}
+                    {renderFeatureList('Recent or upcoming albums', this.props.recentAlbums, renderAlbumCard, this.props.onPressMoreRecentAlbums)}
 
                     <Divider height={14} />
 
-                    {renderFeatureList('Latest events', this.props.latestEvents, renderEventCard, this.props.onPressMoreLatestEvent)}
+                    {renderFeatureList('Random popular albums', this.props.topAlbums, renderAlbumCard, this.props.onPressMoreTopAlbums)}
+
+                    <Divider height={14} />
+
+                    {renderFeatureList('Incoming event', this.props.latestEvents, renderEventCard, this.props.onPressMoreLatestEvent)}
                 </View>
             </Content>
         )
@@ -100,12 +104,14 @@ HomeTab.propTypes = {
     onPressEventSearch: PropTypes.func,
     onPressMoreRecentSongs: PropTypes.func,
     onPressMoreRecentAlbums: PropTypes.func,
-    onPressMoreLatestEvent: PropTypes.func
+    onPressMoreLatestEvent: PropTypes.func,
+    onPressMoreTopAlbums: PropTypes.func
 }
 
 HomeTab.defaultProps = {
     recentSongs: [],
     recentAlbums: [],
+    topAlbums: [],
     latestEvents: []
 }
 

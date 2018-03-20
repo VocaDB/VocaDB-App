@@ -4,8 +4,8 @@ import Main from './Main'
 import { createSelector } from 'reselect';
 import Icon from '../../../components/Icon/index'
 import { Page } from '../../../AppNavigator'
-import { selectLatestSongs, selectFollowedSongs } from '../../song/songSelector'
-import { selectLatestAlbums } from '../../album/albumSelector'
+import { selectHighlighted, selectLatestSongs, selectFollowedSongs } from '../../song/songSelector'
+import { selectLatestAlbums, selectTopAlbums } from '../../album/albumSelector'
 import { selectLatestReleaseEvents } from '../../releaseEvent/releaseEventSelector'
 import { selectLoading } from '../../../app/appSelector'
 import * as songActions from '../../song/songActions'
@@ -26,21 +26,25 @@ Main.propTypes = {
 }
 
 const mapStateSelector = createSelector(
-    selectLatestSongs(),
+    selectHighlighted(),
     selectLoading(),
     selectLatestReleaseEvents(),
     selectLatestAlbums(),
+    selectTopAlbums(),
     selectFollowedSongs(),
-    (recentSongs, refreshing, latestEvents, recentAlbums, followedSongs) => ({
+    (recentSongs, refreshing, latestEvents, recentAlbums, topAlbums, followedSongs) => ({
         recentSongs,
         refreshing,
         latestEvents,
         recentAlbums,
+        topAlbums,
         followedSongs
     })
 );
 
 const mapDispatchToProps = (dispatch, props) => ({
+    fetchHighlighted: () => dispatch(songActions.fetchHighlighted()),
+    fetchTopAlbums: () => dispatch(albumActions.fetchTopAlbums()),
     fetchRecentSongs: () => dispatch(songActions.fetchLatestSongs()),
     fetchLatestEvents: () => dispatch(eventActions.fetchLatestReleaseEvents()),
     fetchRecentAlbums: () => dispatch(albumActions.fetchLatestAlbums()),
