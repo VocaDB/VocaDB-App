@@ -15,7 +15,7 @@ class FeatureList extends React.Component {
                     <Text style={Theme.subhead}>{this.props.title}</Text>
                     <Button primary text="See more" onPress={this.props.onPressMore} />
                 </View>
-                <ScrollView horizontal>
+                <ScrollView horizontal showsHorizontalScrollIndicator={false}>
                     {this.props.items.map(WrapComponent)}
                 </ScrollView>
 
