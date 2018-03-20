@@ -1,8 +1,18 @@
-import { fetchLatestAlbums, fetchAlbumDetail } from "../albumActions";
+import { fetchLatestAlbums, fetchTopAlbums, fetchAlbumDetail } from "../albumActions";
 
 describe('Test album action', () => {
     it('should create fetch latest album action success', () => {
         const actualResult = fetchLatestAlbums();
+        const expectedPayload = { loading: true }
+
+        expect(actualResult).toBeTruthy()
+        expect(actualResult.error).toEqual(false)
+        expect(actualResult.payload).toEqual(expectedPayload)
+        expect(actualResult.type).toBeTruthy()
+    })
+
+    it('should create fetch top album action success', () => {
+        const actualResult = fetchTopAlbums();
         const expectedPayload = { loading: true }
 
         expect(actualResult).toBeTruthy()

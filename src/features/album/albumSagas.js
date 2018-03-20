@@ -3,6 +3,15 @@ import * as actions from './albumActions'
 import * as appActions from '../../app/appActions'
 import api from './albumApi'
 
+const fetchTopAlbums = function* fetchTopAlbums() {
+    try {
+        const response = yield call(api.getTopAlbums);
+        yield put(actions.fetchTopAlbumsSuccess(response));
+    } catch (e) {
+        yield put(appActions.requestError(e));
+    }
+}
+
 const fetchLatestAlbums = function* fetchLatestAlbums() {
     try {
         const response = yield call(api.getRecentAlbums);
@@ -28,9 +37,10 @@ const fetchAlbumDetail = function* fetchLatestAlbums(action) {
 
 const albumSaga = function* albumSagaAsync() {
     yield takeLatest(actions.fetchLatestAlbums, fetchLatestAlbums)
+    yield takeLatest(actions.fetchTopAlbums, fetchTopAlbums)
     yield takeLatest(actions.fetchAlbumDetail, fetchAlbumDetail)
 }
 
-export { fetchLatestAlbums, fetchAlbumDetail }
+export { fetchTopAlbums, fetchLatestAlbums, fetchAlbumDetail }
 
 export default albumSaga

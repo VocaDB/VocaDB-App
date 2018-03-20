@@ -8,6 +8,10 @@ export const selectLatestAlbumIds = () => createSelector(
     selectAlbum(),
     album => album.all
 )
+export const selectTopAlbumIds = () => createSelector(
+    selectAlbum(),
+    album => album.top
+)
 export const selectAlbumDetailId = () => createSelector(
     selectNav(),
     nav => (nav
@@ -17,6 +21,14 @@ export const selectAlbumDetailId = () => createSelector(
 
 export const selectLatestAlbums = () => createSelector(
     selectLatestAlbumIds(),
+    selectAlbumEntity(),
+    (albumIds, albumEntity) => albumIds
+        .filter(id => (id != undefined && albumEntity[id.toString()]))
+        .map(id => albumEntity[id.toString()])
+)
+
+export const selectTopAlbums = () => createSelector(
+    selectTopAlbumIds(),
     selectAlbumEntity(),
     (albumIds, albumEntity) => albumIds
         .filter(id => (id != undefined && albumEntity[id.toString()]))
