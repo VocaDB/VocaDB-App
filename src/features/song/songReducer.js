@@ -17,10 +17,14 @@ export const defaultState = {
     noResult: false,
     all: [],
     followed: [],
+    highlighted: [],
     detail: 0
 }
 
 const reducer = createReducer({
+    [actions.fetchHighlightedSuccess]: (state, payload) => {
+        return { ...state, highlighted: payload.result }
+    },
     [actions.fetchSearchSongs]: (state, payload) => {
 
         let searchParams = merge({}, state.searchParams)

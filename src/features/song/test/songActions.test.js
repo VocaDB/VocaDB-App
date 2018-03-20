@@ -1,6 +1,16 @@
-import { fetchLatestSongs, fetchFollowedSongs, fetchSongDetail, fetchSearchSongs } from "../songActions";
+import { fetchHighlighted, fetchLatestSongs, fetchFollowedSongs, fetchSongDetail, fetchSearchSongs } from "../songActions";
 
 describe('Test song action', () => {
+
+    it('should create fetch highlighted song action', () => {
+        const actualResult = fetchHighlighted();
+        const expectedPayload = { loading: true }
+
+        expect(actualResult).toBeTruthy()
+        expect(actualResult.error).toEqual(false)
+        expect(actualResult.payload).toEqual(expectedPayload)
+        expect(actualResult.type).toBeTruthy()
+    })
 
     it('should create fetch search song action', () => {
         const params = { artistId: [ 1, 2 ] }

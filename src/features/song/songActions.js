@@ -9,6 +9,9 @@ export const fetchSearchSongsSuccess =  createAction('fetch search songs success
     return { ...nom, append }
 })
 
+export const fetchHighlighted = createAction('fetch highlighted songs', () => ({ loading: true }))
+export const fetchHighlightedSuccess = createAction('fetch highlighted songs success', data => normalize(data, [ songSchema ]))
+
 export const fetchLatestSongs = createAction('fetch latest songs', () => ({ loading: true }))
 export const fetchLatestSongsSuccess =  createAction('fetch latest songs success', data => normalize(data, [ songSchema ]))
 

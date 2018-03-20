@@ -86,6 +86,17 @@ describe('Test song reducer', () => {
         expect(nextState.searchResult).toEqual(expectedResult)
     })
 
+    it('should return state correctly when fetch highlighted songs success', () => {
+        const mockResponse = [ song1, song2 ]
+        const expectedResult = [ song1.id, song2.id ]
+
+        let nextState = reducer({}, actions.fetchHighlightedSuccess(mockResponse))
+
+        expect(nextState).toBeTruthy()
+        expect(nextState.highlighted).toBeTruthy()
+        expect(nextState.highlighted).toEqual(expectedResult)
+    })
+
     it('should return state correctly when fetch latest songs success', () => {
         const mockResponse = [ song1, song2 ]
         const expectedResult = [ song1.id, song2.id ]

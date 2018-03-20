@@ -32,6 +32,10 @@ export const selectFilterArtists = () => createSelector(
         return searchParams.artistId.map(id => artistEntity[id.toString()])
     }
 )
+export const selectHighlightedIds = () => createSelector(
+    selectSong(),
+    song => song.highlighted
+)
 export const selectSearchResultIds = () => createSelector(
     selectSong(),
     song => song.searchResult
@@ -49,6 +53,12 @@ export const selectSongDetailId = () => createSelector(
     nav => (nav
         && nav.routes[nav.index]
         && nav.routes[nav.index].routeName === Page.SongDetail)? nav.routes[nav.index].params.id : 0
+)
+
+export const selectHighlighted = () => createSelector(
+    selectHighlightedIds(),
+    selectSongEntity(),
+    convertSongIds
 )
 
 export const selectSearchResult = () => createSelector(

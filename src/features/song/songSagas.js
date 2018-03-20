@@ -5,6 +5,15 @@ import api from './songApi'
 import { selectFollowedArtistIds } from './../artist/artistSelector'
 import { selectSearchParams } from './songSelector'
 
+const fetchHighlighted = function* fetchHighlighted() {
+    try {
+        const response = yield call(api.highlighted);
+        yield put(actions.fetchHighlightedSuccess(response));
+    } catch (e) {
+        yield put(appActions.requestError(e));
+    }
+}
+
 const fetchSearchSongs = function* fetchSearchSongs() {
     try {
         const params = yield select(selectSearchParams())
@@ -59,6 +68,7 @@ const fetchSongDetail = function* fetchLatestSongs(action) {
 }
 
 const songSaga = function* songSagaAsync() {
+    yield takeLatest(actions.fetchHighlighted, fetchHighlighted)
     yield takeLatest(actions.fetchLatestSongs, fetchLatestSongs)
     yield takeLatest(actions.fetchFollowedSongs, fetchFollowedSongs)
     yield takeLatest(actions.fetchSongDetail, fetchSongDetail)
@@ -66,6 +76,6 @@ const songSaga = function* songSagaAsync() {
     yield takeLatest(actions.fetchSearchSongs, fetchSearchSongs)
 }
 
-export { fetchSearchSongs, fetchLatestSongs, fetchFollowedSongs, fetchSongDetail }
+export { fetchHighlighted, fetchSearchSongs, fetchLatestSongs, fetchFollowedSongs, fetchSongDetail }
 
 export default songSaga
