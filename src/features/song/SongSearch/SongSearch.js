@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, Modal } from 'react-native'
+import { View, Text, Modal, StyleSheet } from 'react-native'
 import { Button } from 'react-native-material-ui';
 import Page from '../../../components/Page/index'
 import SearchBar from '../../../components/SearchBar/index'
@@ -7,7 +7,6 @@ import CenterView from '../../../components/CenterView/index'
 import SongList from '../SongList/index'
 import Theme from '../../../theme'
 import merge from "lodash/merge";
-
 
 export default class SongSearch extends React.Component {
 
@@ -62,26 +61,20 @@ export default class SongSearch extends React.Component {
     }
 
     renderSearchable () {
+
+        const queryEntry = text => this.doSearch({ query: text, start: 0 })
+        
         return (
             <Page>
                 <SearchBar
                     onLeftElementPress={this.props.back}
-                    onChangeText={text => {
-                        this.doSearch({ query: text, start: 0 })
-                    }}
+                    onChangeText={queryEntry}
                 />
 
-                <View
-                    style={{ alignItems: 'center' }}
-                >
-                    <Button raised primary icon='tune' text='Filter' style={{
-                        container: {
-                            margin: 8,
-                            width: 128
-                        }
-                    }} onPress={this.props.onPressFilter} />
+                <View style={styles.menuContainer}>
+                    <Button raised primary icon='tune' text='Filter' style={{ container: styles.filterButton }} onPress={this.props.onPressFilter} />
                 </View>
-                <View style={{ flex: 1, backgroundColor: Theme.contentBackgroundColor, paddingBottom: 8 }}>
+                <View style={styles.resultContainer}>
                     {this.props.songs.length > 0 && this.renderList()}
                     {this.props.songs.length === 0 && <CenterView>
                         <Text>No result</Text>
@@ -103,6 +96,22 @@ export default class SongSearch extends React.Component {
         }
     }
 }
+
+const styles = StyleSheet.create({
+    menuContainer: {
+        alignItems: 'center',
+        backgroundColor: 'white'
+    },
+    filterButton: {
+        margin: 8,
+        width: 128
+    },
+    resultContainer: {
+        flex: 1,
+        backgroundColor: Theme.contentBackgroundColor,
+        paddingBottom: 8
+    }
+})
 
 SongSearch.defaultProps = {
     songs: []
