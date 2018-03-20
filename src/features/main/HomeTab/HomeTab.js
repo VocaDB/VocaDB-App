@@ -16,7 +16,7 @@ class HomeTab extends React.Component {
 
         const MenuIcon = (props) => (
             <TouchableOpacity style={{ alignItems: 'center' }} onPress={props.onPress}>
-                <Avatar icon={props.icon}  />
+                <Avatar icon={props.icon} style={{ container: { backgroundColor: props.color } }}  />
                 <Text style={Theme.caption}>{props.text}</Text>
             </TouchableOpacity>
         )
@@ -68,10 +68,10 @@ class HomeTab extends React.Component {
         return (
             <Content refreshControl={refreshControl}>
                 <View style={[styles.menuContainer]}>
-                    <MenuIcon icon='music-note' text='Song' onPress={this.props.onPressSongSearch} />
-                    <MenuIcon icon='person' text='Artist' onPress={this.props.onPressArtistSearch} />
-                    <MenuIcon icon='album' text='Album' onPress={this.props.onPressAlbumSearch} />
-                    <MenuIcon icon='event' text='Event' onPress={this.props.onPressEventSearch} />
+                    <MenuIcon icon='music-note' color='#00C853' text='Song' onPress={this.props.onPressSongSearch} />
+                    <MenuIcon icon='person' color='#d50000' text='Artist' onPress={this.props.onPressArtistSearch} />
+                    <MenuIcon icon='album' color='#283593' text='Album' onPress={this.props.onPressAlbumSearch} />
+                    <MenuIcon icon='event' color='#FFD600' text='Event' onPress={this.props.onPressEventSearch} />
                 </View>
 
                 <Divider height={14} />
@@ -90,6 +90,8 @@ class HomeTab extends React.Component {
                     <Divider height={14} />
 
                     {renderFeatureList('Incoming event', this.props.latestEvents, renderEventCard, this.props.onPressMoreLatestEvent)}
+
+                    <Divider height={14} />
                 </View>
             </Content>
         )
