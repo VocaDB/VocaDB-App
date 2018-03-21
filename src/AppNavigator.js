@@ -1,6 +1,7 @@
 import MainPage from './features/main/Main'
 import SongDetailPage from './features/song/SongDetail'
 import SongFilterPage from './features/song/SongFilter'
+import SongWithParamsPage from './features/song/SongWithParams'
 import ArtistDetailPage from './features/artist/ArtistDetail'
 import AlbumDetailPage from './features/album/AlbumDetail'
 import AlbumSearchPage from './features/album/AlbumSearch'
@@ -21,6 +22,7 @@ const AppNavigator = StackNavigator({
     Main: { screen: MainPage },
     SongDetail: { screen: SongDetailPage },
     SongFilter: { screen: SongFilterPage },
+    SongWithParams: { screen: SongWithParamsPage },
     ArtistDetail: { screen: ArtistDetailPage },
     AlbumDetail: { screen: AlbumDetailPage },
     Search: { screen: SearchPage },

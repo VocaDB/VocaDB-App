@@ -55,9 +55,9 @@ const mapDispatchToProps = (dispatch, props) => ({
     onPressSong: song => props.navigation.navigate(Routes.SongDetail, { id: song.id }),
     onPressAlbum: album => props.navigation.navigate(Routes.AlbumDetail, { id: album.id }),
     onPressEvent: event => props.navigation.navigate(Routes.EventDetail, { id: event.id, title: event.name }),
-    onPressMoreRecentSongs: () => props.navigation.navigate(Routes.SongList, {
+    onPressMoreRecentSongs: () => props.navigation.navigate(Routes.SongWithParams, {
         title: 'Recent songs',
-        params: {
+        filterParams: {
             'maxResults': 20,
             'sort': 'AdditionDate',
             'fields': 'thumbUrl'

@@ -1,6 +1,7 @@
 const ROUTES = {
     Main: 'Main',
     SongDetail: 'SongDetail',
+    SongWithParams: 'SongWithParams',
     ArtistDetail: 'ArtistDetail',
     AlbumDetail: 'AlbumDetail',
     AlbumSearch: 'AlbumSearch',
