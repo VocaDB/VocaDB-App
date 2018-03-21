@@ -1,12 +1,10 @@
 import React from 'react'
 import { View, Text, Modal } from 'react-native'
-import { Button } from 'react-native-material-ui';
+import { Button, Toolbar } from 'react-native-material-ui';
 import Page from '../../../components/Page/index'
-import SearchBar from '../../../components/SearchBar/index'
 import CenterView from '../../../components/CenterView/index'
 import ArtistList from '../ArtistList'
 import Theme from '../../../theme'
-import merge from "lodash/merge"
 
 export default class ArtistSearch extends React.Component {
 
@@ -23,20 +21,11 @@ export default class ArtistSearch extends React.Component {
     }
 
     doSearch(params) {
-        this.props.fetchArtists(merge({}, this.props.params, params))
-    }
-
-    navParams() {
-        const navigation = this.props.navigation
-        return (navigation && navigation.state && navigation.state.params)? navigation.state.params : {}
+        this.props.fetchArtists(params)
     }
 
     refresh() {
-        const params = this.navParams()
-
-        if(params && params.params) {
-            this.doSearch(params.params)
-        }
+        this.doSearch()
     }
 
     renderList () {
@@ -57,13 +46,19 @@ export default class ArtistSearch extends React.Component {
         )
     }
 
-    renderSearchable () {
+    render () {
         return (
             <Page>
-                <SearchBar
+                <Toolbar
+                    leftElement="arrow-back"
                     onLeftElementPress={this.props.back}
-                    onChangeText={text => {
-                        this.doSearch({ query: text, start: 0 })
+                    centerElement="Artists"
+                    searchable={{
+                        autoFocus: true,
+                        placeholder: 'Find artist',
+                        onChangeText: text => {
+                            this.doSearch({ query: text, start: 0 })
+                        }
                     }}
                 />
                 <View style={{ flex: 1, backgroundColor: Theme.contentBackgroundColor, paddingBottom: 8 }}>
@@ -74,17 +69,6 @@ export default class ArtistSearch extends React.Component {
                 </View>
             </Page>
         )
-    }
-
-    render () {
-
-        const params = this.navParams()
-
-        if(this.props.searchable || params.searchable) {
-            return this.renderSearchable()
-        } else {
-            return this.renderList()
-        }
     }
 }
 
