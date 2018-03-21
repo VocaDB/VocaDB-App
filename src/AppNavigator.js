@@ -11,6 +11,7 @@ import ArtistListPage from './features/artist/ArtistSearch'
 import TagDetailPage from './features/tag/TagDetail'
 import EventDetailPage from './features/releaseEvent/EventDetail'
 import FollowedArtistsPage from './features/artist/FollowedArtists'
+import EventSearchPage from './features/releaseEvent/EventSearch'
 import { StackNavigator } from "react-navigation";
 import Theme from './theme'
 import Routes from './app/appRoutes'
@@ -31,7 +32,8 @@ const AppNavigator = StackNavigator({
     AlbumSearch: { screen: AlbumSearchPage },
     TagDetail: { screen: TagDetailPage },
     EventDetail: { screen: EventDetailPage },
-    FollowedArtists: { screen: FollowedArtistsPage }
+    FollowedArtists: { screen: FollowedArtistsPage },
+    EventSearch: { screen: EventSearchPage }
 }, {
     initialRouteName: INITIAL_ROUTE,
     navigationOptions: {

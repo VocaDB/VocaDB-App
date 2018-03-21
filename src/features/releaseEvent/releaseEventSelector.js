@@ -1,5 +1,9 @@
 import { createSelector } from 'reselect';
 
+export const convertEventIds = (eventIds, eventEntity) => eventIds
+    .filter(id => (id != undefined && eventEntity[id.toString()]))
+    .map(id => eventEntity[id.toString()])
+
 export const selectReleaseEvent = () => state => state.releaseEvent
 export const selectReleaseEventEntity = () => state => (state.entities && state.entities.releaseEvents)? state.entities.releaseEvents : {}
 export const selectLatestReleaseEventIds = () => createSelector(
@@ -23,4 +27,25 @@ export const selectReleaseEventDetail = () => createSelector(
     selectReleaseEventDetailId(),
     selectReleaseEventEntity(),
     (releaseEventDetailId, releaseEventEntity) => releaseEventEntity[releaseEventDetailId.toString()]
+)
+
+export const selectSearchParams = () => createSelector(
+    selectReleaseEvent(),
+    event => event.searchParams
+)
+
+export const selectSearchResultIds = () => createSelector(
+    selectReleaseEvent(),
+    event => event.searchResult
+)
+
+export const selectSearchResult = () => createSelector(
+    selectSearchResultIds(),
+    selectReleaseEventEntity(),
+    convertEventIds
+)
+
+export const selectNoResult = () => createSelector(
+    selectReleaseEvent(),
+    event => event.noResult
 )

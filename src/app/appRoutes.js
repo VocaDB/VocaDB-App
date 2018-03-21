@@ -11,6 +11,7 @@ const ROUTES = {
     ArtistList: 'ArtistList',
     TagDetail: 'TagDetail',
     EventDetail: 'EventDetail',
+    EventSearch: 'EventSearch',
     FollowedArtists: 'FollowedArtists'
 }
 

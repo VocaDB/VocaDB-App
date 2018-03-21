@@ -2,7 +2,18 @@ import { put, takeLatest, call, select } from 'redux-saga/effects'
 import * as actions from './releaseEventActions'
 import * as appActions from '../../app/appActions'
 import api from './releaseEventApi'
-import { selectFollowedArtistIds } from './../user/userSelector'
+import { selectSearchParams } from './releaseEventSelector'
+
+const fetchSearchEvents = function* fetchSearchEvents() {
+    try {
+        const params = yield select(selectSearchParams())
+        const response = yield call(api.find, params);
+        let append = (params.start) ? true : false
+        yield put(actions.fetchSearchEventsSuccess(response.items, append));
+    } catch (e) {
+        yield put(appActions.requestError(e));
+    }
+}
 
 const fetchLatestReleaseEvents = function* fetchLatestReleaseEvents() {
     try {
@@ -30,8 +41,9 @@ const fetchReleaseEventDetail = function* fetchLatestReleaseEvents(action) {
 const releaseEventSaga = function* releaseEventSagaAsync() {
     yield takeLatest(actions.fetchLatestReleaseEvents, fetchLatestReleaseEvents)
     yield takeLatest(actions.fetchReleaseEventDetail, fetchReleaseEventDetail)
+    yield takeLatest(actions.fetchSearchEvents, fetchSearchEvents)
 }
 
-export { fetchLatestReleaseEvents, fetchReleaseEventDetail }
+export { fetchSearchEvents, fetchLatestReleaseEvents, fetchReleaseEventDetail }
 
 export default releaseEventSaga

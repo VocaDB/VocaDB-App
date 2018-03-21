@@ -2,6 +2,7 @@ import api from '../../common/api'
 import { dateAfterToday, yesterday } from './../../common/utilities/dateUtils'
 
 const releaseEventApi = {
+    find: params => api.events.find(params),
     getRecentReleaseEvents: () => api.events.find({
         'sort': 'Date',
         'fields': 'MainPicture',
