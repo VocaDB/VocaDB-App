@@ -1,12 +1,11 @@
 import React from 'react'
 import { View, Text, Modal, StyleSheet } from 'react-native'
-import { Button } from 'react-native-material-ui';
+import { Button, Toolbar } from 'react-native-material-ui';
 import Page from '../../../components/Page/index'
 import SearchBar from '../../../components/SearchBar/index'
 import CenterView from '../../../components/CenterView/index'
 import SongList from '../SongList/index'
 import Theme from '../../../theme'
-import merge from "lodash/merge";
 
 export default class SongSearch extends React.Component {
 
@@ -23,20 +22,11 @@ export default class SongSearch extends React.Component {
     }
 
     doSearch(params) {
-        this.props.fetchSongs(merge({}, this.props.params, params))
-    }
-
-    navParams() {
-        const navigation = this.props.navigation
-        return (navigation && navigation.state && navigation.state.params)? navigation.state.params : {}
+        this.props.fetchSongs(params)
     }
 
     refresh() {
-        const params = this.navParams()
-
-        if(params && params.params) {
-            this.props.fetchSongsReplaceParams(params)
-        }
+        this.props.fetchSongsReplaceParams()
     }
 
     renderList () {
@@ -44,7 +34,6 @@ export default class SongSearch extends React.Component {
         return (
             <SongList
                 flatList
-                title='Recent songs'
                 showHeader={false}
                 songs={this.props.songs}
                 onPressItem={this.props.onPressSong}
@@ -60,15 +49,20 @@ export default class SongSearch extends React.Component {
         )
     }
 
-    renderSearchable () {
-
+    render () {
         const queryEntry = text => this.doSearch({ query: text, start: 0 })
-        
+
         return (
             <Page>
-                <SearchBar
+                <Toolbar
+                    leftElement="arrow-back"
                     onLeftElementPress={this.props.back}
-                    onChangeText={queryEntry}
+                    centerElement="Songs"
+                    searchable={{
+                        autoFocus: true,
+                        placeholder: 'Find song',
+                        onChangeText: queryEntry
+                    }}
                 />
 
                 <View style={styles.menuContainer}>
@@ -83,17 +77,6 @@ export default class SongSearch extends React.Component {
                 </View>
             </Page>
         )
-    }
-
-    render () {
-
-        const params = this.navParams()
-
-        if(this.props.searchable || params.searchable) {
-            return this.renderSearchable()
-        } else {
-            return this.renderList()
-        }
     }
 }
 
