@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import Main from './Main'
 import { createSelector } from 'reselect';
 import Icon from '../../../components/Icon/index'
-import { Page } from '../../../AppNavigator'
+import Routes from './../../../app/appRoutes'
 import { selectHighlighted, selectFollowedSongs } from '../../song/songSelector'
 import { selectLatestAlbums, selectTopAlbums } from '../../album/albumSelector'
 import { selectLatestReleaseEvents } from '../../releaseEvent/releaseEventSelector'
@@ -49,13 +49,13 @@ const mapDispatchToProps = (dispatch, props) => ({
     fetchLatestEvents: () => dispatch(eventActions.fetchLatestReleaseEvents()),
     fetchRecentAlbums: () => dispatch(albumActions.fetchLatestAlbums()),
     fetchFollowedSongs: () => dispatch(songActions.fetchFollowedSongs()),
-    onPressSongSearch: () => props.navigation.navigate(Page.SongList, { searchable: true, hideHeader: true }),
-    onPressArtistSearch: () => props.navigation.navigate(Page.ArtistList, { searchable: true, hideHeader: true }),
-    onPressAlbumSearch: () =>  props.navigation.navigate(Page.AlbumSearch, { searchable: true, hideHeader: true }),
-    onPressSong: song => props.navigation.navigate(Page.SongDetail, { id: song.id }),
-    onPressAlbum: album => props.navigation.navigate(Page.AlbumDetail, { id: album.id }),
-    onPressEvent: event => props.navigation.navigate(Page.EventDetail, { id: event.id, title: event.name }),
-    onPressMoreRecentSongs: () => props.navigation.navigate(Page.SongList, {
+    onPressSongSearch: () => props.navigation.navigate(Routes.SongList, { searchable: true, hideHeader: true }),
+    onPressArtistSearch: () => props.navigation.navigate(Routes.ArtistList, { searchable: true, hideHeader: true }),
+    onPressAlbumSearch: () =>  props.navigation.navigate(Routes.AlbumSearch, { searchable: true, hideHeader: true }),
+    onPressSong: song => props.navigation.navigate(Routes.SongDetail, { id: song.id }),
+    onPressAlbum: album => props.navigation.navigate(Routes.AlbumDetail, { id: album.id }),
+    onPressEvent: event => props.navigation.navigate(Routes.EventDetail, { id: event.id, title: event.name }),
+    onPressMoreRecentSongs: () => props.navigation.navigate(Routes.SongList, {
         title: 'Recent songs',
         params: {
             'maxResults': 20,
@@ -63,7 +63,7 @@ const mapDispatchToProps = (dispatch, props) => ({
             'fields': 'thumbUrl'
         }
     }),
-    onPressMenuFollowArtists: () => props.navigation.navigate(Page.FollowedArtists)
+    onPressMenuFollowArtists: () => props.navigation.navigate(Routes.FollowedArtists)
 })
 
 export default connect(mapStateSelector, mapDispatchToProps)(Main)

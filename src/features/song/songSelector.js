@@ -2,7 +2,7 @@ import { createSelector } from 'reselect';
 import { denormalize } from 'normalizr';
 import songSchema from './songSchema'
 import { selectNav } from './../../app/appSelector'
-import { Page } from './../../AppNavigator'
+import Routes from './../../app/appRoutes'
 import { selectArtistEntity } from './../artist/artistSelector'
 
 export const convertSongIds = (songIds, songEntity) => (songIds)? songIds
@@ -52,7 +52,7 @@ export const selectSongDetailId = () => createSelector(
     selectNav(),
     nav => (nav
         && nav.routes[nav.index]
-        && nav.routes[nav.index].routeName === Page.SongDetail)? nav.routes[nav.index].params.id : 0
+        && nav.routes[nav.index].routeName === Routes.SongDetail)? nav.routes[nav.index].params.id : 0
 )
 
 export const selectHighlighted = () => createSelector(

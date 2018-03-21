@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 import { selectNav } from './../../app/appSelector'
-import { Page } from './../../AppNavigator'
+import Routes from './../../app/appRoutes'
 
 export const convertArtistIds = (artistIds, artistEntity) => artistIds
     .filter(id => (id != undefined && artistEntity[id.toString()]))
@@ -20,7 +20,7 @@ export const selectArtistDetailId = () => createSelector(
     selectNav(),
     nav => (nav
         && nav.routes[nav.index]
-        && nav.routes[nav.index].routeName === Page.ArtistDetail)? nav.routes[nav.index].params.id : 0
+        && nav.routes[nav.index].routeName === Routes.ArtistDetail)? nav.routes[nav.index].params.id : 0
 )
 export const selectSearchResultIds = () => createSelector(
     selectArtist(),

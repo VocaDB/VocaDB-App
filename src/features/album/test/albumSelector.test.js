@@ -6,6 +6,7 @@ import {
     selectAlbumDetail,
     selectSearchResult } from './../albumSelector'
 import * as mockGenerator from '../../../common/helper/mockGenerator'
+import Routes from './../../../app/appRoutes'
 
 describe('Test album selector', () => {
 
@@ -109,6 +110,18 @@ describe('Test album selector', () => {
 
     it('should return album detail correctly', () => {
         state.album.detail = album1.id
+        state.nav = {
+            index: 0,
+            routes: [
+                {
+                    key: '1',
+                    routeName: Routes.AlbumDetail,
+                    params: {
+                        id: album1.id
+                    }
+                }
+            ]
+        }
 
         const actualResult = selectAlbumDetail()(state);
         const expectedResult = album1;

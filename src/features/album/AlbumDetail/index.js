@@ -5,7 +5,7 @@ import { createSelector } from 'reselect';
 import { Share } from 'react-native'
 import { selectAlbumDetail } from '../albumSelector'
 import { fetchAlbumDetail } from '../albumActions'
-import { Page } from './../../../AppNavigator'
+import Routes from './../../../app/appRoutes'
 
 AlbumDetail.navigationOptions = () => ({
     title: 'Album',
@@ -32,9 +32,9 @@ const mapDispatchToProps = (dispatch, props) => ({
             dialogTitle: 'Share ' + album.name,
         })
     },
-    onPressTrack: track => props.navigation.navigate(Page.SongDetail, { id: track.song.id }),
-    onPressArtist: artist => props.navigation.navigate(Page.ArtistDetail, { id: artist.id }),
-    onPressTag: tag => props.navigation.navigate(Page.TagDetail, { id: tag.id, title: tag.name }),
+    onPressTrack: track => props.navigation.navigate(Routes.SongDetail, { id: track.song.id }),
+    onPressArtist: artist => props.navigation.navigate(Routes.ArtistDetail, { id: artist.id }),
+    onPressTag: tag => props.navigation.navigate(Routes.TagDetail, { id: tag.id, title: tag.name }),
 })
 
 export default connect(albumDetailStateSelect, mapDispatchToProps)(AlbumDetail)

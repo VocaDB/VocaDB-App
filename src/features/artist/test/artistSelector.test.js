@@ -4,6 +4,7 @@ import {
     selectArtistDetail,
     selectIsFollowedArtist } from './../artistSelector'
 import * as mockGenerator from '../../../common/helper/mockGenerator'
+import Routes from './../../../app/appRoutes'
 
 describe('Test artist selector', () => {
 
@@ -47,6 +48,18 @@ describe('Test artist selector', () => {
 
     it('should return artist detail correctly', () => {
         state.artist.detail = artist1.id
+        state.nav = {
+            index: 0,
+            routes: [
+                {
+                    key: '1',
+                    routeName: Routes.ArtistDetail,
+                    params: {
+                        id: artist1.id
+                    }
+                }
+            ]
+        }
 
         const actualResult = selectArtistDetail()(state);
         const expectedResult = artist1;

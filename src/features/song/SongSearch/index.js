@@ -5,7 +5,7 @@ import { createSelector } from 'reselect';
 import * as songActions from '../songActions'
 import { selectSearchResult, selectSearchParams, selectNoResult } from '../songSelector'
 import { selectLoading } from '../../../app/appSelector'
-import { Page } from './../../../AppNavigator'
+import Routes from './../../../app/appRoutes'
 
 SongListPage.navigationOptions = ({ navigation }) => {
 
@@ -35,8 +35,8 @@ const mapDispatchToProps = (dispatch, props) => ({
     fetchSongs: params => dispatch(songActions.fetchSearchSongs(params)),
     fetchSongsReplaceParams: params => dispatch(songActions.fetchSearchSongs(params, false, true)),
     back: () => props.navigation.goBack(),
-    onPressSong: song => props.navigation.navigate(Page.SongDetail, { id: song.id }),
-    onPressFilter: () => props.navigation.navigate(Page.SongFilter)
+    onPressSong: song => props.navigation.navigate(Routes.SongDetail, { id: song.id }),
+    onPressFilter: () => props.navigation.navigate(Routes.SongFilter)
 })
 
 export default connect(songListStateSelect, mapDispatchToProps)(SongListPage)

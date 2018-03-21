@@ -5,6 +5,7 @@ import {
     selectFollowedSongs,
     selectSongDetail } from './../songSelector'
 import * as mockGenerator from '../../../common/helper/mockGenerator'
+import Routes from './../../../app/appRoutes'
 
 describe('Test song selector', () => {
 
@@ -137,6 +138,18 @@ describe('Test song selector', () => {
 
     it('should return song detail correctly', () => {
         state.song.detail = song1.id
+        state.nav = {
+            index: 0,
+            routes: [
+                {
+                    key: '1',
+                    routeName: Routes.SongDetail,
+                    params: {
+                        id: song1.id
+                    }
+                }
+            ]
+        }
 
         const actualResult = selectSongDetail()(state);
         const expectedResult = song1;

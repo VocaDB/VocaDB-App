@@ -1,6 +1,7 @@
 import { fetchSearchAlbums, fetchLatestAlbums, fetchTopAlbums, fetchAlbumDetail } from './../albumSagas'
+import { selectSearchParams } from './../albumSelector'
 import api from './../albumApi'
-import { call, put } from 'redux-saga/effects'
+import { call, put, select } from 'redux-saga/effects'
 import * as actions from './../albumActions'
 import * as appActions from './../../../app/appActions'
 import * as mock from '../../../common/helper/mockGenerator'
@@ -11,7 +12,9 @@ describe('Test album sagas', () => {
         const action = actions.fetchSearchAlbums(params)
         const gen = fetchSearchAlbums(action)
 
-        expect(gen.next().value).toEqual(call(api.find, params));
+        expect(JSON.stringify(gen.next().value)).toEqual(JSON.stringify(select(selectSearchParams())));
+
+        expect(gen.next(params).value).toEqual(call(api.find, params));
 
         const mockItems = [ mock.CreateAlbum() ]
         const mockResponse = { items: mockItems }
@@ -27,8 +30,7 @@ describe('Test album sagas', () => {
         expect(gen.next().value).toEqual(call(api.getRecentAlbums));
 
         const mockAlbumItems = [ mock.CreateAlbum() ]
-        const mockResponse = { items: mockAlbumItems }
-        expect(gen.next(mockResponse).value).toEqual(put(actions.fetchLatestAlbumsSuccess(mockAlbumItems)));
+        expect(gen.next(mockAlbumItems).value).toEqual(put(actions.fetchLatestAlbumsSuccess(mockAlbumItems)));
 
         expect(gen.next().done).toBeTruthy();
     })

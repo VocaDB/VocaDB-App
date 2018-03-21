@@ -5,7 +5,7 @@ import { createSelector } from 'reselect';
 import * as albumActions from '../albumActions'
 import { selectSearchResult, selectSearchParams, selectNoResult } from '../albumSelector'
 import { selectLoading } from '../../../app/appSelector'
-import { Page } from './../../../AppNavigator'
+import Routes from './../../../app/appRoutes'
 
 AlbumSearch.navigationOptions = ({ navigation }) => {
 
@@ -34,7 +34,7 @@ const mapStateSelector = createSelector(
 const mapDispatchToProps = (dispatch, props) => ({
     onSearch: text => dispatch(albumActions.fetchSearchAlbums({ query: text, start: 0 })),
     back: () => props.navigation.goBack(),
-    onPressAlbum: album => props.navigation.navigate(Page.AlbumDetail, { id: album.id })
+    onPressAlbum: album => props.navigation.navigate(Routes.AlbumDetail, { id: album.id })
 })
 
 export default connect(mapStateSelector, mapDispatchToProps)(AlbumSearch)

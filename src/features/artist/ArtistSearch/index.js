@@ -5,7 +5,7 @@ import { createSelector } from 'reselect';
 import * as artistActions from '../artistActions'
 import { selectSearchResult, selectSearchParams, selectNoResult } from '../artistSelector'
 import { selectLoading } from '../../../app/appSelector'
-import { Page } from './../../../AppNavigator'
+import Routes from './../../../app/appRoutes'
 
 ArtistListPage.navigationOptions = ({ navigation }) => {
 
@@ -34,7 +34,7 @@ const aritstListStateSelect = createSelector(
 const mapDispatchToProps = (dispatch, props) => ({
     fetchArtists: params => dispatch(artistActions.fetchSearchArtists(params)),
     back: () => props.navigation.goBack(),
-    onPressArtist: artist => props.navigation.navigate(Page.ArtistDetail, { id: artist.id })
+    onPressArtist: artist => props.navigation.navigate(Routes.ArtistDetail, { id: artist.id })
 })
 
 export default connect(aritstListStateSelect, mapDispatchToProps)(ArtistListPage)

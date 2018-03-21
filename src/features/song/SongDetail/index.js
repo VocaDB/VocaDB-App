@@ -5,7 +5,7 @@ import SongDetailPage from './SongDetail'
 import { createSelector } from 'reselect';
 import { fetchSongDetail } from '../songActions'
 import { selectSongDetail } from '../songSelector'
-import { Page } from './../../../AppNavigator'
+import Routes from './../../../app/appRoutes'
 
 SongDetailPage.navigationOptions = () => ({
     title: 'Detail'
@@ -32,9 +32,9 @@ const mapDispatchToProps = (dispatch, props) => ({
             dialogTitle: 'Share ' + song.defaultName,
         })
     },
-    onPressArtist: artist => props.navigation.navigate(Page.ArtistDetail, { id: artist.id }),
-    onPressAlbum: album => props.navigation.navigate(Page.AlbumDetail, { id: album.id }),
-    onPressTag: tag => props.navigation.navigate(Page.TagDetail, { id: tag.id, title: tag.name }),
+    onPressArtist: artist => props.navigation.navigate(Routes.ArtistDetail, { id: artist.id }),
+    onPressAlbum: album => props.navigation.navigate(Routes.AlbumDetail, { id: album.id }),
+    onPressTag: tag => props.navigation.navigate(Routes.TagDetail, { id: tag.id, title: tag.name }),
 })
 
 export default connect(songDetailStateSelect, mapDispatchToProps)(SongDetailPage)

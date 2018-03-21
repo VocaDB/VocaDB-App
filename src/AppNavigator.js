@@ -12,23 +12,10 @@ import EventDetailPage from './features/releaseEvent/EventDetail'
 import FollowedArtistsPage from './features/artist/FollowedArtists'
 import { StackNavigator } from "react-navigation";
 import Theme from './theme'
+import Routes from './app/appRoutes'
 
-export const Page = {
-    Main: 'Main',
-    SongDetail: 'SongDetail',
-    ArtistDetail: 'ArtistDetail',
-    AlbumDetail: 'AlbumDetail',
-    AlbumSearch: 'AlbumSearch',
-    Search: 'Search',
-    SongList: 'SongList',
-    SongFilter: 'SongFilter',
-    ArtistList: 'ArtistList',
-    TagDetail: 'TagDetail',
-    EventDetail: 'EventDetail',
-    FollowedArtists: 'FollowedArtists'
-}
 
-export const INITIAL_ROUTE = Page.Main
+export const INITIAL_ROUTE = Routes.Main
 
 const AppNavigator = StackNavigator({
     Main: { screen: MainPage },
