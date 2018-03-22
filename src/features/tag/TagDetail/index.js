@@ -35,9 +35,9 @@ const mapDispatchToProps = (dispatch, props) => ({
     fetchTopSongs: tagId => dispatch(actions.fetchTopSongsByTag(tagId)),
     fetchTopArtists: tagId => dispatch(actions.fetchTopArtistsByTag(tagId)),
     fetchTopAlbums: tagId => dispatch(actions.fetchTopAlbumsByTag(tagId)),
-    onPressSong: song => props.navigation.navigate('SongDetail', { id: song.id }),
-    onPressArtist: artist => props.navigation.navigate('ArtistDetail', { id: artist.id }),
-    onPressAlbum: album => props.navigation.navigate('AlbumDetail', { id: album.id }),
+    onPressSong: song => props.navigation.navigate('SongDetail', { id: song.id, title: song.defaultName }),
+    onPressArtist: artist => props.navigation.navigate('ArtistDetail', { id: artist.id, title: artist.name }),
+    onPressAlbum: album => props.navigation.navigate('AlbumDetail', { id: album.id, title: album.name }),
 })
 
 export default connect(tagStateSelect, mapDispatchToProps)(TagDetail)
