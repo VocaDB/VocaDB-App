@@ -54,7 +54,8 @@ class HomeTab extends React.Component {
         const renderFeatureList = (title, items, renderItem, onPressMore) => (
             <FeatureList
                 title={title}
-                items={items.map(renderItem)}
+                items={items}
+                renderItem={renderItem}
                 onPressMore={onPressMore} />
         )
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, ScrollView, StyleSheet } from 'react-native'
+import { View, Text, ScrollView, StyleSheet, FlatList } from 'react-native'
 import PropTypes from 'prop-types'
 import Theme from '../../../theme'
 import { Button } from 'react-native-material-ui';
@@ -15,10 +15,13 @@ class FeatureList extends React.Component {
                     <Text style={Theme.subhead}>{this.props.title}</Text>
                     <Button primary text="See more" onPress={this.props.onPressMore} />
                 </View>
-                <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-                    {this.props.items.map(WrapComponent)}
-                </ScrollView>
-
+                <FlatList
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                    data={this.props.items}
+                    keyExtractor={item => item.id}
+                    renderItem={({ item }) => WrapComponent(this.props.renderItem(item))}
+                />
             </View>
         )
     }
@@ -45,7 +48,8 @@ const styles = StyleSheet.create({
 
 FeatureList.propTypes = {
     title: PropTypes.string,
-    items: PropTypes.arrayOf(PropTypes.element),
+    items: PropTypes.array,
+    renderItem: PropTypes.func,
     onPressMore: PropTypes.func
 }
 
