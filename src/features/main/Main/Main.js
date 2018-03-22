@@ -9,6 +9,7 @@ export default class Main extends React.Component {
 
     componentDidMount () {
         this.refreshHome()
+        this.refreshFollowedSongs()
     }
 
     refreshHome () {
@@ -49,6 +50,7 @@ export default class Main extends React.Component {
                     tabLabel="ios-heart"
                     refreshing={this.props.refreshing}
                     refresh={this.refreshFollowedSongs.bind(this)}
+                    onFetchMore={this.props.fetchFollowedSongs}
                     songs={this.props.followedSongs}
                     onPressSong={this.props.onPressSong} />
                 <MenuTab tabLabel="ios-menu"></MenuTab>
