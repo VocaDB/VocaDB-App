@@ -1,9 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { View, Text } from 'react-native'
+import { View, Text, FlatList } from 'react-native'
+import images from '../../../common/assets/images'
 import { Toolbar } from 'react-native-material-ui';
 import Page from '../../../components/Page'
-import AlbumList from '../../album/AlbumList'
+import AlbumRow from '../../album/AlbumRow'
 
 class AlbumSearch extends React.Component {
 
@@ -12,6 +13,19 @@ class AlbumSearch extends React.Component {
     }
 
     render () {
+
+        const renderAlbumRow = album => {
+            return  (
+                <AlbumRow
+                    key={album.id}
+                    image={images.getAlbumUri(album.id)}
+                    name={album.name}
+                    artist={album.artistString}
+                    onPress={() => this.props.onPressAlbum(album)}
+                />
+            )
+        }
+
         return (
             <Page>
                 <Toolbar
@@ -24,9 +38,11 @@ class AlbumSearch extends React.Component {
                         onChangeText: this.props.onSearch
                     }}
                 />
-                <View>
-                    <AlbumList albums={this.props.albums} onPressItem={this.props.onPressAlbum} />
-                </View>
+                <FlatList
+                    data={this.props.albums}
+                    keyExtractor={item => item.id}
+                    renderItem={({ item }) => renderAlbumRow(item)}
+                />
             </Page>
         )
     }
