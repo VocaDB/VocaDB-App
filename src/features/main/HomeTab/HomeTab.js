@@ -55,7 +55,7 @@ class HomeTab extends React.Component {
             <FeatureList
                 title={title}
                 items={items.map(renderItem)}
-                onPressMore={this.props.onPressMoreRecentSongs} />
+                onPressMore={onPressMore} />
         )
 
         const refreshControl = (
@@ -77,19 +77,19 @@ class HomeTab extends React.Component {
                 <Divider height={14} />
 
                 <View style={{ paddingBottom: 16}}>
-                    {renderFeatureList('Highlighted PVs', this.props.recentSongs, renderSongCard, this.props.onPressMoreRecentSongs)}
+                    {renderFeatureList('Highlighted PVs', this.props.recentSongs, renderSongCard, this.props.onPressSongSearch)}
 
                     <Divider height={14} />
 
-                    {renderFeatureList('Recent or upcoming albums', this.props.recentAlbums, renderAlbumCard, this.props.onPressMoreRecentAlbums)}
+                    {renderFeatureList('Recent or upcoming albums', this.props.recentAlbums, renderAlbumCard, this.props.onPressAlbumSearch)}
 
                     <Divider height={14} />
 
-                    {renderFeatureList('Random popular albums', this.props.topAlbums, renderAlbumCard, this.props.onPressMoreTopAlbums)}
+                    {renderFeatureList('Random popular albums', this.props.topAlbums, renderAlbumCard, this.props.onPressAlbumSearch)}
 
                     <Divider height={14} />
 
-                    {renderFeatureList('Incoming event', this.props.latestEvents, renderEventCard, this.props.onPressMoreLatestEvent)}
+                    {renderFeatureList('Incoming event', this.props.latestEvents, renderEventCard, this.props.onPressEventSearch)}
 
                     <Divider height={14} />
                 </View>
