@@ -13,7 +13,7 @@ import storage from 'redux-persist/lib/storage' // defaults to localStorage for 
 const persistConfig = {
     key: 'root',
     storage,
-    stateReconciler: hardSet,
+    blacklist: ['nav'],
 }
 
 const persistedReducer = persistReducer(persistConfig, rootReducers)
