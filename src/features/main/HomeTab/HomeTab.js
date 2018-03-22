@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, TouchableOpacity, StyleSheet, RefreshControl } from 'react-native'
+import { View, Text, TouchableOpacity, StyleSheet, RefreshControl, SectionList, FlatList } from 'react-native'
 import { Avatar } from 'react-native-material-ui';
 import PropTypes from 'prop-types'
 import FeatureList from './../FeatureList'
@@ -59,52 +59,60 @@ class HomeTab extends React.Component {
                 onPressMore={onPressMore} />
         )
 
-        const refreshControl = (
-            <RefreshControl
-                refreshing={this.props.refreshing}
-                onRefresh={this.props.refresh}
-            />
-        )
-
         return (
-            <Content refreshControl={refreshControl}>
-                <View style={[styles.menuContainer]}>
-                    <MenuIcon icon='music-note' color='#00C853' text='Song' onPress={this.props.onPressSongSearch} />
-                    <MenuIcon icon='person' color='#d50000' text='Artist' onPress={this.props.onPressArtistSearch} />
-                    <MenuIcon icon='album' color='#283593' text='Album' onPress={this.props.onPressAlbumSearch} />
-                    <MenuIcon icon='event' color='#FFD600' text='Event' onPress={this.props.onPressEventSearch} />
-                </View>
-
-                <Divider height={14} />
-
-                <View style={{ paddingBottom: 16}}>
-                    {renderFeatureList('Highlighted PVs', this.props.recentSongs, renderSongCard, this.props.onPressSongSearch)}
-
-                    <Divider height={14} />
-
-                    {renderFeatureList('Recent or upcoming albums', this.props.recentAlbums, renderAlbumCard, this.props.onPressAlbumSearch)}
-
-                    <Divider height={14} />
-
-                    {renderFeatureList('Random popular albums', this.props.topAlbums, renderAlbumCard, this.props.onPressAlbumSearch)}
-
-                    <Divider height={14} />
-
-                    {renderFeatureList('Incoming event', this.props.latestEvents, renderEventCard, this.props.onPressEventSearch)}
-
-                    <Divider height={14} />
-                </View>
-            </Content>
+            <FlatList
+                ListHeaderComponent={(
+                            <View style={[styles.menuContainer]}>
+                                <MenuIcon icon='music-note' color='#00C853' text='Song' onPress={this.props.onPressSongSearch} />
+                                <MenuIcon icon='person' color='#d50000' text='Artist' onPress={this.props.onPressArtistSearch} />
+                                <MenuIcon icon='album' color='#283593' text='Album' onPress={this.props.onPressAlbumSearch} />
+                                <MenuIcon icon='event' color='#FFD600' text='Event' onPress={this.props.onPressEventSearch} />
+                            </View>
+                )}
+                renderItem={({ item }) => renderFeatureList(item.title, item.data, item.renderItem, item.onPressMore)}
+                ItemSeparatorComponent={() => <View style={{ height: 6, backgroundColor: 'white' }} />}
+                data={[
+                    {
+                        key: 0,
+                        title: 'Highlighted PVs',
+                        data: this.props.recentSongs,
+                        renderItem: renderSongCard,
+                        onPressMore: this.props.onPressSongSearch
+                    },
+                    {
+                        key: 1,
+                        title: 'Recent or upcoming albums',
+                        data: this.props.recentAlbums,
+                        renderItem: renderAlbumCard,
+                        onPressMore: this.props.onPressAlbumSearch
+                    },
+                    {
+                        key: 2,
+                        title: 'Random popular albums',
+                        data: this.props.topAlbums,
+                        renderItem: renderAlbumCard,
+                        onPressMore: this.props.onPressAlbumSearch
+                    },
+                    {
+                        key: 3,
+                        title: 'Incoming event',
+                        data: this.props.latestEvents,
+                        renderItem: renderEventCard,
+                        onPressMore: this.props.onPressEventSearch
+                    }
+                ]}
+            />
         )
     }
 }
 
 const styles = StyleSheet.create({
     menuContainer: {
+        backgroundColor: 'white',
         flexDirection: 'row',
-        height: 72,
+        height: 92,
         justifyContent: 'space-around',
-        marginVertical: 16
+        paddingVertical: 12
     }
 })
 
