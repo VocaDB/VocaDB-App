@@ -6,19 +6,31 @@ import { navMiddleware } from './AppWithNavigationState'
 import createSagaMiddleware from 'redux-saga'
 import saga from './appSagas'
 
+import { persistStore, persistReducer } from 'redux-persist'
+import storage from 'redux-persist/lib/storage' // defaults to localStorage for web and AsyncStorage for react-native
 
+const persistConfig = {
+    key: 'root',
+    storage,
+}
+
+const persistedReducer = persistReducer(persistConfig, rootReducers)
 
 const sagaMiddleware = createSagaMiddleware()
 
-const store = createStore(
-    rootReducers,
-    applyMiddleware(
-        loggerMiddleware,
-        navMiddleware,
-        thunkMiddleware,
-        sagaMiddleware)
-)
 
-sagaMiddleware.run(saga)
+export default () => {
+    let store = createStore(
+        persistedReducer,
+        applyMiddleware(
+            // loggerMiddleware,
+            navMiddleware,
+            thunkMiddleware,
+            sagaMiddleware)
+    )
+    let persistor = persistStore(store)
 
-export default store
+    sagaMiddleware.run(saga)
+
+    return { store, persistor }
+}

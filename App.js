@@ -2,7 +2,8 @@ import React from 'react'
 import AppNav from './src/AppNavigator'
 import AppNavWithState from './src/app/AppWithNavigationState'
 import { Provider } from 'react-redux'
-import store from './src/app/appStore'
+import appStore from './src/app/appStore'
+import { PersistGate } from 'redux-persist/integration/react'
 import { StyleProvider } from 'native-base'
 import { View } from 'react-native'
 import { Font } from 'expo';
@@ -46,8 +47,10 @@ class App extends React.Component {
 
         return (
             <ThemeProvider uiTheme={uiTheme}>
-                    <Provider store={store}>
-                        <AppNavWithState />
+                    <Provider store={appStore().store}>
+                        <PersistGate loading={null} persistor={appStore().persistor}>
+                            <AppNavWithState />
+                        </PersistGate>
                     </Provider>
             </ThemeProvider>
         )
