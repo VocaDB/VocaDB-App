@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, ScrollView } from 'react-native'
+import { View, Text, ScrollView, RefreshControl } from 'react-native'
 import SongList from '../../song/SongList'
 import CenterView from '../../../components/CenterView'
 import PropTypes from 'prop-types'
@@ -19,8 +19,16 @@ class FollowedTab extends React.Component {
     render () {
 
         if(this.props.songs.length > 0) {
+
+            const refreshControl = (
+                <RefreshControl
+                    refreshing={this.props.refreshing}
+                    onRefresh={this.props.refresh}
+                />
+            )
+
             return (
-                <ScrollView>
+                <ScrollView refreshControl={refreshControl}>
                     <SongList songs={this.props.songs} onPressItem={this.props.onPressSong} />
                 </ScrollView>
             )

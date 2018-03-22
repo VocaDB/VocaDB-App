@@ -1,6 +1,7 @@
 import { put, takeLatest, call, select } from 'redux-saga/effects'
 import * as actions from './songActions'
 import * as appActions from '../../app/appActions'
+import * as artistActions from '../artist/artistActions'
 import api from './songApi'
 import { selectFollowedArtistIds } from './../artist/artistSelector'
 import { selectSearchParams } from './songSelector'
@@ -71,6 +72,8 @@ const songSaga = function* songSagaAsync() {
     yield takeLatest(actions.fetchHighlighted, fetchHighlighted)
     yield takeLatest(actions.fetchLatestSongs, fetchLatestSongs)
     yield takeLatest(actions.fetchFollowedSongs, fetchFollowedSongs)
+    yield takeLatest(artistActions.followArtist, fetchFollowedSongs)
+    yield takeLatest(artistActions.unFollowArtist, fetchFollowedSongs)
     yield takeLatest(actions.fetchSongDetail, fetchSongDetail)
     yield takeLatest(actions.fetchSongDetail, fetchSongDetail)
     yield takeLatest(actions.fetchSearchSongs, fetchSearchSongs)
