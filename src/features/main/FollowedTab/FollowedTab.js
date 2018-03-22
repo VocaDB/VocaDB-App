@@ -19,18 +19,18 @@ class FollowedTab extends React.Component {
     render () {
 
         if(this.props.songs.length > 0) {
-
-            const refreshControl = (
-                <RefreshControl
+            return (
+                <SongList
+                    flatList
+                    songs={this.props.songs}
+                    onPressItem={this.props.onPressSong}
                     refreshing={this.props.refreshing}
                     onRefresh={this.props.refresh}
-                />
-            )
-
-            return (
-                <ScrollView refreshControl={refreshControl}>
-                    <SongList songs={this.props.songs} onPressItem={this.props.onPressSong} />
-                </ScrollView>
+                    onEndReached={() => {
+                        if(!this.props.isNoResult) {
+                            this.props.fetchSongs({ start: this.props.songs.length })
+                        }
+                    }}/>
             )
         }
 
