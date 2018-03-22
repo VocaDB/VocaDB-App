@@ -7,9 +7,20 @@ import { fetchSongDetail } from '../songActions'
 import { selectSongDetail } from '../songSelector'
 import Routes from './../../../app/appRoutes'
 
-SongDetailPage.navigationOptions = () => ({
-    title: 'Detail'
-})
+SongDetailPage.navigationOptions = ({ navigation }) => {
+
+    const { params } = navigation.state;
+
+    const navOptions = {
+        title: (params && params.title) ? params.title : 'Detail',
+    }
+
+    if(params.hideHeader) {
+        navOptions.header = null
+    }
+
+    return navOptions
+}
 
 SongDetailPage.propTypes = {
 
@@ -32,8 +43,8 @@ const mapDispatchToProps = (dispatch, props) => ({
             dialogTitle: 'Share ' + song.defaultName,
         })
     },
-    onPressArtist: artist => props.navigation.navigate(Routes.ArtistDetail, { id: artist.id }),
-    onPressAlbum: album => props.navigation.navigate(Routes.AlbumDetail, { id: album.id }),
+    onPressArtist: artist => props.navigation.navigate(Routes.ArtistDetail, { id: artist.id, title: artist.name }),
+    onPressAlbum: album => props.navigation.navigate(Routes.AlbumDetail, { id: album.id, title: album.name }),
     onPressTag: tag => props.navigation.navigate(Routes.TagDetail, { id: tag.id, title: tag.name }),
 })
 

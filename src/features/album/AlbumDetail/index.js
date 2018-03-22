@@ -7,9 +7,20 @@ import { selectAlbumDetail } from '../albumSelector'
 import { fetchAlbumDetail } from '../albumActions'
 import Routes from './../../../app/appRoutes'
 
-AlbumDetail.navigationOptions = () => ({
-    title: 'Album',
-})
+AlbumDetail.navigationOptions = ({ navigation }) => {
+
+    const { params } = navigation.state;
+
+    const navOptions = {
+        title: (params && params.title) ? params.title : 'Detail',
+    }
+
+    if(params.hideHeader) {
+        navOptions.header = null
+    }
+
+    return navOptions
+}
 
 AlbumDetail.propTypes = {
 
@@ -32,8 +43,8 @@ const mapDispatchToProps = (dispatch, props) => ({
             dialogTitle: 'Share ' + album.name,
         })
     },
-    onPressTrack: track => props.navigation.navigate(Routes.SongDetail, { id: track.song.id }),
-    onPressArtist: artist => props.navigation.navigate(Routes.ArtistDetail, { id: artist.id }),
+    onPressTrack: track => props.navigation.navigate(Routes.SongDetail, { id: track.song.id, title: track.song.defaultName }),
+    onPressArtist: artist => props.navigation.navigate(Routes.ArtistDetail, { id: artist.id, title: artist.name }),
     onPressTag: tag => props.navigation.navigate(Routes.TagDetail, { id: tag.id, title: tag.name }),
 })
 

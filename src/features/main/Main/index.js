@@ -53,8 +53,8 @@ const mapDispatchToProps = (dispatch, props) => ({
     onPressArtistSearch: () => props.navigation.navigate(Routes.ArtistList, { searchable: true, hideHeader: true }),
     onPressAlbumSearch: () =>  props.navigation.navigate(Routes.AlbumSearch, { searchable: true, hideHeader: true }),
     onPressEventSearch: () =>  props.navigation.navigate(Routes.EventSearch, { hideHeader: true }),
-    onPressSong: song => props.navigation.navigate(Routes.SongDetail, { id: song.id }),
-    onPressAlbum: album => props.navigation.navigate(Routes.AlbumDetail, { id: album.id }),
+    onPressSong: song => props.navigation.navigate(Routes.SongDetail, { id: song.id, title: song.defaultName }),
+    onPressAlbum: album => props.navigation.navigate(Routes.AlbumDetail, { id: album.id, title: album.name }),
     onPressEvent: event => props.navigation.navigate(Routes.EventDetail, { id: event.id, title: event.name }),
     onPressMoreRecentSongs: () => props.navigation.navigate(Routes.SongWithParams, {
         title: 'Recent songs',
