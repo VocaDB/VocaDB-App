@@ -25,6 +25,9 @@ class ArtistDetailPage extends React.Component {
         const { params } = this.props.navigation.state;
         const imageUri = images.getArtistUri(params.id)
         const { latestSongs, popularSongs, latestAlbums, popularAlbums, latestEvents } = this.props;
+        const hasAlbum = (latestAlbums && latestAlbums.length > 0) || (popularAlbums && popularAlbums.length > 0)
+        const hasSong = (latestSongs && latestSongs.length > 0) || (popularSongs && popularSongs.length > 0)
+        const hasEvent = (latestEvents && latestEvents.length > 0)
 
         if(!artist) {
             return (<View></View>)
@@ -94,9 +97,9 @@ class ArtistDetailPage extends React.Component {
             )
 
             return (<Content>
-                {latestSongs != undefined && renderLatestSongs()}
-                {latestSongs != undefined && popularSongs != undefined && <Divider />}
-                {popularSongs != undefined && renderPopularSongs()}
+                {latestSongs && latestSongs.length > 0 && renderLatestSongs()}
+                {latestSongs && latestSongs.length > 0 && popularSongs && popularSongs.length > 0 && <Divider />}
+                {popularSongs && popularSongs.length > 0 && renderPopularSongs()}
             </Content>)
         }
 
@@ -111,9 +114,9 @@ class ArtistDetailPage extends React.Component {
             )
             return (
                 <Content>
-                    {latestAlbums != undefined && renderLatestAlbum()}
-                    {latestAlbums != undefined && popularAlbums != undefined && <Divider />}
-                    {popularAlbums != undefined && renderPopularAlbum()}
+                    {latestAlbums && latestAlbums.length > 0 && renderLatestAlbum()}
+                    {latestAlbums && latestAlbums.length > 0 && popularAlbums && popularAlbums.length > 0 && <Divider />}
+                    {popularAlbums && popularAlbums.length > 0 && renderPopularAlbum()}
                 </Content>
             )
         }
@@ -130,8 +133,8 @@ class ArtistDetailPage extends React.Component {
             <ScrollableTabView>
                 <InfoPage tabLabel='Info' />
                 <SongListPage tabLabel='Songs' />
-                {latestAlbums != undefined || popularAlbums != undefined && <AlbumListPage tabLabel='Albums' />}
-                {latestEvents != undefined && <EventListPage tabLabel='Events' />}
+                {hasAlbum && <AlbumListPage tabLabel='Albums' />}
+                {hasEvent && <EventListPage tabLabel='Events' />}
             </ScrollableTabView>
         )
     }

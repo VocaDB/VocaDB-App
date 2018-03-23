@@ -75,10 +75,10 @@ class AlbumDetail extends React.Component {
                     <Icon name='md-information-circle'  text='Report' />
                 </Section>
 
-                {album.tags != undefined && renderTagGroup()}
-                {album.description != undefined && renderDescription()}
-                {album.tracks != undefined && renderTracks()}
-                {album.webLinks != undefined && renderWebLinks()}
+                {album.tags && album.tags.length > 0 && renderTagGroup()}
+                {album.description && renderDescription()}
+                {album.tracks && album.tracks.length > 0 && renderTracks()}
+                {album.webLinks && album.webLinks.length > 0 && renderWebLinks()}
 
             </Content>
         )
@@ -99,7 +99,7 @@ class AlbumDetail extends React.Component {
             <ScrollableTabView>
                 <InfoPage tabLabel='Info' />
                 <ArtistRoleListPage tabLabel='Artists' />
-                {album.releaseEvents != undefined && <EventListPage tabLabel='Events' />}
+                {album.releaseEvents && album.releaseEvents.length > 0 && <EventListPage tabLabel='Events' />}
             </ScrollableTabView>
         )
     }
