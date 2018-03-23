@@ -61,6 +61,8 @@ class HomeTab extends React.Component {
 
         return (
             <FlatList
+                refreshing={this.props.refreshing}
+                onRefresh={this.props.refresh}
                 ListHeaderComponent={(
                             <View style={[styles.menuContainer]}>
                                 <MenuIcon icon='music-note' color='#00C853' text='Song' onPress={this.props.onPressSongSearch} />
