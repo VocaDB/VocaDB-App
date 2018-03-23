@@ -102,7 +102,7 @@ class SongDetail extends React.Component {
             <ScrollableTabView>
                 <InfoPage tabLabel='Info' />
                 <ArtistRoleListPage tabLabel='Artists' />
-                {song.lyrics && <LyricGropuPage tabLabel='Lyrics' />}
+                {song.lyrics && song.lyrics.length > 0 && <LyricGropuPage tabLabel='Lyrics' />}
             </ScrollableTabView>
         )
     }
