@@ -77,10 +77,10 @@ class SongDetail extends React.Component {
                         <Icon name='md-information-circle'  text='Report' />
                     </Section>
 
-                    {song.tags && renderTagGroup()}
-                    {song.pvs && renderPVList()}
-                    {song.albums && renderAlbumList()}
-                    {song.webLinks && renderWebLinkList()}
+                    {song.tags && song.tags.length > 0 && renderTagGroup()}
+                    {song.pvs && song.pvs.length > 0 && renderPVList()}
+                    {song.albums && song.albums.length > 0 && renderAlbumList()}
+                    {song.webLinks && song.webLinks.length > 0 && renderWebLinkList()}
 
                 </ScrollView>
             )
