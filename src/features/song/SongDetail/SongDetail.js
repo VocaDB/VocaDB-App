@@ -10,6 +10,7 @@ import PVList from '../../pv/PVLIst/index'
 import LyricGroup from '../../lyric/LyricGroup/index'
 import Cover from '../../../components/Cover/index'
 import Divider from '../../../components/Divider/index'
+import Theme from '../../../theme'
 
 class SongDetail extends React.Component {
 
@@ -71,7 +72,8 @@ class SongDetail extends React.Component {
                         subtitle={song.artistString}
                     />
                     <Section style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around' }}>
-                        <Icon name='md-heart' text='Favorite' />
+                        {!this.props.isFavoriteSong && <Icon name='md-heart' text='Favorite' onPress={() => this.props.onPressFavorite(song)} />}
+                        {this.props.isFavoriteSong && <Icon name='md-heart' text='Favorite' color={Theme.buttonActiveColor} onPress={() => this.props.onPressUnfavorite(song)} />}
                         <Icon name='md-share' text='Share' onPress={() => this.props.onPressShare(song)} />
                         <Icon name='md-chatbubbles' text='Comment' />
                         <Icon name='md-information-circle'  text='Report' />

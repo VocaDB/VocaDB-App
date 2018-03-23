@@ -3,6 +3,9 @@ import { normalize } from 'normalizr'
 import songSchema from './songSchema'
 
 
+export const addFavoriteSong = createAction('Add favorite song', song => ({ song }))
+export const removeFavoriteSong = createAction('Remove favorite song', song => ({ song }))
+
 export const fetchSearchSongs = createAction('fetch search songs', (params, remove, replace) => ({ loading: true, params, remove, replace }))
 export const fetchSearchSongsSuccess =  createAction('fetch search songs success', (data, append) => {
     let nom = normalize(data, [ songSchema ])

@@ -79,11 +79,32 @@ export const selectFollowedSongs = () => createSelector(
     convertSongIds
 );
 
+export const selectFavoriteSongIds = () => createSelector(
+    selectSong(),
+    songState => {
+        return songState.favoriteSongs
+    }
+)
+
+export const selectFavoriteSongs = () => createSelector(
+    selectSong(),
+    selectSongEntity(),
+    convertSongIds
+)
+
 export const selectSongDetail = () => createSelector(
     selectSongDetailId(),
     selectSongEntity(),
     (songDetailId, songEntity) => {
         return songEntity[songDetailId.toString()]
+    }
+)
+
+export const selectIsFavoriteSong = () => createSelector(
+    selectSong(),
+    selectFavoriteSongIds(),
+    (songState, favoriteSongIds) => {
+        return (favoriteSongIds && favoriteSongIds.indexOf(songState.detail) >=0)? true : false
     }
 )
 

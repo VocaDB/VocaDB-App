@@ -21,6 +21,7 @@ export const defaultState = {
     all: [],
     followed: [],
     highlighted: [],
+    favoriteSongs: [],
     detail: 0
 }
 
@@ -74,6 +75,34 @@ const reducer = createReducer({
     },
     [actions.fetchSongDetailSuccess]: (state, payload) => {
         return { ...state, detail: payload.result }
+    },
+    [actions.addFavoriteSong]: (state, payload) => {
+        const song = payload.song;
+
+        if(!song) {
+            return state
+        }
+
+        let currentFavoriteSongs = (state.favoriteSongs)? state.favoriteSongs : []
+
+        if(currentFavoriteSongs.indexOf(song.id) >= 0) {
+            return state
+        }
+
+        currentFavoriteSongs.unshift(song.id)
+
+        return { ...state, favoriteSongs: currentFavoriteSongs }
+    },
+    [actions.removeFavoriteSong]: (state, payload) => {
+        const song = payload.song;
+
+        if(!song) {
+            return state
+        }
+
+        let currentFavoriteSongs = state.favoriteSongs.filter(id => id != song.id)
+
+        return { ...state, favoriteSongs: currentFavoriteSongs }
     }
 }, defaultState)
 

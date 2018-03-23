@@ -3,8 +3,8 @@ import { Share } from 'react-native'
 import { connect } from 'react-redux'
 import SongDetailPage from './SongDetail'
 import { createSelector } from 'reselect';
-import { fetchSongDetail } from '../songActions'
-import { selectSongDetail } from '../songSelector'
+import * as songActions from '../songActions'
+import { selectSongDetail, selectIsFavoriteSong } from '../songSelector'
 import Routes from './../../../app/appRoutes'
 
 SongDetailPage.navigationOptions = ({ navigation }) => {
@@ -28,11 +28,14 @@ SongDetailPage.propTypes = {
 
 const songDetailStateSelect = createSelector(
     selectSongDetail(),
-    (song) => ({ song })
+    selectIsFavoriteSong(),
+    (song, isFavoriteSong) => ({ song, isFavoriteSong })
 );
 
 const mapDispatchToProps = (dispatch, props) => ({
-    fetchSong: id => dispatch(fetchSongDetail(id)),
+    fetchSong: id => dispatch(songActions.fetchSongDetail(id)),
+    onPressFavorite: song => dispatch(songActions.addFavoriteSong(song)),
+    onPressUnfavorite: song => dispatch(songActions.removeFavoriteSong(song)),
     onPressShare: song => {
         const url = 'http://vocadb.net/S/' + song.id
         Share.share({
