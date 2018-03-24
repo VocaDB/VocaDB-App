@@ -12,7 +12,7 @@ FollowedArtists.navigationOptions = ({ navigation }) => {
         title: params ? params.title : 'Followed artists',
     }
 }
- 
+
 const mapStateSelector =  createSelector(
     selectFollowedArtists(),
     (followedArtists) => ({ followedArtists })
