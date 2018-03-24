@@ -53,7 +53,9 @@ export default class Main extends React.Component {
                     onFetchMore={this.props.fetchFollowedSongs}
                     songs={this.props.followedSongs}
                     onPressSong={this.props.onPressSong} />
-                <MenuTab tabLabel="ios-menu"></MenuTab>
+                <MenuTab
+                    tabLabel="ios-menu"
+                    onPressMenuFollowArtists={this.props.onPressMenuFollowArtists} />
             </ScrollableTabView>
         )
     }
