@@ -12,7 +12,8 @@ const ROUTES = {
     TagDetail: 'TagDetail',
     EventDetail: 'EventDetail',
     EventSearch: 'EventSearch',
-    FollowedArtists: 'FollowedArtists'
+    FollowedArtists: 'FollowedArtists',
+    FavoriteSongs: 'FavoriteSongs'
 }
 
 export default ROUTES

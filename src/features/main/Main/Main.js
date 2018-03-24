@@ -55,6 +55,7 @@ export default class Main extends React.Component {
                     onPressSong={this.props.onPressSong} />
                 <MenuTab
                     tabLabel="ios-menu"
+                    onPressMenuFavoriteSongs={this.props.onPressMenuFavoriteSongs}
                     onPressMenuFollowArtists={this.props.onPressMenuFollowArtists} />
             </ScrollableTabView>
         )

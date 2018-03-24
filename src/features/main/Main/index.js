@@ -64,7 +64,8 @@ const mapDispatchToProps = (dispatch, props) => ({
             'fields': 'thumbUrl'
         }
     }),
-    onPressMenuFollowArtists: () => props.navigation.navigate(Routes.FollowedArtists)
+    onPressMenuFollowArtists: () => props.navigation.navigate(Routes.FollowedArtists),
+    onPressMenuFavoriteSongs: () => props.navigation.navigate(Routes.FavoriteSongs)
 })
 
 export default connect(mapStateSelector, mapDispatchToProps)(Main)

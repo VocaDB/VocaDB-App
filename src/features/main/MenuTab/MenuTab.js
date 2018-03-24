@@ -16,6 +16,7 @@ class MenuTab extends React.Component {
                     <Button raised text="Sign in" />
                 </CenterView>
                 <View style={{ flex: 1, backgroundColor: 'white' }}>
+                    <MenuItem icon='ios-musical-notes' text='Favorite songs' onPress={this.props.onPressMenuFavoriteSongs} />
                     <MenuItem icon='ios-people' text='Followed artists' onPress={this.props.onPressMenuFollowArtists} />
                     <MenuItem icon='ios-settings' text='Settings' onPress={this.props.onPressMenuSettings} />
                     <MenuItem icon='ios-lock' text='Terms & privacy policy' onPress={this.props.onPressMenuPolicy} />
@@ -28,6 +29,7 @@ class MenuTab extends React.Component {
 
 MenuTab.propTypes = {
     onPressSignIn: PropTypes.func,
+    onPressMenuFavoriteSongs: PropTypes.func,
     onPressMenuFollowArtists: PropTypes.func,
     onPressMenuSettings: PropTypes.func,
     onPressMenuPolicy: PropTypes.func,

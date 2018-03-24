@@ -82,12 +82,12 @@ export const selectFollowedSongs = () => createSelector(
 export const selectFavoriteSongIds = () => createSelector(
     selectSong(),
     songState => {
-        return songState.favoriteSongs
+        return (songState.favoriteSongs) ? songState.favoriteSongs : []
     }
 )
 
 export const selectFavoriteSongs = () => createSelector(
-    selectSong(),
+    selectFavoriteSongIds(),
     selectSongEntity(),
     convertSongIds
 )
