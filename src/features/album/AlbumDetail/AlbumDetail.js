@@ -71,8 +71,6 @@ class AlbumDetail extends React.Component {
                 <Section style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around' }}>
                     <Icon name='md-heart' text='Follow' />
                     <Icon name='md-share' text='Share' onPress={() => this.props.onPressShare(album)} />
-                    <Icon name='md-chatbubbles' text='Comment' />
-                    <Icon name='md-information-circle'  text='Report' />
                 </Section>
 
                 {album.tags && album.tags.length > 0 && renderTagGroup()}

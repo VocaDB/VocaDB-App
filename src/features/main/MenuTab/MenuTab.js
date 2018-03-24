@@ -11,10 +11,6 @@ class MenuTab extends React.Component {
     render () {
         return (
             <View style={{ flex: 1 }}>
-                <CenterView>
-                    <Text style={[Theme.subhead,{ margin: 8 }]}>This app is still under development.</Text>
-                    <Button raised text="Sign in" />
-                </CenterView>
                 <View style={{ flex: 1, backgroundColor: 'white' }}>
                     <MenuItem icon='ios-musical-notes' text='Favorite songs' onPress={this.props.onPressMenuFavoriteSongs} />
                     <MenuItem icon='ios-people' text='Followed artists' onPress={this.props.onPressMenuFollowArtists} />

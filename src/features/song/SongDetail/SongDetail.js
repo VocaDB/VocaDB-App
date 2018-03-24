@@ -75,8 +75,6 @@ class SongDetail extends React.Component {
                         {!this.props.isFavoriteSong && <Icon name='md-heart' text='Favorite' onPress={() => this.props.onPressFavorite(song)} />}
                         {this.props.isFavoriteSong && <Icon name='md-heart' text='Favorite' color={Theme.buttonActiveColor} onPress={() => this.props.onPressUnfavorite(song)} />}
                         <Icon name='md-share' text='Share' onPress={() => this.props.onPressShare(song)} />
-                        <Icon name='md-chatbubbles' text='Comment' />
-                        <Icon name='md-information-circle'  text='Report' />
                     </Section>
 
                     {song.tags && song.tags.length > 0 && renderTagGroup()}
