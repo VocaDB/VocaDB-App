@@ -17,6 +17,11 @@ storiesOf('Artist/ArtistDetail', module)
             onPressSong={action('Press song')}
             onPressAlbum={action('Press album')}
             onPressEvent={action('Press event')}
+            latestSongs={mockArtist.relations.latestSongs}
+            popularSongs={mockArtist.relations.popularSongs}
+            latestAlbums={mockArtist.relations.latestAlbums}
+            popularAlbums={mockArtist.relations.popularAlbums}
+            latestEvents={mockArtist.relations.latestEvents}
             navigation={{ state: { params: { id: 1 }} }}
         />
     ));

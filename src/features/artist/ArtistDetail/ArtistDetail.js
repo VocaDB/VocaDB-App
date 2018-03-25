@@ -12,6 +12,8 @@ import AlbumList from '../../album/AlbumList/index'
 import Content from '../../../components/Content/index'
 import Cover from '../../../components/Cover/index'
 import Divider from '../../../components/Divider/index'
+import SongHorizontalList from '../../song/SongHorizontalList'
+import AlbumHorizontalList from '../../album/AlbumHorizontalList'
 
 class ArtistDetailPage extends React.Component {
 
@@ -48,6 +50,14 @@ class ArtistDetailPage extends React.Component {
             </Section>
         )
 
+        const renderPopularSongs = () => (
+                <SongHorizontalList title='Popular songs' songs={popularSongs} />
+        )
+
+        const renderPopularAlbums = () => (
+                <AlbumHorizontalList title='Popular albums' albums={popularAlbums} />
+        )
+
         const renderWebLink = () => (
             <Section>
                 <Divider />
@@ -70,6 +80,8 @@ class ArtistDetailPage extends React.Component {
                     <Icon name='md-share' text='Share' onPress={() => this.props.onPressShare(artist)} />
                 </Section>
                 {artist.tags != undefined && renderTagGroup()}
+                {popularSongs && popularSongs.length > 0 && renderPopularSongs()}
+                {popularAlbums && popularAlbums.length > 0 && renderPopularAlbums()}
                 {artist.description != undefined && renderDescription()}
                 {artist.webLinks != undefined && renderWebLink()}
             </Content>
@@ -81,40 +93,25 @@ class ArtistDetailPage extends React.Component {
                 <SongList max={7}
                           songs={latestSongs}
                           title='Latest'
-                          showHeader={true}
+                          showHeader={false}
                           onPressItem={this.props.onPressSong}
                           onPressMore={() => this.props.onPressMoreLatestSongs(artist)} />
             )
 
-            const renderPopularSongs = () => (
-                <SongList max={7}
-                          songs={popularSongs}
-                          title='Popular'
-                          showHeader={true}
-                          onPressItem={this.props.onPressSong} />
-            )
-
             return (<Content>
                 {latestSongs && latestSongs.length > 0 && renderLatestSongs()}
-                {latestSongs && latestSongs.length > 0 && popularSongs && popularSongs.length > 0 && <Divider />}
-                {popularSongs && popularSongs.length > 0 && renderPopularSongs()}
             </Content>)
         }
 
         const AlbumListPage = () => {
 
             const renderLatestAlbum = () => (
-                <AlbumList max={7} albums={latestAlbums} title='Latest' showHeader={true} onPressItem={this.props.onPressAlbum} />
+                <AlbumList max={7} albums={latestAlbums} title='Latest' showHeader={false} onPressItem={this.props.onPressAlbum} />
             )
 
-            const renderPopularAlbum = () => (
-                <AlbumList max={7} albums={popularAlbums} title='Popular' showHeader={true} onPressItem={this.props.onPressAlbum} />
-            )
             return (
                 <Content>
                     {latestAlbums && latestAlbums.length > 0 && renderLatestAlbum()}
-                    {latestAlbums && latestAlbums.length > 0 && popularAlbums && popularAlbums.length > 0 && <Divider />}
-                    {popularAlbums && popularAlbums.length > 0 && renderPopularAlbum()}
                 </Content>
             )
         }
