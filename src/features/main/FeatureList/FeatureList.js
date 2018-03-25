@@ -13,7 +13,7 @@ class FeatureList extends React.Component {
             <View style={[styles.container]}>
                 <View style={[styles.headerContainer]}>
                     <Text style={Theme.subhead}>{this.props.title}</Text>
-                    <Button primary text="See more" onPress={this.props.onPressMore} />
+                    {this.props.displayMoreButton && <Button primary text="See more" onPress={this.props.onPressMore} />}
                 </View>
                 <FlatList
                     horizontal
@@ -50,12 +50,14 @@ FeatureList.propTypes = {
     title: PropTypes.string,
     items: PropTypes.array,
     renderItem: PropTypes.func,
-    onPressMore: PropTypes.func
+    onPressMore: PropTypes.func,
+    displayMoreButton: PropTypes.bool
 }
 
 FeatureList.defaultProps = {
     title: 'Unknown',
     items: [],
+    displayMoreButton: true,
     onPressMore: () => console.log('Press more')
 }
 
