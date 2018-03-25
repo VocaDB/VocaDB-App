@@ -11,6 +11,7 @@ import LyricGroup from '../../lyric/LyricGroup/index'
 import Cover from '../../../components/Cover/index'
 import Divider from '../../../components/Divider/index'
 import Theme from '../../../theme'
+import AlbumHorizontalList  from '../../album/AlbumHorizontalList'
 
 class SongDetail extends React.Component {
 
@@ -53,7 +54,7 @@ class SongDetail extends React.Component {
             const renderAlbumList = () => (
                 <Section>
                     <Divider />
-                    <AlbumList max={3} albums={song.albums} title='Albums' onPressItem={this.props.onPressAlbum} showHeader />
+                    <AlbumHorizontalList albums={song.albums} onPressItem={this.props.onPressAlbum} />
                 </Section>
             )
 
