@@ -6,7 +6,7 @@ export const defaultState = {
     detail: 0,
     followed: [],
     searchResult: [],
-    searchParams: { maxResults: 50, fields: 'MainPicture' },
+    searchParams: { maxResults: 50, fields: 'MainPicture', nameMatchMode: 'auto' },
     noResult: false
 }
 
