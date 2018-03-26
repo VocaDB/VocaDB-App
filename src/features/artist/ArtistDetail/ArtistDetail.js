@@ -51,11 +51,11 @@ class ArtistDetailPage extends React.Component {
         )
 
         const renderPopularSongs = () => (
-                <SongHorizontalList title='Popular songs' songs={popularSongs} />
+                <SongHorizontalList title='Popular songs' songs={popularSongs} onPressItem={this.props.onPressSong} />
         )
 
         const renderPopularAlbums = () => (
-                <AlbumHorizontalList title='Popular albums' albums={popularAlbums} />
+                <AlbumHorizontalList title='Popular albums' albums={popularAlbums} onPressItem={this.props.onPressAlbum} />
         )
 
         const renderWebLink = () => (
