@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import style from './style'
 import Theme from '../../../theme'
 
-class AlbumList extends React.Component {
+class AlbumList extends React.PureComponent {
     render () {
         const Header = () => (
             <View style={style.header}>
@@ -16,7 +16,7 @@ class AlbumList extends React.Component {
         )
 
         const renderItem = album => {
-            const thumbUrl = (album.mainPicture) ? album.mainPicture.urlThumb : null
+            const thumbUrl = (album.mainPicture) ? album.mainPicture.urlThumb : undefined
             return  (
                 <Album
                     key={album.id}

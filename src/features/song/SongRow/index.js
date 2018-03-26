@@ -5,7 +5,7 @@ import Theme from '../../../theme'
 import Icon from '../../../components/Icon/index'
 import moment from 'moment'
 
-class SongRow extends React.Component {
+class SongRow extends React.PureComponent {
 
     renderImage () {
         return (<Image

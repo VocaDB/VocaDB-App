@@ -6,7 +6,7 @@ import { Button } from 'react-native-material-ui';
 import FeatureList from './../../main/FeatureList'
 import SongCard from './../SongCard'
 
-class SongHorizontalList extends React.Component {
+class SongHorizontalList extends React.PureComponent {
     render () {
 
         const renderSongCard = song => (
@@ -16,7 +16,7 @@ class SongHorizontalList extends React.Component {
                       artist={song.artistString}
                       image={song.thumbUrl}
                       pvs={song.pvs}
-                      onPress={() => this.props.onPressSong(song)} />
+                      onPress={() => this.props.onPressItem(song)} />
         )
 
         return (

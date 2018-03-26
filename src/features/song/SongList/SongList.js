@@ -6,7 +6,7 @@ import style from './style'
 import Theme from '../../../theme'
 import { Button } from 'react-native-material-ui';
 
-class SongList extends React.Component {
+class SongList extends React.PureComponent {
 
     renderHeader () {
         return (

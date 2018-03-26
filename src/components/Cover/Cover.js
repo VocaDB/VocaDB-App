@@ -3,7 +3,8 @@ import { View, Text, Image } from 'react-native'
 import PropTypes from 'prop-types'
 import Theme from './../../theme'
 
-class Cover extends React.Component {
+class Cover extends React.PureComponent {
+
     render () {
         return (
             <View style={{ height: 240, backgroundColor: '#000000', justifyContent: 'center' }}>

@@ -13,7 +13,7 @@ import Content from '../../../components/Content/index'
 import TrackList from '../../track/TrackList/index'
 import Divider from '../../../components/Divider/index'
 
-class AlbumDetail extends React.Component {
+class AlbumDetail extends React.PureComponent {
     componentDidMount () {
         const { params } = this.props.navigation.state;
         this.props.fetchAlbum(params.id)

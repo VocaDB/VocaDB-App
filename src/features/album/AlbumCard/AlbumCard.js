@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Theme from '../../../theme'
 import images from '../../../common/assets/images'
 
-class AlbumCard extends React.Component {
+class AlbumCard extends React.PureComponent {
 
     renderImage () {
         return (<Image

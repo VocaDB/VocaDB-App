@@ -11,7 +11,7 @@ import AlbumCard from '../../album/AlbumCard'
 import EventCard from '../../releaseEvent/EventCard'
 
 
-class HomeTab extends React.Component {
+class HomeTab extends React.PureComponent {
     render () {
 
         const MenuIcon = (props) => (

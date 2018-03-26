@@ -5,7 +5,7 @@ import HomeTab from './../HomeTab'
 import MenuTab from './../MenuTab'
 import FollowedTab from './../FollowedTab'
 
-export default class Main extends React.Component {
+export default class Main extends React.PureComponent {
 
     componentDidMount () {
         this.refreshHome()

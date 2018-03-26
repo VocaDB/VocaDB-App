@@ -7,7 +7,7 @@ import Theme from '../../../theme'
 import CenterView from '../../../components/CenterView'
 import PropTypes from 'prop-types'
 
-class MenuTab extends React.Component {
+class MenuTab extends React.PureComponent {
     render () {
         return (
             <View style={{ flex: 1 }}>

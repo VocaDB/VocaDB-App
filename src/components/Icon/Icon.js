@@ -4,7 +4,7 @@ import IconVector from 'react-native-vector-icons/Ionicons';
 import PropTypes from 'prop-types';
 import IconSites from '../../common/assets/iconSites'
 
-class Icon extends React.Component {
+class Icon extends React.PureComponent {
 
     render () {
         const size = {

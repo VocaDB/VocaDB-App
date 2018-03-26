@@ -4,7 +4,7 @@ import Theme from './../../theme'
 import { Constants } from 'expo'
 import { SafeAreaView } from 'react-navigation'
 
-class Page extends React.Component {
+class Page extends React.PureComponent {
     render () {
         if(Platform.OS === 'ios') {
             return (

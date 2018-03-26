@@ -7,7 +7,7 @@ import CenterView from '../../../components/CenterView/index'
 import SongList from '../SongList/index'
 import Theme from '../../../theme'
 
-export default class SongSearch extends React.Component {
+export default class SongSearch extends React.PureComponent {
 
     state = {
         filterVisible: false,

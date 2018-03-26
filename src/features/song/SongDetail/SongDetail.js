@@ -13,10 +13,9 @@ import Divider from '../../../components/Divider/index'
 import Theme from '../../../theme'
 import AlbumHorizontalList  from '../../album/AlbumHorizontalList'
 
-class SongDetail extends React.Component {
+class SongDetail extends React.PureComponent {
 
     componentDidMount () {
-
         if(this.props.navigation) {
             const { params } = this.props.navigation.state;
             this.props.fetchSong(params.id)

@@ -12,7 +12,7 @@ import { topTags } from './../../tag/tagConstant'
 import { songTypeItems } from './../songConstant'
 import { entryStatusItems, sortItems } from './../../entry/entryConstant'
 
-class SongFilter extends React.Component {
+class SongFilter extends React.PureComponent {
 
     constructor(props) {
         super(props)

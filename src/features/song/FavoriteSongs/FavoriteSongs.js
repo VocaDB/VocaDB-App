@@ -4,7 +4,7 @@ import Content from '../../../components/Content'
 import SongList from '../SongList'
 import Empty from './../../../components/Empty'
 
-class FavoriteSongs extends React.Component {
+class FavoriteSongs extends React.PureComponent {
 
     render () {
 

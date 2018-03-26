@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import Theme from '../../../theme'
 import { Button } from 'react-native-material-ui';
 
-class FeatureList extends React.Component {
+class FeatureList extends React.PureComponent {
     render () {
 
         const WrapComponent = Component => <View key={Component.key} style={[styles.wrapContainer]}>{Component}</View>

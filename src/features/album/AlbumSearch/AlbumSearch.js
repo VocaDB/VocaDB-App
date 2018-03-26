@@ -5,7 +5,7 @@ import { Toolbar } from 'react-native-material-ui';
 import Page from '../../../components/Page'
 import AlbumRow from '../../album/AlbumRow'
 
-class AlbumSearch extends React.Component {
+class AlbumSearch extends React.PureComponent {
 
     componentDidMount () {
         this.props.onSearch()
@@ -14,7 +14,7 @@ class AlbumSearch extends React.Component {
     render () {
 
         const renderAlbumRow = album => {
-            const thumbUrl = (album.mainPicture) ? album.mainPicture.urlThumb : null
+            const thumbUrl = (album.mainPicture) ? album.mainPicture.urlThumb : undefined
             return  (
                 <AlbumRow
                     key={album.id}
