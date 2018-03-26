@@ -16,7 +16,7 @@ class AlbumCard extends React.PureComponent {
 
     render () {
         return (
-            <TouchableOpacity style={[styles.container]} onPress={this.props.onPress}>
+            <TouchableOpacity style={[styles.container, this.props.style]} onPress={this.props.onPress}>
                 <View style={[styles.imageContainer]}>
                     {this.renderImage()}
                 </View>

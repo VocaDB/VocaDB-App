@@ -14,6 +14,7 @@ import Cover from '../../../components/Cover/index'
 import Divider from '../../../components/Divider/index'
 import SongHorizontalList from '../../song/SongHorizontalList'
 import AlbumHorizontalList from '../../album/AlbumHorizontalList'
+import AlbumGridView from '../../album/AlbumGridView'
 
 class ArtistDetailPage extends React.Component {
 
@@ -106,7 +107,7 @@ class ArtistDetailPage extends React.Component {
         const AlbumListPage = () => {
 
             const renderLatestAlbum = () => (
-                <AlbumList max={7} albums={latestAlbums} title='Latest' showHeader={false} onPressItem={this.props.onPressAlbum} />
+                <AlbumGridView albums={latestAlbums} onPressItem={this.props.onPressAlbum} />
             )
 
             return (
