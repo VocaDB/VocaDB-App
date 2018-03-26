@@ -5,7 +5,7 @@ import images from '../../../common/assets/images'
 import style from './style'
 import Theme from '../../../theme'
 
-class AlbumRow extends React.Component {
+class AlbumRow extends React.PureComponent {
 
     componentWillMount () {
         this.styleSelected = style[this.props.display]

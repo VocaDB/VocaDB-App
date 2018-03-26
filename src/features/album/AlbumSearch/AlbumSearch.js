@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { View, Text, FlatList } from 'react-native'
-import images from '../../../common/assets/images'
 import { Toolbar } from 'react-native-material-ui';
 import Page from '../../../components/Page'
 import AlbumRow from '../../album/AlbumRow'
@@ -15,10 +14,11 @@ class AlbumSearch extends React.Component {
     render () {
 
         const renderAlbumRow = album => {
+            const thumbUrl = (album.mainPicture) ? album.mainPicture.urlThumb : null
             return  (
                 <AlbumRow
                     key={album.id}
-                    image={images.getAlbumUri(album.id)}
+                    image={thumbUrl}
                     name={album.name}
                     artist={album.artistString}
                     onPress={() => this.props.onPressAlbum(album)}

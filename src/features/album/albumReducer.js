@@ -8,7 +8,7 @@ export const defaultState = {
     top: [],
     detail: 0,
     searchResult: [],
-    searchParams: { maxResults: 50, fields: 'MainPicture', sort: 'ReleaseDate', nameMatchMode: 'auto' },
+    searchParams: { maxResults: 30, fields: 'MainPicture', sort: 'ReleaseDate', nameMatchMode: 'auto' },
     noResult: false
 }
 
