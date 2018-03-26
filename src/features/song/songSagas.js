@@ -75,7 +75,6 @@ const songSaga = function* songSagaAsync() {
     yield takeLatest(artistActions.followArtist, fetchFollowedSongs)
     yield takeLatest(artistActions.unFollowArtist, fetchFollowedSongs)
     yield takeLatest(actions.fetchSongDetail, fetchSongDetail)
-    yield takeLatest(actions.fetchSongDetail, fetchSongDetail)
     yield takeLatest(actions.fetchSearchSongs, fetchSearchSongs)
 }
 
