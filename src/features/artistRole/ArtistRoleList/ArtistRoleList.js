@@ -47,7 +47,9 @@ class ArtistRole extends React.Component {
         return (
             <SectionList
                 renderItem={({ item }) => renderItem(item)}
-                keyExtractor={item => item.id}
+                keyExtractor={item => {
+                    return (item.artist)? item.artist.id : item.id
+                }}
                 renderSectionHeader={({ section }) => (
                     <View style={{ padding: 8 }}>
                         <Text style={Theme.subhead}>{section.title}</Text>
