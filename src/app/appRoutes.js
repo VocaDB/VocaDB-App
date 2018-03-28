@@ -14,7 +14,8 @@ const ROUTES = {
     EventSearch: 'EventSearch',
     FollowedArtists: 'FollowedArtists',
     FavoriteSongs: 'FavoriteSongs',
-    AlbumFilter: 'AlbumFilter'
+    AlbumFilter: 'AlbumFilter',
+    ArtistFilter: 'ArtistFilter'
 }
 
 export default ROUTES

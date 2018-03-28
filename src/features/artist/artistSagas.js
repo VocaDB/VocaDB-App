@@ -2,10 +2,11 @@ import { put, takeLatest, call, select } from 'redux-saga/effects'
 import * as actions from './artistActions'
 import * as appActions from '../../app/appActions'
 import api from './artistApi'
+import { selectSearchParams } from './artistSelector'
 
-const fetchSearchArtists = function* fetchSearchArtists(action) {
+const fetchSearchArtists = function* fetchSearchArtists() {
     try {
-        const params = action.payload.params
+        const params = yield select(selectSearchParams())
         const response = yield call(api.find, params);
         let append = (params.start) ? true : false
         yield put(actions.fetchSearchArtistsSuccess(response.items, append));
