@@ -1,9 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { View, Text, FlatList } from 'react-native'
-import { Toolbar } from 'react-native-material-ui';
+import { FlatList, View, StyleSheet } from 'react-native'
+import { Button, Toolbar } from 'react-native-material-ui';
 import Page from '../../../components/Page'
 import AlbumRow from '../../album/AlbumRow'
+import Theme from '../../../theme'
 
 class AlbumSearch extends React.PureComponent {
 
@@ -38,6 +39,9 @@ class AlbumSearch extends React.PureComponent {
                         onChangeText: this.props.onSearch
                     }}
                 />
+                <View style={styles.menuContainer}>
+                    <Button raised primary icon='tune' text='Filter' style={{ container: styles.filterButton }} onPress={this.props.onPressFilter} />
+                </View>
                 <FlatList
                     data={this.props.albums}
                     keyExtractor={item => item.id}
@@ -47,6 +51,23 @@ class AlbumSearch extends React.PureComponent {
         )
     }
 }
+
+
+const styles = StyleSheet.create({
+    menuContainer: {
+        alignItems: 'center',
+        backgroundColor: 'white'
+    },
+    filterButton: {
+        margin: 8,
+        width: 128
+    },
+    resultContainer: {
+        flex: 1,
+        backgroundColor: Theme.contentBackgroundColor,
+        paddingBottom: 8
+    }
+})
 
 AlbumSearch.propTypes = {
     albums: PropTypes.array,

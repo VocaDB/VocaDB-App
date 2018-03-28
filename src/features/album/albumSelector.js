@@ -1,6 +1,7 @@
 import { createSelector } from 'reselect';
 import { selectNav } from './../../app/appSelector'
 import Routes from './../../app/appRoutes'
+import { selectArtistEntity } from './../artist/artistSelector'
 
 export const selectAlbum = () => state => state.album
 export const selectAlbumEntity = () => state => (state.entities && state.entities.albums)? state.entities.albums : {}
@@ -58,4 +59,16 @@ export const selectAlbumDetail = () => createSelector(
     selectAlbumDetailId(),
     selectAlbumEntity(),
     (albumDetailId, albumEntity) => albumEntity[albumDetailId.toString()]
+)
+
+export const selectFilterArtists = () => createSelector(
+    selectSearchParams(),
+    selectArtistEntity(),
+    (searchParams, artistEntity) => {
+        if(!searchParams || !searchParams.artistId || !artistEntity) {
+            return []
+        }
+
+        return searchParams.artistId.map(id => artistEntity[id.toString()])
+    }
 )

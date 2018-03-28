@@ -3,12 +3,23 @@ import * as actions from './albumActions';
 import merge from 'deepmerge';
 import _ from 'lodash'
 
+export const defaultSearchParams = {
+    maxResults: 30,
+    fields: 'MainPicture',
+    sort: 'ReleaseDate',
+    nameMatchMode: 'auto',
+    start: 0,
+    discTypes: '',
+    artistId: [],
+    tagId: [],
+}
+
 export const defaultState = {
     all: [],
     top: [],
     detail: 0,
     searchResult: [],
-    searchParams: { maxResults: 30, fields: 'MainPicture', sort: 'ReleaseDate', nameMatchMode: 'auto' },
+    searchParams: defaultSearchParams,
     noResult: false
 }
 

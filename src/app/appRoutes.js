@@ -13,7 +13,8 @@ const ROUTES = {
     EventDetail: 'EventDetail',
     EventSearch: 'EventSearch',
     FollowedArtists: 'FollowedArtists',
-    FavoriteSongs: 'FavoriteSongs'
+    FavoriteSongs: 'FavoriteSongs',
+    AlbumFilter: 'AlbumFilter'
 }
 
 export default ROUTES

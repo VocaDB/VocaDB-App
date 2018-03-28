@@ -13,6 +13,7 @@ import EventDetailPage from './features/releaseEvent/EventDetail'
 import FollowedArtistsPage from './features/artist/FollowedArtists'
 import EventSearchPage from './features/releaseEvent/EventSearch'
 import FavoriteSongsPage from './features/song/FavoriteSongs'
+import AlbumFilterPage from './features/album/AlbumFilter'
 import { StackNavigator } from "react-navigation";
 import Theme from './theme'
 import Routes from './app/appRoutes'
@@ -35,7 +36,8 @@ const AppNavigator = StackNavigator({
     EventDetail: { screen: EventDetailPage },
     FollowedArtists: { screen: FollowedArtistsPage },
     EventSearch: { screen: EventSearchPage },
-    FavoriteSongs: { screen: FavoriteSongsPage }
+    FavoriteSongs: { screen: FavoriteSongsPage },
+    AlbumFilter: { screen: AlbumFilterPage }
 }, {
     initialRouteName: INITIAL_ROUTE,
     navigationOptions: {
