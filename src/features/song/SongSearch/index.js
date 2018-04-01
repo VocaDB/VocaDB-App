@@ -15,7 +15,7 @@ SongListPage.navigationOptions = ({ navigation }) => {
         title: params ? params.title : 'Songs',
     }
 
-    if(params.hideHeader) {
+    if(params && params.hideHeader) {
         navOptions.header = null
     }
 

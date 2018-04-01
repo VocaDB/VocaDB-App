@@ -15,7 +15,7 @@ AlbumSearch.navigationOptions = ({ navigation }) => {
         title: params ? params.title : 'Albums',
     }
 
-    if(params.hideHeader) {
+    if(params && params.hideHeader) {
         navOptions.header = null
     }
 
