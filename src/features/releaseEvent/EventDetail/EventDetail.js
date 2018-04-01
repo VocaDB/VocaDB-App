@@ -1,7 +1,10 @@
 import React from 'react'
+import ScrollableTabView from 'react-native-scrollable-tab-view'
 import { View, Text, Image } from 'react-native'
 import Icon from '../../../components/Icon/index'
 import { ListItem } from 'react-native-material-ui';
+import SongList from '../../song/SongList'
+import AlbumGridView from '../../album/AlbumGridView'
 import Content from '../../../components/Content/index'
 import Theme from '../../../theme'
 import moment from 'moment'
@@ -37,17 +40,8 @@ class EventDetail extends React.Component {
         )
 
         const officialLink = webLinks.find(webLink => webLink.category === 'Official')
-        const renderLink = () => (officialLink)? (
-            <ListItem
-                leftElement={<Icon name='ios-globe' />}
-                centerElement={{
-                    primaryText: 'Website',
-                }}
-                onPress={() => {}}
-            />
-        ) : (<View></View>)
 
-        return (
+        const InfoPage = () => (
             <Content>
                 <View style={{ height: 240, justifyContent: 'center' }}>
                     <Image
@@ -64,8 +58,34 @@ class EventDetail extends React.Component {
                     {event.venueName && renderRowInfo('ios-locate', event.venueName, () => this.props.onPressLocation(event.venueName))}
                     {officialLink && renderRowInfo('ios-globe', 'Website', () => this.props.onPressWebsite(officialLink.url))}
                 </View>
-
             </Content>
+        )
+
+        const SongListPage = () => (
+            <Content>
+                <SongList songs={this.props.songs} />
+            </Content>
+        )
+
+        const AlbumListPage = () => (
+            <Content>
+                <AlbumGridView albums={this.props.albums} />
+            </Content>
+        )
+
+        const hasSong = (this.props.songs && this.props.songs.length)
+        const hasAlbum = (this.props.albums && this.props.albums.length)
+
+        if(!hasSong && !hasAlbum) {
+            return <InfoPage />
+        }
+
+        return (
+            <ScrollableTabView>
+                <InfoPage tabLabel='Info' />
+                {hasSong && <SongListPage tabLabel='Songs' />}
+                {hasAlbum && <AlbumListPage tabLabel='Albums' />}
+            </ScrollableTabView>
         )
     }
 }
