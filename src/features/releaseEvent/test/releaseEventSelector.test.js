@@ -2,7 +2,8 @@ import {
     selectReleaseEvent,
     selectLatestReleaseEvents,
     selectReleaseEventEntity,
-    selectReleaseEventDetail } from './../releaseEventSelector'
+    selectReleaseEventDetail,
+    selectPublishedSongs } from './../releaseEventSelector'
 import * as mockGenerator from '../../../common/helper/mockGenerator'
 
 describe('Test releaseEvent selector', () => {
@@ -11,16 +12,25 @@ describe('Test releaseEvent selector', () => {
     let entities;
     let releaseEvent1;
     let releaseEvent2;
+    let song1;
+    let song2;
 
     beforeEach(() => {
 
         releaseEvent1 = mockGenerator.CreateEvent({ id: 1 })
         releaseEvent2 = mockGenerator.CreateEvent({ id: 2 })
 
+        song1 = mockGenerator.CreateSong({ id: 1 })
+        song2 = mockGenerator.CreateSong({ id: 2 })
+
         entities = {
             releaseEvents: {
                 '1': releaseEvent1,
                 '2': releaseEvent2
+            },
+            songs: {
+                '1': song1,
+                '2': song2
             }
         }
 
@@ -90,6 +100,16 @@ describe('Test releaseEvent selector', () => {
 
         const actualResult = selectReleaseEventDetail()(state);
         const expectedResult = releaseEvent1;
+
+        expect(actualResult).toBeTruthy();
+        expect(actualResult).toEqual(expectedResult)
+    })
+
+    it('should return published songs', () => {
+        state.releaseEvent.detail = releaseEvent1.id
+        state.releaseEvent.publishedSongs = [ 1, 2 ]
+        const actualResult = selectPublishedSongs()(state);
+        const expectedResult = [ song1, song2 ];
 
         expect(actualResult).toBeTruthy();
         expect(actualResult).toEqual(expectedResult)

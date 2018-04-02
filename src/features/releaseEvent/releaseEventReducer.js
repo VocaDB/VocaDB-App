@@ -10,6 +10,7 @@ export const defaultState = {
     detail: 0,
     searchResult: [],
     searchParams: defaultSearchParams,
+    publishedSongs: [],
     noResult: false
 }
 
@@ -56,6 +57,9 @@ const reducer = createReducer({
     },
     [actions.fetchReleaseEventDetailSuccess]: (state, payload) => {
         return { ...state, detail: payload.result }
+    },
+    [actions.fetchReleaseEventPublishedSongsSuccess]: (state, payload) => {
+        return { ...state, publishedSongs: payload.result }
     }
 }, defaultState)
 

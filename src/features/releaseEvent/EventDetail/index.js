@@ -2,8 +2,8 @@ import React from 'react'
 import { connect } from 'react-redux'
 import EventDetail from './EventDetail'
 import { createSelector } from 'reselect';
-import { fetchReleaseEventDetail } from '../releaseEventActions'
-import { selectReleaseEventDetail } from '../releaseEventSelector'
+import { fetchReleaseEventDetail, fetchPublishedSongs } from '../releaseEventActions'
+import { selectReleaseEventDetail, selectPublishedSongs } from '../releaseEventSelector'
 import { selectLoading } from '../../../app/appSelector'
 import { Linking } from 'react-native'
 
@@ -18,8 +18,9 @@ EventDetail.navigationOptions = ({ navigation }) => {
 
 const tagStateSelect = createSelector(
     selectReleaseEventDetail(),
+    selectPublishedSongs(),
     selectLoading(),
-    (event, loading) => ({ event, loading })
+    (event, songs, loading) => ({ event, songs, loading })
 );
 
 

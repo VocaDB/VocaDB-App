@@ -1,4 +1,4 @@
-import { put, takeLatest, call, select } from 'redux-saga/effects'
+import { put, takeEvery, takeLatest, call, select } from 'redux-saga/effects'
 import * as actions from './releaseEventActions'
 import * as appActions from '../../app/appActions'
 import api from './releaseEventApi'
@@ -38,12 +38,26 @@ const fetchReleaseEventDetail = function* fetchLatestReleaseEvents(action) {
     }
 }
 
+const fetchReleaseEventPublishedSongs = function* fetchReleaseEventPublishedSongs(action) {
+    try {
+        if(action.payload && action.payload.id) {
+            const response = yield call(api.getPublishedSongs, action.payload.id);
+            yield put(actions.fetchReleaseEventPublishedSongsSuccess(response));
+        } else {
+            yield put(appActions.requestError(new Error("id is undefined")));
+        }
+    } catch (e) {
+        yield put(appActions.requestError(e));
+    }
+}
+
 const releaseEventSaga = function* releaseEventSagaAsync() {
     yield takeLatest(actions.fetchLatestReleaseEvents, fetchLatestReleaseEvents)
     yield takeLatest(actions.fetchReleaseEventDetail, fetchReleaseEventDetail)
+    yield takeLatest(actions.fetchReleaseEventDetail, fetchReleaseEventPublishedSongs)
     yield takeLatest(actions.fetchSearchEvents, fetchSearchEvents)
 }
 
-export { fetchSearchEvents, fetchLatestReleaseEvents, fetchReleaseEventDetail }
+export { fetchSearchEvents, fetchLatestReleaseEvents, fetchReleaseEventDetail, fetchReleaseEventPublishedSongs }
 
 export default releaseEventSaga

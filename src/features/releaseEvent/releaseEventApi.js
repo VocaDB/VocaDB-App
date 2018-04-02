@@ -9,7 +9,8 @@ const releaseEventApi = {
         'afterDate': yesterday(),
         'beforeDate': dateAfterToday(30)
     }),
-    getReleaseEvent: id => api.events.get(id)
+    getReleaseEvent: id => api.events.get(id),
+    getPublishedSongs: id => api.events.getPublishedSongs(id, { fields: 'MainPicture'})
 }
 
 export default releaseEventApi

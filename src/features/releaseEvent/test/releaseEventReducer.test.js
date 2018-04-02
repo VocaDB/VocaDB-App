@@ -41,4 +41,17 @@ describe('Test releaseEvent reducer', () => {
         expect(nextState.detail).toBeTruthy()
         expect(nextState.detail).toEqual(expectedResult)
     })
+
+    it('should return state correctly when fetch published songs success', () => {
+        const song1 = mockGenerator.CreateSong({ id: 1 })
+        const song2 = mockGenerator.CreateSong({ id: 2 })
+        const mockResponse = [ song1, song2 ]
+        const expectedResult = [ song1.id, song2.id ]
+
+        let nextState = reducer({}, actions.fetchReleaseEventPublishedSongsSuccess(mockResponse))
+
+        expect(nextState).toBeTruthy()
+        expect(nextState.publishedSongs).toBeTruthy()
+        expect(nextState.publishedSongs).toEqual(expectedResult)
+    })
 })
