@@ -6,6 +6,7 @@ import { fetchReleaseEventDetail, fetchPublishedSongs } from '../releaseEventAct
 import { selectReleaseEventDetail, selectPublishedSongs, selectAlbums } from '../releaseEventSelector'
 import { selectLoading } from '../../../app/appSelector'
 import { Linking } from 'react-native'
+import Routes from './../../../app/appRoutes'
 
 EventDetail.navigationOptions = ({ navigation }) => {
 
@@ -29,7 +30,9 @@ const mapDispatchToProps = (dispatch, props) => ({
     fetchEvent: id => dispatch(fetchReleaseEventDetail(id)),
     onPressDate: date => console.log(date),
     onPressLocation: location => console.log(location),
-    onPressWebsite: url => Linking.openURL(url).catch(err => console.error('An error occurred', err))
+    onPressWebsite: url => Linking.openURL(url).catch(err => console.error('An error occurred', err)),
+    onPressSong: song => props.navigation.navigate(Routes.SongDetail, { id: song.id, title: song.defaultName }),
+    onPressAlbum: album => props.navigation.navigate(Routes.AlbumDetail, { id: album.id, title: album.name }),
 })
 
 export default connect(tagStateSelect, mapDispatchToProps)(EventDetail)

@@ -57,8 +57,8 @@ export const selectNoResult = () => createSelector(
 )
 
 export const selectPublishedSongIds = () => createSelector(
-    selectReleaseEvent(),
-    releaseEvent => (releaseEvent.publishedSongs) ? releaseEvent.publishedSongs : []
+    selectReleaseEventDetail(),
+    detail => (detail && detail.songs) ? detail.songs : []
 )
 
 export const selectPublishedSongs = () => createSelector(
@@ -70,8 +70,8 @@ export const selectPublishedSongs = () => createSelector(
 )
 
 export const selectAlbumIds = () => createSelector(
-    selectReleaseEvent(),
-    releaseEvent => (releaseEvent.albums) ? releaseEvent.albums : []
+    selectReleaseEventDetail(),
+    detail => (detail && detail.albums) ? detail.albums : []
 )
 
 export const selectAlbums = () => createSelector(

@@ -33,9 +33,11 @@ const fetchReleaseEventDetail = function* fetchReleaseEventDetail(action) {
                 call(api.getPublishedSongs, action.payload.id),
                 call(api.getAlbums, action.payload.id)
             ])
-            // yield put(actions.fetchReleaseEventDetailSuccess(detailResponse));
-            // yield put(actions.fetchReleaseEventPublishedSongsSuccess(songsResponse));
-            // yield put(actions.fetchReleaseEventAlbumsSuccess(albumsResponse));
+
+            detailResponse.songs = (songsResponse) ? songsResponse : [];
+            detailResponse.albums = (albumsResponse) ? albumsResponse : [];
+
+            yield put(actions.fetchReleaseEventDetailSuccess(detailResponse));
         } else {
             yield put(appActions.requestError(new Error("id is undefined")));
         }

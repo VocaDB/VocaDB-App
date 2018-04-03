@@ -63,13 +63,13 @@ class EventDetail extends React.Component {
 
         const SongListPage = () => (
             <Content>
-                <SongList songs={this.props.songs} />
+                <SongList songs={this.props.songs} onPressItem={this.props.onPressSong} />
             </Content>
         )
 
         const AlbumListPage = () => (
             <Content>
-                <AlbumGridView albums={this.props.albums} />
+                <AlbumGridView albums={this.props.albums} onPressItem={this.props.onPressAlbum} />
             </Content>
         )
 
