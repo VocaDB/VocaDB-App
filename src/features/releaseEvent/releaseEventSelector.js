@@ -1,4 +1,6 @@
 import { createSelector } from 'reselect';
+import Routes from './../../app/appRoutes'
+import { selectNav } from './../../app/appSelector'
 import { selectSongEntity } from './../song/songSelector'
 import { selectAlbumEntity } from './../album/albumSelector'
 
@@ -13,8 +15,10 @@ export const selectLatestReleaseEventIds = () => createSelector(
     releaseEvent => releaseEvent.all
 )
 export const selectReleaseEventDetailId = () => createSelector(
-    selectReleaseEvent(),
-    releaseEvent => releaseEvent.detail
+    selectNav(),
+    nav => (nav
+        && nav.routes[nav.index]
+        && nav.routes[nav.index].routeName === Routes.EventDetail)? nav.routes[nav.index].params.id : 0
 )
 
 export const selectLatestReleaseEvents = () => createSelector(
