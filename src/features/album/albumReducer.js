@@ -5,13 +5,9 @@ import _ from 'lodash'
 
 export const defaultSearchParams = {
     maxResults: 30,
-    fields: 'MainPicture',
-    sort: 'ReleaseDate',
     nameMatchMode: 'auto',
-    start: 0,
-    discTypes: '',
-    artistId: [],
-    tagId: [],
+    fields: 'MainPicture',
+    sort: 'ReleaseDate'
 }
 
 export const defaultState = {
@@ -25,14 +21,23 @@ export const defaultState = {
 
 const reducer = createReducer({
     [actions.fetchSearchAlbums]: (state, payload) => {
-        let searchParams = merge({}, state.searchParams)
 
+        if(payload.replace) {
+            let searchParams = _.merge({}, defaultSearchParams, payload.params)
+            return { ...state, searchParams }
+        }
+
+        let searchParams = merge({}, state.searchParams)
         if(payload.remove) {
             _.forEach(payload.params, (value, key) => {
                 searchParams[key] = _.pullAll(state.searchParams[key], value)
             })
         } else {
-            searchParams = merge(state.searchParams, payload.params)
+            searchParams = merge(state.searchParams, payload.params, {
+                arrayMerge: (destinationArray, sourceArray) => {
+                    return _.union(destinationArray, sourceArray)
+                }
+            })
         }
 
         return { ...state, searchParams }

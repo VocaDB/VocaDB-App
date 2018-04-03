@@ -1,18 +1,27 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { FlatList, View, StyleSheet } from 'react-native'
+import { FlatList, View, StyleSheet, Text } from 'react-native'
 import { Button, Toolbar } from 'react-native-material-ui';
 import Page from '../../../components/Page'
+import CenterView from '../../../components/CenterView'
 import AlbumRow from '../../album/AlbumRow'
 import Theme from '../../../theme'
 
 class AlbumSearch extends React.PureComponent {
 
     componentDidMount () {
-        this.props.onSearch()
+        this.props.onSearchReplaceParams()
     }
 
-    render () {
+    doSearch(params) {
+        this.props.onSearch(params)
+    }
+
+    refresh() {
+        this.props.onSearchReplaceParams()
+    }
+
+    renderList () {
 
         const renderAlbumRow = album => {
             const thumbUrl = (album.mainPicture) ? album.mainPicture.urlThumb : undefined
@@ -28,6 +37,28 @@ class AlbumSearch extends React.PureComponent {
         }
 
         return (
+            <FlatList
+                data={this.props.albums}
+                keyExtractor={item => item.id}
+                refreshing={this.props.loading}
+                onRefresh={this.refresh.bind(this)}
+                onEndReached={() => {
+                    if(!this.props.isNoResult) {
+                        this.doSearch({ start: this.props.albums.length })
+                    }
+                }}
+                renderItem={({ item }) => renderAlbumRow(item)} />
+
+        )
+    }
+
+    render () {
+
+
+
+        const queryEntry = text => this.doSearch({ query: text, start: 0 })
+
+        return (
             <Page>
                 <Toolbar
                     leftElement="arrow-back"
@@ -36,17 +67,20 @@ class AlbumSearch extends React.PureComponent {
                     searchable={{
                         autoFocus: true,
                         placeholder: 'Find album',
-                        onChangeText: this.props.onSearch
+                        onChangeText: queryEntry
                     }}
                 />
                 <View style={styles.menuContainer}>
                     <Button raised primary icon='tune' text='Filter' style={{ container: styles.filterButton }} onPress={this.props.onPressFilter} />
                 </View>
-                <FlatList
-                    data={this.props.albums}
-                    keyExtractor={item => item.id}
-                    renderItem={({ item }) => renderAlbumRow(item)}
-                />
+                <View style={styles.resultContainer}>
+                    {this.props.albums.length > 0 && this.renderList()}
+                    {this.props.albums.length === 0 && <CenterView>
+                        <Text>No result</Text>
+                    </CenterView>}
+
+                </View>
+
             </Page>
         )
     }
