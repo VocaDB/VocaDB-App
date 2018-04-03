@@ -3,7 +3,7 @@ import ScrollableTabView from 'react-native-scrollable-tab-view'
 import { View, Text, Image } from 'react-native'
 import Icon from '../../../components/Icon/index'
 import { ListItem } from 'react-native-material-ui';
-import SongList from '../../song/SongList'
+import { SongRowList } from '../../song/songHOC'
 import AlbumGridView from '../../album/AlbumGridView'
 import Content from '../../../components/Content/index'
 import Theme from '../../../theme'
@@ -63,7 +63,7 @@ class EventDetail extends React.Component {
 
         const SongListPage = () => (
             <Content>
-                <SongList songs={this.props.songs} onPressItem={this.props.onPressSong} />
+                <SongRowList data={this.props.songs} onPressItem={this.props.onPressSong} />
             </Content>
         )
 
