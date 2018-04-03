@@ -10,7 +10,7 @@ const releaseEventApi = {
         'beforeDate': dateAfterToday(30)
     }),
     getReleaseEvent: id => api.events.get(id),
-    getPublishedSongs: id => api.events.getPublishedSongs(id, { fields: 'MainPicture' }),
+    getPublishedSongs: id => api.events.getPublishedSongs(id, { fields: 'ThumbUrl' }),
     getAlbums: id => api.events.getAlbums(id, { fields: 'MainPicture' })
 }
 
