@@ -1,10 +1,9 @@
 import React from 'react'
-import { View, Text } from 'react-native'
+import { View, Text, FlatList } from 'react-native'
 import Event from '../EventRow/index'
 import PropTypes from 'prop-types';
 import Theme from '../../../theme'
 import style from './style'
-import { Button } from 'react-native-material-ui';
 
 class EventList extends React.Component {
 
@@ -22,11 +21,7 @@ class EventList extends React.Component {
 
     render () {
 
-        let events = this.props.events.slice(0, this.props.max)
-        const isOverLimit = events.length < this.props.events.length
-
         const renderItem = event => {
-
             const thumbnailUrl = (event.mainPicture) ? event.mainPicture.urlThumb.replace('mainThumb', 'mainOrig') : undefined
             return  (
                 <Event
@@ -43,8 +38,11 @@ class EventList extends React.Component {
         return (
             <View>
                 {this.props.title && this.renderHeader()}
-                {events.map(renderItem)}
-                {isOverLimit && <Button primary text="See more" onPress={this.props.onPressMore} />}
+                <FlatList
+                    data={this.props.events}
+                    keyExtractor={item => item.id}
+                    renderItem={({ item }) => renderItem(item)}
+                />
             </View>
         )
     }
