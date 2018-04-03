@@ -2,6 +2,7 @@ import { createAction } from 'redux-act'
 import { normalize } from 'normalizr'
 import releaseEventSchema from './releaseEventSchema'
 import songSchema from './../song/songSchema'
+import albumSchema from './../album/albumSchema'
 
 export const fetchSearchEvents = createAction('fetch search events', (params, remove, replace) => ({ loading: true, params, remove, replace }))
 export const fetchSearchEventsSuccess =  createAction('fetch search events success', (data, append) => {
@@ -17,3 +18,5 @@ export const fetchReleaseEventDetail = createAction(id => ({ loading: true, id }
 export const fetchReleaseEventDetailSuccess = createAction(data => normalize(data, releaseEventSchema))
 
 export const fetchReleaseEventPublishedSongsSuccess = createAction(data => normalize(data, [ songSchema ]))
+
+export const fetchReleaseEventAlbumsSuccess = createAction(data => normalize(data, [ albumSchema ]))

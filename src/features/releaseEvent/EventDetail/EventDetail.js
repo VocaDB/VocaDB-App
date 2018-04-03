@@ -73,8 +73,8 @@ class EventDetail extends React.Component {
             </Content>
         )
 
-        const hasSong = (this.props.songs && this.props.songs.length)
-        const hasAlbum = (this.props.albums && this.props.albums.length)
+        const hasSong = (this.props.songs && this.props.songs.length)? true : false
+        const hasAlbum = (this.props.albums && this.props.albums.length)? true : false
 
         if(!hasSong && !hasAlbum) {
             return <InfoPage />
@@ -83,8 +83,8 @@ class EventDetail extends React.Component {
         return (
             <ScrollableTabView>
                 <InfoPage tabLabel='Info' />
-                {hasSong && <SongListPage tabLabel='Songs' />}
-                {hasAlbum && <AlbumListPage tabLabel='Albums' />}
+                {hasSong && <SongListPage tabLabel={`Songs (${this.props.songs.length})`} />}
+                {hasAlbum && <AlbumListPage tabLabel={`Albums (${this.props.albums.length})`} />}
             </ScrollableTabView>
         )
     }

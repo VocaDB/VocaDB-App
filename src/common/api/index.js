@@ -28,7 +28,8 @@ const api = {
     events: {
         find: params => request('/releaseEvents', params, mockEvents),
         get: (id, params) => request(`/releaseEvents/${id}`, params, mockEvent),
-        getPublishedSongs: (id, params) => request(`/releaseEvents/${id}/published-songs`, params, mockSong)
+        getPublishedSongs: (id, params) => request(`/releaseEvents/${id}/published-songs`, params, mockSong),
+        getAlbums: (id, params) => request(`/releaseEvents/${id}/albums`, params, mockAlbum),
     },
     entries: {
         find: params => request('/entries', params, mockEntries)

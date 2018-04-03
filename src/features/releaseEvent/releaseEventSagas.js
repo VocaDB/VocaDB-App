@@ -1,4 +1,4 @@
-import { put, takeEvery, takeLatest, call, select } from 'redux-saga/effects'
+import { put, takeEvery, takeLatest, call, select, all } from 'redux-saga/effects'
 import * as actions from './releaseEventActions'
 import * as appActions from '../../app/appActions'
 import api from './releaseEventApi'
@@ -24,12 +24,18 @@ const fetchLatestReleaseEvents = function* fetchLatestReleaseEvents() {
     }
 }
 
-const fetchReleaseEventDetail = function* fetchLatestReleaseEvents(action) {
+const fetchReleaseEventDetail = function* fetchReleaseEventDetail(action) {
     try {
 
         if(action.payload && action.payload.id) {
-            const response = yield call(api.getReleaseEvent, action.payload.id);
-            yield put(actions.fetchReleaseEventDetailSuccess(response));
+            const [detailResponse, songsResponse, albumsResponse] = yield all([
+                call(api.getReleaseEvent, action.payload.id),
+                call(api.getPublishedSongs, action.payload.id),
+                call(api.getAlbums, action.payload.id)
+            ])
+            // yield put(actions.fetchReleaseEventDetailSuccess(detailResponse));
+            // yield put(actions.fetchReleaseEventPublishedSongsSuccess(songsResponse));
+            // yield put(actions.fetchReleaseEventAlbumsSuccess(albumsResponse));
         } else {
             yield put(appActions.requestError(new Error("id is undefined")));
         }
@@ -54,7 +60,6 @@ const fetchReleaseEventPublishedSongs = function* fetchReleaseEventPublishedSong
 const releaseEventSaga = function* releaseEventSagaAsync() {
     yield takeLatest(actions.fetchLatestReleaseEvents, fetchLatestReleaseEvents)
     yield takeLatest(actions.fetchReleaseEventDetail, fetchReleaseEventDetail)
-    yield takeLatest(actions.fetchReleaseEventDetail, fetchReleaseEventPublishedSongs)
     yield takeLatest(actions.fetchSearchEvents, fetchSearchEvents)
 }
 

@@ -35,7 +35,7 @@ const mapDispatchToProps = (dispatch, props) => ({
     fetchEvents: params => dispatch(eventActions.fetchSearchEvents(params)),
     fetchEventsReplaceParams: params => dispatch(eventActions.fetchSearchEvents(params, false, true)),
     back: () => props.navigation.goBack(),
-    onPressEvent: event => props.navigation.navigate(Routes.EventDetail, { id: event.id })
+    onPressEvent: event => props.navigation.navigate(Routes.EventDetail, { id: event.id, title: event.name })
 })
 
 export default connect(mapStateSelector, mapDispatchToProps)(EventSearch)

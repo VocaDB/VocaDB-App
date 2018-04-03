@@ -1,5 +1,6 @@
 import { createSelector } from 'reselect';
 import { selectSongEntity } from './../song/songSelector'
+import { selectAlbumEntity } from './../album/albumSelector'
 
 export const convertEventIds = (eventIds, eventEntity) => eventIds
     .filter(id => (id != undefined && eventEntity[id.toString()]))
@@ -62,4 +63,17 @@ export const selectPublishedSongs = () => createSelector(
     (songIds, songEntity) => songIds
         .filter(id => (id != undefined && songEntity[id.toString()]))
         .map(id => songEntity[id.toString()])
+)
+
+export const selectAlbumIds = () => createSelector(
+    selectReleaseEvent(),
+    releaseEvent => (releaseEvent.albums) ? releaseEvent.albums : []
+)
+
+export const selectAlbums = () => createSelector(
+    selectAlbumIds(),
+    selectAlbumEntity(),
+    (albumIds, albumEntity) => albumIds
+        .filter(id => (id != undefined && albumEntity[id.toString()]))
+        .map(id => albumEntity[id.toString()])
 )
