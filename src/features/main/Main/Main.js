@@ -1,5 +1,6 @@
 import React from 'react'
 import ScrollableTabView from 'react-native-scrollable-tab-view'
+import { Linking } from 'react-native'
 import CustomTabBar from '../../../components/CustomTabBar'
 import HomeTab from './../HomeTab'
 import MenuTab from './../MenuTab'
@@ -25,6 +26,15 @@ export default class Main extends React.PureComponent {
     }
 
     render () {
+
+        const openLink = (url) => Linking.openURL(url).catch(err => console.error('An error occurred', err))
+
+        const menus =  [
+            { icon: 'ios-musical-notes', text: 'Favorite songs', onPress: this.props.onPressMenuFavoriteSongs },
+            { icon: 'ios-people', text: 'Followed artists', onPress: this.props.onPressMenuFollowArtists },
+            { icon: 'ios-globe', text: 'VocaDB website', onPress: () => openLink('https://vocadb.net') },
+            { icon: 'logo-github', text: 'About', onPress: () => openLink('https://github.com/VocaDB/VocaDB-App') }
+        ];
 
         return (
             <ScrollableTabView renderTabBar={() => <CustomTabBar />}>
@@ -55,8 +65,7 @@ export default class Main extends React.PureComponent {
                     onPressSong={this.props.onPressSong} />
                 <MenuTab
                     tabLabel="ios-menu"
-                    onPressMenuFavoriteSongs={this.props.onPressMenuFavoriteSongs}
-                    onPressMenuFollowArtists={this.props.onPressMenuFollowArtists} />
+                    menus={menus} />
             </ScrollableTabView>
         )
     }
