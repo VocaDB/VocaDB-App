@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import FollowedArtists from './FollowedArtists'
-import { selectFollowedArtists } from './../artistSelector'
+import { selectFollowedArtists, selectFollowedArtistIds } from './../artistSelector'
 import { createSelector } from 'reselect';
 
 FollowedArtists.navigationOptions = ({ navigation }) => {
@@ -15,7 +15,8 @@ FollowedArtists.navigationOptions = ({ navigation }) => {
 
 const mapStateSelector =  createSelector(
     selectFollowedArtists(),
-    (followedArtists) => ({ followedArtists })
+    selectFollowedArtistIds(),
+    (followedArtists, ids) => ({ followedArtists, ids })
 )
 
 const mapStateToProps = (state) => ({
