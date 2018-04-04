@@ -8,7 +8,7 @@ class FollowedArtists extends React.Component {
 
     render () {
 
-        const noList = (!this.props.followedArtistIds || this.props.followedArtistIds.length === 0)
+        const noList = (!this.props.followedArtists || this.props.followedArtists.length === 0)
 
         if(noList) {
             return (<Empty text='You did not followed any artist.' icon='ios-person' />)
