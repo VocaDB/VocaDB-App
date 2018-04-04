@@ -9,7 +9,7 @@ class AlbumCard extends React.PureComponent {
     renderImage () {
         return (<Image
             style={styles.image}
-            source={{ uri: images.getAlbumUri(this.props.id) }}
+            source={{ uri: this.props.image }}
             resizeMode='cover'
         />)
     }

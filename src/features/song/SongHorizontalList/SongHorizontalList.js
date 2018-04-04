@@ -14,7 +14,7 @@ class SongHorizontalList extends React.PureComponent {
                       id={song.id}
                       name={song.defaultName}
                       artist={song.artistString}
-                      image={song.thumbUrl}
+                      image={song.image}
                       pvs={song.pvs}
                       onPress={() => this.props.onPressItem(song)} />
         )

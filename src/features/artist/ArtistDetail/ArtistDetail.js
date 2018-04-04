@@ -15,6 +15,7 @@ import Divider from '../../../components/Divider/index'
 import SongHorizontalList from '../../song/SongHorizontalList'
 import AlbumHorizontalList from '../../album/AlbumHorizontalList'
 import AlbumGridView from '../../album/AlbumGridView'
+import { SongRowList } from './../../song/songHOC'
 
 class ArtistDetailPage extends React.Component {
 
@@ -88,24 +89,7 @@ class ArtistDetailPage extends React.Component {
             </Content>
         )
 
-        const SongListPage = () => {
-
-            const renderLatestSongs = () => (
-                <SongList max={7}
-                          songs={latestSongs}
-                          title='Latest'
-                          showHeader={false}
-                          onPressItem={this.props.onPressSong}
-                          onPressMore={() => this.props.onPressMoreLatestSongs(artist)} />
-            )
-
-            return (<Content>
-                {latestSongs && latestSongs.length > 0 && renderLatestSongs()}
-            </Content>)
-        }
-
         const AlbumListPage = () => {
-
             const renderLatestAlbum = () => (
                 <AlbumGridView albums={latestAlbums} onPressItem={this.props.onPressAlbum} />
             )
@@ -128,7 +112,7 @@ class ArtistDetailPage extends React.Component {
         return (
             <ScrollableTabView>
                 <InfoPage tabLabel='Info' />
-                <SongListPage tabLabel='Songs' />
+                {latestSongs && latestSongs.length && <SongRowList tabLabel='Songs' data={latestSongs} onPressItem={this.props.onPressSong} />}
                 {hasAlbum && <AlbumListPage tabLabel='Albums' />}
                 {hasEvent && <EventListPage tabLabel='Events' />}
             </ScrollableTabView>

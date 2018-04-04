@@ -26,7 +26,7 @@ class HomeTab extends React.PureComponent {
                       id={song.id}
                       name={song.defaultName}
                       artist={song.artistString}
-                      image={song.thumbUrl}
+                      image={song.image}
                       pvs={song.pvs}
                       onPress={() => this.props.onPressSong(song)} />
         )
@@ -35,15 +35,15 @@ class HomeTab extends React.PureComponent {
             <AlbumCard key={album.id}
                        id={album.id}
                        name={album.name}
+                       image={album.image}
                        onPress={() => this.props.onPressAlbum(album)} />
         )
 
         const renderEventCard = event => {
-            const thumbnailUrl = (event.mainPicture) ? event.mainPicture.urlThumb.replace('mainThumb', 'mainOrig') : undefined
             return (
                 <EventCard  key={event.id}
                             name={event.name}
-                            thumbnail={thumbnailUrl}
+                            thumbnail={event.image}
                             location={event.venueName}
                             date={event.date}
                             onPress={() => this.props.onPressEvent(event)} />
@@ -65,10 +65,10 @@ class HomeTab extends React.PureComponent {
                 onRefresh={this.props.refresh}
                 ListHeaderComponent={(
                             <View style={[styles.menuContainer]}>
-                                <MenuIcon icon='music-note' color='#00C853' text='Song' onPress={this.props.onPressSongSearch} />
-                                <MenuIcon icon='person' color='#d50000' text='Artist' onPress={this.props.onPressArtistSearch} />
-                                <MenuIcon icon='album' color='#283593' text='Album' onPress={this.props.onPressAlbumSearch} />
-                                <MenuIcon icon='event' color='#FFD600' text='Event' onPress={this.props.onPressEventSearch} />
+                                <MenuIcon icon='music-note' color='#00C853' text='Songs' onPress={this.props.onPressSongSearch} />
+                                <MenuIcon icon='person' color='#d50000' text='Artists' onPress={this.props.onPressArtistSearch} />
+                                <MenuIcon icon='album' color='#283593' text='Albums' onPress={this.props.onPressAlbumSearch} />
+                                <MenuIcon icon='event' color='#FFD600' text='Events' onPress={this.props.onPressEventSearch} />
                             </View>
                 )}
                 renderItem={({ item }) => renderFeatureList(item.title, item.data, item.renderItem, item.onPressMore)}

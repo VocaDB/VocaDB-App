@@ -1,13 +1,16 @@
 import { createSelector } from 'reselect';
-import { denormalize } from 'normalizr';
-import songSchema from './songSchema'
 import { selectNav } from './../../app/appSelector'
 import Routes from './../../app/appRoutes'
 import { selectArtistEntity } from './../artist/artistSelector'
 
-export const convertSongIds = (songIds, songEntity) => (songIds)? songIds
-    .filter(id => (id != undefined && songEntity[id.toString()]))
-    .map(id => songEntity[id.toString()]) : []
+export const convertSongIds = (entryIds, entryEntity) => (entryIds)? entryIds
+    .filter(id => (id != undefined && entryEntity[id.toString()]))
+    .map(id => entryEntity[id.toString()])
+    .map(entry => ({
+        ...entry,
+        image: (entry.thumbUrl) ? entry.thumbUrl :
+        (entry.mainPicture && entry.mainPicture.urlThumb) ? entry.mainPicture.urlThumb : 'http://via.placeholder.com/350x150/000000/ffffff?text=NO_IMAGE'
+    })) : []
 
 
 export const selectSong = () => state => state.song

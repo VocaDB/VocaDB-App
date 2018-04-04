@@ -11,6 +11,7 @@ class AlbumGridView extends React.Component {
             <AlbumCard key={album.id}
                        style={{ flex: 1, padding: 4 }}
                        id={album.id}
+                       image={album.image}
                        name={album.name}
                        onPress={() => this.props.onPressItem(album)} />
         )

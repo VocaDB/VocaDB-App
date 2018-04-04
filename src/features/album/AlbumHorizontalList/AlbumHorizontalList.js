@@ -13,6 +13,7 @@ class AlbumHorizontalList extends React.Component {
             <AlbumCard key={album.id}
                        id={album.id}
                        name={album.name}
+                       image={album.image}
                        onPress={() => this.props.onPressItem(album)} />
         )
 

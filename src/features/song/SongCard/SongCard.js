@@ -7,10 +7,9 @@ import Icon from '../../../components/Icon/index'
 class SongCard extends React.PureComponent {
 
     renderImage () {
-        const uri = (this.props.image) ? this.props.image : 'http://via.placeholder.com/350x150/000000/ffffff?text=NO_IMAGE'
         return (<Image
             style={styles.image}
-            source={{ uri }}
+            source={{ uri: this.props.image }}
             resizeMode='cover'
         />)
     }

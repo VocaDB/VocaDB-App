@@ -18,7 +18,7 @@ class ArtistRole extends React.Component {
                 <Artist
                     key={artist.id}
                     id={artist.id}
-                    image={images.getArtistUri(artist.id)}
+                    image={artist.image}
                     name={artist.name}
                     artist={artist.artistString}
                     role={(displayRole)? artistRole.roles : undefined}
@@ -46,6 +46,7 @@ class ArtistRole extends React.Component {
 
         return (
             <SectionList
+                style={{ backgroundColor: 'white' }}
                 renderItem={({ item }) => renderItem(item)}
                 keyExtractor={item => {
                     return (item.artist)? item.artist.id : item.id

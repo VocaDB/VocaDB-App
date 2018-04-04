@@ -22,11 +22,10 @@ class SongList extends React.PureComponent {
 
     render () {
         const renderItem = song => {
-            const imageUrl = (song.thumbUrl) ? song.thumbUrl : 'http://via.placeholder.com/350x150/000000/ffffff?text=NO_IMAGE';
             return  (
                 <Song
                     key={song.id}
-                    image={imageUrl}
+                    image={song.image}
                     name={song.defaultName}
                     artist={song.artistString}
                     dateTime={song.createDate}

@@ -15,6 +15,7 @@ class ArtistList extends React.Component {
                     key={artist.id}
                     id={artist.id}
                     name={artist.name}
+                    image={artist.image}
                     artist={artist.artistString}
                     onPress={() => this.props.onPressItem(artist)}
                 />

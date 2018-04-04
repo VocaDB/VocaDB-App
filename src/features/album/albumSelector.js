@@ -2,6 +2,15 @@ import { createSelector } from 'reselect';
 import { selectNav } from './../../app/appSelector'
 import Routes from './../../app/appRoutes'
 import { selectArtistEntity } from './../artist/artistSelector'
+import image from './../../common/assets/images'
+
+export const convertAlbumIds = (entryIds, entryEntity) => (entryIds) ? entryIds
+    .filter(id => (id != undefined && entryEntity[id.toString()]))
+    .map(id => entryEntity[id.toString()])
+    .map(entry => ({
+        ...entry,
+        image: (entry.mainPicture && entry.mainPicture.urlThumb) ? entry.mainPicture.urlThumb : image.getAlbumUri(entry.id)
+    })): []
 
 export const selectAlbum = () => state => state.album
 export const selectAlbumEntity = () => state => (state.entities && state.entities.albums)? state.entities.albums : {}
@@ -35,24 +44,18 @@ export const selectAlbumDetailId = () => createSelector(
 export const selectLatestAlbums = () => createSelector(
     selectLatestAlbumIds(),
     selectAlbumEntity(),
-    (albumIds, albumEntity) => albumIds
-        .filter(id => (id != undefined && albumEntity[id.toString()]))
-        .map(id => albumEntity[id.toString()])
+    convertAlbumIds
 )
 
 export const selectTopAlbums = () => createSelector(
     selectTopAlbumIds(),
     selectAlbumEntity(),
-    (albumIds, albumEntity) => albumIds
-        .filter(id => (id != undefined && albumEntity[id.toString()]))
-        .map(id => albumEntity[id.toString()])
+    convertAlbumIds
 )
 export const selectSearchResult = () => createSelector(
     selectSearchResultIds(),
     selectAlbumEntity(),
-    (albumIds, albumEntity) => albumIds
-        .filter(id => (id != undefined && albumEntity[id.toString()]))
-        .map(id => albumEntity[id.toString()])
+    convertAlbumIds
 )
 
 export const selectAlbumDetail = () => createSelector(

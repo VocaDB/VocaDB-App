@@ -16,11 +16,11 @@ class AlbumList extends React.PureComponent {
         )
 
         const renderItem = album => {
-            const thumbUrl = (album.mainPicture) ? album.mainPicture.urlThumb : undefined
+
             return  (
                 <Album
                     key={album.id}
-                    image={thumbUrl}
+                    image={album.image}
                     name={album.name}
                     artist={album.artistString}
                 />

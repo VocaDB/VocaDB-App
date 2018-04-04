@@ -1,12 +1,16 @@
 import { createSelector } from 'reselect';
 import Routes from './../../app/appRoutes'
 import { selectNav } from './../../app/appSelector'
-import { selectSongEntity } from './../song/songSelector'
-import { selectAlbumEntity } from './../album/albumSelector'
+import { selectSongEntity, convertSongIds } from './../song/songSelector'
+import { selectAlbumEntity, convertAlbumIds } from './../album/albumSelector'
 
-export const convertEventIds = (eventIds, eventEntity) => eventIds
+export const convertEventIds = (eventIds, eventEntity) => (eventIds) ? eventIds
     .filter(id => (id != undefined && eventEntity[id.toString()]))
     .map(id => eventEntity[id.toString()])
+    .map(event => ({
+        ...event,
+        image: (event.mainPicture && event.mainPicture.urlThumb) ? event.mainPicture.urlThumb.replace('mainThumb', 'mainOrig') : undefined
+    })): []
 
 export const selectReleaseEvent = () => state => state.releaseEvent
 export const selectReleaseEventEntity = () => state => (state.entities && state.entities.releaseEvents)? state.entities.releaseEvents : {}
@@ -24,9 +28,7 @@ export const selectReleaseEventDetailId = () => createSelector(
 export const selectLatestReleaseEvents = () => createSelector(
     selectLatestReleaseEventIds(),
     selectReleaseEventEntity(),
-    (releaseEventIds, releaseEventEntity) => releaseEventIds
-        .filter(id => (id != undefined && releaseEventEntity[id.toString()]))
-        .map(id => releaseEventEntity[id.toString()])
+    convertEventIds
 )
 
 export const selectReleaseEventDetail = () => createSelector(
@@ -64,9 +66,7 @@ export const selectPublishedSongIds = () => createSelector(
 export const selectPublishedSongs = () => createSelector(
     selectPublishedSongIds(),
     selectSongEntity(),
-    (songIds, songEntity) => songIds
-        .filter(id => (id != undefined && songEntity[id.toString()]))
-        .map(id => songEntity[id.toString()])
+    convertSongIds
 )
 
 export const selectAlbumIds = () => createSelector(
@@ -77,7 +77,5 @@ export const selectAlbumIds = () => createSelector(
 export const selectAlbums = () => createSelector(
     selectAlbumIds(),
     selectAlbumEntity(),
-    (albumIds, albumEntity) => albumIds
-        .filter(id => (id != undefined && albumEntity[id.toString()]))
-        .map(id => albumEntity[id.toString()])
+    convertAlbumIds
 )

@@ -1,10 +1,18 @@
 import { createSelector } from 'reselect';
 import { selectNav } from './../../app/appSelector'
 import Routes from './../../app/appRoutes'
+import image from './../../common/assets/images'
+import { convertSongIds, selectSongEntity } from './../song/songSelector'
+import { convertAlbumIds, selectAlbumEntity } from './../album/albumSelector'
+import { convertEventIds, selectReleaseEventEntity } from './../releaseEvent/releaseEventSelector'
 
-export const convertArtistIds = (artistIds, artistEntity) => artistIds
+export const convertArtistIds = (artistIds, artistEntity) => (artistIds)? artistIds
     .filter(id => (id != undefined && artistEntity[id.toString()]))
     .map(id => artistEntity[id.toString()])
+    .map(entry => ({
+        ...entry,
+        image: (entry.mainPicture && entry.mainPicture.urlThumb) ? entry.mainPicture.urlThumb : image.getArtistUri(entry.id)
+    })) : []
 
 export const selectArtist = () => state => state.artist
 export const selectArtistEntity = () => state => (state.entities && state.entities.artists)? state.entities.artists : {}
@@ -46,27 +54,36 @@ export const selectRelations = () => createSelector(
 
 export const selectLatestSongs = () => createSelector(
     selectRelations(),
-    (relations) => (relations)? relations.latestSongs : []
+    selectSongEntity(),
+    (relations, songEntity) => (relations && relations.latestSongs)? convertSongIds(relations.latestSongs, songEntity) : []
 )
 
 export const selectPopularSongs = () => createSelector(
     selectRelations(),
-    (relations) => (relations)? relations.popularSongs : []
+    selectSongEntity(),
+    // (relations) => (relations)? relations.popularSongs : []
+    (relations, songEntity) => (relations && relations.popularSongs)? convertSongIds(relations.popularSongs, songEntity) : []
 )
 
 export const selectLatestAlbums = () => createSelector(
     selectRelations(),
-    (relations) => (relations)? relations.latestAlbums : []
+    selectAlbumEntity(),
+    // (relations) => (relations)? relations.latestAlbums : []
+    (relations, albumEntity) => (relations && relations.latestAlbums)? convertAlbumIds(relations.latestAlbums, albumEntity) : []
 )
 
 export const selectPopularAlbums = () => createSelector(
     selectRelations(),
-    (relations) => (relations)? relations.popularAlbums : []
+    selectAlbumEntity(),
+    // (relations) => (relations)? relations.popularAlbums : []
+    (relations, albumEntity) => (relations && relations.popularAlbums)? convertAlbumIds(relations.popularAlbums, albumEntity) : []
 )
 
 export const selectLatestEvents = () => createSelector(
     selectRelations(),
-    (relations) => (relations)? relations.latestEvents : []
+    selectReleaseEventEntity(),
+    // (relations) => (relations)? relations.latestEvents : []
+    (relations, eventEntity) => (relations && relations.latestEvents)? convertEventIds(relations.latestEvents, eventEntity) : []
 )
 
 export const selectFollowedArtistIds = () => createSelector(

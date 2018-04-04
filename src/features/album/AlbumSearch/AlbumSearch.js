@@ -24,11 +24,10 @@ class AlbumSearch extends React.PureComponent {
     renderList () {
 
         const renderAlbumRow = album => {
-            const thumbUrl = (album.mainPicture) ? album.mainPicture.urlThumb : undefined
             return  (
                 <AlbumRow
                     key={album.id}
-                    image={thumbUrl}
+                    image={album.image}
                     name={album.name}
                     artist={album.artistString}
                     onPress={() => this.props.onPressAlbum(album)}
