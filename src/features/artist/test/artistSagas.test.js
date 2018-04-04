@@ -1,17 +1,20 @@
 import { fetchArtistDetail, fetchSearchArtists } from './../artistSagas'
+import { selectSearchParams } from './../artistSelector'
 import api from './../artistApi'
-import { call, put } from 'redux-saga/effects'
+import { call, put, select } from 'redux-saga/effects'
 import * as actions from './../artistActions'
 import * as appActions from './../../../app/appActions'
 import * as mock from '../../../common/helper/mockGenerator'
 
 describe('Test artist sagas', () => {
     it('Should fetch search artists', () => {
-        const params = { artistIds: [ 1, 2 ] }
+        const params = { tagId: [ 1, 2 ] }
         const action = actions.fetchSearchArtists(params)
         const gen = fetchSearchArtists(action)
 
-        expect(gen.next().value).toEqual(call(api.find, params));
+        expect(JSON.stringify(gen.next().value)).toEqual(JSON.stringify(select(selectSearchParams())));
+
+        expect(gen.next(params).value).toEqual(call(api.find, params));
 
         const mockItems = [ mock.CreateArtist() ]
         const mockResponse = { items: mockItems }

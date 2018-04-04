@@ -3,8 +3,10 @@ import {
     selectLatestReleaseEvents,
     selectReleaseEventEntity,
     selectReleaseEventDetail,
+    selectPublishedSongIds,
     selectPublishedSongs } from './../releaseEventSelector'
 import * as mockGenerator from '../../../common/helper/mockGenerator'
+import Routes from './../../../app/appRoutes'
 
 describe('Test releaseEvent selector', () => {
 
@@ -23,6 +25,8 @@ describe('Test releaseEvent selector', () => {
         song1 = mockGenerator.CreateSong({ id: 1 })
         song2 = mockGenerator.CreateSong({ id: 2 })
 
+        releaseEvent1.songs = [ song1.id, song2.id ]
+
         entities = {
             releaseEvents: {
                 '1': releaseEvent1,
@@ -39,6 +43,18 @@ describe('Test releaseEvent selector', () => {
             releaseEvent: {
                 all: [],
                 detail: 0
+            },
+            nav: {
+                index: 0,
+                routes: [
+                    {
+                        key: '1',
+                        routeName: Routes.EventDetail,
+                        params: {
+                            id: releaseEvent1.id
+                        }
+                    }
+                ]
             }
         }
     });
@@ -105,9 +121,19 @@ describe('Test releaseEvent selector', () => {
         expect(actualResult).toEqual(expectedResult)
     })
 
+    it('should return published songs ids', () => {
+        state.releaseEvent.detail = releaseEvent1.id
+
+        const actualResult = selectPublishedSongIds()(state);
+        const expectedResult = [ 1, 2 ];
+
+        expect(actualResult).toBeTruthy();
+        expect(actualResult).toEqual(expectedResult)
+    })
+
     it('should return published songs', () => {
         state.releaseEvent.detail = releaseEvent1.id
-        state.releaseEvent.publishedSongs = [ 1, 2 ]
+
         const actualResult = selectPublishedSongs()(state);
         const expectedResult = [ song1, song2 ];
 
