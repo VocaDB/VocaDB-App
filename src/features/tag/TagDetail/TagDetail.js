@@ -3,6 +3,7 @@ import { Text, View } from 'react-native'
 import Content from '../../../components/Content/index'
 import ScrollableTabView from 'react-native-scrollable-tab-view'
 import { SongRowList } from './../../song/songHOC'
+import { ArtistRowList } from './../../artist/artistHOC'
 import AlbumGridView from './../../album/AlbumGridView'
 import ArtistList from './../../artist/ArtistList'
 import WebLinkList from '../../webLink/WebLinkList'
@@ -32,7 +33,7 @@ class TagDetail extends React.Component {
         return (
             <ScrollableTabView>
                 {topSongs && topSongs.length && <SongRowList tabLabel='Top songs' data={topSongs} onPress={this.props.onPressSong} />}
-                {topArtists && topArtists.length && <ArtistList tabLabel='Top artists' artists={topArtists} onPressItem={this.props.onPressArtist}  />}
+                {topArtists && topArtists.length && <ArtistRowList tabLabel='Top artists' data={topArtists} onPressItem={this.props.onPressArtist}  />}
                 {topAlbums && topAlbums.length && <AlbumGridView tabLabel='Top albums' albums={this.props.topAlbums} onPressItem={this.props.onPressAlbum} />}
                 <About tabLabel='About' />
             </ScrollableTabView>
