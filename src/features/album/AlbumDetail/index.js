@@ -3,8 +3,8 @@ import { connect } from 'react-redux'
 import AlbumDetail from './AlbumDetail'
 import { createSelector } from 'reselect';
 import { Share } from 'react-native'
-import { selectAlbumDetail } from '../albumSelector'
-import { fetchAlbumDetail } from '../albumActions'
+import { selectAlbumDetail, selectIsFavoriteAlbum } from '../albumSelector'
+import * as albumActions from '../albumActions'
 import Routes from './../../../app/appRoutes'
 
 AlbumDetail.navigationOptions = ({ navigation }) => {
@@ -28,11 +28,20 @@ AlbumDetail.propTypes = {
 
 const albumDetailStateSelect = createSelector(
     selectAlbumDetail(),
-    (album) => ({ album })
+    selectIsFavoriteAlbum(),
+    (album, isFavoriteAlbum) => ({ album, isFavoriteAlbum })
 );
 
 const mapDispatchToProps = (dispatch, props) => ({
-    fetchAlbum: id => dispatch(fetchAlbumDetail(id)),
+    fetchAlbum: id => dispatch(albumActions.fetchAlbumDetail(id)),
+    onPressAddFavorite: album => {
+        console.log('add favorite')
+        dispatch(albumActions.addFavoriteAlbum(album))
+    },
+    onPressRemoveFavorite: album => {
+        console.log('remove album')
+        dispatch(albumActions.removeFavoriteAlbum(album))
+    },
     onPressShare: album => {
         const url = 'http://vocadb.net/Al/' + album.id
         Share.share({

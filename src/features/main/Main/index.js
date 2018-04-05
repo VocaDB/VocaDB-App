@@ -65,7 +65,8 @@ const mapDispatchToProps = (dispatch, props) => ({
         }
     }),
     onPressMenuFollowArtists: () => props.navigation.navigate(Routes.FollowedArtists),
-    onPressMenuFavoriteSongs: () => props.navigation.navigate(Routes.FavoriteSongs)
+    onPressMenuFavoriteSongs: () => props.navigation.navigate(Routes.FavoriteSongs),
+    onPressMenuFavoriteAlbums: () => props.navigation.navigate(Routes.FavoriteAlbums)
 })
 
 export default connect(mapStateSelector, mapDispatchToProps)(Main)

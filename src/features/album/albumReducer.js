@@ -15,6 +15,7 @@ export const defaultState = {
     top: [],
     detail: 0,
     searchResult: [],
+    favoriteAlbums: [],
     searchParams: defaultSearchParams,
     noResult: false
 }
@@ -65,6 +66,34 @@ const reducer = createReducer({
     },
     [actions.fetchAlbumDetailSuccess]: (state, payload) => {
         return { ...state, detail: payload.result }
+    },
+    [actions.addFavoriteAlbum]: (state, payload) => {
+        const album = payload.album;
+
+        if(!album) {
+            return state
+        }
+
+        let currentFavoriteAlbums = (state.favoriteAlbums)? state.favoriteAlbums : []
+
+        if(currentFavoriteAlbums.indexOf(album.id) >= 0) {
+            return state
+        }
+
+        currentFavoriteAlbums.unshift(album.id)
+
+        return { ...state, favoriteAlbums: currentFavoriteAlbums }
+    },
+    [actions.removeFavoriteAlbum]: (state, payload) => {
+        const album = payload.album;
+
+        if(!album) {
+            return state
+        }
+
+        let currentFavoriteAlbums = state.favoriteAlbums.filter(id => id != album.id)
+
+        return { ...state, favoriteAlbums: currentFavoriteAlbums }
     }
 }, defaultState)
 

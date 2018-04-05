@@ -75,3 +75,24 @@ export const selectFilterArtists = () => createSelector(
         return searchParams.artistId.map(id => artistEntity[id.toString()])
     }
 )
+
+export const selectFavoriteAlbumIds = () => createSelector(
+    selectAlbum(),
+    albumState => (albumState.favoriteAlbums)? albumState.favoriteAlbums : []
+)
+
+export const selectFavoriteAlbums = () => createSelector(
+    selectFavoriteAlbumIds(),
+    selectAlbumEntity(),
+    convertAlbumIds
+)
+
+export const selectIsFavoriteAlbum = () => createSelector(
+    selectAlbum(),
+    selectFavoriteAlbumIds(),
+    (albumState, favoriteAlbumIds) => {
+        return (favoriteAlbumIds && favoriteAlbumIds.indexOf(albumState.detail) >=0)? true : false
+    }
+)
+
+

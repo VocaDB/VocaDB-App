@@ -1,10 +1,6 @@
 import React from 'react'
-import { View, Text } from 'react-native'
-import Divider from '../../../components/Divider'
+import { View } from 'react-native'
 import MenuItem from './../../../components/MenuItem'
-import { Button } from 'react-native-material-ui';
-import Theme from '../../../theme'
-import CenterView from '../../../components/CenterView'
 import PropTypes from 'prop-types'
 
 class MenuTab extends React.PureComponent {
@@ -26,10 +22,5 @@ MenuTab.propTypes = {
 MenuTab.defaultProps = {
     menus: []
 }
-/*
- [
-  { icon: 'ios-musical-notes', text: 'Favorite songs', onPress: onPressSongs }
- ]
- */
 
 export default MenuTab

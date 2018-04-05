@@ -17,3 +17,6 @@ export const fetchTopAlbumsSuccess =  createAction('fetch top albums success', d
 
 export const fetchAlbumDetail = createAction(id => ({ loading: true, id }))
 export const fetchAlbumDetailSuccess = createAction(data => normalize(data, albumSchema))
+
+export const addFavoriteAlbum = createAction('Add favorite album', album => ({ album }))
+export const removeFavoriteAlbum = createAction('Remove favorite album', album => ({ album }))

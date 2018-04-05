@@ -79,4 +79,33 @@ describe('Test album reducer', () => {
         expect(nextState.detail).toBeTruthy()
         expect(nextState.detail).toEqual(expectedResult)
     })
+
+    it('should add favorite album', () => {
+        const album1 = mockGenerator.CreateAlbum({ id: 1 })
+        const album2 = mockGenerator.CreateAlbum({ id: 2 })
+        const expectedResult = [ album2.id, album1.id ]
+
+        let nextState = reducer({}, actions.addFavoriteAlbum(album1))
+        nextState = reducer(nextState, actions.addFavoriteAlbum(album2))
+        nextState = reducer(nextState, actions.addFavoriteAlbum(album1))
+
+        expect(nextState).toBeTruthy()
+        expect(nextState.favoriteAlbums).toBeTruthy()
+        expect(nextState.favoriteAlbums).toEqual(expectedResult)
+    })
+
+    it('should remove favorite album', () => {
+        const album1 = mockGenerator.CreateAlbum({ id: 1 })
+        const album2 = mockGenerator.CreateAlbum({ id: 2 })
+        const album3 = mockGenerator.CreateAlbum({ id: 3 })
+        const expectedResult = [ album2.id ]
+        let nextState = { favoriteAlbums: [ album2.id, album1.id ] }
+
+        nextState = reducer(nextState, actions.removeFavoriteAlbum(album1))
+        nextState = reducer(nextState, actions.removeFavoriteAlbum(album3))
+
+        expect(nextState).toBeTruthy()
+        expect(nextState.favoriteAlbums).toBeTruthy()
+        expect(nextState.favoriteAlbums).toEqual(expectedResult)
+    })
 })

@@ -13,7 +13,7 @@ import Content from '../../../components/Content/index'
 import TrackList from '../../track/TrackList/index'
 import Divider from '../../../components/Divider/index'
 
-class AlbumDetail extends React.PureComponent {
+class AlbumDetail extends React.Component {
     componentDidMount () {
         const { params } = this.props.navigation.state;
         this.props.fetchAlbum(params.id)
@@ -69,7 +69,8 @@ class AlbumDetail extends React.PureComponent {
                     subtitle={album.artistString}
                 />
                 <Section style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around' }}>
-                    <Icon name='md-heart' text='Follow' />
+                    {!this.props.isFavoriteAlbum && <Icon name='md-heart' text='Follow' onPress={() => this.props.onPressAddFavorite(album)} />}
+                    {this.props.isFavoriteAlbum && <Icon name='md-heart' text='Follow' color={Theme.buttonActiveColor} onPress={() => this.props.onPressRemoveFavorite(album)} />}
                     <Icon name='md-share' text='Share' onPress={() => this.props.onPressShare(album)} />
                 </Section>
 

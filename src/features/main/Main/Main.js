@@ -31,6 +31,7 @@ export default class Main extends React.PureComponent {
 
         const menus =  [
             { icon: 'ios-musical-notes', text: 'Favorite songs', onPress: this.props.onPressMenuFavoriteSongs },
+            { icon: 'ios-disc', text: 'Followed albums', onPress: this.props.onPressMenuFavoriteAlbums },
             { icon: 'ios-people', text: 'Followed artists', onPress: this.props.onPressMenuFollowArtists },
             { icon: 'ios-globe', text: 'VocaDB website', onPress: () => openLink('https://vocadb.net') },
             { icon: 'logo-github', text: 'About', onPress: () => openLink('https://github.com/VocaDB/VocaDB-App') }

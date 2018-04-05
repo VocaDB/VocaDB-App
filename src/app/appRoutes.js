@@ -15,7 +15,8 @@ const ROUTES = {
     FollowedArtists: 'FollowedArtists',
     FavoriteSongs: 'FavoriteSongs',
     AlbumFilter: 'AlbumFilter',
-    ArtistFilter: 'ArtistFilter'
+    ArtistFilter: 'ArtistFilter',
+    FavoriteAlbums: 'FavoriteAlbums'
 }
 
 export default ROUTES
