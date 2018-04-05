@@ -1,14 +1,20 @@
 import { createSelector } from 'reselect';
+import { selectNav } from './../../app/appSelector'
 import { selectSongEntity } from './../song/songSelector'
 import { selectArtistEntity } from './../artist/artistSelector'
 import { selectAlbumEntity } from "../album/albumSelector"
 import { convertSongIds } from './../song/songSelector'
+import { convertArtistIds } from './../artist/artistSelector'
+import { convertAlbumIds } from './../album/albumSelector'
+import Routes from './../../app/appRoutes'
 
 export const selectTag = () => state => state.tag
 export const selectTagEntity = () => state => (state.entities && state.entities.tags)? state.entities.tags : {}
 export const selectTagDetailId = () => createSelector(
-    selectTag(),
-    tag => (tag)? tag.detail : 0
+    selectNav(),
+    nav => (nav
+        && nav.routes[nav.index]
+        && nav.routes[nav.index].routeName === Routes.TagDetail)? nav.routes[nav.index].params.id : 0
 )
 export const selectTopSongIds = () => createSelector(
     selectTag(),
@@ -33,25 +39,19 @@ export const selectTagDetail = () => createSelector(
 export const selectTopSongs = () => createSelector(
     selectTopSongIds(),
     selectSongEntity(),
-    (topSongIds, songEntity) => (!topSongIds || !songEntity)? [] : topSongIds
-        .filter(id => (id != undefined && songEntity[id.toString()]))
-        .map(id => songEntity[id.toString()])
+    convertSongIds
 )
 
 export const selectTopArtists = () => createSelector(
     selectTopArtistIds(),
     selectArtistEntity(),
-    (topArtistIds, artistEntity) => (!topArtistIds || !artistEntity)? [] : topArtistIds
-        .filter(id => (id != undefined && artistEntity[id.toString()]))
-        .map(id => artistEntity[id.toString()])
+    convertArtistIds
 )
 
 export const selectTopAlbums = () => createSelector(
     selectTopAlbumIds(),
     selectAlbumEntity(),
-    (topAlbumIds, albumEntity) => (!topAlbumIds || !albumEntity)? [] : topAlbumIds
-        .filter(id => (id != undefined && albumEntity[id.toString()]))
-        .map(id => albumEntity[id.toString()])
+    convertAlbumIds
 )
 
 export const selectTagDetailLatestSongs = () => createSelector(

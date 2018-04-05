@@ -1,10 +1,12 @@
 import React from 'react'
+import { Text, View } from 'react-native'
 import Content from '../../../components/Content/index'
-import SongList from '../../song/SongList/index'
-import ArtistList from '../../artist/ArtistList/index'
-import AlbumList from '../../album/AlbumList/index'
 import ScrollableTabView from 'react-native-scrollable-tab-view'
 import { SongRowList } from './../../song/songHOC'
+import AlbumGridView from './../../album/AlbumGridView'
+import ArtistList from './../../artist/ArtistList'
+import WebLinkList from '../../webLink/WebLinkList'
+import Theme from '../../../theme'
 
 class TagDetail extends React.Component {
 
@@ -13,27 +15,26 @@ class TagDetail extends React.Component {
         if(params) {
             const tagId = params.id
             this.props.fetchTag(tagId)
-            this.props.fetchTopSongs(tagId)
-            this.props.fetchTopArtists(tagId)
-            this.props.fetchTopAlbums(tagId)
-            this.props.fetchLatestSongs()
         }
     }
 
-
     render () {
 
-        const InfoPage = () => (
+        const { tag, topSongs, topArtists, topAlbums } = this.props;
+
+        const About = () => (
             <Content>
-                {this.props.topSongs.length > 0 && <SongList max={5} title='Top songs' songs={this.props.topSongs} showHeader={true} onPressItem={this.props.onPressSong} />}
-                {this.props.topArtists.length > 0 && <ArtistList max={5} title='Top artists' artists={this.props.topArtists} showHeader={true} onPressItem={this.props.onPressArtist} />}
-                {this.props.topAlbums.length > 0 && <AlbumList max={5} title='Top albums' albums={this.props.topAlbums} showHeader={true} onPressItem={this.props.onPressAlbum} />}
+                <View style={{ padding: 4 }}>
+                    <Text style={Theme.caption}>Category : {tag && tag.categoryName}</Text>
+                </View>
             </Content>
         )
         return (
             <ScrollableTabView>
-                <InfoPage tabLabel='Info' />
-                <SongRowList tabLabel='Songs' data={this.props.latestSongs} onPress={this.props.onPressSong} />
+                {topSongs && topSongs.length && <SongRowList tabLabel='Top songs' data={topSongs} onPress={this.props.onPressSong} />}
+                {topArtists && topArtists.length && <ArtistList tabLabel='Top artists' artists={topArtists} onPressItem={this.props.onPressArtist}  />}
+                {topAlbums && topAlbums.length && <AlbumGridView tabLabel='Top albums' albums={this.props.topAlbums} onPressItem={this.props.onPressAlbum} />}
+                <About tabLabel='About' />
             </ScrollableTabView>
         )
     }

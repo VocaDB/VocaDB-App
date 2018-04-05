@@ -1,18 +1,36 @@
-import { put, takeLatest, call, select } from 'redux-saga/effects'
+import { put, takeLatest, call, select, all } from 'redux-saga/effects'
 import * as actions from './tagActions'
 import * as appActions from '../../app/appActions'
 import api from './tagApi'
 import { selectTagDetailId } from './tagSelector'
 
-const fetchTagDetail = function* fetchLatestTags(action) {
+const fetchTagDetail = function* fetchLatestTags() {
     try {
+        const tagId = yield select(selectTagDetailId());
 
-        if(action.payload && action.payload.id) {
-            const response = yield call(api.getTag, action.payload.id);
-            yield put(actions.fetchTagDetailSuccess(response));
-        } else {
-            yield put(appActions.requestError(new Error("id is undefined")));
+        if(!tagId) return;
+
+        const [detailResponse, topSongs, topArtists, topAlbums] = yield all([
+            call(api.getTag, tagId),
+            call(api.getTopSongsByTag, tagId),
+            call(api.getTopArtistsByTag, tagId),
+            call(api.getTopAlbumsByTag, tagId),
+        ])
+
+        yield put(actions.fetchTagDetailSuccess(detailResponse));
+
+        if(topSongs && topSongs.items) {
+            yield put(actions.fetchTopSongsByTagSuccess(topSongs.items));
         }
+
+        if(topArtists && topArtists.items) {
+            yield put(actions.fetchTopArtistsByTagSuccess(topArtists.items));
+        }
+
+        if(topAlbums && topAlbums.items) {
+            yield put(actions.fetchTopAlbumsByTagSuccess(topAlbums.items));
+        }
+
     } catch (e) {
         yield put(appActions.requestError(e));
     }
@@ -45,27 +63,8 @@ const fetchTopAlbumsByTag = function* fetchTopAlbumsByTag(action) {
     }
 }
 
-const fetchLatestSongsByTagDetail = function* fetchLatestSongsByTagDetail() {
-    try {
-        const tagId = yield select(selectTagDetailId())
-
-        if(!tagId) return;
-
-        const response = yield call(api.getLatestSongsByTag, tagId);
-        yield put(actions.addLatestSongsByTagId(tagId, response.items));
-
-    } catch (e) {
-        yield put(appActions.requestError(e));
-    }
-}
-
 const tagSaga = function* tagSagaAsync() {
     yield takeLatest(actions.fetchTagDetail, fetchTagDetail)
-    yield takeLatest(actions.fetchTopSongsByTag, fetchTopSongsByTag)
-    yield takeLatest(actions.fetchTopArtistsByTag, fetchTopArtistsByTag)
-    yield takeLatest(actions.fetchTopAlbumsByTag, fetchTopAlbumsByTag)
-    yield takeLatest(actions.fetchLatestSongsByTagDetail, fetchLatestSongsByTagDetail)
-
 }
 
 export { fetchTagDetail, fetchTopSongsByTag, fetchTopArtistsByTag, fetchTopAlbumsByTag}
