@@ -89,20 +89,6 @@ class ArtistDetailPage extends React.Component {
             </Content>
         )
 
-        const AlbumListPage = () => {
-            const renderLatestAlbum = () => (
-                <AlbumGridView albums={latestAlbums} onPressItem={this.props.onPressAlbum} />
-            )
-
-            return (
-                <Content>
-                    {latestAlbums && latestAlbums.length > 0 && renderLatestAlbum()}
-                </Content>
-            )
-        }
-
-
-
         const EventListPage = () => (
             <Content>
                 <EventList events={latestEvents} />
@@ -113,7 +99,7 @@ class ArtistDetailPage extends React.Component {
             <ScrollableTabView>
                 <InfoPage tabLabel='Info' />
                 {latestSongs && latestSongs.length && <SongRowList tabLabel='Songs' data={latestSongs} onPressItem={this.props.onPressSong} />}
-                {hasAlbum && <AlbumListPage tabLabel='Albums' />}
+                {hasAlbum && <AlbumGridView tabLabel='Albums' albums={latestAlbums} onPressItem={this.props.onPressAlbum} />}
                 {hasEvent && <EventListPage tabLabel='Events' />}
             </ScrollableTabView>
         )

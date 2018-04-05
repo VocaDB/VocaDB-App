@@ -5,6 +5,7 @@ import Page from '../../../components/Page/index'
 import CenterView from '../../../components/CenterView/index'
 import ArtistList from '../ArtistList'
 import Theme from '../../../theme'
+import { ArtistRowList } from './../../artist/artistHOC'
 
 export default class ArtistSearch extends React.Component {
 
@@ -31,8 +32,8 @@ export default class ArtistSearch extends React.Component {
     renderList () {
 
         return (
-            <ArtistList
-                artists={this.props.artists}
+            <ArtistRowList
+                data={this.props.artists}
                 onPressItem={this.props.onPressArtist}
                 refreshing={this.props.loading}
                 onRefresh={this.refresh.bind(this)}
@@ -40,8 +41,7 @@ export default class ArtistSearch extends React.Component {
                     if(!this.props.isNoResult) {
                         this.doSearch({ start: this.props.artists.length })
                     }
-                }}
-                hideMoreButton={true} />
+                }} />
 
         )
     }
