@@ -4,7 +4,8 @@ import {
     selectTagDetail,
     selectTopSongs,
     selectTopArtists,
-    selectTopAlbums } from './../tagSelector'
+    selectTopAlbums,
+    selectTagDetailLatestSongs } from './../tagSelector'
 import * as mockGenerator from '../../../common/helper/mockGenerator'
 
 describe('Test tag selector', () => {
@@ -112,6 +113,22 @@ describe('Test tag selector', () => {
 
         const actualResult = selectTopAlbums()(state);
         const expectedResult = [ album1, album2 ];
+
+        expect(actualResult).toBeTruthy();
+        expect(actualResult).toEqual(expectedResult)
+    })
+
+    it('should return latest songs by tag detail id',  () => {
+        state.tag.detail = 345
+        state.tag.latestSongsByTagId = {
+            '345': [ 1, 2 ]
+        }
+        
+        song1.image = 'http://tn-skr1.smilevideo.jp/smile?i=6666016'
+        song2.image = 'http://tn-skr1.smilevideo.jp/smile?i=6666016'
+
+        const actualResult = selectTagDetailLatestSongs()(state);
+        const expectedResult = [ song1, song2 ];
 
         expect(actualResult).toBeTruthy();
         expect(actualResult).toEqual(expectedResult)

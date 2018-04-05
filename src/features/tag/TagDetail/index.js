@@ -7,7 +7,8 @@ import {
     selectTagDetail,
     selectTopSongs,
     selectTopArtists,
-    selectTopAlbums
+    selectTopAlbums,
+    selectTagDetailLatestSongs
 } from '../tagSelector'
 import { selectLoading } from '../../../app/appSelector'
 
@@ -26,7 +27,8 @@ const tagStateSelect = createSelector(
     selectTopSongs(),
     selectTopAlbums(),
     selectTopArtists(),
-    (tag, loading, topSongs, topAlbums, topArtists) => ({ tag, loading, topSongs, topAlbums, topArtists })
+    selectTagDetailLatestSongs(),
+    (tag, loading, topSongs, topAlbums, topArtists, latestSongs) => ({ tag, loading, topSongs, topAlbums, topArtists, latestSongs })
 );
 
 
@@ -35,6 +37,7 @@ const mapDispatchToProps = (dispatch, props) => ({
     fetchTopSongs: tagId => dispatch(actions.fetchTopSongsByTag(tagId)),
     fetchTopArtists: tagId => dispatch(actions.fetchTopArtistsByTag(tagId)),
     fetchTopAlbums: tagId => dispatch(actions.fetchTopAlbumsByTag(tagId)),
+    fetchLatestSongs: tagId => dispatch(actions.fetchLatestSongsByTagDetail()),
     onPressSong: song => props.navigation.navigate('SongDetail', { id: song.id, title: song.defaultName }),
     onPressArtist: artist => props.navigation.navigate('ArtistDetail', { id: artist.id, title: artist.name }),
     onPressAlbum: album => props.navigation.navigate('AlbumDetail', { id: album.id, title: album.name }),

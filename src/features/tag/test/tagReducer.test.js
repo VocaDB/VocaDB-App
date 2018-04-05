@@ -59,4 +59,21 @@ describe('Test tag reducer', () => {
         expect(nextState.topAlbums).toBeTruthy()
         expect(nextState.topAlbums).toEqual(expectedResult)
     })
+
+
+    it('should return add latest songs by tag id', () => {
+        const song1 = mockGenerator.CreateSong({ id: 1 })
+        const song2 = mockGenerator.CreateSong({ id: 2 })
+
+        const mockResponse = [ song1, song2 ];
+        const tagId = 345;
+        const expectedResult = {
+            '345': [ song1.id, song2.id ]
+        }
+        let nextState = reducer({}, actions.addLatestSongsByTagId(tagId, mockResponse))
+
+        expect(nextState).toBeTruthy()
+        expect(nextState.latestSongsByTagId).toBeTruthy()
+        expect(nextState.latestSongsByTagId).toEqual(expectedResult)
+    })
 })

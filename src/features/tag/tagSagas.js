@@ -1,7 +1,8 @@
-import { put, takeLatest, call } from 'redux-saga/effects'
+import { put, takeLatest, call, select } from 'redux-saga/effects'
 import * as actions from './tagActions'
 import * as appActions from '../../app/appActions'
 import api from './tagApi'
+import { selectTagDetailId } from './tagSelector'
 
 const fetchTagDetail = function* fetchLatestTags(action) {
     try {
@@ -44,11 +45,26 @@ const fetchTopAlbumsByTag = function* fetchTopAlbumsByTag(action) {
     }
 }
 
+const fetchLatestSongsByTagDetail = function* fetchLatestSongsByTagDetail() {
+    try {
+        const tagId = yield select(selectTagDetailId())
+
+        if(!tagId) return;
+
+        const response = yield call(api.getLatestSongsByTag, tagId);
+        yield put(actions.addLatestSongsByTagId(tagId, response.items));
+
+    } catch (e) {
+        yield put(appActions.requestError(e));
+    }
+}
+
 const tagSaga = function* tagSagaAsync() {
     yield takeLatest(actions.fetchTagDetail, fetchTagDetail)
     yield takeLatest(actions.fetchTopSongsByTag, fetchTopSongsByTag)
     yield takeLatest(actions.fetchTopArtistsByTag, fetchTopArtistsByTag)
     yield takeLatest(actions.fetchTopAlbumsByTag, fetchTopAlbumsByTag)
+    yield takeLatest(actions.fetchLatestSongsByTagDetail, fetchLatestSongsByTagDetail)
 
 }
 

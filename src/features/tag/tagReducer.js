@@ -5,7 +5,8 @@ export const defaultState = {
     detail: 0,
     topSongs: [],
     topArtists: [],
-    topAlbums: []
+    topAlbums: [],
+    latestSongsByTagId: {}
 }
 
 const reducer = createReducer({
@@ -20,6 +21,17 @@ const reducer = createReducer({
     },
     [actions.fetchTopAlbumsByTagSuccess]: (state, payload) => {
         return { ...state, topAlbums: payload.result }
+    },
+    [actions.addLatestSongsByTagId]: (state, payload) => {
+        if(!payload.id && !payload.data && !payload.data.result) {
+            return state
+        }
+
+        const latestSongsByTagId = Object.assign({}, state.latestSongsByTagId)
+
+        latestSongsByTagId[payload.id.toString()] = payload.data.result
+
+        return { ...state, latestSongsByTagId }
     }
 }, defaultState)
 

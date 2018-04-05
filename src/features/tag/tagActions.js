@@ -16,3 +16,6 @@ export const fetchTopArtistsByTagSuccess =  createAction('fetch top artists by t
 
 export const fetchTopAlbumsByTag = createAction('fetch top albums by tag', tagId => ({ loading: true, tagId }))
 export const fetchTopAlbumsByTagSuccess =  createAction('fetch top albums by tag success', data => normalize(data, [ albumSchema ]))
+
+export const fetchLatestSongsByTagDetail = createAction('fetch latest songs by tag detail')
+export const addLatestSongsByTagId = createAction('add latest songs by tag id', (id, data) => ({ id, data: normalize(data, [ songSchema ]) }))
