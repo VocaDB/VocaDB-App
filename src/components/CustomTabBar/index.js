@@ -44,7 +44,7 @@ class FacebookTabBar extends React.Component {
                 return <TouchableOpacity key={tab} onPress={() => this.props.goToPage(i)} style={styles.tab}>
                     <Icon
                         name={tab}
-                        size={30}
+                        size={24}
                         color={this.props.activeTab === i ? 'rgb(59,89,152)' : 'rgb(204,204,204)'}
                         ref={(icon) => { this.icons[i] = icon; }}
                     />
