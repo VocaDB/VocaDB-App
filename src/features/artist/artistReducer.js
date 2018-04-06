@@ -7,7 +7,7 @@ export const defaultSearchParams = {
     maxResults: 50,
     fields: 'MainPicture',
     nameMatchMode: 'auto',
-    sort: 'ReleaseDate',
+    sort: 'Name',
     start: 0,
     artistTypes: '',
     artistId: [],

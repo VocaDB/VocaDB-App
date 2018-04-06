@@ -7,7 +7,7 @@ export const defaultSearchParams = {
     maxResults: 30,
     nameMatchMode: 'auto',
     fields: 'MainPicture',
-    sort: 'ReleaseDate'
+    sort: 'Name'
 }
 
 export const defaultState = {

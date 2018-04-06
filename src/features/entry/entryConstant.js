@@ -18,12 +18,6 @@ export const entryStatusItems = [
 
 export const sortItems = [
     {
-        value: ''
-    },
-    {
-        value: 'None'
-    },
-    {
         value: 'Name'
     },
     {

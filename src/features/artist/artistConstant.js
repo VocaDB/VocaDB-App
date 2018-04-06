@@ -21,12 +21,6 @@ export const artistTypes = [
 
 export const sortItems = [
     {
-        value: ''
-    },
-    {
-        value: 'None'
-    },
-    {
         value: 'Name'
     },
     {

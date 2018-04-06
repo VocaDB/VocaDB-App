@@ -11,7 +11,7 @@ export const defaultSearchParams = {
     songTypes: '',
     artistId: [],
     tagId: [],
-    sort: 'AdditionDate'
+    sort: 'Name'
 }
 
 export const defaultState = {
