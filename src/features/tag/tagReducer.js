@@ -6,10 +6,16 @@ export const defaultState = {
     topSongs: [],
     topArtists: [],
     topAlbums: [],
-    latestSongsByTagId: {}
+    latestSongsByTagId: {},
+    searchResult: []
 }
 
 const reducer = createReducer({
+    [actions.addTagsSearchResult]: (state, payload) => {
+        if(!payload || !payload.result) return state;
+
+        return { ...state, searchResult: payload.result }
+    },
     [actions.fetchTagDetailSuccess]: (state, payload) => {
         return { ...state, detail: payload.result }
     },
@@ -32,6 +38,9 @@ const reducer = createReducer({
         latestSongsByTagId[payload.id.toString()] = payload.data.result
 
         return { ...state, latestSongsByTagId }
+    },
+    [actions.clearSearch]: (state) => {
+        return { ...state, searchResult: [] }
     }
 }, defaultState)
 

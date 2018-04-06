@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import SongFilterPage from './SongFilter'
 import { createSelector } from 'reselect';
 import * as songActions from '../songActions'
-import { selectSearchParams, selectFilterArtists } from '../songSelector'
+import { selectSearchParams, selectFilterArtists, selectFilterTags } from '../songSelector'
 
 SongFilterPage.navigationOptions = ({ navigation }) => {
 
@@ -23,7 +23,7 @@ SongFilterPage.navigationOptions = ({ navigation }) => {
 const songListStateSelect = createSelector(
     selectSearchParams(),
     selectFilterArtists(),
-    (params, filterArtists) => ({ params, filterArtists })
+    (params, filterArtists, filterTags) => ({ params, filterArtists, filterTags })
 );
 
 

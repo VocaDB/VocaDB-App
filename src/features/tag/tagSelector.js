@@ -8,6 +8,10 @@ import { convertArtistIds } from './../artist/artistSelector'
 import { convertAlbumIds } from './../album/albumSelector'
 import Routes from './../../app/appRoutes'
 
+export const convertTagIds = (tagIds, tagEntity) => (tagIds) ? tagIds
+    .filter(id => (id != undefined && tagEntity[id.toString()]))
+    .map(id => tagEntity[id.toString()]) : []
+
 export const selectTag = () => state => state.tag
 export const selectTagEntity = () => state => (state.entities && state.entities.tags)? state.entities.tags : {}
 export const selectTagDetailId = () => createSelector(
@@ -67,4 +71,15 @@ export const selectTagDetailLatestSongs = () => createSelector(
         }
         return convertSongIds(tagState.latestSongsByTagId[tagState.detail.toString()], songEntity);
     }
+)
+
+export const selectSearchResultIds = () => createSelector(
+    selectTag(),
+    (tagState) => (tagState.searchResult)? tagState.searchResult : []
+)
+
+export const selectSearchResult = () => createSelector(
+    selectSearchResultIds(),
+    selectTagEntity(),
+    convertTagIds
 )

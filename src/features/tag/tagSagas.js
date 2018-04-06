@@ -63,10 +63,26 @@ const fetchTopAlbumsByTag = function* fetchTopAlbumsByTag(action) {
     }
 }
 
-const tagSaga = function* tagSagaAsync() {
-    yield takeLatest(actions.fetchTagDetail, fetchTagDetail)
+const searchTags = function* searchTags(action) {
+    try {
+        const params = action.payload.params;
+
+        if(!params) return;
+
+        const response = yield call(api.find, params);
+
+        yield put(actions.addTagsSearchResult(response.items));
+
+    } catch (e) {
+        yield put(appActions.requestError(e));
+    }
 }
 
-export { fetchTagDetail, fetchTopSongsByTag, fetchTopArtistsByTag, fetchTopAlbumsByTag}
+const tagSaga = function* tagSagaAsync() {
+    yield takeLatest(actions.fetchTagDetail, fetchTagDetail)
+    yield takeLatest(actions.searchTags, searchTags)
+}
+
+export { fetchTagDetail, fetchTopSongsByTag, fetchTopArtistsByTag, fetchTopAlbumsByTag, searchTags }
 
 export default tagSaga

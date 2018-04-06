@@ -76,4 +76,18 @@ describe('Test tag reducer', () => {
         expect(nextState.latestSongsByTagId).toBeTruthy()
         expect(nextState.latestSongsByTagId).toEqual(expectedResult)
     })
+
+    it('should add tags result', () => {
+        const tag1 = mockGenerator.CreateTag({ id: 1 })
+        const tag2 = mockGenerator.CreateTag({ id: 2 })
+        const mockResponse = [ tag1, tag2 ]
+
+        let nextState = reducer({}, actions.addTagsSearchResult(mockResponse))
+
+        const expectedResult = [ tag1.id, tag2.id ]
+
+        expect(nextState).toBeTruthy()
+        expect(nextState.searchResult).toBeTruthy()
+        expect(nextState.searchResult).toEqual(expectedResult)
+    })
 })

@@ -6,6 +6,7 @@ import Theme from '../../../theme'
 import { Dropdown } from 'react-native-material-dropdown';
 import { Button } from 'react-native-material-ui';
 import ArtistSelectModal from './../../artist/ArtistSelectModal'
+import TagSelectModal from './../../tag/TagSelectModal'
 import ArtistRow from './../../artist/ArtistRow'
 import Tag from './../../tag/Tag'
 import { topTags } from './../../tag/tagConstant'
@@ -17,7 +18,8 @@ class SongFilter extends React.PureComponent {
     constructor(props) {
         super(props)
         this.state = {
-            showArtistModal: false
+            showArtistModal: false,
+            showTagModal: false
         }
     }
 
@@ -92,6 +94,21 @@ class SongFilter extends React.PureComponent {
                             }} />
                     })}
                 </View>
+                <Button
+                    raised
+                    primary
+                    style={{ container: { marginHorizontal: 16, marginVertical: 8 } }}
+                    text='Select tag'
+                    onPress={() => { this.setState({ showTagModal: true }) }} />
+                <TagSelectModal
+                    modalVisible={this.state.showTagModal}
+                    onBackPress={() => {
+                        this.setState({ showTagModal: false })
+                    }}
+                    onPressItem={artist => {
+                        this.setState({ showTagModal: false })
+                        this.props.onFilterChanged({ tagId: [ artist.id ] })
+                    }} />
             </View>
         )
     }

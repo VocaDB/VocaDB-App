@@ -35,6 +35,7 @@ const api = {
         find: params => request('/entries', params, mockEntries)
     },
     tags: {
+        find: params => request(`/tags`, params),
         get: (id, params) => request(`/tags/${id}`, params, mockTag)
     }
 }

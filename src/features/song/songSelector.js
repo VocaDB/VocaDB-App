@@ -2,6 +2,7 @@ import { createSelector } from 'reselect';
 import { selectNav } from './../../app/appSelector'
 import Routes from './../../app/appRoutes'
 import { selectArtistEntity } from './../artist/artistSelector'
+import { selectTagEntity } from './../tag/tagSelector'
 
 export const convertSongIds = (entryIds, entryEntity) => (entryIds)? entryIds
     .filter(id => (id != undefined && entryEntity[id.toString()]))
@@ -111,3 +112,14 @@ export const selectIsFavoriteSong = () => createSelector(
     }
 )
 
+export const selectFilterTags = () => createSelector(
+    selectSearchParams(),
+    selectTagEntity(),
+    (searchParams, tagEntity) => {
+        if(!searchParams || !searchParams.tagId || !tagEntity) {
+            return []
+        }
+
+        return searchParams.tagId.map(id => tagEntity[id.toString()])
+    }
+)

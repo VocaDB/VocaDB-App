@@ -1,4 +1,4 @@
-import { fetchTagDetail, fetchTopSongsByTag, fetchTopArtistsByTag, fetchTopAlbumsByTag } from './../tagSagas'
+import { fetchTagDetail, fetchTopSongsByTag, fetchTopArtistsByTag, fetchTopAlbumsByTag, searchTags } from './../tagSagas'
 import api from './../tagApi'
 import { call, put } from 'redux-saga/effects'
 import * as actions from './../tagActions'
@@ -65,6 +65,22 @@ describe('Test tag sagas', () => {
         const gen = fetchTagDetail(action)
 
         expect(gen.next().value).toEqual(put(appActions.requestError(new Error("id is undefined"))));
+
+        expect(gen.next().done).toBeTruthy();
+    })
+
+    it('Should search tags', () => {
+        const params = { query: 'abc' }
+        const action = actions.searchTags(params)
+        const gen = searchTags(action)
+
+
+        expect(gen.next().value).toEqual(call(api.find, params));
+
+        const tag1 = mock.CreateTag({ id: 1 })
+        const tag2 = mock.CreateTag({ id: 1 })
+        const mockResponse = { items: [ tag1, tag2 ] }
+        expect(gen.next(mockResponse).value).toEqual(put(actions.addTagsSearchResult(mockResponse.items)));
 
         expect(gen.next().done).toBeTruthy();
     })
