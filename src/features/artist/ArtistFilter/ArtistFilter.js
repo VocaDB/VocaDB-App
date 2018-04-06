@@ -89,7 +89,6 @@ class ArtistFilter extends React.Component {
         console.log('render')
         return (
             <Content>
-                {this.renderInputStatus()}
                 {this.renderInputArtistType()}
                 {this.renderInputSort()}
                 {this.renderInputTags()}

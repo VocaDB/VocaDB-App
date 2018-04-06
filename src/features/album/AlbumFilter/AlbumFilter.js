@@ -123,7 +123,6 @@ class AlbumFilter extends React.PureComponent {
     render () {
         return (
             <Content>
-                {this.renderInputStatus()}
                 {this.renderInputDiscType()}
                 {this.renderInputSort()}
                 {this.renderInputArtists()}

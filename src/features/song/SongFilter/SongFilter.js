@@ -129,7 +129,6 @@ class SongFilter extends React.PureComponent {
     render () {
         return (
                 <Content>
-                    {this.renderInputStatus()}
                     {this.renderInputSongType()}
                     {this.renderInputSort()}
                     {this.renderInputArtists()}
