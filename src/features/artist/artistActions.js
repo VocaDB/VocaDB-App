@@ -2,7 +2,7 @@ import { createAction } from 'redux-act'
 import { normalize } from 'normalizr'
 import artistSchema from './artistSchema'
 
-export const fetchSearchArtists = createAction('fetch search artists', (params, remove) => ({ loading: true, params, remove }))
+export const fetchSearchArtists = createAction('fetch search artists', (params, remove, replace) => ({ loading: true, params, remove, replace }))
 export const fetchSearchArtistsSuccess =  createAction('fetch search artists success', (data, append) => {
     let nom = normalize(data, [ artistSchema ])
     return { ...nom, append }

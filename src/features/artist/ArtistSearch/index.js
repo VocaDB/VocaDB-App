@@ -33,6 +33,7 @@ const aritstListStateSelect = createSelector(
 
 const mapDispatchToProps = (dispatch, props) => ({
     fetchArtists: params => dispatch(artistActions.fetchSearchArtists(params)),
+    onSearchReplaceParams: params => dispatch(artistActions.fetchSearchArtists(params, false, true)),
     back: () => props.navigation.goBack(),
     onPressArtist: artist => props.navigation.navigate(Routes.ArtistDetail, { id: artist.id }),
     onPressFilter: () => props.navigation.navigate(Routes.ArtistFilter)

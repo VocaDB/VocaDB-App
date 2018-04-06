@@ -18,7 +18,7 @@ export default class ArtistSearch extends React.Component {
     }
 
     componentDidMount () {
-        this.doSearch({ query: '' })
+        this.props.onSearchReplaceParams()
     }
 
     doSearch(params) {
