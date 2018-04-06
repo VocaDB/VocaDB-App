@@ -23,6 +23,7 @@ SongFilterPage.navigationOptions = ({ navigation }) => {
 const songListStateSelect = createSelector(
     selectSearchParams(),
     selectFilterArtists(),
+    selectFilterTags(),
     (params, filterArtists, filterTags) => ({ params, filterArtists, filterTags })
 );
 

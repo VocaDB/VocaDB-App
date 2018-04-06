@@ -1,7 +1,7 @@
 import { createReducer } from 'redux-act'
 import * as actions from './songActions';
 import merge from 'deepmerge';
-import _ from 'lodash'
+import _ from 'lodash';
 
 export const defaultSearchParams = {
     nameMatchMode: 'auto',
@@ -22,6 +22,8 @@ export const defaultState = {
     followed: [],
     highlighted: [],
     favoriteSongs: [],
+    filterTags: [],
+    selectedFilterTags: [],
     detail: 0
 }
 
@@ -103,6 +105,26 @@ const reducer = createReducer({
         let currentFavoriteSongs = state.favoriteSongs.filter(id => id != song.id)
 
         return { ...state, favoriteSongs: currentFavoriteSongs }
+    },
+    [actions.addFilterTag]: (state, payload) => {
+
+        if(!payload || !payload.result) return state;
+
+        return { ...state, filterTags: (state.filterTags)? _.concat(state.filterTags, payload.result) : [ payload.result ]  }
+    },
+    [actions.removeFilterTag]: (state, payload) => {
+        if(!payload || !payload.result || !state.filterTags) return state;
+        return { ...state, filterTags: _.without(state.filterTags, payload.result)  }
+    },
+    [actions.addSelectedFilterTag]: (state, payload) => {
+
+        if(!payload || !payload.result) return state;
+
+        return { ...state, selectedFilterTags: (state.selectedFilterTags)? _.concat(state.selectedFilterTags, payload.result) : [ payload.result ]  }
+    },
+    [actions.removeSelectedFilterTag]: (state, payload) => {
+        if(!payload || !payload.result || !state.selectedFilterTags) return state;
+        return { ...state, selectedFilterTags: _.without(state.selectedFilterTags, payload.result)  }
     }
 }, defaultState)
 

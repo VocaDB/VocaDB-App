@@ -144,4 +144,50 @@ describe('Test song reducer', () => {
         expect(nextState.followed).toBeTruthy()
         expect(nextState.followed).toEqual(expectedResult)
     })
+
+    it('should add filter tag', () => {
+        const tag1 = mockGenerator.CreateTag({ id: 1 })
+        const tag2 = mockGenerator.CreateTag({ id: 2 })
+
+        let nextState = reducer({}, actions.addFilterTag(tag1))
+        nextState = reducer(nextState, actions.addFilterTag(tag2))
+
+        expect(nextState).toBeTruthy()
+        expect(nextState.filterTags).toBeTruthy()
+        expect(nextState.filterTags).toEqual([ tag1.id, tag2.id ])
+    })
+
+    it('should remove filter tag', () => {
+        const tag1 = mockGenerator.CreateTag({ id: 1 })
+        const tag2 = mockGenerator.CreateTag({ id: 2 })
+        let nextState = { filterTags: [ tag1.id, tag2.id ] }
+        nextState = reducer(nextState, actions.removeFilterTag(tag1))
+
+        expect(nextState).toBeTruthy()
+        expect(nextState.filterTags).toBeTruthy()
+        expect(nextState.filterTags).toEqual([ tag2.id ])
+    })
+
+    it('should add selected filter tag', () => {
+        const tag1 = mockGenerator.CreateTag({ id: 1 })
+        const tag2 = mockGenerator.CreateTag({ id: 2 })
+
+        let nextState = reducer({}, actions.addSelectedFilterTag(tag1))
+        nextState = reducer(nextState, actions.addSelectedFilterTag(tag2))
+
+        expect(nextState).toBeTruthy()
+        expect(nextState.selectedFilterTags).toBeTruthy()
+        expect(nextState.selectedFilterTags).toEqual([ tag1.id, tag2.id ])
+    })
+
+    it('should remove selected filter tag', () => {
+        const tag1 = mockGenerator.CreateTag({ id: 1 })
+        const tag2 = mockGenerator.CreateTag({ id: 2 })
+        let nextState = { selectedFilterTags: [ tag1.id, tag2.id ] }
+        nextState = reducer(nextState, actions.removeSelectedFilterTag(tag1))
+
+        expect(nextState).toBeTruthy()
+        expect(nextState.selectedFilterTags).toBeTruthy()
+        expect(nextState.selectedFilterTags).toEqual([ tag2.id ])
+    })
 })

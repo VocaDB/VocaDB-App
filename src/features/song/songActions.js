@@ -1,6 +1,7 @@
 import { createAction } from 'redux-act'
 import { normalize } from 'normalizr'
 import songSchema from './songSchema'
+import tagSchema from "../tag/tagSchema";
 
 
 export const addFavoriteSong = createAction('Add favorite song', song => ({ song }))
@@ -26,3 +27,8 @@ export const fetchSongDetailSuccess = createAction(data => normalize(data, songS
 
 export const fetchPopularSongsByTag = createAction('fetch popular songs by tag', tagId => ({ loading: true, tagId }))
 export const fetchPopularSongsByTagSuccess =  createAction('fetch popular songs by tag success', data => normalize(data, [ songSchema ]))
+
+export const addFilterTag = createAction('add filter tag', data => normalize(data,  tagSchema))
+export const removeFilterTag = createAction('remove filter tag', data => normalize(data,  tagSchema))
+export const addSelectedFilterTag = createAction('add selected filter tag', data => normalize(data,  tagSchema))
+export const removeSelectedFilterTag = createAction('remove selected filter tag', data => normalize(data,  tagSchema))
