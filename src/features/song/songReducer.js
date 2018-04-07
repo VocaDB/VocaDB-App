@@ -23,7 +23,6 @@ export const defaultState = {
     highlighted: [],
     favoriteSongs: [],
     filterTags: [],
-    selectedFilterTags: [],
     detail: 0
 }
 
@@ -34,7 +33,6 @@ const reducer = createReducer({
     [actions.fetchSearchSongs]: (state, payload) => {
 
         if(payload.replace) {
-            console.log(payload.params)
             let searchParams = _.merge({}, defaultSearchParams, payload.params)
             return { ...state, searchParams }
         }
@@ -107,9 +105,7 @@ const reducer = createReducer({
         return { ...state, favoriteSongs: currentFavoriteSongs }
     },
     [actions.addFilterTag]: (state, payload) => {
-
         if(!payload || !payload.result) return state;
-
         return { ...state, filterTags: (state.filterTags)? _.concat(state.filterTags, payload.result) : [ payload.result ]  }
     },
     [actions.removeFilterTag]: (state, payload) => {
@@ -117,14 +113,23 @@ const reducer = createReducer({
         return { ...state, filterTags: _.without(state.filterTags, payload.result)  }
     },
     [actions.addSelectedFilterTag]: (state, payload) => {
-
         if(!payload || !payload.result) return state;
 
-        return { ...state, selectedFilterTags: (state.selectedFilterTags)? _.concat(state.selectedFilterTags, payload.result) : [ payload.result ]  }
+        let searchParams = Object.assign({}, state.searchParams)
+        searchParams.tagId = (searchParams.tagId)? _.union(searchParams.tagId, [ payload.result ]) : [ payload.result ]
+
+        return { ...state, searchParams }
     },
     [actions.removeSelectedFilterTag]: (state, payload) => {
-        if(!payload || !payload.result || !state.selectedFilterTags) return state;
-        return { ...state, selectedFilterTags: _.without(state.selectedFilterTags, payload.result)  }
+        if(!payload
+            || !payload.result
+            || !state.searchParams
+            || !state.searchParams.tagId) return state;
+
+        let searchParams = Object.assign({}, state.searchParams)
+        searchParams.tagId = _.without(searchParams.tagId, payload.result)
+
+        return { ...state, searchParams }
     }
 }, defaultState)
 

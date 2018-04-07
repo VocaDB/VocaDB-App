@@ -2,7 +2,7 @@ import { createSelector } from 'reselect';
 import { selectNav } from './../../app/appSelector'
 import Routes from './../../app/appRoutes'
 import { selectArtistEntity } from './../artist/artistSelector'
-import { selectTagEntity } from './../tag/tagSelector'
+import { selectTagEntity, convertTagIds } from './../tag/tagSelector'
 
 export const convertSongIds = (entryIds, entryEntity) => (entryIds)? entryIds
     .filter(id => (id != undefined && entryEntity[id.toString()]))
@@ -112,14 +112,27 @@ export const selectIsFavoriteSong = () => createSelector(
     }
 )
 
-export const selectFilterTags = () => createSelector(
+export const selectSelectedFilterTagIds = () => createSelector(
     selectSearchParams(),
-    selectTagEntity(),
-    (searchParams, tagEntity) => {
-        if(!searchParams || !searchParams.tagId || !tagEntity) {
-            return []
-        }
+    (searchParams) => (searchParams && searchParams.tagId)? searchParams.tagId : []
+)
 
-        return searchParams.tagId.map(id => tagEntity[id.toString()])
+export const selectSelectedFilterTags = () => createSelector(
+    selectSelectedFilterTagIds(),
+    selectTagEntity(),
+    convertTagIds
+)
+
+export const selectFilterTagIds = () => createSelector(
+    selectSong(),
+    (songState) => (songState.filterTags)? songState.filterTags : []
+)
+
+export const selectFilterTags = () => createSelector(
+    selectFilterTagIds(),
+    selectTagEntity(),
+    selectSelectedFilterTagIds(),
+    (tagIds, tagEntity, selectedTagIds) => {
+        return convertTagIds(tagIds, tagEntity).map(t => ({ ...t, selected: selectedTagIds.includes(t.id) }))
     }
 )

@@ -176,18 +176,22 @@ describe('Test song reducer', () => {
         nextState = reducer(nextState, actions.addSelectedFilterTag(tag2))
 
         expect(nextState).toBeTruthy()
-        expect(nextState.selectedFilterTags).toBeTruthy()
-        expect(nextState.selectedFilterTags).toEqual([ tag1.id, tag2.id ])
+        expect(nextState.searchParams).toBeTruthy()
+        expect(nextState.searchParams.tagId).toEqual([ tag1.id, tag2.id ])
     })
 
     it('should remove selected filter tag', () => {
         const tag1 = mockGenerator.CreateTag({ id: 1 })
         const tag2 = mockGenerator.CreateTag({ id: 2 })
-        let nextState = { selectedFilterTags: [ tag1.id, tag2.id ] }
+        let nextState = {
+            searchParams: {
+                tagId: [ tag1.id, tag2.id ]
+            }
+        }
         nextState = reducer(nextState, actions.removeSelectedFilterTag(tag1))
 
         expect(nextState).toBeTruthy()
-        expect(nextState.selectedFilterTags).toBeTruthy()
-        expect(nextState.selectedFilterTags).toEqual([ tag2.id ])
+        expect(nextState.searchParams).toBeTruthy()
+        expect(nextState.searchParams.tagId).toEqual([ tag2.id ])
     })
 })

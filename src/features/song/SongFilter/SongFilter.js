@@ -82,15 +82,19 @@ class SongFilter extends React.PureComponent {
             <View>
                 <Text style={[Theme.subhead, { marginHorizontal: 8 }]}>Tags</Text>
                 <View style={{ flexDirection: 'row', flexWrap: 'wrap', alignItems: 'flex-start' }}>
-                    {topTags.map(t => {
-                        const selected = this.props.params.tagId.indexOf(t.id) >= 0
+                    {this.props.filterTags.map(t => {
                         return <Tag
                             key={t.id}
                             name={t.name}
                             style={{ margin: 4 }}
-                            selected={selected}
+                            selected={t.selected}
                             onPress={() => {
-                                this.props.onFilterChanged({ tagId: [ t.id ] }, selected)
+                                if(t.selected) {
+                                    this.props.onDeselectFilterTag(t)
+                                } else {
+                                    this.props.onSelectFilterTag(t)
+                                }
+
                             }} />
                     })}
                 </View>
@@ -105,9 +109,10 @@ class SongFilter extends React.PureComponent {
                     onBackPress={() => {
                         this.setState({ showTagModal: false })
                     }}
-                    onPressItem={artist => {
+                    onPressItem={tag => {
                         this.setState({ showTagModal: false })
-                        this.props.onFilterChanged({ tagId: [ artist.id ] })
+                        this.props.onAddFilterTag(tag)
+                        this.props.onSelectFilterTag(tag)
                     }} />
             </View>
         )

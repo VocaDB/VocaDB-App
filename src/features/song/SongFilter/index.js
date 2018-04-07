@@ -30,6 +30,9 @@ const songListStateSelect = createSelector(
 
 const mapDispatchToProps = (dispatch, props) => ({
     onFilterChanged: (params, remove) => dispatch(songActions.fetchSearchSongs(params, remove)),
+    onAddFilterTag: tag => dispatch(songActions.addFilterTag(tag)),
+    onSelectFilterTag: tag => dispatch(songActions.addSelectedFilterTag(tag)),
+    onDeselectFilterTag: tag => dispatch(songActions.removeSelectedFilterTag(tag)),
     back: () => props.navigation.goBack()
 })
 
