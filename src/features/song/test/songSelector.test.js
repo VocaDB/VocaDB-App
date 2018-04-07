@@ -3,7 +3,11 @@ import {
     selectLatestSongs,
     selectSongEntity,
     selectFollowedSongs,
-    selectSongDetail } from './../songSelector'
+    selectSongDetail,
+    selectFilterTagIds,
+    selectFilterTags,
+    selectSelectedFilterTagIds,
+    selectSelectedFilterTags  } from './../songSelector'
 import * as mockGenerator from '../../../common/helper/mockGenerator'
 import Routes from './../../../app/appRoutes'
 
@@ -154,6 +158,98 @@ describe('Test song selector', () => {
         const actualResult = selectSongDetail()(state);
         const expectedResult = song1;
 
+        expect(actualResult).toBeTruthy();
+        expect(actualResult).toEqual(expectedResult)
+    })
+
+    it('should return selected filter tag ids', () => {
+        const tag1 = mockGenerator.CreateTag({ id: 1 })
+        const tag2 = mockGenerator.CreateTag({ id: 2 })
+        state.entities.tags = {
+            '1': tag1,
+            '2': tag2
+        }
+        state.song.searchParams = {
+            tagId: [ tag1.id, tag2.id ]
+        }
+
+        const actualResult = selectSelectedFilterTagIds()(state);
+        const expectedResult = [ tag1.id, tag2.id ];
+
+        expect(actualResult).toBeTruthy();
+        expect(actualResult).toEqual(expectedResult)
+    })
+
+    it('should return selected filter tags', () => {
+        const tag1 = mockGenerator.CreateTag({ id: 1 })
+        const tag2 = mockGenerator.CreateTag({ id: 2 })
+        state.entities.tags = {
+            '1': tag1,
+            '2': tag2
+        }
+        state.song.searchParams = {
+            tagId: [ tag1.id, tag2.id ]
+        }
+
+        const actualResult = selectSelectedFilterTags()(state);
+        const expectedResult = [ tag1, tag2 ];
+
+        expect(actualResult).toBeTruthy();
+        expect(actualResult).toEqual(expectedResult)
+    })
+
+
+    it('should return filter tag ids', () => {
+        const tag1 = mockGenerator.CreateTag({ id: 1 })
+        const tag2 = mockGenerator.CreateTag({ id: 2 })
+        state.entities.tags = {
+            '1': tag1,
+            '2': tag2
+        }
+        state.song.filterTags = [ tag1.id, tag2.id ]
+
+        const actualResult = selectFilterTagIds()(state);
+        const expectedResult = [ tag1.id, tag2.id ];
+
+        expect(actualResult).toBeTruthy();
+        expect(actualResult).toEqual(expectedResult)
+    })
+
+
+    it('should return filter tags', () => {
+        const tag1 = mockGenerator.CreateTag({ id: 1 })
+        const tag2 = mockGenerator.CreateTag({ id: 2 })
+        state.entities.tags = {
+            '1': tag1,
+            '2': tag2
+        }
+        state.song.filterTags = [ tag1.id, tag2.id ]
+
+        const actualResult = selectFilterTags()(state);
+
+        tag1.selected = false;
+        tag2.selected = false;
+        const expectedResult = [ tag1, tag2 ];
+
+        expect(actualResult).toBeTruthy();
+        expect(actualResult).toEqual(expectedResult)
+    })
+
+    it('should return filter tags with selected', () => {
+        const tag1 = mockGenerator.CreateTag({ id: 1 })
+        const tag2 = mockGenerator.CreateTag({ id: 2 })
+        state.entities.tags = {
+            '1': tag1,
+            '2': tag2
+        }
+        state.song.filterTags = [ tag1.id, tag2.id ]
+        state.song.searchParams = { tagId: [ tag1.id ] }
+
+        const actualResult = selectFilterTags()(state);
+
+        tag1.selected = true;
+        tag2.selected = false;
+        const expectedResult = [ tag1, tag2 ];
         expect(actualResult).toBeTruthy();
         expect(actualResult).toEqual(expectedResult)
     })
