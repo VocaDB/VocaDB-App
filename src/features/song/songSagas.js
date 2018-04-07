@@ -1,4 +1,5 @@
 import { put, takeLatest, call, select } from 'redux-saga/effects'
+import { delay } from 'redux-saga'
 import * as actions from './songActions'
 import * as appActions from '../../app/appActions'
 import * as artistActions from '../artist/artistActions'
@@ -18,6 +19,7 @@ const fetchHighlighted = function* fetchHighlighted() {
 const fetchSearchSongs = function* fetchSearchSongs() {
     try {
         const params = yield select(selectSearchParams())
+        yield call(delay, 500)
         const response = yield call(api.find, params);
         let append = (params.start) ? true : false
         yield put(actions.fetchSearchSongsSuccess(response.items, append));
