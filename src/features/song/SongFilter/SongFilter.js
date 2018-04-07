@@ -12,6 +12,7 @@ import Tag from './../../tag/Tag'
 import { topTags } from './../../tag/tagConstant'
 import { songTypeItems } from './../songConstant'
 import { entryStatusItems, sortItems } from './../../entry/entryConstant'
+import { TextField } from 'react-native-material-textfield';
 
 class SongFilter extends React.PureComponent {
 
@@ -133,6 +134,22 @@ class SongFilter extends React.PureComponent {
         )
     }
 
+    renderInputMinScore () {
+        return (
+            <View style={{ marginHorizontal: 8 }}>
+                <TextField
+                    label='Minimum score'
+                    keyboardType='numeric'
+                    value={this.props.params.minScore}
+                    maxLength={5}
+                    onChangeText={minScore => {
+                        this.props.onFilterChanged({ minScore: minScore })
+                    }}
+                />
+            </View>
+        )
+    }
+
     renderInputSort () {
         return (
             <View style={{ marginHorizontal: 8 }}>
@@ -152,6 +169,7 @@ class SongFilter extends React.PureComponent {
         return (
                 <Content>
                     {this.renderInputSongType()}
+                    {this.renderInputMinScore()}
                     {this.renderInputSort()}
                     {this.renderInputArtists()}
                     {this.renderInputTags()}
