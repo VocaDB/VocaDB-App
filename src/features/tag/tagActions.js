@@ -7,6 +7,7 @@ import albumSchema from './../album/albumSchema'
 
 export const searchTags = createAction('Search tags', params => ({ params }))
 export const addTagsSearchResult = createAction('Add tags search result', data => normalize(data, [ tagSchema ]))
+export const appendTagsSearchResult = createAction('Append tags search result', data => normalize(data, [ tagSchema ]))
 
 export const fetchTagDetail = createAction(id => ({ loading: true, id }))
 export const fetchTagDetailSuccess = createAction(data => normalize(data, tagSchema))

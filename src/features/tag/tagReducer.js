@@ -1,5 +1,6 @@
 import { createReducer } from 'redux-act'
 import * as actions from './tagActions';
+import _ from 'lodash'
 
 export const defaultState = {
     detail: 0,
@@ -15,6 +16,11 @@ const reducer = createReducer({
         if(!payload || !payload.result) return state;
 
         return { ...state, searchResult: payload.result }
+    },
+    [actions.appendTagsSearchResult]: (state, payload) => {
+        if(!payload || !payload.result) return state;
+
+        return { ...state, searchResult: _.union(state.searchResult, payload.result) }
     },
     [actions.fetchTagDetailSuccess]: (state, payload) => {
         return { ...state, detail: payload.result }

@@ -71,7 +71,11 @@ const searchTags = function* searchTags(action) {
 
         const response = yield call(api.find, params);
 
-        yield put(actions.addTagsSearchResult(response.items));
+        if(params.start) {
+            yield put(actions.appendTagsSearchResult(response.items));
+        } else {
+            yield put(actions.addTagsSearchResult(response.items));
+        }
 
     } catch (e) {
         yield put(appActions.requestError(e));

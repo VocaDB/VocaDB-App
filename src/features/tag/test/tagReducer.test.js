@@ -90,4 +90,19 @@ describe('Test tag reducer', () => {
         expect(nextState.searchResult).toBeTruthy()
         expect(nextState.searchResult).toEqual(expectedResult)
     })
+
+    it('should append tags result', () => {
+        const tag1 = mockGenerator.CreateTag({ id: 1 })
+        const tag2 = mockGenerator.CreateTag({ id: 2 })
+        const mockResponse = [ tag1, tag2 ]
+
+        let nextState = { searchResult: [ 3, 4 ]}
+        nextState = reducer(nextState, actions.appendTagsSearchResult(mockResponse))
+
+        const expectedResult = [ 3, 4, tag1.id, tag2.id ]
+
+        expect(nextState).toBeTruthy()
+        expect(nextState.searchResult).toBeTruthy()
+        expect(nextState.searchResult).toEqual(expectedResult)
+    })
 })
