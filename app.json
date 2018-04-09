@@ -13,7 +13,8 @@
       "bundleIdentifier": "com.vocadb.app"
     },
     "android": {
-      "package": "com.vocadb.app"
+      "package": "com.vocadb.app",
+      "permissions": []
     }
   }
 }
