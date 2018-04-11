@@ -11,6 +11,7 @@ import {
     selectHasResult,
     selectSearching
 } from '../entrySelector'
+import Routes from './../../../app/appRoutes'
 
 EntrySearch.navigationOptions = () => ({
     title: 'Search',
@@ -40,11 +41,11 @@ const mapDispatchToProps = (dispatch, props) => ({
         dispatch(actions.saveRecentSearch(entry))
 
         if(entry.entryType === 'Song') {
-            props.navigation.navigate('SongDetail', { id: entry.id })
+            props.navigation.navigate(Routes.SongDetail, { id: entry.id, title: entry.defaultName })
         } else if(entry.entryType === 'Artist') {
-            props.navigation.navigate('ArtistDetail', { id: entry.id })
+            props.navigation.navigate(Routes.ArtistDetail, { id: entry.id, title: entry.name })
         } else if(entry.entryType === 'Album') {
-            props.navigation.navigate('AlbumDetail', { id: entry.id })
+            props.navigation.navigate(Routes.AlbumDetail, { id: entry.id, title: entry.name })
         }
 
 
@@ -52,14 +53,15 @@ const mapDispatchToProps = (dispatch, props) => ({
     onPressClearRecent: () => dispatch(actions.clearRecentSearch()),
     onPressMoreSong: query => {
         const params = {
-            title: 'More of ' + query,
-            params: {
+            title: `More of "${query}"`,
+            hideSearchBar: true,
+            filterParams: {
                 'query': query,
                 'maxResults': 20,
                 'fields': 'thumbUrl'
             }
         }
-        props.navigation.navigate('SongList', params)
+        props.navigation.navigate(Routes.SongList, params)
     }
 })
 

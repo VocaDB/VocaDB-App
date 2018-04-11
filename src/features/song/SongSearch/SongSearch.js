@@ -26,7 +26,13 @@ export default class SongSearch extends React.PureComponent {
     }
 
     refresh() {
-        this.props.fetchSongsReplaceParams()
+        const params = this.getNavigationParams();
+        const filterParams = (params && params.filterParams)? params.filterParams : {};
+        this.props.fetchSongsReplaceParams(filterParams);
+    }
+
+    getNavigationParams() {
+        return (this.props.navigation.state && this.props.navigation.state.params)? this.props.navigation.state.params : {};
     }
 
     renderList () {
@@ -51,9 +57,14 @@ export default class SongSearch extends React.PureComponent {
 
     render () {
         const queryEntry = text => this.doSearch({ query: text, start: 0 })
+        const params = this.getNavigationParams();
 
-        return (
-            <Page>
+        const renderSearchBar = () => {
+            if(params.hideSearchBar) {
+                return null;
+            }
+
+            return (
                 <Toolbar
                     leftElement="arrow-back"
                     onLeftElementPress={this.props.back}
@@ -64,10 +75,25 @@ export default class SongSearch extends React.PureComponent {
                         onChangeText: queryEntry
                     }}
                 />
+            )
+        }
 
+        const renderFilterButton = () => {
+            if(params.hideSearchBar) {
+                return null;
+            }
+
+            return (
                 <View style={styles.menuContainer}>
                     <Button raised primary icon='tune' text='Filter' style={{ container: styles.filterButton }} onPress={this.props.onPressFilter} />
                 </View>
+            )
+        }
+
+        return (
+            <Page>
+                {renderSearchBar()}
+                {renderFilterButton()}
                 <View style={styles.resultContainer}>
                     {this.props.songs.length > 0 && this.renderList()}
                     {this.props.songs.length === 0 && <CenterView>
