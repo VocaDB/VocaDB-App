@@ -98,7 +98,7 @@ class ArtistDetailPage extends React.Component {
         return (
             <ScrollableTabView>
                 <InfoPage tabLabel='Info' />
-                {latestSongs && latestSongs.length && <SongRowList tabLabel='Songs' data={latestSongs} onPressItem={this.props.onPressSong} />}
+                {latestSongs && latestSongs.length > 0 && <SongRowList tabLabel='Songs' data={latestSongs} onPressItem={this.props.onPressSong} />}
                 {hasAlbum && <AlbumGridView tabLabel='Albums' albums={latestAlbums} onPressItem={this.props.onPressAlbum} />}
                 {hasEvent && <EventListPage tabLabel='Events' />}
             </ScrollableTabView>

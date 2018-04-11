@@ -11,7 +11,7 @@ const createList = (ItemComponent) => (props) => (  <FlatList
                                name={item.name}
                                image={item.image}
                                artist={item.artistString}
-                               onPress={() => this.props.onPressItem(item)}  />)
+                               onPress={() => props.onPressItem(item)}  />)
     }}
 />)
 
