@@ -1,7 +1,5 @@
-# VocaDB App (WIP)
+# VocaDB App
 New VocaDB app with React native.
-
-***NOTICE : THIS PROJECT STILL IN DEVELOPMENT, MANY FUNCTIONALITIES ARE UNUSABLE YET.***
 
 ## Prerequisite
 - [NodeJS](https://nodejs.org/en/)
