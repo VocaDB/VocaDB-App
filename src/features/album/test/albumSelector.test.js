@@ -19,6 +19,8 @@ describe('Test album selector', () => {
 
         album1 = mockGenerator.CreateAlbum({ id: 1 })
         album2 = mockGenerator.CreateAlbum({ id: 2 })
+        album1.image = 'http://vocadb.net/Album/CoverPicture/1'
+        album2.image = 'http://vocadb.net/Album/CoverPicture/2'
 
         entities = {
             albums: {

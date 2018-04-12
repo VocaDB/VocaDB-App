@@ -16,7 +16,7 @@ export const CreateSong = (config = {}) => ({
     tags: [],
     lyrics: [],
     publishDate: (config.publishDate) ? config.publishDate : '2011-10-30T01:07:43',
-    thumbUrl: 'http://tn-skr1.smilevideo.jp/smile?i=6666016'
+    thumbUrl: 'https://tn-skr1.smilevideo.jp/smile?i=6666016'
 })
 
 export const CreateArtist = (config = {}) => ({
@@ -84,7 +84,7 @@ export const CreateWebLink = (config = {}) => ({
     category: (config.category) ? config.category : 'Official',
     description: (config.description) ? config.description : 'Producer\'s Website',
     id: (config.id) ? config.id : 19266,
-    url: (config.url) ? config.url : 'http://doriko.jp/download/romeo.html'
+    url: (config.url) ? config.url : 'https://doriko.jp/download/romeo.html'
 })
 
 export const CreatePV = (config = {}) => ({
@@ -96,8 +96,8 @@ export const CreatePV = (config = {}) => ({
     pvId: (config.pvId) ? config.pvId : 'sm6666016',
     service: (config.service) ? config.service : 'NicoNicoDouga',
     pvType: (config.pvType) ? config.pvType : 'Original',
-    thumbUrl: (config.thumbUrl) ? config.thumbUrl : 'http://tn-skr1.smilevideo.jp/smile?i=6666016',
-    url: (config.url) ? config.url : 'http://www.nicovideo.jp/watch/sm6666016',
+    thumbUrl: (config.thumbUrl) ? config.thumbUrl : 'https://tn-skr1.smilevideo.jp/smile?i=6666016',
+    url: (config.url) ? config.url : 'https://www.nicovideo.jp/watch/sm6666016',
 })
 
 export const CreateLyric = (config = {}) => ({
@@ -105,7 +105,7 @@ export const CreateLyric = (config = {}) => ({
     id: (config.id) ? config.id : 3361,
     source: (config.source) ? config.source : 'Project DIVA F 2nd, marvelangga and ElectricRaichu',
     translationType: (config.translationType) ? config.translationType : 'Translation',
-    url: (config.url) ? config.url : 'http://vocaloidlyrics.wikia.com/wiki/Romeo_and_Cinderella',
+    url: (config.url) ? config.url : 'https://vocaloidlyrics.wikia.com/wiki/Romeo_and_Cinderella',
     value: (config.value) ? config.value : 'Don\'t make my love your tragic Juliet',
 })
 

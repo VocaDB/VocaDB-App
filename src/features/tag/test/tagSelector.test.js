@@ -7,6 +7,7 @@ import {
     selectTopAlbums,
     selectTagDetailLatestSongs } from './../tagSelector'
 import * as mockGenerator from '../../../common/helper/mockGenerator'
+import Routes from './../../../app/appRoutes'
 
 describe('Test tag selector', () => {
 
@@ -28,12 +29,18 @@ describe('Test tag selector', () => {
 
         song1 = mockGenerator.CreateSong({ id: 1 })
         song2 = mockGenerator.CreateSong({ id: 2 })
+        song1.image = 'https://tn-skr1.smilevideo.jp/smile?i=6666016'
+        song2.image = 'https://tn-skr1.smilevideo.jp/smile?i=6666016'
 
         artist1 = mockGenerator.CreateArtist({ id: 1 })
         artist2 = mockGenerator.CreateArtist({ id: 2 })
+        artist1.image = 'http://vocadb.net/Artist/Picture/1'
+        artist2.image = 'http://vocadb.net/Artist/Picture/2'
 
         album1 = mockGenerator.CreateAlbum({ id: 1 })
         album2 = mockGenerator.CreateAlbum({ id: 2 })
+        album1.image = 'http://vocadb.net/Album/CoverPicture/1'
+        album2.image = 'http://vocadb.net/Album/CoverPicture/2'
 
         entities = {
             tags: {
@@ -61,6 +68,18 @@ describe('Test tag selector', () => {
                 topSongs: [],
                 topArtists: [],
                 topAlbums: []
+            },
+            nav: {
+                index: 0,
+                routes: [
+                    {
+                        key: '1',
+                        routeName: Routes.TagDetail,
+                        params: {
+                            id: tag1.id
+                        }
+                    }
+                ]
             }
         }
     });
@@ -123,9 +142,6 @@ describe('Test tag selector', () => {
         state.tag.latestSongsByTagId = {
             '345': [ 1, 2 ]
         }
-        
-        song1.image = 'http://tn-skr1.smilevideo.jp/smile?i=6666016'
-        song2.image = 'http://tn-skr1.smilevideo.jp/smile?i=6666016'
 
         const actualResult = selectTagDetailLatestSongs()(state);
         const expectedResult = [ song1, song2 ];

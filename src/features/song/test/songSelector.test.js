@@ -17,11 +17,16 @@ describe('Test song selector', () => {
     let entities;
     let song1;
     let song2;
+    let expectedSong1;
+    let expectedSong2;
 
     beforeEach(() => {
 
         song1 = mockGenerator.CreateSong({ id: 1 })
         song2 = mockGenerator.CreateSong({ id: 2 })
+
+        expectedSong1 = { ...song1, image: 'https://tn-skr1.smilevideo.jp/smile?i=6666016' }
+        expectedSong2 = { ...song2, image: 'https://tn-skr1.smilevideo.jp/smile?i=6666016' }
 
         let webLink1 = mockGenerator.CreateWebLink({ id: 1 })
         let webLink2 = mockGenerator.CreateWebLink({ id: 2 })
@@ -84,7 +89,7 @@ describe('Test song selector', () => {
         state.song.all = [ song2.id, song1.id ]
 
         const actualResult = selectLatestSongs()(state);
-        const expectedResult = [ song2, song1 ];
+        const expectedResult = [ expectedSong2, expectedSong1 ];
 
         expect(actualResult).toBeTruthy();
         expect(actualResult).toEqual(expectedResult)
@@ -113,7 +118,7 @@ describe('Test song selector', () => {
         state.entities = { songs: { '2': song2 } }
 
         const actualResult = selectLatestSongs()(state);
-        const expectedResult = [ song2 ];
+        const expectedResult = [ expectedSong2 ];
 
         expect(actualResult).toBeTruthy();
         expect(actualResult).toEqual(expectedResult)
@@ -123,7 +128,7 @@ describe('Test song selector', () => {
         state.song.followed = [ song2.id, song1.id ]
 
         const actualResult = selectFollowedSongs()(state);
-        const expectedResult = [ song2, song1 ];
+        const expectedResult = [ expectedSong2, expectedSong1 ];
 
         expect(actualResult).toBeTruthy();
         expect(actualResult).toEqual(expectedResult)

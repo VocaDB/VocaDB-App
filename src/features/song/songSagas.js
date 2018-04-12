@@ -21,7 +21,7 @@ const fetchSearchSongs = function* fetchSearchSongs() {
         const params = yield select(selectSearchParams())
         yield call(delay, 500)
         const response = yield call(api.find, params);
-        let append = (params.start) ? true : false
+        let append = (params && params.start) ? true : false
         yield put(actions.fetchSearchSongsSuccess(response.items, append));
     } catch (e) {
         yield put(appActions.requestError(e));

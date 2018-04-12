@@ -14,18 +14,27 @@ describe('Test releaseEvent selector', () => {
     let entities;
     let releaseEvent1;
     let releaseEvent2;
+    let expectedEvent1;
+    let expectedEvent2;
+
     let song1;
     let song2;
+    let expectedSong1;
+    let expectedSong2;
+
 
     beforeEach(() => {
 
-        releaseEvent1 = mockGenerator.CreateEvent({ id: 1 })
-        releaseEvent2 = mockGenerator.CreateEvent({ id: 2 })
-
         song1 = mockGenerator.CreateSong({ id: 1 })
         song2 = mockGenerator.CreateSong({ id: 2 })
+        expectedSong1 = { ...song1, image: 'https://tn-skr1.smilevideo.jp/smile?i=6666016' }
+        expectedSong2 = { ...song2, image: 'https://tn-skr1.smilevideo.jp/smile?i=6666016' }
 
+        releaseEvent1 = mockGenerator.CreateEvent({ id: 1 })
+        releaseEvent2 = mockGenerator.CreateEvent({ id: 2 })
         releaseEvent1.songs = [ song1.id, song2.id ]
+        expectedEvent1 = { ...releaseEvent1, image: 'https://static.vocadb.net/img/releaseeventseries/mainOrig/88.png?v=4' }
+        expectedEvent2 = { ...releaseEvent2, image: 'https://static.vocadb.net/img/releaseeventseries/mainOrig/88.png?v=4' }
 
         entities = {
             releaseEvents: {
@@ -76,7 +85,7 @@ describe('Test releaseEvent selector', () => {
         state.releaseEvent.all = [ releaseEvent2.id, releaseEvent1.id ]
 
         const actualResult = selectLatestReleaseEvents()(state);
-        const expectedResult = [ releaseEvent2, releaseEvent1 ];
+        const expectedResult = [ expectedEvent2, expectedEvent1 ];
 
         expect(actualResult).toBeTruthy();
         expect(actualResult).toEqual(expectedResult)
@@ -105,7 +114,7 @@ describe('Test releaseEvent selector', () => {
         state.entities = { releaseEvents: { '2': releaseEvent2 } }
 
         const actualResult = selectLatestReleaseEvents()(state);
-        const expectedResult = [ releaseEvent2 ];
+        const expectedResult = [ expectedEvent2 ];
 
         expect(actualResult).toBeTruthy();
         expect(actualResult).toEqual(expectedResult)
@@ -135,7 +144,7 @@ describe('Test releaseEvent selector', () => {
         state.releaseEvent.detail = releaseEvent1.id
 
         const actualResult = selectPublishedSongs()(state);
-        const expectedResult = [ song1, song2 ];
+        const expectedResult = [ expectedSong1, expectedSong2 ];
 
         expect(actualResult).toBeTruthy();
         expect(actualResult).toEqual(expectedResult)

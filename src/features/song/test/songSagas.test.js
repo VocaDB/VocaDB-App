@@ -1,5 +1,6 @@
 import { fetchSearchSongs, fetchLatestSongs, fetchFollowedSongs, fetchSongDetail } from './../songSagas'
 import { selectSearchParams } from './../songSelector'
+import { delay } from 'redux-saga'
 import api from './../songApi'
 import { call, put, select } from 'redux-saga/effects'
 import * as actions from './../songActions'
@@ -13,7 +14,9 @@ describe('Test song sagas', () => {
         const action = actions.fetchSearchSongs(params)
         const gen = fetchSearchSongs(action)
 
-        expect(JSON.stringify(gen.next().value)).toEqual(JSON.stringify(select(selectSearchParams())));
+        expect(JSON.stringify(gen.next(params).value)).toEqual(JSON.stringify(select(selectSearchParams())));
+
+        expect(gen.next(params).value).toEqual(call(delay, 500))
 
         expect(gen.next(params).value).toEqual(call(api.find, params));
 
@@ -29,7 +32,9 @@ describe('Test song sagas', () => {
         const action = actions.fetchSearchSongs(params)
         const gen = fetchSearchSongs(action)
 
-        expect(JSON.stringify(gen.next().value)).toEqual(JSON.stringify(select(selectSearchParams())));
+        expect(JSON.stringify(gen.next(params).value)).toEqual(JSON.stringify(select(selectSearchParams())));
+
+        expect(gen.next(params).value).toEqual(call(delay, 500))
 
         expect(gen.next(params).value).toEqual(call(api.find, params));
 

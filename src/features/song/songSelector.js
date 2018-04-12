@@ -10,7 +10,7 @@ export const convertSongIds = (entryIds, entryEntity) => (entryIds)? entryIds
     .map(entry => ({
         ...entry,
         image: (entry.thumbUrl) ? entry.thumbUrl :
-        (entry.mainPicture && entry.mainPicture.urlThumb) ? entry.mainPicture.urlThumb : 'http://via.placeholder.com/350x150/000000/ffffff?text=NO_IMAGE'
+        (entry.mainPicture && entry.mainPicture.urlThumb) ? entry.mainPicture.urlThumb : 'https://via.placeholder.com/350x150/000000/ffffff?text=NO_IMAGE'
     })) : []
 
 
