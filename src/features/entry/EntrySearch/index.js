@@ -46,6 +46,8 @@ const mapDispatchToProps = (dispatch, props) => ({
             props.navigation.navigate(Routes.ArtistDetail, { id: entry.id, title: entry.name })
         } else if(entry.entryType === 'Album') {
             props.navigation.navigate(Routes.AlbumDetail, { id: entry.id, title: entry.name })
+        } else if(entry.entryType === 'ReleaseEvent') {
+            props.navigation.navigate(Routes.EventDetail, { id: entry.id, title: entry.name })
         }
 
 

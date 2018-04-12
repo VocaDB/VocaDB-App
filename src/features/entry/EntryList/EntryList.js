@@ -11,9 +11,6 @@ class EntryList extends React.Component {
     render () {
 
         const renderItem = entry => {
-
-            const thumbnailUrl = (entry.mainPicture) ? entry.mainPicture.urlThumb : undefined
-
             return  (
                 <Entry
                     key={entry.id}
@@ -21,7 +18,7 @@ class EntryList extends React.Component {
                     name={entry.defaultName}
                     entryType={entry.entryType}
                     caption={entry.artistString}
-                    thumbnail={thumbnailUrl}
+                    thumbnail={entry.image}
                     onPress={() => this.props.onPressItem(entry)}
                 />
             )
@@ -30,9 +27,19 @@ class EntryList extends React.Component {
         let entries = this.props.entries.slice(0, this.props.max)
         const isOverLimit = entries.length < this.props.entries.length
 
+        const renderTitle = () => {
+            if(!this.props.title) {
+                return null;
+            }
+
+            return (
+                <Text style={[material.subheading, { margin: 8 }]}>{this.props.title}</Text>
+            )
+        }
+
         return (
             <View>
-                <Text style={[material.subheading, { margin: 8 }]}>{this.props.title}</Text>
+                {renderTitle()}
                 {entries.map(renderItem)}
                 {isOverLimit && <Button primary text="See more" onPress={this.props.onPressMore} />}
             </View>
@@ -49,7 +56,7 @@ EntryList.propTypes = {
 };
 
 EntryList.defaultProps = {
-    title: 'Entries',
+    title: '',
     entries: [],
     onPressItem: () => {},
     onPressMore: () => {}

@@ -23,6 +23,7 @@ class AlbumList extends React.PureComponent {
                     image={album.image}
                     name={album.name}
                     artist={album.artistString}
+                    onPress={() => this.props.onPressItem(album)}
                 />
             )
         }
@@ -32,7 +33,6 @@ class AlbumList extends React.PureComponent {
                 {this.props.showHeader && <Header />}
                 <View>
                     <FlatList
-                        horizontal
                         style={{ flex: 1 }}
                         data={this.props.albums}
                         keyExtractor={item => item.id}

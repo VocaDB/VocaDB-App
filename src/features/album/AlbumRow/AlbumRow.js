@@ -40,11 +40,13 @@ AlbumRow.propTypes = {
     id: PropTypes.number,
     name: PropTypes.string,
     display: PropTypes.oneOf(['row', 'box']),
-    image: PropTypes.string
+    image: PropTypes.string,
+    onPress: PropTypes.func
 };
 
 AlbumRow.defaultProps = {
-    display: 'row'
+    display: 'row',
+    onPress: () => console.log('press album')
 };
 
 

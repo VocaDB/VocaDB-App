@@ -3,18 +3,13 @@ import { View, Text, FlatList } from 'react-native'
 import Event from '../EventRow/index'
 import PropTypes from 'prop-types';
 import Theme from '../../../theme'
-import style from './style'
 
 class EventList extends React.Component {
 
     renderHeader () {
         return (
-            <View style={style.header}>
-                <View style={style.headerLeft}>
-                    <Text style={Theme.subhead}>{this.props.title}</Text>
-                </View>
-                <View style={style.headerRight}>
-                </View>
+            <View style={{ padding: 8 }}>
+                <Text style={Theme.subhead}>{this.props.title}</Text>
             </View>
         )
     }

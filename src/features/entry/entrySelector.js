@@ -1,5 +1,14 @@
 import { createSelector } from 'reselect';
 
+export const convertEntryIds = (entryIds, entryEntity) => (entryIds)? entryIds
+    .filter(id => (id != undefined && entryEntity[id.toString()]))
+    .map(id => entryEntity[id.toString()])
+    .map(entry => ({
+        ...entry,
+        image: (entry.thumbUrl) ? entry.thumbUrl :
+            (entry.mainPicture && entry.mainPicture.urlThumb) ? entry.mainPicture.urlThumb : 'http://via.placeholder.com/350x150/000000/ffffff?text=NO_IMAGE'
+    })) : []
+
 export const selectEntry = () => state => state.entry
 export const selectEntryEntity = () => state => (state.entities && state.entities.entries)? state.entities.entries : {}
 export const selectQuery = () => createSelector(
@@ -21,17 +30,13 @@ export const selectRecentIds = () => createSelector(
 export const selectEntries = () => createSelector(
     selectEntryIds(),
     selectEntryEntity(),
-    (entryIds, entryEntity) => entryIds
-        .filter(id => (id != undefined && entryEntity[id.toString()]))
-        .map(id => entryEntity[id.toString()])
+    convertEntryIds
 )
 
 export const selectRecent = () => createSelector(
     selectRecentIds(),
     selectEntryEntity(),
-    (entryIds, entryEntity) => entryIds
-        .filter(id => (id != undefined && entryEntity[id.toString()]))
-        .map(id => entryEntity[id.toString()])
+    convertEntryIds
 )
 
 export const selectHasResult = () => createSelector(

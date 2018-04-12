@@ -24,7 +24,7 @@ class ArtistList extends React.Component {
 
         return (
             <View>
-                {this.props.showHeader && <Text style={[material.subheading, { margin: 8 }]}>{this.props.title}</Text>}
+                {this.props.showHeader && <Text style={[Theme.subhead, { margin: 8 }]}>{this.props.title}</Text>}
                 {this.props.artists.map(renderItem)}
             </View>
         )
