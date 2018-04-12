@@ -7,8 +7,8 @@ export default {
             height: 100
         },
         imageContainer: {
-            padding: 4,
-            // backgroundColor: '#546E7A',
+            margin: 4,
+            backgroundColor: '#000000',
             width: 100
         },
         infoContainer: {
