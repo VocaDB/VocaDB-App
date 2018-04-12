@@ -12,6 +12,7 @@ import Cover from '../../../components/Cover/index'
 import Divider from '../../../components/Divider/index'
 import Theme from '../../../theme'
 import AlbumHorizontalList  from '../../album/AlbumHorizontalList'
+import moment from 'moment'
 
 class SongDetail extends React.PureComponent {
 
@@ -70,6 +71,7 @@ class SongDetail extends React.PureComponent {
                         imageUri={song.thumbUrl}
                         title={song.defaultName}
                         subtitle={song.artistString}
+                        subtitle2={(song && song.publishDate)? moment(song.publishDate).format('MM/DD/YYYY') : '' }
                     />
                     <Section style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around' }}>
                         {!this.props.isFavoriteSong && <Icon name='md-heart' text='Favorite' onPress={() => this.props.onPressFavorite(song)} />}

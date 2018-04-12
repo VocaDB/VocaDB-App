@@ -67,6 +67,7 @@ class AlbumDetail extends React.Component {
                     imageUri={imageUri}
                     title={album.name}
                     subtitle={album.artistString}
+                    subtitle2={(album && album.releaseDate && album.releaseDate.formatted)? album.releaseDate.formatted : ''}
                 />
                 <Section style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around' }}>
                     {!this.props.isFavoriteAlbum && <Icon name='md-heart' text='Follow' onPress={() => this.props.onPressAddFavorite(album)} />}

@@ -26,8 +26,9 @@ class Cover extends React.PureComponent {
                            source={{ uri: this.props.imageUri }}
                            resizeMode='contain'
                     />
-                    <Text style={[Theme.titleWhite]}>{this.props.title}</Text>
-                    <Text style={[Theme.subheadWhite]}>{this.props.subtitle}</Text>
+                    <Text style={[Theme.titleWhite, { paddingHorizontal: 8, textAlign: 'center' }]}>{this.props.title}</Text>
+                    <Text style={[Theme.subheadWhite, { paddingHorizontal: 8, textAlign: 'center' }]} textAlign='center'>{this.props.subtitle}</Text>
+                    <Text style={[Theme.subheadWhite, { paddingHorizontal: 8, textAlign: 'center' }]} textAlign='center'>{this.props.subtitle2}</Text>
                 </View>
             </View>
         )
@@ -37,7 +38,12 @@ class Cover extends React.PureComponent {
 Cover.propTypes = {
     imageUri: PropTypes.string,
     title: PropTypes.string,
-    subtitle: PropTypes.string
+    subtitle: PropTypes.string,
+    subtitle2: PropTypes.string
+}
+
+Cover.defaultProps = {
+    subtitle2: ''
 }
 
 export default Cover
