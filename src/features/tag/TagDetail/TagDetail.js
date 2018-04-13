@@ -30,11 +30,36 @@ class TagDetail extends React.Component {
                 </View>
             </Content>
         )
+
+        const renderTopSongs = () => {
+            if(topSongs && topSongs.length) {
+                return (<SongRowList tabLabel='Top songs' data={topSongs} onPressItem={this.props.onPressSong} />)
+            }
+
+            return null;
+        }
+
+        const renderTopArtists = () => {
+            if(topArtists && topArtists.length) {
+                return (<ArtistRowList tabLabel='Top artists' data={topArtists} onPressItem={this.props.onPressArtist}  />)
+            }
+
+            return null;
+        }
+
+        const renderTopAlbums = () => {
+            if(topAlbums && topAlbums.length) {
+                return (<AlbumGridView tabLabel='Top albums' albums={this.props.topAlbums} onPressItem={this.props.onPressAlbum} />)
+            }
+
+            return null;
+        }
+
         return (
             <ScrollableTabView>
-                {topSongs && topSongs.length && <SongRowList tabLabel='Top songs' data={topSongs} onPress={this.props.onPressSong} />}
-                {topArtists && topArtists.length && <ArtistRowList tabLabel='Top artists' data={topArtists} onPressItem={this.props.onPressArtist}  />}
-                {topAlbums && topAlbums.length && <AlbumGridView tabLabel='Top albums' albums={this.props.topAlbums} onPressItem={this.props.onPressAlbum} />}
+                {renderTopSongs()}
+                {renderTopArtists()}
+                {renderTopAlbums()}
                 <About tabLabel='About' />
             </ScrollableTabView>
         )
