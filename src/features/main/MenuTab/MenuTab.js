@@ -1,7 +1,8 @@
 import React from 'react'
-import { View } from 'react-native'
+import { View, Text } from 'react-native'
 import MenuItem from './../../../components/MenuItem'
 import PropTypes from 'prop-types'
+import pack from './../../../../package.json'
 
 class MenuTab extends React.PureComponent {
     render () {
@@ -9,6 +10,9 @@ class MenuTab extends React.PureComponent {
             <View style={{ flex: 1 }}>
                 <View style={{ flex: 1, backgroundColor: 'white' }}>
                     {this.props.menus.map(props => <MenuItem key={props.text} { ...props } />)}
+                </View>
+                <View style={{ height: 40, alignItems: 'center', backgroundColor: 'white' }}>
+                    <Text>version {pack.version}</Text>
                 </View>
             </View>
         )
