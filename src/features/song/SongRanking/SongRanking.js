@@ -9,13 +9,26 @@ import { SongRankingList  } from './../../song/songHOC'
 import _ from 'lodash'
 import Theme from '../../../theme'
 import { durationHoursHelper, filterByHelper, vocalistHelper } from './SongRankingHelper'
+import Icon from './../../../components/Icon'
 
 class SongRanking extends React.Component {
+
+    state = {
+        showFilter: false
+    }
 
     componentDidMount() {
         if(!this.props.songs || !this.props.songs.length) {
             this.props.onDurationHoursChanged()
         }
+    }
+
+    showFilter() {
+        this.setState({ showFilter: true })
+    }
+
+    hideFilter() {
+        this.setState({ showFilter: false })
     }
 
     render () {
@@ -28,8 +41,47 @@ class SongRanking extends React.Component {
             return <SongRankingList data={this.props.songs} />;
         }
 
+        const renderFilter = () => {
+            if(this.state.showFilter) {
+                return (
+                    <View>
+                        <View style={{ flexDirection: 'row', paddingHorizontal: 8 }}>
+                            <View style={{ flex: 1, padding: 4 }}>
+                                <Dropdown
+                                    label='Filter by'
+                                    value={filterByHelper.valueToLabel(this.props.filterBy)}
+                                    onChangeText={text => {
+                                        this.props.onFilterByChanged(filterByHelper.labelToValue(text))
+                                    }}
+                                    data={filterByHelper.labelsToSelectItems()}
+                                />
+                            </View>
+                            <View style={{ flex: 1, padding: 4 }}>
+                                <Dropdown
+                                    label='Vocalist'
+                                    value={vocalistHelper.valueToLabel(this.props.vocalist)}
+                                    onChangeText={text => {
+                                        this.props.onVocalistChanged(vocalistHelper.labelToValue(text))
+                                    }}
+                                    data={vocalistHelper.labelsToSelectItems()}
+                                />
+                            </View>
+                        </View>
+                        <View style={{ alignItems: 'center' }}>
+                            <Icon name='ios-arrow-up' size='small' onPress={() => this.hideFilter()} />
+                        </View>
+                    </View>
+                )
+            }
+
+            return (
+                <View style={{ alignItems: 'center' }}>
+                    <Icon name='ios-arrow-down' size='small' onPress={() => this.showFilter()} />
+                </View>
+            )
+        }
+
         return (
-            <Page>
                 <View style={{ flex: 1, backgroundColor: 'white' }}>
                     <View style={{ justifyContent: 'center' }}>
                         <ButtonGroup
@@ -40,32 +92,10 @@ class SongRanking extends React.Component {
                             buttons={durationHoursHelper.labelsToArray()}
                         />
                     </View>
-                    <View style={{ flexDirection: 'row', padding: 8 }}>
-                        <View style={{ flex: 1, padding: 4 }}>
-                            <Dropdown
-                                label='Filter by'
-                                value={filterByHelper.valueToLabel(this.props.filterBy)}
-                                onChangeText={text => {
-                                    this.props.onFilterByChanged(filterByHelper.labelToValue(text))
-                                }}
-                                data={filterByHelper.labelsToSelectItems()}
-                            />
-                        </View>
-                        <View style={{ flex: 1, padding: 4 }}>
-                            <Dropdown
-                                label='Vocalist'
-                                value={vocalistHelper.valueToLabel(this.props.vocalist)}
-                                onChangeText={text => {
-                                    this.props.onVocalistChanged(vocalistHelper.labelToValue(text))
-                                }}
-                                data={vocalistHelper.labelsToSelectItems()}
-                            />
-                        </View>
-                    </View>
+                    {renderFilter()}
 
                     {renderResult()}
                 </View>
-            </Page>
         );
     }
 }
