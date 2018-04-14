@@ -4,6 +4,7 @@ import Routes from './../../app/appRoutes'
 import { selectArtistEntity } from './../artist/artistSelector'
 import { selectTagEntity, convertTagIds } from './../tag/tagSelector'
 import { durationHoursHelper, filterByHelper, vocalistHelper } from './SongRanking/SongRankingHelper'
+import { convertAlbumIds, selectAlbumEntity } from './../album/albumSelector'
 
 export const convertSongIds = (entryIds, entryEntity) => (entryIds)? entryIds
     .filter(id => (id != undefined && entryEntity[id.toString()]))
@@ -103,6 +104,12 @@ export const selectSongDetail = () => createSelector(
     (songDetailId, songEntity) => {
         return songEntity[songDetailId.toString()]
     }
+)
+
+export const selectAlbums = () => createSelector(
+    selectSongDetail(),
+    selectAlbumEntity(),
+    (songDetail, albumEntity) => (songDetail && songDetail.albums)? convertAlbumIds(songDetail.albums, albumEntity) : []
 )
 
 export const selectIsFavoriteSong = () => createSelector(

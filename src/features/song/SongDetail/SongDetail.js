@@ -54,7 +54,7 @@ class SongDetail extends React.PureComponent {
             const renderAlbumList = () => (
                 <Section>
                     <Divider />
-                    <AlbumHorizontalList albums={song.albums} onPressItem={this.props.onPressAlbum} />
+                    <AlbumHorizontalList albums={this.props.albums} onPressItem={this.props.onPressAlbum} />
                 </Section>
             )
 

@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import SongDetailPage from './SongDetail'
 import { createSelector } from 'reselect';
 import * as songActions from '../songActions'
-import { selectSongDetail, selectIsFavoriteSong } from '../songSelector'
+import { selectSongDetail, selectIsFavoriteSong, selectAlbums } from '../songSelector'
 import Routes from './../../../app/appRoutes'
 
 SongDetailPage.navigationOptions = ({ navigation }) => {
@@ -29,7 +29,8 @@ SongDetailPage.propTypes = {
 const songDetailStateSelect = createSelector(
     selectSongDetail(),
     selectIsFavoriteSong(),
-    (song, isFavoriteSong) => ({ song, isFavoriteSong })
+    selectAlbums(),
+    (song, isFavoriteSong, albums) => ({ song, isFavoriteSong, albums })
 );
 
 const mapDispatchToProps = (dispatch, props) => ({
