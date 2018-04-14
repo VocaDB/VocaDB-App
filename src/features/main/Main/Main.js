@@ -67,6 +67,7 @@ export default class Main extends React.PureComponent {
                     onDurationHoursChanged={this.props.onDurationHoursChanged}
                     onFilterByChanged={this.props.onFilterByChanged}
                     onVocalistChanged={this.props.onVocalistChanged}
+                    onPressSong={this.props.onPressSong}
                 />
                 <FollowedTab
                     tabLabel="ios-heart"

@@ -38,7 +38,7 @@ class SongRanking extends React.Component {
                 return <ActivityIndicator size="large" color="#0000ff" />;
             }
 
-            return <SongRankingList data={this.props.songs} />;
+            return <SongRankingList data={this.props.songs} onPressItem={this.props.onPressSong} />;
         }
 
         const renderFilter = () => {
