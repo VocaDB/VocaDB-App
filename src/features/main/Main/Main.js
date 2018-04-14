@@ -5,6 +5,7 @@ import CustomTabBar from '../../../components/CustomTabBar'
 import HomeTab from './../HomeTab'
 import MenuTab from './../MenuTab'
 import FollowedTab from './../FollowedTab'
+import SongRankingTab from './../../song/SongRanking'
 
 export default class Main extends React.PureComponent {
 
@@ -57,6 +58,16 @@ export default class Main extends React.PureComponent {
                     onPressMoreRecentSongs={this.props.onPressMoreRecentSongs}
                     onPressMoreRecentAlbums={this.props.onPressMoreRecentAlbums}
                     onPressMoreLatestEvent={this.props.onPressMoreLatestEvent} />
+                <SongRankingTab
+                    tabLabel="ios-stats"
+                    songs={this.props.rankingSongs}
+                    durationHours={this.props.rankingState.durationHours}
+                    filterBy={this.props.rankingState.filterBy}
+                    vocalist={this.props.rankingState.vocalist}
+                    onDurationHoursChanged={this.props.onDurationHoursChanged}
+                    onFilterByChanged={this.props.onFilterByChanged}
+                    onVocalistChanged={this.props.onVocalistChanged}
+                />
                 <FollowedTab
                     tabLabel="ios-heart"
                     refreshing={this.props.refreshing}

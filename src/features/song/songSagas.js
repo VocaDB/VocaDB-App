@@ -5,7 +5,7 @@ import * as appActions from '../../app/appActions'
 import * as artistActions from '../artist/artistActions'
 import api from './songApi'
 import { selectFollowedArtistIds } from './../artist/artistSelector'
-import { selectSearchParams } from './songSelector'
+import { selectSearchParams, selectRankingState } from './songSelector'
 
 const fetchHighlighted = function* fetchHighlighted() {
     try {
@@ -70,6 +70,28 @@ const fetchSongDetail = function* fetchLatestSongs(action) {
     }
 }
 
+const fetchRanking = function* fetchRanking() {
+    try {
+
+        const rankingState = yield select(selectRankingState())
+
+        if(!rankingState) {
+            return;
+        }
+
+        const response = yield call(api.getTopRated, {
+            durationHours: (rankingState.durationHours === 0)? null : rankingState.durationHours,
+            filterBy: rankingState.filterBy,
+            vocalist: (rankingState.vocalist === 'All')? null : rankingState.vocalist
+        });
+
+        yield put(actions.updateRankingResult(response));
+
+    } catch (e) {
+        yield put(appActions.requestError(e));
+    }
+}
+
 const songSaga = function* songSagaAsync() {
     yield takeLatest(actions.fetchHighlighted, fetchHighlighted)
     yield takeLatest(actions.fetchLatestSongs, fetchLatestSongs)
@@ -80,8 +102,11 @@ const songSaga = function* songSagaAsync() {
     yield takeLatest([actions.fetchSearchSongs,
     actions.addSelectedFilterTag,
     actions.removeSelectedFilterTag], fetchSearchSongs)
+    yield takeLatest([actions.changeDurationHours,
+        actions.changeFilterBy,
+        actions.changeVocalist], fetchRanking)
 }
 
-export { fetchHighlighted, fetchSearchSongs, fetchLatestSongs, fetchFollowedSongs, fetchSongDetail }
+export { fetchHighlighted, fetchSearchSongs, fetchLatestSongs, fetchFollowedSongs, fetchSongDetail, fetchRanking }
 
 export default songSaga

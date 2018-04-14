@@ -1,5 +1,5 @@
-import { fetchSearchSongs, fetchLatestSongs, fetchFollowedSongs, fetchSongDetail } from './../songSagas'
-import { selectSearchParams } from './../songSelector'
+import { fetchSearchSongs, fetchLatestSongs, fetchFollowedSongs, fetchSongDetail, fetchRanking } from './../songSagas'
+import { selectSearchParams, selectRankingState } from './../songSelector'
 import { delay } from 'redux-saga'
 import api from './../songApi'
 import { call, put, select } from 'redux-saga/effects'
@@ -117,5 +117,31 @@ describe('Test song sagas', () => {
         expect(gen.next().value).toEqual(put(appActions.requestError(new Error("id is undefined"))));
 
         expect(gen.next().done).toBeTruthy();
+    })
+
+    it('Should fetch ranking songs', () => {
+        const action = actions.changeVocalist('UTAU')
+        const mockSongItems = [ mock.CreateSong() ]
+
+        const generator = fetchRanking(action)
+
+        let next = generator.next()
+        let rankingState = select(selectRankingState());
+        expect(JSON.stringify(next.value)).toEqual(JSON.stringify(rankingState));
+
+        const params = {
+            durationHours: rankingState.durationHours,
+            filterBy: rankingState.filterBy,
+            vocalist: rankingState.vocalist
+        }
+
+        next = generator.next(params)
+        expect(next.value).toEqual(call(api.getTopRated, params));
+
+        next = generator.next(mockSongItems)
+        expect(next.value).toEqual(put(actions.updateRankingResult(mockSongItems)));
+
+        next = generator.next()
+        expect(next.done).toBeTruthy();
     })
 })

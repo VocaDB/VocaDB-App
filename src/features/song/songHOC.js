@@ -11,7 +11,7 @@ const createList = (ItemComponent) => (props) => (  <FlatList
                                name={item.defaultName}
                                artist={item.artistString}
                                dateTime={item.createDate}
-                               pvServices={item.pvServices.split(',').map(pvService => pvService.trim())}
+                               pvServices={(item.pvServices)? item.pvServices.split(',').map(pvService => pvService.trim()) : []}
                                onPress={() => props.onPressItem(item)} />)
     }}
 />)

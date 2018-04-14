@@ -194,4 +194,41 @@ describe('Test song reducer', () => {
         expect(nextState.searchParams).toBeTruthy()
         expect(nextState.searchParams.tagId).toEqual([ tag2.id ])
     })
+
+    it('should change ranking duration hour', () => {
+        let nextState = reducer({}, actions.changeDurationHours(720))
+        nextState = reducer({}, actions.changeDurationHours(24))
+
+        expect(nextState).toBeTruthy()
+        expect(nextState.ranking).toBeTruthy()
+        expect(nextState.ranking.durationHours).toEqual(24)
+    })
+
+    it('should change ranking filter by', () => {
+        let nextState = reducer({}, actions.changeFilterBy('CreateDate'))
+        nextState = reducer({}, actions.changeFilterBy('PublishDate'))
+
+        expect(nextState).toBeTruthy()
+        expect(nextState.ranking).toBeTruthy()
+        expect(nextState.ranking.filterBy).toEqual('PublishDate')
+    })
+
+    it('should change ranking vocalist', () => {
+        let nextState = reducer({}, actions.changeVocalist('Vocaloid'))
+        nextState = reducer({}, actions.changeVocalist('UTAU'))
+
+        expect(nextState).toBeTruthy()
+        expect(nextState.ranking).toBeTruthy()
+        expect(nextState.ranking.vocalist).toEqual('UTAU')
+    })
+
+    it('should change ranking vocalist', () => {
+        const mockResponse = [ song1, song2 ]
+
+        let nextState = reducer({}, actions.updateRankingResult(mockResponse))
+
+        expect(nextState).toBeTruthy()
+        expect(nextState.ranking).toBeTruthy()
+        expect(nextState.ranking.songs).toEqual([1, 2])
+    })
 })

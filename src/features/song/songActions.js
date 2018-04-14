@@ -32,3 +32,8 @@ export const addFilterTag = createAction('add filter tag', data => normalize(dat
 export const removeFilterTag = createAction('remove filter tag', data => normalize(data,  tagSchema))
 export const addSelectedFilterTag = createAction('add selected filter tag', data => normalize(data,  tagSchema))
 export const removeSelectedFilterTag = createAction('remove selected filter tag', data => normalize(data,  tagSchema))
+
+export const changeDurationHours = createAction('Change duration hours', durationHours => ({ durationHours }))
+export const changeFilterBy = createAction('Change filter by', filterBy => ({ filterBy }))
+export const changeVocalist = createAction('Change vocalist', vocalist => ({ vocalist }))
+export const updateRankingResult = createAction('Update ranking result',  data => normalize(data, [ songSchema ]))

@@ -3,6 +3,7 @@ import { selectNav } from './../../app/appSelector'
 import Routes from './../../app/appRoutes'
 import { selectArtistEntity } from './../artist/artistSelector'
 import { selectTagEntity, convertTagIds } from './../tag/tagSelector'
+import { durationHoursHelper, filterByHelper, vocalistHelper } from './SongRanking/SongRankingHelper'
 
 export const convertSongIds = (entryIds, entryEntity) => (entryIds)? entryIds
     .filter(id => (id != undefined && entryEntity[id.toString()]))
@@ -134,5 +135,43 @@ export const selectFilterTags = () => createSelector(
     selectSelectedFilterTagIds(),
     (tagIds, tagEntity, selectedTagIds) => {
         return convertTagIds(tagIds, tagEntity).map(t => ({ ...t, selected: selectedTagIds.includes(t.id) }))
+    }
+)
+
+export const selectRankingState = () => createSelector(
+    selectSong(),
+    (songState) => {
+        if(!songState || !songState.ranking) {
+            return {
+                durationHours: durationHoursHelper.values.Weekly,
+                filterBy: filterByHelper.values.NewlyAdded,
+                vocalist: vocalistHelper.values.All,
+                songs: []
+            }
+        }
+
+        const ranking = songState.ranking;
+        const durationHours = (ranking.durationHours != undefined)? ranking.durationHours : durationHoursHelper.values.Weekly;
+        const filterBy = (ranking.filterBy != undefined)? ranking.filterBy : filterByHelper.values.NewlyAdded;
+        const vocalist = (ranking.vocalist != undefined)? ranking.vocalist : vocalistHelper.values.All;
+
+        return {
+            durationHours,
+            filterBy,
+            vocalist,
+            songs: ranking.songs
+        }
+    }
+)
+
+export const selectRankingResult = () => createSelector(
+    selectRankingState(),
+    selectSongEntity(),
+    (rankingState, songEntity) => {
+        if(rankingState && rankingState.songs && songEntity) {
+            return convertSongIds(rankingState.songs, songEntity);
+        }
+
+        return [];
     }
 )

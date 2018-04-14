@@ -7,7 +7,9 @@ import {
     selectFilterTagIds,
     selectFilterTags,
     selectSelectedFilterTagIds,
-    selectSelectedFilterTags  } from './../songSelector'
+    selectSelectedFilterTags,
+    selectRankingState,
+    selectRankingResult } from './../songSelector'
 import * as mockGenerator from '../../../common/helper/mockGenerator'
 import Routes from './../../../app/appRoutes'
 
@@ -257,5 +259,36 @@ describe('Test song selector', () => {
         const expectedResult = [ tag1, tag2 ];
         expect(actualResult).toBeTruthy();
         expect(actualResult).toEqual(expectedResult)
+    })
+
+    it('should return ranking value', () => {
+
+        const ranking = {
+            durationHours: 24,
+            filterBy: 'CreateBy',
+            vocalist: 'Vocaloid'
+        }
+        state.song.ranking = ranking
+
+        const actualResult = selectRankingState()(state)
+
+        expect(actualResult).toBeTruthy();
+        expect(actualResult).toEqual(ranking)
+    })
+
+    it('should return ranking result', () => {
+
+        const ranking = {
+            durationHours: 24,
+            filterBy: 'CreateBy',
+            vocalist: 'Vocaloid',
+            songs: [ 1, 2 ]
+        }
+        state.song.ranking = ranking
+
+        const actualResult = selectRankingResult()(state)
+
+        expect(actualResult).toBeTruthy();
+        // expect(actualResult.songs).toEqual([ song1, song2 ])
     })
 })

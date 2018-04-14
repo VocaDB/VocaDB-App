@@ -23,7 +23,13 @@ export const defaultState = {
     highlighted: [],
     favoriteSongs: [],
     filterTags: [],
-    detail: 0
+    detail: 0,
+    ranking: {
+        durationHours: 168,
+        filterBy: 'CreateDate',
+        vocalist: 'All',
+        songs: []
+    }
 }
 
 const reducer = createReducer({
@@ -130,6 +136,42 @@ const reducer = createReducer({
         searchParams.tagId = _.without(searchParams.tagId, payload.result)
 
         return { ...state, searchParams }
+    },
+    [actions.changeDurationHours]: (state, payload) => {
+        if(!payload) {
+            return state
+        }
+
+        let ranking = Object.assign({}, state.ranking)
+        ranking = { ...ranking, songs: [], durationHours: payload.durationHours }
+        return { ...state, ranking }
+    },
+    [actions.changeFilterBy]: (state, payload) => {
+        if(!payload) {
+            return state
+        }
+
+        let ranking = Object.assign({}, state.ranking)
+        ranking = { ...ranking, songs: [], filterBy: payload.filterBy }
+        return { ...state, ranking }
+    },
+    [actions.changeVocalist]: (state, payload) => {
+        if(!payload) {
+            return state
+        }
+
+        let ranking = Object.assign({}, state.ranking)
+        ranking = { ...ranking, songs: [], vocalist: payload.vocalist }
+        return { ...state, ranking }
+    },
+    [actions.updateRankingResult]: (state, payload) => {
+        if(!payload.result) {
+            return state;
+        }
+
+        let ranking = Object.assign({}, state.ranking)
+        ranking = { ...ranking, songs: payload.result }
+        return { ...state, ranking }
     }
 }, defaultState)
 

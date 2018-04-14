@@ -4,7 +4,7 @@ import Main from './Main'
 import { createSelector } from 'reselect';
 import Icon from '../../../components/Icon/index'
 import Routes from './../../../app/appRoutes'
-import { selectHighlighted, selectFollowedSongs } from '../../song/songSelector'
+import { selectHighlighted, selectFollowedSongs, selectRankingResult, selectRankingState } from '../../song/songSelector'
 import { selectLatestAlbums, selectTopAlbums } from '../../album/albumSelector'
 import { selectLatestReleaseEvents } from '../../releaseEvent/releaseEventSelector'
 import { selectLoading } from '../../../app/appSelector'
@@ -32,13 +32,17 @@ const mapStateSelector = createSelector(
     selectLatestAlbums(),
     selectTopAlbums(),
     selectFollowedSongs(),
-    (recentSongs, refreshing, latestEvents, recentAlbums, topAlbums, followedSongs) => ({
+    selectRankingState(),
+    selectRankingResult(),
+    (recentSongs, refreshing, latestEvents, recentAlbums, topAlbums, followedSongs, rankingState, rankingSongs) => ({
         recentSongs,
         refreshing,
         latestEvents,
         recentAlbums,
         topAlbums,
-        followedSongs
+        followedSongs,
+        rankingState,
+        rankingSongs
     })
 );
 
@@ -66,7 +70,10 @@ const mapDispatchToProps = (dispatch, props) => ({
     }),
     onPressMenuFollowArtists: () => props.navigation.navigate(Routes.FollowedArtists),
     onPressMenuFavoriteSongs: () => props.navigation.navigate(Routes.FavoriteSongs),
-    onPressMenuFavoriteAlbums: () => props.navigation.navigate(Routes.FavoriteAlbums)
+    onPressMenuFavoriteAlbums: () => props.navigation.navigate(Routes.FavoriteAlbums),
+    onFilterByChanged: value => dispatch(songActions.changeFilterBy(value)),
+    onDurationHoursChanged: value => dispatch(songActions.changeDurationHours(value)),
+    onVocalistChanged: value => dispatch(songActions.changeVocalist(value)),
 })
 
 export default connect(mapStateSelector, mapDispatchToProps)(Main)
