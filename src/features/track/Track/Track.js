@@ -6,13 +6,17 @@ import Icon from '../../../components/Icon/index'
 
 class Track extends React.Component {
     render () {
+
         return (
 
             // <Text style={[Theme.caption, { marginRight: 4 }]} key={pvService}>{pvService}</Text>
             <TouchableOpacity  onPress={this.props.onPress} style={
                 [{ backgroundColor: '#ffffff', padding: 8, flexDirection: 'row', justifyContent: 'space-between', height: 72 },
                     this.props.style]}>
-                <View style={{ justifyContent: 'space-around' }}>
+                <View style={{ width: 32, alignItems: 'center' }}>
+                    <Text style={Theme.subhead}>{this.props.trackNumber}</Text>
+                </View>
+                <View style={{ flex: 1, paddingHorizontal: 8 }}>
                     <Text style={Theme.body}>{this.props.name}</Text>
                     {this.props.artist.length > 0 && <Text style={Theme.caption}>{this.props.artist}</Text>}
                     {this.props.pvServices.length > 0 && (
@@ -34,7 +38,8 @@ Track.propTypes = {
     name: PropTypes.string,
     artist: PropTypes.string,
     pvServices: PropTypes.array,
-    onPress: PropTypes.func
+    onPress: PropTypes.func,
+    trackNumber: PropTypes.number
 }
 
 Track.defaultProps = {

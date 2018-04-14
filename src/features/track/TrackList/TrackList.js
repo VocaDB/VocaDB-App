@@ -29,6 +29,7 @@ class TrackList extends React.Component {
 
                         return (
                             <Track key={track.id}
+                                   trackNumber={track.trackNumber}
                                    name={track.name}
                                    pvServices={pvServices}
                                    artist={artistString}

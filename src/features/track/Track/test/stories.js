@@ -11,6 +11,7 @@ storiesOf('Track/Track', module)
     .addDecorator(getStory => <CenterView type='vertical'>{getStory()}</CenterView>)
     .add('with track', () => (
         <Track
+            trackNumber={12}
             name='レメスタンス'
             artist='AVTechNO! feat. 初音ミク'
         />
