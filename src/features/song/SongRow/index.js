@@ -15,9 +15,20 @@ class SongRow extends React.PureComponent {
     }
 
     render () {
+
+        const renderPrefix = () => {
+            if(!this.props.prefix)  {
+                return null;
+            }
+
+            return this.props.prefix;
+        }
         return (
             <TouchableOpacity onPress={this.props.onPress}>
                 <View style={styles.listItem}>
+
+                    {renderPrefix()}
+
                     <View style={styles.imageContainer}>
                         {this.renderImage()}
                     </View>

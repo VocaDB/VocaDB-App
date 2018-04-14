@@ -5,7 +5,7 @@ import { Dropdown } from 'react-native-material-dropdown';
 import Page from '../../../components/Page'
 import Content from '../../../components/Content'
 import { ButtonGroup } from 'react-native-elements'
-import { SongRowList  } from './../../song/songHOC'
+import { SongRankingList  } from './../../song/songHOC'
 import _ from 'lodash'
 import Theme from '../../../theme'
 import { durationHoursHelper, filterByHelper, vocalistHelper } from './SongRankingHelper'
@@ -25,7 +25,7 @@ class SongRanking extends React.Component {
                 return <ActivityIndicator size="large" color="#0000ff" />;
             }
 
-            return <SongRowList data={this.props.songs} />;
+            return <SongRankingList data={this.props.songs} />;
         }
 
         return (
