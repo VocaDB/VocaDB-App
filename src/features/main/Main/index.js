@@ -71,7 +71,7 @@ const mapDispatchToProps = (dispatch, props) => ({
     }),
     onPressMenuFollowArtists: () => props.navigation.navigate(Routes.FollowedArtists),
     onPressMenuFavoriteSongs: () => props.navigation.navigate(Routes.FavoriteSongs),
-    onPressMenuFavoriteAlbums: () => props.navigation.navigate(Routes.FavoriteAlbums),
+    onPressMenuFavoriteAlbums: () => props.navigation.navigate(Routes.MyAlbums),
     onFilterByChanged: value => dispatch(songActions.changeFilterBy(value)),
     onDurationHoursChanged: value => dispatch(songActions.changeDurationHours(value)),
     onVocalistChanged: value => dispatch(songActions.changeVocalist(value)),

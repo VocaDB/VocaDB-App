@@ -4,13 +4,15 @@ import Routes from './../../app/appRoutes'
 import { selectArtistEntity } from './../artist/artistSelector'
 import image from './../../common/assets/images'
 
+export const convertAlbum = (entry) => ({
+    ...entry,
+    image: (entry.mainPicture && entry.mainPicture.urlThumb) ? entry.mainPicture.urlThumb : image.getAlbumUri(entry.id)
+})
+
 export const convertAlbumIds = (entryIds, entryEntity) => (entryIds) ? entryIds
     .filter(id => (id != undefined && entryEntity[id.toString()]))
     .map(id => entryEntity[id.toString()])
-    .map(entry => ({
-        ...entry,
-        image: (entry.mainPicture && entry.mainPicture.urlThumb) ? entry.mainPicture.urlThumb : image.getAlbumUri(entry.id)
-    })): []
+    .map(convertAlbum): []
 
 export const selectAlbum = () => state => state.album
 export const selectAlbumEntity = () => state => (state.entities && state.entities.albums)? state.entities.albums : {}

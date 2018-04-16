@@ -1,4 +1,5 @@
 import { createSelector } from 'reselect';
+import { selectAlbumEntity, convertAlbum } from './../album/albumSelector'
 
 export const selectUser = () => (state) => {
     return state.user;
@@ -29,4 +30,24 @@ export const selectIsAuthenticated = () => createSelector(
 export const selectIsSkippedSignIn = () => createSelector(
     selectUser(),
     (userState) => (userState.skipSignIn)? true : false
+)
+
+export const selectUserId = () => createSelector(
+    selectUser(),
+    (userState) => (userState && userState.userId)? userState.userId : null
+)
+
+export const selectAlbums = () => createSelector(
+    selectUser(),
+    selectAlbumEntity(),
+    (userState, albumEntity) => {
+        if(!userState || !userState.albums) {
+            return [];
+        }
+
+        return userState.albums.map(a => {
+            let n = convertAlbum(albumEntity[a.album.toString()])
+            return n;
+        })
+    }
 )

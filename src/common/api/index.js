@@ -44,7 +44,8 @@ const api = {
         // Mock auth response
         signIn: (username, password) => {
             return new Promise((resolve, reject) => setTimeout(() => resolve({ token: 'abc'}), 3000))
-        }
+        },
+        albums: (id, params) => request(`/users/${id}/albums`, params, [])
     }
 }
 

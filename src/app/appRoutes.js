@@ -17,7 +17,8 @@ const ROUTES = {
     AlbumFilter: 'AlbumFilter',
     ArtistFilter: 'ArtistFilter',
     FavoriteAlbums: 'FavoriteAlbums',
-    SignIn: 'SignIn'
+    SignIn: 'SignIn',
+    MyAlbums: 'MyAlbums'
 }
 
 export default ROUTES

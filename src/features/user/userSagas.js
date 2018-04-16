@@ -5,6 +5,7 @@ import * as appActions from '../../app/appActions'
 import api from './userApi'
 import { AsyncStorage } from 'react-native'
 import { authKey } from './../../common/constants/storageKey'
+import { selectUserId } from './userSelector'
 
 const signIn = function* signIn(action) {
     try {
@@ -34,10 +35,29 @@ const signIn = function* signIn(action) {
     }
 }
 
-const userSaga = function* userSagAsync() {
-    yield takeLatest(actions.signIn, signIn)
+const fetchAlbums = function* fetchAlbums() {
+    try {
+        const userId = yield select(selectUserId());
+
+        if(!userId) {
+            yield put(actions.resetToSignIn());
+            return;
+        }
+
+        const response = yield call(api.albums, userId)
+
+        yield put(actions.updateAlbums(response.items));
+
+    } catch(e) {
+        yield put(appActions.requestError(e));
+    }
 }
 
-export { signIn }
+const userSaga = function* userSagAsync() {
+    yield takeLatest(actions.signIn, signIn)
+    yield takeLatest(actions.fetchAlbums, fetchAlbums)
+}
+
+export { signIn, fetchAlbums }
 
 export default userSaga

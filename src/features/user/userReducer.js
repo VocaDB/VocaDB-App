@@ -3,10 +3,15 @@ import { AsyncStorage } from 'react-native'
 import { authKey } from './../../common/constants/storageKey'
 import * as actions from './userActions';
 
+// TODO Mock up2up user id
+const mockUserId = 1062;
+
 export const defaultState = {
     followedArtists: [],
     token: '',
-    skipSignIn: false
+    skipSignIn: false,
+    userId: mockUserId,
+    albums: []
 }
 
 const reducer = createReducer({
@@ -43,7 +48,7 @@ const reducer = createReducer({
             return { ...state, token: ''}
         }
 
-        return { ...state, token: payload.token };
+        return { ...state, token: payload.token, userId: mockUserId };
     },
     [actions.skipSignIn]: (state) => {
         return { ...state, skipSignIn: true }
@@ -51,6 +56,9 @@ const reducer = createReducer({
     [actions.signOut]: (state) => {
         AsyncStorage.removeItem(authKey.token);
         return { ...state, token: '', skipSignIn: false }
+    },
+    [actions.updateAlbums]: (state, payload) => {
+        return { ...state, albums: payload.result }
     }
 }, defaultState)
 

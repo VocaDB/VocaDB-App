@@ -17,6 +17,7 @@ import AlbumFilterPage from './features/album/AlbumFilter'
 import ArtistFilterPage from './features/artist/ArtistFilter'
 import FavoriteAlbumsPage from './features/album/FavoriteAlbums'
 import SignInPage from './features/user/SignIn'
+import MyAlbumsPage from './features/user/MyAlbums'
 import { StackNavigator } from "react-navigation";
 import Theme from './theme'
 import Routes from './app/appRoutes'
@@ -44,7 +45,8 @@ const AppNavigator = StackNavigator({
     AlbumFilter: { screen: AlbumFilterPage },
     ArtistFilter: { screen: ArtistFilterPage },
     FavoriteAlbums: { screen: FavoriteAlbumsPage },
-    SignIn: { screen: SignInPage }
+    SignIn: { screen: SignInPage },
+    MyAlbums: { screen: MyAlbumsPage }
 }, {
     initialRouteName: INITIAL_ROUTE,
     navigationOptions: {
