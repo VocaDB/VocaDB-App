@@ -1,8 +1,12 @@
 import { createReducer } from 'redux-act'
+import { AsyncStorage } from 'react-native'
+import { authKey } from './../../common/constants/storageKey'
 import * as actions from './userActions';
 
 export const defaultState = {
-    followedArtists: []
+    followedArtists: [],
+    token: '',
+    skipSignIn: false
 }
 
 const reducer = createReducer({
@@ -33,6 +37,20 @@ const reducer = createReducer({
         let currentArtists = state.followedArtists.filter(id => id != artist.id)
 
         return { ...state, followedArtists: currentArtists }
+    },
+    [actions.signInSuccess]: (state, payload) => {
+        if(!payload || !payload.token) {
+            return { ...state, token: ''}
+        }
+
+        return { ...state, token: payload.token };
+    },
+    [actions.skipSignIn]: (state) => {
+        return { ...state, skipSignIn: true }
+    },
+    [actions.signOut]: (state) => {
+        AsyncStorage.removeItem(authKey.token);
+        return { ...state, token: '', skipSignIn: false }
     }
 }, defaultState)
 

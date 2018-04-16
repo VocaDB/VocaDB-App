@@ -58,6 +58,7 @@ function loadStories() {
   require('../src/features/tag/TagGroup/test/stories');
   require('../src/features/track/Track/test/stories');
   require('../src/features/track/TrackList/test/stories');
+  require('../src/features/user/SignIn/test/stories');
   require('../src/features/webLink/WebLink/test/stories');
   require('../src/features/webLink/WebLinkList/test/stories');
   
@@ -117,6 +118,7 @@ const stories = [
   '../src/features/tag/TagGroup/test/stories',
   '../src/features/track/Track/test/stories',
   '../src/features/track/TrackList/test/stories',
+  '../src/features/user/SignIn/test/stories',
   '../src/features/webLink/WebLink/test/stories',
   '../src/features/webLink/WebLinkList/test/stories',
   

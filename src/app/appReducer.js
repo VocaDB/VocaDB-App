@@ -9,7 +9,7 @@ import tag from '../features/tag/tagReducer'
 import merge from "lodash/merge";
 import navReducer from '../features/nav/navReducer'
 
-const error = (state = false, action) => (action.error)? action.error : false
+const error = (state = false, action) => (action.error)? action.payload : false
 const loading = (state = false, action) => (action.payload && action.payload.loading)? true : false
 const entities = (state = {}, action) => {
     if(action.payload && action.payload.entities) {

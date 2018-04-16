@@ -8,6 +8,7 @@ import { selectHighlighted, selectFollowedSongs, selectRankingResult, selectRank
 import { selectLatestAlbums, selectTopAlbums } from '../../album/albumSelector'
 import { selectLatestReleaseEvents } from '../../releaseEvent/releaseEventSelector'
 import { selectLoading } from '../../../app/appSelector'
+import * as userActions from '../../user/userActions'
 import * as songActions from '../../song/songActions'
 import * as albumActions from '../../album/albumActions'
 import * as eventActions from '../../releaseEvent/releaseEventActions'
@@ -74,6 +75,10 @@ const mapDispatchToProps = (dispatch, props) => ({
     onFilterByChanged: value => dispatch(songActions.changeFilterBy(value)),
     onDurationHoursChanged: value => dispatch(songActions.changeDurationHours(value)),
     onVocalistChanged: value => dispatch(songActions.changeVocalist(value)),
-})
+    onPressSignOut: () => {
+        dispatch(userActions.signOut())
+        dispatch(userActions.resetToSignIn())
+    }
+ })
 
 export default connect(mapStateSelector, mapDispatchToProps)(Main)

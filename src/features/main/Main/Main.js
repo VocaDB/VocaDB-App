@@ -31,11 +31,13 @@ export default class Main extends React.PureComponent {
         const openLink = (url) => Linking.openURL(url).catch(err => console.error('An error occurred', err))
 
         const menus =  [
+            { icon: 'ios-log-in', text: 'Sign in', onPress: this.props.onPressSignOut, onlyGuest: true },
             { icon: 'ios-musical-notes', text: 'Favorite songs', onPress: this.props.onPressMenuFavoriteSongs },
             { icon: 'ios-disc', text: 'Followed albums', onPress: this.props.onPressMenuFavoriteAlbums },
             { icon: 'ios-people', text: 'Followed artists', onPress: this.props.onPressMenuFollowArtists },
             { icon: 'ios-globe', text: 'VocaDB website', onPress: () => openLink('https://vocadb.net') },
-            { icon: 'logo-github', text: 'About', onPress: () => openLink('https://github.com/VocaDB/VocaDB-App') }
+            { icon: 'logo-github', text: 'About', onPress: () => openLink('https://github.com/VocaDB/VocaDB-App') },
+            { icon: 'ios-log-out', text: 'Sign out', onPress: this.props.onPressSignOut, onlyMember: true }
         ];
 
         return (

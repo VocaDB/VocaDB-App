@@ -9,8 +9,6 @@ export const selectArtistEntity = () => state => (state.entities && state.entiti
 export const selectFollowedArtistIds = () => createSelector(
     selectUser(),
     userState => {
-        console.log('selectFollowedArtistIds')
-        console.log(userState)
         return userState.followedArtists
     }
 )
@@ -19,4 +17,16 @@ export const selectFollowedArtists = () => createSelector(
     selectUser(),
     selectArtistEntity(),
     (userState, artistEntity) => (userState && artistEntity)? userState.followedArtists.map(id => artistEntity[id.toString()]) : []
+)
+
+export const selectIsAuthenticated = () => createSelector(
+    selectUser(),
+    (userState) => {
+        return (userState.token)? true : false
+    }
+)
+
+export const selectIsSkippedSignIn = () => createSelector(
+    selectUser(),
+    (userState) => (userState.skipSignIn)? true : false
 )

@@ -5,6 +5,7 @@ import artistSagas from '../features/artist/artistSagas'
 import releaseEventSagas from '../features/releaseEvent/releaseEventSagas'
 import entrySagas from '../features/entry/entrySagas'
 import tagSagas from '../features/tag/tagSagas'
+import userSagas from '../features/user/userSagas'
 
 const rootSaga = function* rootSaga() {
     yield all([
@@ -13,7 +14,8 @@ const rootSaga = function* rootSaga() {
         artistSagas(),
         releaseEventSagas(),
         entrySagas(),
-        tagSagas()
+        tagSagas(),
+        userSagas()
     ])
 }
 
