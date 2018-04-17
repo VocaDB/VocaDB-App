@@ -62,4 +62,23 @@ describe('User reducer test state', () => {
 
         expect(nextState).toEqual(exepctedState);
     })
+
+    it('Should add token when sign in success', () => {
+        let token = 'abc';
+        let nextState =reducer({}, actions.signInSuccess(token));
+
+        // TODO Mock user id
+        expect(nextState).toEqual({ token, userId: 1062 });
+    })
+
+    it('Should remove token when sign out', () => {
+        let nextState =reducer({ token: 'abc', userId: '1234' }, actions.signOut());
+        expect(nextState).toEqual({ token: '', userId: '', skipSignIn: false });
+    })
+
+    it('Should set skip sign in to true', () => {
+        let nextState =reducer({}, actions.skipSignIn());
+        expect(nextState).toEqual({ skipSignIn: true });
+    })
+
 })

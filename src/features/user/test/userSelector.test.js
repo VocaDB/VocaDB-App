@@ -38,4 +38,14 @@ describe('User selector test', () => {
         const expectedResult = [ artist2, artist1 ]
         expect(selectors.selectFollowedArtists()(state)).toEqual(expectedResult)
     });
+
+    it('should get user id', () => {
+        state.user.userId = '1234';
+        expect(selectors.selectUserId()(state)).toEqual('1234')
+    })
+
+    it('should get skip sign in', () => {
+        state.user.skipSignIn = true;
+        expect(selectors.selectIsSkippedSignIn()(state)).toEqual(true)
+    })
 })
