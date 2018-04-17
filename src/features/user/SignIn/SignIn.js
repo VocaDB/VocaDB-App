@@ -6,6 +6,8 @@ import PropTypes from 'prop-types'
 import Theme from './../../../theme'
 import AuthContent from './../AuthContent'
 import GuestContent from './../GuestContent'
+import { COLOR } from 'react-native-material-ui';
+import Touchable from 'react-native-platform-touchable';
 
 const Actions = (props) => {
     if(props.loading) {
@@ -63,34 +65,50 @@ class SignIn extends React.PureComponent {
     }
 
     render () {
-
         return (
-            <View style={{ paddingHorizontal: 32 }}>
-                <TextField
-                    label='Username'
-                    onChangeText={this.onChangeUsername.bind(this)}
-                    disabled={this.props.loading}
-                />
-                <TextField
-                    label='Password'
-                    secureTextEntry={true}
-                    onChangeText={this.onChangePassword.bind(this)}
-                    disabled={this.props.loading}
-                />
-                <View style={{ height: 16 }}></View>
-                <Actions loading={this.props.loading}>
-                    <ErrorBlock error={this.props.error} />
-                    <Button
-                        raised
-                        primary
-                        text='Sign in'
-                        onPress={this.onSignIn.bind(this)} />
-                    <View style={{ height: 16 }}></View>
-                    <Button
-                        flat
-                        text='Skip'
-                        onPress={this.onSkip.bind(this)} />
-                </Actions>
+            <View style={{ backgroundColor: '#2C486E', flex: 1, paddingHorizontal: 32 }}>
+                <View style={{ justifyContent: 'center', alignItems: 'center', height: 136 }}>
+                    <Text style={{ color: '#FFFFFF', fontSize: 48 }}>VocaDB</Text>
+                </View>
+                <View style={{ flex: 1 }}>
+                    <Block>
+                        <TextField
+                            label='Username'
+                            onChangeText={this.onChangeUsername.bind(this)}
+                            disabled={this.props.loading}
+                            baseColor='#E0E0E0'
+                            tintColor='#FFFFFF'
+                            textColor='#FFFFFF' />
+
+                        <View>
+                            <TextField
+                                label='Password'
+                                secureTextEntry={true}
+                                onChangeText={this.onChangePassword.bind(this)}
+                                disabled={this.props.loading}
+                                baseColor='#E0E0E0'
+                                tintColor='#FFFFFF'
+                                textColor='#FFFFFF' />
+                        </View>
+
+
+                    </Block>
+
+                    <Actions loading={this.props.loading}>
+                        <ErrorBlock error={this.props.error} />
+                        <Button
+                            raised
+                            text='Sign in'
+                            style={{ container: { backgroundColor: '#213A5B' }, text: { color: '#FFFFFF' } }}
+                            onPress={this.onSignIn.bind(this)} />
+                        <View style={{ height: 16 }}></View>
+                        <Button
+                            flat
+                            text='Later'
+                            style={{ container: { backgroundColor: '#2C486E', borderColor: '#FFFFFF', borderWidth: 1 }, text: { color: '#FFFFFF' } }}
+                            onPress={this.onSkip.bind(this)} />
+                    </Actions>
+                </View>
             </View>
         )
     }
