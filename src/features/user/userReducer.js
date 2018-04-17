@@ -4,7 +4,7 @@ import { authKey } from './../../common/constants/storageKey'
 import * as actions from './userActions';
 
 // TODO Mock up2up user id
-const mockUserId = 1062;
+const mockUserId = 1065;
 
 export const defaultState = {
     followedArtists: [],
@@ -45,7 +45,7 @@ const reducer = createReducer({
     },
     [actions.signInSuccess]: (state, payload) => {
         if(!payload || !payload.token) {
-            return { ...state, token: ''}
+            return { ...state, token: '', userId: ''}
         }
 
         return { ...state, token: payload.token, userId: mockUserId };
@@ -55,7 +55,7 @@ const reducer = createReducer({
     },
     [actions.signOut]: (state) => {
         AsyncStorage.removeItem(authKey.token);
-        return { ...state, token: '', skipSignIn: false }
+        return { ...state, token: '', skipSignIn: false, userId: '' }
     },
     [actions.updateAlbums]: (state, payload) => {
         return { ...state, albums: payload.result }
