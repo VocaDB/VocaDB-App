@@ -5,7 +5,6 @@ import { createSelector } from 'reselect';
 import * as userActions from '../userActions'
 import { selectLoading, selectError } from './../../../app/appSelector'
 import { selectIsAuthenticated, selectIsSkippedSignIn } from './../userSelector'
-import Routes from './../../../app/appRoutes'
 
 SignIn.navigationOptions = ({ navigation }) => {
     return { header: null }
@@ -21,7 +20,6 @@ const mapStateSelect = createSelector(
 
 const mapDispatchToProps = (dispatch, props) => ({
     onPressSignIn: (username, password) => dispatch(userActions.signIn(username, password)),
-    // onPressSkip: () =>  props.navigation.navigate(Routes.Main),
     onPressSkip: () =>  {
         dispatch(userActions.skipSignIn())
         dispatch(userActions.resetAction())

@@ -35,11 +35,9 @@ const albumDetailStateSelect = createSelector(
 const mapDispatchToProps = (dispatch, props) => ({
     fetchAlbum: id => dispatch(albumActions.fetchAlbumDetail(id)),
     onPressAddFavorite: album => {
-        console.log('add favorite')
         dispatch(albumActions.addFavoriteAlbum(album))
     },
     onPressRemoveFavorite: album => {
-        console.log('remove album')
         dispatch(albumActions.removeFavoriteAlbum(album))
     },
     onPressShare: album => {

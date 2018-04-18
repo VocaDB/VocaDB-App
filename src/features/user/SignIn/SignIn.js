@@ -4,10 +4,6 @@ import { TextField } from 'react-native-material-textfield';
 import { Button } from 'react-native-material-ui';
 import PropTypes from 'prop-types'
 import Theme from './../../../theme'
-import AuthContent from './../AuthContent'
-import GuestContent from './../GuestContent'
-import { COLOR } from 'react-native-material-ui';
-import Touchable from 'react-native-platform-touchable';
 
 const Actions = (props) => {
     if(props.loading) {
