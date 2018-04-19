@@ -34,13 +34,13 @@ describe('Test tag selector', () => {
 
         artist1 = mockGenerator.CreateArtist({ id: 1 })
         artist2 = mockGenerator.CreateArtist({ id: 2 })
-        artist1.image = 'http://vocadb.net/Artist/Picture/1'
-        artist2.image = 'http://vocadb.net/Artist/Picture/2'
+        artist1.image = 'https://vocadb.net/Artist/Picture/1'
+        artist2.image = 'https://vocadb.net/Artist/Picture/2'
 
         album1 = mockGenerator.CreateAlbum({ id: 1 })
         album2 = mockGenerator.CreateAlbum({ id: 2 })
-        album1.image = 'http://vocadb.net/Album/CoverPicture/1'
-        album2.image = 'http://vocadb.net/Album/CoverPicture/2'
+        album1.image = 'https://vocadb.net/Album/CoverPicture/1'
+        album2.image = 'https://vocadb.net/Album/CoverPicture/2'
 
         entities = {
             tags: {

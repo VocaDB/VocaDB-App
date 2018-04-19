@@ -58,7 +58,7 @@ AlbumCard.propTypes = {
 
 AlbumCard.defaultProps = {
     name: 'Unknown',
-    image: 'http://via.placeholder.com/350x150/000000/ffffff?text=NO_IMAGE'
+    image: 'https://via.placeholder.com/350x150/000000/ffffff?text=NO_IMAGE'
 };
 
 export default AlbumCard

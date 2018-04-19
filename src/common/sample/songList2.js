@@ -14,7 +14,7 @@ export default {
         //     "ratingScore": 0,
         //     "songType": "Original",
         //     "status": "Finished",
-        //     "thumbUrl": "http://tn.smilevideo.jp/smile?i=32509035",
+        //     "thumbUrl": "https://tn.smilevideo.jp/smile?i=32509035",
         //     "version": 3
         // },
         // {
@@ -31,7 +31,7 @@ export default {
         //     "ratingScore": 0,
         //     "songType": "Original",
         //     "status": "Finished",
-        //     "thumbUrl": "http://tn.smilevideo.jp/smile?i=32509291",
+        //     "thumbUrl": "https://tn.smilevideo.jp/smile?i=32509291",
         //     "version": 2
         // }
         // ,
@@ -49,7 +49,7 @@ export default {
             "ratingScore": 0,
             "songType": "Original",
             "status": "Finished",
-            "thumbUrl": "http://tn.smilevideo.jp/smile?i=27871870",
+            "thumbUrl": "https://tn.smilevideo.jp/smile?i=27871870",
             "version": 2
         },
         {

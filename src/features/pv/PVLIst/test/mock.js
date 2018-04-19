@@ -9,8 +9,8 @@ export default {
             "pvId": "sm6666016",
             "service": "NicoNicoDouga",
             "pvType": "Original",
-            "thumbUrl": "http://tn-skr1.smilevideo.jp/smile?i=6666016",
-            "url": "http://www.nicovideo.jp/watch/sm6666016"
+            "thumbUrl": "https://tn-skr1.smilevideo.jp/smile?i=6666016",
+            "url": "https://www.nicovideo.jp/watch/sm6666016"
         },
         {
             "author": "KazearashiP",
@@ -22,7 +22,7 @@ export default {
             "service": "Youtube",
             "pvType": "Reprint",
             "thumbUrl": "https://i.ytimg.com/vi/rrCpDYC1P4s/default.jpg",
-            "url": "http://youtu.be/rrCpDYC1P4s"
+            "url": "https://youtu.be/rrCpDYC1P4s"
         },
         {
             "author": "TeamMikuHatsune",
@@ -34,7 +34,7 @@ export default {
             "service": "Youtube",
             "pvType": "Other",
             "thumbUrl": "https://i.ytimg.com/vi/0f3FZYM76M0/default.jpg",
-            "url": "http://youtu.be/0f3FZYM76M0"
+            "url": "https://youtu.be/0f3FZYM76M0"
         },
         {
             "author": "doriko Official YouTube Channel",
@@ -47,7 +47,7 @@ export default {
             "service": "Youtube",
             "pvType": "Original",
             "thumbUrl": "https://i.ytimg.com/vi/kp-plPYAPq8/default.jpg",
-            "url": "http://youtu.be/kp-plPYAPq8"
+            "url": "https://youtu.be/kp-plPYAPq8"
         },
         {
             "author": "Del Cross",
@@ -60,7 +60,7 @@ export default {
             "service": "Youtube",
             "pvType": "Other",
             "thumbUrl": "https://i.ytimg.com/vi/zY2fqvs2qbo/default.jpg",
-            "url": "http://youtu.be/zY2fqvs2qbo"
+            "url": "https://youtu.be/zY2fqvs2qbo"
         }
     ]
 }

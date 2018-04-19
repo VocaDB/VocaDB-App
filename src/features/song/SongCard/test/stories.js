@@ -21,7 +21,7 @@ storiesOf('Song/SongCard', module)
     ))
     .add('with info', () => (
         <SongCard
-            image='http://tn-skr4.smilevideo.jp/smile?i=1715919'
+            image='https://tn-skr4.smilevideo.jp/smile?i=1715919'
             name='Melt'
             artist='Hatsune Miku'
             onPress={() => action("Press song")}
@@ -29,7 +29,7 @@ storiesOf('Song/SongCard', module)
     ))
     .add('with PVs', () => (
         <SongCard
-            image='http://tn-skr4.smilevideo.jp/smile?i=1715919'
+            image='https://tn-skr4.smilevideo.jp/smile?i=1715919'
             name='Melt'
             artist='Hatsune Miku'
             pvs={pvs}

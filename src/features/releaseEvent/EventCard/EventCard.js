@@ -28,7 +28,7 @@ EventCard.propTypes = {
 };
 
 EventCard.defaultProps = {
-    thumbnail: 'http://via.placeholder.com/350x150/000000/ffffff?text=EVENT'
+    thumbnail: 'https://via.placeholder.com/350x150/000000/ffffff?text=EVENT'
 };
 
 const styles =  StyleSheet.create({

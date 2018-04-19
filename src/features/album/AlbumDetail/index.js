@@ -41,7 +41,7 @@ const mapDispatchToProps = (dispatch, props) => ({
         dispatch(albumActions.removeFavoriteAlbum(album))
     },
     onPressShare: album => {
-        const url = 'http://vocadb.net/Al/' + album.id
+        const url = 'https://vocadb.net/Al/' + album.id
         Share.share({
             message: url,
             url: url,

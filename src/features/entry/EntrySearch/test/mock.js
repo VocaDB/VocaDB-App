@@ -9,9 +9,9 @@ export default {
             "entryType": "Song",
             "id": 184450,
             "mainPicture": {
-                "urlSmallThumb": "http://tn.smilevideo.jp/smile?i=32748137",
-                "urlThumb": "http://tn.smilevideo.jp/smile?i=32748137",
-                "urlTinyThumb": "http://tn.smilevideo.jp/smile?i=32748137"
+                "urlSmallThumb": "https://tn.smilevideo.jp/smile?i=32748137",
+                "urlThumb": "https://tn.smilevideo.jp/smile?i=32748137",
+                "urlTinyThumb": "https://tn.smilevideo.jp/smile?i=32748137"
             },
             "name": "crystal mic",
             "songType": "Cover",

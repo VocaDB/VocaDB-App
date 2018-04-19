@@ -13,7 +13,7 @@ storiesOf('Entry', module)
             id={184450}
             name='crystal mic'
             entryType='Song'
-            thumbnail='http://tn.smilevideo.jp/smile?i=32748137'
+            thumbnail='https://tn.smilevideo.jp/smile?i=32748137'
             onPress={action("Press entry")}
         />
     ))

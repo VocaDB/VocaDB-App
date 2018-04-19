@@ -27,7 +27,7 @@ class EventDetail extends React.Component {
 
         const webLinks = (event.webLinks)? event.webLinks : []
         const imageUrl = (event.mainPicture) ? event.mainPicture.urlThumb.replace('mainThumb', 'mainOrig')
-            : 'http://via.placeholder.com/350x150/000000/ffffff?text=EVENT';
+            : 'https://via.placeholder.com/350x150/000000/ffffff?text=EVENT';
 
         const renderRowInfo = (icon, value, onPress) => (
             <ListItem

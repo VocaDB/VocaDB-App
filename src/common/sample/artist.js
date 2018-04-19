@@ -213,7 +213,7 @@ export default {
                     "additionalNames": "LenMikuPARADISE, ボーカロイド鏡音レン×初音ミクオンリーイベント",
                     "category": "AlbumRelease",
                     "deleted": false,
-                    "description": "Sub-Event of [Vocaloid Paradise](http://vocadb.net/Es/4/vocaloid-paradise).",
+                    "description": "Sub-Event of [Vocaloid Paradise](https://vocadb.net/Es/4/vocaloid-paradise).",
                     "id": 122,
                     "name": "レンミクPARADISE",
                     "pictureMime": "image/jpeg",
@@ -263,7 +263,7 @@ export default {
                 "ratingScore": 2,
                 "songType": "Original",
                 "status": "Finished",
-                "thumbUrl": "http://tn.smilevideo.jp/smile?i=32512807",
+                "thumbUrl": "https://tn.smilevideo.jp/smile?i=32512807",
                 "version": 1
             },
             {
@@ -281,7 +281,7 @@ export default {
                 "ratingScore": 0,
                 "songType": "Original",
                 "status": "Finished",
-                "thumbUrl": "http://tn.smilevideo.jp/smile?i=32514668",
+                "thumbUrl": "https://tn.smilevideo.jp/smile?i=32514668",
                 "version": 2
             },
             {
@@ -317,7 +317,7 @@ export default {
                 "ratingScore": 2,
                 "songType": "Original",
                 "status": "Finished",
-                "thumbUrl": "http://tn.smilevideo.jp/smile?i=32507752",
+                "thumbUrl": "https://tn.smilevideo.jp/smile?i=32507752",
                 "version": 2
             },
             {
@@ -335,7 +335,7 @@ export default {
                 "ratingScore": 0,
                 "songType": "Original",
                 "status": "Finished",
-                "thumbUrl": "http://tn.smilevideo.jp/smile?i=32511911",
+                "thumbUrl": "https://tn.smilevideo.jp/smile?i=32511911",
                 "version": 2
             },
             {
@@ -353,7 +353,7 @@ export default {
                 "ratingScore": 2,
                 "songType": "Original",
                 "status": "Finished",
-                "thumbUrl": "http://tn.smilevideo.jp/smile?i=32506416",
+                "thumbUrl": "https://tn.smilevideo.jp/smile?i=32506416",
                 "version": 3
             },
             {
@@ -371,7 +371,7 @@ export default {
                 "ratingScore": 2,
                 "songType": "Original",
                 "status": "Finished",
-                "thumbUrl": "http://tn.smilevideo.jp/smile?i=32506973",
+                "thumbUrl": "https://tn.smilevideo.jp/smile?i=32506973",
                 "version": 4
             }
         ],
@@ -555,7 +555,7 @@ export default {
                 "ratingScore": 337,
                 "songType": "Original",
                 "status": "Approved",
-                "thumbUrl": "http://tn-skr4.smilevideo.jp/smile?i=9714351",
+                "thumbUrl": "https://tn-skr4.smilevideo.jp/smile?i=9714351",
                 "version": 17
             },
             {
@@ -573,7 +573,7 @@ export default {
                 "ratingScore": 319,
                 "songType": "Original",
                 "status": "Approved",
-                "thumbUrl": "http://i.ytimg.com/vi/PqJNc9KVIZE/default.jpg",
+                "thumbUrl": "https://i.ytimg.com/vi/PqJNc9KVIZE/default.jpg",
                 "version": 20
             },
             {
@@ -609,7 +609,7 @@ export default {
                 "ratingScore": 290,
                 "songType": "Original",
                 "status": "Approved",
-                "thumbUrl": "http://tn-skr3.smilevideo.jp/smile?i=15630734",
+                "thumbUrl": "https://tn-skr3.smilevideo.jp/smile?i=15630734",
                 "version": 24
             },
             {
@@ -645,7 +645,7 @@ export default {
                 "ratingScore": 250,
                 "songType": "Original",
                 "status": "Approved",
-                "thumbUrl": "http://tn-skr4.smilevideo.jp/smile?i=10759623",
+                "thumbUrl": "https://tn-skr4.smilevideo.jp/smile?i=10759623",
                 "version": 16
             },
             {
@@ -663,7 +663,7 @@ export default {
                 "ratingScore": 243,
                 "songType": "Original",
                 "status": "Approved",
-                "thumbUrl": "http://tn-skr1.smilevideo.jp/smile?i=2397344",
+                "thumbUrl": "https://tn-skr1.smilevideo.jp/smile?i=2397344",
                 "version": 28
             },
             {
@@ -681,7 +681,7 @@ export default {
                 "ratingScore": 238,
                 "songType": "Original",
                 "status": "Finished",
-                "thumbUrl": "http://tn-skr4.smilevideo.jp/smile?i=3504435",
+                "thumbUrl": "https://tn-skr4.smilevideo.jp/smile?i=3504435",
                 "version": 17
             }
         ]
