@@ -11,6 +11,7 @@ class AlbumCard extends React.PureComponent {
             style={styles.image}
             source={{ uri: this.props.image }}
             resizeMode='cover'
+            resizeMethod='resize'
         />)
     }
 
