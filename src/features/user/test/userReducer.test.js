@@ -8,7 +8,11 @@ describe('User reducer test state', () => {
 
     beforeEach(() => {
         state = {
-            followedArtists: []
+            followedArtists: [],
+            token: '',
+            skipSignIn: false,
+            userId: 0,
+            albums: []
         }
     });
 
@@ -68,7 +72,7 @@ describe('User reducer test state', () => {
         let nextState =reducer({}, actions.signInSuccess(token));
 
         // TODO Mock user id
-        expect(nextState).toEqual({ token, userId: 1062 });
+        expect(nextState).toEqual({ token, userId: 1065 });
     })
 
     it('Should remove token when sign out', () => {

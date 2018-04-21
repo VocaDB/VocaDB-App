@@ -1,5 +1,10 @@
 {
   "name": "VocaDB",
+  "jest": {
+    "preset": "react-native",
+    "verbose": true,
+    "moduleDirectories": ["node_modules", "src"]
+  },
   "description": "VocaDB app is a mobile version of vocadb.net",
   "version": "2.0.0",
   "private": false,
@@ -11,8 +16,9 @@
     "babel-core": "^6.26.0",
     "babel-plugin-root-import": "^5.1.0",
     "babel-preset-react-native-stage-0": "^1.0.1",
+    "jest": "^22.4.3",
+    "jest-cli": "^21.2.1",
     "flow-bin": "^0.59.0",
-    "jest-expo": "^22.0.0",
     "prop-types": "^15.6.0",
     "react-dom": "16.0.0-beta.5",
     "react-native-storybook-loader": "^1.7.0",
@@ -48,14 +54,10 @@
       "outputFile": "./storybook/storyLoader.js"
     }
   },
-  "jest": {
-    "preset": "jest-expo"
-  },
   "dependencies": {
     "axios": "^0.17.1",
+    "babel-jest": "^22.4.3",
     "deepmerge": "^2.1.0",
-    "jest": "^22.4.3",
-    "jest-cli": "^21.2.1",
     "lodash": "^4.17.5",
     "memory-cache": "^0.2.0",
     "moment": "^2.20.1",
