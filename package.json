@@ -10,11 +10,11 @@
     "@storybook/react-native": "^3.3.12",
     "babel-core": "^6.26.0",
     "babel-plugin-root-import": "^5.1.0",
+    "babel-preset-react-native-stage-0": "^1.0.1",
     "flow-bin": "^0.59.0",
     "jest-expo": "^22.0.0",
     "prop-types": "^15.6.0",
     "react-dom": "16.0.0-beta.5",
-    "react-native-scripts": "1.7.0",
     "react-native-storybook-loader": "^1.7.0",
     "react-test-renderer": "16.0.0-beta.5"
   },
@@ -30,12 +30,10 @@
   "bugs": {
     "url": "https://github.com/VocaDB/VocaDB-App/issues"
   },
-  "main": "./node_modules/react-native-scripts/build/bin/crna-entry.js",
   "scripts": {
-    "start": "react-native-scripts start",
-    "eject": "react-native-scripts eject",
-    "android": "react-native-scripts android",
-    "ios": "react-native-scripts ios",
+    "start": "react-native start",
+    "android": "react-native run-android",
+    "ios": "react-native run-ios",
     "test": "node node_modules/jest/bin/jest.js --watchAll",
     "flow": "flow",
     "storybook": "storybook start -p 7007",
@@ -56,7 +54,6 @@
   "dependencies": {
     "axios": "^0.17.1",
     "deepmerge": "^2.1.0",
-    "expo": "^22.0.2",
     "jest-cli": "^21.2.1",
     "lodash": "^4.17.5",
     "memory-cache": "^0.2.0",

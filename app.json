@@ -18,5 +18,7 @@
       "versionCode": 102025,
       "permissions": []
     }
-  }
+  },
+  "name": "VocaDB",
+  "displayName": "VocaDB"
 }
