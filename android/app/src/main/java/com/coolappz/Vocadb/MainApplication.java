@@ -1,4 +1,4 @@
-package com.vocadb;
+package com.coolappz.Vocadb;
 
 import android.app.Application;
 

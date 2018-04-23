@@ -1,4 +1,4 @@
-package com.vocadb;
+package com.coolappz.Vocadb;
 
 import com.facebook.react.ReactActivity;
 
