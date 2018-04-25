@@ -109,7 +109,7 @@ android {
     }
     signingConfigs {
         release {
-            storeFile file("$System.env.BITRISEIO_ANDROID_KEYSTORE_URL")
+            storeFile file("vocadb-release-key.keystore")
             storePassword "$System.env.BITRISEIO_ANDROID_KEYSTORE_PASSWORD"
             keyAlias "$System.env.BITRISEIO_ANDROID_KEYSTORE_ALIAS"
             keyPassword "$System.env.BITRISEIO_ANDROID_KEYSTORE_PRIVATE_KEY_PASSWORD"
