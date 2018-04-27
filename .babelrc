@@ -1,9 +1,22 @@
 {
-  "presets": ["babel-preset-expo"],
-  "plugins": [ [ "babel-plugin-root-import", [ { "rootPathSuffix": "src" } ] ] ],
+  "presets": [
+    "babel-preset-react-native-stage-0/decorator-support"
+  ],
+  "plugins": [
+    [
+      "babel-plugin-root-import",
+      [
+        {
+          "rootPathSuffix": "src"
+        }
+      ]
+    ]
+  ],
   "env": {
     "development": {
-      "plugins": ["transform-react-jsx-source"]
+      "plugins": [
+        "transform-react-jsx-source"
+      ]
     }
   }
 }

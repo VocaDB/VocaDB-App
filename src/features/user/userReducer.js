@@ -10,7 +10,7 @@ export const defaultState = {
     followedArtists: [],
     token: '',
     skipSignIn: false,
-    userId: mockUserId,
+    userId: 0,
     albums: []
 }
 

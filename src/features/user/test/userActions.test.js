@@ -1,4 +1,4 @@
-import { fetchCollection, updateCollection } from "../userActions";
+import { fetchAlbums, updateAlbums } from "../userActions";
 import * as mock from './../../../common/helper/mockGenerator'
 
 describe('Test song action', () => {
@@ -46,7 +46,7 @@ describe('Test song action', () => {
             ]
         }
 
-        const actualResult = updateCollection(mockResponse);
+        const actualResult = updateAlbums(mockResponse);
 
         expect(actualResult).toBeTruthy()
         expect(actualResult.payload).toEqual(expectedResult)
