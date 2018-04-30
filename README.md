@@ -64,3 +64,13 @@ See in `App.js` file.
 
 ### Config
 in *src/constants/config* you can switch **useMock** to **false** to fetch real data from VocaDB API instead of mock.
+
+## Assets
+
+Icon and splash images are inside *resources* directory.
+
+- Icon 1024x1024 px
+
+- Splash 2208x2208 px
+
+Generated with [React Native Toolbox](https://github.com/bamlab/generator-rn-toolbox)
