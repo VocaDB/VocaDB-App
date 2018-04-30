@@ -11,7 +11,7 @@ storiesOf('Components/Cover', module)
         <Cover />
     ))
     .add('with values', () => (
-        <Cover imageUri='http://tn-skr1.smilevideo.jp/smile?i=6666016'
+        <Cover imageUri='https://tn-skr1.smilevideo.jp/smile?i=6666016'
                title='ロミオとシンデレラ'
                subtitle='doriko feat. 初音ミク'
         />

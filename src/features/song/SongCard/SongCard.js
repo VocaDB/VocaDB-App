@@ -11,6 +11,7 @@ class SongCard extends React.PureComponent {
             style={styles.image}
             source={{ uri: this.props.image }}
             resizeMode='cover'
+            resizeMethod='resize'
         />)
     }
 
@@ -70,7 +71,7 @@ SongCard.propTypes = {
 SongCard.defaultProps = {
     name: 'Unknown',
     artist: 'Unknown',
-    image: 'http://via.placeholder.com/350x150/000000/ffffff?text=NO_IMAGE',
+    image: 'https://via.placeholder.com/350x150/000000/ffffff?text=NO_IMAGE',
     hideArtist: false,
     pvs: []
 };

@@ -8,6 +8,7 @@ import mockEvents from '../sample/events'
 import mockEvent from '../sample/event'
 import mockEntries from '../sample/entries'
 import mockTag from '../sample/tag'
+import { AsyncStorage } from 'react-native'
 
 const api = {
     songs: {
@@ -38,6 +39,13 @@ const api = {
     tags: {
         find: params => request(`/tags`, params),
         get: (id, params) => request(`/tags/${id}`, params, mockTag)
+    },
+    users: {
+        // Mock auth response
+        signIn: (username, password) => {
+            return new Promise((resolve, reject) => setTimeout(() => resolve({ token: 'abc'}), 3000))
+        },
+        albums: (id, params) => request(`/users/${id}/albums`, params, [])
     }
 }
 

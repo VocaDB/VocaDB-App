@@ -4,19 +4,19 @@ export default {
             "category": "Official",
             "description": "NND Account",
             "id": 55821,
-            "url": "http://www.nicovideo.jp/user/31764541"
+            "url": "https://www.nicovideo.jp/user/31764541"
         },
         {
             "category": "Official",
             "description": "Piapro",
             "id": 60123,
-            "url": "http://piapro.jp/Yunosuke41"
+            "url": "https://piapro.jp/Yunosuke41"
         },
         {
             "category": "Official",
             "description": "NND MyList",
             "id": 60124,
-            "url": "http://www.nicovideo.jp/mylist/38919429"
+            "url": "https://www.nicovideo.jp/mylist/38919429"
         },
         {
             "category": "Official",
@@ -40,7 +40,7 @@ export default {
             "category": "Official",
             "description": "Tumblr",
             "id": 87095,
-            "url": "http://yunosuke-official.tumblr.com/"
+            "url": "https://yunosuke-official.tumblr.com/"
         },
         {
             "category": "Official",
@@ -52,7 +52,7 @@ export default {
             "category": "Reference",
             "description": "UtaiteDB",
             "id": 97753,
-            "url": "http://utaitedb.net/Ar/16606"
+            "url": "https://utaitedb.net/Ar/16606"
         },
         {
             "category": "Official",
@@ -76,13 +76,13 @@ export default {
             "category": "Official",
             "description": "Bilibili",
             "id": 121319,
-            "url": "http://space.bilibili.com/25480353/#!/index"
+            "url": "https://space.bilibili.com/25480353/#!/index"
         },
         {
             "category": "Official",
             "description": "Weibo",
             "id": 121320,
-            "url": "http://www.weibo.com/u/5876832665?refer_flag=1005050010_&is_hot=1&noscale_head=1#_0"
+            "url": "https://www.weibo.com/u/5876832665?refer_flag=1005050010_&is_hot=1&noscale_head=1#_0"
         }
     ]
 }

@@ -38,7 +38,7 @@ const mapDispatchToProps = (dispatch, props) => ({
     onPressFavorite: song => dispatch(songActions.addFavoriteSong(song)),
     onPressUnfavorite: song => dispatch(songActions.removeFavoriteSong(song)),
     onPressShare: song => {
-        const url = 'http://vocadb.net/S/' + song.id
+        const url = 'https://vocadb.net/S/' + song.id
         Share.share({
             message: url,
             url: url,

@@ -9,7 +9,9 @@ class EventCard extends React.Component {
     render () {
         return (
             <TouchableOpacity onPress={this.props.onPress} style={[styles.container]}>
-                <Image style={[styles.coverImage]} source={{ uri: this.props.thumbnail }} />
+                <Image style={[styles.coverImage]} source={{ uri: this.props.thumbnail }}
+                       resizeMethod='resize'
+                />
                 <View style={[styles.infoContainer]}>
                     <Text style={Theme.subheadWhite}>{moment(this.props.date).format('dddd, MMMM Do YYYY')}</Text>
                     <Text style={Theme.headlineWhite}>{this.props.name}</Text>
@@ -28,7 +30,7 @@ EventCard.propTypes = {
 };
 
 EventCard.defaultProps = {
-    thumbnail: 'http://via.placeholder.com/350x150/000000/ffffff?text=EVENT'
+    thumbnail: 'https://via.placeholder.com/350x150/000000/ffffff?text=EVENT'
 };
 
 const styles =  StyleSheet.create({

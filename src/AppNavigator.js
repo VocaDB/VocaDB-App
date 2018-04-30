@@ -16,12 +16,15 @@ import FavoriteSongsPage from './features/song/FavoriteSongs'
 import AlbumFilterPage from './features/album/AlbumFilter'
 import ArtistFilterPage from './features/artist/ArtistFilter'
 import FavoriteAlbumsPage from './features/album/FavoriteAlbums'
+import SignInPage from './features/user/SignIn'
+import MyAlbumsPage from './features/user/MyAlbums'
 import { StackNavigator } from "react-navigation";
 import Theme from './theme'
 import Routes from './app/appRoutes'
+import config from './common/constants/config'
 
 
-export const INITIAL_ROUTE = Routes.Main
+export const INITIAL_ROUTE = (config.enableAuth)? Routes.SignIn : Routes.Main
 
 const AppNavigator = StackNavigator({
     Main: { screen: MainPage },
@@ -41,7 +44,9 @@ const AppNavigator = StackNavigator({
     FavoriteSongs: { screen: FavoriteSongsPage },
     AlbumFilter: { screen: AlbumFilterPage },
     ArtistFilter: { screen: ArtistFilterPage },
-    FavoriteAlbums: { screen: FavoriteAlbumsPage }
+    FavoriteAlbums: { screen: FavoriteAlbumsPage },
+    SignIn: { screen: SignInPage },
+    MyAlbums: { screen: MyAlbumsPage }
 }, {
     initialRouteName: INITIAL_ROUTE,
     navigationOptions: {

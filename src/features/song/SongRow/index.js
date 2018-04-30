@@ -11,6 +11,7 @@ class SongRow extends React.PureComponent {
         return (<Image
             style={styles.image}
             source={{ uri: this.props.image }}
+            resizeMethod='resize'
         />)
     }
 

@@ -2,9 +2,10 @@
   "expo": {
     "name": "VocaDB",
     "sdkVersion": "22.0.0",
-    "version": "0.0.1",
+    "version": "2.0-beta.4",
     "slug": "vocadb-app",
     "icon": "./resources/icon-v1.png",
+    "orientation": "portrait",
     "splash": {
       "backgroundColor": "#FFFFFF",
       "image": "./resources/splash.png"
@@ -13,8 +14,11 @@
       "bundleIdentifier": "com.vocadb.app"
     },
     "android": {
-      "package": "com.vocadb.app",
+      "package": "com.coolappz.Vocadb",
+      "versionCode": 102025,
       "permissions": []
     }
-  }
+  },
+  "name": "VocaDB",
+  "displayName": "VocaDB"
 }

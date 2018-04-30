@@ -47,7 +47,7 @@ export const recentSongs = [
         "ratingScore": 4,
         "songType": "Original",
         "status": "Approved",
-        "thumbUrl": "http://tn-skr1.smilevideo.jp/smile?i=30235332",
+        "thumbUrl": "https://tn-skr1.smilevideo.jp/smile?i=30235332",
         "version": 2
     },
     {
@@ -64,7 +64,7 @@ export const recentSongs = [
         "ratingScore": 2,
         "songType": "Original",
         "status": "Approved",
-        "thumbUrl": "http://tn-skr1.smilevideo.jp/smile?i=29571668",
+        "thumbUrl": "https://tn-skr1.smilevideo.jp/smile?i=29571668",
         "version": 2
     },
     {
@@ -81,7 +81,7 @@ export const recentSongs = [
         "ratingScore": 0,
         "songType": "Original",
         "status": "Approved",
-        "thumbUrl": "http://tn-skr2.smilevideo.jp/smile?i=13900325",
+        "thumbUrl": "https://tn-skr2.smilevideo.jp/smile?i=13900325",
         "version": 3
     },
     {
@@ -98,7 +98,7 @@ export const recentSongs = [
         "ratingScore": 2,
         "songType": "Original",
         "status": "Approved",
-        "thumbUrl": "http://tn-skr1.smilevideo.jp/smile?i=31765600",
+        "thumbUrl": "https://tn-skr1.smilevideo.jp/smile?i=31765600",
         "version": 3
     },
     {
@@ -115,7 +115,7 @@ export const recentSongs = [
         "ratingScore": 2,
         "songType": "Original",
         "status": "Approved",
-        "thumbUrl": "http://tn-skr3.smilevideo.jp/smile?i=31725038",
+        "thumbUrl": "https://tn-skr3.smilevideo.jp/smile?i=31725038",
         "version": 3
     },
     {
@@ -132,7 +132,7 @@ export const recentSongs = [
         "ratingScore": 0,
         "songType": "Original",
         "status": "Approved",
-        "thumbUrl": "http://tn-skr3.smilevideo.jp/smile?i=30670654",
+        "thumbUrl": "https://tn-skr3.smilevideo.jp/smile?i=30670654",
         "version": 2
     },
     {
@@ -149,7 +149,7 @@ export const recentSongs = [
         "ratingScore": 4,
         "songType": "Original",
         "status": "Approved",
-        "thumbUrl": "http://tn-skr4.smilevideo.jp/smile?i=30480731",
+        "thumbUrl": "https://tn-skr4.smilevideo.jp/smile?i=30480731",
         "version": 3
     },
     {
@@ -166,7 +166,7 @@ export const recentSongs = [
         "ratingScore": 0,
         "songType": "Original",
         "status": "Approved",
-        "thumbUrl": "http://tn-skr2.smilevideo.jp/smile?i=30198789",
+        "thumbUrl": "https://tn-skr2.smilevideo.jp/smile?i=30198789",
         "version": 3
     }
 ];
@@ -186,7 +186,7 @@ export const popularSongs = [
         "ratingScore": 292,
         "songType": "Original",
         "status": "Approved",
-        "thumbUrl": "http://tn-skr3.smilevideo.jp/smile?i=15630734",
+        "thumbUrl": "https://tn-skr3.smilevideo.jp/smile?i=15630734",
         "version": 25
     },
     {
@@ -220,7 +220,7 @@ export const popularSongs = [
         "ratingScore": 353,
         "songType": "Original",
         "status": "Approved",
-        "thumbUrl": "http://tn-skr4.smilevideo.jp/smile?i=9714351",
+        "thumbUrl": "https://tn-skr4.smilevideo.jp/smile?i=9714351",
         "version": 17
     },
     {
@@ -254,7 +254,7 @@ export const popularSongs = [
         "ratingScore": 325,
         "songType": "Original",
         "status": "Approved",
-        "thumbUrl": "http://i.ytimg.com/vi/PqJNc9KVIZE/default.jpg",
+        "thumbUrl": "https://i.ytimg.com/vi/PqJNc9KVIZE/default.jpg",
         "version": 20
     },
     {
@@ -271,7 +271,7 @@ export const popularSongs = [
         "ratingScore": 276,
         "songType": "Original",
         "status": "Approved",
-        "thumbUrl": "http://tn-skr3.smilevideo.jp/smile?i=20244918",
+        "thumbUrl": "https://tn-skr3.smilevideo.jp/smile?i=20244918",
         "version": 18
     },
     {
@@ -288,7 +288,7 @@ export const popularSongs = [
         "ratingScore": 280,
         "songType": "Original",
         "status": "Approved",
-        "thumbUrl": "http://tn-skr2.smilevideo.jp/smile?i=8089993",
+        "thumbUrl": "https://tn-skr2.smilevideo.jp/smile?i=8089993",
         "version": 26
     },
     {
@@ -305,7 +305,7 @@ export const popularSongs = [
         "ratingScore": 140,
         "songType": "Original",
         "status": "Approved",
-        "thumbUrl": "http://tn-skr4.smilevideo.jp/smile?i=17720979",
+        "thumbUrl": "https://tn-skr4.smilevideo.jp/smile?i=17720979",
         "version": 18
     },
     {

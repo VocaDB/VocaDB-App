@@ -4,7 +4,6 @@ import { AppRegistry, View } from 'react-native';
 import { getStorybookUI, configure } from '@storybook/react-native';
 import { loadStories } from './storyLoader'
 import { COLOR, ThemeProvider } from 'react-native-material-ui';
-import { Font } from 'expo';
 
 const uiTheme = {
     palette: {
@@ -33,27 +32,9 @@ class StorybookUIHMRRoot extends Component {
 
     constructor(props) {
         super(props)
-        this.state = {
-            fontLoaded: false
-        };
     }
-
-    async componentDidMount() {
-        await Font.loadAsync({
-            'Roboto': require('native-base/Fonts/Roboto.ttf'),
-            'Roboto_medium': require('native-base/Fonts/Roboto_medium.ttf'),
-        });
-
-        this.setState({ fontLoaded: true });
-    }
-
 
   render() {
-
-        if(!this.state.fontLoaded) {
-            return (<View />)
-        }
-
     return (
         <ThemeProvider uiTheme={uiTheme}>
             <StorybookUIRoot />

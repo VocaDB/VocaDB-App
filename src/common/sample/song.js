@@ -412,7 +412,7 @@ export default {
             "id": 3361,
             "source": "Project DIVA F 2nd, marvelangga and ElectricRaichu",
             "translationType": "Translation",
-            "url": "http://vocaloidlyrics.wikia.com/wiki/Romeo_and_Cinderella",
+            "url": "https://vocaloidlyrics.wikia.com/wiki/Romeo_and_Cinderella",
             "value": "Don't make my love your tragic Juliet\nTake me away...\n\nThat's how I feel\n\nTell Mom and Dad goodnight\nWish them sweet dreams, at least\nIt's bedtime for grownups\n\nChoking on captivating caramel\nEntwining my bare, bashful legs\nHow far can we venture tonight?\n\nBe gentle, don't bite\nI still dislike bitter tastes\nHaving been spoiled on Mom's homemade sweets\n\nWhen there's something you don't know\nIt's only natural to want to find out\nShow me everything\nAnd just for you, I'll show you mine too...\n\nI'm a Cinderella, yearning for you\nI'll come running in my school uniform\nOh magic, please stop the hands of time\nBefore the villain interferes\n\nI'm a Juliet who wants to run away\nBut don't call me by that name\nWe have to live happily ever after\nOtherwise where's the fun?\n\nTell me, will you choose life?\n\nI applied a little too much mascara\nBut I'll be a good girl when tomorrow comes\nSo please let me off the hook for now\n\nThe boundary line is just this black lace\nAnd there's no one to guard it today so,\nIf you cross it, how far are you going to go?\n\nEnough you bite me, enough to make me hurt\nI'm the one you fell in love with, right?\nBut papa doesn't seem to like you that much\n\nYou say you're holding out your hands for my sake\nBut isn't that a collar you're holding?\nJust take me away, oh my Romeo,\nFar enough away that they scold us\n\nThe bells are going to sound and\nCinderella has to leave her glass shoe\nObviously, you have to look for her quick\nOr she'll be haunted with nightmares\n\nDefinitely, even she did it like that--\nShe lied when she said she \"accidentally\" dropped it\nThat's right; same with me\nSince I want to be loved by you more\n\nLook, I am right here\n\nWon't you peek into my heart?\nSee how it brims with desires?\nI've got room for more, pack my heart until it's full\nUntil it fills up the place where you are\n\nBut what would be the point?\n\nThey say happiness comes in small packages\nIf something doesn't change\nYou're going to end up hating me\n\nBut Mom and Dad are the same as ever, they just want more\nYou're right, I should be honest\nThe axe I dropped was one of gold\n\nCinderella told one too many lives\nand got herself swallowed by the wolf\nIf something doesn't change\nHe's going to end up eating me too\n\nCome to my rescue, before it's too late!"
         }
     ],
@@ -442,8 +442,8 @@ export default {
             "pvId": "sm6666016",
             "service": "NicoNicoDouga",
             "pvType": "Original",
-            "thumbUrl": "http://tn-skr1.smilevideo.jp/smile?i=6666016",
-            "url": "http://www.nicovideo.jp/watch/sm6666016"
+            "thumbUrl": "https://tn-skr1.smilevideo.jp/smile?i=6666016",
+            "url": "https://www.nicovideo.jp/watch/sm6666016"
         },
         {
             "author": "KazearashiP",
@@ -455,7 +455,7 @@ export default {
             "service": "Youtube",
             "pvType": "Reprint",
             "thumbUrl": "https://i.ytimg.com/vi/rrCpDYC1P4s/default.jpg",
-            "url": "http://youtu.be/rrCpDYC1P4s"
+            "url": "https://youtu.be/rrCpDYC1P4s"
         },
         {
             "author": "TeamMikuHatsune",
@@ -467,7 +467,7 @@ export default {
             "service": "Youtube",
             "pvType": "Other",
             "thumbUrl": "https://i.ytimg.com/vi/0f3FZYM76M0/default.jpg",
-            "url": "http://youtu.be/0f3FZYM76M0"
+            "url": "https://youtu.be/0f3FZYM76M0"
         },
         {
             "author": "doriko Official YouTube Channel",
@@ -480,7 +480,7 @@ export default {
             "service": "Youtube",
             "pvType": "Original",
             "thumbUrl": "https://i.ytimg.com/vi/kp-plPYAPq8/default.jpg",
-            "url": "http://youtu.be/kp-plPYAPq8"
+            "url": "https://youtu.be/kp-plPYAPq8"
         },
         {
             "author": "Del Cross",
@@ -493,7 +493,7 @@ export default {
             "service": "Youtube",
             "pvType": "Other",
             "thumbUrl": "https://i.ytimg.com/vi/zY2fqvs2qbo/default.jpg",
-            "url": "http://youtu.be/zY2fqvs2qbo"
+            "url": "https://youtu.be/zY2fqvs2qbo"
         }
     ],
     "pvServices": "NicoNicoDouga, Youtube",
@@ -610,38 +610,38 @@ export default {
             }
         }
     ],
-    "thumbUrl": "http://tn-skr1.smilevideo.jp/smile?i=6666016",
+    "thumbUrl": "https://tn-skr1.smilevideo.jp/smile?i=6666016",
     "version": 15,
     "webLinks": [
         {
             "category": "Reference",
             "description": "MikuWiki",
             "id": 971,
-            "url": "http://www5.atwiki.jp/hmiku/pages/4804.html"
+            "url": "https://www5.atwiki.jp/hmiku/pages/4804.html"
         },
         {
             "category": "Reference",
             "description": "Vocaloid Wiki",
             "id": 4366,
-            "url": "http://vocaloid.wikia.com/wiki/Romeo_and_Cinderella"
+            "url": "https://vocaloid.wikia.com/wiki/Romeo_and_Cinderella"
         },
         {
             "category": "Reference",
             "description": "NicoNicoPedia",
             "id": 4367,
-            "url": "http://dic.nicovideo.jp/v/sm6666016"
+            "url": "https://dic.nicovideo.jp/v/sm6666016"
         },
         {
             "category": "Reference",
             "description": "UtaiteDB",
             "id": 19265,
-            "url": "http://utaitedb.net/S/1079"
+            "url": "https://utaitedb.net/S/1079"
         },
         {
             "category": "Official",
             "description": "Producer's Website",
             "id": 19266,
-            "url": "http://doriko.jp/download/romeo.html"
+            "url": "https://doriko.jp/download/romeo.html"
         }
     ]
 }

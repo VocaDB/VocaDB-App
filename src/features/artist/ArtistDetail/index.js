@@ -63,7 +63,7 @@ const mapDispatchToProps = (dispatch, props) => ({
     },
     onPressUnFollow: artist => dispatch(artistActions.unFollowArtist(artist)),
     onPressShare: artist => {
-        const url = 'http://vocadb.net/Ar/' + artist.id
+        const url = 'https://vocadb.net/Ar/' + artist.id
         Share.share({
             message: url,
             url: url,

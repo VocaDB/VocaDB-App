@@ -8,4 +8,4 @@ import CenterView from '../../../../components/CenterView/index'
 
 storiesOf('WebLink/WebLink', module)
     .addDecorator(getStory => <CenterView type='vertical'>{getStory()}</CenterView>)
-    .add('general', () => (<WebLink name='Vocaloid Wiki' url='http://vocaloid.wikia.com/wiki/Romeo_and_Cinderella' />));
+    .add('general', () => (<WebLink name='Vocaloid Wiki' url='https://vocaloid.wikia.com/wiki/Romeo_and_Cinderella' />));

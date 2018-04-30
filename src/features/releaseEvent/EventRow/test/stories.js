@@ -13,6 +13,6 @@ storiesOf('Event/EventRow', module)
         <EventRow
             name='"666" NUMBER TRIPLE SIX'
             onPress={action("Press event")}
-            thumbnail="http://static.vocadb.net/img/releaseeventseries/mainOrig/88.png?v=4"
+            thumbnail="https://static.vocadb.net/img/releaseeventseries/mainOrig/88.png?v=4"
         />
     ));

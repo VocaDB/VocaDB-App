@@ -11,6 +11,7 @@ class AlbumCard extends React.PureComponent {
             style={styles.image}
             source={{ uri: this.props.image }}
             resizeMode='cover'
+            resizeMethod='resize'
         />)
     }
 
@@ -58,7 +59,7 @@ AlbumCard.propTypes = {
 
 AlbumCard.defaultProps = {
     name: 'Unknown',
-    image: 'http://via.placeholder.com/350x150/000000/ffffff?text=NO_IMAGE'
+    image: 'https://via.placeholder.com/350x150/000000/ffffff?text=NO_IMAGE'
 };
 
 export default AlbumCard

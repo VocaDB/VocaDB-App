@@ -15,6 +15,7 @@ class AlbumRow extends React.PureComponent {
         return (<Image
             style={[this.styleSelected.image, { borderColor: '#d6d7da', borderWidth: 1 }]}
             source={{ uri: this.props.image }}
+            resizeMethod='resize'
         />)
     }
 

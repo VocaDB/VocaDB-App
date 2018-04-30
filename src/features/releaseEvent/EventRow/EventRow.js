@@ -10,7 +10,9 @@ class EventRow extends React.Component {
         return (
             <TouchableOpacity onPress={this.props.onPress} style={[{ height: 180, backgroundColor: 'black', justifyContent: 'flex-end', margin: 8 }]}>
                 <Image style={{ flex: 1, opacity: 0.57 }}
-                       source={{ uri: this.props.thumbnail }} >
+                       source={{ uri: this.props.thumbnail }}
+                       resizeMethod='resize'
+                >
 
                 </Image>
                 <View style={{ backgroundColor:'transparent', position: 'absolute', padding: 8 }}>
@@ -31,7 +33,7 @@ EventRow.propTypes = {
 };
 
 EventRow.defaultProps = {
-    thumbnail: 'http://via.placeholder.com/350x150/000000/ffffff?text=EVENT'
+    thumbnail: 'https://via.placeholder.com/350x150/000000/ffffff?text=EVENT'
 };
 
 const styles =  StyleSheet.create({

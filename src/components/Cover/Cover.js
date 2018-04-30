@@ -12,6 +12,7 @@ class Cover extends React.PureComponent {
                     style={{flex: 1, backgroundColor: '#FFFFFF', opacity: 0.57 }}
                     source={{ uri: this.props.imageUri }}
                     resizeMode='cover'
+                    resizeMethod='resize'
                     blurRadius={3}
                 />
                 <View style={{
@@ -25,6 +26,7 @@ class Cover extends React.PureComponent {
                     <Image style={{ width: 128, height: 128 }}
                            source={{ uri: this.props.imageUri }}
                            resizeMode='contain'
+                           resizeMethod='resize'
                     />
                     <Text style={[Theme.titleWhite, { paddingHorizontal: 8, textAlign: 'center' }]}>{this.props.title}</Text>
                     <Text style={[Theme.subheadWhite, { paddingHorizontal: 8, textAlign: 'center' }]} textAlign='center'>{this.props.subtitle}</Text>

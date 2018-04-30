@@ -6,6 +6,7 @@ export default {
     buttonActiveColor: COLOR.pink400,
     primaryColor: COLOR.indigo600,
     accentColor: COLOR.pink600,
+    error: [material.body1, { color: COLOR.red600 }],
     statusBarColor: COLOR.indigo800,
     rootBackgroundColor: COLOR.blueGrey100,
     contentBackgroundColor: COLOR.white,

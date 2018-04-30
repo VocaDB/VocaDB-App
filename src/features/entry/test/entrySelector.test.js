@@ -18,7 +18,7 @@ describe('Test entry selector', () => {
         entry1 = mockGenerator.CreateEntry('Song', { id: 1 })
         entry2 = mockGenerator.CreateEntry('Artist', { id: 2 })
         entry1.image = 'https://tn-skr1.smilevideo.jp/smile?i=6666016'
-        entry2.image = 'http://via.placeholder.com/350x150/000000/ffffff?text=NO_IMAGE'
+        entry2.image = 'https://via.placeholder.com/350x150/000000/ffffff?text=NO_IMAGE'
 
         entities = {
             entries: {

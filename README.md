@@ -8,13 +8,13 @@ New VocaDB app with React native.
 ## Download
 
 - [Playstore](https://play.google.com/store/apps/details?id=com.coolappz.Vocadb)
-- [Alpha/Beta](https://play.google.com/apps/testing/com.coolappz.Vocadb)
+- [Playstore (Alpha/Beta)](https://play.google.com/apps/testing/com.coolappz.Vocadb)
 
 ## Setup on local 
 
 ### Prerequisite
 - [NodeJS](https://nodejs.org/en/)
-- [Expo Client](https://expo.io) (Availiable on both [iOS](https://itunes.apple.com/app/apple-store/id982107779?ct=www&mt=8) and [Android](https://play.google.com/store/apps/details?id=host.exp.exponent&referrer=www))
+- [react-native-cli](https://www.npmjs.com/package/react-native-cli)
 - [Storybook](https://storybook.js.org) like a component dictionary.
 
 ### Install
@@ -40,38 +40,20 @@ $ npm run storybook
 
 ### Run App
 
-There was several ways to run app.
-
 #### iOS
 Mac OS Only. You must have Xcode installed first.
 
 ```shell
-$ npm run ios
+$ react-native run-ios
 ```
 
 #### Android
 
-I never tried this before but you can try if you have android emulator or with actual device.
 ```shell
-$ npm run android
+$ react-native run-android
 ```
 
-#### Default Expo
-
-```shell
-$ npm start
-```
-
-Now you can use Expo app to scan QR code that display in terminal (make sure you are in the same network with your PC)
-
-#### Expo XDE
-[Expo XDE](https://docs.expo.io/versions/latest/introduction/installation.html) is required.
-
-- Open Expo XDE
-- Open Project
-- Locate to VocaDB-App directory
-- Wait for building script
-- When done. You can sacn QR code from `Share` button via `Expo Client` from your phone.
+Getting started instruction is [here](https://facebook.github.io/react-native/docs/getting-started.html) 
 
 #### Using storybook
 
@@ -82,3 +64,13 @@ See in `App.js` file.
 
 ### Config
 in *src/constants/config* you can switch **useMock** to **false** to fetch real data from VocaDB API instead of mock.
+
+## Assets
+
+Icon and splash images are inside *resources* directory.
+
+- Icon 1024x1024 px
+
+- Splash 2208x2208 px
+
+Generated with [React Native Toolbox](https://github.com/bamlab/generator-rn-toolbox)
