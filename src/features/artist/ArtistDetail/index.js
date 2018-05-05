@@ -14,6 +14,7 @@ import {
 import { createSelector } from 'reselect';
 import { selectLoading } from './../../../app/appSelector'
 import { Share } from 'react-native'
+import Routes from './../../../app/appRoutes'
 
 ArtistDetail.navigationOptions = ({ navigation }) => {
 
@@ -75,9 +76,10 @@ const mapDispatchToProps = (dispatch, props) => ({
             dialogTitle: 'Share ' + artist.defaultName,
         })
     },
-    onPressSong: song => props.navigation.navigate('SongDetail', { id: song.id, title: song.defaultName }),
-    onPressAlbum: album => props.navigation.navigate('AlbumDetail', { id: album.id, title: album.name }),
-    onPressTag: tag => props.navigation.navigate('TagDetail', { id: tag.id, title: tag.name }),
+    onPressSong: song => props.navigation.navigate(Routes.SongDetail, { id: song.id, title: song.defaultName }),
+    onPressAlbum: album => props.navigation.navigate(Routes.AlbumDetail, { id: album.id, title: album.name }),
+    onPressTag: tag => props.navigation.navigate(Routes.TagDetail, { id: tag.id, title: tag.name }),
+    onPressEvent: event => props.navigation.navigate(Routes.EventDetail, { id: event.id, title: event.name }),
     onPressMoreLatestSongs: artist => props.navigation.navigate('SongList', {
         title: 'Latest songs of ' + artist.name,
         params: {

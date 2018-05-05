@@ -106,7 +106,7 @@ class ArtistDetailPage extends React.Component {
 
         const EventListPage = () => (
             <Content>
-                <EventList events={latestEvents} />
+                <EventList events={latestEvents} onPressItem={this.props.onPressEvent} />
             </Content>
         )
 
