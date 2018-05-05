@@ -92,8 +92,9 @@ export const selectFavoriteAlbums = () => createSelector(
 export const selectIsFavoriteAlbum = () => createSelector(
     selectAlbum(),
     selectFavoriteAlbumIds(),
-    (albumState, favoriteAlbumIds) => {
-        return (favoriteAlbumIds && favoriteAlbumIds.indexOf(albumState.detail) >=0)? true : false
+    selectAlbumDetailId(),
+    (albumState, favoriteAlbumIds, albumDetailId) => {
+        return (favoriteAlbumIds && favoriteAlbumIds.indexOf(albumDetailId) >=0)? true : false
     }
 )
 
