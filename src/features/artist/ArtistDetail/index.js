@@ -12,6 +12,7 @@ import {
     selectPopularAlbums,
     selectLatestEvents } from '../artistSelector'
 import { createSelector } from 'reselect';
+import { selectLoading } from './../../../app/appSelector'
 import { Share } from 'react-native'
 
 ArtistDetail.navigationOptions = ({ navigation }) => {
@@ -42,7 +43,8 @@ const artistDetailStateSelect = createSelector(
     selectLatestAlbums(),
     selectPopularAlbums(),
     selectLatestEvents(),
-    (followedArtistIds, artist, isFollowed, latestSongs, popularSongs, latestAlbums, popularAlbums, latestEvents) => {
+    selectLoading(),
+    (followedArtistIds, artist, isFollowed, latestSongs, popularSongs, latestAlbums, popularAlbums, latestEvents, loading) => {
         return {
             artist,
             followedArtistIds,
@@ -51,7 +53,8 @@ const artistDetailStateSelect = createSelector(
             popularSongs,
             latestAlbums,
             popularAlbums,
-            latestEvents
+            latestEvents,
+            loading
         }
     })
 

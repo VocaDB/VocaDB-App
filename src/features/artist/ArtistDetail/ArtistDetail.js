@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text } from 'react-native'
+import { View, Text, ActivityIndicator } from 'react-native'
 import images from '../../../common/assets/images'
 import Icon from '../../../components/Icon/index'
 import Theme from '../../../theme'
@@ -32,6 +32,14 @@ class ArtistDetailPage extends React.Component {
 
     render () {
         const artist = this.props.artist
+
+        if(this.props.loading) {
+            return (
+                <View style={{ flex: 1 }}>
+                    <ActivityIndicator size="large" color="#0000ff" />
+                </View>
+            )
+        }
 
         if(!artist || !this.state.shouldRender) {
             return (<View></View>)
