@@ -8,7 +8,7 @@ const images = {
     iconSoundcloud: require('./img/icon_soundcloud.png'),
     iconNicoNicoDouga: require('./img/icon_niconicodouga.jpg'),
     getArtistUri: id => 'https://vocadb.net/Artist/Picture/' + id,
-    getAlbumUri: id => 'https://vocadb.net/Album/CoverPicture/' + id
+    getAlbumUri: id => `https://static.vocadb.net/img/album/mainSmall/${id}.jpg`
 };
 
 export default images;

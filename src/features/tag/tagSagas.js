@@ -17,19 +17,24 @@ const fetchTagDetail = function* fetchLatestTags() {
             call(api.getTopAlbumsByTag, tagId),
         ])
 
-        yield put(actions.fetchTagDetailSuccess(detailResponse));
+        if(!detailResponse) {
+            yield put(appActions.requestError(new Error("No response from server")));
+            return;
+        }
 
         if(topSongs && topSongs.items) {
-            yield put(actions.fetchTopSongsByTagSuccess(topSongs.items));
+            detailResponse.topSongs = topSongs.items;
         }
 
         if(topArtists && topArtists.items) {
-            yield put(actions.fetchTopArtistsByTagSuccess(topArtists.items));
+            detailResponse.topArtists = topArtists.items;
         }
 
         if(topAlbums && topAlbums.items) {
-            yield put(actions.fetchTopAlbumsByTagSuccess(topAlbums.items));
+            detailResponse.topAlbums = topAlbums.items;
         }
+
+        yield put(actions.fetchTagDetailSuccess(detailResponse));
 
     } catch (e) {
         yield put(appActions.requestError(e));

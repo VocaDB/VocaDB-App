@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text } from 'react-native'
+import { View, Text, ActivityIndicator } from 'react-native'
 import images from '../../../common/assets/images'
 import Icon from '../../../components/Icon/index'
 import Theme from '../../../theme'
@@ -19,23 +19,38 @@ import { SongRowList } from './../../song/songHOC'
 
 class ArtistDetailPage extends React.Component {
 
+    state = {
+        shouldRender: false
+    }
+
     componentDidMount () {
         const { params } = this.props.navigation.state;
         this.props.fetchArtist(params.id)
+
+        setTimeout(() => { this.setState({ shouldRender: true }) }, 0)
     }
 
     render () {
         const artist = this.props.artist
+
+        if(this.props.loading) {
+            return (
+                <View style={{ flex: 1 }}>
+                    <ActivityIndicator size="large" color="#0000ff" />
+                </View>
+            )
+        }
+
+        if(!artist || !this.state.shouldRender) {
+            return (<View></View>)
+        }
+
         const { params } = this.props.navigation.state;
         const imageUri = images.getArtistUri(params.id)
         const { latestSongs, popularSongs, latestAlbums, popularAlbums, latestEvents } = this.props;
         const hasAlbum = (latestAlbums && latestAlbums.length > 0) || (popularAlbums && popularAlbums.length > 0)
         const hasSong = (latestSongs && latestSongs.length > 0) || (popularSongs && popularSongs.length > 0)
         const hasEvent = (latestEvents && latestEvents.length > 0)
-
-        if(!artist) {
-            return (<View></View>)
-        }
 
         const Section = props => (<View style={[{ marginVertical: 8, paddingHorizontal: 4 },props.style]}>{props.children}</View>)
 
@@ -69,8 +84,8 @@ class ArtistDetailPage extends React.Component {
             </Section>
         )
 
-        const InfoPage = () => (
-            <Content>
+        const renderInfoPage = (
+            <Content tabLabel='Info'>
                 <Cover
                     imageUri={imageUri}
                     title={artist.name}
@@ -91,13 +106,13 @@ class ArtistDetailPage extends React.Component {
 
         const EventListPage = () => (
             <Content>
-                <EventList events={latestEvents} />
+                <EventList events={latestEvents} onPressItem={this.props.onPressEvent} />
             </Content>
         )
 
         return (
             <ScrollableTabView>
-                <InfoPage tabLabel='Info' />
+                {renderInfoPage}
                 {latestSongs && latestSongs.length > 0 && <SongRowList tabLabel='Songs' data={latestSongs} onPressItem={this.props.onPressSong} />}
                 {hasAlbum && <AlbumGridView tabLabel='Albums' albums={latestAlbums} onPressItem={this.props.onPressAlbum} />}
                 {hasEvent && <EventListPage tabLabel='Events' />}

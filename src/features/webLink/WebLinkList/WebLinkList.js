@@ -22,7 +22,7 @@ class WebLinkList extends React.Component {
 
         return (
             <View>
-                <Text style={[Theme.subhead, { paddingHorizontal: 8 }]}>{this.props.title}</Text>
+                {this.props.title && <Text style={[Theme.subhead, { paddingHorizontal: 8 }]}>{this.props.title}</Text>}
                 {webLinks.map(renderItem)}
             </View>
         )
@@ -36,7 +36,6 @@ WebLinkList.propTypes = {
 }
 
 WebLinkList.defaultProps = {
-    title: 'Web links',
     webLinks: []
 }
 

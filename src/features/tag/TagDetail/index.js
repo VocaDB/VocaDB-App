@@ -11,6 +11,7 @@ import {
     selectTagDetailLatestSongs
 } from '../tagSelector'
 import { selectLoading } from '../../../app/appSelector'
+import Routes from './../../../app/appRoutes'
 
 TagDetail.navigationOptions = ({ navigation }) => {
 
@@ -33,9 +34,10 @@ const tagStateSelect = createSelector(
 
 const mapDispatchToProps = (dispatch, props) => ({
     fetchTag: id => dispatch(actions.fetchTagDetail(id)),
-    onPressSong: song => props.navigation.navigate('SongDetail', { id: song.id, title: song.defaultName }),
-    onPressArtist: artist => props.navigation.navigate('ArtistDetail', { id: artist.id, title: artist.name }),
-    onPressAlbum: album => props.navigation.navigate('AlbumDetail', { id: album.id, title: album.name }),
+    onPressSong: song => props.navigation.navigate(Routes.SongDetail, { id: song.id, title: song.defaultName }),
+    onPressArtist: artist => props.navigation.navigate(Routes.ArtistDetail, { id: artist.id, title: artist.name }),
+    onPressAlbum: album => props.navigation.navigate(Routes.AlbumDetail, { id: album.id, title: album.name }),
+    onPressTag: tag => props.navigation.navigate(Routes.TagDetail, { id: tag.id, title: tag.name }),
 })
 
 export default connect(tagStateSelect, mapDispatchToProps)(TagDetail)
