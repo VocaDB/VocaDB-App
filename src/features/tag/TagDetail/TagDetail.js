@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, View } from 'react-native'
+import { Text, View, ActivityIndicator } from 'react-native'
 import Content from '../../../components/Content/index'
 import ScrollableTabView from 'react-native-scrollable-tab-view'
 import { SongRowList } from './../../song/songHOC'
@@ -22,6 +22,14 @@ class TagDetail extends React.Component {
     render () {
 
         const { tag, topSongs, topArtists, topAlbums } = this.props;
+
+        if(!topSongs.length && !topArtists.length && !topAlbums.length) {
+            return (
+                <View style={{ flex: 1 }}>
+                    <ActivityIndicator size="large" color="#0000ff" />
+                </View>
+            )
+        }
 
         const About = () => (
             <Content>
