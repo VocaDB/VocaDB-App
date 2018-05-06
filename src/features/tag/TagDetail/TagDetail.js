@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, View, ActivityIndicator } from 'react-native'
+import { Text, View, ActivityIndicator, Image } from 'react-native'
 import Content from '../../../components/Content/index'
 import ScrollableTabView from 'react-native-scrollable-tab-view'
 import { SongRowList } from './../../song/songHOC'
@@ -8,8 +8,13 @@ import AlbumGridView from './../../album/AlbumGridView'
 import ArtistList from './../../artist/ArtistList'
 import WebLinkList from '../../webLink/WebLinkList'
 import Theme from '../../../theme'
+import Tag from './../Tag'
 
 class TagDetail extends React.Component {
+
+    state = {
+        shouldRender: false
+    }
 
     componentDidMount () {
         const { params } = this.props.navigation.state
@@ -17,11 +22,17 @@ class TagDetail extends React.Component {
             const tagId = params.id
             this.props.fetchTag(tagId)
         }
+
+        setTimeout(() => { this.setState({ shouldRender: true }) }, 0)
     }
 
     render () {
 
         const { tag, topSongs, topArtists, topAlbums } = this.props;
+
+        if(!this.state.shouldRender) {
+            return (<View></View>)
+        }
 
         if(!topSongs.length && !topArtists.length && !topAlbums.length) {
             return (
@@ -31,11 +42,72 @@ class TagDetail extends React.Component {
             )
         }
 
+        const RenderOrNull = props => {
+            if(props.shouldRender) {
+                return (
+                    <View style={{ padding: 8 }}>
+                        {props.children}
+                    </View>
+                )
+            }
+
+            return null;
+        }
+
+        const SectionHeader = props => (<Text style={[Theme.subhead, { marginVertical: 8 }]}>{props.text}</Text>)
+
+        const parentTag = tag.parent;
+        const urlThumb = (tag && tag.mainPicture && tag.mainPicture.urlSmallThumb) ? tag.mainPicture.urlSmallThumb : null;
+
         const About = () => (
             <Content>
-                <View style={{ padding: 4 }}>
-                    <Text style={Theme.caption}>Category : {tag && tag.categoryName}</Text>
-                </View>
+                <RenderOrNull shouldRender={urlThumb}>
+                    <View style={{ height: 120, justifyContent: 'center' }}>
+                        <Image
+                            style={{ flex: 1, margin: 24 }}
+                            source={{ uri: urlThumb }}
+                            resizeMode='contain'
+                        />
+                    </View>
+                </RenderOrNull>
+                <RenderOrNull shouldRender={(tag && tag.description)}>
+                    <SectionHeader text='Description' />
+                    <Text style={Theme.body} selectable>{tag.description}</Text>
+                </RenderOrNull>
+                <RenderOrNull shouldRender={(tag && tag.categoryName)}>
+                    <SectionHeader text='Category' />
+                    <Text style={Theme.body} selectable>{tag.categoryName}</Text>
+                </RenderOrNull>
+                <RenderOrNull shouldRender={parentTag}>
+                    <SectionHeader text='Parent' />
+                    <View style={{ flexDirection: 'row', flexWrap: 'wrap', alignItems: 'flex-start' }}>
+                        {parentTag && <Tag
+                            key={parentTag.id}
+                            name={parentTag.name}
+                            style={{ margin: 4 }}
+                            onPress={() => this.props.onPressTag(parentTag)}/>}
+                    </View>
+                </RenderOrNull>
+                <RenderOrNull shouldRender={(tag && tag.relatedTags && tag.relatedTags.length)}>
+                    <SectionHeader text='Related tags' />
+                    <View style={{ flexDirection: 'row', flexWrap: 'wrap', alignItems: 'flex-start' }}>
+                        { tag.relatedTags.map(t => {
+                            return <Tag
+                                key={t.id}
+                                name={t.name}
+                                style={{ margin: 4 }}
+                                onPress={() => this.props.onPressTag(t)}/>
+                        })}
+                    </View>
+                </RenderOrNull>
+                <RenderOrNull shouldRender={(tag && tag.webLinks && tag.webLinks.length)}>
+                    <SectionHeader text='Related links' />
+                    <WebLinkList webLinks={tag.webLinks} />
+                </RenderOrNull>
+                <RenderOrNull shouldRender={(tag && tag.createDate)}>
+                    <SectionHeader text='Addition date' />
+                    <Text style={Theme.body} selectable>{tag.createDate}</Text>
+                </RenderOrNull>
             </Content>
         )
 
