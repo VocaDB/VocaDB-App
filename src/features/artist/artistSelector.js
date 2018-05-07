@@ -102,7 +102,8 @@ export const selectFollowedArtists = () => createSelector(
 export const selectIsFollowedArtist = () => createSelector(
     selectArtist(),
     selectFollowedArtistIds(),
-    (artistState, followedArtistIds) => {
-        return (followedArtistIds && followedArtistIds.indexOf(artistState.detail) >=0)? true : false
+    selectArtistDetailId(),
+    (artistState, followedArtistIds, artistDetailId) => {
+        return (followedArtistIds && followedArtistIds.indexOf(artistDetailId) >=0)? true : false
     }
 )

@@ -11,17 +11,23 @@ import moment from 'moment'
 
 class EventDetail extends React.Component {
 
+    state = {
+        shouldRender: false
+    }
+
     componentDidMount () {
         const { params } = this.props.navigation.state
         if(params) {
             this.props.fetchEvent(params.id)
         }
+
+        setTimeout(() => { this.setState({ shouldRender: true }) }, 0)
     }
 
     render () {
         const event = this.props.event
 
-        if(!event) {
+        if(!event || !this.state.shouldRender) {
             return (<View></View>)
         }
 
@@ -41,8 +47,8 @@ class EventDetail extends React.Component {
 
         const officialLink = webLinks.find(webLink => webLink.category === 'Official')
 
-        const InfoPage = () => (
-            <Content>
+        const renderInfoPage = (
+            <Content tabLabel='Info'>
                 <View style={{ height: 240, justifyContent: 'center' }}>
                     <Image
                         style={{ flex: 1, margin: 24 }}
@@ -77,12 +83,12 @@ class EventDetail extends React.Component {
         const hasAlbum = (this.props.albums && this.props.albums.length)? true : false
 
         if(!hasSong && !hasAlbum) {
-            return <InfoPage />
+            return renderInfoPage
         }
 
         return (
             <ScrollableTabView>
-                <InfoPage tabLabel='Info' />
+                {renderInfoPage}
                 {hasSong && <SongListPage tabLabel={`Songs (${this.props.songs.length})`} />}
                 {hasAlbum && <AlbumListPage tabLabel={`Albums (${this.props.albums.length})`} />}
             </ScrollableTabView>

@@ -14,16 +14,23 @@ import TrackList from '../../track/TrackList/index'
 import Divider from '../../../components/Divider/index'
 
 class AlbumDetail extends React.Component {
+
+    state = {
+        shouldRender: false
+    }
+
     componentDidMount () {
         const { params } = this.props.navigation.state;
         this.props.fetchAlbum(params.id)
+
+        setTimeout(() => { this.setState({ shouldRender: true }) }, 0)
     }
 
     render () {
 
         const album = this.props.album
 
-        if(!album) {
+        if(!album || !this.state.shouldRender) {
             return (<View></View>)
         }
 
@@ -61,28 +68,6 @@ class AlbumDetail extends React.Component {
             </Section>
         )
 
-        const InfoPage = () => (
-            <Content>
-                <Cover
-                    imageUri={imageUri}
-                    title={album.name}
-                    subtitle={album.artistString}
-                    subtitle2={(album && album.releaseDate && album.releaseDate.formatted)? album.releaseDate.formatted : ''}
-                />
-                <Section style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around' }}>
-                    {!this.props.isFavoriteAlbum && <Icon name='md-heart' text='Follow' onPress={() => this.props.onPressAddFavorite(album)} />}
-                    {this.props.isFavoriteAlbum && <Icon name='md-heart' text='Follow' color={Theme.buttonActiveColor} onPress={() => this.props.onPressRemoveFavorite(album)} />}
-                    <Icon name='md-share' text='Share' onPress={() => this.props.onPressShare(album)} />
-                </Section>
-
-                {album.tags && album.tags.length > 0 && renderTagGroup()}
-                {album.description && renderDescription()}
-                {album.tracks && album.tracks.length > 0 && renderTracks()}
-                {album.webLinks && album.webLinks.length > 0 && renderWebLinks()}
-
-            </Content>
-        )
-
         const ArtistRoleListPage = () => (
             <Content>
                 <ArtistRoleList artists={album.artists} onPressItem={this.props.onPressArtist} />
@@ -97,7 +82,25 @@ class AlbumDetail extends React.Component {
 
         return (
             <ScrollableTabView>
-                <InfoPage tabLabel='Info' />
+                <Content tabLabel='Info'>
+                    <Cover
+                        imageUri={imageUri}
+                        title={album.name}
+                        subtitle={album.artistString}
+                        subtitle2={(album && album.releaseDate && album.releaseDate.formatted)? album.releaseDate.formatted : ''}
+                    />
+                    <Section style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around' }}>
+                        {!this.props.isFavoriteAlbum && <Icon name='md-heart' text='Follow' onPress={() => this.props.onPressAddFavorite(album)} />}
+                        {this.props.isFavoriteAlbum && <Icon name='md-heart' text='Follow' color={Theme.buttonActiveColor} onPress={() => this.props.onPressRemoveFavorite(album)} />}
+                        <Icon name='md-share' text='Share' onPress={() => this.props.onPressShare(album)} />
+                    </Section>
+
+                    {album.tags && album.tags.length > 0 && renderTagGroup()}
+                    {album.description && renderDescription()}
+                    {album.tracks && album.tracks.length > 0 && renderTracks()}
+                    {album.webLinks && album.webLinks.length > 0 && renderWebLinks()}
+
+                </Content>
                 <ArtistRoleListPage tabLabel='Artists' />
                 {album.releaseEvents && album.releaseEvents.length > 0 && <EventListPage tabLabel='Events' />}
             </ScrollableTabView>

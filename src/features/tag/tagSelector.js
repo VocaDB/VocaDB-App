@@ -41,21 +41,21 @@ export const selectTagDetail = () => createSelector(
 )
 
 export const selectTopSongs = () => createSelector(
-    selectTopSongIds(),
+    selectTagDetail(),
     selectSongEntity(),
-    convertSongIds
+    (tagDetail, songEntity) => (tagDetail && tagDetail.topSongs)? convertSongIds(tagDetail.topSongs, songEntity) : []
 )
 
 export const selectTopArtists = () => createSelector(
-    selectTopArtistIds(),
+    selectTagDetail(),
     selectArtistEntity(),
-    convertArtistIds
+    (tagDetail, artistEntity) => (tagDetail && tagDetail.topArtists)? convertArtistIds(tagDetail.topArtists, artistEntity) : []
 )
 
 export const selectTopAlbums = () => createSelector(
-    selectTopAlbumIds(),
+    selectTagDetail(),
     selectAlbumEntity(),
-    convertAlbumIds
+    (tagDetail, albumEntity) => (tagDetail && tagDetail.topAlbums)? convertAlbumIds(tagDetail.topAlbums, albumEntity) : []
 )
 
 export const selectTagDetailLatestSongs = () => createSelector(
