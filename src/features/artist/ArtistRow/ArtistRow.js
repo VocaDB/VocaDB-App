@@ -15,6 +15,10 @@ class Artist extends React.Component {
                 source={{uri: images.getArtistUri(this.props.id)}}
                 onPress={() => console.log("Works!")}
                 activeOpacity={0.7}
+                imageProps={{
+                    resizeMode: 'contain',
+                    resizeMethod: 'resize'
+                }}
             />
         )
     }
