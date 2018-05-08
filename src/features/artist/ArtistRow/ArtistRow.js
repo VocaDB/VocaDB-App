@@ -13,7 +13,7 @@ class Artist extends React.Component {
                 medium
                 rounded
                 source={{uri: images.getArtistUri(this.props.id)}}
-                onPress={() => console.log("Works!")}
+                onPress={this.props.onPress}
                 activeOpacity={0.7}
                 imageProps={{
                     resizeMode: 'contain',
@@ -42,6 +42,10 @@ class Artist extends React.Component {
                         source={{uri: this.props.image}}
                         onPress={this.props.onPress}
                         activeOpacity={0.7}
+                        imageProps={{
+                            resizeMode: 'contain',
+                            resizeMethod: 'resize'
+                        }}
                     />
                 </View>
             )
