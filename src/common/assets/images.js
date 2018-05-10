@@ -7,7 +7,7 @@ const images = {
     iconYoutube: require('./img/icon_youtube.png'),
     iconSoundcloud: require('./img/icon_soundcloud.png'),
     iconNicoNicoDouga: require('./img/icon_niconicodouga.jpg'),
-    getArtistUri: id => 'https://vocadb.net/Artist/Picture/' + id,
+    getArtistUri: id => `https://static.vocadb.net/img/artist/mainSmall/${id}.jpg`,
     getAlbumUri: id => `https://static.vocadb.net/img/album/mainSmall/${id}.jpg`
 };
 

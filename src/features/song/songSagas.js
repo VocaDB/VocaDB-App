@@ -6,10 +6,12 @@ import * as artistActions from '../artist/artistActions'
 import api from './songApi'
 import { selectFollowedArtistIds } from './../artist/artistSelector'
 import { selectSearchParams, selectRankingState } from './songSelector'
+import { selectDisplayLanguage } from './../user/userSelector'
 
 const fetchHighlighted = function* fetchHighlighted() {
     try {
-        const response = yield call(api.highlighted);
+        const displayLanguage = select(selectDisplayLanguage())
+        const response = yield call(api.highlighted, { languagePreference: displayLanguage });
         yield put(actions.fetchHighlightedSuccess(response));
     } catch (e) {
         yield put(appActions.requestError(e));
