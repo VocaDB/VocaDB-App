@@ -11,7 +11,10 @@ export const defaultState = {
     token: '',
     skipSignIn: false,
     userId: 0,
-    albums: []
+    albums: [],
+    settings: {
+        displayLanguage: 'Default'
+    }
 }
 
 const reducer = createReducer({
