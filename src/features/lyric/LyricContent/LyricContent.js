@@ -7,7 +7,7 @@ class LyricContent extends React.Component {
     render () {
         return (
             <View>
-                <Text style={Theme.body}>{this.props.content}</Text>
+                <Text selectable style={Theme.body}>{this.props.content}</Text>
             </View>
         )
     }
