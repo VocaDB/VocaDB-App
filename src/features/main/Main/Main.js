@@ -36,6 +36,7 @@ export default class Main extends React.PureComponent {
             { icon: 'ios-disc', text: 'Collections', onPress: this.props.onPressMenuFavoriteAlbums },
             { icon: 'ios-people', text: 'Followed artists', onPress: this.props.onPressMenuFollowArtists },
             { icon: 'ios-globe', text: 'VocaDB website', onPress: () => openLink('https://vocadb.net') },
+            { icon: 'ios-settings', text: 'Settings', onPress: this.props.onPressMenuSettings },
             { icon: 'logo-github', text: 'About', onPress: () => openLink('https://github.com/VocaDB/VocaDB-App') },
             { icon: 'ios-log-out', text: 'Sign out', onPress: this.props.onPressSignOut, onlyMember: true }
         ];
