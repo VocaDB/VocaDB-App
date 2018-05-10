@@ -10,7 +10,7 @@ import { selectDisplayLanguage } from './../user/userSelector'
 
 const fetchHighlighted = function* fetchHighlighted() {
     try {
-        const displayLanguage = select(selectDisplayLanguage())
+        const displayLanguage = yield select(selectDisplayLanguage())
         const response = yield call(api.highlighted, { languagePreference: displayLanguage });
         yield put(actions.fetchHighlightedSuccess(response));
     } catch (e) {
