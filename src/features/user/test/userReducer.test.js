@@ -85,4 +85,23 @@ describe('User reducer test state', () => {
         expect(nextState).toEqual({ skipSignIn: true });
     })
 
+    it('Should update settings', () => {
+
+        let settings = { displayLanguage: 'English' }
+
+        let nextState = reducer({}, actions.updateSettings(settings));
+        expect(nextState).toEqual({ settings: settings });
+
+        settings.displayLanguage = 'Default';
+        nextState = reducer(nextState, actions.updateSettings(settings));
+        expect(nextState).toEqual({ settings: settings });
+
+        settings.allowPushNotifications = true;
+        nextState = reducer(nextState, actions.updateSettings(settings));
+        expect(nextState).toEqual({ settings: settings });
+
+        settings.allowPushNotifications = false;
+        nextState = reducer(nextState, actions.updateSettings(settings));
+        expect(nextState).toEqual({ settings: settings });
+    })
 })
