@@ -21,8 +21,9 @@ const fetchHighlighted = function* fetchHighlighted() {
 const fetchSearchSongs = function* fetchSearchSongs() {
     try {
         const params = yield select(selectSearchParams())
+        const displayLanguage = yield select(selectDisplayLanguage())
         yield call(delay, 500)
-        const response = yield call(api.find, params);
+        const response = yield call(api.find, { ...params, lang: displayLanguage });
         let append = (params && params.start) ? true : false
         yield put(actions.fetchSearchSongsSuccess(response.items, append));
     } catch (e) {
@@ -43,11 +44,12 @@ const fetchFollowedSongs = function* fetchFollowedSongs() {
     try {
 
         const artistIds = yield select(selectFollowedArtistIds())
+        const displayLanguage = yield select(selectDisplayLanguage())
 
         let results = []
 
         if(artistIds && artistIds.length) {
-            const response = yield call(api.getFollowedSongs, artistIds);
+            const response = yield call(api.getFollowedSongs, artistIds, { lang: displayLanguage });
             results = response.items;
         }
 
@@ -62,7 +64,8 @@ const fetchSongDetail = function* fetchLatestSongs(action) {
     try {
 
         if(action.payload && action.payload.id) {
-            const response = yield call(api.getSong, action.payload.id);
+            const displayLanguage = yield select(selectDisplayLanguage())
+            const response = yield call(api.getSong, action.payload.id, { lang: displayLanguage });
             yield put(actions.fetchSongDetailSuccess(response));
         } else {
             yield put(appActions.requestError(new Error("id is undefined")));
@@ -76,6 +79,7 @@ const fetchRanking = function* fetchRanking() {
     try {
 
         const rankingState = yield select(selectRankingState())
+        const displayLanguage = yield select(selectDisplayLanguage())
 
         if(!rankingState) {
             return;
@@ -84,7 +88,8 @@ const fetchRanking = function* fetchRanking() {
         const response = yield call(api.getTopRated, {
             durationHours: (rankingState.durationHours === 0)? null : rankingState.durationHours,
             filterBy: rankingState.filterBy,
-            vocalist: (rankingState.vocalist === 'All')? null : rankingState.vocalist
+            vocalist: (rankingState.vocalist === 'All')? null : rankingState.vocalist,
+            languagePreference: displayLanguage
         });
 
         yield put(actions.updateRankingResult(response));
