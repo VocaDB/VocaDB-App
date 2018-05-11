@@ -3,15 +3,16 @@ import { dateAfterToday, yesterday } from './../../common/utilities/dateUtils'
 
 const releaseEventApi = {
     find: params => api.events.find({ ...params, 'nameMatchMode': 'auto' }),
-    getRecentReleaseEvents: () => api.events.find({
+    getRecentReleaseEvents: params => api.events.find({
+        ...params,
         'sort': 'Date',
         'fields': 'MainPicture',
         'afterDate': yesterday(),
         'beforeDate': dateAfterToday(30)
     }),
-    getReleaseEvent: id => api.events.get(id),
-    getPublishedSongs: id => api.events.getPublishedSongs(id, { fields: 'ThumbUrl' }),
-    getAlbums: id => api.events.getAlbums(id, { fields: 'MainPicture' })
+    getReleaseEvent: (id, params) => api.events.get(id, params),
+    getPublishedSongs: (id, params) => api.events.getPublishedSongs(id, { ...params, fields: 'ThumbUrl' }),
+    getAlbums: (id, params) => api.events.getAlbums(id, { ...params, fields: 'MainPicture' })
 }
 
 export default releaseEventApi

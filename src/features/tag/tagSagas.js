@@ -3,18 +3,20 @@ import * as actions from './tagActions'
 import * as appActions from '../../app/appActions'
 import api from './tagApi'
 import { selectTagDetailId } from './tagSelector'
+import { selectDisplayLanguage } from './../user/userSelector'
 
 const fetchTagDetail = function* fetchLatestTags() {
     try {
+        const displayLanguage = yield select(selectDisplayLanguage())
         const tagId = yield select(selectTagDetailId());
 
         if(!tagId) return;
 
         const [detailResponse, topSongs, topArtists, topAlbums] = yield all([
-            call(api.getTag, tagId),
-            call(api.getTopSongsByTag, tagId),
-            call(api.getTopArtistsByTag, tagId),
-            call(api.getTopAlbumsByTag, tagId),
+            call(api.getTag, tagId, { lang: displayLanguage }),
+            call(api.getTopSongsByTag, tagId, { lang: displayLanguage }),
+            call(api.getTopArtistsByTag, tagId, { lang: displayLanguage }),
+            call(api.getTopAlbumsByTag, tagId, { lang: displayLanguage }),
         ])
 
         if(!detailResponse) {
@@ -74,7 +76,8 @@ const searchTags = function* searchTags(action) {
 
         if(!params) return;
 
-        const response = yield call(api.find, params);
+        const displayLanguage = yield select(selectDisplayLanguage())
+        const response = yield call(api.find, { ...params, lang: displayLanguage });
 
         if(params.start) {
             yield put(actions.appendTagsSearchResult(response.items));

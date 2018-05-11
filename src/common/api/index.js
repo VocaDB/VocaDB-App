@@ -18,8 +18,8 @@ const api = {
         get: (id, params) => request(`/songs/${id}`, params, mockSong)
     },
     albums: {
-        newAlbum: () => request('/albums/new', {}, mockAlbums),
-        top: () => request('/albums/top', {}, mockAlbums),
+        newAlbum: params => request('/albums/new', params, mockAlbums),
+        top: params => request('/albums/top', params, mockAlbums),
         find: params => request('/albums', params, mockAlbums),
         get: (id, params) => request(`/albums/${id}`, params, mockAlbum)
     },
