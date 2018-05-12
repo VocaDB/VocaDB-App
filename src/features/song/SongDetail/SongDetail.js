@@ -14,6 +14,22 @@ import Theme from '../../../theme'
 import AlbumHorizontalList  from '../../album/AlbumHorizontalList'
 import moment from 'moment'
 
+
+const toMSS = function (sec_num) {
+
+    if(!sec_num) {
+        return '0';
+    }
+    
+    var hours   = Math.floor(sec_num / 3600);
+    var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
+    var seconds = sec_num - (hours * 3600) - (minutes * 60);
+
+    if (minutes < 10) {minutes = minutes;}
+    if (seconds < 10) {seconds = "0"+seconds;}
+    return minutes+':'+seconds;
+}
+
 class SongDetail extends React.PureComponent {
 
     state = {
@@ -69,6 +85,29 @@ class SongDetail extends React.PureComponent {
             </Section>
         )
 
+        const renderAdditionalInfo = () => (
+            <Section style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around', padding: 8, backgroundColor: '#2C486E' }}>
+                <View style={{ alignItems: 'center'}}>
+                    <View style={{ padding: 4 }}>
+                        <Text style={Theme.boxValue}>{song.songType}</Text>
+                    </View>
+                    <Text style={Theme.boxTitle}>Type</Text>
+                </View>
+                <View style={{ alignItems: 'center'}}>
+                    <View  style={{ padding: 4 }}>
+                        <Text style={Theme.boxValue}>{song.ratingScore}</Text>
+                    </View>
+                    <Text style={Theme.boxTitle}>Rating score</Text>
+                </View>
+                <View style={{ alignItems: 'center'}}>
+                    <View  style={{ padding: 4 }}>
+                        <Text style={Theme.boxValue}>{toMSS(song.lengthSeconds)}</Text>
+                    </View>
+                    <Text style={Theme.boxTitle}>Duration</Text>
+                </View>
+            </Section>
+        )
+
         const renderActionGroup = () => (
             <Section style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around' }}>
                 {!this.props.isFavoriteSong && <Icon name='md-heart' text='Favorite' onPress={() => this.props.onPressFavorite(song)} />}
@@ -99,9 +138,13 @@ class SongDetail extends React.PureComponent {
                         subtitle2={(song && song.publishDate)? moment(song.publishDate).format('MM/DD/YYYY') : '' }
                     />
 
+
+                    {renderAdditionalInfo()}
+
                     {renderActionGroup()}
 
                     {song.tags && song.tags.length > 0 && renderTagGroup()}
+
                     {song.pvs && song.pvs.length > 0 && renderPVList()}
                     {song.albums && song.albums.length > 0 && renderAlbumList()}
                     {song.webLinks && song.webLinks.length > 0 && renderWebLinkList()}
