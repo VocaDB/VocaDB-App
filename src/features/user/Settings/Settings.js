@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { View, Text, ScrollView, Platform } from 'react-native'
 import {SettingsDividerShort, SettingsDividerLong, SettingsEditText, SettingsCategoryHeader, SettingsSwitch, SettingsPicker} from 'react-native-settings-components'
+import Theme from './../../../theme'
 
 class Settings extends React.PureComponent {
     constructor() {
@@ -19,20 +20,23 @@ class Settings extends React.PureComponent {
 
                 <SettingsPicker
                     title="Display language"
-                    dialogDescription={'Display language.'}
+                    dialogDescription={'Preferred display language.'}
                     possibleValues={[
-                        {label: 'Default', value: 'Default'},
+                        {label: 'Original', value: ''},
+                        {label: 'Non-English', value: 'Default'},
                         {label: 'Japanese', value: 'Japanese'},
-                        {label: 'Romanji', value: 'Romanji'},
+                        {label: 'Romaji', value: 'Romaji'},
                         {label: 'English', value: 'English'}
                     ]}
+                    valuePlaceholder='Original'
                     negativeButtonTitle='Cancel'
                     positiveButtonTitle='Save'
                     onSaveValue={displayLanguage => {
                         this.props.onSettingsChanged({ displayLanguage })
                     }}
                     value={settings.displayLanguage}
-                    styleModalButtonsText={{color: colors.monza}}
+                    modalButtonsTitleNegativeStyle={{ color: '#000000', opacity: 0.75 }}
+                    modalButtonsTitlePositiveStyle={{ color: Theme.primaryColor }}
                 />
 
             </ScrollView>
