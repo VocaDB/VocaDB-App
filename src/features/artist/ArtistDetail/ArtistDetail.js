@@ -46,7 +46,6 @@ class ArtistDetailPage extends React.Component {
         }
 
         const { params } = this.props.navigation.state;
-        const imageUri = images.getArtistUri(params.id)
         const { latestSongs, popularSongs, latestAlbums, popularAlbums, latestEvents } = this.props;
         const hasAlbum = (latestAlbums && latestAlbums.length > 0) || (popularAlbums && popularAlbums.length > 0)
         const hasSong = (latestSongs && latestSongs.length > 0) || (popularSongs && popularSongs.length > 0)
@@ -87,7 +86,7 @@ class ArtistDetailPage extends React.Component {
         const renderInfoPage = (
             <Content tabLabel='Info'>
                 <Cover
-                    imageUri={imageUri}
+                    imageUri={artist.image}
                     title={artist.name}
                     subtitle={artist.artistType}
                 />

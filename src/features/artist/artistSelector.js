@@ -6,13 +6,21 @@ import { convertSongIds, selectSongEntity } from './../song/songSelector'
 import { convertAlbumIds, selectAlbumEntity } from './../album/albumSelector'
 import { convertEventIds, selectReleaseEventEntity } from './../releaseEvent/releaseEventSelector'
 
+export const transformArtist = (artist) => {
+    if(!artist) {
+        return {}
+    }
+
+    return {
+        ...artist,
+        image: (artist.mainPicture && artist.mainPicture.urlThumb) ? artist.mainPicture.urlThumb : image.getArtistUri(artist.id)
+    }
+}
+
 export const convertArtistIds = (artistIds, artistEntity) => (artistIds)? artistIds
     .filter(id => (id != undefined && artistEntity[id.toString()]))
     .map(id => artistEntity[id.toString()])
-    .map(entry => ({
-        ...entry,
-        image: (entry.mainPicture && entry.mainPicture.urlThumb) ? entry.mainPicture.urlThumb : image.getArtistUri(entry.id)
-    })) : []
+    .map(transformArtist) : []
 
 export const selectArtist = () => state => state.artist
 export const selectArtistEntity = () => state => (state.entities && state.entities.artists)? state.entities.artists : {}
@@ -44,7 +52,7 @@ export const selectSearchResult = () => createSelector(
 export const selectArtistDetail = () => createSelector(
     selectArtistDetailId(),
     selectArtistEntity(),
-    (artistDetailId, artistEntity) => artistEntity[artistDetailId.toString()]
+    (artistDetailId, artistEntity) => transformArtist(artistEntity[artistDetailId.toString()])
 )
 
 export const selectRelations = () => createSelector(
