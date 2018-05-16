@@ -15,6 +15,9 @@ export const CreateSong = (config = {}) => ({
     webLinks: [],
     tags: [],
     lyrics: [],
+    favoritedTimes: 50,
+    lengthSeconds: 280,
+    ratingScore: 260,
     publishDate: (config.publishDate) ? config.publishDate : '2011-10-30T01:07:43',
     thumbUrl: 'https://tn-skr1.smilevideo.jp/smile?i=6666016'
 })

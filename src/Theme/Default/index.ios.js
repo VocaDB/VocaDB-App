@@ -18,4 +18,6 @@ export default {
     titleWhite: human.title3White,
     headlineWhite: human.headlineWhite,
     subheadWhite: human.subheadWhite,
+    boxTitle: [human.caption1White],
+    boxValue: [human.bodyWhite]
 }
