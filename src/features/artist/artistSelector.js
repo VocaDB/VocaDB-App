@@ -20,7 +20,10 @@ export const transformArtist = (artist) => {
 export const convertArtistIds = (artistIds, artistEntity) => (artistIds)? artistIds
     .filter(id => (id != undefined && artistEntity[id.toString()]))
     .map(id => artistEntity[id.toString()])
-    .map(transformArtist) : []
+    .map(entry => ({
+        ...entry,
+        image: (entry.mainPicture && entry.mainPicture.urlThumb) ? entry.mainPicture.urlThumb : image.getArtistUri(entry.id, entry.pictureMime)
+    })) : []
 
 export const selectArtist = () => state => state.artist
 export const selectArtistEntity = () => state => (state.entities && state.entities.artists)? state.entities.artists : {}

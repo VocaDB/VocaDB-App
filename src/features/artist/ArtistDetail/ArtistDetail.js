@@ -46,6 +46,7 @@ class ArtistDetailPage extends React.Component {
         }
 
         const { params } = this.props.navigation.state;
+        const imageUri = (artist.image)? artist.iamge : images.getArtistUri(artist.id, artist.pictureMime)
         const { latestSongs, popularSongs, latestAlbums, popularAlbums, latestEvents } = this.props;
         const hasAlbum = (latestAlbums && latestAlbums.length > 0) || (popularAlbums && popularAlbums.length > 0)
         const hasSong = (latestSongs && latestSongs.length > 0) || (popularSongs && popularSongs.length > 0)
