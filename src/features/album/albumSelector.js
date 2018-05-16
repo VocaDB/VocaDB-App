@@ -6,7 +6,7 @@ import image from './../../common/assets/images'
 
 export const convertAlbum = (entry) => ({
     ...entry,
-    image: (entry.mainPicture && entry.mainPicture.urlThumb) ? entry.mainPicture.urlThumb : image.getAlbumUri(entry.id)
+    image: (entry.mainPicture && entry.mainPicture.urlThumb) ? entry.mainPicture.urlThumb : image.getAlbumUri(entry.id, entry.coverPictureMime)
 })
 
 export const convertAlbumIds = (entryIds, entryEntity) => (entryIds) ? entryIds

@@ -11,7 +11,7 @@ export const convertArtistIds = (artistIds, artistEntity) => (artistIds)? artist
     .map(id => artistEntity[id.toString()])
     .map(entry => ({
         ...entry,
-        image: (entry.mainPicture && entry.mainPicture.urlThumb) ? entry.mainPicture.urlThumb : image.getArtistUri(entry.id)
+        image: (entry.mainPicture && entry.mainPicture.urlThumb) ? entry.mainPicture.urlThumb : image.getArtistUri(entry.id, entry.pictureMime)
     })) : []
 
 export const selectArtist = () => state => state.artist

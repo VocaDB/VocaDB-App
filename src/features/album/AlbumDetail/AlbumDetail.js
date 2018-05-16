@@ -35,7 +35,7 @@ class AlbumDetail extends React.Component {
         }
 
         const { params } = this.props.navigation.state;
-        const imageUri = images.getAlbumUri(params.id)
+        const imageUri = (album.image)? album.image : images.getAlbumUri(params.id, album.coverPictureMime)
 
         const Section = props => (<View style={[{ marginVertical: 8, paddingHorizontal: 4 },props.style]}>{props.children}</View>)
 
