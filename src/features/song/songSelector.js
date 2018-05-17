@@ -106,6 +106,20 @@ export const selectSongDetail = () => createSelector(
     }
 )
 
+export const selectOriginalSong = () => createSelector(
+    selectSongDetail(),
+    selectSongEntity(),
+    (songDetail, songEntity) => {
+        if(!songEntity || !songDetail || !songDetail.originalVersionId ) {
+            return null
+        }
+
+        let originalSong = songEntity[songDetail.originalVersionId];
+
+        return (originalSong)? originalSong : null;
+    }
+)
+
 export const selectAlbums = () => createSelector(
     selectSongDetail(),
     selectAlbumEntity(),

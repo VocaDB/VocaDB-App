@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import SongDetailPage from './SongDetail'
 import { createSelector } from 'reselect';
 import * as songActions from '../songActions'
-import { selectSongDetail, selectIsFavoriteSong, selectAlbums } from '../songSelector'
+import { selectSongDetail, selectIsFavoriteSong, selectAlbums, selectOriginalSong } from '../songSelector'
 import Routes from './../../../app/appRoutes'
 import { songDetailUrl } from './../../../common/constants/config'
 
@@ -31,7 +31,8 @@ const songDetailStateSelect = createSelector(
     selectSongDetail(),
     selectIsFavoriteSong(),
     selectAlbums(),
-    (song, isFavoriteSong, albums) => ({ song, isFavoriteSong, albums })
+    selectOriginalSong(),
+    (song, isFavoriteSong, albums, originalSong) => ({ song, isFavoriteSong, albums, originalSong })
 );
 
 const mapDispatchToProps = (dispatch, props) => ({
@@ -57,6 +58,7 @@ const mapDispatchToProps = (dispatch, props) => ({
     onPressArtist: artist => props.navigation.navigate(Routes.ArtistDetail, { id: artist.id, title: artist.name }),
     onPressAlbum: album => props.navigation.navigate(Routes.AlbumDetail, { id: album.id, title: album.name }),
     onPressTag: tag => props.navigation.navigate(Routes.TagDetail, { id: tag.id, title: tag.name }),
+    onPressSong: song => props.navigation.navigate(Routes.SongDetail, { id: song.id, title: song.defaultName }),
 })
 
 export default connect(songDetailStateSelect, mapDispatchToProps)(SongDetailPage)
