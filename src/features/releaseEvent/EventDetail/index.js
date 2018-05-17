@@ -7,6 +7,7 @@ import { selectReleaseEventDetail, selectPublishedSongs, selectAlbums } from '..
 import { selectLoading } from '../../../app/appSelector'
 import { Linking } from 'react-native'
 import Routes from './../../../app/appRoutes'
+import { releaseEventDetailUrl } from './../../../common/constants/config'
 
 EventDetail.navigationOptions = ({ navigation }) => {
 
@@ -33,6 +34,12 @@ const mapDispatchToProps = (dispatch, props) => ({
     onPressWebsite: url => Linking.openURL(url).catch(err => console.error('An error occurred', err)),
     onPressSong: song => props.navigation.navigate(Routes.SongDetail, { id: song.id, title: song.defaultName }),
     onPressAlbum: album => props.navigation.navigate(Routes.AlbumDetail, { id: album.id, title: album.name }),
+    onPressToVocaDB: releaseEvent => {
+        if(!releaseEvent || !releaseEvent.id) {
+            return;
+        }
+        Linking.openURL(releaseEventDetailUrl(releaseEvent.id)).catch(err => console.error('An error occurred', err))
+    }
 })
 
 export default connect(tagStateSelect, mapDispatchToProps)(EventDetail)

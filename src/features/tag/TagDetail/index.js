@@ -12,6 +12,8 @@ import {
 } from '../tagSelector'
 import { selectLoading } from '../../../app/appSelector'
 import Routes from './../../../app/appRoutes'
+import { tagDetailUrl } from './../../../common/constants/config'
+import { Linking } from 'react-native'
 
 TagDetail.navigationOptions = ({ navigation }) => {
 
@@ -38,6 +40,12 @@ const mapDispatchToProps = (dispatch, props) => ({
     onPressArtist: artist => props.navigation.navigate(Routes.ArtistDetail, { id: artist.id, title: artist.name }),
     onPressAlbum: album => props.navigation.navigate(Routes.AlbumDetail, { id: album.id, title: album.name }),
     onPressTag: tag => props.navigation.navigate(Routes.TagDetail, { id: tag.id, title: tag.name }),
+    onPressToVocaDB: tag => {
+        if(!tag || !tag.id) {
+            return;
+        }
+        Linking.openURL(tagDetailUrl(tag.id)).catch(err => console.error('An error occurred', err))
+    }
 })
 
 export default connect(tagStateSelect, mapDispatchToProps)(TagDetail)
