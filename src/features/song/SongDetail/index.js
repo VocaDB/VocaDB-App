@@ -1,11 +1,12 @@
 import React from 'react'
-import { Share } from 'react-native'
+import { Share, Linking } from 'react-native'
 import { connect } from 'react-redux'
 import SongDetailPage from './SongDetail'
 import { createSelector } from 'reselect';
 import * as songActions from '../songActions'
 import { selectSongDetail, selectIsFavoriteSong, selectAlbums } from '../songSelector'
 import Routes from './../../../app/appRoutes'
+import { songDetailUrl } from './../../../common/constants/config'
 
 SongDetailPage.navigationOptions = ({ navigation }) => {
 
@@ -46,6 +47,12 @@ const mapDispatchToProps = (dispatch, props) => ({
         },{
             dialogTitle: 'Share ' + song.defaultName,
         })
+    },
+    onPressToVocaDB: song => {
+        if(!song || !song.id) {
+            return;
+        }
+        Linking.openURL(songDetailUrl(song.id)).catch(err => console.error('An error occurred', err))
     },
     onPressArtist: artist => props.navigation.navigate(Routes.ArtistDetail, { id: artist.id, title: artist.name }),
     onPressAlbum: album => props.navigation.navigate(Routes.AlbumDetail, { id: album.id, title: album.name }),
