@@ -8,6 +8,7 @@ function loadStories() {
   require('../src/components/Cover/test/stories');
   require('../src/components/Divider/test/stories');
   require('../src/components/Empty/test/stories');
+  require('../src/components/Expander/test/stories');
   require('../src/components/Icon/test/stories');
   require('../src/components/Info/test/stories');
   require('../src/components/MenuItem/test/stories');
@@ -70,6 +71,7 @@ const stories = [
   '../src/components/Cover/test/stories',
   '../src/components/Divider/test/stories',
   '../src/components/Empty/test/stories',
+  '../src/components/Expander/test/stories',
   '../src/components/Icon/test/stories',
   '../src/components/Info/test/stories',
   '../src/components/MenuItem/test/stories',
