@@ -93,6 +93,7 @@ class AlbumDetail extends React.Component {
                         {!this.props.isFavoriteAlbum && <Icon name='md-heart' text='Follow' onPress={() => this.props.onPressAddFavorite(album)} />}
                         {this.props.isFavoriteAlbum && <Icon name='md-heart' text='Follow' color={Theme.buttonActiveColor} onPress={() => this.props.onPressRemoveFavorite(album)} />}
                         <Icon name='md-share' text='Share' onPress={() => this.props.onPressShare(album)} />
+                        <Icon name='md-globe' text='VocaDB' onPress={() => this.props.onPressToVocaDB(album)} />
                     </Section>
 
                     {album.tags && album.tags.length > 0 && renderTagGroup()}

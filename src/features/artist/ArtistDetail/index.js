@@ -13,8 +13,9 @@ import {
     selectLatestEvents } from '../artistSelector'
 import { createSelector } from 'reselect';
 import { selectLoading } from './../../../app/appSelector'
-import { Share } from 'react-native'
+import { Share, Linking } from 'react-native'
 import Routes from './../../../app/appRoutes'
+import { artistDetailUrl } from './../../../common/constants/config'
 
 ArtistDetail.navigationOptions = ({ navigation }) => {
 
@@ -75,6 +76,12 @@ const mapDispatchToProps = (dispatch, props) => ({
         },{
             dialogTitle: 'Share ' + artist.defaultName,
         })
+    },
+    onPressToVocaDB: artist => {
+        if(!artist || !artist.id) {
+            return;
+        }
+        Linking.openURL(artistDetailUrl(artist.id)).catch(err => console.error('An error occurred', err))
     },
     onPressSong: song => props.navigation.navigate(Routes.SongDetail, { id: song.id, title: song.defaultName }),
     onPressAlbum: album => props.navigation.navigate(Routes.AlbumDetail, { id: album.id, title: album.name }),

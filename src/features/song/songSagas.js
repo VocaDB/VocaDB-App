@@ -66,7 +66,15 @@ const fetchSongDetail = function* fetchLatestSongs(action) {
         if(action.payload && action.payload.id) {
             const displayLanguage = yield select(selectDisplayLanguage())
             const response = yield call(api.getSong, action.payload.id, { lang: displayLanguage });
+
             yield put(actions.fetchSongDetailSuccess(response));
+
+            if(response.originalVersionId) {
+                const originalSong = yield call(api.getSong, response.originalVersionId, { lang: displayLanguage });
+                yield put(actions.fetchSongDetailSuccess(originalSong));
+            }
+
+
         } else {
             yield put(appActions.requestError(new Error("id is undefined")));
         }

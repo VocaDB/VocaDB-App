@@ -95,6 +95,7 @@ class ArtistDetailPage extends React.Component {
                     {!this.props.followed && <Icon name='md-heart' text='Follow' onPress={() => this.props.onPressFollow(artist)} />}
                     {this.props.followed && <Icon name='md-heart' text='Followed' color={Theme.buttonActiveColor} onPress={() => this.props.onPressUnFollow(artist)} />}
                     <Icon name='md-share' text='Share' onPress={() => this.props.onPressShare(artist)} />
+                    <Icon name='md-globe' text='VocaDB' onPress={() => this.props.onPressToVocaDB(artist)} />
                 </Section>
                 {artist.tags != undefined && renderTagGroup()}
                 {popularSongs && popularSongs.length > 0 && renderPopularSongs()}

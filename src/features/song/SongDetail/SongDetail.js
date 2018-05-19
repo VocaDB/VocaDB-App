@@ -13,6 +13,7 @@ import Divider from '../../../components/Divider/index'
 import Theme from '../../../theme'
 import AlbumHorizontalList  from '../../album/AlbumHorizontalList'
 import moment from 'moment'
+import SongRow from './../SongRow'
 
 
 const toMSS = function (sec_num) {
@@ -113,6 +114,7 @@ class SongDetail extends React.PureComponent {
                 {!this.props.isFavoriteSong && <Icon name='md-heart' text='Favorite' onPress={() => this.props.onPressFavorite(song)} />}
                 {this.props.isFavoriteSong && <Icon name='md-heart' text='Favorite' color={Theme.buttonActiveColor} onPress={() => this.props.onPressUnfavorite(song)} />}
                 <Icon name='md-share' text='Share' onPress={() => this.props.onPressShare(song)} />
+                <Icon name='md-globe' text='VocaDB' onPress={() => this.props.onPressToVocaDB(song)} />
             </Section>
         )
 
@@ -128,9 +130,30 @@ class SongDetail extends React.PureComponent {
             </ScrollView>
         )
 
+        const renderOriginalVersion = () => {
+            if(!this.props.originalSong) {
+                return null;
+            }
+
+            let originalSong = this.props.originalSong;
+
+            return (
+                <Section>
+                    <Text style={[Theme.subhead, { padding: 8 } ]}>Original version</Text>
+                    <SongRow key={originalSong.id}
+                             image={originalSong.thumbUrl}
+                             name={originalSong.defaultName}
+                             artist={originalSong.artistString}
+                             dateTime={originalSong.createDate}
+                             pvServices={(originalSong.pvServices)? originalSong.pvServices.split(',').map(pvService => pvService.trim()) : []}
+                             onPress={() => this.props.onPressSong(originalSong)} />
+                </Section>
+            )
+        }
+
         return (
             <ScrollableTabView>
-                <ScrollView style={{ flex: 1, backgroundColor: 'white' }} tabLabel="Info" >
+                <ScrollView style={{ flex: 1, backgroundColor: 'white', paddingBottom: 18 }} tabLabel="Info" >
                     <Cover
                         imageUri={song.thumbUrl}
                         title={song.defaultName}
@@ -146,6 +169,7 @@ class SongDetail extends React.PureComponent {
                     {song.tags && song.tags.length > 0 && renderTagGroup()}
 
                     {song.pvs && song.pvs.length > 0 && renderPVList()}
+                    {renderOriginalVersion()}
                     {song.albums && song.albums.length > 0 && renderAlbumList()}
                     {song.webLinks && song.webLinks.length > 0 && renderWebLinkList()}
 
