@@ -57,7 +57,7 @@ const mapDispatchToProps = (dispatch, props) => ({
         }
         Linking.openURL(albumDetailUrl(album.id)).catch(err => console.error('An error occurred', err))
     },
-    onPressTrack: track => props.navigation.navigate(Routes.SongDetail, { id: track.song.id, title: track.song.defaultName }),
+    onPressTrack: track => props.navigation.navigate(Routes.SongDetail, { id: track.song.id, title: track.song.name }),
     onPressArtist: artist => props.navigation.navigate(Routes.ArtistDetail, { id: artist.id, title: artist.name }),
     onPressTag: tag => props.navigation.navigate(Routes.TagDetail, { id: tag.id, title: tag.name }),
 })

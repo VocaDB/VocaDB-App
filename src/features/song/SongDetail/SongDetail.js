@@ -159,7 +159,7 @@ class SongDetail extends React.PureComponent {
                     <Text style={[Theme.subhead, { padding: 8 } ]}>Original version</Text>
                     <SongRow key={originalSong.id}
                              image={originalSong.thumbUrl}
-                             name={originalSong.defaultName}
+                             name={originalSong.name}
                              artist={originalSong.artistString}
                              dateTime={originalSong.createDate}
                              pvServices={(originalSong.pvServices)? originalSong.pvServices.split(',').map(pvService => pvService.trim()) : []}

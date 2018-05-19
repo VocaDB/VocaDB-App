@@ -41,7 +41,7 @@ const mapDispatchToProps = (dispatch, props) => ({
         dispatch(actions.saveRecentSearch(entry))
 
         if(entry.entryType === 'Song') {
-            props.navigation.navigate(Routes.SongDetail, { id: entry.id, title: entry.defaultName })
+            props.navigation.navigate(Routes.SongDetail, { id: entry.id, title: entry.name })
         } else if(entry.entryType === 'Artist') {
             props.navigation.navigate(Routes.ArtistDetail, { id: entry.id, title: entry.name })
         } else if(entry.entryType === 'Album') {

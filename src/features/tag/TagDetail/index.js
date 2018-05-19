@@ -36,7 +36,7 @@ const tagStateSelect = createSelector(
 
 const mapDispatchToProps = (dispatch, props) => ({
     fetchTag: id => dispatch(actions.fetchTagDetail(id)),
-    onPressSong: song => props.navigation.navigate(Routes.SongDetail, { id: song.id, title: song.defaultName }),
+    onPressSong: song => props.navigation.navigate(Routes.SongDetail, { id: song.id, title: song.name }),
     onPressArtist: artist => props.navigation.navigate(Routes.ArtistDetail, { id: artist.id, title: artist.name }),
     onPressAlbum: album => props.navigation.navigate(Routes.AlbumDetail, { id: album.id, title: album.name }),
     onPressTag: tag => props.navigation.navigate(Routes.TagDetail, { id: tag.id, title: tag.name }),

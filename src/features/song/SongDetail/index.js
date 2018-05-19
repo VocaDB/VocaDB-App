@@ -44,9 +44,9 @@ const mapDispatchToProps = (dispatch, props) => ({
         Share.share({
             message: url,
             url: url,
-            title: song.defaultName,
+            title: song.name,
         },{
-            dialogTitle: 'Share ' + song.defaultName,
+            dialogTitle: 'Share ' + song.name,
         })
     },
     onPressToVocaDB: song => {
@@ -58,7 +58,7 @@ const mapDispatchToProps = (dispatch, props) => ({
     onPressArtist: artist => props.navigation.navigate(Routes.ArtistDetail, { id: artist.id, title: artist.name }),
     onPressAlbum: album => props.navigation.navigate(Routes.AlbumDetail, { id: album.id, title: album.name }),
     onPressTag: tag => props.navigation.navigate(Routes.TagDetail, { id: tag.id, title: tag.name }),
-    onPressSong: song => props.navigation.navigate(Routes.SongDetail, { id: song.id, title: song.defaultName }),
+    onPressSong: song => props.navigation.navigate(Routes.SongDetail, { id: song.id, title: song.name }),
 })
 
 export default connect(songDetailStateSelect, mapDispatchToProps)(SongDetailPage)

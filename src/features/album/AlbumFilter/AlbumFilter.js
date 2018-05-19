@@ -45,7 +45,7 @@ class AlbumFilter extends React.PureComponent {
                         <ArtistRow
                             key={a.id}
                             id={a.id}
-                            name={a.defaultName}
+                            name={a.name}
                             rightIcon='ios-close'
                             onRightElementPress={() => this.props.onFilterChanged({ artistId: [ a.id ] }, true)} />)}
                 </View>

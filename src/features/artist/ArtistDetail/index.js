@@ -72,9 +72,9 @@ const mapDispatchToProps = (dispatch, props) => ({
         Share.share({
             message: url,
             url: url,
-            title: artist.defaultName,
+            title: artist.name,
         },{
-            dialogTitle: 'Share ' + artist.defaultName,
+            dialogTitle: 'Share ' + artist.name,
         })
     },
     onPressToVocaDB: artist => {
@@ -83,7 +83,7 @@ const mapDispatchToProps = (dispatch, props) => ({
         }
         Linking.openURL(artistDetailUrl(artist.id)).catch(err => console.error('An error occurred', err))
     },
-    onPressSong: song => props.navigation.navigate(Routes.SongDetail, { id: song.id, title: song.defaultName }),
+    onPressSong: song => props.navigation.navigate(Routes.SongDetail, { id: song.id, title: song.name }),
     onPressAlbum: album => props.navigation.navigate(Routes.AlbumDetail, { id: album.id, title: album.name }),
     onPressTag: tag => props.navigation.navigate(Routes.TagDetail, { id: tag.id, title: tag.name }),
     onPressEvent: event => props.navigation.navigate(Routes.EventDetail, { id: event.id, title: event.name }),
