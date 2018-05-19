@@ -12,6 +12,7 @@ import Cover from '../../../components/Cover/index'
 import Content from '../../../components/Content/index'
 import TrackList from '../../track/TrackList/index'
 import Divider from '../../../components/Divider/index'
+import Expander from './../../../components/Expander'
 
 class AlbumDetail extends React.Component {
 
@@ -38,6 +39,43 @@ class AlbumDetail extends React.Component {
         const imageUri = (album.image)? album.image : images.getAlbumUri(params.id, album.coverPictureMime)
 
         const Section = props => (<View style={[{ marginVertical: 8, paddingHorizontal: 4 },props.style]}>{props.children}</View>)
+
+        const RenderOrNull = props => {
+            if(props.shouldRender) {
+                return (
+                    <View style={{ padding: 8 }}>
+                        {props.children}
+                    </View>
+                )
+            }
+
+            return null;
+        }
+
+        const renderExpandableContent = () => {
+            return (
+                <Expander
+                    content={
+                        <View>
+                            <RenderOrNull shouldRender={true}>
+                                <Text style={[Theme.subhead, { padding: 8 }]}>Name</Text>
+                                <View style={{ paddingHorizontal: 8 }}>
+                                    <Text style={Theme.body} >{album.name}</Text>
+                                    <Text style={Theme.body} >{album.additionalNames}</Text>
+                                </View>
+                            </RenderOrNull>
+                            <RenderOrNull shouldRender={album.description}>
+                                <Text style={[Theme.subhead, { padding: 8 }]}>Description</Text>
+                                <View style={{ paddingHorizontal: 8 }}>
+                                    <Text style={Theme.body} >{album.description}</Text>
+                                </View>
+                            </RenderOrNull>
+                        </View>
+
+                    }
+                />
+            )
+        }
 
         const renderTagGroup = () => (
             <Section>
@@ -96,8 +134,9 @@ class AlbumDetail extends React.Component {
                         <Icon name='md-globe' text='VocaDB' onPress={() => this.props.onPressToVocaDB(album)} />
                     </Section>
 
+                    {renderExpandableContent()}
+
                     {album.tags && album.tags.length > 0 && renderTagGroup()}
-                    {album.description && renderDescription()}
                     {album.tracks && album.tracks.length > 0 && renderTracks()}
                     {album.webLinks && album.webLinks.length > 0 && renderWebLinks()}
 

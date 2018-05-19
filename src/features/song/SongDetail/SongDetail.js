@@ -12,6 +12,7 @@ import Cover from '../../../components/Cover/index'
 import Divider from '../../../components/Divider/index'
 import Theme from '../../../theme'
 import AlbumHorizontalList  from '../../album/AlbumHorizontalList'
+import Expander from './../../../components/Expander'
 import moment from 'moment'
 import SongRow from './../SongRow'
 
@@ -57,6 +58,22 @@ class SongDetail extends React.PureComponent {
         }
 
         const Section = props => (<View style={[{ paddingHorizontal: 4 },props.style]}>{props.children}</View>)
+
+        const renderExpandableContent = () => {
+            return (
+                <Expander
+                    content={
+                        <Section>
+                            <Text style={[Theme.subhead, { padding: 8 }]}>Name</Text>
+                            <View style={{ paddingHorizontal: 8 }}>
+                                <Text style={Theme.body} >{song.name}</Text>
+                                <Text style={Theme.body} >{song.additionalNames}</Text>
+                            </View>
+                        </Section>
+                    }
+                />
+            )
+        }
 
         const renderTagGroup = () => (
             <Section>
@@ -156,18 +173,18 @@ class SongDetail extends React.PureComponent {
                 <ScrollView style={{ flex: 1, backgroundColor: 'white', paddingBottom: 18 }} tabLabel="Info" >
                     <Cover
                         imageUri={song.thumbUrl}
-                        title={song.defaultName}
+                        title={song.name}
                         subtitle={song.artistString}
                         subtitle2={(song && song.publishDate)? moment(song.publishDate).format('MM/DD/YYYY') : '' }
                     />
-
 
                     {renderAdditionalInfo()}
 
                     {renderActionGroup()}
 
-                    {song.tags && song.tags.length > 0 && renderTagGroup()}
+                    {renderExpandableContent()}
 
+                    {song.tags && song.tags.length > 0 && renderTagGroup()}
                     {song.pvs && song.pvs.length > 0 && renderPVList()}
                     {renderOriginalVersion()}
                     {song.albums && song.albums.length > 0 && renderAlbumList()}

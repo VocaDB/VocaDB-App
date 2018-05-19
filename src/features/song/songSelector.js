@@ -6,14 +6,23 @@ import { selectTagEntity, convertTagIds } from './../tag/tagSelector'
 import { durationHoursHelper, filterByHelper, vocalistHelper } from './SongRanking/SongRankingHelper'
 import { convertAlbumIds, selectAlbumEntity } from './../album/albumSelector'
 
+export const transformSong = (entry) => {
+
+    if(!entry) {
+        return {}
+    }
+
+    return {
+        ...entry,
+        image: (entry.thumbUrl) ? entry.thumbUrl :
+            (entry.mainPicture && entry.mainPicture.urlThumb) ? entry.mainPicture.urlThumb : 'https://via.placeholder.com/350x150/000000/ffffff?text=NO_IMAGE'
+    }
+}
+
 export const convertSongIds = (entryIds, entryEntity) => (entryIds)? entryIds
     .filter(id => (id != undefined && entryEntity[id.toString()]))
     .map(id => entryEntity[id.toString()])
-    .map(entry => ({
-        ...entry,
-        image: (entry.thumbUrl) ? entry.thumbUrl :
-        (entry.mainPicture && entry.mainPicture.urlThumb) ? entry.mainPicture.urlThumb : 'https://via.placeholder.com/350x150/000000/ffffff?text=NO_IMAGE'
-    })) : []
+    .map(transformSong) : []
 
 
 export const selectSong = () => state => state.song
@@ -101,9 +110,7 @@ export const selectFavoriteSongs = () => createSelector(
 export const selectSongDetail = () => createSelector(
     selectSongDetailId(),
     selectSongEntity(),
-    (songDetailId, songEntity) => {
-        return songEntity[songDetailId.toString()]
-    }
+    (songDetailId, songEntity) => transformSong(songEntity[songDetailId.toString()])
 )
 
 export const selectOriginalSong = () => createSelector(

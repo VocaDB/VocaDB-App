@@ -15,6 +15,7 @@ import Divider from '../../../components/Divider/index'
 import SongHorizontalList from '../../song/SongHorizontalList'
 import AlbumHorizontalList from '../../album/AlbumHorizontalList'
 import AlbumGridView from '../../album/AlbumGridView'
+import Expander from './../../../components/Expander'
 import { SongRowList } from './../../song/songHOC'
 
 class ArtistDetailPage extends React.Component {
@@ -53,6 +54,43 @@ class ArtistDetailPage extends React.Component {
         const hasEvent = (latestEvents && latestEvents.length > 0)
 
         const Section = props => (<View style={[{ marginVertical: 8, paddingHorizontal: 4 },props.style]}>{props.children}</View>)
+
+        const RenderOrNull = props => {
+            if(props.shouldRender) {
+                return (
+                    <View style={{ padding: 8 }}>
+                        {props.children}
+                    </View>
+                )
+            }
+
+            return null;
+        }
+
+        const renderExpandableContent = () => {
+            return (
+                <Expander
+                    content={
+                        <View>
+                            <RenderOrNull shouldRender={true}>
+                                <Text style={[Theme.subhead, { padding: 8 }]}>Name</Text>
+                                <View style={{ paddingHorizontal: 8 }}>
+                                    <Text style={Theme.body} >{artist.name}</Text>
+                                    <Text style={Theme.body} >{artist.additionalNames}</Text>
+                                </View>
+                            </RenderOrNull>
+                            <RenderOrNull shouldRender={artist.description}>
+                                <Text style={[Theme.subhead, { padding: 8 }]}>Description</Text>
+                                <View style={{ paddingHorizontal: 8 }}>
+                                    <Text style={Theme.body} >{artist.description}</Text>
+                                </View>
+                            </RenderOrNull>
+                        </View>
+
+                    }
+                />
+            )
+        }
 
         const renderTagGroup = () => (
             <Section>
@@ -97,10 +135,10 @@ class ArtistDetailPage extends React.Component {
                     <Icon name='md-share' text='Share' onPress={() => this.props.onPressShare(artist)} />
                     <Icon name='md-globe' text='VocaDB' onPress={() => this.props.onPressToVocaDB(artist)} />
                 </Section>
+                {renderExpandableContent()}
                 {artist.tags != undefined && renderTagGroup()}
                 {popularSongs && popularSongs.length > 0 && renderPopularSongs()}
                 {popularAlbums && popularAlbums.length > 0 && renderPopularAlbums()}
-                {artist.description != undefined && renderDescription()}
                 {artist.webLinks != undefined && renderWebLink()}
             </Content>
         )
