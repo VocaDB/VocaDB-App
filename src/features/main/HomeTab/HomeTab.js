@@ -28,6 +28,7 @@ class HomeTab extends React.PureComponent {
                       artist={song.artistString}
                       image={song.image}
                       pvs={song.pvs}
+                      songType={song.songType}
                       onPress={() => this.props.onPressSong(song)} />
         )
 

@@ -53,6 +53,7 @@ function loadStories() {
   require('../src/features/song/SongRanking/test/stories');
   require('../src/features/song/SongRow/test/stories');
   require('../src/features/song/SongSearch/test/stories');
+  require('../src/features/song/SongType/test/stories');
   require('../src/features/song/SongWithParams/test/stories');
   require('../src/features/tag/Tag/test/stories');
   require('../src/features/tag/TagDetail/test/stories');
@@ -116,6 +117,7 @@ const stories = [
   '../src/features/song/SongRanking/test/stories',
   '../src/features/song/SongRow/test/stories',
   '../src/features/song/SongSearch/test/stories',
+  '../src/features/song/SongType/test/stories',
   '../src/features/song/SongWithParams/test/stories',
   '../src/features/tag/Tag/test/stories',
   '../src/features/tag/TagDetail/test/stories',

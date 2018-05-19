@@ -12,6 +12,7 @@ const createList = (ItemComponent) => (props) => (  <FlatList
                                name={item.name}
                                artist={item.artistString}
                                dateTime={item.createDate}
+                               songType={item.songType}
                                pvServices={(item.pvServices)? item.pvServices.split(',').map(pvService => pvService.trim()) : []}
                                onPress={() => props.onPressItem(item)} />)
     }}
@@ -28,6 +29,7 @@ const createRankList = (ItemComponent) => (props) => (  <FlatList
                                name={item.name}
                                artist={item.artistString}
                                dateTime={item.createDate}
+                               songType={item.songType}
                                pvServices={(item.pvServices)? item.pvServices.split(',').map(pvService => pvService.trim()) : []}
                                onPress={() => props.onPressItem(item)} />)
     }}
