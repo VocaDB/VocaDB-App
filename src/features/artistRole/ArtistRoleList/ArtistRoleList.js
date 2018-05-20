@@ -13,7 +13,7 @@ class ArtistRole extends React.Component {
         const renderItem = (artistRole, displayRole) => {
 
             let artist = (artistRole.artist)? artistRole.artist : artistRole;
-            let imageUrl = (artist.mainPicture && artist.mainPicture.urlThumb) ? artist.mainPicture.urlThumb : images.getArtistUri(artist.id, artist.pictureMime)
+            let imageUrl = (artist.mainPicture && artist.mainPicture.urlSmallThumb) ? artist.mainPicture.urlSmallThumb : images.getArtistUri(artist.id, artist.pictureMime)
 
             return  (
                 <Artist

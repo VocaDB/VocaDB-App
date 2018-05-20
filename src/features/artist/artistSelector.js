@@ -13,7 +13,7 @@ export const transformArtist = (artist) => {
 
     return {
         ...artist,
-        image: (artist.mainPicture && artist.mainPicture.urlThumb) ? artist.mainPicture.urlThumb : image.getArtistUri(artist.id)
+        image: (artist.mainPicture && artist.mainPicture.urlSmallThumb) ? artist.mainPicture.urlSmallThumb : image.getArtistUri(artist.id, artist.pictureMime)
     }
 }
 
