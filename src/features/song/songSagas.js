@@ -3,6 +3,7 @@ import { delay } from 'redux-saga'
 import * as actions from './songActions'
 import * as appActions from '../../app/appActions'
 import * as artistActions from '../artist/artistActions'
+import * as userActions from './../user/userActions'
 import api from './songApi'
 import { selectFollowedArtistIds } from './../artist/artistSelector'
 import { selectSearchParams, selectRankingState } from './songSelector'
@@ -108,7 +109,7 @@ const fetchRanking = function* fetchRanking() {
 }
 
 const songSaga = function* songSagaAsync() {
-    yield takeLatest(actions.fetchHighlighted, fetchHighlighted)
+    yield takeLatest([userActions.updateSettings, actions.fetchHighlighted], fetchHighlighted)
     yield takeLatest(actions.fetchLatestSongs, fetchLatestSongs)
     yield takeLatest(actions.fetchFollowedSongs, fetchFollowedSongs)
     yield takeLatest(artistActions.followArtist, fetchFollowedSongs)
@@ -119,7 +120,8 @@ const songSaga = function* songSagaAsync() {
     actions.removeSelectedFilterTag], fetchSearchSongs)
     yield takeLatest([actions.changeDurationHours,
         actions.changeFilterBy,
-        actions.changeVocalist], fetchRanking)
+        actions.changeVocalist,
+        userActions.updateSettings], fetchRanking)
 }
 
 export { fetchHighlighted, fetchSearchSongs, fetchLatestSongs, fetchFollowedSongs, fetchSongDetail, fetchRanking }
