@@ -19,7 +19,8 @@ const ROUTES = {
     FavoriteAlbums: 'FavoriteAlbums',
     SignIn: 'SignIn',
     MyAlbums: 'MyAlbums',
-    Settings: 'Settings'
+    Settings: 'Settings',
+    TagSearch: 'TagSearch'
 }
 
 export default ROUTES

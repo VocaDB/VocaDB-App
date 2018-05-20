@@ -5,7 +5,7 @@ import songSchema from './../song/songSchema'
 import artistSchema from './../artist/artistSchema'
 import albumSchema from './../album/albumSchema'
 
-export const searchTags = createAction('Search tags', params => ({ params }))
+export const searchTags = createAction('Search tags',(params, remove, replace) => ({ loading: true, params, remove, replace }))
 export const addTagsSearchResult = createAction('Add tags search result', data => normalize(data, [ tagSchema ]))
 export const appendTagsSearchResult = createAction('Append tags search result', data => normalize(data, [ tagSchema ]))
 

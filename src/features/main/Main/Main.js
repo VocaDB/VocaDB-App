@@ -58,6 +58,7 @@ export default class Main extends React.PureComponent {
                     onPressArtistSearch={this.props.onPressArtistSearch}
                     onPressAlbumSearch={this.props.onPressAlbumSearch}
                     onPressEventSearch={this.props.onPressEventSearch}
+                    onPressTagSearch={this.props.onPressTagSearch}
                     onPressMoreRecentSongs={this.props.onPressMoreRecentSongs}
                     onPressMoreRecentAlbums={this.props.onPressMoreRecentAlbums}
                     onPressMoreLatestEvent={this.props.onPressMoreLatestEvent} />

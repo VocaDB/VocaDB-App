@@ -2,7 +2,7 @@ import { put, takeLatest, call, select, all } from 'redux-saga/effects'
 import * as actions from './tagActions'
 import * as appActions from '../../app/appActions'
 import api from './tagApi'
-import { selectTagDetailId } from './tagSelector'
+import { selectTagDetailId, selectSearchParams } from './tagSelector'
 import { selectDisplayLanguage } from './../user/userSelector'
 
 const fetchTagDetail = function* fetchLatestTags() {
@@ -70,9 +70,9 @@ const fetchTopAlbumsByTag = function* fetchTopAlbumsByTag(action) {
     }
 }
 
-const searchTags = function* searchTags(action) {
+const searchTags = function* searchTags() {
     try {
-        const params = action.payload.params;
+        const params = yield select(selectSearchParams())
 
         if(!params) return;
 
