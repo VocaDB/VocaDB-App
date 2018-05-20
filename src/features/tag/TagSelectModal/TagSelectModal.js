@@ -9,7 +9,7 @@ import { selectLoading } from './../../../app/appSelector'
 import * as actions from './../tagActions'
 import { connect } from 'react-redux'
 import { ListItem } from 'react-native-material-ui';
-
+import Icon from '../../../components/Icon'
 
 class TagSelectModal extends React.Component {
 
@@ -50,6 +50,7 @@ class TagSelectModal extends React.Component {
                             data={this.props.tags}
                             keyExtractor={item => item.id}
                             renderItem={({ item }) => <ListItem
+                                leftElement={<Icon name='ios-pricetag' pureIcon />}
                                 centerElement={{
                                     primaryText: item.name,
                                 }}
