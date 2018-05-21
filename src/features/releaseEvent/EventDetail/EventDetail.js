@@ -8,6 +8,7 @@ import AlbumGridView from '../../album/AlbumGridView'
 import Content from '../../../components/Content/index'
 import Theme from '../../../theme'
 import moment from 'moment'
+import { Button } from 'react-native-material-ui'
 
 class EventDetail extends React.Component {
 
@@ -63,6 +64,8 @@ class EventDetail extends React.Component {
                     {renderRowInfo('ios-calendar', moment(event.date).format('dddd, MMMM Do YYYY'), () => this.props.onPressDate(event.date))}
                     {event.venueName && renderRowInfo('ios-locate', event.venueName, () => this.props.onPressLocation(event.venueName))}
                     {officialLink && renderRowInfo('ios-globe', 'Website', () => this.props.onPressWebsite(officialLink.url))}
+                    <Button onPress={() => this.props.onPressToVocaDB(event)} primary text="View more on VocaDB site" />
+                    <View style={{ height: 18 }} />
                 </View>
             </Content>
         )

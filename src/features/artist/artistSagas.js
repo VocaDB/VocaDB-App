@@ -3,11 +3,13 @@ import * as actions from './artistActions'
 import * as appActions from '../../app/appActions'
 import api from './artistApi'
 import { selectSearchParams } from './artistSelector'
+import { selectDisplayLanguage } from './../user/userSelector'
 
 const fetchSearchArtists = function* fetchSearchArtists() {
     try {
         const params = yield select(selectSearchParams())
-        const response = yield call(api.find, params);
+        const displayLanguage = yield select(selectDisplayLanguage())
+        const response = yield call(api.find, { ...params, lang: displayLanguage });
         let append = (params.start) ? true : false
         yield put(actions.fetchSearchArtistsSuccess(response.items, append));
     } catch (e) {
@@ -19,7 +21,8 @@ const fetchArtistDetail = function* fetchLatestArtists(action) {
     try {
 
         if(action.payload && action.payload.id) {
-            const response = yield call(api.getArtist, action.payload.id);
+            const displayLanguage = yield select(selectDisplayLanguage())
+            const response = yield call(api.getArtist, action.payload.id, { lang: displayLanguage });
             yield put(actions.fetchArtistDetailSuccess(response));
         } else {
             yield put(appActions.requestError(new Error("id is undefined")));

@@ -12,9 +12,13 @@ class Artist extends React.Component {
             <Avatar
                 medium
                 rounded
-                source={{uri: images.getArtistUri(this.props.id)}}
-                onPress={() => console.log("Works!")}
+                source={{uri: (this.props.image)? this.props.image : images.getArtistUri(this.props.id)}}
+                onPress={this.props.onPress}
                 activeOpacity={0.7}
+                imageProps={{
+                    resizeMode: 'contain',
+                    resizeMethod: 'resize'
+                }}
             />
         )
     }
@@ -38,6 +42,10 @@ class Artist extends React.Component {
                         source={{uri: this.props.image}}
                         onPress={this.props.onPress}
                         activeOpacity={0.7}
+                        imageProps={{
+                            resizeMode: 'contain',
+                            resizeMethod: 'resize'
+                        }}
                     />
                 </View>
             )

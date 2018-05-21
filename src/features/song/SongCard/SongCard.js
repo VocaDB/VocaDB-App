@@ -3,16 +3,26 @@ import { View, Text, TouchableOpacity, Image, Linking } from 'react-native'
 import PropTypes from 'prop-types';
 import Theme from '../../../theme'
 import Icon from '../../../components/Icon/index'
+import SongType from './../SongType'
+
 
 class SongCard extends React.PureComponent {
 
     renderImage () {
-        return (<Image
-            style={styles.image}
-            source={{ uri: this.props.image }}
-            resizeMode='cover'
-            resizeMethod='resize'
-        />)
+
+        return (
+            <View style={styles.image}>
+                <Image
+                    style={styles.image}
+                    source={{ uri: this.props.image }}
+                    resizeMode='cover'
+                    resizeMethod='resize'
+                />
+                <View style={{  position: 'absolute', bottom: 4, right: 4 }}>
+                    <SongType type={this.props.songType} />
+                </View>
+            </View>
+        )
     }
 
     render () {
@@ -65,7 +75,8 @@ SongCard.propTypes = {
     image: PropTypes.string,
     hideArtist: PropTypes.bool,
     pvs: PropTypes.array,
-    onPress: PropTypes.func
+    onPress: PropTypes.func,
+    songType: PropTypes.string
 };
 
 SongCard.defaultProps = {
@@ -73,6 +84,7 @@ SongCard.defaultProps = {
     artist: 'Unknown',
     image: 'https://via.placeholder.com/350x150/000000/ffffff?text=NO_IMAGE',
     hideArtist: false,
+    songType: 'Other',
     pvs: []
 };
 

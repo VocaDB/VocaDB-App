@@ -19,4 +19,6 @@ export default {
     titleWhite: material.titleWhite,
     headlineWhite: material.headlineWhite,
     subheadWhite: material.subheadingWhite,
+    boxTitle: [material.captionWhite],
+    boxValue: [material.body1White]
 }

@@ -8,6 +8,7 @@ function loadStories() {
   require('../src/components/Cover/test/stories');
   require('../src/components/Divider/test/stories');
   require('../src/components/Empty/test/stories');
+  require('../src/components/Expander/test/stories');
   require('../src/components/Icon/test/stories');
   require('../src/components/Info/test/stories');
   require('../src/components/MenuItem/test/stories');
@@ -52,6 +53,7 @@ function loadStories() {
   require('../src/features/song/SongRanking/test/stories');
   require('../src/features/song/SongRow/test/stories');
   require('../src/features/song/SongSearch/test/stories');
+  require('../src/features/song/SongType/test/stories');
   require('../src/features/song/SongWithParams/test/stories');
   require('../src/features/tag/Tag/test/stories');
   require('../src/features/tag/TagDetail/test/stories');
@@ -59,6 +61,7 @@ function loadStories() {
   require('../src/features/track/Track/test/stories');
   require('../src/features/track/TrackList/test/stories');
   require('../src/features/user/MyAlbums/test/stories');
+  require('../src/features/user/Settings/test/stories');
   require('../src/features/user/SignIn/test/stories');
   require('../src/features/webLink/WebLink/test/stories');
   require('../src/features/webLink/WebLinkList/test/stories');
@@ -69,6 +72,7 @@ const stories = [
   '../src/components/Cover/test/stories',
   '../src/components/Divider/test/stories',
   '../src/components/Empty/test/stories',
+  '../src/components/Expander/test/stories',
   '../src/components/Icon/test/stories',
   '../src/components/Info/test/stories',
   '../src/components/MenuItem/test/stories',
@@ -113,6 +117,7 @@ const stories = [
   '../src/features/song/SongRanking/test/stories',
   '../src/features/song/SongRow/test/stories',
   '../src/features/song/SongSearch/test/stories',
+  '../src/features/song/SongType/test/stories',
   '../src/features/song/SongWithParams/test/stories',
   '../src/features/tag/Tag/test/stories',
   '../src/features/tag/TagDetail/test/stories',
@@ -120,6 +125,7 @@ const stories = [
   '../src/features/track/Track/test/stories',
   '../src/features/track/TrackList/test/stories',
   '../src/features/user/MyAlbums/test/stories',
+  '../src/features/user/Settings/test/stories',
   '../src/features/user/SignIn/test/stories',
   '../src/features/webLink/WebLink/test/stories',
   '../src/features/webLink/WebLinkList/test/stories',

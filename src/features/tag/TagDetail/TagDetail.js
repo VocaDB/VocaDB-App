@@ -9,6 +9,8 @@ import ArtistList from './../../artist/ArtistList'
 import WebLinkList from '../../webLink/WebLinkList'
 import Theme from '../../../theme'
 import Tag from './../Tag'
+import { Button } from 'react-native-material-ui'
+
 
 class TagDetail extends React.Component {
 
@@ -108,6 +110,8 @@ class TagDetail extends React.Component {
                     <SectionHeader text='Addition date' />
                     <Text style={Theme.body} selectable>{tag.createDate}</Text>
                 </RenderOrNull>
+                <Button onPress={() => this.props.onPressToVocaDB(tag)} primary text="View more on VocaDB site" />
+                <View style={{ height: 18 }} />
             </Content>
         )
 

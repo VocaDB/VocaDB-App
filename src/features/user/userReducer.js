@@ -2,6 +2,7 @@ import { createReducer } from 'redux-act'
 import { AsyncStorage } from 'react-native'
 import { authKey } from './../../common/constants/storageKey'
 import * as actions from './userActions';
+import merge from 'deepmerge'
 
 // TODO Mock up2up user id
 const mockUserId = 1065;
@@ -11,7 +12,10 @@ export const defaultState = {
     token: '',
     skipSignIn: false,
     userId: 0,
-    albums: []
+    albums: [],
+    settings: {
+        displayLanguage: 'Default'
+    }
 }
 
 const reducer = createReducer({
@@ -59,6 +63,14 @@ const reducer = createReducer({
     },
     [actions.updateAlbums]: (state, payload) => {
         return { ...state, albums: payload.result }
+    },
+    [actions.updateSettings]: (state, payload) => {
+        if(!payload.settings) {
+            return state;
+        }
+
+        let settings = merge(state.settings, payload.settings);
+        return { ...state, settings }
     }
 }, defaultState)
 

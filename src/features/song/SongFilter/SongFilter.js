@@ -54,7 +54,7 @@ class SongFilter extends React.PureComponent {
                             key={a.id}
                             id={a.id}
                             image={a.image}
-                            name={a.defaultName}
+                            name={a.name}
                             rightIcon='ios-close'
                             onRightElementPress={() => this.props.onFilterChanged({ artistId: [ a.id ] }, true)} />)}
                 </View>

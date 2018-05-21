@@ -1,5 +1,6 @@
 import { createReducer } from 'redux-act'
 import * as actions from './tagActions';
+import merge from 'deepmerge';
 import _ from 'lodash'
 
 export const defaultState = {
@@ -8,10 +9,34 @@ export const defaultState = {
     topArtists: [],
     topAlbums: [],
     latestSongsByTagId: {},
+    searchParams: {},
     searchResult: []
 }
 
 const reducer = createReducer({
+    [actions.searchTags]: (state, payload) => {
+
+        if(payload.replace) {
+            let searchParams = _.merge({}, payload.params)
+            return { ...state, searchParams }
+        }
+
+        let searchParams = merge({}, state.searchParams)
+        if(payload.remove) {
+            _.forEach(payload.params, (value, key) => {
+                searchParams[key] = _.pullAll(state.searchParams[key], value)
+            })
+        } else {
+            searchParams = merge(state.searchParams, payload.params, {
+                arrayMerge: (destinationArray, sourceArray) => {
+                    return _.union(destinationArray, sourceArray)
+                }
+            })
+        }
+
+        return { ...state, searchParams }
+
+    },
     [actions.addTagsSearchResult]: (state, payload) => {
         if(!payload || !payload.result) return state;
 

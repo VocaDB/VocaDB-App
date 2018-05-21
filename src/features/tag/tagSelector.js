@@ -83,3 +83,8 @@ export const selectSearchResult = () => createSelector(
     selectTagEntity(),
     convertTagIds
 )
+
+export const selectSearchParams = () => createSelector(
+    selectTag(),
+    tagState => tagState.searchParams
+)

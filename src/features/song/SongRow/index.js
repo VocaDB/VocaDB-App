@@ -4,15 +4,24 @@ import PropTypes from 'prop-types';
 import Theme from '../../../theme'
 import Icon from '../../../components/Icon/index'
 import moment from 'moment'
+import SongType from './../SongType'
 
 class SongRow extends React.PureComponent {
 
     renderImage () {
-        return (<Image
-            style={styles.image}
-            source={{ uri: this.props.image }}
-            resizeMethod='resize'
-        />)
+        return (
+            <View style={styles.image}>
+                <Image
+                    style={styles.image}
+                    source={{ uri: this.props.image }}
+                    resizeMode='cover'
+                    resizeMethod='resize'
+                />
+                <View style={{  position: 'absolute', bottom: 4, right: 4 }}>
+                    <SongType type={this.props.songType} />
+                </View>
+            </View>
+        )
     }
 
     render () {
@@ -62,6 +71,7 @@ SongRow.propTypes = {
     artist: PropTypes.string,
     hideArtist: PropTypes.bool,
     pvServices: PropTypes.array,
+    songType: PropTypes.string,
     onPress: PropTypes.func
 };
 
@@ -69,6 +79,7 @@ SongRow.defaultProps = {
     name: 'Unknown',
     artist: 'Unknown',
     hideArtist: false,
+    songType: 'Other',
     pvServices: []
 };
 

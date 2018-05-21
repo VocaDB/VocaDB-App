@@ -22,3 +22,4 @@ export const resetToSignIn = () => NavigationActions.reset({
 });
 export const fetchAlbums = createAction('Fetch albums')
 export const updateAlbums = createAction('Update albums', data => normalize(data, [ { album: albumSchema } ]))
+export const updateSettings = createAction('Update settings', settings => ({ settings }))

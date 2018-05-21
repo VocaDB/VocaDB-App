@@ -15,7 +15,7 @@ class EntryList extends React.Component {
                 <Entry
                     key={entry.id}
                     id={entry.id}
-                    name={entry.defaultName}
+                    name={entry.name}
                     entryType={entry.entryType}
                     caption={entry.artistString}
                     thumbnail={entry.image}

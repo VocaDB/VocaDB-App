@@ -26,9 +26,10 @@ class SongList extends React.PureComponent {
                 <Song
                     key={song.id}
                     image={song.image}
-                    name={song.defaultName}
+                    name={song.name}
                     artist={song.artistString}
                     dateTime={song.createDate}
+                    songType={song.songType}
                     pvServices={song.pvServices.split(',').map(pvService => pvService.trim())}
                     onPress={() => this.props.onPressItem(song)}
                 />

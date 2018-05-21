@@ -9,9 +9,10 @@ const createList = (ItemComponent) => (props) => (  <FlatList
     renderItem={({ item }) => {
         return (<ItemComponent key={item.id}
                                image={item.image}
-                               name={item.defaultName}
+                               name={item.name}
                                artist={item.artistString}
                                dateTime={item.createDate}
+                               songType={item.songType}
                                pvServices={(item.pvServices)? item.pvServices.split(',').map(pvService => pvService.trim()) : []}
                                onPress={() => props.onPressItem(item)} />)
     }}
@@ -25,9 +26,10 @@ const createRankList = (ItemComponent) => (props) => (  <FlatList
         return (<ItemComponent key={item.id}
                                prefix={prefix}
                                image={item.image}
-                               name={item.defaultName}
+                               name={item.name}
                                artist={item.artistString}
                                dateTime={item.createDate}
+                               songType={item.songType}
                                pvServices={(item.pvServices)? item.pvServices.split(',').map(pvService => pvService.trim()) : []}
                                onPress={() => props.onPressItem(item)} />)
     }}

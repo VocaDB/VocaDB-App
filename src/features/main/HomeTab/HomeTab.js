@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, TouchableOpacity, StyleSheet, RefreshControl, SectionList, FlatList } from 'react-native'
+import { View, Text, TouchableOpacity, StyleSheet, RefreshControl, SectionList, FlatList, ScrollView } from 'react-native'
 import { Avatar } from 'react-native-material-ui';
 import PropTypes from 'prop-types'
 import FeatureList from './../FeatureList'
@@ -15,8 +15,8 @@ class HomeTab extends React.PureComponent {
     render () {
 
         const MenuIcon = (props) => (
-            <TouchableOpacity style={{ alignItems: 'center' }} onPress={props.onPress}>
-                <Avatar icon={props.icon} style={{ container: { backgroundColor: props.color } }}  />
+            <TouchableOpacity style={{ alignItems: 'center', flex: 1, margin: 8 }} onPress={props.onPress}>
+                <Avatar icon={props.icon} style={{ container: { backgroundColor: props.color, margin: 4 } }}  />
                 <Text style={Theme.caption}>{props.text}</Text>
             </TouchableOpacity>
         )
@@ -24,10 +24,11 @@ class HomeTab extends React.PureComponent {
         const renderSongCard = song => (
             <SongCard key={song.id}
                       id={song.id}
-                      name={song.defaultName}
+                      name={song.name}
                       artist={song.artistString}
                       image={song.image}
                       pvs={song.pvs}
+                      songType={song.songType}
                       onPress={() => this.props.onPressSong(song)} />
         )
 
@@ -64,12 +65,14 @@ class HomeTab extends React.PureComponent {
                 refreshing={this.props.refreshing}
                 onRefresh={this.props.refresh}
                 ListHeaderComponent={(
-                            <View style={[styles.menuContainer]}>
-                                <MenuIcon icon='music-note' color='#00C853' text='Songs' onPress={this.props.onPressSongSearch} />
-                                <MenuIcon icon='person' color='#d50000' text='Artists' onPress={this.props.onPressArtistSearch} />
-                                <MenuIcon icon='album' color='#283593' text='Albums' onPress={this.props.onPressAlbumSearch} />
-                                <MenuIcon icon='event' color='#FFD600' text='Events' onPress={this.props.onPressEventSearch} />
-                            </View>
+                    <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ backgroundColor: 'white' }}>
+                        <MenuIcon icon='music-note' color='#00C853' text='Songs' onPress={this.props.onPressSongSearch} />
+                        <MenuIcon icon='person' color='#d50000' text='Artists' onPress={this.props.onPressArtistSearch} />
+                        <MenuIcon icon='album' color='#283593' text='Albums' onPress={this.props.onPressAlbumSearch} />
+                        <MenuIcon icon='event' color='#FFD600' text='Events' onPress={this.props.onPressEventSearch} />
+                        <MenuIcon icon='label' color='#6D4C41' text='Tags' onPress={this.props.onPressTagSearch} />
+                    </ScrollView>
+
                 )}
                 renderItem={({ item }) => renderFeatureList(item.title, item.data, item.renderItem, item.onPressMore)}
                 ItemSeparatorComponent={() => <View style={{ height: 6, backgroundColor: 'white' }} />}
@@ -113,7 +116,6 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         flexDirection: 'row',
         height: 92,
-        justifyContent: 'space-around',
         paddingVertical: 12
     }
 })

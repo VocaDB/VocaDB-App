@@ -2,9 +2,9 @@ import api from '../../common/api'
 
 const albumApi = {
     find: params => api.albums.find({ ...params, 'preferAccurateMatches': true }),
-    getRecentAlbums: () => api.albums.newAlbum(),
-    getTopAlbums: () => api.albums.top(),
-    getAlbum: id => api.albums.get(id, { fields: 'artists,pvs,tags,tracks,webLinks' })
+    getRecentAlbums: params => api.albums.newAlbum(params),
+    getTopAlbums: params => api.albums.top(params),
+    getAlbum: (id, params) => api.albums.get(id, { ...params, fields: 'artists,pvs,tags,tracks,webLinks,AdditionalNames,description' })
 }
 
 export default albumApi

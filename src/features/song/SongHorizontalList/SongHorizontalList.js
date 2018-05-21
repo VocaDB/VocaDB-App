@@ -12,10 +12,11 @@ class SongHorizontalList extends React.PureComponent {
         const renderSongCard = song => (
             <SongCard key={song.id}
                       id={song.id}
-                      name={song.defaultName}
+                      name={song.name}
                       artist={song.artistString}
                       image={song.image}
                       pvs={song.pvs}
+                      songType={song.songType}
                       onPress={() => this.props.onPressItem(song)} />
         )
 

@@ -2,19 +2,21 @@ import { put, takeLatest, call, select, all } from 'redux-saga/effects'
 import * as actions from './tagActions'
 import * as appActions from '../../app/appActions'
 import api from './tagApi'
-import { selectTagDetailId } from './tagSelector'
+import { selectTagDetailId, selectSearchParams } from './tagSelector'
+import { selectDisplayLanguage } from './../user/userSelector'
 
 const fetchTagDetail = function* fetchLatestTags() {
     try {
+        const displayLanguage = yield select(selectDisplayLanguage())
         const tagId = yield select(selectTagDetailId());
 
         if(!tagId) return;
 
         const [detailResponse, topSongs, topArtists, topAlbums] = yield all([
-            call(api.getTag, tagId),
-            call(api.getTopSongsByTag, tagId),
-            call(api.getTopArtistsByTag, tagId),
-            call(api.getTopAlbumsByTag, tagId),
+            call(api.getTag, tagId, { lang: displayLanguage }),
+            call(api.getTopSongsByTag, tagId, { lang: displayLanguage }),
+            call(api.getTopArtistsByTag, tagId, { lang: displayLanguage }),
+            call(api.getTopAlbumsByTag, tagId, { lang: displayLanguage }),
         ])
 
         if(!detailResponse) {
@@ -68,13 +70,14 @@ const fetchTopAlbumsByTag = function* fetchTopAlbumsByTag(action) {
     }
 }
 
-const searchTags = function* searchTags(action) {
+const searchTags = function* searchTags() {
     try {
-        const params = action.payload.params;
+        const params = yield select(selectSearchParams())
 
         if(!params) return;
 
-        const response = yield call(api.find, params);
+        const displayLanguage = yield select(selectDisplayLanguage())
+        const response = yield call(api.find, { ...params, lang: displayLanguage });
 
         if(params.start) {
             yield put(actions.appendTagsSearchResult(response.items));

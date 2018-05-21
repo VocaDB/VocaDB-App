@@ -13,12 +13,13 @@ class ArtistRole extends React.Component {
         const renderItem = (artistRole, displayRole) => {
 
             let artist = (artistRole.artist)? artistRole.artist : artistRole;
+            let imageUrl = (artist.mainPicture && artist.mainPicture.urlSmallThumb) ? artist.mainPicture.urlSmallThumb : images.getArtistUri(artist.id, artist.pictureMime)
 
             return  (
                 <Artist
                     key={artist.id}
                     id={artist.id}
-                    image={artist.image}
+                    image={imageUrl}
                     name={artist.name}
                     artist={artist.artistString}
                     role={(displayRole)? artistRole.roles : undefined}
