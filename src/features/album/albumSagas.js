@@ -1,4 +1,5 @@
 import { put, takeLatest, call, select } from 'redux-saga/effects'
+import { delay } from 'redux-saga'
 import * as actions from './albumActions'
 import * as appActions from '../../app/appActions'
 import api from './albumApi'
@@ -9,8 +10,9 @@ const fetchSearchAlbums = function* fetchSearchAlbums() {
     try {
         const params = yield select(selectSearchParams())
         const displayLanguage = yield select(selectDisplayLanguage())
+        yield call(delay, 500)
         const response = yield call(api.find, { ...params, lang: displayLanguage });
-        let append = (params.start) ? true : false
+        let append = (params && params.start) ? true : false
         yield put(actions.fetchSearchAlbumsSuccess(response.items, append));
     } catch (e) {
         yield put(appActions.requestError(e));
