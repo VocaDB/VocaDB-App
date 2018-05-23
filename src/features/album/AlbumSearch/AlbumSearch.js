@@ -22,7 +22,7 @@ class AlbumSearch extends React.PureComponent {
     }
 
     doSearch(params) {
-        this.props.fetchSongs(params)
+        this.props.onSearch(params)
     }
 
     refresh() {
