@@ -1,5 +1,5 @@
 import React from 'react'
-import {Modal, Text, TouchableHighlight, View, Button} from 'react-native';
+import {Modal, Text, TouchableHighlight, View, Button, ScrollView} from 'react-native';
 import PropTypes from 'prop-types'
 import Page from './../../../components/Page'
 import SearchBar from './../../../components/SearchBar'
@@ -34,9 +34,9 @@ class ArtistSelectModal extends React.Component {
                             }
                         }}
                     />
-                    <View>
+                    <ScrollView>
                         <ArtistList artists={this.props.artists} onPressItem={this.props.onPressItem} />
-                    </View>
+                    </ScrollView>
                 </Page>
 
             </Modal>
