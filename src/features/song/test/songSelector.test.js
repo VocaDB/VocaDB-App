@@ -164,6 +164,7 @@ describe('Test song selector', () => {
 
         const actualResult = selectSongDetail()(state);
         const expectedResult = song1;
+        expectedResult.image = 'https://tn.smilevideo.jp/smile?i=6666016'
 
         expect(actualResult).toBeTruthy();
         expect(actualResult).toEqual(expectedResult)

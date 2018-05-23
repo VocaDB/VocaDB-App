@@ -12,10 +12,17 @@ export const transformSong = (entry) => {
         return {}
     }
 
+    let image = 'https://via.placeholder.com/350x150/000000/ffffff?text=NO_IMAGE';
+
+    if(entry.thumbUrl) {
+        image = entry.thumbUrl.replace('http:', 'https:').replace(/tn-skr\d?/gm, 'tn');
+    } else if(entry.mainPicture && entry.mainPicture.urlThumb) {
+        image = entry.mainPicture.urlThumb.replace('http:', 'https:').replace(/tn-skr\d?/gm, 'tn');
+    }
+
     return {
         ...entry,
-        image: (entry.thumbUrl) ? entry.thumbUrl :
-            (entry.mainPicture && entry.mainPicture.urlThumb) ? entry.mainPicture.urlThumb : 'https://via.placeholder.com/350x150/000000/ffffff?text=NO_IMAGE'
+        image
     }
 }
 
@@ -123,7 +130,7 @@ export const selectOriginalSong = () => createSelector(
 
         let originalSong = songEntity[songDetail.originalVersionId];
 
-        return (originalSong)? originalSong : null;
+        return (originalSong)? transformSong(originalSong) : null;
     }
 )
 
