@@ -9,6 +9,7 @@ import Content from '../../../components/Content/index'
 import Theme from '../../../theme'
 import moment from 'moment'
 import WebLinkList from '../../webLink/WebLinkList'
+import ArtistRoleList from '../../artistRole/ArtistRoleList'
 import { Button } from 'react-native-material-ui'
 
 class EventDetail extends React.Component {
@@ -100,6 +101,12 @@ class EventDetail extends React.Component {
             </Content>
         )
 
+        const ArtistRoleListPage = () => (
+            <Content>
+                <ArtistRoleList artists={event.artists} onPressItem={this.props.onPressArtist} groupBy='effectiveRoles' displayRole />
+            </Content>
+        )
+
         const AlbumListPage = () => (
             <Content>
                 <AlbumGridView albums={this.props.albums} onPressItem={this.props.onPressAlbum} />
@@ -108,6 +115,7 @@ class EventDetail extends React.Component {
 
         const hasSong = (this.props.songs && this.props.songs.length)? true : false
         const hasAlbum = (this.props.albums && this.props.albums.length)? true : false
+        const hasArtist = (event && event.artists)? true : false;
 
         if(!hasSong && !hasAlbum) {
             return renderInfoPage
@@ -116,6 +124,7 @@ class EventDetail extends React.Component {
         return (
             <ScrollableTabView>
                 {renderInfoPage}
+                {hasArtist && <ArtistRoleListPage tabLabel={`Artists (${event.artists.length})`} />}
                 {hasSong && <SongListPage tabLabel={`Songs (${this.props.songs.length})`} />}
                 {hasAlbum && <AlbumListPage tabLabel={`Albums (${this.props.albums.length})`} />}
             </ScrollableTabView>

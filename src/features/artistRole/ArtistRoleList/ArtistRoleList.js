@@ -38,7 +38,7 @@ class ArtistRole extends React.Component {
              { title: 'Other', data: [] }
             ]
          */
-        let newUnique = _.groupBy(artistRoles, 'categories')
+        let newUnique = _.groupBy(artistRoles, this.props.groupBy)
         let sectionData = _.toPairs(newUnique).map(i => ({ title: i[0], data: i[1] }))
 
         if(!artistRoles.length) {
@@ -52,11 +52,13 @@ class ArtistRole extends React.Component {
                 keyExtractor={item => {
                     return (item.artist)? item.artist.id : item.id
                 }}
-                renderSectionHeader={({ section }) => (
-                    <View style={{ padding: 8 }}>
-                        <Text style={Theme.subhead}>{section.title}</Text>
-                    </View>
-                )}
+                renderSectionHeader={({ section }) => {
+                    return (
+                        <View style={{ padding: 8 }}>
+                            <Text style={Theme.subhead}>{section.title}</Text>
+                        </View>
+                    )
+                }}
                 sections={sectionData}
             />
         )
@@ -65,11 +67,13 @@ class ArtistRole extends React.Component {
 
 ArtistRole.propTypes = {
     artists: PropTypes.arrayOf(PropTypes.object),
+    groupBy: PropTypes.string,
     onPressItem: PropTypes.func
 };
 
 ArtistRole.defaultProps = {
     artists: [],
+    groupBy: 'categories',
     onPressItem: () => {}
 };
 
