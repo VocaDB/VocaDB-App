@@ -4,13 +4,23 @@ import { selectNav } from './../../app/appSelector'
 import { selectSongEntity, convertSongIds } from './../song/songSelector'
 import { selectAlbumEntity, convertAlbumIds } from './../album/albumSelector'
 
+export const transformEvent = (event) => {
+    if(!event) {
+        return {}
+    }
+
+    console.log(event)
+
+    return {
+        ...event,
+        image: (event.mainPicture && event.mainPicture.urlThumb) ? event.mainPicture.urlThumb.replace('mainThumb', 'mainOrig') : undefined
+    }
+}
+
 export const convertEventIds = (eventIds, eventEntity) => (eventIds) ? eventIds
     .filter(id => (id != undefined && eventEntity[id.toString()]))
     .map(id => eventEntity[id.toString()])
-    .map(event => ({
-        ...event,
-        image: (event.mainPicture && event.mainPicture.urlThumb) ? event.mainPicture.urlThumb.replace('mainThumb', 'mainOrig') : undefined
-    })): []
+    .map(transformEvent): []
 
 export const selectReleaseEvent = () => state => state.releaseEvent
 export const selectReleaseEventEntity = () => state => (state.entities && state.entities.releaseEvents)? state.entities.releaseEvents : {}
@@ -34,7 +44,7 @@ export const selectLatestReleaseEvents = () => createSelector(
 export const selectReleaseEventDetail = () => createSelector(
     selectReleaseEventDetailId(),
     selectReleaseEventEntity(),
-    (releaseEventDetailId, releaseEventEntity) => releaseEventEntity[releaseEventDetailId.toString()]
+    (releaseEventDetailId, releaseEventEntity) => transformEvent(releaseEventEntity[releaseEventDetailId.toString()])
 )
 
 export const selectSearchParams = () => createSelector(

@@ -8,6 +8,7 @@ import AlbumGridView from '../../album/AlbumGridView'
 import Content from '../../../components/Content/index'
 import Theme from '../../../theme'
 import moment from 'moment'
+import WebLinkList from '../../webLink/WebLinkList'
 import { Button } from 'react-native-material-ui'
 
 class EventDetail extends React.Component {
@@ -33,37 +34,60 @@ class EventDetail extends React.Component {
         }
 
         const webLinks = (event.webLinks)? event.webLinks : []
-        const imageUrl = (event.mainPicture) ? event.mainPicture.urlThumb.replace('mainThumb', 'mainOrig')
-            : 'https://via.placeholder.com/350x150/000000/ffffff?text=EVENT';
+        // const imageUrl = (event.mainPicture) ? event.mainPicture.urlThumb.replace('mainThumb', 'mainOrig')
+        //     : 'https://via.placeholder.com/350x150/000000/ffffff?text=EVENT';
 
-        const renderRowInfo = (icon, value, onPress) => (
-            <ListItem
-                leftElement={<Icon name={icon} />}
-                centerElement={{
-                    primaryText: value,
-                }}
-                onPress={() => {}}
-            />
-        )
+        const RenderOrNull = props => {
+            if(props.shouldRender) {
+                return (
+                    <View style={{ padding: 8 }}>
+                        {props.children}
+                    </View>
+                )
+            }
 
-        const officialLink = webLinks.find(webLink => webLink.category === 'Official')
+            return null;
+        }
+
+        const SectionHeader = props => (<Text style={[Theme.subhead, { marginVertical: 8 }]}>{props.text}</Text>)
 
         const renderInfoPage = (
             <Content tabLabel='Info'>
                 <View style={{ height: 240, justifyContent: 'center' }}>
                     <Image
                         style={{ flex: 1, margin: 24 }}
-                        source={{ uri: imageUrl }}
+                        source={{ uri: event.image }}
                         resizeMode='contain'
                     />
                 </View>
                 <View>
                     <Text style={[Theme.title, { alignSelf: 'center', margin: 8 }]}>{event.name}</Text>
-                    {event.description && <Text style={[Theme.subhead, { alignSelf: 'center', margin: 8 }]}>{event.description}</Text>}
 
-                    {renderRowInfo('ios-calendar', moment(event.date).format('dddd, MMMM Do YYYY'), () => this.props.onPressDate(event.date))}
-                    {event.venueName && renderRowInfo('ios-locate', event.venueName, () => this.props.onPressLocation(event.venueName))}
-                    {officialLink && renderRowInfo('ios-globe', 'Website', () => this.props.onPressWebsite(officialLink.url))}
+                    <RenderOrNull shouldRender={(event && event.date)}>
+                        <SectionHeader text='Date' />
+                        <Text style={Theme.body}>{moment(event.date).format('dddd, MMMM Do YYYY')}</Text>
+                    </RenderOrNull>
+
+                    <RenderOrNull shouldRender={(event && event.venueName)}>
+                        <SectionHeader text='Venue' />
+                        <Text style={Theme.body}>{event.venueName}</Text>
+                    </RenderOrNull>
+
+                    <RenderOrNull shouldRender={(event && event.category)}>
+                        <SectionHeader text='Category' />
+                        <Text style={Theme.body}>{event.category}</Text>
+                    </RenderOrNull>
+
+                    <RenderOrNull shouldRender={(event && event.description)}>
+                        <SectionHeader text='Description' />
+                        <Text style={Theme.body}>{event.description}</Text>
+                    </RenderOrNull>
+
+                    <RenderOrNull shouldRender={(webLinks && webLinks.length)}>
+                        <SectionHeader text='Related links' />
+                        <WebLinkList webLinks={webLinks} />
+                    </RenderOrNull>
+
                     <Button onPress={() => this.props.onPressToVocaDB(event)} primary text="View more on VocaDB site" />
                     <View style={{ height: 18 }} />
                 </View>
