@@ -89,3 +89,19 @@ export const selectAlbums = () => createSelector(
     selectAlbumEntity(),
     convertAlbumIds
 )
+
+export const selectArtists = () => createSelector(
+    selectReleaseEventDetail(),
+    (eventDetail) => {
+        if(!eventDetail || !eventDetail.artists || eventDetail.length === 0) {
+            return null
+        }
+
+        return eventDetail.artists.map(a => {
+            if(a.effectiveRoles == 'Default' && a.artist && a.artist.artistType) {
+                a.effectiveRoles = a.artist.artistType;
+            }
+            return a;
+        })
+    }
+)

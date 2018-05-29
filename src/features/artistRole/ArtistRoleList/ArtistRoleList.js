@@ -68,12 +68,14 @@ class ArtistRole extends React.Component {
 ArtistRole.propTypes = {
     artists: PropTypes.arrayOf(PropTypes.object),
     groupBy: PropTypes.string,
+    displayRole: PropTypes.bool,
     onPressItem: PropTypes.func
 };
 
 ArtistRole.defaultProps = {
     artists: [],
     groupBy: 'categories',
+    displayRole: false,
     onPressItem: () => {}
 };
 

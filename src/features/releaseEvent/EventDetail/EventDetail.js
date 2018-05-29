@@ -29,6 +29,7 @@ class EventDetail extends React.Component {
 
     render () {
         const event = this.props.event
+        const artists = this.props.artists;
 
         if(!event || !this.state.shouldRender) {
             return (<View></View>)
@@ -103,7 +104,7 @@ class EventDetail extends React.Component {
 
         const ArtistRoleListPage = () => (
             <Content>
-                <ArtistRoleList artists={event.artists} onPressItem={this.props.onPressArtist} groupBy='effectiveRoles' displayRole />
+                <ArtistRoleList artists={artists} onPressItem={this.props.onPressArtist} groupBy='effectiveRoles' displayRole />
             </Content>
         )
 
@@ -115,7 +116,7 @@ class EventDetail extends React.Component {
 
         const hasSong = (this.props.songs && this.props.songs.length)? true : false
         const hasAlbum = (this.props.albums && this.props.albums.length)? true : false
-        const hasArtist = (event && event.artists)? true : false;
+        const hasArtist = (artists && artists.length > 0)? true : false;
 
         if(!hasSong && !hasAlbum) {
             return renderInfoPage
@@ -124,7 +125,7 @@ class EventDetail extends React.Component {
         return (
             <ScrollableTabView>
                 {renderInfoPage}
-                {hasArtist && <ArtistRoleListPage tabLabel={`Artists (${event.artists.length})`} />}
+                {hasArtist && <ArtistRoleListPage tabLabel={`Artists (${artists.length})`} />}
                 {hasSong && <SongListPage tabLabel={`Songs (${this.props.songs.length})`} />}
                 {hasAlbum && <AlbumListPage tabLabel={`Albums (${this.props.albums.length})`} />}
             </ScrollableTabView>
