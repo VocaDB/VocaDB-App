@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import EventDetail from './EventDetail'
 import { createSelector } from 'reselect';
 import { fetchReleaseEventDetail, fetchPublishedSongs } from '../releaseEventActions'
-import { selectReleaseEventDetail, selectPublishedSongs, selectAlbums, selectArtists } from '../releaseEventSelector'
+import { selectReleaseEventDetail, selectPublishedSongs, selectAlbums, selectArtists, selectSongListSongs, selectSeries } from '../releaseEventSelector'
 import { selectLoading } from '../../../app/appSelector'
 import { Linking } from 'react-native'
 import Routes from './../../../app/appRoutes'
@@ -24,7 +24,9 @@ const tagStateSelect = createSelector(
     selectAlbums(),
     selectLoading(),
     selectArtists(),
-    (event, songs, albums, loading, artists) => ({ event, songs, albums, loading, artists })
+    selectSongListSongs(),
+    selectSeries(),
+    (event, songs, albums, loading, artists, songListSongs, series) => ({ event, songs, albums, loading, artists, songListSongs, series })
 );
 
 

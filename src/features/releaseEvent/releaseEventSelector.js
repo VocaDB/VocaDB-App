@@ -3,16 +3,16 @@ import Routes from './../../app/appRoutes'
 import { selectNav } from './../../app/appSelector'
 import { selectSongEntity, convertSongIds } from './../song/songSelector'
 import { selectAlbumEntity, convertAlbumIds } from './../album/albumSelector'
+import { transformSong } from './../song/songSelector'
 
 export const transformEvent = (event) => {
     if(!event) {
         return {}
     }
 
-    console.log(event)
-
     return {
         ...event,
+        category: (event.series && event.series.category)? event.series.category : event.category,
         image: (event.mainPicture && event.mainPicture.urlThumb) ? event.mainPicture.urlThumb.replace('mainThumb', 'mainOrig') : undefined
     }
 }
@@ -94,7 +94,7 @@ export const selectArtists = () => createSelector(
     selectReleaseEventDetail(),
     (eventDetail) => {
         if(!eventDetail || !eventDetail.artists || eventDetail.length === 0) {
-            return null
+            return {}
         }
 
         return eventDetail.artists.map(a => {
@@ -103,5 +103,27 @@ export const selectArtists = () => createSelector(
             }
             return a;
         })
+    }
+)
+
+export const selectSongListSongs = () => createSelector(
+    selectReleaseEventDetail(),
+    (eventDetail) => {
+        if(!eventDetail || !eventDetail.songList || !eventDetail.songList.songs || !eventDetail.songList.songs.length) {
+            return {}
+        }
+
+        return eventDetail.songList.songs.map(s => transformSong(s.song));
+    }
+)
+
+export const selectSeries = () => createSelector(
+    selectReleaseEventDetail(),
+    (eventDetail) => {
+        if(!eventDetail || !eventDetail.series || !eventDetail.series.id) {
+            return {}
+        }
+
+        return eventDetail.series;
     }
 )

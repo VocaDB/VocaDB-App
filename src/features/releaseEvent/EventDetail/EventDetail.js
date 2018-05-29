@@ -10,7 +10,9 @@ import Theme from '../../../theme'
 import moment from 'moment'
 import WebLinkList from '../../webLink/WebLinkList'
 import ArtistRoleList from '../../artistRole/ArtistRoleList'
+import Cover from '../../../components/Cover/index'
 import { Button } from 'react-native-material-ui'
+import { SongRankingList } from './../../song/songHOC'
 
 class EventDetail extends React.Component {
 
@@ -55,16 +57,12 @@ class EventDetail extends React.Component {
 
         const renderInfoPage = (
             <Content tabLabel='Info'>
-                <View style={{ height: 240, justifyContent: 'center' }}>
-                    <Image
-                        style={{ flex: 1, margin: 24 }}
-                        source={{ uri: event.image }}
-                        resizeMode='contain'
-                    />
-                </View>
+                <Cover
+                    imageUri={event.image}
+                    title={event.name}
+                    subtitle={event.category}
+                />
                 <View>
-                    <Text style={[Theme.title, { alignSelf: 'center', margin: 8 }]}>{event.name}</Text>
-
                     <RenderOrNull shouldRender={(event && event.date)}>
                         <SectionHeader text='Date' />
                         <Text style={Theme.body}>{moment(event.date).format('dddd, MMMM Do YYYY')}</Text>
@@ -75,9 +73,9 @@ class EventDetail extends React.Component {
                         <Text style={Theme.body}>{event.venueName}</Text>
                     </RenderOrNull>
 
-                    <RenderOrNull shouldRender={(event && event.category)}>
-                        <SectionHeader text='Category' />
-                        <Text style={Theme.body}>{event.category}</Text>
+                    <RenderOrNull shouldRender={(this.props.series && this.props.series.id)}>
+                        <SectionHeader text='Series' />
+                        <Text style={Theme.body}>{this.props.series.name}</Text>
                     </RenderOrNull>
 
                     <RenderOrNull shouldRender={(event && event.description)}>
@@ -88,6 +86,11 @@ class EventDetail extends React.Component {
                     <RenderOrNull shouldRender={(webLinks && webLinks.length)}>
                         <SectionHeader text='Related links' />
                         <WebLinkList webLinks={webLinks} />
+                    </RenderOrNull>
+
+                    <RenderOrNull shouldRender={(this.props.songListSongs && this.props.songListSongs.length)}>
+                        <SectionHeader text='Setlist' />
+                        <SongRankingList data={this.props.songListSongs} />
                     </RenderOrNull>
 
                     <Button onPress={() => this.props.onPressToVocaDB(event)} primary text="View more on VocaDB site" />
