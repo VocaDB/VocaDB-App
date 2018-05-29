@@ -55,6 +55,8 @@ class EventDetail extends React.Component {
 
         const SectionHeader = props => (<Text style={[Theme.subhead, { marginVertical: 8 }]}>{props.text}</Text>)
 
+        const Section = props => (<View style={[{ marginVertical: 8, paddingHorizontal: 4 },props.style]}>{props.children}</View>)
+
         const renderInfoPage = (
             <Content tabLabel='Info'>
                 <Cover
@@ -63,6 +65,11 @@ class EventDetail extends React.Component {
                     subtitle={event.category}
                 />
                 <View>
+                    <Section style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around' }}>
+                        <Icon name='md-share' text='Share' onPress={() => this.props.onPressShare(event)} />
+                        <Icon name='md-globe' text='VocaDB' onPress={() => this.props.onPressToVocaDB(event)} />
+                    </Section>
+
                     <RenderOrNull shouldRender={(event && event.date)}>
                         <SectionHeader text='Date' />
                         <Text style={Theme.body}>{moment(event.date).format('dddd, MMMM Do YYYY')}</Text>
@@ -93,7 +100,6 @@ class EventDetail extends React.Component {
                         <SongRankingList data={this.props.songListSongs} />
                     </RenderOrNull>
 
-                    <Button onPress={() => this.props.onPressToVocaDB(event)} primary text="View more on VocaDB site" />
                     <View style={{ height: 18 }} />
                 </View>
             </Content>
