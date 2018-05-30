@@ -46,6 +46,9 @@ const api = {
             return new Promise((resolve, reject) => setTimeout(() => resolve({ token: 'abc'}), 3000))
         },
         albums: (id, params) => request(`/users/${id}/albums`, params, [])
+    },
+    songLists: {
+        songs: (id, params) =>request(`/songLists/${id}/songs`, params, {})
     }
 }
 
