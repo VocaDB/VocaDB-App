@@ -62,6 +62,8 @@ describe('Test artist selector', () => {
         }
 
         const actualResult = selectArtistDetail()(state);
+
+        artist1.image = `https://static.vocadb.net/img/artist/mainSmall/${artist1.id}`
         const expectedResult = artist1;
 
         expect(actualResult).toBeTruthy();
@@ -70,8 +72,20 @@ describe('Test artist selector', () => {
 
     it('should return followed artist is true', () => {
         state.artist = {
-            detail: artist1.id,
             followed: [ 5, 4, 3, 2, 1 ]
+        }
+
+        state.nav = {
+            index: 0,
+            routes: [
+                {
+                    key: '1',
+                    routeName: Routes.ArtistDetail,
+                    params: {
+                        id: artist1.id
+                    }
+                }
+            ]
         }
 
         const actualResult = selectIsFollowedArtist()(state);

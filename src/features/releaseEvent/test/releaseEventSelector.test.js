@@ -27,8 +27,8 @@ describe('Test releaseEvent selector', () => {
 
         song1 = mockGenerator.CreateSong({ id: 1 })
         song2 = mockGenerator.CreateSong({ id: 2 })
-        expectedSong1 = { ...song1, image: 'https://tn-skr1.smilevideo.jp/smile?i=6666016' }
-        expectedSong2 = { ...song2, image: 'https://tn-skr1.smilevideo.jp/smile?i=6666016' }
+        expectedSong1 = { ...song1, image: 'https://tn.smilevideo.jp/smile?i=6666016' }
+        expectedSong2 = { ...song2, image: 'https://tn.smilevideo.jp/smile?i=6666016' }
 
         releaseEvent1 = mockGenerator.CreateEvent({ id: 1 })
         releaseEvent2 = mockGenerator.CreateEvent({ id: 2 })
@@ -124,10 +124,9 @@ describe('Test releaseEvent selector', () => {
         state.releaseEvent.detail = releaseEvent1.id
 
         const actualResult = selectReleaseEventDetail()(state);
-        const expectedResult = releaseEvent1;
 
         expect(actualResult).toBeTruthy();
-        expect(actualResult).toEqual(expectedResult)
+        expect(actualResult).toEqual(expectedEvent1)
     })
 
     it('should return published songs ids', () => {

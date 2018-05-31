@@ -7,6 +7,7 @@ import * as actions from './../songActions'
 import * as appActions from './../../../app/appActions'
 import * as mock from '../../../common/helper/mockGenerator'
 import { selectFollowedArtistIds } from './../../user/userSelector'
+import { selectDisplayLanguage } from './../../user/userSelector'
 
 describe('Test song sagas', () => {
     it('Should fetch search song success', () => {
@@ -16,9 +17,11 @@ describe('Test song sagas', () => {
 
         expect(JSON.stringify(gen.next(params).value)).toEqual(JSON.stringify(select(selectSearchParams())));
 
-        expect(gen.next(params).value).toEqual(call(delay, 500))
+        expect(JSON.stringify(gen.next(params).value)).toEqual(JSON.stringify(select(selectDisplayLanguage())));
 
-        expect(gen.next(params).value).toEqual(call(api.find, params));
+        expect(gen.next('default').value).toEqual(call(delay, 500))
+
+        expect(gen.next(params).value).toEqual(call(api.find, { ...params, lang: 'default' }));
 
         const mockSongItems = [ mock.CreateSong() ]
         const mockResponse = { items: mockSongItems }
@@ -34,9 +37,11 @@ describe('Test song sagas', () => {
 
         expect(JSON.stringify(gen.next(params).value)).toEqual(JSON.stringify(select(selectSearchParams())));
 
-        expect(gen.next(params).value).toEqual(call(delay, 500))
+        expect(JSON.stringify(gen.next(params).value)).toEqual(JSON.stringify(select(selectDisplayLanguage())));
 
-        expect(gen.next(params).value).toEqual(call(api.find, params));
+        expect(gen.next('default').value).toEqual(call(delay, 500))
+
+        expect(gen.next(params).value).toEqual(call(api.find, { ...params, lang: 'default' }));
 
         const mockSongItems = [ mock.CreateSong() ]
         const mockResponse = { items: mockSongItems }
@@ -71,7 +76,10 @@ describe('Test song sagas', () => {
         expect(JSON.stringify(next.value)).toEqual(JSON.stringify(selectArtistsIds));
 
         next = generator.next(mockArtistIds)
-        expect(next.value).toEqual(call(api.getFollowedSongs, mockArtistIds));
+        expect(JSON.stringify(next.value)).toEqual(JSON.stringify(select(selectDisplayLanguage())));
+
+        next = generator.next('Default')
+        expect(next.value).toEqual(call(api.getFollowedSongs, mockArtistIds, { lang: 'Default' }));
 
         next = generator.next(mockResponse)
         expect(next.value).toEqual(put(actions.fetchFollowedSongsSuccess(mockSongItems)));
@@ -91,8 +99,11 @@ describe('Test song sagas', () => {
         let selectArtistsIds = select(selectFollowedArtistIds());
         expect(JSON.stringify(next.value)).toEqual(JSON.stringify(selectArtistsIds));
 
-        next = generator.next(mockResponse)
-        expect(next.value).toEqual(put(actions.fetchFollowedSongsSuccess(mockSongItems)));
+        next = generator.next(selectArtistsIds)
+        expect(JSON.stringify(next.value)).toEqual(JSON.stringify(select(selectDisplayLanguage())));
+
+        next = generator.next('Default')
+        expect(next.value).toEqual(put(actions.fetchFollowedSongsSuccess(mockSongItems, { lang: 'Default'})));
 
         next = generator.next()
         expect(next.done).toBeTruthy();
@@ -102,7 +113,9 @@ describe('Test song sagas', () => {
         const action = actions.fetchSongDetail(1)
         const gen = fetchSongDetail(action)
 
-        expect(gen.next().value).toEqual(call(api.getSong, 1));
+        expect(JSON.stringify(gen.next().value)).toEqual(JSON.stringify(select(selectDisplayLanguage())));
+
+        expect(gen.next('Default').value).toEqual(call(api.getSong, 1, { lang: 'Default'}));
 
         const mockSongItem = mock.CreateSong()
         expect(gen.next(mockSongItem).value).toEqual(put(actions.fetchSongDetailSuccess(mockSongItem)));
@@ -136,7 +149,10 @@ describe('Test song sagas', () => {
         }
 
         next = generator.next(params)
-        expect(next.value).toEqual(call(api.getTopRated, params));
+        expect(JSON.stringify(next.value)).toEqual(JSON.stringify(select(selectDisplayLanguage())));
+
+        next = generator.next('Default')
+        expect(next.value).toEqual(call(api.getTopRated, { ...params, languagePreference: 'Default' }));
 
         next = generator.next(mockSongItems)
         expect(next.value).toEqual(put(actions.updateRankingResult(mockSongItems)));

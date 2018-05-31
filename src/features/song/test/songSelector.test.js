@@ -27,8 +27,8 @@ describe('Test song selector', () => {
         song1 = mockGenerator.CreateSong({ id: 1 })
         song2 = mockGenerator.CreateSong({ id: 2 })
 
-        expectedSong1 = { ...song1, image: 'https://tn-skr1.smilevideo.jp/smile?i=6666016' }
-        expectedSong2 = { ...song2, image: 'https://tn-skr1.smilevideo.jp/smile?i=6666016' }
+        expectedSong1 = { ...song1, image: 'https://tn.smilevideo.jp/smile?i=6666016' }
+        expectedSong2 = { ...song2, image: 'https://tn.smilevideo.jp/smile?i=6666016' }
 
         let webLink1 = mockGenerator.CreateWebLink({ id: 1 })
         let webLink2 = mockGenerator.CreateWebLink({ id: 2 })

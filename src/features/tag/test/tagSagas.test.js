@@ -4,20 +4,23 @@ import { call, put, all, select } from 'redux-saga/effects'
 import * as actions from './../tagActions'
 import * as appActions from './../../../app/appActions'
 import * as mock from '../../../common/helper/mockGenerator'
-import { selectTagDetailId } from './../../tag/tagSelector'
+import { selectTagDetailId, selectSearchParams } from './../../tag/tagSelector'
+import { selectDisplayLanguage } from './../../user/userSelector'
 
 describe('Test tag sagas', () => {
     it('Should fetch tag detail success', () => {
         const action = actions.fetchTagDetail(1)
         const gen = fetchTagDetail(action)
+        const langParams = { lang: 'default' }
 
-        expect(JSON.stringify(gen.next(1).value)).toEqual(JSON.stringify(select(selectTagDetailId())))
+        expect(JSON.stringify(gen.next().value)).toEqual(JSON.stringify(select(selectDisplayLanguage())));
+        expect(JSON.stringify(gen.next('default').value)).toEqual(JSON.stringify(select(selectTagDetailId())))
 
         expect(gen.next(1).value).toEqual(all([
-            call(api.getTag, 1),
-            call(api.getTopSongsByTag, 1),
-            call(api.getTopArtistsByTag, 1),
-            call(api.getTopAlbumsByTag, 1)
+            call(api.getTag, 1, langParams),
+            call(api.getTopSongsByTag, 1, langParams),
+            call(api.getTopArtistsByTag, 1, langParams),
+            call(api.getTopAlbumsByTag, 1, langParams)
         ]));
 
         const mockTagItem = mock.CreateTag()
@@ -73,8 +76,11 @@ describe('Test tag sagas', () => {
         const action = actions.searchTags(params)
         const gen = searchTags(action)
 
+        expect(JSON.stringify(gen.next().value)).toEqual(JSON.stringify(select(selectSearchParams())));
 
-        expect(gen.next().value).toEqual(call(api.find, params));
+        expect(JSON.stringify(gen.next(params).value)).toEqual(JSON.stringify(select(selectDisplayLanguage())));
+
+        expect(gen.next('default').value).toEqual(call(api.find, { ...params, lang: 'default' }));
 
         const tag1 = mock.CreateTag({ id: 1 })
         const tag2 = mock.CreateTag({ id: 1 })
