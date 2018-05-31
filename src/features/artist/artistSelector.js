@@ -118,3 +118,34 @@ export const selectIsFollowedArtist = () => createSelector(
         return (followedArtistIds && followedArtistIds.indexOf(artistDetailId) >=0)? true : false
     }
 )
+
+export const selectArtistLinks = () => createSelector(
+    selectArtistDetail(),
+    (artistDetail) => [
+        {
+            title: 'Groups and labels',
+            artists: [
+                { id: 25, name: 'Crypton' },
+                { id: 686, name: 'Electro' }
+            ]
+        },
+        {
+            title: 'Illustrated by',
+            artists: [
+                { id: 9213, name: 'KEI' }
+            ]
+        },
+        {
+            title: 'Voice provider',
+            artists: [
+                { id: 49761, name: '藤田咲' }
+            ]
+        },
+        {
+            title: 'Character designer',
+            artists: [
+                { id: 7655, name: 'ろこる' }
+            ]
+        }
+    ]
+)

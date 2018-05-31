@@ -2,7 +2,8 @@ import {
     selectArtist,
     selectArtistEntity,
     selectArtistDetail,
-    selectIsFollowedArtist } from './../artistSelector'
+    selectIsFollowedArtist,
+    selectArtistLinks } from './../artistSelector'
 import * as mockGenerator from '../../../common/helper/mockGenerator'
 import Routes from './../../../app/appRoutes'
 
@@ -107,5 +108,59 @@ describe('Test artist selector', () => {
         actualResult = selectIsFollowedArtist()(state);
 
         expect(actualResult).toEqual(false);
+    })
+
+    it('should grouping artist links', () => {
+
+        let artistLinks = [
+            {
+                artist: { id: 25, name: 'Crypton' }, linkType: 'Group'
+            },
+            {
+                artist: { id: 686, name: 'Electro' }, linkType: 'Group'
+            },
+            {
+                artist: { id: 9213, name: 'KEI' }, linkType: 'Illustrator'
+            },
+            {
+                artist: { id: 49761, name: '藤田咲' }, linkType: 'VoiceProvider'
+            },
+            {
+                artist: {}, linkType: 'CharacterDesigner'
+            }
+        ]
+
+        let expected = [
+            {
+                title: 'Groups and labels',
+                artists: [
+                    { id: 25, name: 'Crypton' },
+                    { id: 686, name: 'Electro' }
+                ]
+            },
+            {
+                title: 'Illustrated by',
+                artists: [
+                    { id: 9213, name: 'KEI' }
+                ]
+            },
+            {
+                title: 'Voice provider',
+                artists: [
+                    { id: 49761, name: '藤田咲' }
+                ]
+            },
+            {
+                title: 'Character designer',
+                artists: [
+                    { id: 7655, name: 'ろこる' }
+                ]
+            }
+        ];
+
+        const actualResult = selectArtistLinks()(state);
+
+        expect(actualResult).toBeTruthy();
+        expect(actualResult).toEqual(expected);
     })
 })
