@@ -123,9 +123,10 @@ export const selectIsFollowedArtist = () => createSelector(
 
 export const selectArtistLinks = () => createSelector(
     selectArtistDetail(),
-    (artistDetail) => {
+    selectArtistEntity(),
+    (artistDetail, artistEntity) => {
 
-        if(!artistDetail || !artistDetail.artistLinks) {
+        if(!artistDetail || !artistDetail.artistLinks || !artistEntity) {
             return null;
         }
 
@@ -141,7 +142,7 @@ export const selectArtistLinks = () => createSelector(
                 return;
             }
 
-            let artists = artistGroup[linkType].map(a => a.artist)
+            let artists = artistGroup[linkType].filter(a => artistEntity[a.artist]).map(a => transformArtist(artistEntity[a.artist]))
 
             return {
                 linkType: translateLinkType(linkType),
@@ -153,9 +154,10 @@ export const selectArtistLinks = () => createSelector(
 
 export const selectArtistLinksReverse = () => createSelector(
     selectArtistDetail(),
-    (artistDetail) => {
+    selectArtistEntity(),
+    (artistDetail, artistEntity) => {
 
-        if(!artistDetail || !artistDetail.artistLinksReverse) {
+        if(!artistDetail || !artistDetail.artistLinksReverse || !artistEntity) {
             return null;
         }
 
@@ -171,7 +173,7 @@ export const selectArtistLinksReverse = () => createSelector(
                 return;
             }
 
-            let artists = artistGroup[linkType].map(a => a.artist)
+            let artists = artistGroup[linkType].filter(a => artistEntity[a.artist]).map(a => transformArtist(artistEntity[a.artist]))
 
             return {
                 linkType: translateReverseLinkType(linkType),

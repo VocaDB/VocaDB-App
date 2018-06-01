@@ -16,6 +16,8 @@ import SongHorizontalList from '../../song/SongHorizontalList'
 import AlbumHorizontalList from '../../album/AlbumHorizontalList'
 import AlbumGridView from '../../album/AlbumGridView'
 import Expander from './../../../components/Expander'
+import ArtistRow from './../ArtistRow'
+import moment from 'moment'
 import { SongRowList } from './../../song/songHOC'
 
 class ArtistDetailPage extends React.Component {
@@ -67,7 +69,31 @@ class ArtistDetailPage extends React.Component {
             return null;
         }
 
+        const renderArtistLinks = () => (this.props.artistLinks)? this.props.artistLinks.map(artistLink => {
+
+            return (
+                <RenderOrNull key={artistLink.linkType} shouldRender={artistLink && artistLink.artists && artistLink.artists.length}>
+                    <Text style={[Theme.subhead, { padding: 8 }]}>{artistLink.linkType}</Text>
+                    <View style={{ paddingHorizontal: 8 }}>
+                        {artistLink.artists.map(a => {
+                            return (
+                                <ArtistRow
+                                    key={a.id}
+                                    id={a.id}
+                                    name={a.name}
+                                    image={a.image}
+                                    onPress={() => this.props.onPressArtist(a)}
+                                />
+                            )
+                        })}
+                    </View>
+                </RenderOrNull>
+            )
+        }) : null;
+
         const renderExpandableContent = () => {
+
+            const baseArtist = (this.props.baseVoicebank)? this.props.baseVoicebank : {}
             return (
                 <Expander
                     content={
@@ -79,12 +105,31 @@ class ArtistDetailPage extends React.Component {
                                     <Text style={Theme.body} >{artist.additionalNames}</Text>
                                 </View>
                             </RenderOrNull>
+                            <RenderOrNull shouldRender={artist.releaseDate}>
+                                <Text style={[Theme.subhead, { padding: 8 }]}>Release date</Text>
+                                <View style={{ paddingHorizontal: 8 }}>
+                                    <Text style={Theme.body} >{(artist && artist.releaseDate)? moment(artist.releaseDate).format('MM/DD/YYYY') : ''}</Text>
+                                </View>
+                            </RenderOrNull>
                             <RenderOrNull shouldRender={artist.description}>
                                 <Text style={[Theme.subhead, { padding: 8 }]}>Description</Text>
                                 <View style={{ paddingHorizontal: 8 }}>
                                     <Text style={Theme.body} >{artist.description}</Text>
                                 </View>
                             </RenderOrNull>
+                            <RenderOrNull shouldRender={this.props.baseVoicebank != null}>
+                                <Text style={[Theme.subhead, { padding: 8 }]}>Base voicebank</Text>
+                                <View style={{ paddingHorizontal: 8 }}>
+                                    <ArtistRow
+                                        id={baseArtist.id}
+                                        name={baseArtist.name}
+                                        image={baseArtist.image}
+                                        onPress={() => this.props.onPressArtist(baseArtist)}
+                                    />
+                                </View>
+                            </RenderOrNull>
+
+                            {renderArtistLinks()}
                         </View>
 
                     }

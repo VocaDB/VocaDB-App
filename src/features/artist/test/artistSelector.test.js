@@ -112,24 +112,46 @@ describe('Test artist selector', () => {
     })
 
     it('should grouping artist links', () => {
+
+        const artistLink1 = mockGenerator.CreateArtist({ id: 25, name: 'Crypton'})
+        const artistLink2 = mockGenerator.CreateArtist({ id: 686, name: 'Electro'})
+        const artistLink3 = mockGenerator.CreateArtist({ id: 9213, name: 'KEI'})
+        const artistLink4 = mockGenerator.CreateArtist({ id: 49761, name: '藤田咲'})
+        const artistLink5 = mockGenerator.CreateArtist({ id: 7655, name: 'ろこる'})
+        const artistLink6 = mockGenerator.CreateArtist({ id: 99, name: 'ABC'})
+
+        artistLink1.image = `https://static.vocadb.net/img/artist/mainSmall/${artistLink1.id}`
+        artistLink2.image = `https://static.vocadb.net/img/artist/mainSmall/${artistLink2.id}`
+        artistLink3.image = `https://static.vocadb.net/img/artist/mainSmall/${artistLink3.id}`
+        artistLink4.image = `https://static.vocadb.net/img/artist/mainSmall/${artistLink4.id}`
+        artistLink5.image = `https://static.vocadb.net/img/artist/mainSmall/${artistLink5.id}`
+        artistLink6.image = `https://static.vocadb.net/img/artist/mainSmall/${artistLink6.id}`
+
+        state.entities.artists[artistLink1.id.toString()] = artistLink1;
+        state.entities.artists[artistLink2.id.toString()] = artistLink2;
+        state.entities.artists[artistLink3.id.toString()] = artistLink3;
+        state.entities.artists[artistLink4.id.toString()] = artistLink4;
+        state.entities.artists[artistLink5.id.toString()] = artistLink5;
+        state.entities.artists[artistLink6.id.toString()] = artistLink6;
+
         artist1.artistLinks = [
             {
-                artist: { id: 25, name: 'Crypton' }, linkType: 'Group'
+                artist: artistLink1.id, linkType: 'Group'
             },
             {
-                artist: { id: 686, name: 'Electro' }, linkType: 'Group'
+                artist: artistLink2.id, linkType: 'Group'
             },
             {
-                artist: { id: 9213, name: 'KEI' }, linkType: 'Illustrator'
+                artist: artistLink3.id, linkType: 'Illustrator'
             },
             {
-                artist: { id: 49761, name: '藤田咲' }, linkType: 'VoiceProvider'
+                artist: artistLink4.id, linkType: 'VoiceProvider'
             },
             {
-                artist: { id: 7655, name: 'ろこる' }, linkType: 'CharacterDesigner'
+                artist: artistLink5.id, linkType: 'CharacterDesigner'
             },
             {
-                artist: { id: 99, name: 'ABC' }, linkType: 'Other'
+                artist: artistLink6.id, linkType: 'Other'
             }
         ]
 
@@ -137,32 +159,32 @@ describe('Test artist selector', () => {
             {
                 linkType: 'Groups and labels',
                 artists: [
-                    { id: 25, name: 'Crypton' },
-                    { id: 686, name: 'Electro' }
+                    artistLink1,
+                    artistLink2
                 ]
             },
             {
                 linkType: 'Illustrated by',
                 artists: [
-                    { id: 9213, name: 'KEI' }
+                    artistLink3
                 ]
             },
             {
                 linkType: 'Voice provider',
                 artists: [
-                    { id: 49761, name: '藤田咲' }
+                    artistLink4
                 ]
             },
             {
                 linkType: 'Character designer',
                 artists: [
-                    { id: 7655, name: 'ろこる' }
+                    artistLink5
                 ]
             },
             {
                 linkType: 'Other',
                 artists: [
-                    { id: 99, name: 'ABC' }
+                    artistLink6
                 ]
             }
         ];
@@ -179,21 +201,42 @@ describe('Test artist selector', () => {
     })
 
     it('should grouping artist links reverse', () => {
+        const artistLink2 = mockGenerator.CreateArtist({ id: 686, name: 'Electro'})
+        const artistLink3 = mockGenerator.CreateArtist({ id: 9213, name: 'KEI'})
+        const artistLink4 = mockGenerator.CreateArtist({ id: 49761, name: '藤田咲'})
+        const artistLink5 = mockGenerator.CreateArtist({ id: 7655, name: 'ろこる'})
+        const artistLink6 = mockGenerator.CreateArtist({ id: 99, name: 'ABC'})
+
+        artistLink2.image = `https://static.vocadb.net/img/artist/mainSmall/${artistLink2.id}`
+        artistLink3.image = `https://static.vocadb.net/img/artist/mainSmall/${artistLink3.id}`
+        artistLink4.image = `https://static.vocadb.net/img/artist/mainSmall/${artistLink4.id}`
+        artistLink5.image = `https://static.vocadb.net/img/artist/mainSmall/${artistLink5.id}`
+        artistLink6.image = `https://static.vocadb.net/img/artist/mainSmall/${artistLink6.id}`
+
+        state.entities.artists[artistLink2.id.toString()] = artistLink2;
+        state.entities.artists[artistLink3.id.toString()] = artistLink3;
+        state.entities.artists[artistLink4.id.toString()] = artistLink4;
+        state.entities.artists[artistLink5.id.toString()] = artistLink5;
+        state.entities.artists[artistLink6.id.toString()] = artistLink6;
+
         artist1.artistLinksReverse = [
             {
-                artist: { id: 9213, name: 'KEI' }, linkType: 'Illustrator'
+                artist: artistLink2.id, linkType: 'Illustrator'
             },
             {
-                artist: { id: 1, name: 'MEI' }, linkType: 'Illustrator'
+                artist: artistLink3.id, linkType: 'Illustrator'
             },
             {
-                artist: { id: 49761, name: '藤田咲' }, linkType: 'VoiceProvider'
+                artist: artistLink4.id, linkType: 'VoiceProvider'
             },
             {
-                artist: { id: 7655, name: 'ろこる' }, linkType: 'CharacterDesigner'
+                artist: artistLink5.id, linkType: 'CharacterDesigner'
             },
             {
-                artist: { id: 99, name: 'ABC' }, linkType: 'Other'
+                artist: artistLink6.id, linkType: 'Other'
+            },
+            {
+                artist: 123, linkType: 'Other' // Not exist
             }
         ]
 
@@ -201,26 +244,26 @@ describe('Test artist selector', () => {
             {
                 linkType: 'Illustrator of',
                 artists: [
-                    { id: 9213, name: 'KEI' },
-                    { id: 1, name: 'MEI' }
+                    artistLink2,
+                    artistLink3
                 ]
             },
             {
                 linkType: 'Voice provider of',
                 artists: [
-                    { id: 49761, name: '藤田咲' }
+                    artistLink4
                 ]
             },
             {
                 linkType: 'Designer of',
                 artists: [
-                    { id: 7655, name: 'ろこる' }
+                    artistLink5
                 ]
             },
             {
                 linkType: 'Other',
                 artists: [
-                    { id: 99, name: 'ABC' }
+                    artistLink6
                 ]
             }
         ];
