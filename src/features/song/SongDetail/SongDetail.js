@@ -156,7 +156,7 @@ class SongDetail extends React.PureComponent {
 
             return (
                 <Section>
-                    <Text style={[Theme.subhead, { padding: 8 } ]}>Original version {originalSong.image}</Text>
+                    <Text style={[Theme.subhead, { padding: 8 } ]}>Original version</Text>
                     <SongRow key={originalSong.id}
                              image={originalSong.image}
                              name={originalSong.name}
