@@ -3,7 +3,9 @@ import {
     selectArtistEntity,
     selectArtistDetail,
     selectIsFollowedArtist,
-    selectArtistLinks } from './../artistSelector'
+    selectArtistLinks,
+    selectArtistLinksReverse,
+    selectBaseVoicebank } from './../artistSelector'
 import * as mockGenerator from '../../../common/helper/mockGenerator'
 import Routes from './../../../app/appRoutes'
 
@@ -30,6 +32,18 @@ describe('Test artist selector', () => {
             entities,
             artist: {
                 detail: 0
+            },
+            nav: {
+                index: 0,
+                routes: [
+                    {
+                        key: '1',
+                        routeName: Routes.ArtistDetail,
+                        params: {
+                            id: artist1.id
+                        }
+                    }
+                ]
             }
         }
     });
@@ -76,19 +90,6 @@ describe('Test artist selector', () => {
             followed: [ 5, 4, 3, 2, 1 ]
         }
 
-        state.nav = {
-            index: 0,
-            routes: [
-                {
-                    key: '1',
-                    routeName: Routes.ArtistDetail,
-                    params: {
-                        id: artist1.id
-                    }
-                }
-            ]
-        }
-
         const actualResult = selectIsFollowedArtist()(state);
 
         expect(actualResult).toBeTruthy();
@@ -111,8 +112,7 @@ describe('Test artist selector', () => {
     })
 
     it('should grouping artist links', () => {
-
-        let artistLinks = [
+        artist1.artistLinks = [
             {
                 artist: { id: 25, name: 'Crypton' }, linkType: 'Group'
             },
@@ -126,34 +126,43 @@ describe('Test artist selector', () => {
                 artist: { id: 49761, name: '藤田咲' }, linkType: 'VoiceProvider'
             },
             {
-                artist: {}, linkType: 'CharacterDesigner'
+                artist: { id: 7655, name: 'ろこる' }, linkType: 'CharacterDesigner'
+            },
+            {
+                artist: { id: 99, name: 'ABC' }, linkType: 'Other'
             }
         ]
 
         let expected = [
             {
-                title: 'Groups and labels',
+                linkType: 'Groups and labels',
                 artists: [
                     { id: 25, name: 'Crypton' },
                     { id: 686, name: 'Electro' }
                 ]
             },
             {
-                title: 'Illustrated by',
+                linkType: 'Illustrated by',
                 artists: [
                     { id: 9213, name: 'KEI' }
                 ]
             },
             {
-                title: 'Voice provider',
+                linkType: 'Voice provider',
                 artists: [
                     { id: 49761, name: '藤田咲' }
                 ]
             },
             {
-                title: 'Character designer',
+                linkType: 'Character designer',
                 artists: [
                     { id: 7655, name: 'ろこる' }
+                ]
+            },
+            {
+                linkType: 'Other',
+                artists: [
+                    { id: 99, name: 'ABC' }
                 ]
             }
         ];
@@ -162,5 +171,92 @@ describe('Test artist selector', () => {
 
         expect(actualResult).toBeTruthy();
         expect(actualResult).toEqual(expected);
+    })
+
+    it('should return null when artist links does not exist', () => {
+        const actualResult = selectArtistLinks()(state);
+        expect(actualResult).toEqual(null);
+    })
+
+    it('should grouping artist links reverse', () => {
+        artist1.artistLinksReverse = [
+            {
+                artist: { id: 9213, name: 'KEI' }, linkType: 'Illustrator'
+            },
+            {
+                artist: { id: 1, name: 'MEI' }, linkType: 'Illustrator'
+            },
+            {
+                artist: { id: 49761, name: '藤田咲' }, linkType: 'VoiceProvider'
+            },
+            {
+                artist: { id: 7655, name: 'ろこる' }, linkType: 'CharacterDesigner'
+            },
+            {
+                artist: { id: 99, name: 'ABC' }, linkType: 'Other'
+            }
+        ]
+
+        let expected = [
+            {
+                linkType: 'Illustrator of',
+                artists: [
+                    { id: 9213, name: 'KEI' },
+                    { id: 1, name: 'MEI' }
+                ]
+            },
+            {
+                linkType: 'Voice provider of',
+                artists: [
+                    { id: 49761, name: '藤田咲' }
+                ]
+            },
+            {
+                linkType: 'Designer of',
+                artists: [
+                    { id: 7655, name: 'ろこる' }
+                ]
+            },
+            {
+                linkType: 'Other',
+                artists: [
+                    { id: 99, name: 'ABC' }
+                ]
+            }
+        ];
+
+        const actualResult = selectArtistLinksReverse()(state);
+
+        expect(actualResult).toBeTruthy();
+        expect(actualResult).toEqual(expected);
+    })
+
+    it('should return null when artist links reverse does not exist', () => {
+        const actualResult = selectArtistLinksReverse()(state);
+        expect(actualResult).toEqual(null);
+    })
+
+    it('should return base voicebank', () => {
+        artist1.baseVoicebank = artist2.id
+
+        const actualResult = selectBaseVoicebank()(state);
+        artist2.image = `https://static.vocadb.net/img/artist/mainSmall/${artist2.id}`
+
+        expect(actualResult).toBeTruthy();
+        expect(actualResult).toEqual(artist2);
+    })
+
+    it('should return base voicebank null if id not found', () => {
+        artist1.baseVoicebank = 99
+
+        const actualResult = selectBaseVoicebank()(state);
+
+        expect(actualResult).toEqual(null);
+    })
+
+    it('should return base voicebank null if not exists', () => {
+        const actualResult = selectBaseVoicebank()(state);
+
+        expect(actualResult).toEqual(null);
     })
 })

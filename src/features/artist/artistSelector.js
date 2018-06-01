@@ -5,6 +5,8 @@ import image from './../../common/assets/images'
 import { convertSongIds, selectSongEntity } from './../song/songSelector'
 import { convertAlbumIds, selectAlbumEntity } from './../album/albumSelector'
 import { convertEventIds, selectReleaseEventEntity } from './../releaseEvent/releaseEventSelector'
+import { translateLinkType, translateReverseLinkType } from './artistConstant'
+import _ from 'lodash'
 
 export const transformArtist = (artist) => {
     if(!artist) {
@@ -121,31 +123,68 @@ export const selectIsFollowedArtist = () => createSelector(
 
 export const selectArtistLinks = () => createSelector(
     selectArtistDetail(),
-    (artistDetail) => [
-        {
-            title: 'Groups and labels',
-            artists: [
-                { id: 25, name: 'Crypton' },
-                { id: 686, name: 'Electro' }
-            ]
-        },
-        {
-            title: 'Illustrated by',
-            artists: [
-                { id: 9213, name: 'KEI' }
-            ]
-        },
-        {
-            title: 'Voice provider',
-            artists: [
-                { id: 49761, name: '藤田咲' }
-            ]
-        },
-        {
-            title: 'Character designer',
-            artists: [
-                { id: 7655, name: 'ろこる' }
-            ]
+    (artistDetail) => {
+
+        if(!artistDetail || !artistDetail.artistLinks) {
+            return null;
         }
-    ]
+
+        let uniqLinkTypes = _.uniq(artistDetail.artistLinks.map(a => a.linkType));
+        let artistGroup =  _.groupBy(artistDetail.artistLinks, a => a.linkType);
+
+        if(!uniqLinkTypes || !uniqLinkTypes.length || !artistGroup) {
+            return null;
+        }
+
+        return uniqLinkTypes.map(linkType => {
+            if(!linkType || !artistGroup[linkType]) {
+                return;
+            }
+
+            let artists = artistGroup[linkType].map(a => a.artist)
+
+            return {
+                linkType: translateLinkType(linkType),
+                artists
+            }
+        });
+    }
+)
+
+export const selectArtistLinksReverse = () => createSelector(
+    selectArtistDetail(),
+    (artistDetail) => {
+
+        if(!artistDetail || !artistDetail.artistLinksReverse) {
+            return null;
+        }
+
+        let uniqLinkTypes = _.uniq(artistDetail.artistLinksReverse.map(a => a.linkType));
+        let artistGroup =  _.groupBy(artistDetail.artistLinksReverse, a => a.linkType);
+
+        if(!uniqLinkTypes || !uniqLinkTypes.length || !artistGroup) {
+            return null;
+        }
+
+        return uniqLinkTypes.map(linkType => {
+            if(!linkType || !artistGroup[linkType]) {
+                return;
+            }
+
+            let artists = artistGroup[linkType].map(a => a.artist)
+
+            return {
+                linkType: translateReverseLinkType(linkType),
+                artists
+            }
+        });
+    }
+)
+
+
+export const selectBaseVoicebank = () => createSelector(
+    selectArtistDetail(),
+    selectArtistEntity(),
+    (artistDetail, artistEntity) => (artistDetail && artistDetail.baseVoicebank && artistEntity[artistDetail.baseVoicebank.toString()])?
+        transformArtist(artistEntity[artistDetail.baseVoicebank.toString()]) : null
 )
