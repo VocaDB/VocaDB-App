@@ -5,6 +5,8 @@ import image from './../../common/assets/images'
 import { convertSongIds, selectSongEntity } from './../song/songSelector'
 import { convertAlbumIds, selectAlbumEntity } from './../album/albumSelector'
 import { convertEventIds, selectReleaseEventEntity } from './../releaseEvent/releaseEventSelector'
+import { translateLinkType, translateReverseLinkType } from './artistConstant'
+import _ from 'lodash'
 
 export const transformArtist = (artist) => {
     if(!artist) {
@@ -117,4 +119,74 @@ export const selectIsFollowedArtist = () => createSelector(
     (artistState, followedArtistIds, artistDetailId) => {
         return (followedArtistIds && followedArtistIds.indexOf(artistDetailId) >=0)? true : false
     }
+)
+
+export const selectArtistLinks = () => createSelector(
+    selectArtistDetail(),
+    selectArtistEntity(),
+    (artistDetail, artistEntity) => {
+
+        if(!artistDetail || !artistDetail.artistLinks || !artistEntity) {
+            return null;
+        }
+
+        let uniqLinkTypes = _.uniq(artistDetail.artistLinks.map(a => a.linkType));
+        let artistGroup =  _.groupBy(artistDetail.artistLinks, a => a.linkType);
+
+        if(!uniqLinkTypes || !uniqLinkTypes.length || !artistGroup) {
+            return null;
+        }
+
+        return uniqLinkTypes.map(linkType => {
+            if(!linkType || !artistGroup[linkType]) {
+                return;
+            }
+
+            let artists = artistGroup[linkType].filter(a => artistEntity[a.artist]).map(a => transformArtist(artistEntity[a.artist]))
+
+            return {
+                linkType: translateLinkType(linkType),
+                artists
+            }
+        });
+    }
+)
+
+export const selectArtistLinksReverse = () => createSelector(
+    selectArtistDetail(),
+    selectArtistEntity(),
+    (artistDetail, artistEntity) => {
+
+        if(!artistDetail || !artistDetail.artistLinksReverse || !artistEntity) {
+            return null;
+        }
+
+        let uniqLinkTypes = _.uniq(artistDetail.artistLinksReverse.map(a => a.linkType));
+        let artistGroup =  _.groupBy(artistDetail.artistLinksReverse, a => a.linkType);
+
+        if(!uniqLinkTypes || !uniqLinkTypes.length || !artistGroup) {
+            return null;
+        }
+
+        return uniqLinkTypes.map(linkType => {
+            if(!linkType || !artistGroup[linkType]) {
+                return;
+            }
+
+            let artists = artistGroup[linkType].filter(a => artistEntity[a.artist]).map(a => transformArtist(artistEntity[a.artist]))
+
+            return {
+                linkType: translateReverseLinkType(linkType),
+                artists
+            }
+        });
+    }
+)
+
+
+export const selectBaseVoicebank = () => createSelector(
+    selectArtistDetail(),
+    selectArtistEntity(),
+    (artistDetail, artistEntity) => (artistDetail && artistDetail.baseVoicebank && artistEntity[artistDetail.baseVoicebank.toString()])?
+        transformArtist(artistEntity[artistDetail.baseVoicebank.toString()]) : null
 )

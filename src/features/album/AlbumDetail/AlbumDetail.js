@@ -13,6 +13,8 @@ import Content from '../../../components/Content/index'
 import TrackList from '../../track/TrackList/index'
 import Divider from '../../../components/Divider/index'
 import Expander from './../../../components/Expander'
+import StarRating from 'react-native-star-rating'
+import PVList from '../../pv/PVLIst/index'
 
 class AlbumDetail extends React.Component {
 
@@ -38,7 +40,7 @@ class AlbumDetail extends React.Component {
         const { params } = this.props.navigation.state;
         const imageUri = (album.image)? album.image : images.getAlbumUri(params.id, album.coverPictureMime)
 
-        const Section = props => (<View style={[{ marginVertical: 8, paddingHorizontal: 4 },props.style]}>{props.children}</View>)
+        const Section = props => (<View style={[{ paddingHorizontal: 4 },props.style]}>{props.children}</View>)
 
         const RenderOrNull = props => {
             if(props.shouldRender) {
@@ -51,6 +53,43 @@ class AlbumDetail extends React.Component {
 
             return null;
         }
+
+        const renderAdditionalInfo = () => (
+            <Section style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around', padding: 8, backgroundColor: '#2C486E' }}>
+
+                <View style={{ alignItems: 'center' }}>
+                    <View style={{ padding: 4 }}>
+                        <Text style={Theme.boxValue}>{album.ratingAverage}</Text>
+                    </View>
+                    <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+                        <StarRating
+                            disabled
+                            maxStars={5}
+                            rating={album.ratingAverage}
+                            starStyle={{}}
+                            fullStarColor='white'
+                            halfStarColor='white'
+                            starSize={14}
+                        />
+                    </View>
+
+                </View>
+
+                <View style={{ alignItems: 'center'}}>
+                    <View  style={{ padding: 4 }}>
+                        <Text style={Theme.boxValue}>{album.discType}</Text>
+                    </View>
+                    <Text style={Theme.boxTitle}>Type</Text>
+                </View>
+
+                <View style={{ alignItems: 'center'}}>
+                    <View  style={{ padding: 4 }}>
+                        <Text style={Theme.boxValue}>{(album && album.releaseDate && album.releaseDate.formatted)? album.releaseDate.formatted : 'Unknown'}</Text>
+                    </View>
+                    <Text style={Theme.boxTitle}>Release</Text>
+                </View>
+            </Section>
+        )
 
         const renderExpandableContent = () => {
             return (
@@ -84,16 +123,17 @@ class AlbumDetail extends React.Component {
             </Section>
         )
 
-        const renderDescription = () => (
-            <Section>
-                <Text style={Theme.body}>{album.description}</Text>
-            </Section>
-        )
-
         const renderTracks = () => (
             <Section>
                 <Divider />
                 <TrackList tracks={album.tracks} onPressItem={this.props.onPressTrack} />
+            </Section>
+        )
+
+        const renderPVList = () => (
+            <Section>
+                <Divider />
+                <PVList pvs={album.pvs} title='Ads / crossfades' showHeader />
             </Section>
         )
 
@@ -125,8 +165,10 @@ class AlbumDetail extends React.Component {
                         imageUri={imageUri}
                         title={album.name}
                         subtitle={album.artistString}
-                        subtitle2={(album && album.releaseDate && album.releaseDate.formatted)? album.releaseDate.formatted : ''}
                     />
+
+                    {renderAdditionalInfo()}
+
                     <Section style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around' }}>
                         {!this.props.isFavoriteAlbum && <Icon name='md-heart' text='Follow' onPress={() => this.props.onPressAddFavorite(album)} />}
                         {this.props.isFavoriteAlbum && <Icon name='md-heart' text='Follow' color={Theme.buttonActiveColor} onPress={() => this.props.onPressRemoveFavorite(album)} />}
@@ -137,6 +179,7 @@ class AlbumDetail extends React.Component {
                     {renderExpandableContent()}
 
                     {album.tags && album.tags.length > 0 && renderTagGroup()}
+                    {album.pvs && album.pvs.length > 0 && renderPVList()}
                     {album.tracks && album.tracks.length > 0 && renderTracks()}
                     {album.webLinks && album.webLinks.length > 0 && renderWebLinks()}
 

@@ -11,7 +11,18 @@ const artistSchema = new schema.Entity('artists', {
         popularAlbums: [ albumSchema ],
         popularSongs: [ songSchema ],
 
-    }
+    },
+    artistLinks: [
+        {
+            artist: new schema.Entity('artists')
+        }
+    ],
+    artistLinksReverse: [
+        {
+            artist: new schema.Entity('artists')
+        }
+    ],
+    baseVoicebank: new schema.Entity('artists')
 });
 
 export default artistSchema;

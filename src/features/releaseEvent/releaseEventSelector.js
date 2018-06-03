@@ -3,14 +3,24 @@ import Routes from './../../app/appRoutes'
 import { selectNav } from './../../app/appSelector'
 import { selectSongEntity, convertSongIds } from './../song/songSelector'
 import { selectAlbumEntity, convertAlbumIds } from './../album/albumSelector'
+import { transformSong } from './../song/songSelector'
+
+export const transformEvent = (event) => {
+    if(!event) {
+        return {}
+    }
+
+    return {
+        ...event,
+        category: (event.series && event.series.category)? event.series.category : event.category,
+        image: (event.mainPicture && event.mainPicture.urlThumb) ? event.mainPicture.urlThumb.replace('mainThumb', 'mainOrig') : undefined
+    }
+}
 
 export const convertEventIds = (eventIds, eventEntity) => (eventIds) ? eventIds
     .filter(id => (id != undefined && eventEntity[id.toString()]))
     .map(id => eventEntity[id.toString()])
-    .map(event => ({
-        ...event,
-        image: (event.mainPicture && event.mainPicture.urlThumb) ? event.mainPicture.urlThumb.replace('mainThumb', 'mainOrig') : undefined
-    })): []
+    .map(transformEvent): []
 
 export const selectReleaseEvent = () => state => state.releaseEvent
 export const selectReleaseEventEntity = () => state => (state.entities && state.entities.releaseEvents)? state.entities.releaseEvents : {}
@@ -34,7 +44,7 @@ export const selectLatestReleaseEvents = () => createSelector(
 export const selectReleaseEventDetail = () => createSelector(
     selectReleaseEventDetailId(),
     selectReleaseEventEntity(),
-    (releaseEventDetailId, releaseEventEntity) => releaseEventEntity[releaseEventDetailId.toString()]
+    (releaseEventDetailId, releaseEventEntity) => transformEvent(releaseEventEntity[releaseEventDetailId.toString()])
 )
 
 export const selectSearchParams = () => createSelector(
@@ -78,4 +88,42 @@ export const selectAlbums = () => createSelector(
     selectAlbumIds(),
     selectAlbumEntity(),
     convertAlbumIds
+)
+
+export const selectArtists = () => createSelector(
+    selectReleaseEventDetail(),
+    (eventDetail) => {
+        if(!eventDetail || !eventDetail.artists || eventDetail.length === 0) {
+            return {}
+        }
+
+        return eventDetail.artists.map(a => {
+            if(a.effectiveRoles == 'Default' && a.artist && a.artist.artistType) {
+                a.effectiveRoles = a.artist.artistType;
+            }
+            return a;
+        })
+    }
+)
+
+export const selectSongListSongs = () => createSelector(
+    selectReleaseEventDetail(),
+    (eventDetail) => {
+        if(!eventDetail || !eventDetail.songList || !eventDetail.songList.songs || !eventDetail.songList.songs.length) {
+            return {}
+        }
+
+        return eventDetail.songList.songs.map(s => transformSong(s.song));
+    }
+)
+
+export const selectSeries = () => createSelector(
+    selectReleaseEventDetail(),
+    (eventDetail) => {
+        if(!eventDetail || !eventDetail.series || !eventDetail.series.id) {
+            return {}
+        }
+
+        return eventDetail.series;
+    }
 )

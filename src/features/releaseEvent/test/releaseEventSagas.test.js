@@ -1,16 +1,19 @@
 import { fetchLatestReleaseEvents, fetchReleaseEventDetail } from './../releaseEventSagas'
 import api from './../releaseEventApi'
-import { call, put, all } from 'redux-saga/effects'
+import { call, put, all, select } from 'redux-saga/effects'
 import * as actions from './../releaseEventActions'
 import * as appActions from './../../../app/appActions'
 import * as mock from '../../../common/helper/mockGenerator'
+import { selectDisplayLanguage } from './../../user/userSelector'
 
 describe('Test releaseEvent sagas', () => {
     it('Should fetch releaseEvent success', () => {
         const action = actions.fetchLatestReleaseEvents()
         const gen = fetchLatestReleaseEvents(action)
 
-        expect(gen.next().value).toEqual(call(api.getRecentReleaseEvents));
+        expect(JSON.stringify(gen.next().value)).toEqual(JSON.stringify(select(selectDisplayLanguage())));
+
+        expect(gen.next('default').value).toEqual(call(api.getRecentReleaseEvents, { lang: 'default' }));
 
         const mockReleaseEventItems = [ mock.CreateEvent() ]
         const mockResponse = { items: mockReleaseEventItems }
@@ -27,18 +30,13 @@ describe('Test releaseEvent sagas', () => {
         const mockSongs = [ mock.CreateSong({ id: 1 }), mock.CreateSong({ id: 2 }) ]
         const mockAlbums = [ mock.CreateAlbum({ id: 1 }), mock.CreateAlbum({ id: 2 }) ]
 
-        expect(gen.next([mockReleaseEventItem, mockSongs, mockAlbums]).value).toEqual(all([
-            call(api.getReleaseEvent, 1),
-            call(api.getPublishedSongs, 1),
-            call(api.getAlbums, 1)
-        ]));
+        expect(JSON.stringify(gen.next().value)).toEqual(JSON.stringify(select(selectDisplayLanguage())));
 
-        // expect(gen.next(mockReleaseEventItem).value).toEqual(put(actions.fetchReleaseEventDetailSuccess(mockReleaseEventItem)));
-        // expect(gen.next(mockSongs).value).toEqual(put(actions.fetchReleaseEventPublishedSongsSuccess(mockSongs)));
-        // expect(gen.next(mockAlbums).value).toEqual(put(actions.fetchReleaseEventAlbumsSuccess(mockAlbums)));
-        //u
-        // expect(gen.next().value).toEqual(put(actions.fetchReleaseEventDetailSuccess(mockReleaseEventItem)));
-        // expect(gen.next()).toEqual({});
+        expect(gen.next('default').value).toEqual(all([
+            call(api.getReleaseEvent, 1, { lang: 'default' }),
+            call(api.getPublishedSongs, 1, { lang: 'default' }),
+            call(api.getAlbums, 1, { lang: 'default' })
+        ]));
     })
 
     it('Should return error when no id', () => {

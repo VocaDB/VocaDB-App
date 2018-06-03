@@ -1,3 +1,5 @@
+import { staticHost } from './../constants/config'
+
 const getExtensionFromMime = mime => {
     switch (mime) {
         case 'image/jpeg':
@@ -29,8 +31,8 @@ const images = {
     iconYoutube: require('./img/icon_youtube.png'),
     iconSoundcloud: require('./img/icon_soundcloud.png'),
     iconNicoNicoDouga: require('./img/icon_niconicodouga.jpg'),
-    getArtistUri: (id, mime) => `https://static.vocadb.net/img/artist/mainSmall/${id}${getExtensionFromMime(mime)}`,
-    getAlbumUri: (id, mime) => `https://static.vocadb.net/img/album/mainSmall/${id}${getExtensionFromMime(mime)}`
+    getArtistUri: (id, mime) => `${staticHost}/img/artist/mainSmall/${id}${getExtensionFromMime(mime)}`,
+    getAlbumUri: (id, mime) => `${staticHost}/img/album/mainSmall/${id}${getExtensionFromMime(mime)}`
 };
 
 export default images;

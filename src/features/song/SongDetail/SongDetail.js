@@ -156,9 +156,9 @@ class SongDetail extends React.PureComponent {
 
             return (
                 <Section>
-                    <Text style={[Theme.subhead, { padding: 8 } ]}>Original version</Text>
+                    <Text style={[Theme.subhead, { padding: 8 } ]}>Original version {originalSong.image}</Text>
                     <SongRow key={originalSong.id}
-                             image={originalSong.thumbUrl}
+                             image={originalSong.image}
                              name={originalSong.name}
                              artist={originalSong.artistString}
                              dateTime={originalSong.createDate}
@@ -172,7 +172,7 @@ class SongDetail extends React.PureComponent {
             <ScrollableTabView>
                 <ScrollView style={{ flex: 1, backgroundColor: 'white', paddingBottom: 18 }} tabLabel="Info" >
                     <Cover
-                        imageUri={song.thumbUrl}
+                        imageUri={song.image}
                         title={song.name}
                         subtitle={song.artistString}
                         subtitle2={(song && song.publishDate)? moment(song.publishDate).format('MM/DD/YYYY') : '' }

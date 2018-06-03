@@ -12,7 +12,10 @@ describe('User reducer test state', () => {
             token: '',
             skipSignIn: false,
             userId: 0,
-            albums: []
+            albums: [],
+            settings: {
+                displayLanguage: 'Default'
+            }
         }
     });
 

@@ -99,6 +99,18 @@ describe('Test tag selector', () => {
 
     it('should return tag detail correctly', () => {
         state.tag.detail = tag1.id
+        state.nav = {
+            index: 0,
+            routes: [
+                {
+                    key: '1',
+                    routeName: Routes.TagDetail,
+                    params: {
+                        id: tag1.id
+                    }
+                }
+            ]
+        }
 
         const actualResult = selectTagDetail()(state);
         const expectedResult = tag1;
@@ -108,7 +120,23 @@ describe('Test tag selector', () => {
     })
 
     it('should return top songs', () => {
-        state.tag.topSongs = [ song1.id, song2.id ]
+
+        song1.image = 'https://tn.smilevideo.jp/smile?i=6666016';
+        song2.image = 'https://tn.smilevideo.jp/smile?i=6666016';
+
+        tag1.topSongs = [ song1.id, song2.id ]
+        state.nav = {
+            index: 0,
+            routes: [
+                {
+                    key: '1',
+                    routeName: Routes.TagDetail,
+                    params: {
+                        id: tag1.id
+                    }
+                }
+            ]
+        }
 
         const actualResult = selectTopSongs()(state);
         const expectedResult = [ song1, song2 ];
@@ -118,7 +146,22 @@ describe('Test tag selector', () => {
     })
 
     it('should return top artists', () => {
-        state.tag.topArtists = [ artist1.id, artist2.id ]
+        artist1.image = `https://static.vocadb.net/img/artist/mainSmall/${artist1.id}`;
+        artist2.image = `https://static.vocadb.net/img/artist/mainSmall/${artist2.id}`;
+
+        tag1.topArtists = [ artist1.id, artist2.id ]
+        state.nav = {
+            index: 0,
+            routes: [
+                {
+                    key: '1',
+                    routeName: Routes.TagDetail,
+                    params: {
+                        id: tag1.id
+                    }
+                }
+            ]
+        }
 
         const actualResult = selectTopArtists()(state);
         const expectedResult = [ artist1, artist2 ];
@@ -128,7 +171,22 @@ describe('Test tag selector', () => {
     })
 
     it('should return top albums', () => {
-        state.tag.topAlbums = [ album1.id, album2.id ]
+        album1.image = `https://static.vocadb.net/img/album/mainSmall/${album1.id}`;
+        album2.image = `https://static.vocadb.net/img/album/mainSmall/${album2.id}`;
+
+        tag1.topAlbums = [ album1.id, album2.id ]
+        state.nav = {
+            index: 0,
+            routes: [
+                {
+                    key: '1',
+                    routeName: Routes.TagDetail,
+                    params: {
+                        id: tag1.id
+                    }
+                }
+            ]
+        }
 
         const actualResult = selectTopAlbums()(state);
         const expectedResult = [ album1, album2 ];
@@ -142,6 +200,9 @@ describe('Test tag selector', () => {
         state.tag.latestSongsByTagId = {
             '345': [ 1, 2 ]
         }
+
+        song1.image = 'https://tn.smilevideo.jp/smile?i=6666016';
+        song2.image = 'https://tn.smilevideo.jp/smile?i=6666016';
 
         const actualResult = selectTagDetailLatestSongs()(state);
         const expectedResult = [ song1, song2 ];

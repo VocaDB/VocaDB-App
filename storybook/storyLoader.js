@@ -14,6 +14,7 @@ function loadStories() {
   require('../src/components/MenuItem/test/stories');
   require('../src/components/NNDPlayer/test/stories');
   require('../src/components/SearchBar/test/stories');
+  require('../src/components/Section/test/stories');
   require('../src/features/album/AlbumCard/test/stories');
   require('../src/features/album/AlbumDetail/test/stories');
   require('../src/features/album/AlbumFilter/test/stories');
@@ -58,6 +59,7 @@ function loadStories() {
   require('../src/features/tag/Tag/test/stories');
   require('../src/features/tag/TagDetail/test/stories');
   require('../src/features/tag/TagGroup/test/stories');
+  require('../src/features/tag/TagSearch/test/stories');
   require('../src/features/track/Track/test/stories');
   require('../src/features/track/TrackList/test/stories');
   require('../src/features/user/MyAlbums/test/stories');
@@ -78,6 +80,7 @@ const stories = [
   '../src/components/MenuItem/test/stories',
   '../src/components/NNDPlayer/test/stories',
   '../src/components/SearchBar/test/stories',
+  '../src/components/Section/test/stories',
   '../src/features/album/AlbumCard/test/stories',
   '../src/features/album/AlbumDetail/test/stories',
   '../src/features/album/AlbumFilter/test/stories',
@@ -122,6 +125,7 @@ const stories = [
   '../src/features/tag/Tag/test/stories',
   '../src/features/tag/TagDetail/test/stories',
   '../src/features/tag/TagGroup/test/stories',
+  '../src/features/tag/TagSearch/test/stories',
   '../src/features/track/Track/test/stories',
   '../src/features/track/TrackList/test/stories',
   '../src/features/user/MyAlbums/test/stories',

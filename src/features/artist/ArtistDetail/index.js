@@ -10,7 +10,10 @@ import {
     selectLatestAlbums,
     selectPopularSongs,
     selectPopularAlbums,
-    selectLatestEvents } from '../artistSelector'
+    selectLatestEvents,
+    selectArtistLinks,
+    selectArtistLinksReverse,
+    selectBaseVoicebank } from '../artistSelector'
 import { createSelector } from 'reselect';
 import { selectLoading } from './../../../app/appSelector'
 import { Share, Linking } from 'react-native'
@@ -46,7 +49,11 @@ const artistDetailStateSelect = createSelector(
     selectPopularAlbums(),
     selectLatestEvents(),
     selectLoading(),
-    (followedArtistIds, artist, isFollowed, latestSongs, popularSongs, latestAlbums, popularAlbums, latestEvents, loading) => {
+    selectArtistLinks(),
+    selectArtistLinksReverse(),
+    selectBaseVoicebank(),
+    (followedArtistIds, artist, isFollowed, latestSongs, popularSongs
+     , latestAlbums, popularAlbums, latestEvents, loading, artistLinks, artistLinksReverse, baseVoicebank) => {
         return {
             artist,
             followedArtistIds,
@@ -56,7 +63,10 @@ const artistDetailStateSelect = createSelector(
             latestAlbums,
             popularAlbums,
             latestEvents,
-            loading
+            loading,
+            artistLinks,
+            artistLinksReverse,
+            baseVoicebank
         }
     })
 
@@ -83,6 +93,7 @@ const mapDispatchToProps = (dispatch, props) => ({
         }
         Linking.openURL(artistDetailUrl(artist.id)).catch(err => console.error('An error occurred', err))
     },
+    onPressArtist: artist => props.navigation.navigate(Routes.ArtistDetail, { id: artist.id, title: artist.name }),
     onPressSong: song => props.navigation.navigate(Routes.SongDetail, { id: song.id, title: song.name }),
     onPressAlbum: album => props.navigation.navigate(Routes.AlbumDetail, { id: album.id, title: album.name }),
     onPressTag: tag => props.navigation.navigate(Routes.TagDetail, { id: tag.id, title: tag.name }),

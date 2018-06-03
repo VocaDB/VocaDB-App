@@ -5,19 +5,22 @@ import { call, put, select } from 'redux-saga/effects'
 import * as actions from './../artistActions'
 import * as appActions from './../../../app/appActions'
 import * as mock from '../../../common/helper/mockGenerator'
+import { selectDisplayLanguage } from './../../user/userSelector'
 
 describe('Test artist sagas', () => {
     it('Should fetch search artists', () => {
         const params = { tagId: [ 1, 2 ] }
         const action = actions.fetchSearchArtists(params)
         const gen = fetchSearchArtists(action)
+        const mockItems = [ mock.CreateArtist() ]
+        const mockResponse = { items: mockItems }
 
         expect(JSON.stringify(gen.next().value)).toEqual(JSON.stringify(select(selectSearchParams())));
 
-        expect(gen.next(params).value).toEqual(call(api.find, params));
+        expect(JSON.stringify(gen.next(params).value)).toEqual(JSON.stringify(select(selectDisplayLanguage())));
 
-        const mockItems = [ mock.CreateArtist() ]
-        const mockResponse = { items: mockItems }
+        expect(gen.next('Default').value).toEqual(call(api.find, { ...params, lang: 'Default' }));
+
         expect(gen.next(mockResponse).value).toEqual(put(actions.fetchSearchArtistsSuccess(mockItems, false)));
 
         expect(gen.next().done).toBeTruthy();
@@ -27,7 +30,9 @@ describe('Test artist sagas', () => {
         const action = actions.fetchArtistDetail(1)
         const gen = fetchArtistDetail(action)
 
-        expect(gen.next().value).toEqual(call(api.getArtist, 1));
+        expect(JSON.stringify(gen.next().value)).toEqual(JSON.stringify(select(selectDisplayLanguage())));
+
+        expect(gen.next('Default').value).toEqual(call(api.getArtist, 1, { lang: 'Default' }));
 
         const mockArtistItem = mock.CreateArtist()
         expect(gen.next(mockArtistItem).value).toEqual(put(actions.fetchArtistDetailSuccess(mockArtistItem)));

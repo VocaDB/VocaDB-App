@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, TouchableOpacity, StyleSheet, RefreshControl, SectionList, FlatList, ScrollView } from 'react-native'
+import { View, Text, TouchableOpacity, StyleSheet, RefreshControl, SectionList, FlatList, ScrollView, Dimensions } from 'react-native'
 import { Avatar } from 'react-native-material-ui';
 import PropTypes from 'prop-types'
 import FeatureList from './../FeatureList'
@@ -60,18 +60,37 @@ class HomeTab extends React.PureComponent {
                 onPressMore={onPressMore} />
         )
 
+
+        const HomeHeader = props => {
+
+            if(Dimensions.get('screen').width < 360) {
+                return (
+                    <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ backgroundColor: 'white' }}>
+                        {props.children}
+                    </ScrollView>
+                )
+            }
+
+            return (
+                <View style={{ backgroundColor: 'white', justifyContent: 'center', alignItems: 'center', flexDirection: 'row' }}>
+                    {props.children}
+                </View>
+            )
+
+        }
+
         return (
             <FlatList
                 refreshing={this.props.refreshing}
                 onRefresh={this.props.refresh}
                 ListHeaderComponent={(
-                    <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ backgroundColor: 'white' }}>
+                    <HomeHeader>
                         <MenuIcon icon='music-note' color='#00C853' text='Songs' onPress={this.props.onPressSongSearch} />
                         <MenuIcon icon='person' color='#d50000' text='Artists' onPress={this.props.onPressArtistSearch} />
                         <MenuIcon icon='album' color='#283593' text='Albums' onPress={this.props.onPressAlbumSearch} />
                         <MenuIcon icon='event' color='#FFD600' text='Events' onPress={this.props.onPressEventSearch} />
                         <MenuIcon icon='label' color='#6D4C41' text='Tags' onPress={this.props.onPressTagSearch} />
-                    </ScrollView>
+                    </HomeHeader>
 
                 )}
                 renderItem={({ item }) => renderFeatureList(item.title, item.data, item.renderItem, item.onPressMore)}

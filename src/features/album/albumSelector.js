@@ -4,10 +4,16 @@ import Routes from './../../app/appRoutes'
 import { selectArtistEntity } from './../artist/artistSelector'
 import image from './../../common/assets/images'
 
-export const convertAlbum = (entry) => ({
-    ...entry,
-    image: (entry.mainPicture && entry.mainPicture.urlThumb) ? entry.mainPicture.urlThumb : image.getAlbumUri(entry.id, entry.coverPictureMime)
-})
+export const convertAlbum = (entry) => {
+    if(!entry) {
+        return {}
+    }
+
+    return {
+        ...entry,
+        image: (entry.mainPicture && entry.mainPicture.urlThumb) ? entry.mainPicture.urlThumb : image.getAlbumUri(entry.id, entry.coverPictureMime)
+    }
+}
 
 export const convertAlbumIds = (entryIds, entryEntity) => (entryIds) ? entryIds
     .filter(id => (id != undefined && entryEntity[id.toString()]))
@@ -63,7 +69,7 @@ export const selectSearchResult = () => createSelector(
 export const selectAlbumDetail = () => createSelector(
     selectAlbumDetailId(),
     selectAlbumEntity(),
-    (albumDetailId, albumEntity) => albumEntity[albumDetailId.toString()]
+    (albumDetailId, albumEntity) => convertAlbum(albumEntity[albumDetailId.toString()])
 )
 
 export const selectFilterArtists = () => createSelector(

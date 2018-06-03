@@ -9,8 +9,16 @@ import Theme from '../../../theme'
 
 class AlbumSearch extends React.PureComponent {
 
+    state = {
+        filterVisible: false,
+    };
+
+    constructor(props) {
+        super(props)
+    }
+
     componentDidMount () {
-        this.props.onSearchReplaceParams()
+        this.refresh()
     }
 
     doSearch(params) {
@@ -18,7 +26,13 @@ class AlbumSearch extends React.PureComponent {
     }
 
     refresh() {
-        this.props.onSearchReplaceParams()
+        const params = this.getNavigationParams();
+        const filterParams = (params && params.filterParams)? params.filterParams : {};
+        this.props.onSearchReplaceParams(filterParams);
+    }
+
+    getNavigationParams() {
+        return (this.props.navigation.state && this.props.navigation.state.params)? this.props.navigation.state.params : {};
     }
 
     renderList () {
@@ -52,8 +66,6 @@ class AlbumSearch extends React.PureComponent {
     }
 
     render () {
-
-
 
         const queryEntry = text => this.doSearch({ query: text, start: 0 })
 
