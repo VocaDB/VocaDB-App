@@ -1,5 +1,5 @@
 # VocaDB App
-New VocaDB app with React native.
+New VocaDB app with React native. Now available on [Android](https://play.google.com/store/apps/details?id=com.coolappz.Vocadb) and [iOS](https://itunes.apple.com/us/app/vocadb/id907510673).
 
 [![Build Status](https://www.bitrise.io/app/424cdc66aab2e8e1/status.svg?token=1OdgCmNWesLCEyd0bUABsw)](https://www.bitrise.io/app/424cdc66aab2e8e1)
 
@@ -7,8 +7,9 @@ New VocaDB app with React native.
 
 ## Download
 
-- [Playstore](https://play.google.com/store/apps/details?id=com.coolappz.Vocadb)
+- [Playstore for Android](https://play.google.com/store/apps/details?id=com.coolappz.Vocadb)
 - [Playstore (Alpha/Beta)](https://play.google.com/apps/testing/com.coolappz.Vocadb)
+- [App Store for iOS](https://itunes.apple.com/us/app/vocadb/id907510673)
 
 ## Setup on local 
 
