@@ -4,21 +4,17 @@ import PropTypes from 'prop-types';
 import images from '../../../common/assets/images'
 import Theme from '../../../theme'
 import moment from 'moment'
-import FastImage from 'react-native-fast-image'
 
 class EventRow extends React.Component {
     render () {
         return (
             <TouchableOpacity onPress={this.props.onPress} style={[{ height: 180, backgroundColor: 'black', justifyContent: 'flex-end', margin: 8 }]}>
-                    <FastImage
-                        style={{ flex: 1, opacity: 0.57 }}
-                        source={{
-                            uri:this.props.thumbnail,
-                            priority: FastImage.priority.normal,
-                        }}
-                        resizeMethod='resize'
-                    />
+                <Image style={{ flex: 1, opacity: 0.57 }}
+                       source={{ uri: this.props.thumbnail }}
+                       resizeMethod='resize'
+                >
 
+                </Image>
                 <View style={{ backgroundColor:'transparent', position: 'absolute', padding: 8 }}>
                     <Text style={{ color: 'white' }}>{moment(this.props.date).format('dddd, MMMM Do YYYY')}</Text>
                     <Text style={Theme.headlineWhite}>{this.props.name}</Text>

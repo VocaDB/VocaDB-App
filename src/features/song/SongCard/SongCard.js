@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Theme from '../../../theme'
 import Icon from '../../../components/Icon/index'
 import SongType from './../SongType'
-import FastImage from 'react-native-fast-image'
+
 
 class SongCard extends React.PureComponent {
 
@@ -12,13 +12,10 @@ class SongCard extends React.PureComponent {
 
         return (
             <View style={styles.image}>
-                <FastImage
+                <Image
                     style={styles.image}
-                    source={{
-                        uri:this.props.image,
-                        priority: FastImage.priority.normal,
-                    }}
-                    resizeMode={FastImage.resizeMode.cover}
+                    source={{ uri: this.props.image }}
+                    resizeMode='cover'
                     resizeMethod='resize'
                 />
                 <View style={{  position: 'absolute', bottom: 4, right: 4 }}>

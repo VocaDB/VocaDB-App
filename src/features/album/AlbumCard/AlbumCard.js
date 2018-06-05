@@ -2,23 +2,17 @@ import React from 'react'
 import { View, Text, TouchableOpacity, Image } from 'react-native'
 import PropTypes from 'prop-types';
 import Theme from '../../../theme'
-import FastImage from 'react-native-fast-image'
+import images from '../../../common/assets/images'
 
 class AlbumCard extends React.PureComponent {
 
     renderImage () {
-
-        return (
-            <FastImage
-                style={styles.image}
-                source={{
-                    uri:this.props.image,
-                    priority: FastImage.priority.normal,
-                }}
-                resizeMode={FastImage.resizeMode.cover}
-                resizeMethod='resize'
-            />
-        )
+        return (<Image
+            style={styles.image}
+            source={{ uri: this.props.image }}
+            resizeMode='cover'
+            resizeMethod='resize'
+        />)
     }
 
     render () {
