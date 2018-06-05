@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import images from '../../../common/assets/images'
 import style from './style'
 import Theme from '../../../theme'
+import FastImage from 'react-native-fast-image'
 
 class AlbumRow extends React.PureComponent {
 
@@ -12,11 +13,18 @@ class AlbumRow extends React.PureComponent {
     }
 
     renderImage () {
-        return (<Image
-            style={[this.styleSelected.image, { borderColor: '#d6d7da', borderWidth: 1 }]}
-            source={{ uri: this.props.image }}
-            resizeMethod='resize'
-        />)
+
+        return (
+            <FastImage
+                style={[this.styleSelected.image, { borderColor: '#d6d7da', borderWidth: 1 }]}
+                source={{
+                    uri:this.props.image,
+                    priority: FastImage.priority.normal,
+                }}
+                resizeMode={FastImage.resizeMode.cover}
+                resizeMethod='resize'
+            />
+        )
     }
 
     render () {

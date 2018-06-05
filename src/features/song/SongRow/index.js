@@ -5,16 +5,20 @@ import Theme from '../../../theme'
 import Icon from '../../../components/Icon/index'
 import moment from 'moment'
 import SongType from './../SongType'
+import FastImage from 'react-native-fast-image'
 
 class SongRow extends React.PureComponent {
 
     renderImage () {
         return (
             <View style={styles.image}>
-                <Image
+                <FastImage
                     style={styles.image}
-                    source={{ uri: this.props.image }}
-                    resizeMode='cover'
+                    source={{
+                        uri:this.props.image,
+                        priority: FastImage.priority.normal,
+                    }}
+                    resizeMode={FastImage.resizeMode.cover}
                     resizeMethod='resize'
                 />
                 <View style={{  position: 'absolute', bottom: 4, right: 4 }}>

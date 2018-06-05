@@ -4,13 +4,19 @@ import PropTypes from 'prop-types';
 import images from '../../../common/assets/images'
 import Theme from '../../../theme'
 import moment from 'moment'
+import FastImage from 'react-native-fast-image'
 
 class EventCard extends React.Component {
     render () {
         return (
             <TouchableOpacity onPress={this.props.onPress} style={[styles.container]}>
-                <Image style={[styles.coverImage]} source={{ uri: this.props.thumbnail }}
-                       resizeMethod='resize'
+                <FastImage
+                    style={[styles.coverImage]}
+                    source={{
+                        uri:this.props.thumbnail,
+                        priority: FastImage.priority.normal,
+                    }}
+                    resizeMethod='resize'
                 />
                 <View style={[styles.infoContainer]}>
                     <Text style={Theme.subheadWhite}>{moment(this.props.date).format('dddd, MMMM Do YYYY')}</Text>
