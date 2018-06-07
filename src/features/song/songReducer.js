@@ -29,6 +29,10 @@ export const defaultState = {
         filterBy: 'CreateDate',
         vocalist: 'All',
         songs: []
+    },
+    searchPage: {
+        params: {},
+        results: []
     }
 }
 
@@ -36,42 +40,62 @@ const reducer = createReducer({
     [actions.fetchHighlightedSuccess]: (state, payload) => {
         return { ...state, highlighted: payload.result }
     },
-    [actions.fetchSearchSongs]: (state, payload) => {
+    [actions.updateSearchParams]: (state, payload) => {
 
-        if(payload.replace) {
-            let searchParams = _.merge({}, defaultSearchParams, payload.params)
-            return { ...state, searchParams }
+        if(!payload.name || !payload.value) {
+            return state;
         }
 
-        let searchParams = merge({}, state.searchParams)
-        if(payload.remove) {
-            _.forEach(payload.params, (value, key) => {
-                searchParams[key] = _.pullAll(state.searchParams[key], value)
-            })
+        let newState = { ...state }
+
+        if(newState.searchPage && newState.searchPage.params) {
+            newState.searchPage.params[payload.name] = payload.value;
         } else {
-            searchParams = merge(state.searchParams, payload.params, {
-                arrayMerge: (destinationArray, sourceArray) => {
-                    return _.union(destinationArray, sourceArray)
-                }
-            })
+            let params = {}
+            params[payload.name] =  payload.value;
+            newState.searchPage = {
+                params,
+                results: []
+            }
         }
 
-        return { ...state, searchParams }
-
+        return newState
     },
-    [actions.fetchSearchSongsSuccess]: (state, payload) => {
-
-        if(payload.result.length === 0) {
-            return { ...state, noResult: true }
+    [actions.removeSearchParamsArray]: (state, payload) => {
+        if(!payload.value || !payload.name || !state.searchPage || !state.searchPage.params || !state.searchPage.params[payload.name]) {
+            return state;
         }
 
-        if(payload.append) {
-          let newSearchResult = state.searchResult;
-          newSearchResult = newSearchResult.concat(payload.result);
+        let newState = { ...state }
+        newState.searchPage.params[payload.name] = newState.searchPage.params[payload.name].filter(v => v != payload.value);
 
-          return { ...state, searchResult: newSearchResult, noResult: false }
+        return newState
+    },
+    [actions.addSearchParamsArray]: (state, payload) => {
+        if(!payload.value || !payload.name) {
+            return state;
         }
-        return { ...state, searchResult: payload.result, noResult: false }
+
+        let newState = { ...state }
+
+        if(!newState.searchPage) {
+            newState.searchPage = {
+                params: {},
+                results: []
+            }
+        }
+
+        if(!newState.searchPage.params) {
+            newState.searchPage.params = {}
+        }
+
+        if(newState.searchPage.params[payload.name]) {
+            newState.searchPage.params[payload.name] = _.union(newState.searchPage.params[payload.name], [ payload.value] )
+        } else {
+            newState.searchPage.params[payload.name] = [ payload.value ]
+        }
+
+        return newState;
     },
     [actions.fetchLatestSongsSuccess]: (state, payload) => {
         return { ...state, all: payload.result }

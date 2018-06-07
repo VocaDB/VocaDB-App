@@ -8,10 +8,6 @@ export const addFavoriteSong = createAction('Add favorite song', song => ({ song
 export const removeFavoriteSong = createAction('Remove favorite song', song => ({ song }))
 
 export const fetchSearchSongs = createAction('fetch search songs', (params, remove, replace) => ({ loading: true, params, remove, replace }))
-export const fetchSearchSongsSuccess =  createAction('fetch search songs success', (data, append) => {
-    let nom = normalize(data, [ songSchema ])
-    return { ...nom, append }
-})
 
 export const fetchHighlighted = createAction('fetch highlighted songs', () => ({ loading: true }))
 export const fetchHighlightedSuccess = createAction('fetch highlighted songs success', data => normalize(data, [ songSchema ]))
@@ -37,3 +33,7 @@ export const changeDurationHours = createAction('Change duration hours', duratio
 export const changeFilterBy = createAction('Change filter by', filterBy => ({ filterBy }))
 export const changeVocalist = createAction('Change vocalist', vocalist => ({ vocalist }))
 export const updateRankingResult = createAction('Update ranking result',  data => normalize(data, [ songSchema ]))
+
+export const updateSearchParams = createAction('Update search params', (name, value) => ({ name, value }))
+export const removeSearchParamsArray = createAction('Remove value in params array from given value', (name, value) => ({ name, value }))
+export const addSearchParamsArray = createAction('Add value in params array from given value', (name, value) => ({ name, value }))
