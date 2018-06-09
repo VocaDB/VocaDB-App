@@ -31,8 +31,8 @@ const songListStateSelect = createSelector(
 const mapDispatchToProps = (dispatch, props) => ({
     onFilterChanged: (params, remove) => dispatch(songActions.fetchSearchSongs(params, remove)),
     onParamChanged: (namve, value) => dispatch(songActions.updateSearchParams(namve, value)),
-    onAddArtist: (artist) => dispatch(songActions.addSearchParamsArray('artistId')),
-    onRemoveArtist: (artist) => dispatch(songActions.removeSearchParamsArray('artistId')),
+    onAddArtist: (artist) => dispatch(songActions.addSearchParamsArray('artistId', artist.id)),
+    onRemoveArtist: (artist) => dispatch(songActions.removeSearchParamsArray('artistId', artist.id)),
     onAddFilterTag: tag => dispatch(songActions.addFilterTag(tag)),
     onSelectFilterTag: tag => dispatch(songActions.addSelectedFilterTag(tag)),
     onDeselectFilterTag: tag => dispatch(songActions.removeSelectedFilterTag(tag)),
