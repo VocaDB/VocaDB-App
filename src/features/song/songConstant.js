@@ -1,3 +1,14 @@
+export const defaultSearchParams = {
+    nameMatchMode: 'auto',
+    maxResults: 50,
+    start: 0,
+    fields: 'thumbUrl',
+    songTypes: '',
+    artistId: [],
+    tagId: [],
+    sort: 'Name'
+}
+
 export const songTypeName = {
     original: 'Original',
     remaster: 'Remaster',

@@ -1,7 +1,7 @@
 import api from '../../common/api'
 
 const songApi = {
-    find: params => api.songs.find({ ...params, 'preferAccurateMatches': true }),
+    find: params => api.songs.find({ ...params, 'preferAccurateMatches': true, fields: 'thumbUrl', maxResults: 50   }),
     highlighted: params => api.songs.highlighted({ ...params, 'fields': 'thumbUrl,PVs' }),
     getRecentSongs: () => api.songs.find({ 'sort': 'AdditionDate', 'fields': 'thumbUrl' }),
     getPopularSongs: () => api.songs.find({ 'sort': 'AdditionDate', 'fields': 'thumbUrl' }),

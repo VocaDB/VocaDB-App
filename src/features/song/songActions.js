@@ -37,3 +37,6 @@ export const updateRankingResult = createAction('Update ranking result',  data =
 export const updateSearchParams = createAction('Update search params', (name, value) => ({ name, value }))
 export const removeSearchParamsArray = createAction('Remove value in params array from given value', (name, value) => ({ name, value }))
 export const addSearchParamsArray = createAction('Add value in params array from given value', (name, value) => ({ name, value }))
+export const addSearchResult = createAction('Add search result', data => normalize(data, [ songSchema ]))
+export const setSearchResult = createAction('Set search result', data => normalize(data, [ songSchema ]))
+export const fetchMoreSearchResult = createAction('Fetch more search result')

@@ -23,10 +23,18 @@ const fetchSearchSongs = function* fetchSearchSongs() {
     try {
         const params = yield select(selectSearchParams())
         const displayLanguage = yield select(selectDisplayLanguage())
+
         yield call(delay, 500)
+
+        console.log('search song with params : ' + JSON.stringify(params))
         const response = yield call(api.find, { ...params, lang: displayLanguage });
-        let append = (params && params.start) ? true : false
-        yield put(actions.fetchSearchSongsSuccess(response.items, append));
+
+        if(params && params.start) {
+            yield put(actions.addSearchResult(response.items));
+        } else {
+            yield put(actions.setSearchResult(response.items));
+        }
+
     } catch (e) {
         yield put(appActions.requestError(e));
     }
@@ -115,9 +123,14 @@ const songSaga = function* songSagaAsync() {
     yield takeLatest(artistActions.followArtist, fetchFollowedSongs)
     yield takeLatest(artistActions.unFollowArtist, fetchFollowedSongs)
     yield takeLatest(actions.fetchSongDetail, fetchSongDetail)
-    yield takeLatest([actions.fetchSearchSongs,
-    actions.addSelectedFilterTag,
-    actions.removeSelectedFilterTag], fetchSearchSongs)
+    yield takeLatest([
+        actions.fetchSearchSongs,
+        actions.updateSearchParams,
+        actions.removeSearchParamsArray,
+        actions.addSearchParamsArray,
+        actions.fetchMoreSearchResult,
+        actions.addSelectedFilterTag,
+        actions.removeSelectedFilterTag], fetchSearchSongs)
     yield takeLatest([actions.changeDurationHours,
         actions.changeFilterBy,
         actions.changeVocalist,

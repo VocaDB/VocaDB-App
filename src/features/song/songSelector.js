@@ -5,6 +5,7 @@ import { selectArtistEntity } from './../artist/artistSelector'
 import { selectTagEntity, convertTagIds } from './../tag/tagSelector'
 import { durationHoursHelper, filterByHelper, vocalistHelper } from './SongRanking/SongRankingHelper'
 import { convertAlbumIds, selectAlbumEntity } from './../album/albumSelector'
+import { defaultSearchParams } from './songConstant'
 
 export const transformSong = (entry) => {
 
@@ -39,10 +40,7 @@ export const selectNoResult = () => createSelector(
     selectSong(),
     song => song.noResult
 )
-export const selectSearchParams = () => createSelector(
-    selectSong(),
-    song => song.searchParams
-)
+
 export const selectFilterArtists = () => createSelector(
     selectSearchParams(),
     selectArtistEntity(),
@@ -57,10 +55,6 @@ export const selectFilterArtists = () => createSelector(
 export const selectHighlightedIds = () => createSelector(
     selectSong(),
     song => song.highlighted
-)
-export const selectSearchResultIds = () => createSelector(
-    selectSong(),
-    song => song.searchResult
 )
 export const selectLatestSongIds = () => createSelector(
     selectSong(),
@@ -79,12 +73,6 @@ export const selectSongDetailId = () => createSelector(
 
 export const selectHighlighted = () => createSelector(
     selectHighlightedIds(),
-    selectSongEntity(),
-    convertSongIds
-)
-
-export const selectSearchResult = () => createSelector(
-    selectSearchResultIds(),
     selectSongEntity(),
     convertSongIds
 )
@@ -210,4 +198,31 @@ export const selectRankingResult = () => createSelector(
 
         return [];
     }
+)
+
+export const selectSearchParams = () => createSelector(
+    selectSong(),
+    songState => {
+
+        if(!songState || !songState.searchPage || !songState.searchPage.params) {
+            return defaultSearchParams
+        }
+
+        const searchParams = songState.searchPage.params;
+
+        searchParams.sort = (searchParams.sort)? searchParams.sort : 'Name'
+
+        return searchParams;
+    }
+)
+
+export const selectSearchResultIds = () => createSelector(
+    selectSong(),
+    songState => (songState && songState.searchPage && songState.searchPage.results)? songState.searchPage.results : []
+)
+
+export const selectSearchResult = () => createSelector(
+    selectSearchResultIds(),
+    selectSongEntity(),
+    convertSongIds
 )

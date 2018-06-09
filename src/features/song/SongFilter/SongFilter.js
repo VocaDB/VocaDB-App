@@ -32,9 +32,9 @@ class SongFilter extends React.PureComponent {
                     value={this.props.params.songTypes}
                     onChangeText={text => {
                         if(text === 'Unspecified') {
-                            this.props.onFilterChanged({ songTypes: '' })
+                            this.props.onParamChanged('songTypes', '')
                         } else {
-                            this.props.onFilterChanged({ songTypes: text })
+                            this.props.onParamChanged('songTypes', text)
                         }
 
                     }}
@@ -56,7 +56,7 @@ class SongFilter extends React.PureComponent {
                             image={a.image}
                             name={a.name}
                             rightIcon='ios-close'
-                            onRightElementPress={() => this.props.onFilterChanged({ artistId: [ a.id ] }, true)} />)}
+                            onRightElementPress={() => this.props.onRemoveArtist(a)} />)}
                 </View>
                 <Button
                     raised
@@ -72,7 +72,7 @@ class SongFilter extends React.PureComponent {
                     }}
                     onPressItem={artist => {
                         this.setState({ showArtistModal: false })
-                        this.props.onFilterChanged({ artistId: [ artist.id ] })
+                        this.props.onAddArtist(artist)
                     }} />
             </View>
         )
@@ -119,21 +119,6 @@ class SongFilter extends React.PureComponent {
         )
     }
 
-    renderInputStatus () {
-        return (
-            <View style={{ marginHorizontal: 8 }}>
-                <Dropdown
-                    label='Status'
-                    value={this.props.params.status}
-                    onChangeText={text => {
-                        this.props.onFilterChanged({ status: text })
-                    }}
-                    data={entryStatusItems}
-                />
-            </View>
-        )
-    }
-
     renderInputMinScore () {
         return (
             <View style={{ marginHorizontal: 8 }}>
@@ -143,7 +128,7 @@ class SongFilter extends React.PureComponent {
                     value={this.props.params.minScore}
                     maxLength={5}
                     onChangeText={minScore => {
-                        this.props.onFilterChanged({ minScore: minScore })
+                        this.props.onParamChanged('minScore', minScore)
                     }}
                 />
             </View>
@@ -157,7 +142,7 @@ class SongFilter extends React.PureComponent {
                     label='Sort'
                     value={this.props.params.sort}
                     onChangeText={text => {
-                        this.props.onFilterChanged({ sort: text })
+                        this.props.onParamChanged('sort', text)
                     }}
                     data={sortItems}
                 />

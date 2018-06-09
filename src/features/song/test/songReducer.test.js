@@ -1,6 +1,7 @@
-import reducer, { defaultSearchParams } from './../songReducer'
+import reducer from './../songReducer'
 import * as actions from './../songActions'
 import * as mockGenerator from '../../../common/helper/mockGenerator'
+import { defaultSearchParams } from "../songConstant";
 
 describe('Test song reducer', () => {
 
@@ -168,6 +169,22 @@ describe('Test song reducer', () => {
             expect(nextState.searchPage.params).toEqual(expectedSearchParams)
         })
 
+    it('should set default and update search params', () => {
+
+        let nextState = reducer({}, actions.updateSearchParams('songTypes', 'Cover'))
+
+        expect(nextState).toBeTruthy()
+        expect(nextState.searchPage).toBeTruthy()
+        expect(nextState.searchPage.params).toBeTruthy()
+
+        let expectedSearchParams = {
+            ...defaultSearchParams,
+            songTypes: 'Cover'
+        }
+
+        expect(nextState.searchPage.params).toEqual(expectedSearchParams)
+    })
+
     it('should update search params if exists', () => {
 
         let searchPage = {
@@ -215,6 +232,11 @@ describe('Test song reducer', () => {
         expect(nextState.searchPage.params).toEqual(expectedSearchParams)
     })
 
+    it('should remove original state when have no artist id', () => {
+        let nextState = reducer({}, actions.removeSearchParamsArray('artistId', 5));
+        expect(nextState).toEqual({})
+    })
+
     it('should remove default state when try to remove non-exists search params artist id', () => {
         let searchPage = {
             params: {
@@ -232,6 +254,28 @@ describe('Test song reducer', () => {
 
     it('should add artist id to search params', () => {
 
+        let searchPage = {
+            params: {
+                songType: 'Cover'
+            }
+        }
+
+        let nextState = reducer({ searchPage }, actions.addSearchParamsArray('artistId', 4));
+
+        expect(nextState).toBeTruthy()
+        expect(nextState.searchPage).toBeTruthy()
+        expect(nextState.searchPage.params).toBeTruthy()
+
+        let expectedSearchParams = {
+            songType: 'Cover',
+            artistId: [ 4 ]
+        }
+
+        expect(nextState.searchPage.params).toEqual(expectedSearchParams)
+    })
+
+    it('should add artist id and set default to search params', () => {
+
         let nextState = reducer({}, actions.addSearchParamsArray('artistId', 4));
 
         expect(nextState).toBeTruthy()
@@ -239,6 +283,7 @@ describe('Test song reducer', () => {
         expect(nextState.searchPage.params).toBeTruthy()
 
         let expectedSearchParams = {
+            ...defaultSearchParams,
             artistId: [ 4 ]
         }
 
@@ -286,6 +331,81 @@ describe('Test song reducer', () => {
     })
 
     it('should append search result', () => {
+        let searchPage = {
+            results: [ 1, 2 ,3 ]
+        }
 
+        let mockResult = [
+            { id: 8, name: 'A' },
+            { id: 2, name: 'B' },
+            { id: 3, name: 'C' },
+            { id: 4, name: 'D' },
+            { id: 5, name: 'E' },
+        ]
+
+        let nextState = reducer({ searchPage }, actions.addSearchResult(mockResult))
+
+        expect(nextState).toBeTruthy()
+        expect(nextState.searchPage).toBeTruthy()
+        expect(nextState.searchPage.results).toBeTruthy()
+
+        let expectedSearchResults = [ 1, 2, 3, 8, 4, 5 ]
+
+        expect(nextState.searchPage.results).toEqual(expectedSearchResults)
+    })
+
+    it('should set search result', () => {
+        let searchPage = {
+            results: [ 1, 2 ,3 ]
+        }
+
+        let mockResult = [
+            { id: 8, name: 'A' },
+            { id: 2, name: 'B' },
+            { id: 3, name: 'C' },
+            { id: 4, name: 'D' },
+            { id: 5, name: 'E' },
+        ]
+
+        let nextState = reducer({ searchPage }, actions.setSearchResult(mockResult))
+
+        expect(nextState).toBeTruthy()
+        expect(nextState.searchPage).toBeTruthy()
+        expect(nextState.searchPage.results).toBeTruthy()
+
+        let expectedSearchResults = [ 8, 2, 3, 4, 5 ]
+
+        expect(nextState.searchPage.results).toEqual(expectedSearchResults)
+    })
+
+    it('should extend start search params from given results', () => {
+        let searchPage = {
+            params: {
+                start: 0
+            },
+            results: [ 1, 2, 3 ]
+        }
+
+        let nextState = reducer({ searchPage }, actions.fetchMoreSearchResult())
+
+        let expectedSeachPage = {
+            params: { start: 3 },
+            results: [ 1, 2, 3 ]
+        }
+
+        expect(nextState).toBeTruthy()
+        expect(nextState.searchPage).toEqual(expectedSeachPage)
+    })
+
+    it('should add default start search params when got empty state', () => {
+        let nextState = reducer({}, actions.fetchMoreSearchResult())
+
+        let expectedSeachPage = {
+            params: { start: 0 },
+            results: []
+        }
+
+        expect(nextState).toBeTruthy()
+        expect(nextState.searchPage).toEqual(expectedSeachPage)
     })
 })

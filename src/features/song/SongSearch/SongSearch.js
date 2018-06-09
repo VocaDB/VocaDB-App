@@ -18,17 +18,7 @@ export default class SongSearch extends React.PureComponent {
     }
 
     componentDidMount () {
-        this.refresh()
-    }
-
-    doSearch(params) {
-        this.props.fetchSongs(params)
-    }
-
-    refresh() {
-        const params = this.getNavigationParams();
-        const filterParams = (params && params.filterParams)? params.filterParams : {};
-        this.props.fetchSongsReplaceParams(filterParams);
+        this.props.fetchSongs()
     }
 
     getNavigationParams() {
@@ -44,10 +34,10 @@ export default class SongSearch extends React.PureComponent {
                 songs={this.props.songs}
                 onPressItem={this.props.onPressSong}
                 refreshing={this.props.loading}
-                onRefresh={this.refresh.bind(this)}
+                onRefresh={() => {}}
                 onEndReached={() => {
                     if(!this.props.isNoResult) {
-                        this.doSearch({ start: this.props.songs.length })
+                        this.props.fetchMoreSongs()
                     }
                 }}
                 hideMoreButton={true} />

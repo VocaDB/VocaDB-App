@@ -2,17 +2,7 @@ import { createReducer } from 'redux-act'
 import * as actions from './songActions';
 import merge from 'deepmerge';
 import _ from 'lodash';
-
-export const defaultSearchParams = {
-    nameMatchMode: 'auto',
-    maxResults: 50,
-    start: 0,
-    fields: 'thumbUrl',
-    songTypes: '',
-    artistId: [],
-    tagId: [],
-    sort: 'Name'
-}
+import { defaultSearchParams } from './songConstant'
 
 export const defaultState = {
     searchResult: [],
@@ -50,8 +40,9 @@ const reducer = createReducer({
 
         if(newState.searchPage && newState.searchPage.params) {
             newState.searchPage.params[payload.name] = payload.value;
+            newState.searchPage.params.start = 0;
         } else {
-            let params = {}
+            let params = defaultSearchParams
             params[payload.name] =  payload.value;
             newState.searchPage = {
                 params,
@@ -68,6 +59,7 @@ const reducer = createReducer({
 
         let newState = { ...state }
         newState.searchPage.params[payload.name] = newState.searchPage.params[payload.name].filter(v => v != payload.value);
+        newState.searchPage.params.start = 0;
 
         return newState
     },
@@ -80,22 +72,77 @@ const reducer = createReducer({
 
         if(!newState.searchPage) {
             newState.searchPage = {
-                params: {},
+                params: defaultSearchParams,
                 results: []
             }
         }
 
         if(!newState.searchPage.params) {
-            newState.searchPage.params = {}
+            newState.searchPage.params = defaultSearchParams
         }
 
         if(newState.searchPage.params[payload.name]) {
             newState.searchPage.params[payload.name] = _.union(newState.searchPage.params[payload.name], [ payload.value] )
+            newState.searchPage.params.start = 0;
         } else {
             newState.searchPage.params[payload.name] = [ payload.value ]
         }
 
         return newState;
+    },
+    [actions.addSearchResult]: (state, payload) => {
+        if(!payload.result) {
+            return state;
+        }
+
+        let newState = { ...state }
+
+        if(newState.searchPage && newState.searchPage.results) {
+            newState.searchPage.results =  _.union(newState.searchPage.results, payload.result )
+        } else {
+            newState.searchPage = {
+                results: payload.result
+            }
+        }
+
+        return newState;
+    },
+    [actions.setSearchResult]: (state, payload) => {
+        if(!payload.result) {
+            return state;
+        }
+
+        let newState = { ...state }
+
+        if(newState.searchPage && newState.searchPage.results) {
+            newState.searchPage.results = payload.result;
+        } else {
+            newState.searchPage = {
+                results: payload.result
+            }
+        }
+
+        return newState;
+    },
+    [actions.fetchMoreSearchResult]: (state) => {
+
+        let newState = { ...state }
+
+        if(!newState.searchPage) {
+            return {
+                ...newState,
+                searchPage: { params: { start: 0 }, results: [] }
+            }
+        }
+
+        let start = (newState.searchPage.results)? newState.searchPage.results.length : 0;
+
+        newState.searchPage.params = {
+            ...newState.searchPage.params,
+            start
+        }
+
+        return newState
     },
     [actions.fetchLatestSongsSuccess]: (state, payload) => {
         return { ...state, all: payload.result }
