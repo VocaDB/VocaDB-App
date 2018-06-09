@@ -33,9 +33,8 @@ const mapDispatchToProps = (dispatch, props) => ({
     onParamChanged: (namve, value) => dispatch(songActions.updateSearchParams(namve, value)),
     onAddArtist: (artist) => dispatch(songActions.addSearchParamsArray('artistId', artist.id)),
     onRemoveArtist: (artist) => dispatch(songActions.removeSearchParamsArray('artistId', artist.id)),
-    onAddFilterTag: tag => dispatch(songActions.addFilterTag(tag)),
-    onSelectFilterTag: tag => dispatch(songActions.addSelectedFilterTag(tag)),
-    onDeselectFilterTag: tag => dispatch(songActions.removeSelectedFilterTag(tag)),
+    onAddFilterTag: tag =>  dispatch(songActions.addSearchParamsArray('tagId', tag.id)),
+    onRemoveFilterTag: tag => dispatch(songActions.removeSearchParamsArray('tagId', tag.id)),
     back: () => props.navigation.goBack()
 })
 

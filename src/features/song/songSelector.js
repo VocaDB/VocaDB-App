@@ -148,19 +148,6 @@ export const selectSelectedFilterTags = () => createSelector(
     convertTagIds
 )
 
-export const selectFilterTagIds = () => createSelector(
-    selectSong(),
-    (songState) => (songState.filterTags)? songState.filterTags : []
-)
-
-export const selectFilterTags = () => createSelector(
-    selectFilterTagIds(),
-    selectTagEntity(),
-    selectSelectedFilterTagIds(),
-    (tagIds, tagEntity, selectedTagIds) => {
-        return convertTagIds(tagIds, tagEntity).map(t => ({ ...t, selected: selectedTagIds.includes(t.id) }))
-    }
-)
 
 export const selectRankingState = () => createSelector(
     selectSong(),
@@ -225,4 +212,21 @@ export const selectSearchResult = () => createSelector(
     selectSearchResultIds(),
     selectSongEntity(),
     convertSongIds
+)
+
+
+export const selectFilterTagIds = () => createSelector(
+    selectSearchParams(),
+    (searchParams) => {
+        console.log(searchParams)
+        return (searchParams && searchParams.tagId)? searchParams.tagId : []
+    }
+)
+
+export const selectFilterTags = () => createSelector(
+    selectSearchParams(),
+    selectTagEntity(),
+    (params, tagEntity) => {
+        return convertTagIds(params.tagId, tagEntity)
+    }
 )

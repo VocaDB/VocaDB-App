@@ -85,18 +85,12 @@ class SongFilter extends React.PureComponent {
                 <View style={{ flexDirection: 'row', flexWrap: 'wrap', alignItems: 'flex-start' }}>
                     {this.props.filterTags.map(t => {
                         return <Tag
+                            showRemoveButton
                             key={t.id}
                             name={t.name}
                             style={{ margin: 4 }}
                             selected={t.selected}
-                            onPress={() => {
-                                if(t.selected) {
-                                    this.props.onDeselectFilterTag(t)
-                                } else {
-                                    this.props.onSelectFilterTag(t)
-                                }
-
-                            }} />
+                            onRemovePress={() => this.props.onRemoveFilterTag(t)} />
                     })}
                 </View>
                 <Button
@@ -113,7 +107,6 @@ class SongFilter extends React.PureComponent {
                     onPressItem={tag => {
                         this.setState({ showTagModal: false })
                         this.props.onAddFilterTag(tag)
-                        this.props.onSelectFilterTag(tag)
                     }} />
             </View>
         )
