@@ -36,7 +36,7 @@ const reducer = createReducer({
             return state;
         }
 
-        let newState = { ...state }
+        let newState = Object.assign({}, state);
 
         if(newState.searchPage && newState.searchPage.params) {
             newState.searchPage.params[payload.name] = payload.value;
@@ -57,7 +57,10 @@ const reducer = createReducer({
             return state;
         }
 
-        let newState = { ...state }
+        let newState = Object.assign({}, state)
+        let params = Object.assign({}, state.searchPage.params)
+        newState.searchPage.params = params;
+
         newState.searchPage.params[payload.name] = newState.searchPage.params[payload.name].filter(v => v != payload.value);
         newState.searchPage.params.start = 0;
 
@@ -68,7 +71,8 @@ const reducer = createReducer({
             return state;
         }
 
-        let newState = { ...state }
+        let newState = Object.assign({}, state)
+
 
         if(!newState.searchPage) {
             newState.searchPage = {
@@ -77,8 +81,12 @@ const reducer = createReducer({
             }
         }
 
-        if(!newState.searchPage.params) {
+        let params = Object.assign({}, state.searchPage.params)
+
+        if(!params) {
             newState.searchPage.params = defaultSearchParams
+        } else {
+            newState.searchPage.params = params;
         }
 
         if(newState.searchPage.params[payload.name]) {
@@ -87,6 +95,8 @@ const reducer = createReducer({
         } else {
             newState.searchPage.params[payload.name] = [ payload.value ]
         }
+
+        console.log('search params ' + payload.name + ': ' + payload.value + ' added')
 
         return newState;
     },

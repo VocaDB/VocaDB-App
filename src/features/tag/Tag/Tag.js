@@ -16,7 +16,7 @@ class Tag extends React.Component {
         const IconRemove = () => (
 
             <TouchableOpacity style={{ alignItems: 'center', justifyContent: 'center', alignSelf: 'center', marginLeft: 8 }} onPress={this.props.onRemovePress}>
-                <IconVector name='ios-close' size={16} color='white' style={{  alignItems: 'center', justifyContent: 'center', alignSelf: 'center' }}  />
+                <IconVector name='ios-close' size={24} color='white' style={{  alignItems: 'center', justifyContent: 'center', alignSelf: 'center' }}  />
             </TouchableOpacity>
         )
 

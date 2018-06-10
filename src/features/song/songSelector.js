@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect';
 import { selectNav } from './../../app/appSelector'
 import Routes from './../../app/appRoutes'
-import { selectArtistEntity } from './../artist/artistSelector'
+import { selectArtistEntity, convertArtistIds } from './../artist/artistSelector'
 import { selectTagEntity, convertTagIds } from './../tag/tagSelector'
 import { durationHoursHelper, filterByHelper, vocalistHelper } from './SongRanking/SongRankingHelper'
 import { convertAlbumIds, selectAlbumEntity } from './../album/albumSelector'
@@ -49,7 +49,7 @@ export const selectFilterArtists = () => createSelector(
             return []
         }
 
-        return searchParams.artistId.map(id => artistEntity[id.toString()])
+        return convertArtistIds(searchParams.artistId, artistEntity);
     }
 )
 export const selectHighlightedIds = () => createSelector(
