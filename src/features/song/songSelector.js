@@ -198,6 +198,7 @@ export const selectSearchParams = () => createSelector(
         const searchParams = songState.searchPage.params;
 
         searchParams.sort = (searchParams.sort)? searchParams.sort : 'Name'
+        searchParams.query = (searchParams.query)? searchParams.query : ''
 
         return searchParams;
     }

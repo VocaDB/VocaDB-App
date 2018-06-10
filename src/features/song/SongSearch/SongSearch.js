@@ -46,7 +46,6 @@ export default class SongSearch extends React.PureComponent {
     }
 
     render () {
-        const queryEntry = text => this.doSearch({ query: text, start: 0 })
         const params = this.getNavigationParams();
 
         const renderSearchBar = () => {
@@ -62,7 +61,7 @@ export default class SongSearch extends React.PureComponent {
                     searchable={{
                         autoFocus: true,
                         placeholder: 'Find song',
-                        onChangeText: queryEntry
+                        onChangeText: this.props.onSearch
                     }}
                 />
             )

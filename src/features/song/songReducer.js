@@ -30,9 +30,33 @@ const reducer = createReducer({
     [actions.fetchHighlightedSuccess]: (state, payload) => {
         return { ...state, highlighted: payload.result }
     },
+    [actions.onSearching]: (state, payload) => {
+
+        let newState = Object.assign({}, state);
+
+        if(!newState.searchPage) {
+            newState.searchPage = {
+                params: defaultSearchParams,
+                results: []
+            }
+        }
+
+        let params = Object.assign({}, state.searchPage.params)
+
+        if(!params) {
+            newState.searchPage.params = defaultSearchParams
+        } else {
+            newState.searchPage.params = params;
+        }
+
+        newState.searchPage.params.query = (payload.text)? payload.text : '';
+        newState.searchPage.params.start = 0;
+
+        return newState;
+    },
     [actions.updateSearchParams]: (state, payload) => {
 
-        if(!payload.name || !payload.value) {
+        if(!payload.name) {
             return state;
         }
 

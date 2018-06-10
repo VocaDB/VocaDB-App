@@ -125,6 +125,7 @@ const songSaga = function* songSagaAsync() {
     yield takeLatest(actions.fetchSongDetail, fetchSongDetail)
     yield takeLatest([
         actions.fetchSearchSongs,
+        actions.onSearching,
         actions.updateSearchParams,
         actions.removeSearchParamsArray,
         actions.addSearchParamsArray,

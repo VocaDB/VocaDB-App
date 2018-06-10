@@ -40,3 +40,4 @@ export const addSearchParamsArray = createAction('Add value in params array from
 export const addSearchResult = createAction('Add search result', data => normalize(data, [ songSchema ]))
 export const setSearchResult = createAction('Set search result', data => normalize(data, [ songSchema ]))
 export const fetchMoreSearchResult = createAction('Fetch more search result')
+export const onSearching = createAction('Searching', text => ({ text }))
