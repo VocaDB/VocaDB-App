@@ -20,7 +20,8 @@ const ROUTES = {
     SignIn: 'SignIn',
     MyAlbums: 'MyAlbums',
     Settings: 'Settings',
-    TagSearch: 'TagSearch'
+    TagSearch: 'TagSearch',
+    EventFilter: 'EventFilter'
 }
 
 export default ROUTES
