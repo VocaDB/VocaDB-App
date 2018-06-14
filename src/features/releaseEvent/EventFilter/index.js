@@ -4,7 +4,6 @@ import EventFilterPage from './EventFilter'
 import { createSelector } from 'reselect';
 import * as eventActions from '../releaseEventActions'
 import { selectSearchParams, selectFilterArtists, selectFilterTags } from '../releaseEventSelector'
-import {  } from '../releaseEventConstant'
 
 EventFilterPage.navigationOptions = ({ navigation }) => {
 

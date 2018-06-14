@@ -5,7 +5,7 @@ import Content from '../../../components/Content'
 import Section from '../../../components/Section'
 import DatePicker from 'react-native-datepicker'
 import { Dropdown } from 'react-native-material-dropdown';
-import { categoryItems, category, filterFiled  } from './../releaseEventConstant'
+import { categoryItems, category, filterField  } from './../releaseEventConstant'
 
 class EventFilter extends React.PureComponent {
 
@@ -22,14 +22,14 @@ class EventFilter extends React.PureComponent {
                     <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start' }}>
 
                         <DatePicker
-                            date={this.props.params[filterFiled.afterDate]}
+                            date={this.props.params[filterField.afterDate]}
                             mode="date"
                             placeholder="select date"
                             format="YYYY-MM-DD"
                             confirmBtnText="Confirm"
                             cancelBtnText="Cancel"
                             showIcon={false}
-                            onDateChange={(date) => this.props.updateParam(filterFiled.afterDate, date)}
+                            onDateChange={(date) => this.props.updateParam(filterField.afterDate, date)}
                         />
 
                         <View style={{ margin: 8 }}>
@@ -38,14 +38,14 @@ class EventFilter extends React.PureComponent {
 
 
                         <DatePicker
-                            date={this.props.params[filterFiled.beforeDate]}
+                            date={this.props.params[filterField.beforeDate]}
                             mode="date"
                             placeholder="select date"
                             format="YYYY-MM-DD"
                             confirmBtnText="Confirm"
                             cancelBtnText="Cancel"
                             showIcon={false}
-                            onDateChange={(date) => this.props.updateParam(filterFiled.beforeDate, date)}
+                            onDateChange={(date) => this.props.updateParam(filterField.beforeDate, date)}
                         />
                     </View>
                 </Section>
@@ -56,7 +56,7 @@ class EventFilter extends React.PureComponent {
                         value={this.props.params.category}
                         data={categoryItems}
                         onChangeText={text => {
-                            this.props.onParamChanged(filterFiled.category, text)
+                            this.props.onParamChanged(filterField.category, text)
                         }}
                     />
                 </View>

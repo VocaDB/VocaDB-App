@@ -2,7 +2,7 @@ import _ from 'lodash'
 
 export const defaultSearchParams = { maxResults: 50, fields: 'MainPicture', sort: 'Date' }
 
-export const filterFiled = {
+export const filterField = {
     afterDate: 'afterDate',
     beforeDate: 'beforeDate',
     category: 'category'
