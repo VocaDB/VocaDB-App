@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import ArtistFilterPage from './ArtistFilter'
 import { createSelector } from 'reselect';
 import * as artistActions from '../artistActions'
-import { selectSearchParams } from '../artistSelector'
+import { selectSearchParams, selectFilterTags } from '../artistSelector'
 
 ArtistFilterPage.navigationOptions = ({ navigation }) => {
 
@@ -22,12 +22,16 @@ ArtistFilterPage.navigationOptions = ({ navigation }) => {
 
 const artistListStateSelect = createSelector(
     selectSearchParams(),
-    (params) => ({ params })
+    selectFilterTags(),
+    (params, filterTags) => ({ params, filterTags })
 );
 
 
 const mapDispatchToProps = (dispatch, props) => ({
     onFilterChanged: (params, remove) => dispatch(artistActions.fetchSearchArtists(params, remove)),
+    onParamChanged: (name, value) => dispatch(artistActions.updateSearchParams(name, value)),
+    onAddFilterTag: tag =>  dispatch(artistActions.addSearchParamsArray('tagId', tag.id)),
+    onRemoveFilterTag: tag => dispatch(artistActions.removeSearchParamsArray('tagId', tag.id)),
     back: () => props.navigation.goBack()
 })
 

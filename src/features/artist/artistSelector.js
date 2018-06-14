@@ -2,10 +2,12 @@ import { createSelector } from 'reselect';
 import { selectNav } from './../../app/appSelector'
 import Routes from './../../app/appRoutes'
 import image from './../../common/assets/images'
+import { selectTagEntity, convertTagIds } from './../tag/tagSelector'
 import { convertSongIds, selectSongEntity } from './../song/songSelector'
 import { convertAlbumIds, selectAlbumEntity } from './../album/albumSelector'
 import { convertEventIds, selectReleaseEventEntity } from './../releaseEvent/releaseEventSelector'
 import { translateLinkType, translateReverseLinkType } from './artistConstant'
+import { defaultSearchParams } from './artistConstant'
 import _ from 'lodash'
 
 export const transformArtist = (artist) => {
@@ -33,27 +35,12 @@ export const selectNoResult = () => createSelector(
     selectArtist(),
     artist => artist.noResult
 )
-export const selectSearchParams = () => createSelector(
-    selectArtist(),
-    artist => artist.searchParams
-)
 export const selectArtistDetailId = () => createSelector(
     selectNav(),
     nav => (nav
         && nav.routes[nav.index]
         && nav.routes[nav.index].routeName === Routes.ArtistDetail)? nav.routes[nav.index].params.id : 0
 )
-export const selectSearchResultIds = () => createSelector(
-    selectArtist(),
-    artist => artist.searchResult
-)
-
-export const selectSearchResult = () => createSelector(
-    selectSearchResultIds(),
-    selectArtistEntity(),
-    convertArtistIds
-)
-
 export const selectArtistDetail = () => createSelector(
     selectArtistDetailId(),
     selectArtistEntity(),
@@ -189,4 +176,50 @@ export const selectBaseVoicebank = () => createSelector(
     selectArtistEntity(),
     (artistDetail, artistEntity) => (artistDetail && artistDetail.baseVoicebank && artistEntity[artistDetail.baseVoicebank.toString()])?
         transformArtist(artistEntity[artistDetail.baseVoicebank.toString()]) : null
+)
+
+export const selectSearchParams = () => createSelector(
+    selectArtist(),
+    state => {
+
+        if(!state || !state.searchPage || !state.searchPage.params) {
+            return defaultSearchParams
+        }
+
+        const searchParams = state.searchPage.params;
+
+        searchParams.sort = (searchParams.sort)? searchParams.sort : 'Name'
+        searchParams.query = (searchParams.query)? searchParams.query : ''
+
+        return searchParams;
+    }
+)
+
+export const selectSearchResultIds = () => createSelector(
+    selectArtist(),
+    eventState => {
+        let a = (eventState && eventState.searchPage && eventState.searchPage.results)? eventState.searchPage.results : []
+        return a
+    }
+)
+
+export const selectSearchResult = () => createSelector(
+    selectSearchResultIds(),
+    selectArtistEntity(),
+    convertArtistIds
+)
+
+export const selectFilterTagIds = () => createSelector(
+    selectSearchParams(),
+    (searchParams) => {
+        return (searchParams && searchParams.tagId)? searchParams.tagId : []
+    }
+)
+
+export const selectFilterTags = () => createSelector(
+    selectSearchParams(),
+    selectTagEntity(),
+    (params, tagEntity) => {
+        return convertTagIds(params.tagId, tagEntity)
+    }
 )
