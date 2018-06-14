@@ -32,8 +32,9 @@ const mapStateSelector = createSelector(
 
 
 const mapDispatchToProps = (dispatch, props) => ({
-    onSearch: params => dispatch(albumActions.fetchSearchAlbums(params)),
-    onSearchReplaceParams: params => dispatch(albumActions.fetchSearchAlbums(params, false, true)),
+    fetchAlbums: () => dispatch(albumActions.fetchSearchAlbums()),
+    fetchMoreAlbums: () => dispatch(albumActions.fetchMoreSearchResult()),
+    onSearch: (value) => dispatch(albumActions.onSearching(value)),
     back: () => props.navigation.goBack(),
     onPressAlbum: album => props.navigation.navigate(Routes.AlbumDetail, { id: album.id }),
     onPressFilter: () => props.navigation.navigate(Routes.AlbumFilter)

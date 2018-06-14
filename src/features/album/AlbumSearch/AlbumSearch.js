@@ -18,21 +18,7 @@ class AlbumSearch extends React.PureComponent {
     }
 
     componentDidMount () {
-        this.refresh()
-    }
-
-    doSearch(params) {
-        this.props.onSearch(params)
-    }
-
-    refresh() {
-        const params = this.getNavigationParams();
-        const filterParams = (params && params.filterParams)? params.filterParams : {};
-        this.props.onSearchReplaceParams(filterParams);
-    }
-
-    getNavigationParams() {
-        return (this.props.navigation.state && this.props.navigation.state.params)? this.props.navigation.state.params : {};
+        this.props.fetchAlbums()
     }
 
     renderList () {
@@ -54,10 +40,9 @@ class AlbumSearch extends React.PureComponent {
                 data={this.props.albums}
                 keyExtractor={item => item.id}
                 refreshing={this.props.loading}
-                onRefresh={this.refresh.bind(this)}
                 onEndReached={() => {
                     if(!this.props.isNoResult) {
-                        this.doSearch({ start: this.props.albums.length })
+                        this.props.fetchMoreAlbums()
                     }
                 }}
                 renderItem={({ item }) => renderAlbumRow(item)} />
@@ -66,8 +51,6 @@ class AlbumSearch extends React.PureComponent {
     }
 
     render () {
-
-        const queryEntry = text => this.doSearch({ query: text, start: 0 })
 
         return (
             <Page>
@@ -78,7 +61,7 @@ class AlbumSearch extends React.PureComponent {
                     searchable={{
                         autoFocus: true,
                         placeholder: 'Find album',
-                        onChangeText: queryEntry
+                        onChangeText: this.props.onSearch
                     }}
                 />
                 <View style={styles.menuContainer}>

@@ -6,18 +6,19 @@ import Theme from '../../../theme'
 import { Dropdown } from 'react-native-material-dropdown';
 import { Button } from 'react-native-material-ui';
 import ArtistSelectModal from './../../artist/ArtistSelectModal'
+import TagSelectModal from './../../tag/TagSelectModal'
 import ArtistRow from './../../artist/ArtistRow'
 import Tag from './../../tag/Tag'
-import { topGenres } from './../../tag/tagConstant'
 import { discTypes, sortItems } from './../albumConstant'
-import { entryStatusItems } from './../../entry/entryConstant'
+import { filterField } from '../albumConstant'
 
 class AlbumFilter extends React.PureComponent {
 
     constructor(props) {
         super(props)
         this.state = {
-            showArtistModal: false
+            showArtistModal: false,
+            showTagModal: false
         }
     }
 
@@ -28,7 +29,11 @@ class AlbumFilter extends React.PureComponent {
                     label='Disc type'
                     value={this.props.params.discTypes}
                     onChangeText={text => {
-                        this.props.onFilterChanged({ discTypes: text })
+                        if(text === 'Unspecified') {
+                            this.props.onParamChanged(filterField.discTypes, '')
+                        } else {
+                            this.props.onParamChanged(filterField.discTypes, text)
+                        }
                     }}
                     data={discTypes}
                 />
@@ -45,9 +50,10 @@ class AlbumFilter extends React.PureComponent {
                         <ArtistRow
                             key={a.id}
                             id={a.id}
+                            image={a.image}
                             name={a.name}
                             rightIcon='ios-close'
-                            onRightElementPress={() => this.props.onFilterChanged({ artistId: [ a.id ] }, true)} />)}
+                            onRightElementPress={() => this.props.onRemoveArtist(a)} />)}
                 </View>
                 <Button
                     raised
@@ -63,7 +69,7 @@ class AlbumFilter extends React.PureComponent {
                     }}
                     onPressItem={artist => {
                         this.setState({ showArtistModal: false })
-                        this.props.onFilterChanged({ artistId: [ artist.id ] })
+                        this.props.onAddArtist(artist)
                     }} />
             </View>
         )
@@ -74,36 +80,35 @@ class AlbumFilter extends React.PureComponent {
             <View>
                 <Text style={[Theme.subhead, { marginHorizontal: 8 }]}>Tags</Text>
                 <View style={{ flexDirection: 'row', flexWrap: 'wrap', alignItems: 'flex-start' }}>
-                    {topGenres.map(t => {
-                        const selected = (this.props.params.tagId) ? this.props.params.tagId.indexOf(t.id) >= 0 : false;
+                    {this.props.filterTags.map(t => {
                         return <Tag
+                            showRemoveButton
                             key={t.id}
                             name={t.name}
                             style={{ margin: 4 }}
-                            selected={selected}
-                            onPress={() => {
-                                this.props.onFilterChanged({ tagId: [ t.id ] }, selected)
-                            }} />
+                            selected={t.selected}
+                            onRemovePress={() => this.props.onRemoveFilterTag(t)} />
                     })}
                 </View>
+                <Button
+                    raised
+                    primary
+                    style={{ container: { marginHorizontal: 16, marginVertical: 8 } }}
+                    text='Select tag'
+                    onPress={() => { this.setState({ showTagModal: true }) }} />
+                <TagSelectModal
+                    modalVisible={this.state.showTagModal}
+                    onBackPress={() => {
+                        this.setState({ showTagModal: false })
+                    }}
+                    onPressItem={tag => {
+                        this.setState({ showTagModal: false })
+                        this.props.onAddFilterTag(tag)
+                    }} />
             </View>
         )
     }
 
-    renderInputStatus () {
-        return (
-            <View style={{ marginHorizontal: 8 }}>
-                <Dropdown
-                    label='Status'
-                    value={this.props.params.status}
-                    onChangeText={text => {
-                        this.props.onFilterChanged({ status: text })
-                    }}
-                    data={entryStatusItems}
-                />
-            </View>
-        )
-    }
 
     renderInputSort () {
         return (
@@ -112,7 +117,7 @@ class AlbumFilter extends React.PureComponent {
                     label='Sort'
                     value={this.props.params.sort}
                     onChangeText={text => {
-                        this.props.onFilterChanged({ sort: text })
+                        this.props.onParamChanged(filterField.sort, text)
                     }}
                     data={sortItems}
                 />

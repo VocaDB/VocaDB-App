@@ -10,10 +10,17 @@ const fetchSearchAlbums = function* fetchSearchAlbums() {
     try {
         const params = yield select(selectSearchParams())
         const displayLanguage = yield select(selectDisplayLanguage())
+
         yield call(delay, 500)
+
         const response = yield call(api.find, { ...params, lang: displayLanguage });
-        let append = (params && params.start) ? true : false
-        yield put(actions.fetchSearchAlbumsSuccess(response.items, append));
+
+        if(params && params.start) {
+            yield put(actions.addSearchResult(response.items));
+        } else {
+            yield put(actions.setSearchResult(response.items));
+        }
+
     } catch (e) {
         yield put(appActions.requestError(e));
     }
@@ -55,7 +62,16 @@ const fetchAlbumDetail = function* fetchLatestAlbums(action) {
 }
 
 const albumSaga = function* albumSagaAsync() {
-    yield takeLatest(actions.fetchSearchAlbums, fetchSearchAlbums)
+    yield takeLatest([
+        actions.fetchSearchAlbums,
+        actions.onSearching,
+        actions.updateSearchParams,
+        actions.removeSearchParamsArray,
+        actions.addSearchParamsArray,
+        actions.fetchMoreSearchResult,
+        actions.addFilterTag,
+        actions.removeFilterTag], fetchSearchAlbums)
+
     yield takeLatest(actions.fetchLatestAlbums, fetchLatestAlbums)
     yield takeLatest(actions.fetchTopAlbums, fetchTopAlbums)
     yield takeLatest(actions.fetchAlbumDetail, fetchAlbumDetail)

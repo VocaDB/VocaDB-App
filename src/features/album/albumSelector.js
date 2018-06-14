@@ -3,6 +3,8 @@ import { selectNav } from './../../app/appSelector'
 import Routes from './../../app/appRoutes'
 import { selectArtistEntity } from './../artist/artistSelector'
 import image from './../../common/assets/images'
+import { selectTagEntity, convertTagIds } from './../tag/tagSelector'
+import { defaultSearchParams } from './albumConstant'
 
 export const convertAlbum = (entry) => {
     if(!entry) {
@@ -25,14 +27,6 @@ export const selectAlbumEntity = () => state => (state.entities && state.entitie
 export const selectNoResult = () => createSelector(
     selectAlbum(),
     album => album.noResult
-)
-export const selectSearchParams = () => createSelector(
-    selectAlbum(),
-    album => album.searchParams
-)
-export const selectSearchResultIds = () => createSelector(
-    selectAlbum(),
-    album => album.searchResult
 )
 export const selectLatestAlbumIds = () => createSelector(
     selectAlbum(),
@@ -57,11 +51,6 @@ export const selectLatestAlbums = () => createSelector(
 
 export const selectTopAlbums = () => createSelector(
     selectTopAlbumIds(),
-    selectAlbumEntity(),
-    convertAlbumIds
-)
-export const selectSearchResult = () => createSelector(
-    selectSearchResultIds(),
     selectAlbumEntity(),
     convertAlbumIds
 )
@@ -105,3 +94,46 @@ export const selectIsFavoriteAlbum = () => createSelector(
 )
 
 
+export const selectSearchParams = () => createSelector(
+    selectAlbum(),
+    state => {
+
+        if(!state || !state.searchPage || !state.searchPage.params) {
+            return defaultSearchParams
+        }
+
+        const searchParams = state.searchPage.params;
+
+        searchParams.sort = (searchParams.sort)? searchParams.sort : 'Name'
+        searchParams.query = (searchParams.query)? searchParams.query : ''
+
+        return searchParams;
+    }
+)
+
+export const selectSearchResultIds = () => createSelector(
+    selectAlbum(),
+    state => (state && state.searchPage && state.searchPage.results)? state.searchPage.results : []
+)
+
+export const selectSearchResult = () => createSelector(
+    selectSearchResultIds(),
+    selectAlbumEntity(),
+    convertAlbumIds
+)
+
+
+export const selectFilterTagIds = () => createSelector(
+    selectSearchParams(),
+    (searchParams) => {
+        return (searchParams && searchParams.tagId)? searchParams.tagId : []
+    }
+)
+
+export const selectFilterTags = () => createSelector(
+    selectSearchParams(),
+    selectTagEntity(),
+    (params, tagEntity) => {
+        return convertTagIds(params.tagId, tagEntity)
+    }
+)
