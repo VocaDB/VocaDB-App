@@ -20,3 +20,24 @@ export const category = {
 }
 
 export const categoryItems = _.values(category).map(value => ({ value }))
+
+export const sortItems = [
+    {
+        value: ''
+    },
+    {
+        value: 'None'
+    },
+    {
+        value: 'Name'
+    },
+    {
+        value: 'Date'
+    },
+    {
+        value: 'AdditionDate'
+    },
+    {
+        value: 'SeriesName'
+    }
+]
