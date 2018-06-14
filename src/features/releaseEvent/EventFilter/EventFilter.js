@@ -9,27 +9,25 @@ import { categoryItems, category, filterField  } from './../releaseEventConstant
 
 class EventFilter extends React.PureComponent {
 
-
     constructor(props){
         super(props)
     }
 
     render () {
-
         return (
             <Content>
                 <Section title='Date range'>
                     <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start' }}>
 
                         <DatePicker
-                            date={this.props.params[filterField.afterDate]}
+                            date={this.props.params.afterDate}
                             mode="date"
                             placeholder="select date"
                             format="YYYY-MM-DD"
                             confirmBtnText="Confirm"
                             cancelBtnText="Cancel"
                             showIcon={false}
-                            onDateChange={(date) => this.props.updateParam(filterField.afterDate, date)}
+                            onDateChange={(date) => this.props.onParamChanged(filterField.afterDate, date)}
                         />
 
                         <View style={{ margin: 8 }}>
@@ -38,14 +36,14 @@ class EventFilter extends React.PureComponent {
 
 
                         <DatePicker
-                            date={this.props.params[filterField.beforeDate]}
+                            date={this.props.params.beforeDate}
                             mode="date"
                             placeholder="select date"
                             format="YYYY-MM-DD"
                             confirmBtnText="Confirm"
                             cancelBtnText="Cancel"
                             showIcon={false}
-                            onDateChange={(date) => this.props.updateParam(filterField.beforeDate, date)}
+                            onDateChange={(date) => this.props.onParamChanged(filterField.beforeDate, date)}
                         />
                     </View>
                 </Section>

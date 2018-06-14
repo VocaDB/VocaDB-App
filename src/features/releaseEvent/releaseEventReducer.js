@@ -101,6 +101,8 @@ const reducer = createReducer({
         let newState = Object.assign({}, state);
 
         if(newState.searchPage && newState.searchPage.params) {
+            let params = Object.assign({}, state.searchPage.params);
+            newState.searchPage.params = params;
             newState.searchPage.params[payload.name] = payload.value;
             newState.searchPage.params.start = 0;
         } else {
