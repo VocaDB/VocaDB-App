@@ -34,7 +34,6 @@ export default class SongSearch extends React.PureComponent {
                 songs={this.props.songs}
                 onPressItem={this.props.onPressSong}
                 refreshing={this.props.loading}
-                onRefresh={() => {}}
                 onEndReached={() => {
                     if(!this.props.isNoResult) {
                         this.props.fetchMoreSongs()

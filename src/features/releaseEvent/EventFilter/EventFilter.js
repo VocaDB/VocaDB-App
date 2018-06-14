@@ -1,35 +1,35 @@
 import React from 'react'
-import { View, Text } from 'react-native'
+import PropTypes from 'prop-types'
+import { View, Text, Modal } from 'react-native'
 import Content from '../../../components/Content'
 import Section from '../../../components/Section'
 import DatePicker from 'react-native-datepicker'
 import { Dropdown } from 'react-native-material-dropdown';
-
+import { categoryItems, category, filterFiled  } from './../releaseEventConstant'
 
 class EventFilter extends React.PureComponent {
 
+
     constructor(props){
         super(props)
-        this.state = { fromDate:"2016-05-15", toDate: '2016-05-15' }
     }
 
     render () {
+
         return (
             <Content>
                 <Section title='Date range'>
                     <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start' }}>
 
                         <DatePicker
-                            date={this.state.fromDate}
+                            date={this.props.params[filterFiled.afterDate]}
                             mode="date"
                             placeholder="select date"
                             format="YYYY-MM-DD"
-                            minDate="2016-05-01"
-                            maxDate="2016-06-01"
                             confirmBtnText="Confirm"
                             cancelBtnText="Cancel"
                             showIcon={false}
-                            onDateChange={(date) => {this.setState({fromDate: date})}}
+                            onDateChange={(date) => this.props.updateParam(filterFiled.afterDate, date)}
                         />
 
                         <View style={{ margin: 8 }}>
@@ -38,16 +38,14 @@ class EventFilter extends React.PureComponent {
 
 
                         <DatePicker
-                            date={this.state.toDate}
+                            date={this.props.params[filterFiled.beforeDate]}
                             mode="date"
                             placeholder="select date"
                             format="YYYY-MM-DD"
-                            minDate="2016-05-01"
-                            maxDate="2016-06-01"
                             confirmBtnText="Confirm"
                             cancelBtnText="Cancel"
                             showIcon={false}
-                            onDateChange={(date) => {this.setState({toDate: date})}}
+                            onDateChange={(date) => this.props.updateParam(filterFiled.beforeDate, date)}
                         />
                     </View>
                 </Section>
@@ -55,17 +53,11 @@ class EventFilter extends React.PureComponent {
                 <View>
                     <Dropdown
                         label='Category'
-                        value='Unspecified'
-                        data={[
-                            { value: 'Unspecified' },
-                            { value: 'AlbumRelease' },
-                            { value: 'Anniversary' },
-                            { value: 'Club' },
-                            { value: 'Concert' },
-                            { value: 'Contest' },
-                            { value: 'Convention' },
-                            { value: 'Other' }
-                        ]}
+                        value={this.props.params.category}
+                        data={categoryItems}
+                        onChangeText={text => {
+                            this.props.onParamChanged(filterFiled.category, text)
+                        }}
                     />
                 </View>
 
@@ -75,6 +67,17 @@ class EventFilter extends React.PureComponent {
 }
 
 EventFilter.propTypes = {
+    params: PropTypes.object,
+    updateParam: PropTypes.func
+}
+
+EventFilter.defaultProps = {
+    params: {
+        afterDate: '2016-05-15',
+        beforeDate: '2016-05-15',
+        category: category.unspecified
+    },
+    updateParam: (name, value) => {}
 }
 
 export default EventFilter;

@@ -20,6 +20,7 @@ import SignInPage from './features/user/SignIn'
 import MyAlbumsPage from './features/user/MyAlbums'
 import SettingsPage from './features/user/Settings'
 import TagSearchPage from './features/tag/TagSearch'
+import EventFilterPage from './features/releaseEvent/EventFilter'
 import { StackNavigator } from "react-navigation";
 import Theme from './theme'
 import Routes from './app/appRoutes'
@@ -50,7 +51,8 @@ const AppNavigator = StackNavigator({
     SignIn: { screen: SignInPage },
     MyAlbums: { screen: MyAlbumsPage },
     Settings: { screen: SettingsPage },
-    TagSearch: { screen: TagSearchPage }
+    TagSearch: { screen: TagSearchPage },
+    EventFilter: { screen: EventFilterPage }
 }, {
     initialRouteName: INITIAL_ROUTE,
     navigationOptions: {

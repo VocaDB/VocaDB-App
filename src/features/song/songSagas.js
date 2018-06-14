@@ -26,7 +26,6 @@ const fetchSearchSongs = function* fetchSearchSongs() {
 
         yield call(delay, 500)
 
-        console.log('search song with params : ' + JSON.stringify(params))
         const response = yield call(api.find, { ...params, lang: displayLanguage });
 
         if(params && params.start) {

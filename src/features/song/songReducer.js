@@ -120,8 +120,6 @@ const reducer = createReducer({
             newState.searchPage.params[payload.name] = [ payload.value ]
         }
 
-        console.log('search params ' + payload.name + ': ' + payload.value + ' added')
-
         return newState;
     },
     [actions.addSearchResult]: (state, payload) => {
