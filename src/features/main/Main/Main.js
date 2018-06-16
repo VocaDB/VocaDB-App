@@ -1,13 +1,38 @@
 import React from 'react'
 import ScrollableTabView from 'react-native-scrollable-tab-view'
-import { Linking } from 'react-native'
+import { Linking, DeviceEventEmitter } from 'react-native'
 import CustomTabBar from '../../../components/CustomTabBar'
 import HomeTab from './../HomeTab'
 import MenuTab from './../MenuTab'
 import FollowedTab from './../FollowedTab'
 import SongRankingTab from './../../song/SongRanking'
+import QuickActions from 'react-native-quick-actions'
+import { shortcutTypes } from './../../../common/constants/shortcuts'
 
-export default class Main extends React.PureComponent {
+class Main extends React.PureComponent {
+
+
+    componentWillMount () {
+
+        QuickActions.popInitialAction().then((action) => {
+            if(action && action.type) {
+                switch (action.type) {
+                    case shortcutTypes.Songs:
+                        this.props.onPressSongSearch();
+                        break;
+                    case shortcutTypes.Artists:
+                        this.props.onPressArtistSearch();
+                        break;
+                    case shortcutTypes.Albums:
+                        this.props.onPressAlbumSearch();
+                        break;
+                    default:
+                        console.log('Invalid action : ' + JSON.stringify(d))
+                }
+            }
+        }).catch(console.error)
+
+    }
 
     componentDidMount () {
         this.refreshHome()
@@ -87,3 +112,5 @@ export default class Main extends React.PureComponent {
         )
     }
 }
+
+export default Main;
