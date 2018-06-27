@@ -231,3 +231,34 @@ export const selectFilterTags = () => createSelector(
         return convertTagIds(params.tagId, tagEntity)
     }
 )
+
+export const selectSelectedSinglePage = () => createSelector(
+    selectSong(),
+    selectNav(),
+    (songState, nav) => {
+
+        if(!songState || !songState.singlePage || !nav || !nav.routes[nav.index]) {
+            return { params: {}, results: [] }
+        }
+
+        let selectedRoute = nav.routes[nav.index]
+        let selectedSinglePage = songState.singlePage[selectedRoute.key]
+
+        if(!selectedSinglePage) {
+            return { params: {}, results: [] }
+        }
+
+        return selectedSinglePage
+    }
+)
+
+export const selectSelectedSinglePageParams = () => createSelector(
+    selectSelectedSinglePage(),
+    (selectedSinglePage) => (selectedSinglePage && selectedSinglePage.params)? selectedSinglePage.params : {}
+)
+
+export const selectSelectedSinglePageResults = () => createSelector(
+    selectSelectedSinglePage(),
+    selectSongEntity(),
+    (selectedSinglePage, entity) => (selectedSinglePage && selectedSinglePage.results)? convertSongIds(selectedSinglePage.results, entity) : {}
+)

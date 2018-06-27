@@ -154,20 +154,20 @@ describe('Test song reducer', () => {
         expect(nextState.ranking.songs).toEqual([1, 2])
     })
 
-        it('should add new search param', () => {
+    it('should add new search param', () => {
 
-            let nextState = reducer({}, actions.updateSearchParams('songTypes', 'Cover'))
+        let nextState = reducer({}, actions.updateSearchParams('songTypes', 'Cover'))
 
-            expect(nextState).toBeTruthy()
-            expect(nextState.searchPage).toBeTruthy()
-            expect(nextState.searchPage.params).toBeTruthy()
+        expect(nextState).toBeTruthy()
+        expect(nextState.searchPage).toBeTruthy()
+        expect(nextState.searchPage.params).toBeTruthy()
 
-            let expectedSearchParams = {
-                songTypes: 'Cover'
-            }
+        let expectedSearchParams = {
+            songTypes: 'Cover'
+        }
 
-            expect(nextState.searchPage.params).toEqual(expectedSearchParams)
-        })
+        expect(nextState.searchPage.params).toEqual(expectedSearchParams)
+    })
 
     it('should set default and update search params', () => {
 
@@ -407,5 +407,43 @@ describe('Test song reducer', () => {
 
         expect(nextState).toBeTruthy()
         expect(nextState.searchPage).toEqual(expectedSeachPage)
+    })
+
+    it('should add page id and params', () => {
+        let nextState = reducer({}, actions.addParamsToPageId('a1', { songTypes: 'Cover' }))
+
+        let expectedState = {
+            singlePage: {
+                'a1': {
+                    params: { songTypes: 'Cover' }
+                }
+            }
+        }
+
+        expect(nextState).toEqual(expectedState)
+    })
+
+    it('should add result to page id', () => {
+        let initialState = {
+            singlePage: {
+                'a1': {
+                    results: [ 1, 2, 3 ]
+                }
+            }
+        }
+
+        let mockResponse = [ 2, 1, 5, 6 ].map(id => ({ id }))
+
+        let nextState = reducer(initialState, actions.addResultToPageId('a1', mockResponse))
+
+        let expectedState = {
+            singlePage: {
+                'a1': {
+                    results: [ 1, 2, 3, 5, 6 ]
+                }
+            }
+        }
+
+        expect(nextState).toEqual(expectedState)
     })
 })

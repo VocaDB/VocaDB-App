@@ -23,6 +23,9 @@ export const defaultState = {
     searchPage: {
         params: {},
         results: []
+    },
+    singlePage: {
+
     }
 }
 
@@ -275,7 +278,44 @@ const reducer = createReducer({
         let ranking = Object.assign({}, state.ranking)
         ranking = { ...ranking, songs: payload.result }
         return { ...state, ranking }
+    },
+    [actions.addParamsToPageId]: (state, payload) => {
+
+        if(!payload.pageId || !payload.params) {
+            return state;
+        }
+
+        let singlePage = {}
+
+        if(state.singlePage) {
+            singlePage = Object.assign({}, state.singlePage)
+        }
+
+        let singlePageSelected = singlePage[payload.pageId]
+
+        if(singlePageSelected) {
+            singlePage[payload.pageId].params = payload.params
+            return { ...state, singlePage }
+        }
+
+        singlePage[payload.pageId] = {
+            params: payload.params
+        }
+
+        return { ...state, singlePage }
+    },
+    [actions.addResultToPageId]: (state, payload) => {
+        if(!payload.pageId || !payload.result) {
+            return state;
+        }
+
+        let singlePage = Object.assign({}, state.singlePage)
+        singlePage[payload.pageId].results = _.union(singlePage[payload.pageId].results, payload.result )
+
+        return { ...state, singlePage }
     }
+
+
 }, defaultState)
 
 export default reducer

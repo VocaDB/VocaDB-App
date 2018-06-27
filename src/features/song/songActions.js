@@ -41,3 +41,10 @@ export const addSearchResult = createAction('Add search result', data => normali
 export const setSearchResult = createAction('Set search result', data => normalize(data, [ songSchema ]))
 export const fetchMoreSearchResult = createAction('Fetch more search result')
 export const onSearching = createAction('Searching', text => ({ text }))
+
+export const addParamsToPageId = createAction('View songs by given parameters', (pageId, params) => ({ pageId, params }))
+export const addResultToPageId = createAction('Add to single list result', (pageId, data) => {
+    let normalized = normalize(data, [ songSchema ])
+    normalized.pageId = pageId
+    return normalized
+})
