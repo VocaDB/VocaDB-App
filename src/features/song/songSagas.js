@@ -6,7 +6,7 @@ import * as artistActions from '../artist/artistActions'
 import * as userActions from './../user/userActions'
 import api from './songApi'
 import { selectFollowedArtistIds } from './../artist/artistSelector'
-import { selectSearchParams, selectRankingState } from './songSelector'
+import { selectSearchParams, selectRankingState, selectSelectedSinglePageParams } from './songSelector'
 import { selectDisplayLanguage } from './../user/userSelector'
 
 const fetchHighlighted = function* fetchHighlighted() {
@@ -115,6 +115,24 @@ const fetchRanking = function* fetchRanking() {
     }
 }
 
+const fetchSongsFromSelectedPageParams = function* fetchSongsFromSelectedPageParams() {
+    try {
+        const params = yield select(selectSelectedSinglePageParams())
+        const displayLanguage = yield select(selectDisplayLanguage())
+
+        yield call(delay, 500)
+
+        const response = yield call(api.find, { ...params, lang: displayLanguage });
+
+        if(params && params.start) {
+            yield put(actions.addResultToPageId(response.items));
+        }
+
+    } catch (e) {
+        yield put(appActions.requestError(e));
+    }
+}
+
 const songSaga = function* songSagaAsync() {
     yield takeLatest([userActions.updateSettings, actions.fetchHighlighted], fetchHighlighted)
     yield takeLatest(actions.fetchLatestSongs, fetchLatestSongs)
@@ -135,6 +153,10 @@ const songSaga = function* songSagaAsync() {
         actions.changeFilterBy,
         actions.changeVocalist,
         userActions.updateSettings], fetchRanking)
+    yield takeLatest([
+        actions.addParamsToPageId,
+        actions.addResultToPageId
+    ], fetchSongsFromSelectedPageParams)
 }
 
 export { fetchHighlighted, fetchSearchSongs, fetchLatestSongs, fetchFollowedSongs, fetchSongDetail, fetchRanking }
