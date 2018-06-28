@@ -10,5 +10,7 @@ t[labels.tags] = 'Tags'
 t[labels.seeMore] = 'See more'
 t[labels.highlightPVs] = 'Highlight PVs'
 t[labels.recentAlbums] = 'Recent or upcoming albums'
+t[labels.randomPopularAlbums] = 'Recent or upcoming albums'
+t[labels.upcomingEvent] = 'Recent or upcoming albums'
 
 export default t;
