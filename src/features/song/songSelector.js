@@ -232,6 +232,7 @@ export const selectFilterTags = () => createSelector(
     }
 )
 
+
 export const selectSelectedSinglePage = () => createSelector(
     selectSong(),
     selectNav(),
@@ -260,5 +261,12 @@ export const selectSelectedSinglePageParams = () => createSelector(
 export const selectSelectedSinglePageResults = () => createSelector(
     selectSelectedSinglePage(),
     selectSongEntity(),
-    (selectedSinglePage, entity) => (selectedSinglePage && selectedSinglePage.results)? convertSongIds(selectedSinglePage.results, entity) : {}
+    (selectedSinglePage, entity) => {
+        return (selectedSinglePage && selectedSinglePage.results)? convertSongIds(selectedSinglePage.results, entity) : []
+    }
+)
+
+export const selectSelectedNavRoute = () => createSelector(
+    selectNav(),
+    (nav) => (nav.routes[nav.index])? nav.routes[nav.index] : {}
 )

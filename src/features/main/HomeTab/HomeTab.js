@@ -101,7 +101,7 @@ class HomeTab extends React.PureComponent {
                         title: 'Highlighted PVs',
                         data: this.props.recentSongs,
                         renderItem: renderSongCard,
-                        onPressMore: this.props.onPressSongSearch
+                        onPressMore: this.props.onPressMoreRecentSongs
                     },
                     {
                         key: 1,

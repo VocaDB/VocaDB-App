@@ -1,30 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import SongList from './../SongList'
-import merge from "lodash/merge";
 
 class SongWithParams extends React.Component {
 
     componentDidMount () {
-        this.refresh()
+        this.props.fetchSongs(this.props.navigation.state.key, this.props.navigation.state.params.filterParams)
     }
 
-    doSearch(params) {
-        this.props.fetchSongs(merge({}, this.props.params, params))
-    }
-
-    navParams() {
-        const navigation = this.props.navigation
-        return (navigation && navigation.state && navigation.state.params)? navigation.state.params : {}
-    }
-
-    refresh() {
-        const params = this.navParams()
-
-        if(params && params.filterParams) {
-            this.props.fetchSongsReplaceParams(params.filterParams)
-        }
-    }
     render () {
         return (
             <SongList
@@ -33,11 +16,8 @@ class SongWithParams extends React.Component {
                 songs={this.props.songs}
                 onPressItem={this.props.onPressSong}
                 refreshing={this.props.loading}
-                onRefresh={this.refresh.bind(this)}
                 onEndReached={() => {
-                    if(!this.props.isNoResult) {
-                        this.doSearch({ start: this.props.songs.length })
-                    }
+                    this.props.fetchMoreSongs()
                 }}
                 hideMoreButton={true} />
         )

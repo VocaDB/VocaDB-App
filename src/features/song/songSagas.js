@@ -6,7 +6,7 @@ import * as artistActions from '../artist/artistActions'
 import * as userActions from './../user/userActions'
 import api from './songApi'
 import { selectFollowedArtistIds } from './../artist/artistSelector'
-import { selectSearchParams, selectRankingState, selectSelectedSinglePageParams } from './songSelector'
+import { selectSearchParams, selectRankingState, selectSelectedSinglePageParams, selectSelectedNavRoute } from './songSelector'
 import { selectDisplayLanguage } from './../user/userSelector'
 
 const fetchHighlighted = function* fetchHighlighted() {
@@ -119,13 +119,16 @@ const fetchSongsFromSelectedPageParams = function* fetchSongsFromSelectedPagePar
     try {
         const params = yield select(selectSelectedSinglePageParams())
         const displayLanguage = yield select(selectDisplayLanguage())
+        const route = yield select(selectSelectedNavRoute())
 
         yield call(delay, 500)
 
         const response = yield call(api.find, { ...params, lang: displayLanguage });
 
         if(params && params.start) {
-            yield put(actions.addResultToPageId(response.items));
+            yield put(actions.addResultToPageId(route.key,response.items));
+        } else {
+            yield put(actions.setResultToPageId(route.key,response.items));
         }
 
     } catch (e) {
@@ -155,7 +158,7 @@ const songSaga = function* songSagaAsync() {
         userActions.updateSettings], fetchRanking)
     yield takeLatest([
         actions.addParamsToPageId,
-        actions.addResultToPageId
+        actions.fetchMoreResultOnPageId
     ], fetchSongsFromSelectedPageParams)
 }
 

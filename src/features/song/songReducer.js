@@ -294,15 +294,43 @@ const reducer = createReducer({
         let singlePageSelected = singlePage[payload.pageId]
 
         if(singlePageSelected) {
-            singlePage[payload.pageId].params = payload.params
+            singlePage[payload.pageId].params = { ...payload.params, start: 0 }
             return { ...state, singlePage }
         }
 
         singlePage[payload.pageId] = {
-            params: payload.params
+            params: { ...payload.params, start: 0 }
         }
 
         return { ...state, singlePage }
+    },
+    [actions.fetchMoreResultOnPageId]: (state, payload) => {
+
+        if(!payload || !payload.pageId) {
+            return state;
+        }
+
+        let singlePage = {}
+
+        if(state.singlePage) {
+            singlePage = Object.assign({}, state.singlePage)
+        }
+
+        let singlePageSelected = singlePage[payload.pageId]
+
+        let start = (singlePageSelected.results)? singlePageSelected.results.length : 0;
+
+        if(singlePageSelected) {
+            singlePage[payload.pageId].params = { ...singlePage[payload.pageId].params, start }
+            return { ...state, singlePage }
+        }
+
+        singlePage[payload.pageId] = {
+            params: { ...payload.params, start }
+        }
+
+        return { ...state, singlePage }
+
     },
     [actions.addResultToPageId]: (state, payload) => {
         if(!payload.pageId || !payload.result) {
@@ -311,6 +339,17 @@ const reducer = createReducer({
 
         let singlePage = Object.assign({}, state.singlePage)
         singlePage[payload.pageId].results = _.union(singlePage[payload.pageId].results, payload.result )
+
+        return { ...state, singlePage }
+    },
+    [actions.setResultToPageId]: (state, payload) => {
+
+        if(!payload.pageId || !payload.result) {
+            return state;
+        }
+
+        let singlePage = Object.assign({}, state.singlePage)
+        singlePage[payload.pageId].results = payload.result
 
         return { ...state, singlePage }
     }
