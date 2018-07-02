@@ -17,7 +17,7 @@ class SongWithParams extends React.Component {
                 onPressItem={this.props.onPressSong}
                 refreshing={this.props.loading}
                 onEndReached={() => {
-                    this.props.fetchMoreSongs()
+                    this.props.fetchMoreSongs(this.props.navigation.state.key)
                 }}
                 hideMoreButton={true} />
         )

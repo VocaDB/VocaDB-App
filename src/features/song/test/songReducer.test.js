@@ -446,4 +446,51 @@ describe('Test song reducer', () => {
 
         expect(nextState).toEqual(expectedState)
     })
+
+    it('should set result to page id', () => {
+        let initialState = {
+            singlePage: {
+                'a1': {
+                    results: [ 1, 2, 3 ]
+                }
+            }
+        }
+
+        let mockResponse = [ 2, 1, 5, 6 ].map(id => ({ id }))
+
+        let nextState = reducer(initialState, actions.setResultToPageId('a1', mockResponse))
+
+        let expectedState = {
+            singlePage: {
+                'a1': {
+                    results: [ 2, 1, 5, 6 ]
+                }
+            }
+        }
+
+        expect(nextState).toEqual(expectedState)
+    })
+
+    it('should fetch more result to page id', () => {
+        let initialState = {
+            singlePage: {
+                'a1': {
+                    results: [ 1, 2, 3 ]
+                }
+            }
+        }
+
+        let nextState = reducer(initialState, actions.fetchMoreResultOnPageId('a1'))
+
+        let expectedState = {
+            singlePage: {
+                'a1': {
+                    params: { start: 3 },
+                    results: [ 1, 2, 3  ]
+                }
+            }
+        }
+
+        expect(nextState).toEqual(expectedState)
+    })
 })
