@@ -5,6 +5,7 @@ const ROUTES = {
     ArtistDetail: 'ArtistDetail',
     AlbumDetail: 'AlbumDetail',
     AlbumSearch: 'AlbumSearch',
+    AlbumWithParams: 'AlbumWithParams',
     Search: 'Search',
     SongList: 'SongList',
     SongFilter: 'SongFilter',

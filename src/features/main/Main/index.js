@@ -65,9 +65,26 @@ const mapDispatchToProps = (dispatch, props) => ({
     onPressMoreRecentSongs: () => props.navigation.navigate(Routes.SongWithParams, {
         title: 'Recent songs',
         filterParams: {
+            maxResults: 50,
             onlyWithPVs: true,
             sort: 'AdditionDate',
             fields: 'thumbUrl'
+        }
+    }),
+    onPressMoreRecentAlbums: () => props.navigation.navigate(Routes.AlbumWithParams, {
+        title: 'Recent albums',
+        filterParams: {
+            maxResults: 50,
+            sort: 'ReleaseDate',
+            fields: 'MainPicture'
+        }
+    }),
+    onPressMoreTopAlbums: () => props.navigation.navigate(Routes.AlbumWithParams, {
+        title: 'Popular albums',
+        filterParams: {
+            maxResults: 50,
+            sort: 'RatingTotal',
+            fields: 'MainPicture'
         }
     }),
     onPressMenuFollowArtists: () => props.navigation.navigate(Routes.FollowedArtists),

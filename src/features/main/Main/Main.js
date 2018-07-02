@@ -86,6 +86,7 @@ class Main extends React.PureComponent {
                     onPressTagSearch={this.props.onPressTagSearch}
                     onPressMoreRecentSongs={this.props.onPressMoreRecentSongs}
                     onPressMoreRecentAlbums={this.props.onPressMoreRecentAlbums}
+                    onPressMoreTopAlbums={this.props.onPressMoreTopAlbums}
                     onPressMoreLatestEvent={this.props.onPressMoreLatestEvent} />
                 <SongRankingTab
                     tabLabel="ios-stats"

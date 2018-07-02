@@ -3,7 +3,7 @@ import { delay } from 'redux-saga'
 import * as actions from './albumActions'
 import * as appActions from '../../app/appActions'
 import api from './albumApi'
-import { selectSearchParams } from './albumSelector'
+import { selectSearchParams, selectSelectedSinglePageParams, selectSelectedNavRoute } from './albumSelector'
 import { selectDisplayLanguage } from './../user/userSelector'
 
 const fetchSearchAlbums = function* fetchSearchAlbums() {
@@ -61,6 +61,27 @@ const fetchAlbumDetail = function* fetchLatestAlbums(action) {
     }
 }
 
+const fetchAlbumsFromSelectedPageParams = function* fetchAlbumsFromSelectedPageParams() {
+    try {
+        const params = yield select(selectSelectedSinglePageParams())
+        const displayLanguage = yield select(selectDisplayLanguage())
+        const route = yield select(selectSelectedNavRoute())
+
+        yield call(delay, 500)
+
+        const response = yield call(api.find, { ...params, lang: displayLanguage });
+
+        if(params && params.start) {
+            yield put(actions.addResultToPageId(route.key,response.items));
+        } else {
+            yield put(actions.setResultToPageId(route.key,response.items));
+        }
+
+    } catch (e) {
+        yield put(appActions.requestError(e));
+    }
+}
+
 const albumSaga = function* albumSagaAsync() {
     yield takeLatest([
         actions.fetchSearchAlbums,
@@ -75,6 +96,11 @@ const albumSaga = function* albumSagaAsync() {
     yield takeLatest(actions.fetchLatestAlbums, fetchLatestAlbums)
     yield takeLatest(actions.fetchTopAlbums, fetchTopAlbums)
     yield takeLatest(actions.fetchAlbumDetail, fetchAlbumDetail)
+
+    yield takeLatest([
+        actions.addParamsToPageId,
+        actions.fetchMoreResultOnPageId
+    ], fetchAlbumsFromSelectedPageParams)
 }
 
 export { fetchSearchAlbums, fetchTopAlbums, fetchLatestAlbums, fetchAlbumDetail }

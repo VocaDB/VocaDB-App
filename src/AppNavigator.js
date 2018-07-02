@@ -5,6 +5,7 @@ import SongWithParamsPage from './features/song/SongWithParams'
 import ArtistDetailPage from './features/artist/ArtistDetail'
 import AlbumDetailPage from './features/album/AlbumDetail'
 import AlbumSearchPage from './features/album/AlbumSearch'
+import AlbumWithParamsPage from './features/album/AlbumWithParams'
 import SearchPage from './features/entry/EntrySearch'
 import SongListPage from './features/song/SongSearch'
 import ArtistListPage from './features/artist/ArtistSearch'
@@ -52,7 +53,8 @@ const AppNavigator = StackNavigator({
     MyAlbums: { screen: MyAlbumsPage },
     Settings: { screen: SettingsPage },
     TagSearch: { screen: TagSearchPage },
-    EventFilter: { screen: EventFilterPage }
+    EventFilter: { screen: EventFilterPage },
+    AlbumWithParams: { screen: AlbumWithParamsPage }
 }, {
     initialRouteName: INITIAL_ROUTE,
     navigationOptions: {

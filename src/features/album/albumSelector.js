@@ -137,3 +137,41 @@ export const selectFilterTags = () => createSelector(
         return convertTagIds(params.tagId, tagEntity)
     }
 )
+
+export const selectSelectedSinglePage = () => createSelector(
+    selectAlbum(),
+    selectNav(),
+    (albumState, nav) => {
+
+        if(!albumState || !albumState.singlePage || !nav || !nav.routes[nav.index]) {
+            return { params: {}, results: [] }
+        }
+
+        let selectedRoute = nav.routes[nav.index]
+        let selectedSinglePage = albumState.singlePage[selectedRoute.key]
+
+        if(!selectedSinglePage) {
+            return { params: {}, results: [] }
+        }
+
+        return selectedSinglePage
+    }
+)
+
+export const selectSelectedSinglePageParams = () => createSelector(
+    selectSelectedSinglePage(),
+    (selectedSinglePage) => (selectedSinglePage && selectedSinglePage.params)? selectedSinglePage.params : {}
+)
+
+export const selectSelectedSinglePageResults = () => createSelector(
+    selectSelectedSinglePage(),
+    selectAlbumEntity(),
+    (selectedSinglePage, entity) => {
+        return (selectedSinglePage && selectedSinglePage.results)? convertAlbumIds(selectedSinglePage.results, entity) : []
+    }
+)
+
+export const selectSelectedNavRoute = () => createSelector(
+    selectNav(),
+    (nav) => (nav.routes[nav.index])? nav.routes[nav.index] : {}
+)
