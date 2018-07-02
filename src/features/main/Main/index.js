@@ -65,9 +65,9 @@ const mapDispatchToProps = (dispatch, props) => ({
     onPressMoreRecentSongs: () => props.navigation.navigate(Routes.SongWithParams, {
         title: 'Recent songs',
         filterParams: {
-            'maxResults': 20,
-            'sort': 'AdditionDate',
-            'fields': 'thumbUrl'
+            onlyWithPVs: true,
+            sort: 'AdditionDate',
+            fields: 'thumbUrl'
         }
     }),
     onPressMenuFollowArtists: () => props.navigation.navigate(Routes.FollowedArtists),
