@@ -1,3 +1,15 @@
+export const defaultSearchParams = {
+    maxResults: 30,
+    nameMatchMode: 'auto',
+    fields: 'MainPicture',
+    sort: 'Name'
+}
+
+export const filterField = {
+    discTypes: 'discTypes',
+    sort: 'sort'
+}
+
 export const discTypes = [
     {
         value: ''

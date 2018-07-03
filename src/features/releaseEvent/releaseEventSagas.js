@@ -2,6 +2,7 @@ import { put, takeEvery, takeLatest, call, select, all } from 'redux-saga/effect
 import * as actions from './releaseEventActions'
 import * as appActions from '../../app/appActions'
 import api from './releaseEventApi'
+import { delay } from 'redux-saga'
 import { selectSearchParams } from './releaseEventSelector'
 import { selectDisplayLanguage } from './../user/userSelector'
 
@@ -9,9 +10,17 @@ const fetchSearchEvents = function* fetchSearchEvents() {
     try {
         const params = yield select(selectSearchParams())
         const displayLanguage = yield select(selectDisplayLanguage())
+
+        yield call(delay, 500)
+
         const response = yield call(api.find, { ...params, lang: displayLanguage });
-        let append = (params.start) ? true : false
-        yield put(actions.fetchSearchEventsSuccess(response.items, append));
+
+        if(params && params.start) {
+            yield put(actions.addSearchResult(response.items));
+        } else {
+            yield put(actions.setSearchResult(response.items));
+        }
+
     } catch (e) {
         yield put(appActions.requestError(e));
     }
@@ -72,7 +81,15 @@ const fetchReleaseEventPublishedSongs = function* fetchReleaseEventPublishedSong
 const releaseEventSaga = function* releaseEventSagaAsync() {
     yield takeLatest(actions.fetchLatestReleaseEvents, fetchLatestReleaseEvents)
     yield takeLatest(actions.fetchReleaseEventDetail, fetchReleaseEventDetail)
-    yield takeLatest(actions.fetchSearchEvents, fetchSearchEvents)
+    yield takeLatest([
+        actions.fetchSearchEvents,
+        actions.onSearching,
+        actions.updateSearchParams,
+        actions.removeSearchParamsArray,
+        actions.addSearchParamsArray,
+        actions.fetchMoreSearchResult,
+        actions.addFilterTag,
+        actions.removeFilterTag], fetchSearchEvents)
 }
 
 export { fetchSearchEvents, fetchLatestReleaseEvents, fetchReleaseEventDetail, fetchReleaseEventPublishedSongs }

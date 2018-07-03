@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import AlbumFilterPage from './AlbumFilter'
 import { createSelector } from 'reselect';
 import * as albumActions from '../albumActions'
-import { selectSearchParams, selectFilterArtists } from '../albumSelector'
+import { selectSearchParams, selectFilterArtists, selectFilterTags } from '../albumSelector'
 
 AlbumFilterPage.navigationOptions = ({ navigation }) => {
 
@@ -23,12 +23,18 @@ AlbumFilterPage.navigationOptions = ({ navigation }) => {
 const albumListStateSelect = createSelector(
     selectSearchParams(),
     selectFilterArtists(),
-    (params, filterArtists) => ({ params, filterArtists })
+    selectFilterTags(),
+    (params, filterArtists, filterTags) => ({ params, filterArtists, filterTags })
 );
 
 
 const mapDispatchToProps = (dispatch, props) => ({
-    onFilterChanged: (params, remove) => dispatch(albumActions.fetchSearchAlbums(params, remove)),
+    onFilterChanged: (params, remove) => dispatch(albumActions.fetchSearchArtists(params, remove)),
+    onParamChanged: (name, value) => dispatch(albumActions.updateSearchParams(name, value)),
+    onAddArtist: (artist) => dispatch(albumActions.addSearchParamsArray('artistId', artist.id)),
+    onRemoveArtist: (artist) => dispatch(albumActions.removeSearchParamsArray('artistId', artist.id)),
+    onAddFilterTag: tag =>  dispatch(albumActions.addSearchParamsArray('tagId', tag.id)),
+    onRemoveFilterTag: tag => dispatch(albumActions.removeSearchParamsArray('tagId', tag.id)),
     back: () => props.navigation.goBack()
 })
 

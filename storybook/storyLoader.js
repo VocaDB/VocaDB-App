@@ -43,6 +43,7 @@ function loadStories() {
   require('../src/features/pv/PVRow/test/stories');
   require('../src/features/releaseEvent/EventCard/test/stories');
   require('../src/features/releaseEvent/EventDetail/test/stories');
+  require('../src/features/releaseEvent/EventFilter/test/stories');
   require('../src/features/releaseEvent/EventList/test/stories');
   require('../src/features/releaseEvent/EventRow/test/stories');
   require('../src/features/song/FavoriteSongs/test/stories');
@@ -109,6 +110,7 @@ const stories = [
   '../src/features/pv/PVRow/test/stories',
   '../src/features/releaseEvent/EventCard/test/stories',
   '../src/features/releaseEvent/EventDetail/test/stories',
+  '../src/features/releaseEvent/EventFilter/test/stories',
   '../src/features/releaseEvent/EventList/test/stories',
   '../src/features/releaseEvent/EventRow/test/stories',
   '../src/features/song/FavoriteSongs/test/stories',

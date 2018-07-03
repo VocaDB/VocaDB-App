@@ -18,21 +18,17 @@ export default class SongSearch extends React.PureComponent {
     }
 
     componentDidMount () {
-        this.refresh()
-    }
-
-    doSearch(params) {
-        this.props.fetchSongs(params)
-    }
-
-    refresh() {
-        const params = this.getNavigationParams();
-        const filterParams = (params && params.filterParams)? params.filterParams : {};
-        this.props.fetchSongsReplaceParams(filterParams);
+        this.props.fetchSongs()
     }
 
     getNavigationParams() {
         return (this.props.navigation.state && this.props.navigation.state.params)? this.props.navigation.state.params : {};
+    }
+
+    isSearchActive() {
+        return (this.props.navigation.state
+            && this.props.navigation.state.params
+            && this.props.navigation.state.params.isSearchActive) ? this.props.navigation.state.params.isSearchActive : false;
     }
 
     renderList () {
@@ -44,10 +40,9 @@ export default class SongSearch extends React.PureComponent {
                 songs={this.props.songs}
                 onPressItem={this.props.onPressSong}
                 refreshing={this.props.loading}
-                onRefresh={this.refresh.bind(this)}
                 onEndReached={() => {
                     if(!this.props.isNoResult) {
-                        this.doSearch({ start: this.props.songs.length })
+                        this.props.fetchMoreSongs()
                     }
                 }}
                 hideMoreButton={true} />
@@ -56,7 +51,6 @@ export default class SongSearch extends React.PureComponent {
     }
 
     render () {
-        const queryEntry = text => this.doSearch({ query: text, start: 0 })
         const params = this.getNavigationParams();
 
         const renderSearchBar = () => {
@@ -66,13 +60,14 @@ export default class SongSearch extends React.PureComponent {
 
             return (
                 <Toolbar
+                    isSearchActive={this.isSearchActive()}
                     leftElement="arrow-back"
                     onLeftElementPress={this.props.back}
                     centerElement="Songs"
                     searchable={{
                         autoFocus: true,
                         placeholder: 'Find song',
-                        onChangeText: queryEntry
+                        onChangeText: this.props.onSearch
                     }}
                 />
             )
@@ -123,5 +118,5 @@ const styles = StyleSheet.create({
 })
 
 SongSearch.defaultProps = {
-    songs: []
+    songs: [],
 }

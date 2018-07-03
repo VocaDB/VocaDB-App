@@ -18,15 +18,14 @@ export default class ArtistSearch extends React.Component {
     }
 
     componentDidMount () {
-        this.props.onSearchReplaceParams()
+        this.props.fetchArtists()
     }
 
-    doSearch(params) {
-        this.props.fetchArtists(params)
-    }
 
-    refresh() {
-        this.doSearch()
+    isSearchActive() {
+        return (this.props.navigation.state
+            && this.props.navigation.state.params
+            && this.props.navigation.state.params.isSearchActive) ? this.props.navigation.state.params.isSearchActive : false;
     }
 
     renderList () {
@@ -36,10 +35,10 @@ export default class ArtistSearch extends React.Component {
                 data={this.props.artists}
                 onPressItem={this.props.onPressArtist}
                 refreshing={this.props.loading}
-                onRefresh={this.refresh.bind(this)}
+                onRefresh={() => {}}
                 onEndReached={() => {
                     if(!this.props.isNoResult) {
-                        this.doSearch({ start: this.props.artists.length })
+                        this.props.fetchMoreArtists()
                     }
                 }} />
 
@@ -50,15 +49,14 @@ export default class ArtistSearch extends React.Component {
         return (
             <Page>
                 <Toolbar
+                    isSearchActive={this.isSearchActive()}
                     leftElement="arrow-back"
                     onLeftElementPress={this.props.back}
                     centerElement="Artists"
                     searchable={{
                         autoFocus: true,
                         placeholder: 'Find artist',
-                        onChangeText: text => {
-                            this.doSearch({ query: text, start: 0 })
-                        }
+                        onChangeText: this.props.onSearch
                     }}
                 />
                 <View style={styles.menuContainer}>

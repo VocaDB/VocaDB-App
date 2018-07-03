@@ -1,6 +1,7 @@
-import reducer, { defaultSearchParams } from './../songReducer'
+import reducer from './../songReducer'
 import * as actions from './../songActions'
 import * as mockGenerator from '../../../common/helper/mockGenerator'
+import { defaultSearchParams } from "../songConstant";
 
 describe('Test song reducer', () => {
 
@@ -19,46 +20,6 @@ describe('Test song reducer', () => {
         expect(nextState.a).toBeTruthy()
     })
 
-    it('should return state correctly when fetch search songs success', () => {
-        const mockResponse = [ song1, song2 ]
-        const expectedResult = [ song1.id, song2.id ]
-        let currentState = {
-            searchResult: [ 3, 4 ]
-        }
-
-        let nextState = reducer(currentState, actions.fetchSearchSongsSuccess(mockResponse))
-
-        expect(nextState).toBeTruthy()
-        expect(nextState.searchResult).toBeTruthy()
-        expect(nextState.searchResult).toEqual(expectedResult)
-    })
-
-    it('should append params when fetch search song', () => {
-        const expectedResult = { nameMatchMode: 'auto', artistId: [ 1 ] }
-        let currentState = {
-            searchParams: { nameMatchMode: 'auto' }
-        }
-
-        let nextState = reducer(currentState, actions.fetchSearchSongs({ artistId: [ 1 ] }))
-
-        expect(nextState).toBeTruthy()
-        expect(nextState.searchParams).toBeTruthy()
-        expect(nextState.searchParams).toEqual(expectedResult)
-    })
-
-    it('should merge params when fetch search song', () => {
-        const expectedResult = { nameMatchMode: 'auto', artistId: [ 1, 2 ] }
-        let currentState = {
-            searchParams: { nameMatchMode: 'auto', artistId: [ 1 ] }
-        }
-
-        let nextState = reducer(currentState, actions.fetchSearchSongs({ artistId: [ 2 ] }))
-
-        expect(nextState).toBeTruthy()
-        expect(nextState.searchParams).toBeTruthy()
-        expect(nextState.searchParams).toEqual(expectedResult)
-    })
-
     it('should not merge duplicated params when fetch search song', () => {
         const expectedResult = { nameMatchMode: 'auto', artistId: [ 1, 2 ] }
         let currentState = {
@@ -72,45 +33,6 @@ describe('Test song reducer', () => {
         expect(nextState.searchParams).toEqual(expectedResult)
     })
 
-    it('should replace params when fetch search song', () => {
-        const expectedResult = { ...defaultSearchParams, nameMatchMode: 'auto', artistId: [ 1 ] }
-        let currentState = {
-            searchParams: { nameMatchMode: 'auto', artistId: [ 1, 2, 3, 4 ] }
-        }
-
-        let nextState = reducer(currentState, actions.fetchSearchSongs({ artistId: [ 1 ] }, false, true))
-
-        expect(nextState).toBeTruthy()
-        expect(nextState.searchParams).toBeTruthy()
-        expect(nextState.searchParams).toEqual(expectedResult)
-    })
-
-    it('should remove params when fetch search song', () => {
-        const expectedResult = { nameMatchMode: 'auto', artistId: [ 1 ] }
-        let currentState = {
-            searchParams: { nameMatchMode: 'auto', artistId: [ 1, 2 ] }
-        }
-
-        let nextState = reducer(currentState, actions.fetchSearchSongs({ artistId: [ 2 ] }, true))
-
-        expect(nextState).toBeTruthy()
-        expect(nextState.searchParams).toBeTruthy()
-        expect(nextState.searchParams).toEqual(expectedResult)
-    })
-
-    it('should append search result', () => {
-        const mockResponse = [ song1, song2 ]
-        const expectedResult = [ 3, 4, song1.id, song2.id ]
-        let currentState = {
-            searchResult: [ 3, 4 ]
-        }
-
-        let nextState = reducer(currentState, actions.fetchSearchSongsSuccess(mockResponse, true))
-
-        expect(nextState).toBeTruthy()
-        expect(nextState.searchResult).toBeTruthy()
-        expect(nextState.searchResult).toEqual(expectedResult)
-    })
 
     it('should return state correctly when fetch highlighted songs success', () => {
         const mockResponse = [ song1, song2 ]
@@ -230,5 +152,345 @@ describe('Test song reducer', () => {
         expect(nextState).toBeTruthy()
         expect(nextState.ranking).toBeTruthy()
         expect(nextState.ranking.songs).toEqual([1, 2])
+    })
+
+    it('should add new search param', () => {
+
+        let nextState = reducer({}, actions.updateSearchParams('songTypes', 'Cover'))
+
+        expect(nextState).toBeTruthy()
+        expect(nextState.searchPage).toBeTruthy()
+        expect(nextState.searchPage.params).toBeTruthy()
+
+        let expectedSearchParams = {
+            songTypes: 'Cover'
+        }
+
+        expect(nextState.searchPage.params).toEqual(expectedSearchParams)
+    })
+
+    it('should set default and update search params', () => {
+
+        let nextState = reducer({}, actions.updateSearchParams('songTypes', 'Cover'))
+
+        expect(nextState).toBeTruthy()
+        expect(nextState.searchPage).toBeTruthy()
+        expect(nextState.searchPage.params).toBeTruthy()
+
+        let expectedSearchParams = {
+            ...defaultSearchParams,
+            songTypes: 'Cover'
+        }
+
+        expect(nextState.searchPage.params).toEqual(expectedSearchParams)
+    })
+
+    it('should update search params if exists', () => {
+
+        let searchPage = {
+            params: {
+                start: 0,
+                songTypes: 'Original',
+                artistId: [ 1, 2 ],
+                tagId: [ 3, 4 ]
+            }
+        }
+
+        let nextState = reducer({ searchPage }, actions.updateSearchParams('songTypes', 'Cover'))
+
+        expect(nextState).toBeTruthy()
+        expect(nextState.searchPage).toBeTruthy()
+        expect(nextState.searchPage.params).toBeTruthy()
+
+        let expectedSearchParams = {
+            start: 0,
+            songTypes: 'Cover',
+            artistId: [ 1, 2 ],
+            tagId: [ 3, 4 ]
+        }
+
+        expect(nextState.searchPage.params).toEqual(expectedSearchParams)
+    })
+
+    it('should remove artist param by artist id', () => {
+        let searchPage = {
+            params: {
+                artistId: [ 1, 2, 3 ]
+            }
+        }
+
+        let nextState = reducer({ searchPage }, actions.removeSearchParamsArray('artistId', 3));
+
+        expect(nextState).toBeTruthy()
+        expect(nextState.searchPage).toBeTruthy()
+        expect(nextState.searchPage.params).toBeTruthy()
+
+        let expectedSearchParams = {
+            artistId: [ 1, 2 ]
+        }
+
+        expect(nextState.searchPage.params).toEqual(expectedSearchParams)
+    })
+
+    it('should remove original state when have no artist id', () => {
+        let nextState = reducer({}, actions.removeSearchParamsArray('artistId', 5));
+        expect(nextState).toEqual({})
+    })
+
+    it('should remove default state when try to remove non-exists search params artist id', () => {
+        let searchPage = {
+            params: {
+                artistId: [ 1, 2, 3 ]
+            }
+        }
+
+        let nextState = reducer({ searchPage }, actions.removeSearchParamsArray('artistId', 4));
+
+        expect(nextState).toBeTruthy()
+        expect(nextState.searchPage).toBeTruthy()
+        expect(nextState.searchPage.params).toBeTruthy()
+        expect(nextState.searchPage.params).toEqual(searchPage.params)
+    })
+
+    it('should add artist id to search params', () => {
+
+        let searchPage = {
+            params: {
+                songType: 'Cover'
+            }
+        }
+
+        let nextState = reducer({ searchPage }, actions.addSearchParamsArray('artistId', 4));
+
+        expect(nextState).toBeTruthy()
+        expect(nextState.searchPage).toBeTruthy()
+        expect(nextState.searchPage.params).toBeTruthy()
+
+        let expectedSearchParams = {
+            songType: 'Cover',
+            artistId: [ 4 ]
+        }
+
+        expect(nextState.searchPage.params).toEqual(expectedSearchParams)
+    })
+
+    it('should add artist id and set default to search params', () => {
+
+        let nextState = reducer({}, actions.addSearchParamsArray('artistId', 4));
+
+        expect(nextState).toBeTruthy()
+        expect(nextState.searchPage).toBeTruthy()
+        expect(nextState.searchPage.params).toBeTruthy()
+
+        let expectedSearchParams = {
+            ...defaultSearchParams,
+            artistId: [ 4 ]
+        }
+
+        expect(nextState.searchPage.params).toEqual(expectedSearchParams)
+    })
+
+    it('should append artist id to search params', () => {
+        let searchPage = {
+            params: {
+                artistId: [ 1, 2, 3 ]
+            }
+        }
+
+        let nextState = reducer({ searchPage }, actions.addSearchParamsArray('artistId', 4));
+
+        expect(nextState).toBeTruthy()
+        expect(nextState.searchPage).toBeTruthy()
+        expect(nextState.searchPage.params).toBeTruthy()
+
+        let expectedSearchParams = {
+            artistId: [ 1, 2, 3, 4 ]
+        }
+
+        expect(nextState.searchPage.params).toEqual(expectedSearchParams)
+    })
+
+    it('should not add duplicated artist id to search params', () => {
+        let searchPage = {
+            params: {
+                artistId: [ 1, 2, 3 ]
+            }
+        }
+
+        let nextState = reducer({ searchPage }, actions.addSearchParamsArray('artistId', 2));
+
+        expect(nextState).toBeTruthy()
+        expect(nextState.searchPage).toBeTruthy()
+        expect(nextState.searchPage.params).toBeTruthy()
+
+        let expectedSearchParams = {
+            artistId: [ 1, 2, 3 ]
+        }
+
+        expect(nextState.searchPage.params).toEqual(expectedSearchParams)
+    })
+
+    it('should append search result', () => {
+        let searchPage = {
+            results: [ 1, 2 ,3 ]
+        }
+
+        let mockResult = [
+            { id: 8, name: 'A' },
+            { id: 2, name: 'B' },
+            { id: 3, name: 'C' },
+            { id: 4, name: 'D' },
+            { id: 5, name: 'E' },
+        ]
+
+        let nextState = reducer({ searchPage }, actions.addSearchResult(mockResult))
+
+        expect(nextState).toBeTruthy()
+        expect(nextState.searchPage).toBeTruthy()
+        expect(nextState.searchPage.results).toBeTruthy()
+
+        let expectedSearchResults = [ 1, 2, 3, 8, 4, 5 ]
+
+        expect(nextState.searchPage.results).toEqual(expectedSearchResults)
+    })
+
+    it('should set search result', () => {
+        let searchPage = {
+            results: [ 1, 2 ,3 ]
+        }
+
+        let mockResult = [
+            { id: 8, name: 'A' },
+            { id: 2, name: 'B' },
+            { id: 3, name: 'C' },
+            { id: 4, name: 'D' },
+            { id: 5, name: 'E' },
+        ]
+
+        let nextState = reducer({ searchPage }, actions.setSearchResult(mockResult))
+
+        expect(nextState).toBeTruthy()
+        expect(nextState.searchPage).toBeTruthy()
+        expect(nextState.searchPage.results).toBeTruthy()
+
+        let expectedSearchResults = [ 8, 2, 3, 4, 5 ]
+
+        expect(nextState.searchPage.results).toEqual(expectedSearchResults)
+    })
+
+    it('should extend start search params from given results', () => {
+        let searchPage = {
+            params: {
+                start: 0
+            },
+            results: [ 1, 2, 3 ]
+        }
+
+        let nextState = reducer({ searchPage }, actions.fetchMoreSearchResult())
+
+        let expectedSeachPage = {
+            params: { start: 3 },
+            results: [ 1, 2, 3 ]
+        }
+
+        expect(nextState).toBeTruthy()
+        expect(nextState.searchPage).toEqual(expectedSeachPage)
+    })
+
+    it('should add default start search params when got empty state', () => {
+        let nextState = reducer({}, actions.fetchMoreSearchResult())
+
+        let expectedSeachPage = {
+            params: { start: 0 },
+            results: []
+        }
+
+        expect(nextState).toBeTruthy()
+        expect(nextState.searchPage).toEqual(expectedSeachPage)
+    })
+
+    it('should add page id and params', () => {
+        let nextState = reducer({}, actions.addParamsToPageId('a1', { songTypes: 'Cover' }))
+
+        let expectedState = {
+            singlePage: {
+                'a1': {
+                    params: { songTypes: 'Cover' }
+                }
+            }
+        }
+
+        expect(nextState).toEqual(expectedState)
+    })
+
+    it('should add result to page id', () => {
+        let initialState = {
+            singlePage: {
+                'a1': {
+                    results: [ 1, 2, 3 ]
+                }
+            }
+        }
+
+        let mockResponse = [ 2, 1, 5, 6 ].map(id => ({ id }))
+
+        let nextState = reducer(initialState, actions.addResultToPageId('a1', mockResponse))
+
+        let expectedState = {
+            singlePage: {
+                'a1': {
+                    results: [ 1, 2, 3, 5, 6 ]
+                }
+            }
+        }
+
+        expect(nextState).toEqual(expectedState)
+    })
+
+    it('should set result to page id', () => {
+        let initialState = {
+            singlePage: {
+                'a1': {
+                    results: [ 1, 2, 3 ]
+                }
+            }
+        }
+
+        let mockResponse = [ 2, 1, 5, 6 ].map(id => ({ id }))
+
+        let nextState = reducer(initialState, actions.setResultToPageId('a1', mockResponse))
+
+        let expectedState = {
+            singlePage: {
+                'a1': {
+                    results: [ 2, 1, 5, 6 ]
+                }
+            }
+        }
+
+        expect(nextState).toEqual(expectedState)
+    })
+
+    it('should fetch more result to page id', () => {
+        let initialState = {
+            singlePage: {
+                'a1': {
+                    results: [ 1, 2, 3 ]
+                }
+            }
+        }
+
+        let nextState = reducer(initialState, actions.fetchMoreResultOnPageId('a1'))
+
+        let expectedState = {
+            singlePage: {
+                'a1': {
+                    params: { start: 3 },
+                    results: [ 1, 2, 3  ]
+                }
+            }
+        }
+
+        expect(nextState).toEqual(expectedState)
     })
 })

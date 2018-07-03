@@ -9,7 +9,10 @@ import {
     selectSelectedFilterTagIds,
     selectSelectedFilterTags,
     selectRankingState,
-    selectRankingResult } from './../songSelector'
+    selectRankingResult,
+    selectSelectedSinglePage,
+    selectSelectedSinglePageParams,
+    selectSelectedSinglePageResults } from './../songSelector'
 import * as mockGenerator from '../../../common/helper/mockGenerator'
 import Routes from './../../../app/appRoutes'
 
@@ -291,5 +294,80 @@ describe('Test song selector', () => {
 
         expect(actualResult).toBeTruthy();
         // expect(actualResult.songs).toEqual([ song1, song2 ])
+    })
+
+    it('should return selected single page', () => {
+        const expectedResult = {
+            params: { songTypes: 'Cover' },
+            results: [ 1, 2, 3 ]
+        }
+
+
+        state.nav = {
+            index: 0,
+            routes: [
+                {
+                    key: 'id-1'
+                }
+            ]
+        }
+
+        state.song.singlePage = {
+            'id-1': expectedResult
+        }
+
+        const actualResult = selectSelectedSinglePage()(state)
+
+        expect(actualResult).toEqual(expectedResult)
+    })
+
+    it('should return params from selected single page', () => {
+        const expectedResult = { songTypes: 'Cover' }
+
+
+        state.nav = {
+            index: 0,
+            routes: [
+                {
+                    key: 'id-1'
+                }
+            ]
+        }
+
+        state.song.singlePage = {
+            'id-1': {
+                params: expectedResult,
+                results: [ 1, 2, 3 ]
+            }
+        }
+
+        const actualResult = selectSelectedSinglePageParams()(state)
+
+        expect(actualResult).toEqual(expectedResult)
+    })
+
+    it('should return songs from selected single page', () => {
+        state.nav = {
+            index: 0,
+            routes: [
+                {
+                    key: 'id-1'
+                }
+            ]
+        }
+
+        state.song.singlePage = {
+            'id-1': {
+                params: { songTypes: 'Cover' },
+                results: [ song1.id, song2.id ]
+            }
+        }
+
+        const actualResult = selectSelectedSinglePageResults()(state)
+
+        song1.image = 'https://tn.smilevideo.jp/smile?i=6666016'
+        song2.image = 'https://tn.smilevideo.jp/smile?i=6666016'
+
+        expect(actualResult).toEqual([ song1, song2 ])
     })
 })

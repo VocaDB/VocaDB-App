@@ -8,10 +8,6 @@ export const addFavoriteSong = createAction('Add favorite song', song => ({ song
 export const removeFavoriteSong = createAction('Remove favorite song', song => ({ song }))
 
 export const fetchSearchSongs = createAction('fetch search songs', (params, remove, replace) => ({ loading: true, params, remove, replace }))
-export const fetchSearchSongsSuccess =  createAction('fetch search songs success', (data, append) => {
-    let nom = normalize(data, [ songSchema ])
-    return { ...nom, append }
-})
 
 export const fetchHighlighted = createAction('fetch highlighted songs', () => ({ loading: true }))
 export const fetchHighlightedSuccess = createAction('fetch highlighted songs success', data => normalize(data, [ songSchema ]))
@@ -37,3 +33,25 @@ export const changeDurationHours = createAction('Change duration hours', duratio
 export const changeFilterBy = createAction('Change filter by', filterBy => ({ filterBy }))
 export const changeVocalist = createAction('Change vocalist', vocalist => ({ vocalist }))
 export const updateRankingResult = createAction('Update ranking result',  data => normalize(data, [ songSchema ]))
+
+export const updateSearchParams = createAction('Update search params', (name, value) => ({ name, value }))
+export const removeSearchParamsArray = createAction('Remove value in params array from given value', (name, value) => ({ name, value }))
+export const addSearchParamsArray = createAction('Add value in params array from given value', (name, value) => ({ name, value }))
+export const addSearchResult = createAction('Add search result', data => normalize(data, [ songSchema ]))
+export const setSearchResult = createAction('Set search result', data => normalize(data, [ songSchema ]))
+export const fetchMoreSearchResult = createAction('Fetch more search result')
+export const onSearching = createAction('Searching', text => ({ text }))
+
+export const addParamsToPageId = createAction('View songs by given parameters', (pageId, params) => ({ pageId, params }))
+export const fetchMoreResultOnPageId = createAction('Fetch more songs from specific page id', (pageId) => ({ pageId }))
+export const addResultToPageId = createAction('Add to single list result', (pageId, data) => {
+    let normalized = normalize(data, [ songSchema ])
+    normalized.pageId = pageId
+    return normalized
+})
+export const setResultToPageId = createAction('Add to single list result', (pageId, data) => {
+    let normalized = normalize(data, [ songSchema ])
+    normalized.pageId = pageId
+    return normalized
+})
+export const clearSinglePageState = createAction('Clear single page state')

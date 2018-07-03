@@ -5,9 +5,10 @@ import SongWithParamsPage from './features/song/SongWithParams'
 import ArtistDetailPage from './features/artist/ArtistDetail'
 import AlbumDetailPage from './features/album/AlbumDetail'
 import AlbumSearchPage from './features/album/AlbumSearch'
+import AlbumWithParamsPage from './features/album/AlbumWithParams'
 import SearchPage from './features/entry/EntrySearch'
-import SongListPage from './features/song/SongSearch'
-import ArtistListPage from './features/artist/ArtistSearch'
+import SongSearchPage from './features/song/SongSearch'
+import ArtistSearchPage from './features/artist/ArtistSearch'
 import TagDetailPage from './features/tag/TagDetail'
 import EventDetailPage from './features/releaseEvent/EventDetail'
 import FollowedArtistsPage from './features/artist/FollowedArtists'
@@ -20,6 +21,7 @@ import SignInPage from './features/user/SignIn'
 import MyAlbumsPage from './features/user/MyAlbums'
 import SettingsPage from './features/user/Settings'
 import TagSearchPage from './features/tag/TagSearch'
+import EventFilterPage from './features/releaseEvent/EventFilter'
 import { StackNavigator } from "react-navigation";
 import Theme from './theme'
 import Routes from './app/appRoutes'
@@ -36,8 +38,8 @@ const AppNavigator = StackNavigator({
     ArtistDetail: { screen: ArtistDetailPage },
     AlbumDetail: { screen: AlbumDetailPage },
     Search: { screen: SearchPage },
-    SongList: { screen: SongListPage },
-    ArtistList: { screen: ArtistListPage },
+    SongSearch: { screen: SongSearchPage },
+    ArtistSearch: { screen: ArtistSearchPage },
     AlbumSearch: { screen: AlbumSearchPage },
     TagDetail: { screen: TagDetailPage },
     EventDetail: { screen: EventDetailPage },
@@ -50,7 +52,9 @@ const AppNavigator = StackNavigator({
     SignIn: { screen: SignInPage },
     MyAlbums: { screen: MyAlbumsPage },
     Settings: { screen: SettingsPage },
-    TagSearch: { screen: TagSearchPage }
+    TagSearch: { screen: TagSearchPage },
+    EventFilter: { screen: EventFilterPage },
+    AlbumWithParams: { screen: AlbumWithParamsPage }
 }, {
     initialRouteName: INITIAL_ROUTE,
     navigationOptions: {

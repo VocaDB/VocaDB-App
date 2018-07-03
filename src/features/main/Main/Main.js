@@ -1,17 +1,43 @@
 import React from 'react'
 import ScrollableTabView from 'react-native-scrollable-tab-view'
-import { Linking } from 'react-native'
+import { Linking, DeviceEventEmitter } from 'react-native'
 import CustomTabBar from '../../../components/CustomTabBar'
 import HomeTab from './../HomeTab'
 import MenuTab from './../MenuTab'
 import FollowedTab from './../FollowedTab'
 import SongRankingTab from './../../song/SongRanking'
+import QuickActions from 'react-native-quick-actions'
+import { shortcutTypes } from './../../../common/constants/shortcuts'
 
-export default class Main extends React.PureComponent {
+class Main extends React.PureComponent {
+
+
+    componentWillMount () {
+
+        QuickActions.popInitialAction().then((action) => {
+            if(action && action.type) {
+                switch (action.type) {
+                    case shortcutTypes.Songs:
+                        this.props.onPressSongSearchShortcut();
+                        break;
+                    case shortcutTypes.Artists:
+                        this.props.onPressArtistSearchShortcut();
+                        break;
+                    case shortcutTypes.Albums:
+                        this.props.onPressAlbumSearchShortcut();
+                        break;
+                    default:
+                        console.log('Invalid action : ' + JSON.stringify(action))
+                }
+            }
+        }).catch(console.error)
+
+    }
 
     componentDidMount () {
         this.refreshHome()
         this.refreshFollowedSongs()
+        this.props.clearSinglePageState()
     }
 
     refreshHome () {
@@ -61,6 +87,7 @@ export default class Main extends React.PureComponent {
                     onPressTagSearch={this.props.onPressTagSearch}
                     onPressMoreRecentSongs={this.props.onPressMoreRecentSongs}
                     onPressMoreRecentAlbums={this.props.onPressMoreRecentAlbums}
+                    onPressMoreTopAlbums={this.props.onPressMoreTopAlbums}
                     onPressMoreLatestEvent={this.props.onPressMoreLatestEvent} />
                 <SongRankingTab
                     tabLabel="ios-stats"
@@ -87,3 +114,5 @@ export default class Main extends React.PureComponent {
         )
     }
 }
+
+export default Main;

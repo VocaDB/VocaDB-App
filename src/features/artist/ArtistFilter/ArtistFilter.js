@@ -8,13 +8,17 @@ import Tag from './../../tag/Tag'
 import { topGenres } from './../../tag/tagConstant'
 import { artistTypes, sortItems } from './../artistConstant'
 import { entryStatusItems } from './../../entry/entryConstant'
+import { filterField } from './../artistConstant'
+import TagSelectModal from './../../tag/TagSelectModal'
+import { Button } from 'react-native-material-ui';
 
 class ArtistFilter extends React.Component {
 
     constructor(props) {
         super(props)
         this.state = {
-            showArtistModal: false
+            showArtistModal: false,
+            showTagModal: false
         }
     }
 
@@ -25,7 +29,11 @@ class ArtistFilter extends React.Component {
                     label='Artist type'
                     value={this.props.params.artistTypes}
                     onChangeText={text => {
-                        this.props.onFilterChanged({ artistTypes: text })
+                        if(text === 'Unspecified') {
+                            this.props.onParamChanged(filterField.artistTypes, '')
+                        } else {
+                            this.props.onParamChanged(filterField.artistTypes, text)
+                        }
                     }}
                     data={artistTypes}
                 />
@@ -38,33 +46,31 @@ class ArtistFilter extends React.Component {
             <View>
                 <Text style={[Theme.subhead, { marginHorizontal: 8 }]}>Tags</Text>
                 <View style={{ flexDirection: 'row', flexWrap: 'wrap', alignItems: 'flex-start' }}>
-                    {topGenres.map(t => {
-                        const selected = (this.props.params.tagId) ? this.props.params.tagId.indexOf(t.id) >= 0 : false;
+                    {this.props.filterTags.map(t => {
                         return <Tag
+                            showRemoveButton
                             key={t.id}
                             name={t.name}
                             style={{ margin: 4 }}
-                            selected={selected}
-                            onPress={() => {
-                                this.props.onFilterChanged({ tagId: [ t.id ] }, selected)
-                            }} />
+                            selected={t.selected}
+                            onRemovePress={() => this.props.onRemoveFilterTag(t)} />
                     })}
                 </View>
-            </View>
-        )
-    }
-
-    renderInputStatus () {
-        return (
-            <View style={{ marginHorizontal: 8 }}>
-                <Dropdown
-                    label='Status'
-                    value={this.props.params.status}
-                    onChangeText={text => {
-                        this.props.onFilterChanged({ status: text })
+                <Button
+                    raised
+                    primary
+                    style={{ container: { marginHorizontal: 16, marginVertical: 8 } }}
+                    text='Select tag'
+                    onPress={() => { this.setState({ showTagModal: true }) }} />
+                <TagSelectModal
+                    modalVisible={this.state.showTagModal}
+                    onBackPress={() => {
+                        this.setState({ showTagModal: false })
                     }}
-                    data={entryStatusItems}
-                />
+                    onPressItem={tag => {
+                        this.setState({ showTagModal: false })
+                        this.props.onAddFilterTag(tag)
+                    }} />
             </View>
         )
     }
@@ -76,7 +82,7 @@ class ArtistFilter extends React.Component {
                     label='Sort'
                     value={this.props.params.sort}
                     onChangeText={text => {
-                        this.props.onFilterChanged({ sort: text })
+                        this.props.onParamChanged(filterField.sort, text)
                     }}
                     data={sortItems}
                 />

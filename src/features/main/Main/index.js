@@ -54,8 +54,15 @@ const mapDispatchToProps = (dispatch, props) => ({
     fetchLatestEvents: () => dispatch(eventActions.fetchLatestReleaseEvents()),
     fetchRecentAlbums: () => dispatch(albumActions.fetchLatestAlbums()),
     fetchFollowedSongs: () => dispatch(songActions.fetchFollowedSongs()),
-    onPressSongSearch: () => props.navigation.navigate(Routes.SongList, { searchable: true, hideHeader: true }),
-    onPressArtistSearch: () => props.navigation.navigate(Routes.ArtistList, { searchable: true, hideHeader: true }),
+    clearSinglePageState: () => {
+        dispatch(songActions.clearSinglePageState())
+        dispatch(albumActions.clearSinglePageState())
+    },
+    onPressSongSearchShortcut: () => props.navigation.navigate(Routes.SongSearch, { isSearchActive: true, searchable: true, hideHeader: true }),
+    onPressArtistSearchShortcut: () => props.navigation.navigate(Routes.ArtistSearch, { isSearchActive: true, searchable: true, hideHeader: true }),
+    onPressAlbumSearchShortcut: () => props.navigation.navigate(Routes.AlbumSearch, { isSearchActive: true, searchable: true, hideHeader: true }),
+    onPressSongSearch: () => props.navigation.navigate(Routes.SongSearch, { searchable: true, hideHeader: true }),
+    onPressArtistSearch: () => props.navigation.navigate(Routes.ArtistSearch, { searchable: true, hideHeader: true }),
     onPressAlbumSearch: () =>  props.navigation.navigate(Routes.AlbumSearch, { searchable: true, hideHeader: true }),
     onPressEventSearch: () =>  props.navigation.navigate(Routes.EventSearch, { hideHeader: true }),
     onPressTagSearch: () =>  props.navigation.navigate(Routes.TagSearch, { hideHeader: true }),
@@ -65,9 +72,26 @@ const mapDispatchToProps = (dispatch, props) => ({
     onPressMoreRecentSongs: () => props.navigation.navigate(Routes.SongWithParams, {
         title: 'Recent songs',
         filterParams: {
-            'maxResults': 20,
-            'sort': 'AdditionDate',
-            'fields': 'thumbUrl'
+            maxResults: 50,
+            onlyWithPVs: true,
+            sort: 'AdditionDate',
+            fields: 'thumbUrl'
+        }
+    }),
+    onPressMoreRecentAlbums: () => props.navigation.navigate(Routes.AlbumWithParams, {
+        title: 'Recent albums',
+        filterParams: {
+            maxResults: 50,
+            sort: 'ReleaseDate',
+            fields: 'MainPicture'
+        }
+    }),
+    onPressMoreTopAlbums: () => props.navigation.navigate(Routes.AlbumWithParams, {
+        title: 'Popular albums',
+        filterParams: {
+            maxResults: 50,
+            sort: 'RatingTotal',
+            fields: 'MainPicture'
         }
     }),
     onPressMenuFollowArtists: () => props.navigation.navigate(Routes.FollowedArtists),

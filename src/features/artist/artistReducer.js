@@ -2,50 +2,21 @@ import { createReducer } from 'redux-act'
 import * as actions from './artistActions';
 import merge from 'deepmerge';
 import _ from 'lodash'
-
-export const defaultSearchParams = {
-    maxResults: 50,
-    fields: 'MainPicture',
-    nameMatchMode: 'auto',
-    sort: 'Name',
-    start: 0,
-    artistTypes: '',
-    artistId: [],
-    tagId: [],
-}
+import { defaultSearchParams } from './artistConstant'
 
 export const defaultState = {
     detail: 0,
     followed: [],
     searchResult: [],
     searchParams: defaultSearchParams,
-    noResult: false
+    noResult: false,
+    searchPage: {
+        params: {},
+        results: []
+    }
 }
 
 const reducer = createReducer({
-    [actions.fetchSearchArtists]: (state, payload) => {
-
-        if(payload.replace) {
-            let searchParams = _.merge({}, defaultSearchParams, payload.params)
-            return { ...state, searchParams }
-        }
-
-        let searchParams = merge({}, state.searchParams)
-        if(payload.remove) {
-            _.forEach(payload.params, (value, key) => {
-                searchParams[key] = _.pullAll(state.searchParams[key], value)
-            })
-        } else {
-            searchParams = merge(state.searchParams, payload.params, {
-                arrayMerge: (destinationArray, sourceArray) => {
-                    return _.union(destinationArray, sourceArray)
-                }
-            })
-        }
-
-        return { ...state, searchParams }
-
-    },
     [actions.fetchSearchArtistsSuccess]: (state, payload) => {
 
         if(payload.result.length === 0) {
@@ -93,6 +64,153 @@ const reducer = createReducer({
     },
     [actions.clearSearch]: (state) => {
         return { ...state, searchResult: [] }
+    },
+    [actions.onSearching]: (state, payload) => {
+
+        let newState = Object.assign({}, state);
+
+        if(!newState.searchPage) {
+            newState.searchPage = {
+                params: defaultSearchParams,
+                results: []
+            }
+        }
+
+        let params = Object.assign({}, state.searchPage.params)
+
+        if(!params) {
+            newState.searchPage.params = defaultSearchParams
+        } else {
+            newState.searchPage.params = params;
+        }
+
+        newState.searchPage.params.query = (payload.text)? payload.text : '';
+        newState.searchPage.params.start = 0;
+
+        return newState;
+    },
+    [actions.updateSearchParams]: (state, payload) => {
+
+        if(!payload.name) {
+            return state;
+        }
+
+        let newState = Object.assign({}, state);
+
+        if(newState.searchPage && newState.searchPage.params) {
+            newState.searchPage.params[payload.name] = payload.value;
+            newState.searchPage.params.start = 0;
+        } else {
+            let params = defaultSearchParams
+            params[payload.name] =  payload.value;
+            newState.searchPage = {
+                params,
+                results: []
+            }
+        }
+
+        return newState
+    },
+    [actions.removeSearchParamsArray]: (state, payload) => {
+        if(!payload.value || !payload.name || !state.searchPage || !state.searchPage.params || !state.searchPage.params[payload.name]) {
+            return state;
+        }
+
+        let newState = Object.assign({}, state)
+        let params = Object.assign({}, state.searchPage.params)
+        newState.searchPage.params = params;
+
+        newState.searchPage.params[payload.name] = newState.searchPage.params[payload.name].filter(v => v != payload.value);
+        newState.searchPage.params.start = 0;
+
+        return newState
+    },
+    [actions.addSearchParamsArray]: (state, payload) => {
+        if(!payload.value || !payload.name) {
+            return state;
+        }
+
+        let newState = Object.assign({}, state)
+
+
+        if(!newState.searchPage) {
+            newState.searchPage = {
+                params: defaultSearchParams,
+                results: []
+            }
+        }
+
+        let params = Object.assign({}, state.searchPage.params)
+
+        if(!params) {
+            newState.searchPage.params = defaultSearchParams
+        } else {
+            newState.searchPage.params = params;
+        }
+
+        if(newState.searchPage.params[payload.name]) {
+            newState.searchPage.params[payload.name] = _.union(newState.searchPage.params[payload.name], [ payload.value] )
+            newState.searchPage.params.start = 0;
+        } else {
+            newState.searchPage.params[payload.name] = [ payload.value ]
+        }
+
+        return newState;
+    },
+    [actions.addSearchResult]: (state, payload) => {
+        if(!payload.result) {
+            return state;
+        }
+
+        let newState = { ...state }
+
+        if(newState.searchPage && newState.searchPage.results) {
+            newState.searchPage.results =  _.union(newState.searchPage.results, payload.result )
+        } else {
+            newState.searchPage = {
+                results: payload.result
+            }
+        }
+
+        return newState;
+    },
+    [actions.setSearchResult]: (state, payload) => {
+
+        if(!payload.result) {
+            return state;
+        }
+
+        let newState = { ...state }
+
+        if(newState.searchPage && newState.searchPage.results) {
+            newState.searchPage.results = payload.result;
+        } else {
+            newState.searchPage = {
+                results: payload.result
+            }
+        }
+
+        return newState;
+    },
+    [actions.fetchMoreSearchResult]: (state) => {
+
+        let newState = { ...state }
+
+        if(!newState.searchPage) {
+            return {
+                ...newState,
+                searchPage: { params: { start: 0 }, results: [] }
+            }
+        }
+
+        let start = (newState.searchPage.results)? newState.searchPage.results.length : 0;
+
+        newState.searchPage.params = {
+            ...newState.searchPage.params,
+            start
+        }
+
+        return newState
     }
 }, defaultState)
 

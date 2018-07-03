@@ -14,4 +14,7 @@ storiesOf('Tag/Tag', module)
     ))
     .add('selected', () => (
         <Tag name='Project Diva' selected />
+    ))
+    .add('with remove button', () => (
+        <Tag name='Project Diva' showRemoveButton onRemovePress={() => action('Press right element')} />
     ));

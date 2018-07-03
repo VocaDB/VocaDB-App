@@ -32,9 +32,9 @@ class SongFilter extends React.PureComponent {
                     value={this.props.params.songTypes}
                     onChangeText={text => {
                         if(text === 'Unspecified') {
-                            this.props.onFilterChanged({ songTypes: '' })
+                            this.props.onParamChanged('songTypes', '')
                         } else {
-                            this.props.onFilterChanged({ songTypes: text })
+                            this.props.onParamChanged('songTypes', text)
                         }
 
                     }}
@@ -56,7 +56,7 @@ class SongFilter extends React.PureComponent {
                             image={a.image}
                             name={a.name}
                             rightIcon='ios-close'
-                            onRightElementPress={() => this.props.onFilterChanged({ artistId: [ a.id ] }, true)} />)}
+                            onRightElementPress={() => this.props.onRemoveArtist(a)} />)}
                 </View>
                 <Button
                     raised
@@ -72,7 +72,7 @@ class SongFilter extends React.PureComponent {
                     }}
                     onPressItem={artist => {
                         this.setState({ showArtistModal: false })
-                        this.props.onFilterChanged({ artistId: [ artist.id ] })
+                        this.props.onAddArtist(artist)
                     }} />
             </View>
         )
@@ -85,18 +85,12 @@ class SongFilter extends React.PureComponent {
                 <View style={{ flexDirection: 'row', flexWrap: 'wrap', alignItems: 'flex-start' }}>
                     {this.props.filterTags.map(t => {
                         return <Tag
+                            showRemoveButton
                             key={t.id}
                             name={t.name}
                             style={{ margin: 4 }}
                             selected={t.selected}
-                            onPress={() => {
-                                if(t.selected) {
-                                    this.props.onDeselectFilterTag(t)
-                                } else {
-                                    this.props.onSelectFilterTag(t)
-                                }
-
-                            }} />
+                            onRemovePress={() => this.props.onRemoveFilterTag(t)} />
                     })}
                 </View>
                 <Button
@@ -113,23 +107,7 @@ class SongFilter extends React.PureComponent {
                     onPressItem={tag => {
                         this.setState({ showTagModal: false })
                         this.props.onAddFilterTag(tag)
-                        this.props.onSelectFilterTag(tag)
                     }} />
-            </View>
-        )
-    }
-
-    renderInputStatus () {
-        return (
-            <View style={{ marginHorizontal: 8 }}>
-                <Dropdown
-                    label='Status'
-                    value={this.props.params.status}
-                    onChangeText={text => {
-                        this.props.onFilterChanged({ status: text })
-                    }}
-                    data={entryStatusItems}
-                />
             </View>
         )
     }
@@ -143,7 +121,7 @@ class SongFilter extends React.PureComponent {
                     value={this.props.params.minScore}
                     maxLength={5}
                     onChangeText={minScore => {
-                        this.props.onFilterChanged({ minScore: minScore })
+                        this.props.onParamChanged('minScore', minScore)
                     }}
                 />
             </View>
@@ -157,7 +135,7 @@ class SongFilter extends React.PureComponent {
                     label='Sort'
                     value={this.props.params.sort}
                     onChangeText={text => {
-                        this.props.onFilterChanged({ sort: text })
+                        this.props.onParamChanged('sort', text)
                     }}
                     data={sortItems}
                 />

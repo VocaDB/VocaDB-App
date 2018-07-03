@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import SongWithParams from './SongWithParams'
 import { createSelector } from 'reselect';
 import * as songActions from '../songActions'
-import { selectSearchResult, selectSearchParams, selectNoResult } from '../songSelector'
+import { selectSelectedSinglePageResults, selectSelectedSinglePageParams } from '../songSelector'
 import { selectLoading } from '../../../app/appSelector'
 import Routes from './../../../app/appRoutes'
 
@@ -23,17 +23,16 @@ SongWithParams.navigationOptions = ({ navigation }) => {
 }
 
 const mapStateSelect = createSelector(
-    selectSearchResult(),
-    selectSearchParams(),
+    selectSelectedSinglePageResults(),
+    selectSelectedSinglePageParams(),
     selectLoading(),
-    selectNoResult(),
-    (songs, params, loading, isNoResult) => ({ songs, params, loading, isNoResult })
+    (songs, params, loading, isNoResult) => ({ songs, params, loading })
 );
 
 
 const mapDispatchToProps = (dispatch, props) => ({
-    fetchSongs: params => dispatch(songActions.fetchSearchSongs(params)),
-    fetchSongsReplaceParams: params => dispatch(songActions.fetchSearchSongs(params, false, true)),
+    fetchSongs: (pageId, params) => dispatch(songActions.addParamsToPageId(pageId, params)),
+    fetchMoreSongs: pageId => dispatch(songActions.fetchMoreResultOnPageId(pageId)),
     back: () => props.navigation.goBack(),
     onPressSong: song => props.navigation.navigate(Routes.SongDetail, { id: song.id })
 })

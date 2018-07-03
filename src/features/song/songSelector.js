@@ -1,10 +1,11 @@
 import { createSelector } from 'reselect';
 import { selectNav } from './../../app/appSelector'
 import Routes from './../../app/appRoutes'
-import { selectArtistEntity } from './../artist/artistSelector'
+import { selectArtistEntity, convertArtistIds } from './../artist/artistSelector'
 import { selectTagEntity, convertTagIds } from './../tag/tagSelector'
 import { durationHoursHelper, filterByHelper, vocalistHelper } from './SongRanking/SongRankingHelper'
 import { convertAlbumIds, selectAlbumEntity } from './../album/albumSelector'
+import { defaultSearchParams } from './songConstant'
 
 export const transformSong = (entry) => {
 
@@ -39,10 +40,7 @@ export const selectNoResult = () => createSelector(
     selectSong(),
     song => song.noResult
 )
-export const selectSearchParams = () => createSelector(
-    selectSong(),
-    song => song.searchParams
-)
+
 export const selectFilterArtists = () => createSelector(
     selectSearchParams(),
     selectArtistEntity(),
@@ -51,16 +49,12 @@ export const selectFilterArtists = () => createSelector(
             return []
         }
 
-        return searchParams.artistId.map(id => artistEntity[id.toString()])
+        return convertArtistIds(searchParams.artistId, artistEntity);
     }
 )
 export const selectHighlightedIds = () => createSelector(
     selectSong(),
     song => song.highlighted
-)
-export const selectSearchResultIds = () => createSelector(
-    selectSong(),
-    song => song.searchResult
 )
 export const selectLatestSongIds = () => createSelector(
     selectSong(),
@@ -79,12 +73,6 @@ export const selectSongDetailId = () => createSelector(
 
 export const selectHighlighted = () => createSelector(
     selectHighlightedIds(),
-    selectSongEntity(),
-    convertSongIds
-)
-
-export const selectSearchResult = () => createSelector(
-    selectSearchResultIds(),
     selectSongEntity(),
     convertSongIds
 )
@@ -160,19 +148,6 @@ export const selectSelectedFilterTags = () => createSelector(
     convertTagIds
 )
 
-export const selectFilterTagIds = () => createSelector(
-    selectSong(),
-    (songState) => (songState.filterTags)? songState.filterTags : []
-)
-
-export const selectFilterTags = () => createSelector(
-    selectFilterTagIds(),
-    selectTagEntity(),
-    selectSelectedFilterTagIds(),
-    (tagIds, tagEntity, selectedTagIds) => {
-        return convertTagIds(tagIds, tagEntity).map(t => ({ ...t, selected: selectedTagIds.includes(t.id) }))
-    }
-)
 
 export const selectRankingState = () => createSelector(
     selectSong(),
@@ -210,4 +185,88 @@ export const selectRankingResult = () => createSelector(
 
         return [];
     }
+)
+
+export const selectSearchParams = () => createSelector(
+    selectSong(),
+    songState => {
+
+        if(!songState || !songState.searchPage || !songState.searchPage.params) {
+            return defaultSearchParams
+        }
+
+        const searchParams = songState.searchPage.params;
+
+        searchParams.sort = (searchParams.sort)? searchParams.sort : 'Name'
+        searchParams.query = (searchParams.query)? searchParams.query : ''
+
+        return searchParams;
+    }
+)
+
+export const selectSearchResultIds = () => createSelector(
+    selectSong(),
+    songState => (songState && songState.searchPage && songState.searchPage.results)? songState.searchPage.results : []
+)
+
+export const selectSearchResult = () => createSelector(
+    selectSearchResultIds(),
+    selectSongEntity(),
+    convertSongIds
+)
+
+
+export const selectFilterTagIds = () => createSelector(
+    selectSearchParams(),
+    (searchParams) => {
+        console.log(searchParams)
+        return (searchParams && searchParams.tagId)? searchParams.tagId : []
+    }
+)
+
+export const selectFilterTags = () => createSelector(
+    selectSearchParams(),
+    selectTagEntity(),
+    (params, tagEntity) => {
+        return convertTagIds(params.tagId, tagEntity)
+    }
+)
+
+
+export const selectSelectedSinglePage = () => createSelector(
+    selectSong(),
+    selectNav(),
+    (songState, nav) => {
+
+        if(!songState || !songState.singlePage || !nav || !nav.routes[nav.index]) {
+            return { params: {}, results: [] }
+        }
+
+        let selectedRoute = nav.routes[nav.index]
+        let selectedSinglePage = songState.singlePage[selectedRoute.key]
+
+        if(!selectedSinglePage) {
+            return { params: {}, results: [] }
+        }
+
+        return selectedSinglePage
+    }
+)
+
+export const selectSelectedSinglePageParams = () => createSelector(
+    selectSelectedSinglePage(),
+    (selectedSinglePage) => (selectedSinglePage && selectedSinglePage.params)? selectedSinglePage.params : {}
+)
+
+export const selectSelectedSinglePageResults = () => createSelector(
+    selectSelectedSinglePage(),
+    selectSongEntity(),
+    (selectedSinglePage, entity) => {
+        return (selectedSinglePage && selectedSinglePage.results)? convertSongIds(selectedSinglePage.results, entity) : []
+    }
+)
+
+export const selectSelectedNavRoute = () => createSelector(
+    selectNav(),
+    (nav) => (nav.routes[nav.index])? nav.routes[nav.index] : {}
 )

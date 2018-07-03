@@ -1,3 +1,19 @@
+export const defaultSearchParams = {
+    maxResults: 50,
+    fields: 'MainPicture',
+    nameMatchMode: 'auto',
+    sort: 'Name',
+    start: 0,
+    artistTypes: '',
+    artistId: [],
+    tagId: [],
+}
+
+export const filterField = {
+    artistTypes: 'artistTypes',
+    sort: 'sort'
+}
+
 export const artistTypes = [
     {
         value: ''

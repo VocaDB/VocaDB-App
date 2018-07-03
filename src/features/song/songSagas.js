@@ -6,7 +6,7 @@ import * as artistActions from '../artist/artistActions'
 import * as userActions from './../user/userActions'
 import api from './songApi'
 import { selectFollowedArtistIds } from './../artist/artistSelector'
-import { selectSearchParams, selectRankingState } from './songSelector'
+import { selectSearchParams, selectRankingState, selectSelectedSinglePageParams, selectSelectedNavRoute } from './songSelector'
 import { selectDisplayLanguage } from './../user/userSelector'
 
 const fetchHighlighted = function* fetchHighlighted() {
@@ -23,10 +23,17 @@ const fetchSearchSongs = function* fetchSearchSongs() {
     try {
         const params = yield select(selectSearchParams())
         const displayLanguage = yield select(selectDisplayLanguage())
+
         yield call(delay, 500)
+
         const response = yield call(api.find, { ...params, lang: displayLanguage });
-        let append = (params && params.start) ? true : false
-        yield put(actions.fetchSearchSongsSuccess(response.items, append));
+
+        if(params && params.start) {
+            yield put(actions.addSearchResult(response.items));
+        } else {
+            yield put(actions.setSearchResult(response.items));
+        }
+
     } catch (e) {
         yield put(appActions.requestError(e));
     }
@@ -108,6 +115,27 @@ const fetchRanking = function* fetchRanking() {
     }
 }
 
+const fetchSongsFromSelectedPageParams = function* fetchSongsFromSelectedPageParams() {
+    try {
+        const params = yield select(selectSelectedSinglePageParams())
+        const displayLanguage = yield select(selectDisplayLanguage())
+        const route = yield select(selectSelectedNavRoute())
+
+        yield call(delay, 500)
+
+        const response = yield call(api.find, { ...params, lang: displayLanguage });
+
+        if(params && params.start) {
+            yield put(actions.addResultToPageId(route.key,response.items));
+        } else {
+            yield put(actions.setResultToPageId(route.key,response.items));
+        }
+
+    } catch (e) {
+        yield put(appActions.requestError(e));
+    }
+}
+
 const songSaga = function* songSagaAsync() {
     yield takeLatest([userActions.updateSettings, actions.fetchHighlighted], fetchHighlighted)
     yield takeLatest(actions.fetchLatestSongs, fetchLatestSongs)
@@ -115,13 +143,23 @@ const songSaga = function* songSagaAsync() {
     yield takeLatest(artistActions.followArtist, fetchFollowedSongs)
     yield takeLatest(artistActions.unFollowArtist, fetchFollowedSongs)
     yield takeLatest(actions.fetchSongDetail, fetchSongDetail)
-    yield takeLatest([actions.fetchSearchSongs,
-    actions.addSelectedFilterTag,
-    actions.removeSelectedFilterTag], fetchSearchSongs)
+    yield takeLatest([
+        actions.fetchSearchSongs,
+        actions.onSearching,
+        actions.updateSearchParams,
+        actions.removeSearchParamsArray,
+        actions.addSearchParamsArray,
+        actions.fetchMoreSearchResult,
+        actions.addSelectedFilterTag,
+        actions.removeSelectedFilterTag], fetchSearchSongs)
     yield takeLatest([actions.changeDurationHours,
         actions.changeFilterBy,
         actions.changeVocalist,
         userActions.updateSettings], fetchRanking)
+    yield takeLatest([
+        actions.addParamsToPageId,
+        actions.fetchMoreResultOnPageId
+    ], fetchSongsFromSelectedPageParams)
 }
 
 export { fetchHighlighted, fetchSearchSongs, fetchLatestSongs, fetchFollowedSongs, fetchSongDetail, fetchRanking }

@@ -32,10 +32,12 @@ const mapStateSelector = createSelector(
 
 
 const mapDispatchToProps = (dispatch, props) => ({
-    fetchEvents: params => dispatch(eventActions.fetchSearchEvents(params)),
-    fetchEventsReplaceParams: params => dispatch(eventActions.fetchSearchEvents(params, false, true)),
+    fetchEvent: () => dispatch(eventActions.fetchSearchEvents()),
+    fetchMoreEvent: () => dispatch(eventActions.fetchMoreSearchResult()),
+    onSearch: (value) => dispatch(eventActions.onSearching(value)),
     back: () => props.navigation.goBack(),
-    onPressEvent: event => props.navigation.navigate(Routes.EventDetail, { id: event.id, title: event.name })
+    onPressEvent: event => props.navigation.navigate(Routes.EventDetail, { id: event.id, title: event.name }),
+    onPressFilter: () => props.navigation.navigate(Routes.EventFilter)
 })
 
 export default connect(mapStateSelector, mapDispatchToProps)(EventSearch)

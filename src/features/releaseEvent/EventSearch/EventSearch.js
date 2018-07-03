@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, Modal } from 'react-native'
+import { View, Text, Modal, StyleSheet } from 'react-native'
 import { Button, Toolbar } from 'react-native-material-ui';
 import Page from '../../../components/Page/index'
 import Content from '../../../components/Content'
@@ -18,15 +18,11 @@ export default class EventSearch extends React.Component {
     }
 
     componentDidMount () {
-        this.refresh()
+        this.props.fetchEvent()
     }
 
-    doSearch(params) {
-        this.props.fetchEvents(params)
-    }
-
-    refresh() {
-        this.props.fetchEventsReplaceParams()
+    getNavigationParams() {
+        return (this.props.navigation.state && this.props.navigation.state.params)? this.props.navigation.state.params : {};
     }
 
     renderList () {
@@ -37,10 +33,9 @@ export default class EventSearch extends React.Component {
                     events={this.props.events}
                     onPressItem={this.props.onPressEvent}
                     refreshing={this.props.loading}
-                    onRefresh={this.refresh.bind(this)}
                     onEndReached={() => {
                         if(!this.props.isNoResult) {
-                            this.doSearch({ start: this.props.events.length })
+                            this.props.fetchMoreEvent()
                         }
                     }}
                     hideMoreButton={true} />
@@ -49,6 +44,21 @@ export default class EventSearch extends React.Component {
     }
 
     render () {
+
+        const params = this.getNavigationParams();
+
+        const renderFilterButton = () => {
+            if(params.hideSearchBar) {
+                return null;
+            }
+
+            return (
+                <View style={styles.menuContainer}>
+                    <Button raised primary icon='tune' text='Filter' style={{ container: styles.filterButton }} onPress={this.props.onPressFilter} />
+                </View>
+            )
+        }
+
         return (
             <Page>
                 <Toolbar
@@ -58,11 +68,12 @@ export default class EventSearch extends React.Component {
                     searchable={{
                         autoFocus: true,
                         placeholder: 'Find event',
-                        onChangeText: text => {
-                            this.doSearch({ query: text, start: 0 })
-                        }
+                        onChangeText: this.props.onSearch
                     }}
                 />
+
+                {renderFilterButton()}
+
                 <View style={{ flex: 1, backgroundColor: Theme.contentBackgroundColor, paddingBottom: 8 }}>
                     {this.props.events.length > 0 && this.renderList()}
                     {this.props.events.length === 0 && <CenterView>
@@ -73,6 +84,22 @@ export default class EventSearch extends React.Component {
         )
     }
 }
+
+const styles = StyleSheet.create({
+    menuContainer: {
+        alignItems: 'center',
+        backgroundColor: 'white'
+    },
+    filterButton: {
+        margin: 8,
+        width: 128
+    },
+    resultContainer: {
+        flex: 1,
+        backgroundColor: Theme.contentBackgroundColor,
+        paddingBottom: 8
+    }
+})
 
 EventSearch.defaultProps = {
     events: []
