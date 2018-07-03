@@ -21,6 +21,13 @@ export default class ArtistSearch extends React.Component {
         this.props.fetchArtists()
     }
 
+
+    isSearchActive() {
+        return (this.props.navigation.state
+            && this.props.navigation.state.params
+            && this.props.navigation.state.params.isSearchActive) ? this.props.navigation.state.params.isSearchActive : false;
+    }
+
     renderList () {
 
         return (
@@ -42,6 +49,7 @@ export default class ArtistSearch extends React.Component {
         return (
             <Page>
                 <Toolbar
+                    isSearchActive={this.isSearchActive()}
                     leftElement="arrow-back"
                     onLeftElementPress={this.props.back}
                     centerElement="Artists"

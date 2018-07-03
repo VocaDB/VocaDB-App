@@ -21,6 +21,12 @@ class AlbumSearch extends React.PureComponent {
         this.props.fetchAlbums()
     }
 
+    isSearchActive() {
+        return (this.props.navigation.state
+            && this.props.navigation.state.params
+            && this.props.navigation.state.params.isSearchActive) ? this.props.navigation.state.params.isSearchActive : false;
+    }
+
     renderList () {
 
         const renderAlbumRow = album => {
@@ -55,6 +61,7 @@ class AlbumSearch extends React.PureComponent {
         return (
             <Page>
                 <Toolbar
+                    isSearchActive={this.isSearchActive()}
                     leftElement="arrow-back"
                     onLeftElementPress={this.props.back}
                     centerElement="Albums"

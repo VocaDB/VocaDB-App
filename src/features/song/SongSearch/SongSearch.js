@@ -25,6 +25,12 @@ export default class SongSearch extends React.PureComponent {
         return (this.props.navigation.state && this.props.navigation.state.params)? this.props.navigation.state.params : {};
     }
 
+    isSearchActive() {
+        return (this.props.navigation.state
+            && this.props.navigation.state.params
+            && this.props.navigation.state.params.isSearchActive) ? this.props.navigation.state.params.isSearchActive : false;
+    }
+
     renderList () {
 
         return (
@@ -54,6 +60,7 @@ export default class SongSearch extends React.PureComponent {
 
             return (
                 <Toolbar
+                    isSearchActive={this.isSearchActive()}
                     leftElement="arrow-back"
                     onLeftElementPress={this.props.back}
                     centerElement="Songs"
@@ -111,5 +118,5 @@ const styles = StyleSheet.create({
 })
 
 SongSearch.defaultProps = {
-    songs: []
+    songs: [],
 }

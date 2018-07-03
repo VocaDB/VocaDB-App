@@ -18,16 +18,16 @@ class Main extends React.PureComponent {
             if(action && action.type) {
                 switch (action.type) {
                     case shortcutTypes.Songs:
-                        this.props.onPressSongSearch();
+                        this.props.onPressSongSearchShortcut();
                         break;
                     case shortcutTypes.Artists:
-                        this.props.onPressArtistSearch();
+                        this.props.onPressArtistSearchShortcut();
                         break;
                     case shortcutTypes.Albums:
-                        this.props.onPressAlbumSearch();
+                        this.props.onPressAlbumSearchShortcut();
                         break;
                     default:
-                        console.log('Invalid action : ' + JSON.stringify(d))
+                        console.log('Invalid action : ' + JSON.stringify(action))
                 }
             }
         }).catch(console.error)

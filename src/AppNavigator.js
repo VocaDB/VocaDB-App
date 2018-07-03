@@ -7,8 +7,8 @@ import AlbumDetailPage from './features/album/AlbumDetail'
 import AlbumSearchPage from './features/album/AlbumSearch'
 import AlbumWithParamsPage from './features/album/AlbumWithParams'
 import SearchPage from './features/entry/EntrySearch'
-import SongListPage from './features/song/SongSearch'
-import ArtistListPage from './features/artist/ArtistSearch'
+import SongSearchPage from './features/song/SongSearch'
+import ArtistSearchPage from './features/artist/ArtistSearch'
 import TagDetailPage from './features/tag/TagDetail'
 import EventDetailPage from './features/releaseEvent/EventDetail'
 import FollowedArtistsPage from './features/artist/FollowedArtists'
@@ -38,8 +38,8 @@ const AppNavigator = StackNavigator({
     ArtistDetail: { screen: ArtistDetailPage },
     AlbumDetail: { screen: AlbumDetailPage },
     Search: { screen: SearchPage },
-    SongList: { screen: SongListPage },
-    ArtistList: { screen: ArtistListPage },
+    SongSearch: { screen: SongSearchPage },
+    ArtistSearch: { screen: ArtistSearchPage },
     AlbumSearch: { screen: AlbumSearchPage },
     TagDetail: { screen: TagDetailPage },
     EventDetail: { screen: EventDetailPage },
