@@ -44,3 +44,4 @@ export const setResultToPageId = createAction('Add to single list result', (page
     normalized.pageId = pageId
     return normalized
 })
+export const clearSinglePageState = createAction('Clear single page state')

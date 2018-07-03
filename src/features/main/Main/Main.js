@@ -37,6 +37,7 @@ class Main extends React.PureComponent {
     componentDidMount () {
         this.refreshHome()
         this.refreshFollowedSongs()
+        this.props.clearSinglePageState()
     }
 
     refreshHome () {

@@ -54,6 +54,10 @@ const mapDispatchToProps = (dispatch, props) => ({
     fetchLatestEvents: () => dispatch(eventActions.fetchLatestReleaseEvents()),
     fetchRecentAlbums: () => dispatch(albumActions.fetchLatestAlbums()),
     fetchFollowedSongs: () => dispatch(songActions.fetchFollowedSongs()),
+    clearSinglePageState: () => {
+        dispatch(songActions.clearSinglePageState())
+        dispatch(albumActions.clearSinglePageState())
+    },
     onPressSongSearch: () => props.navigation.navigate(Routes.SongList, { searchable: true, hideHeader: true }),
     onPressArtistSearch: () => props.navigation.navigate(Routes.ArtistList, { searchable: true, hideHeader: true }),
     onPressAlbumSearch: () =>  props.navigation.navigate(Routes.AlbumSearch, { searchable: true, hideHeader: true }),

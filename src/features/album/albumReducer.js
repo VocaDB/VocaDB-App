@@ -293,6 +293,9 @@ const reducer = createReducer({
         singlePage[payload.pageId].results = payload.result
 
         return { ...state, singlePage }
+    },
+    [actions.clearSinglePageState]: (state) => {
+        return { ...state, singlePage: {} }
     }
 
 }, defaultState)
