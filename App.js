@@ -25,7 +25,6 @@ QuickActions.setShortcutItems([
     {
         type: "Songs",
         title: "Find songs",
-        subtitle: "Find songs",
         icon: "song",
         userInfo: {
             url: "vocadb://songs"
@@ -34,7 +33,6 @@ QuickActions.setShortcutItems([
     {
         type: "Artists",
         title: "Find artists",
-        subtitle: "Find artists",
         icon: "artist",
         userInfo: {
             url: "vocadb://artists"
@@ -43,7 +41,6 @@ QuickActions.setShortcutItems([
     {
         type: "Albums",
         title: "Find albums",
-        subtitle: "Find albums",
         icon: "album",
         userInfo: {
             url: "vocadb://albums"
