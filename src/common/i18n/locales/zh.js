@@ -1,4 +1,4 @@
-import labels from './../../constants/labels'
+import labels from './../../constants/labels';
 
 const t = {}
 
