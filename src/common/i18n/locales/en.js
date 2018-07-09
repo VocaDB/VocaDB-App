@@ -1,16 +1,16 @@
-import labels from './../../constants/labels'
+import labels from './../../constants/labels';
 
 const t = {}
 
-t[labels.songs] = 'Songs'
-t[labels.albums] = 'Albums'
-t[labels.artists] = 'Artists'
-t[labels.events] = 'Events'
-t[labels.tags] = 'Tags'
-t[labels.seeMore] = 'See more'
-t[labels.highlightPVs] = 'Highlight PVs'
-t[labels.recentAlbums] = 'Recent or upcoming albums'
-t[labels.randomPopularAlbums] = 'Recent or upcoming albums'
-t[labels.upcomingEvent] = 'Recent or upcoming albums'
+t[labels.songs] = 'Songs';
+t[labels.albums] = 'Albums';
+t[labels.artists] = 'Artists';
+t[labels.events] = 'Events';
+t[labels.tags] = 'Tags';
+t[labels.seeMore] = 'See more';
+t[labels.highlightPVs] = 'Highlight PVs';
+t[labels.recentAlbums] = 'Recent or upcoming albums';
+t[labels.randomPopularAlbums] = 'Random popular albums';
+t[labels.upcomingEvent] = 'Upcoming events';
 
 export default t;
