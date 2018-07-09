@@ -1,3 +1,5 @@
+// Thai
+
 import labels from './../../constants/labels';
 
 const t = {}
