@@ -1,11 +1,11 @@
-import React from 'react'
-import { View, Text, Modal, StyleSheet } from 'react-native'
+import React from 'react';
+import { View, Text, Modal, StyleSheet } from 'react-native';
 import { Button, Toolbar } from 'react-native-material-ui';
-import Page from '../../../components/Page/index'
-import SearchBar from '../../../components/SearchBar/index'
-import CenterView from '../../../components/CenterView/index'
-import SongList from '../SongList/index'
-import Theme from '../../../theme'
+import Page from '../../../components/Page/index';
+import CenterView from '../../../components/CenterView/index';
+import SongList from '../SongList/index';
+import Theme from '../../../theme';
+import i18n from './../../../common/i18n';
 
 export default class SongSearch extends React.PureComponent {
 
@@ -14,11 +14,11 @@ export default class SongSearch extends React.PureComponent {
     };
 
     constructor(props) {
-        super(props)
+        super(props);
     }
 
     componentDidMount () {
-        this.props.fetchSongs()
+        this.props.fetchSongs();
     }
 
     getNavigationParams() {
@@ -63,7 +63,7 @@ export default class SongSearch extends React.PureComponent {
                     isSearchActive={this.isSearchActive()}
                     leftElement="arrow-back"
                     onLeftElementPress={this.props.back}
-                    centerElement="Songs"
+                    centerElement={i18n.songs}
                     searchable={{
                         autoFocus: true,
                         placeholder: 'Find song',
@@ -80,7 +80,7 @@ export default class SongSearch extends React.PureComponent {
 
             return (
                 <View style={styles.menuContainer}>
-                    <Button raised primary icon='tune' text='Filter' style={{ container: styles.filterButton }} onPress={this.props.onPressFilter} />
+                    <Button raised primary icon='tune' text={i18n.filter} style={{ container: styles.filterButton }} onPress={this.props.onPressFilter} />
                 </View>
             )
         }

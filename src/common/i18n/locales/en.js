@@ -17,6 +17,7 @@ t[labels.randomPopularAlbums] = 'Random popular albums';
 t[labels.upcomingEvent] = 'Upcoming events';
 t[labels.other] = 'Other';
 t[labels.info] = 'Info';
+t[labels.detail] = 'Detail';
 
 // Ranking
 t[labels.daily] = 'Daily';
@@ -25,6 +26,12 @@ t[labels.monthly] = 'Monthly';
 t[labels.overall] = 'Overall';
 
 // Filter
+t[labels.findSong] = 'Find song';
+t[labels.findAlbum] = 'Find album';
+t[labels.findArtist] = 'Find artist';
+t[labels.findEvent] = 'Find event';
+t[labels.findTag] = 'Find tag';
+t[labels.findAnything] = 'Find anything';
 t[labels.filter] = 'Filter';
 t[labels.filterBy] = 'Filter by';
 t[labels.vocalist] = 'Vocalist';
@@ -72,7 +79,9 @@ t[labels.ep] = 'E.P.';
 t[labels.splitAlbum] = 'Split album';
 t[labels.compilation] = 'Compilation';
 t[labels.video] = 'Video';
-t[labels.artBook] = 'Artbook';
+t[labels.artbook] = 'Artbook';
+t[labels.game] = 'Game';
+t[labels.fanmade] = 'Fanmade'
 t[labels.date] = 'Date';
 t[labels.dateRange] = 'Date range';
 t[labels.from] = 'From';
@@ -101,6 +110,14 @@ t[labels.venue] = 'Venue';
 t[labels.description] = 'Description';
 t[labels.relatedLink] = 'Related link';
 t[labels.setlist] = 'Setlist';
+t[labels.groupAndLabels] = 'Groups and labels';
+t[labels.illustratedBy] = 'Illustrated by';
+t[labels.voiceProvider] = 'Voice provider';
+t[labels.characterDesigner] = 'Character designer';
+t[labels.illustratorOf] = 'Illustrator of';
+t[labels.voiceProviderOf] = 'Voice provider of';
+t[labels.designerOf] = 'Designer of';
+t[labels.duration] = 'Duration';
 
 // Menu
 t[labels.favoriteSongs] = 'Favorite songs';

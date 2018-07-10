@@ -1,3 +1,5 @@
+import i18n from './../../common/i18n';
+
 export const defaultSearchParams = {
     maxResults: 30,
     nameMatchMode: 'auto',
@@ -15,57 +17,74 @@ export const discTypes = [
         value: ''
     },
     {
-        value: 'Unknow'
+        value: 'Unknow',
+        label: 'Unknow'
     },
     {
-        value: 'Album'
+        value: 'Album',
+        label: i18n.album
     },
     {
-        value: 'Single'
+        value: 'Single',
+        label: i18n.single
     },
     {
-        value: 'EP'
+        value: 'EP',
+        label: i18n.ep
     },
     {
-        value: 'SplitAlbum'
+        value: 'SplitAlbum',
+        label: i18n.splitAlbum
     },
     {
-        value: 'Compilation'
+        value: 'Compilation',
+        label: i18n.compilation
     },
     {
-        value: 'Artbook'
+        value: 'Artbook',
+        label: i18n.artbook
     },
     {
-        value: 'Game'
+        value: 'Game',
+        label: i18n.game
     },
     {
-        value: 'Fanmade'
+        value: 'Fanmade',
+        label: i18n.fanmade
     },
     {
-        value: 'Instrumental'
+        value: 'Instrumental',
+        label: i18n.instrumental
     },
     {
-        value: 'Other'
+        value: 'Other',
+        label: i18n.other
     }
 ]
 
 export const sortItems = [
     {
-        value: ''
+        value: '',
+        label: ''
     },
     {
-        value: 'None'
+        value: 'None',
+        label: 'None'
     },
     {
-        value: 'Name'
+        value: 'Name',
+        label: i18n.name
     },
     {
-        value: 'AdditionDate'
+        value: 'AdditionDate',
+        label: i18n.additionDate
     },
     {
-        value: 'FavoritedTimes'
+        value: 'FavoritedTimes',
+        label: i18n.favoritedTimes
     },
     {
-        value: 'RatingScore'
+        value: 'RatingScore',
+        label: i18n.ratingScore
     }
 ]

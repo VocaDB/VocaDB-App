@@ -1,3 +1,5 @@
+import i18n from './../../common/i18n';
+
 export const defaultSearchParams = {
     maxResults: 50,
     fields: 'MainPicture',
@@ -16,46 +18,59 @@ export const filterField = {
 
 export const artistTypes = [
     {
-        value: ''
+        value: '',
+        label: ''
     },
     {
-        value: 'Circle'
+        value: 'Circle',
+        label: i18n.circle
     },
     {
-        value: 'Illustrator'
+        value: 'Illustrator',
+        label: i18n.illustrator
     },
     {
-        value: 'Producer'
+        value: 'Producer',
+        label: i18n.producer
     },
     {
-        value: 'UTAU'
+        value: 'UTAU',
+        label: i18n.utau
     },
     {
-        value: 'Vocaloid'
+        value: 'Vocaloid',
+        label: i18n.vocaloid
     }
 ];
 
 export const sortItems = [
     {
-        value: 'Name'
+        value: 'Name',
+        label: i18n.name
     },
     {
-        value: 'AdditionDate'
+        value: 'AdditionDate',
+        label: i18n.additionDateDesc
     },
     {
-        value: 'AdditionDateAsc'
+        value: 'AdditionDateAsc',
+        label: i18n.additionDateAsc
     },
     {
-        value: 'ReleaseDate'
+        value: 'ReleaseDate',
+        label: i18n.voicebankReleaseDate
     },
     {
-        value: 'SongCount'
+        value: 'SongCount',
+        label: i18n.songCount
     },
     {
-        value: 'SongRating'
+        value: 'SongRating',
+        label: i18n.songRating
     },
     {
-        value: 'FollowerCount'
+        value: 'FollowerCount',
+        label: i18n.followerCount
     }
 ]
 

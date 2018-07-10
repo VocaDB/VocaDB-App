@@ -4,13 +4,14 @@ import AlbumFilterPage from './AlbumFilter'
 import { createSelector } from 'reselect';
 import * as albumActions from '../albumActions'
 import { selectSearchParams, selectFilterArtists, selectFilterTags } from '../albumSelector'
+import i18n from './../../../common/i18n';
 
 AlbumFilterPage.navigationOptions = ({ navigation }) => {
 
     const { params } = navigation.state;
 
     const navOptions = {
-        title: params ? params.title : 'Filter',
+        title: params ? params.title : i18n.filter,
     }
 
     if(params && params.hideHeader) {

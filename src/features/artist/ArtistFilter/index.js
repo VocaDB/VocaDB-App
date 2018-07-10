@@ -1,23 +1,24 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import ArtistFilterPage from './ArtistFilter'
+import React from 'react';
+import { connect } from 'react-redux';
+import ArtistFilterPage from './ArtistFilter';
 import { createSelector } from 'reselect';
-import * as artistActions from '../artistActions'
-import { selectSearchParams, selectFilterTags } from '../artistSelector'
+import * as artistActions from '../artistActions';
+import { selectSearchParams, selectFilterTags } from '../artistSelector';
+import i18n from './../../../common/i18n';
 
 ArtistFilterPage.navigationOptions = ({ navigation }) => {
 
     const { params } = navigation.state;
 
     const navOptions = {
-        title: params ? params.title : 'Filter',
+        title: params ? params.title : i18n.filter,
     }
 
     if(params && params.hideHeader) {
-        navOptions.header = null
+        navOptions.header = null;
     }
 
-    return navOptions
+    return navOptions;
 }
 
 const artistListStateSelect = createSelector(

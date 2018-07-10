@@ -1,16 +1,17 @@
-import React from 'react'
-import { View, Text } from 'react-native'
-import Content from '../../../components/Content'
-import PropTypes from 'prop-types'
-import Theme from '../../../theme'
+import React from 'react';
+import { View, Text } from 'react-native';
+import Content from '../../../components/Content';
+import PropTypes from 'prop-types';
+import Theme from '../../../theme';
 import { Dropdown } from 'react-native-material-dropdown';
 import { Button } from 'react-native-material-ui';
-import ArtistSelectModal from './../../artist/ArtistSelectModal'
-import TagSelectModal from './../../tag/TagSelectModal'
-import ArtistRow from './../../artist/ArtistRow'
-import Tag from './../../tag/Tag'
-import { discTypes, sortItems } from './../albumConstant'
-import { filterField } from '../albumConstant'
+import ArtistSelectModal from './../../artist/ArtistSelectModal';
+import TagSelectModal from './../../tag/TagSelectModal';
+import ArtistRow from './../../artist/ArtistRow';
+import Tag from './../../tag/Tag';
+import { discTypes, sortItems } from './../albumConstant';
+import { filterField } from '../albumConstant';
+import i18n from './../../../common/i18n';
 
 class AlbumFilter extends React.PureComponent {
 
@@ -26,7 +27,7 @@ class AlbumFilter extends React.PureComponent {
         return (
             <View style={{ marginHorizontal: 8 }}>
                 <Dropdown
-                    label='Disc type'
+                    label={i18n.discType}
                     value={this.props.params.discTypes}
                     onChangeText={text => {
                         if(text === 'Unspecified') {
@@ -59,7 +60,7 @@ class AlbumFilter extends React.PureComponent {
                     raised
                     primary
                     style={{ container: { marginHorizontal: 16, marginVertical: 8 } }}
-                    text='Select artist'
+                    text={i18n.selectArtist}
                     onPress={() => { this.setState({ showArtistModal: true }) }} />
 
                 <ArtistSelectModal
@@ -94,7 +95,7 @@ class AlbumFilter extends React.PureComponent {
                     raised
                     primary
                     style={{ container: { marginHorizontal: 16, marginVertical: 8 } }}
-                    text='Select tag'
+                    text={i18n.selectTag}
                     onPress={() => { this.setState({ showTagModal: true }) }} />
                 <TagSelectModal
                     modalVisible={this.state.showTagModal}
@@ -114,7 +115,7 @@ class AlbumFilter extends React.PureComponent {
         return (
             <View style={{ marginHorizontal: 8 }}>
                 <Dropdown
-                    label='Sort'
+                    label={i18n.sort}
                     value={this.props.params.sort}
                     onChangeText={text => {
                         this.props.onParamChanged(filterField.sort, text)

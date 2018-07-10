@@ -1,25 +1,26 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import SongListPage from './SongSearch'
+import React from 'react';
+import { connect } from 'react-redux';
+import SongListPage from './SongSearch';
 import { createSelector } from 'reselect';
-import * as songActions from '../songActions'
-import { selectSearchResult, selectSearchParams, selectNoResult } from '../songSelector'
-import { selectLoading } from '../../../app/appSelector'
-import Routes from './../../../app/appRoutes'
+import * as songActions from '../songActions';
+import { selectSearchResult, selectSearchParams, selectNoResult } from '../songSelector';
+import { selectLoading } from '../../../app/appSelector';
+import Routes from './../../../app/appRoutes';
+import i18n from './../../../common/i18n';
 
 SongListPage.navigationOptions = ({ navigation }) => {
 
     const { params } = navigation.state;
 
     const navOptions = {
-        title: params ? params.title : 'Songs',
+        title: params ? params.title : i18n.songs,
     }
 
     if(params && params.hideHeader) {
         navOptions.header = null
     }
 
-    return navOptions
+    return navOptions;
 }
 
 const songListStateSelect = createSelector(

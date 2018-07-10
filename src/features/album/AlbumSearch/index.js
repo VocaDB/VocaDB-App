@@ -1,25 +1,26 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import AlbumSearch from './AlbumSearch'
+import React from 'react';
+import { connect } from 'react-redux';
+import AlbumSearch from './AlbumSearch';
 import { createSelector } from 'reselect';
-import * as albumActions from '../albumActions'
-import { selectSearchResult, selectSearchParams, selectNoResult } from '../albumSelector'
-import { selectLoading } from '../../../app/appSelector'
-import Routes from './../../../app/appRoutes'
+import * as albumActions from '../albumActions';
+import { selectSearchResult, selectSearchParams, selectNoResult } from '../albumSelector';
+import { selectLoading } from '../../../app/appSelector';
+import Routes from './../../../app/appRoutes';
+import i18n from './../../../common/i18n';
 
 AlbumSearch.navigationOptions = ({ navigation }) => {
 
     const { params } = navigation.state;
 
     const navOptions = {
-        title: params ? params.title : 'Albums',
+        title: params ? params.title : i18n.albums,
     }
 
     if(params && params.hideHeader) {
-        navOptions.header = null
+        navOptions.header = null;
     }
 
-    return navOptions
+    return navOptions;
 }
 
 const mapStateSelector = createSelector(

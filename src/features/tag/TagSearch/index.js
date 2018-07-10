@@ -1,18 +1,19 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import TagSearch from './TagSearch'
+import React from 'react';
+import { connect } from 'react-redux';
+import TagSearch from './TagSearch';
 import { createSelector } from 'reselect';
-import * as tagActions from '../tagActions'
-import { selectSearchResult, selectSearchParams } from '../tagSelector'
-import { selectLoading } from '../../../app/appSelector'
-import Routes from './../../../app/appRoutes'
+import * as tagActions from '../tagActions';
+import { selectSearchResult, selectSearchParams } from '../tagSelector';
+import { selectLoading } from '../../../app/appSelector';
+import Routes from './../../../app/appRoutes';
+import i18n from './../../../common/i18n';
 
 TagSearch.navigationOptions = ({ navigation }) => {
 
     const { params } = navigation.state;
 
     const navOptions = {
-        title: params ? params.title : 'Tags',
+        title: params ? params.title : i18n.tags,
     }
 
     if(params && params.hideHeader) {

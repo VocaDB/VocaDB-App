@@ -1,11 +1,12 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { FlatList, View, StyleSheet, Text } from 'react-native'
+import React from 'react';
+import PropTypes from 'prop-types';
+import { FlatList, View, StyleSheet, Text } from 'react-native';
 import { Button, Toolbar } from 'react-native-material-ui';
-import Page from '../../../components/Page'
-import CenterView from '../../../components/CenterView'
-import AlbumRow from '../../album/AlbumRow'
-import Theme from '../../../theme'
+import Page from '../../../components/Page';
+import CenterView from '../../../components/CenterView';
+import AlbumRow from '../../album/AlbumRow';
+import Theme from '../../../theme';
+import i18n from './../../../common/i18n';
 
 class AlbumSearch extends React.PureComponent {
 
@@ -14,11 +15,11 @@ class AlbumSearch extends React.PureComponent {
     };
 
     constructor(props) {
-        super(props)
+        super(props);
     }
 
     componentDidMount () {
-        this.props.fetchAlbums()
+        this.props.fetchAlbums();
     }
 
     isSearchActive() {
@@ -64,15 +65,15 @@ class AlbumSearch extends React.PureComponent {
                     isSearchActive={this.isSearchActive()}
                     leftElement="arrow-back"
                     onLeftElementPress={this.props.back}
-                    centerElement="Albums"
+                    centerElement={i18n.albums}
                     searchable={{
                         autoFocus: true,
-                        placeholder: 'Find album',
+                        placeholder: i18n.findAlbum,
                         onChangeText: this.props.onSearch
                     }}
                 />
                 <View style={styles.menuContainer}>
-                    <Button raised primary icon='tune' text='Filter' style={{ container: styles.filterButton }} onPress={this.props.onPressFilter} />
+                    <Button raised primary icon='tune' text={i18n.filter} style={{ container: styles.filterButton }} onPress={this.props.onPressFilter} />
                 </View>
                 <View style={styles.resultContainer}>
                     {this.props.albums.length > 0 && this.renderList()}

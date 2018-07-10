@@ -1,16 +1,15 @@
-import React from 'react'
-import { View, Text } from 'react-native'
-import Content from '../../../components/Content'
-import PropTypes from 'prop-types'
-import Theme from '../../../theme'
+import React from 'react';
+import { View, Text } from 'react-native';
+import Content from '../../../components/Content';
+import PropTypes from 'prop-types';
+import Theme from '../../../theme';
 import { Dropdown } from 'react-native-material-dropdown';
-import Tag from './../../tag/Tag'
-import { topGenres } from './../../tag/tagConstant'
-import { artistTypes, sortItems } from './../artistConstant'
-import { entryStatusItems } from './../../entry/entryConstant'
-import { filterField } from './../artistConstant'
-import TagSelectModal from './../../tag/TagSelectModal'
+import Tag from './../../tag/Tag';
+import { artistTypes, sortItems } from './../artistConstant';
+import { filterField } from './../artistConstant';
+import TagSelectModal from './../../tag/TagSelectModal';
 import { Button } from 'react-native-material-ui';
+import i18n from './../../../common/i18n';
 
 class ArtistFilter extends React.Component {
 
@@ -19,14 +18,14 @@ class ArtistFilter extends React.Component {
         this.state = {
             showArtistModal: false,
             showTagModal: false
-        }
+        };
     }
 
     renderInputArtistType () {
         return (
             <View style={{ marginHorizontal: 8 }}>
                 <Dropdown
-                    label='Artist type'
+                    label={i18n.artistType}
                     value={this.props.params.artistTypes}
                     onChangeText={text => {
                         if(text === 'Unspecified') {
@@ -36,6 +35,8 @@ class ArtistFilter extends React.Component {
                         }
                     }}
                     data={artistTypes}
+                    labelExtractor={item => item.label}
+                    valueExtractor={item => item.value}
                 />
             </View>
         )
@@ -60,7 +61,7 @@ class ArtistFilter extends React.Component {
                     raised
                     primary
                     style={{ container: { marginHorizontal: 16, marginVertical: 8 } }}
-                    text='Select tag'
+                    text={i18n.selectTag}
                     onPress={() => { this.setState({ showTagModal: true }) }} />
                 <TagSelectModal
                     modalVisible={this.state.showTagModal}
@@ -79,7 +80,7 @@ class ArtistFilter extends React.Component {
         return (
             <View style={{ marginHorizontal: 8 }}>
                 <Dropdown
-                    label='Sort'
+                    label={i18n.sort}
                     value={this.props.params.sort}
                     onChangeText={text => {
                         this.props.onParamChanged(filterField.sort, text)

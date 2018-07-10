@@ -16,7 +16,7 @@ class HomeTab extends React.PureComponent {
         const MenuIcon = (props) => (
             <TouchableOpacity style={{ alignItems: 'center', flex: 1, margin: 8 }} onPress={props.onPress}>
                 <Avatar icon={props.icon} style={{ container: { backgroundColor: props.color, margin: 4 } }}  />
-                <Text style={[Theme.caption, { textAlign: 'center', fontSize: 10 }]} textBreakStrategy='balanced'>{props.text}</Text>
+                <Text style={[Theme.caption, { textAlign: 'center' }]} textBreakStrategy='balanced'>{props.text}</Text>
             </TouchableOpacity>
         )
 

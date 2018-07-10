@@ -1,23 +1,24 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import SongFilterPage from './SongFilter'
+import React from 'react';
+import { connect } from 'react-redux';
+import SongFilterPage from './SongFilter';
 import { createSelector } from 'reselect';
-import * as songActions from '../songActions'
-import { selectSearchParams, selectFilterArtists, selectFilterTags } from '../songSelector'
+import * as songActions from '../songActions';
+import { selectSearchParams, selectFilterArtists, selectFilterTags } from '../songSelector';
+import i18n from './../../../common/i18n';
 
 SongFilterPage.navigationOptions = ({ navigation }) => {
 
     const { params } = navigation.state;
 
     const navOptions = {
-        title: params ? params.title : 'Filter',
+        title: params ? params.title : i18n.filter,
     }
 
     if(params && params.hideHeader) {
-        navOptions.header = null
+        navOptions.header = null;
     }
 
-    return navOptions
+    return navOptions;
 }
 
 const songListStateSelect = createSelector(
@@ -26,7 +27,6 @@ const songListStateSelect = createSelector(
     selectFilterTags(),
     (params, filterArtists, filterTags) => ({ params, filterArtists, filterTags })
 );
-
 
 const mapDispatchToProps = (dispatch, props) => ({
     onFilterChanged: (params, remove) => dispatch(songActions.fetchSearchSongs(params, remove)),

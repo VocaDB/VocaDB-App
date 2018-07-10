@@ -1,25 +1,26 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import ArtistListPage from './ArtistSearch'
+import React from 'react';
+import { connect } from 'react-redux';
+import ArtistListPage from './ArtistSearch';
 import { createSelector } from 'reselect';
-import * as artistActions from '../artistActions'
-import { selectSearchResult, selectSearchParams, selectNoResult } from '../artistSelector'
-import { selectLoading } from '../../../app/appSelector'
-import Routes from './../../../app/appRoutes'
+import * as artistActions from '../artistActions';
+import { selectSearchResult, selectSearchParams, selectNoResult } from '../artistSelector';
+import { selectLoading } from '../../../app/appSelector';
+import Routes from './../../../app/appRoutes';
+import i18n from './../../../common/i18n';
 
 ArtistListPage.navigationOptions = ({ navigation }) => {
 
     const { params } = navigation.state;
 
     const navOptions = {
-        title: params ? params.title : 'Songs',
+        title: params ? params.title : i18n.artists,
     }
 
     if(params && params.hideHeader) {
-        navOptions.header = null
+        navOptions.header = null;
     }
 
-    return navOptions
+    return navOptions;
 }
 
 const aritstListStateSelect = createSelector(
@@ -40,4 +41,4 @@ const mapDispatchToProps = (dispatch, props) => ({
     onPressFilter: () => props.navigation.navigate(Routes.ArtistFilter)
 })
 
-export default connect(aritstListStateSelect, mapDispatchToProps)(ArtistListPage)
+export default connect(aritstListStateSelect, mapDispatchToProps)(ArtistListPage);

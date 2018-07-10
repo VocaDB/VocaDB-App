@@ -4,13 +4,14 @@ import EventFilterPage from './EventFilter'
 import { createSelector } from 'reselect';
 import * as eventActions from '../releaseEventActions'
 import { selectSearchParams, selectFilterArtists, selectFilterTags } from '../releaseEventSelector'
+import i18n from './../../../common/i18n';
 
 EventFilterPage.navigationOptions = ({ navigation }) => {
 
     const { params } = navigation.state;
 
     const navOptions = {
-        title: params ? params.title : 'Filter',
+        title: params ? params.title : i18n.filter,
     }
 
     if(params && params.hideHeader) {

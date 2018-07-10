@@ -1,11 +1,12 @@
-import React from 'react'
-import { View, Text, Modal, StyleSheet } from 'react-native'
+import React from 'react';
+import { View, Text, StyleSheet } from 'react-native';
 import { Button, Toolbar } from 'react-native-material-ui';
-import Page from '../../../components/Page/index'
-import Content from '../../../components/Content'
-import CenterView from '../../../components/CenterView/index'
-import EventList from '../EventList'
-import Theme from '../../../theme'
+import Page from '../../../components/Page/index';
+import Content from '../../../components/Content';
+import CenterView from '../../../components/CenterView/index';
+import EventList from '../EventList';
+import Theme from '../../../theme';
+import i18n from './../../../common/i18n';
 
 export default class EventSearch extends React.Component {
 
@@ -14,11 +15,11 @@ export default class EventSearch extends React.Component {
     };
 
     constructor(props) {
-        super(props)
+        super(props);
     }
 
     componentDidMount () {
-        this.props.fetchEvent()
+        this.props.fetchEvent();
     }
 
     getNavigationParams() {
@@ -54,7 +55,7 @@ export default class EventSearch extends React.Component {
 
             return (
                 <View style={styles.menuContainer}>
-                    <Button raised primary icon='tune' text='Filter' style={{ container: styles.filterButton }} onPress={this.props.onPressFilter} />
+                    <Button raised primary icon='tune' text={i18n.filter} style={{ container: styles.filterButton }} onPress={this.props.onPressFilter} />
                 </View>
             )
         }
@@ -64,10 +65,10 @@ export default class EventSearch extends React.Component {
                 <Toolbar
                     leftElement="arrow-back"
                     onLeftElementPress={this.props.back}
-                    centerElement="Events"
+                    centerElement={i18n.events}
                     searchable={{
                         autoFocus: true,
-                        placeholder: 'Find event',
+                        placeholder: i18n.findEvent,
                         onChangeText: this.props.onSearch
                     }}
                 />
