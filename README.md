@@ -66,6 +66,14 @@ See in `App.js` file.
 ### Config
 in *src/constants/config* you can switch **useMock** to **false** to fetch real data from VocaDB API instead of mock.
 
+## Translation
+
+VocaDB App use [react-native-i18n](https://github.com/AlexanderZaytsev/react-native-i18n) for translation. Translation files are locate at *src/common/i18n/locales*. 
+
+All files will named by locale code. (Check at https://www.science.co.il/language/Locale-codes.php)
+
+You can contact me for add more translation or add/edit by your own (Clone project, Create feature branch, Edit and pull request to me)
+
 ## Assets
 
 Icon and splash images are inside *resources* directory.
