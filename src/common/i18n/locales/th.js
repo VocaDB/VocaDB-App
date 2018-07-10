@@ -104,7 +104,7 @@ t[labels.lyrics] = 'เนื้อเพลง';
 t[labels.popularSongs] = 'เพลงยอดนิยม';
 t[labels.popularAlbums] = 'อัลบั้มยอดนิยม';
 t[labels.ads] = 'โฆษณา / พรีวิว';
-t[labels.trackList] = 'Tracklist';
+t[labels.trackList] = 'รายชื่อเพลง';
 t[labels.disc] = 'แผ่น';
 t[labels.venue] = 'สถานที่';
 t[labels.description] = 'รายละเอียด';
@@ -118,6 +118,7 @@ t[labels.illustratorOf] = 'ผู้วาดให้กับ';
 t[labels.voiceProviderOf] = 'ผู้ให้เสียงให้กับ';
 t[labels.designerOf] = 'ออกแบบให้กับ';
 t[labels.duration] = 'ความยาว';
+t[labels.add] = 'เพิ่ม'
 
 // Menu
 t[labels.favoriteSongs] = 'เพลงโปรด';

@@ -118,5 +118,6 @@ export default {
     voiceProviderOf: 'voiceProviderOf',
     designerOf: 'designerOf',
     detail: 'detail',
-    lyrics: 'lyrics'
+    lyrics: 'lyrics',
+    add: 'add'
 };

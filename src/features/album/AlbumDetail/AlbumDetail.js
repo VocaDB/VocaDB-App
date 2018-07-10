@@ -1,20 +1,21 @@
-import React from 'react'
-import { View, Text, Image, ScrollView } from 'react-native'
-import images from '../../../common/assets/images'
-import Icon from '../../../components/Icon/index'
-import Theme from '../../../theme'
-import TagGroup from '../../tag/TagGroup/index'
-import WebLinkList from '../../webLink/WebLinkList/index'
-import EventList from '../../releaseEvent/EventList/index'
-import ScrollableTabView from 'react-native-scrollable-tab-view'
-import ArtistRoleList from '../../artistRole/ArtistRoleList/index'
-import Cover from '../../../components/Cover/index'
-import Content from '../../../components/Content/index'
-import TrackList from '../../track/TrackList/index'
-import Divider from '../../../components/Divider/index'
-import Expander from './../../../components/Expander'
-import StarRating from 'react-native-star-rating'
-import PVList from '../../pv/PVLIst/index'
+import React from 'react';
+import { View, Text } from 'react-native';
+import images from '../../../common/assets/images';
+import Icon from '../../../components/Icon/index';
+import Theme from '../../../theme';
+import TagGroup from '../../tag/TagGroup/index';
+import WebLinkList from '../../webLink/WebLinkList/index';
+import EventList from '../../releaseEvent/EventList/index';
+import ScrollableTabView from 'react-native-scrollable-tab-view';
+import ArtistRoleList from '../../artistRole/ArtistRoleList/index';
+import Cover from '../../../components/Cover/index';
+import Content from '../../../components/Content/index';
+import TrackList from '../../track/TrackList/index';
+import Divider from '../../../components/Divider/index';
+import Expander from './../../../components/Expander';
+import StarRating from 'react-native-star-rating';
+import PVList from '../../pv/PVLIst/index';
+import i18n from './../../../common/i18n';
 
 class AlbumDetail extends React.Component {
 
@@ -26,7 +27,7 @@ class AlbumDetail extends React.Component {
         const { params } = this.props.navigation.state;
         this.props.fetchAlbum(params.id)
 
-        setTimeout(() => { this.setState({ shouldRender: true }) }, 0)
+        setTimeout(() => { this.setState({ shouldRender: true }) }, 0);
     }
 
     render () {
@@ -79,14 +80,14 @@ class AlbumDetail extends React.Component {
                     <View  style={{ padding: 4 }}>
                         <Text style={Theme.boxValue}>{album.discType}</Text>
                     </View>
-                    <Text style={Theme.boxTitle}>Type</Text>
+                    <Text style={Theme.boxTitle}>{i18n.discType}</Text>
                 </View>
 
                 <View style={{ alignItems: 'center'}}>
                     <View  style={{ padding: 4 }}>
                         <Text style={Theme.boxValue}>{(album && album.releaseDate && album.releaseDate.formatted)? album.releaseDate.formatted : 'Unknown'}</Text>
                     </View>
-                    <Text style={Theme.boxTitle}>Release</Text>
+                    <Text style={Theme.boxTitle}>{i18n.releaseDate}</Text>
                 </View>
             </Section>
         )
@@ -97,14 +98,14 @@ class AlbumDetail extends React.Component {
                     content={
                         <View>
                             <RenderOrNull shouldRender={true}>
-                                <Text style={[Theme.subhead, { padding: 8 }]}>Name</Text>
+                                <Text style={[Theme.subhead, { padding: 8 }]}>{i18n.name}</Text>
                                 <View style={{ paddingHorizontal: 8 }}>
                                     <Text style={Theme.body} >{album.name}</Text>
                                     <Text style={Theme.body} >{album.additionalNames}</Text>
                                 </View>
                             </RenderOrNull>
                             <RenderOrNull shouldRender={album.description}>
-                                <Text style={[Theme.subhead, { padding: 8 }]}>Description</Text>
+                                <Text style={[Theme.subhead, { padding: 8 }]}>{i18n.description}</Text>
                                 <View style={{ paddingHorizontal: 8 }}>
                                     <Text style={Theme.body} >{album.description}</Text>
                                 </View>
@@ -133,7 +134,7 @@ class AlbumDetail extends React.Component {
         const renderPVList = () => (
             <Section>
                 <Divider />
-                <PVList pvs={album.pvs} title='Ads / crossfades' showHeader />
+                <PVList pvs={album.pvs} title={i18n.ads} showHeader />
             </Section>
         )
 
@@ -170,9 +171,9 @@ class AlbumDetail extends React.Component {
                     {renderAdditionalInfo()}
 
                     <Section style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around' }}>
-                        {!this.props.isFavoriteAlbum && <Icon name='md-heart' text='Follow' onPress={() => this.props.onPressAddFavorite(album)} />}
-                        {this.props.isFavoriteAlbum && <Icon name='md-heart' text='Follow' color={Theme.buttonActiveColor} onPress={() => this.props.onPressRemoveFavorite(album)} />}
-                        <Icon name='md-share' text='Share' onPress={() => this.props.onPressShare(album)} />
+                        {!this.props.isFavoriteAlbum && <Icon name='md-heart' text={i18n.add} onPress={() => this.props.onPressAddFavorite(album)} />}
+                        {this.props.isFavoriteAlbum && <Icon name='md-heart' text={i18n.add} color={Theme.buttonActiveColor} onPress={() => this.props.onPressRemoveFavorite(album)} />}
+                        <Icon name='md-share' text={i18n.share} onPress={() => this.props.onPressShare(album)} />
                         <Icon name='md-globe' text='VocaDB' onPress={() => this.props.onPressToVocaDB(album)} />
                     </Section>
 
@@ -184,8 +185,8 @@ class AlbumDetail extends React.Component {
                     {album.webLinks && album.webLinks.length > 0 && renderWebLinks()}
 
                 </Content>
-                <ArtistRoleListPage tabLabel='Artists' />
-                {album.releaseEvents && album.releaseEvents.length > 0 && <EventListPage tabLabel='Events' />}
+                <ArtistRoleListPage tabLabel={i18n.artists} />
+                {album.releaseEvents && album.releaseEvents.length > 0 && <EventListPage tabLabel={i18n.events} />}
             </ScrollableTabView>
         )
     }

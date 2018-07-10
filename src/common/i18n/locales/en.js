@@ -118,6 +118,7 @@ t[labels.illustratorOf] = 'Illustrator of';
 t[labels.voiceProviderOf] = 'Voice provider of';
 t[labels.designerOf] = 'Designer of';
 t[labels.duration] = 'Duration';
+t[labels.add] = 'Add'
 
 // Menu
 t[labels.favoriteSongs] = 'Favorite songs';
