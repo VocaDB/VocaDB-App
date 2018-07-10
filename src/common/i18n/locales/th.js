@@ -110,7 +110,7 @@ t[labels.venue] = 'สถานที่';
 t[labels.description] = 'รายละเอียด';
 t[labels.relatedLink] = 'ลิงค์ที่เกี่ยวข้อง';
 t[labels.setlist] = 'Setlist';
-t[labels.groupAndLabels] = 'สังกัด';
+t[labels.groupAndLabels] = 'ค่าย / สังกัด';
 t[labels.illustratedBy] = 'วาดโดย';
 t[labels.voiceProvider] = 'ผู้ให้เสียง';
 t[labels.characterDesigner] = 'ผู้ออกแบบตัวละคร';
@@ -118,7 +118,11 @@ t[labels.illustratorOf] = 'ผู้วาดให้กับ';
 t[labels.voiceProviderOf] = 'ผู้ให้เสียงให้กับ';
 t[labels.designerOf] = 'ออกแบบให้กับ';
 t[labels.duration] = 'ความยาว';
-t[labels.add] = 'เพิ่ม'
+t[labels.add] = 'เพิ่ม';
+t[labels.follow] = 'ติดตาม';
+t[labels.following] = 'กำลังติดตาม';
+t[labels.baseVoicebank] = 'เสียงดั้งเดิม';
+t[labels.series] = 'Series';
 
 // Menu
 t[labels.favoriteSongs] = 'เพลงโปรด';

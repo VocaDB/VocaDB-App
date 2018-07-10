@@ -119,5 +119,8 @@ export default {
     designerOf: 'designerOf',
     detail: 'detail',
     lyrics: 'lyrics',
-    add: 'add'
+    add: 'add',
+    baseVoicebank: 'baseVoicebank',
+    follow: 'follow',
+    following: 'following'
 };

@@ -1,18 +1,17 @@
-import React from 'react'
-import ScrollableTabView from 'react-native-scrollable-tab-view'
-import { View, Text, Image } from 'react-native'
-import Icon from '../../../components/Icon/index'
-import { ListItem } from 'react-native-material-ui';
-import { SongRowList } from '../../song/songHOC'
-import AlbumGridView from '../../album/AlbumGridView'
-import Content from '../../../components/Content/index'
-import Theme from '../../../theme'
-import moment from 'moment'
-import WebLinkList from '../../webLink/WebLinkList'
-import ArtistRoleList from '../../artistRole/ArtistRoleList'
-import Cover from '../../../components/Cover/index'
-import { Button } from 'react-native-material-ui'
-import { SongRankingList } from './../../song/songHOC'
+import React from 'react';
+import ScrollableTabView from 'react-native-scrollable-tab-view';
+import { View, Text } from 'react-native';
+import Icon from '../../../components/Icon/index';
+import { SongRowList } from '../../song/songHOC';
+import AlbumGridView from '../../album/AlbumGridView';
+import Content from '../../../components/Content/index';
+import Theme from '../../../theme';
+import moment from 'moment';
+import WebLinkList from '../../webLink/WebLinkList';
+import ArtistRoleList from '../../artistRole/ArtistRoleList';
+import Cover from '../../../components/Cover/index';
+import { SongRankingList } from './../../song/songHOC';
+import i18n from './../../../common/i18n';
 
 class EventDetail extends React.Component {
 
@@ -21,12 +20,12 @@ class EventDetail extends React.Component {
     }
 
     componentDidMount () {
-        const { params } = this.props.navigation.state
+        const { params } = this.props.navigation.state;
         if(params) {
-            this.props.fetchEvent(params.id)
+            this.props.fetchEvent(params.id);
         }
 
-        setTimeout(() => { this.setState({ shouldRender: true }) }, 0)
+        setTimeout(() => { this.setState({ shouldRender: true }) }, 0);
     }
 
     render () {
@@ -38,8 +37,6 @@ class EventDetail extends React.Component {
         }
 
         const webLinks = (event.webLinks)? event.webLinks : []
-        // const imageUrl = (event.mainPicture) ? event.mainPicture.urlThumb.replace('mainThumb', 'mainOrig')
-        //     : 'https://via.placeholder.com/350x150/000000/ffffff?text=EVENT';
 
         const RenderOrNull = props => {
             if(props.shouldRender) {
@@ -58,7 +55,7 @@ class EventDetail extends React.Component {
         const Section = props => (<View style={[{ marginVertical: 8, paddingHorizontal: 4 },props.style]}>{props.children}</View>)
 
         const renderInfoPage = (
-            <Content tabLabel='Info'>
+            <Content tabLabel={i18n.info}>
                 <Cover
                     imageUri={event.image}
                     title={event.name}
@@ -66,37 +63,37 @@ class EventDetail extends React.Component {
                 />
                 <View>
                     <Section style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around' }}>
-                        <Icon name='md-share' text='Share' onPress={() => this.props.onPressShare(event)} />
+                        <Icon name='md-share' text={i18n.share} onPress={() => this.props.onPressShare(event)} />
                         <Icon name='md-globe' text='VocaDB' onPress={() => this.props.onPressToVocaDB(event)} />
                     </Section>
 
                     <RenderOrNull shouldRender={(event && event.date)}>
-                        <SectionHeader text='Date' />
+                        <SectionHeader text={i18n.date} />
                         <Text style={Theme.body}>{moment(event.date).format('dddd, MMMM Do YYYY')}</Text>
                     </RenderOrNull>
 
                     <RenderOrNull shouldRender={(event && event.venueName)}>
-                        <SectionHeader text='Venue' />
+                        <SectionHeader text={i18n.venue} />
                         <Text style={Theme.body}>{event.venueName}</Text>
                     </RenderOrNull>
 
                     <RenderOrNull shouldRender={(this.props.series && this.props.series.id)}>
-                        <SectionHeader text='Series' />
+                        <SectionHeader text={i18n.series} />
                         <Text style={Theme.body}>{this.props.series.name}</Text>
                     </RenderOrNull>
 
                     <RenderOrNull shouldRender={(event && event.description)}>
-                        <SectionHeader text='Description' />
+                        <SectionHeader text={i18n.description} />
                         <Text style={Theme.body}>{event.description}</Text>
                     </RenderOrNull>
 
                     <RenderOrNull shouldRender={(webLinks && webLinks.length)}>
-                        <SectionHeader text='Related links' />
+                        <SectionHeader text={i18n.relatedLink} />
                         <WebLinkList webLinks={webLinks} />
                     </RenderOrNull>
 
                     <RenderOrNull shouldRender={(this.props.songListSongs && this.props.songListSongs.length)}>
-                        <SectionHeader text='Setlist' />
+                        <SectionHeader text={i18n.setlist} />
                         <SongRankingList data={this.props.songListSongs} />
                     </RenderOrNull>
 
@@ -134,9 +131,9 @@ class EventDetail extends React.Component {
         return (
             <ScrollableTabView>
                 {renderInfoPage}
-                {hasArtist && <ArtistRoleListPage tabLabel={`Artists (${artists.length})`} />}
-                {hasSong && <SongListPage tabLabel={`Songs (${this.props.songs.length})`} />}
-                {hasAlbum && <AlbumListPage tabLabel={`Albums (${this.props.albums.length})`} />}
+                {hasArtist && <ArtistRoleListPage tabLabel={`${i18n.artists} (${artists.length})`} />}
+                {hasSong && <SongListPage tabLabel={`${i18n.songs} (${this.props.songs.length})`} />}
+                {hasAlbum && <AlbumListPage tabLabel={`${i18n.albums} (${this.props.albums.length})`} />}
             </ScrollableTabView>
         )
     }

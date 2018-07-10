@@ -76,19 +76,19 @@ export const sortItems = [
 
 export const translateLinkType = (linkType) => {
     switch (linkType) {
-        case 'Group': return 'Groups and labels';
-        case 'Illustrator': return 'Illustrated by';
-        case 'VoiceProvider': return 'Voice provider';
-        case 'CharacterDesigner': return 'Character designer';
+        case 'Group': return i18n.groupAndLabels;
+        case 'Illustrator': return i18n.illustratedBy;
+        case 'VoiceProvider': return i18n.voiceProvider;
+        case 'CharacterDesigner': return i18n.characterDesigner;
         default : return linkType;
     }
 }
 
 export const translateReverseLinkType = (linkType) => {
     switch (linkType) {
-        case 'Illustrator': return 'Illustrator of';
-        case 'VoiceProvider': return 'Voice provider of';
-        case 'CharacterDesigner': return 'Designer of';
+        case 'Illustrator': return i18n.illustratorOf;
+        case 'VoiceProvider': return i18n.voiceProviderOf;
+        case 'CharacterDesigner': return i18n.designerOf;
         default : return linkType;
     }
 }

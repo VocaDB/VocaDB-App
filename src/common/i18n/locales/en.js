@@ -119,6 +119,10 @@ t[labels.voiceProviderOf] = 'Voice provider of';
 t[labels.designerOf] = 'Designer of';
 t[labels.duration] = 'Duration';
 t[labels.add] = 'Add'
+t[labels.follow] = 'Follow'
+t[labels.following] = 'Following'
+t[labels.baseVoicebank] = 'Base voicebank';
+t[labels.series] = 'Series';
 
 // Menu
 t[labels.favoriteSongs] = 'Favorite songs';

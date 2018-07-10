@@ -1,24 +1,23 @@
-import React from 'react'
-import { View, Text, ActivityIndicator } from 'react-native'
-import images from '../../../common/assets/images'
-import Icon from '../../../components/Icon/index'
-import Theme from '../../../theme'
-import TagGroup from '../../tag/TagGroup/index'
-import WebLinkList from '../../webLink/WebLinkList/index'
-import EventList from '../../releaseEvent/EventList/index'
-import SongList from '../../song/SongList/index'
-import ScrollableTabView from 'react-native-scrollable-tab-view'
-import AlbumList from '../../album/AlbumList/index'
-import Content from '../../../components/Content/index'
-import Cover from '../../../components/Cover/index'
-import Divider from '../../../components/Divider/index'
-import SongHorizontalList from '../../song/SongHorizontalList'
-import AlbumHorizontalList from '../../album/AlbumHorizontalList'
-import AlbumGridView from '../../album/AlbumGridView'
-import Expander from './../../../components/Expander'
-import ArtistRow from './../ArtistRow'
-import moment from 'moment'
-import { SongRowList } from './../../song/songHOC'
+import React from 'react';
+import { View, Text, ActivityIndicator } from 'react-native';
+import images from '../../../common/assets/images';
+import Icon from '../../../components/Icon/index';
+import Theme from '../../../theme';
+import TagGroup from '../../tag/TagGroup/index';
+import WebLinkList from '../../webLink/WebLinkList/index';
+import EventList from '../../releaseEvent/EventList/index';
+import ScrollableTabView from 'react-native-scrollable-tab-view';
+import Content from '../../../components/Content/index';
+import Cover from '../../../components/Cover/index';
+import Divider from '../../../components/Divider/index';
+import SongHorizontalList from '../../song/SongHorizontalList';
+import AlbumHorizontalList from '../../album/AlbumHorizontalList';
+import AlbumGridView from '../../album/AlbumGridView';
+import Expander from './../../../components/Expander';
+import ArtistRow from './../ArtistRow';
+import moment from 'moment';
+import { SongRowList } from './../../song/songHOC';
+import i18n from './../../../common/i18n';
 
 class ArtistDetailPage extends React.Component {
 
@@ -30,7 +29,7 @@ class ArtistDetailPage extends React.Component {
         const { params } = this.props.navigation.state;
         this.props.fetchArtist(params.id)
 
-        setTimeout(() => { this.setState({ shouldRender: true }) }, 0)
+        setTimeout(() => { this.setState({ shouldRender: true }) }, 0);
     }
 
     render () {
@@ -99,26 +98,26 @@ class ArtistDetailPage extends React.Component {
                     content={
                         <View>
                             <RenderOrNull shouldRender={true}>
-                                <Text style={[Theme.subhead, { padding: 8 }]}>Name</Text>
+                                <Text style={[Theme.subhead, { padding: 8 }]}>{i18n.name}</Text>
                                 <View style={{ paddingHorizontal: 8 }}>
                                     <Text style={Theme.body} >{artist.name}</Text>
                                     <Text style={Theme.body} >{artist.additionalNames}</Text>
                                 </View>
                             </RenderOrNull>
                             <RenderOrNull shouldRender={artist.releaseDate}>
-                                <Text style={[Theme.subhead, { padding: 8 }]}>Release date</Text>
+                                <Text style={[Theme.subhead, { padding: 8 }]}>{i18n.voicebankReleaseDate}</Text>
                                 <View style={{ paddingHorizontal: 8 }}>
                                     <Text style={Theme.body} >{(artist && artist.releaseDate)? moment(artist.releaseDate).format('MM/DD/YYYY') : ''}</Text>
                                 </View>
                             </RenderOrNull>
                             <RenderOrNull shouldRender={artist.description}>
-                                <Text style={[Theme.subhead, { padding: 8 }]}>Description</Text>
+                                <Text style={[Theme.subhead, { padding: 8 }]}>{i18n.description}</Text>
                                 <View style={{ paddingHorizontal: 8 }}>
                                     <Text style={Theme.body} >{artist.description}</Text>
                                 </View>
                             </RenderOrNull>
                             <RenderOrNull shouldRender={this.props.baseVoicebank != null}>
-                                <Text style={[Theme.subhead, { padding: 8 }]}>Base voicebank</Text>
+                                <Text style={[Theme.subhead, { padding: 8 }]}>{i18n.baseVoicebank}</Text>
                                 <View style={{ paddingHorizontal: 8 }}>
                                     <ArtistRow
                                         id={baseArtist.id}
@@ -151,11 +150,11 @@ class ArtistDetailPage extends React.Component {
         )
 
         const renderPopularSongs = () => (
-                <SongHorizontalList title='Popular songs' songs={popularSongs} onPressItem={this.props.onPressSong} />
+                <SongHorizontalList title={i18n.popularSongs} songs={popularSongs} onPressItem={this.props.onPressSong} />
         )
 
         const renderPopularAlbums = () => (
-                <AlbumHorizontalList title='Popular albums' albums={popularAlbums} onPressItem={this.props.onPressAlbum} />
+                <AlbumHorizontalList title={i18n.popularAlbums} albums={popularAlbums} onPressItem={this.props.onPressAlbum} />
         )
 
         const renderWebLink = () => (
@@ -175,9 +174,9 @@ class ArtistDetailPage extends React.Component {
                     subtitle={artist.artistType}
                 />
                 <Section style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around' }}>
-                    {!this.props.followed && <Icon name='md-heart' text='Follow' onPress={() => this.props.onPressFollow(artist)} />}
-                    {this.props.followed && <Icon name='md-heart' text='Followed' color={Theme.buttonActiveColor} onPress={() => this.props.onPressUnFollow(artist)} />}
-                    <Icon name='md-share' text='Share' onPress={() => this.props.onPressShare(artist)} />
+                    {!this.props.followed && <Icon name='md-heart' text={i18n.follow} onPress={() => this.props.onPressFollow(artist)} />}
+                    {this.props.followed && <Icon name='md-heart' text={i18n.following} color={Theme.buttonActiveColor} onPress={() => this.props.onPressUnFollow(artist)} />}
+                    <Icon name='md-share' text={i18n.share} onPress={() => this.props.onPressShare(artist)} />
                     <Icon name='md-globe' text='VocaDB' onPress={() => this.props.onPressToVocaDB(artist)} />
                 </Section>
                 {renderExpandableContent()}
@@ -197,9 +196,9 @@ class ArtistDetailPage extends React.Component {
         return (
             <ScrollableTabView>
                 {renderInfoPage}
-                {latestSongs && latestSongs.length > 0 && <SongRowList tabLabel='Songs' data={latestSongs} onPressItem={this.props.onPressSong} />}
-                {hasAlbum && <AlbumGridView tabLabel='Albums' albums={latestAlbums} onPressItem={this.props.onPressAlbum} />}
-                {hasEvent && <EventListPage tabLabel='Events' />}
+                {latestSongs && latestSongs.length > 0 && <SongRowList tabLabel={i18n.songs} data={latestSongs} onPressItem={this.props.onPressSong} />}
+                {hasAlbum && <AlbumGridView tabLabel={i18n.albums}  albums={latestAlbums} onPressItem={this.props.onPressAlbum} />}
+                {hasEvent && <EventListPage tabLabel={i18n.events}  />}
             </ScrollableTabView>
         )
     }
