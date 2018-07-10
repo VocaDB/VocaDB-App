@@ -3,6 +3,7 @@ import en from './locales/en';
 import th from './locales/th';
 import zh from './locales/zh';
 import ja from './locales/ja';
+import ms from './locales/ms';
 import labels from './../constants/labels';
 import _ from 'lodash';
 
@@ -12,7 +13,8 @@ I18n.translations = {
     en,
     ja,
     zh,
-    th
+    th,
+    ms
 };
 
 const translate = _.mapValues(labels, v => I18n.t(v));
