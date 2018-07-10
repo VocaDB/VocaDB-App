@@ -1,15 +1,13 @@
 import React from 'react';
 import { View, Text, ActivityIndicator } from 'react-native';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 import { Dropdown } from 'react-native-material-dropdown';
-import Page from '../../../components/Page'
-import Content from '../../../components/Content'
-import { ButtonGroup } from 'react-native-elements'
-import { SongRankingList  } from './../../song/songHOC'
-import _ from 'lodash'
-import Theme from '../../../theme'
-import { durationHoursHelper, filterByHelper, vocalistHelper } from './SongRankingHelper'
-import Icon from './../../../components/Icon'
+import { ButtonGroup } from 'react-native-elements';
+import { SongRankingList  } from './../../song/songHOC';
+import Theme from '../../../theme';
+import { durationHoursHelper, filterItems, vocalistItems } from './SongRankingHelper';
+import Icon from './../../../components/Icon';
+import i18n from './../../../common/i18n';
 
 class SongRanking extends React.Component {
 
@@ -48,22 +46,26 @@ class SongRanking extends React.Component {
                         <View style={{ flexDirection: 'row', paddingHorizontal: 8 }}>
                             <View style={{ flex: 1, padding: 4 }}>
                                 <Dropdown
-                                    label='Filter by'
-                                    value={filterByHelper.valueToLabel(this.props.filterBy)}
-                                    onChangeText={text => {
-                                        this.props.onFilterByChanged(filterByHelper.labelToValue(text))
+                                    label={i18n.filter}
+                                    value={this.props.filterBy}
+                                    onChangeText={value => {
+                                        this.props.onFilterByChanged(value)
                                     }}
-                                    data={filterByHelper.labelsToSelectItems()}
+                                    data={filterItems}
+                                    valueExtractor={item => item.value}
+                                    labelExtractor={item => item.label}
                                 />
                             </View>
                             <View style={{ flex: 1, padding: 4 }}>
                                 <Dropdown
-                                    label='Vocalist'
-                                    value={vocalistHelper.valueToLabel(this.props.vocalist)}
-                                    onChangeText={text => {
-                                        this.props.onVocalistChanged(vocalistHelper.labelToValue(text))
+                                    label={i18n.vocalist}
+                                    value={this.props.vocalist}
+                                    onChangeText={value => {
+                                        this.props.onVocalistChanged(value)
                                     }}
-                                    data={vocalistHelper.labelsToSelectItems()}
+                                    data={vocalistItems}
+                                    valueExtractor={item => item.value}
+                                    labelExtractor={item => item.label}
                                 />
                             </View>
                         </View>
@@ -114,8 +116,8 @@ SongRanking.propTypes = {
 SongRanking.defaultProps = {
     songs: [],
     durationHours: durationHoursHelper.values.Weekly,
-    filterBy: filterByHelper.values.NewlyAdded,
-    vocalist: vocalistHelper.values.All,
+    filterBy: 'NewlyAdded',
+    vocalist: 'All',
     onFilterByChanged: value => console.log('filter by ' + value),
     onDurationHoursChanged: value => console.log('Duration ' + value),
     onVocalistChanged: value => console.log('Vocalist ' + value)

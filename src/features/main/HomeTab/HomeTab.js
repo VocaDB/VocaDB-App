@@ -1,14 +1,13 @@
-import React from 'react'
-import { View, Text, TouchableOpacity, StyleSheet, RefreshControl, SectionList, FlatList, ScrollView, Dimensions } from 'react-native'
+import React from 'react';
+import { View, Text, TouchableOpacity, StyleSheet, RefreshControl, SectionList, FlatList, ScrollView, Dimensions } from 'react-native';
 import { Avatar } from 'react-native-material-ui';
-import PropTypes from 'prop-types'
-import FeatureList from './../FeatureList'
-import Theme from '../../../theme'
-import Content from '../../../components/Content'
-import Divider from '../../../components/Divider'
-import SongCard from '../../song/SongCard'
-import AlbumCard from '../../album/AlbumCard'
-import EventCard from '../../releaseEvent/EventCard'
+import PropTypes from 'prop-types';
+import FeatureList from './../FeatureList';
+import Theme from '../../../theme';
+import SongCard from '../../song/SongCard';
+import AlbumCard from '../../album/AlbumCard';
+import EventCard from '../../releaseEvent/EventCard';
+import i18n from './../../../common/i18n';
 
 
 class HomeTab extends React.PureComponent {
@@ -17,7 +16,7 @@ class HomeTab extends React.PureComponent {
         const MenuIcon = (props) => (
             <TouchableOpacity style={{ alignItems: 'center', flex: 1, margin: 8 }} onPress={props.onPress}>
                 <Avatar icon={props.icon} style={{ container: { backgroundColor: props.color, margin: 4 } }}  />
-                <Text style={Theme.caption}>{props.text}</Text>
+                <Text style={[Theme.caption, { textAlign: 'center' }]} textBreakStrategy='balanced'>{props.text}</Text>
             </TouchableOpacity>
         )
 
@@ -85,11 +84,11 @@ class HomeTab extends React.PureComponent {
                 onRefresh={this.props.refresh}
                 ListHeaderComponent={(
                     <HomeHeader>
-                        <MenuIcon icon='music-note' color='#00C853' text='Songs' onPress={this.props.onPressSongSearch} />
-                        <MenuIcon icon='person' color='#d50000' text='Artists' onPress={this.props.onPressArtistSearch} />
-                        <MenuIcon icon='album' color='#283593' text='Albums' onPress={this.props.onPressAlbumSearch} />
-                        <MenuIcon icon='event' color='#FFD600' text='Events' onPress={this.props.onPressEventSearch} />
-                        <MenuIcon icon='label' color='#6D4C41' text='Tags' onPress={this.props.onPressTagSearch} />
+                        <MenuIcon icon='music-note' color='#00C853' text={i18n.songs} onPress={this.props.onPressSongSearch} />
+                        <MenuIcon icon='person' color='#d50000' text={i18n.artists} onPress={this.props.onPressArtistSearch} />
+                        <MenuIcon icon='album' color='#283593' text={i18n.albums} onPress={this.props.onPressAlbumSearch} />
+                        <MenuIcon icon='event' color='#FFD600' text={i18n.events} onPress={this.props.onPressEventSearch} />
+                        <MenuIcon icon='label' color='#6D4C41' text={i18n.tags} onPress={this.props.onPressTagSearch} />
                     </HomeHeader>
 
                 )}
@@ -98,28 +97,28 @@ class HomeTab extends React.PureComponent {
                 data={[
                     {
                         key: 0,
-                        title: 'Highlighted PVs',
+                        title: i18n.highlightPVs,
                         data: this.props.recentSongs,
                         renderItem: renderSongCard,
                         onPressMore: this.props.onPressMoreRecentSongs
                     },
                     {
                         key: 1,
-                        title: 'Recent or upcoming albums',
+                        title: i18n.recentAlbums,
                         data: this.props.recentAlbums,
                         renderItem: renderAlbumCard,
                         onPressMore: this.props.onPressMoreRecentAlbums
                     },
                     {
                         key: 2,
-                        title: 'Random popular albums',
+                        title: i18n.randomPopularAlbums,
                         data: this.props.topAlbums,
                         renderItem: renderAlbumCard,
                         onPressMore: this.props.onPressMoreTopAlbums
                     },
                     {
                         key: 3,
-                        title: 'Incoming event',
+                        title: i18n.upcomingEvent,
                         data: this.props.latestEvents,
                         renderItem: renderEventCard,
                         onPressMore: this.props.onPressEventSearch

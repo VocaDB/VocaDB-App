@@ -1,9 +1,12 @@
+import _ from 'lodash';
+import i18n from './../../../common/i18n';
+
 export const durationHoursHelper = {
     labels: {
-        Daily: 'Daily',
-        Weekly: 'Weekly',
-        Monthly: 'Monthly',
-        Overall: 'Overall'
+        Daily: i18n.daily,
+        Weekly: i18n.weekly,
+        Monthly: i18n.monthly,
+        Overall: i18n.overall
     },
     values: {
         Daily: 24,
@@ -16,87 +19,53 @@ export const durationHoursHelper = {
     },
     valueToLabel: function(value) {
         const selectedKey = _.findKey(this.values, v => v === value)
-        return this.labels[selectedKey]
+        return this.labels[selectedKey];
     },
     labelsToArray: function() {
-        return _.keys(this.labels)
+        return _.values(this.labels);
     },
     indexToValue: function(index) {
-        const label = this.labelsToArray()[index];
+        const label = _.keys(this.labels)[index];
         return this.labelToValue(label);
     },
     indexOfLabel: function(label) {
-        return this.labelsToArray().indexOf(label)
+        return this.labelsToArray().indexOf(label);
     },
     valueToIndex: function(value) {
-        return _.values(this.values).indexOf(value)
+        return _.values(this.values).indexOf(value);
     }
 }
 
-export const filterByHelper = {
-    labels: {
-        NewlyAdded: 'Newly Added',
-        NewlyPublished: 'Newly published',
-        Popularity: 'Popularity'
+export const filterItems = [
+    {
+        label: i18n.newlyAdded,
+        value: 'CreateDate'
     },
-    values: {
-        NewlyAdded: 'CreateDate',
-        NewlyPublished: 'PublishDate',
-        Popularity: 'Popularity'
+    {
+        label: i18n.newlyPublished,
+        value: 'PublishDate'
     },
-    labelToValue: function(label) {
-        return this.values[label];
-    },
-    valueToLabel: function(value) {
-        const selectedKey = _.findKey(this.values, v => v === value)
-        return this.labels[selectedKey]
-    },
-    labelsToArray: function() {
-        return _.keys(this.labels)
-    },
-    labelsToSelectItems: function() {
-        return _.keys(this.labels).map(value => ({ value }))
-    },
-    indexToValue: function(index) {
-        const label = this.labelsToArray()[index];
-        return this.labelToValue(label);
-    },
-    indexOfLabel: function(label) {
-        return this.labelsToArray().indexOf(label)
+    {
+        label: i18n.popularity,
+        value: 'Popularity'
     }
-}
+]
 
-export const vocalistHelper = {
-    labels: {
-        All: 'All',
-        Vocaloid: 'Vocaloid',
-        UTAU: 'UTAU',
-        Other: 'Other'
+export const vocalistItems = [
+    {
+        label: i18n.all,
+        value: 'All'
     },
-    values: {
-        All: 'All',
-        Vocaloid: 'Vocaloid',
-        UTAU: 'UTAU',
-        Other: 'CeVIO'
+    {
+        label: i18n.vocaloid,
+        value: 'Vocaloid'
     },
-    labelToValue: function(label) {
-        return this.values[label];
+    {
+        label: i18n.utau,
+        value: 'UTAU'
     },
-    valueToLabel: function(value) {
-        const selectedKey = _.findKey(this.values, v => v === value)
-        return this.labels[selectedKey]
-    },
-    labelsToArray: function() {
-        return _.keys(this.labels)
-    },
-    labelsToSelectItems: function() {
-        return _.keys(this.labels).map(value => ({ value }))
-    },
-    indexToValue: function(index) {
-        const label = this.labelsToArray()[index];
-        return this.labelToValue(label);
-    },
-    indexOfLabel: function(label) {
-        return this.labelsToArray().indexOf(label)
+    {
+        label: 'CeVIO',
+        value: 'Other'
     }
-}
+]

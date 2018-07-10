@@ -1,3 +1,5 @@
+import i18n from './../../common/i18n';
+
 export const entryStatusItems = [
     {
         value: ''
@@ -18,15 +20,19 @@ export const entryStatusItems = [
 
 export const sortItems = [
     {
-        value: 'Name'
+        value: 'Name',
+        label: i18n.name
     },
     {
-        value: 'AdditionDate'
+        value: 'AdditionDate',
+        label: i18n.additionDate
     },
     {
-        value: 'FavoritedTimes'
+        value: 'FavoritedTimes',
+        label: i18n.favoritedTimes
     },
     {
-        value: 'RatingScore'
+        value: 'RatingScore',
+        label: i18n.ratingScore
     }
 ]

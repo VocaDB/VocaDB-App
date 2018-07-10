@@ -1,8 +1,9 @@
-import React from 'react'
-import { View, Text, TouchableOpacity, SectionList } from 'react-native'
-import PropTypes from 'prop-types'
-import Track from '../Track/index'
-import Theme from '../../../theme'
+import React from 'react';
+import { View, Text } from 'react-native';
+import PropTypes from 'prop-types';
+import Track from '../Track/index';
+import Theme from '../../../theme';
+import i18n from './../../../common/i18n';
 
 class TrackList extends React.Component {
     render () {
@@ -39,7 +40,7 @@ class TrackList extends React.Component {
 
                 return (
                     <View key={discNumber}>
-                        <Text style={[Theme.subhead, { alignSelf: 'center' }]}>Disc {discNumber}</Text>
+                        <Text style={[Theme.subhead, { alignSelf: 'center' }]}>{i18n.disc} {discNumber}</Text>
                         {renderTrackList()}
                     </View>
                 )
@@ -48,7 +49,7 @@ class TrackList extends React.Component {
             return (
                 <View>
                     <View style={{ margin: 4}}>
-                        <Text style={Theme.subhead}>Tracklist</Text>
+                        <Text style={Theme.subhead}>{i18n.trackList}</Text>
                     </View>
                     {uniqueDiscs}
                 </View>
@@ -76,7 +77,7 @@ class TrackList extends React.Component {
             return (
                 <View>
                     <View style={{ margin: 4}}>
-                        <Text style={Theme.subhead}>Tracklist</Text>
+                        <Text style={Theme.subhead}>{i18n.trackList}</Text>
                     </View>
                     {renderTrackList()}
                 </View>

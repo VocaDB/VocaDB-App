@@ -1,18 +1,19 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import EventSearch from './EventSearch'
+import React from 'react';
+import { connect } from 'react-redux';
+import EventSearch from './EventSearch';
 import { createSelector } from 'reselect';
-import * as eventActions from '../releaseEventActions'
-import { selectSearchResult, selectSearchParams, selectNoResult } from '../releaseEventSelector'
-import { selectLoading } from '../../../app/appSelector'
-import Routes from './../../../app/appRoutes'
+import * as eventActions from '../releaseEventActions';
+import { selectSearchResult, selectSearchParams, selectNoResult } from '../releaseEventSelector';
+import { selectLoading } from '../../../app/appSelector';
+import Routes from './../../../app/appRoutes';
+import i18n from './../../../common/i18n';
 
 EventSearch.navigationOptions = ({ navigation }) => {
 
     const { params } = navigation.state;
 
     const navOptions = {
-        title: params ? params.title : 'Songs',
+        title: params ? params.title : i18n.events,
     }
 
     if(params.hideHeader) {

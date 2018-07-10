@@ -1,29 +1,29 @@
-// Japanese
+// Russian
 
 import labels from './../../constants/labels';
 
 const t = {}
 
 // Main or Common
-t[labels.songs] = '曲';
-t[labels.albums] = 'アルバム';
-t[labels.artists] = 'アーティスト';
-t[labels.events] = 'イベント';
-t[labels.tags] = 'タグ';
-t[labels.seeMore] = 'もっと見る';
-t[labels.highlightPVs] = '最近追加された動画';
-t[labels.recentAlbums] = '新しいアルバム';
-t[labels.randomPopularAlbums] = '最も人気のあるアルバム';
+t[labels.songs] = 'Songs';
+t[labels.albums] = 'Albums';
+t[labels.artists] = 'Artists';
+t[labels.events] = 'Events';
+t[labels.tags] = 'Tags';
+t[labels.seeMore] = 'See more';
+t[labels.highlightPVs] = 'Highlight PVs';
+t[labels.recentAlbums] = 'Recent or upcoming albums';
+t[labels.randomPopularAlbums] = 'Random popular albums';
 t[labels.upcomingEvent] = 'Upcoming events';
 t[labels.other] = 'Other';
 t[labels.info] = 'Info';
 t[labels.detail] = 'Detail';
 
 // Ranking
-t[labels.daily] = '24時間';
-t[labels.weekly] = '週間';
-t[labels.monthly] = '月間';
-t[labels.overall] = '合計';
+t[labels.daily] = 'Daily';
+t[labels.weekly] = 'Weekly';
+t[labels.monthly] = 'Monthly';
+t[labels.overall] = 'Overall';
 
 // Filter
 t[labels.findSong] = 'Find song';

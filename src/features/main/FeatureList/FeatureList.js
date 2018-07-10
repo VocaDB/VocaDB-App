@@ -3,6 +3,7 @@ import { View, Text, ScrollView, StyleSheet, FlatList } from 'react-native'
 import PropTypes from 'prop-types'
 import Theme from '../../../theme'
 import { Button } from 'react-native-material-ui';
+import i18n from './../../../common/i18n';
 
 class FeatureList extends React.PureComponent {
     render () {
@@ -13,7 +14,7 @@ class FeatureList extends React.PureComponent {
             <View style={[styles.container]}>
                 <View style={[styles.headerContainer]}>
                     <Text style={Theme.subhead}>{this.props.title}</Text>
-                    {this.props.displayMoreButton && <Button primary text="See more" onPress={this.props.onPressMore} />}
+                    {this.props.displayMoreButton && <Button primary text={i18n.seeMore} onPress={this.props.onPressMore} />}
                 </View>
                 <FlatList
                     horizontal

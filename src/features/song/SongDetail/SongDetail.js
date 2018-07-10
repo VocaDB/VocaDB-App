@@ -1,21 +1,20 @@
-import React from 'react'
-import { View, Text, ScrollView, ActivityIndicator } from 'react-native'
-import AlbumList from '../../album/AlbumList/index'
-import Icon from '../../../components/Icon/index'
-import TagGroup from '../../tag/TagGroup/index'
-import ArtistRoleList from '../../artistRole/ArtistRoleList/index'
-import WebLinkList from '../../webLink/WebLinkList/index'
-import ScrollableTabView from 'react-native-scrollable-tab-view'
-import PVList from '../../pv/PVLIst/index'
-import LyricGroup from '../../lyric/LyricGroup/index'
-import Cover from '../../../components/Cover/index'
-import Divider from '../../../components/Divider/index'
-import Theme from '../../../theme'
-import AlbumHorizontalList  from '../../album/AlbumHorizontalList'
-import Expander from './../../../components/Expander'
-import moment from 'moment'
-import SongRow from './../SongRow'
-
+import React from 'react';
+import { View, Text, ScrollView } from 'react-native';
+import Icon from '../../../components/Icon/index';
+import TagGroup from '../../tag/TagGroup/index';
+import ArtistRoleList from '../../artistRole/ArtistRoleList/index';
+import WebLinkList from '../../webLink/WebLinkList/index';
+import ScrollableTabView from 'react-native-scrollable-tab-view';
+import PVList from '../../pv/PVLIst/index';
+import LyricGroup from '../../lyric/LyricGroup/index';
+import Cover from '../../../components/Cover/index';
+import Divider from '../../../components/Divider/index';
+import Theme from '../../../theme';
+import AlbumHorizontalList  from '../../album/AlbumHorizontalList';
+import Expander from './../../../components/Expander';
+import moment from 'moment';
+import SongRow from './../SongRow';
+import i18n from './../../../common/i18n';
 
 const toMSS = function (sec_num) {
 
@@ -41,10 +40,10 @@ class SongDetail extends React.PureComponent {
     componentDidMount () {
         if(this.props.navigation) {
             const { params } = this.props.navigation.state;
-            this.props.fetchSong(params.id)
+            this.props.fetchSong(params.id);
         }
 
-        setTimeout(() => { this.setState({ shouldRender: true }) }, 0)
+        setTimeout(() => { this.setState({ shouldRender: true }) }, 0);
     }
 
     render () {
@@ -64,7 +63,7 @@ class SongDetail extends React.PureComponent {
                 <Expander
                     content={
                         <Section>
-                            <Text style={[Theme.subhead, { padding: 8 }]}>Name</Text>
+                            <Text style={[Theme.subhead, { padding: 8 }]}>{i18n.name}</Text>
                             <View style={{ paddingHorizontal: 8 }}>
                                 <Text style={Theme.body} >{song.name}</Text>
                                 <Text style={Theme.body} >{song.additionalNames}</Text>
@@ -85,7 +84,7 @@ class SongDetail extends React.PureComponent {
         const renderPVList = () => (
             <Section>
                 <Divider />
-                <PVList pvs={song.pvs} type='Original' title='Original PVs' showHeader />
+                <PVList pvs={song.pvs} type='Original' title={i18n.originalPVs} showHeader />
             </Section>
         )
 
@@ -109,28 +108,28 @@ class SongDetail extends React.PureComponent {
                     <View style={{ padding: 4 }}>
                         <Text style={Theme.boxValue}>{song.songType}</Text>
                     </View>
-                    <Text style={Theme.boxTitle}>Type</Text>
+                    <Text style={Theme.boxTitle}>{i18n.type}</Text>
                 </View>
                 <View style={{ alignItems: 'center'}}>
                     <View  style={{ padding: 4 }}>
                         <Text style={Theme.boxValue}>{song.ratingScore}</Text>
                     </View>
-                    <Text style={Theme.boxTitle}>Rating score</Text>
+                    <Text style={Theme.boxTitle}>{i18n.ratingScore}</Text>
                 </View>
                 <View style={{ alignItems: 'center'}}>
                     <View  style={{ padding: 4 }}>
                         <Text style={Theme.boxValue}>{toMSS(song.lengthSeconds)}</Text>
                     </View>
-                    <Text style={Theme.boxTitle}>Duration</Text>
+                    <Text style={Theme.boxTitle}>{i18n.duration}</Text>
                 </View>
             </Section>
         )
 
         const renderActionGroup = () => (
             <Section style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around' }}>
-                {!this.props.isFavoriteSong && <Icon name='md-heart' text='Favorite' onPress={() => this.props.onPressFavorite(song)} />}
-                {this.props.isFavoriteSong && <Icon name='md-heart' text='Favorite' color={Theme.buttonActiveColor} onPress={() => this.props.onPressUnfavorite(song)} />}
-                <Icon name='md-share' text='Share' onPress={() => this.props.onPressShare(song)} />
+                {!this.props.isFavoriteSong && <Icon name='md-heart' text={i18n.favorite} onPress={() => this.props.onPressFavorite(song)} />}
+                {this.props.isFavoriteSong && <Icon name='md-heart' text={i18n.favorite} color={Theme.buttonActiveColor} onPress={() => this.props.onPressUnfavorite(song)} />}
+                <Icon name='md-share' text={i18n.share} onPress={() => this.props.onPressShare(song)} />
                 <Icon name='md-globe' text='VocaDB' onPress={() => this.props.onPressToVocaDB(song)} />
             </Section>
         )
@@ -156,7 +155,7 @@ class SongDetail extends React.PureComponent {
 
             return (
                 <Section>
-                    <Text style={[Theme.subhead, { padding: 8 } ]}>Original version</Text>
+                    <Text style={[Theme.subhead, { padding: 8 } ]}>{i18n.original}</Text>
                     <SongRow key={originalSong.id}
                              image={originalSong.image}
                              name={originalSong.name}
@@ -170,7 +169,7 @@ class SongDetail extends React.PureComponent {
 
         return (
             <ScrollableTabView>
-                <ScrollView style={{ flex: 1, backgroundColor: 'white', paddingBottom: 18 }} tabLabel="Info" >
+                <ScrollView style={{ flex: 1, backgroundColor: 'white', paddingBottom: 18 }} tabLabel={i18n.info} >
                     <Cover
                         imageUri={song.image}
                         title={song.name}
@@ -191,8 +190,8 @@ class SongDetail extends React.PureComponent {
                     {song.webLinks && song.webLinks.length > 0 && renderWebLinkList()}
 
                 </ScrollView>
-                <ArtistRoleListPage tabLabel="Artists" />
-                {song.lyrics && song.lyrics.length > 0 && <LyricGropuPage tabLabel='Lyrics' />}
+                <ArtistRoleListPage tabLabel={i18n.artists} />
+                {song.lyrics && song.lyrics.length > 0 && <LyricGropuPage tabLabel={i18n.lyrics} />}
             </ScrollableTabView>
         )
     }

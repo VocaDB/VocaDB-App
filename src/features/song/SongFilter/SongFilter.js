@@ -1,18 +1,17 @@
-import React from 'react'
-import { View, Text } from 'react-native'
-import Content from '../../../components/Content'
-import PropTypes from 'prop-types'
-import Theme from '../../../theme'
+import React from 'react';
+import { View, Text } from 'react-native';
+import Content from '../../../components/Content';
+import PropTypes from 'prop-types';
+import Theme from '../../../theme';
 import { Dropdown } from 'react-native-material-dropdown';
 import { Button } from 'react-native-material-ui';
-import ArtistSelectModal from './../../artist/ArtistSelectModal'
-import TagSelectModal from './../../tag/TagSelectModal'
-import ArtistRow from './../../artist/ArtistRow'
-import Tag from './../../tag/Tag'
-import { topTags } from './../../tag/tagConstant'
-import { songTypeItems } from './../songConstant'
-import { entryStatusItems, sortItems } from './../../entry/entryConstant'
+import ArtistSelectModal from './../../artist/ArtistSelectModal';
+import TagSelectModal from './../../tag/TagSelectModal';
+import ArtistRow from './../../artist/ArtistRow';
+import Tag from './../../tag/Tag';
+import { songTypeItems, songSortItems } from './../songConstant';
 import { TextField } from 'react-native-material-textfield';
+import i18n from './../../../common/i18n';
 
 class SongFilter extends React.PureComponent {
 
@@ -28,7 +27,7 @@ class SongFilter extends React.PureComponent {
         return (
             <View style={{ marginHorizontal: 8 }}>
                 <Dropdown
-                    label='Song type'
+                    label={i18n.songType}
                     value={this.props.params.songTypes}
                     onChangeText={text => {
                         if(text === 'Unspecified') {
@@ -39,6 +38,8 @@ class SongFilter extends React.PureComponent {
 
                     }}
                     data={songTypeItems}
+                    valueExtractor={item => item.value}
+                    labelExtractor={item => item.label}
                 />
             </View>
         )
@@ -47,7 +48,7 @@ class SongFilter extends React.PureComponent {
     renderInputArtists () {
         return (
             <View>
-                <Text style={[Theme.subhead, { marginHorizontal: 8 }]}>Artist</Text>
+                <Text style={[Theme.subhead, { marginHorizontal: 8 }]}>{i18n.artists}</Text>
                 <View>
                     {this.props.filterArtists.map(a =>
                         <ArtistRow
@@ -62,18 +63,8 @@ class SongFilter extends React.PureComponent {
                     raised
                     primary
                     style={{ container: { marginHorizontal: 16, marginVertical: 8 } }}
-                    text='Select artist'
+                    text={i18n.selectArtist}
                     onPress={() => { this.setState({ showArtistModal: true }) }} />
-
-                <ArtistSelectModal
-                    modalVisible={this.state.showArtistModal}
-                    onBackPress={() => {
-                        this.setState({ showArtistModal: false })
-                    }}
-                    onPressItem={artist => {
-                        this.setState({ showArtistModal: false })
-                        this.props.onAddArtist(artist)
-                    }} />
             </View>
         )
     }
@@ -81,7 +72,7 @@ class SongFilter extends React.PureComponent {
     renderInputTags () {
         return (
             <View>
-                <Text style={[Theme.subhead, { marginHorizontal: 8 }]}>Tags</Text>
+                <Text style={[Theme.subhead, { marginHorizontal: 8 }]}>{i18n.tags}</Text>
                 <View style={{ flexDirection: 'row', flexWrap: 'wrap', alignItems: 'flex-start' }}>
                     {this.props.filterTags.map(t => {
                         return <Tag
@@ -97,17 +88,8 @@ class SongFilter extends React.PureComponent {
                     raised
                     primary
                     style={{ container: { marginHorizontal: 16, marginVertical: 8 } }}
-                    text='Select tag'
+                    text={i18n.selectTag}
                     onPress={() => { this.setState({ showTagModal: true }) }} />
-                <TagSelectModal
-                    modalVisible={this.state.showTagModal}
-                    onBackPress={() => {
-                        this.setState({ showTagModal: false })
-                    }}
-                    onPressItem={tag => {
-                        this.setState({ showTagModal: false })
-                        this.props.onAddFilterTag(tag)
-                    }} />
             </View>
         )
     }
@@ -116,7 +98,7 @@ class SongFilter extends React.PureComponent {
         return (
             <View style={{ marginHorizontal: 8 }}>
                 <TextField
-                    label='Minimum score'
+                    label={i18n.minimumScore}
                     keyboardType='numeric'
                     value={this.props.params.minScore}
                     maxLength={5}
@@ -132,12 +114,14 @@ class SongFilter extends React.PureComponent {
         return (
             <View style={{ marginHorizontal: 8 }}>
                 <Dropdown
-                    label='Sort'
+                    label={i18n.sort}
                     value={this.props.params.sort}
                     onChangeText={text => {
                         this.props.onParamChanged('sort', text)
                     }}
-                    data={sortItems}
+                    data={songSortItems}
+                    valueExtractor={item => item.value}
+                    labelExtractor={item => item.label}
                 />
             </View>
         )
@@ -158,7 +142,13 @@ class SongFilter extends React.PureComponent {
 
 SongFilter.propTypes = {
     onPressSave: PropTypes.func,
-    onPressBack: PropTypes.func
+    onPressBack: PropTypes.func,
+    filterTags: PropTypes.array,
+    filterArtists: PropTypes.array
 }
 
+SongFilter.defaultProps = {
+    filterTags: [],
+    filterArtists: []
+}
 export default SongFilter;

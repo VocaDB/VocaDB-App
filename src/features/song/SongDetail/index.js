@@ -1,26 +1,27 @@
-import React from 'react'
-import { Share, Linking } from 'react-native'
-import { connect } from 'react-redux'
-import SongDetailPage from './SongDetail'
+import React from 'react';
+import { Share, Linking } from 'react-native';
+import { connect } from 'react-redux';
+import SongDetailPage from './SongDetail';
 import { createSelector } from 'reselect';
-import * as songActions from '../songActions'
-import { selectSongDetail, selectIsFavoriteSong, selectAlbums, selectOriginalSong } from '../songSelector'
-import Routes from './../../../app/appRoutes'
-import { songDetailUrl } from './../../../common/constants/config'
+import * as songActions from '../songActions';
+import { selectSongDetail, selectIsFavoriteSong, selectAlbums, selectOriginalSong } from '../songSelector';
+import Routes from './../../../app/appRoutes';
+import { songDetailUrl } from './../../../common/constants/config';
+import i18n from './../../../common/i18n';
 
 SongDetailPage.navigationOptions = ({ navigation }) => {
 
     const { params } = navigation.state;
 
     const navOptions = {
-        title: (params && params.title) ? params.title : 'Detail',
+        title: (params && params.title) ? params.title : i18n.detail,
     }
 
     if(params.hideHeader) {
-        navOptions.header = null
+        navOptions.header = null;
     }
 
-    return navOptions
+    return navOptions;
 }
 
 SongDetailPage.propTypes = {

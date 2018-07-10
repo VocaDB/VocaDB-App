@@ -1,19 +1,20 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import AlbumDetail from './AlbumDetail'
+import React from 'react';
+import { connect } from 'react-redux';
+import AlbumDetail from './AlbumDetail';
 import { createSelector } from 'reselect';
-import { Share, Linking } from 'react-native'
-import { selectAlbumDetail, selectIsFavoriteAlbum } from '../albumSelector'
-import * as albumActions from '../albumActions'
-import Routes from './../../../app/appRoutes'
-import { albumDetailUrl } from './../../../common/constants/config'
+import { Share, Linking } from 'react-native';
+import { selectAlbumDetail, selectIsFavoriteAlbum } from '../albumSelector';
+import * as albumActions from '../albumActions';
+import Routes from './../../../app/appRoutes';
+import { albumDetailUrl } from './../../../common/constants/config';
+import i18n from './../../../common/i18n';
 
 AlbumDetail.navigationOptions = ({ navigation }) => {
 
     const { params } = navigation.state;
 
     const navOptions = {
-        title: (params && params.title) ? params.title : 'Detail',
+        title: (params && params.title) ? params.title : i18n.detail,
     }
 
     if(params.hideHeader) {

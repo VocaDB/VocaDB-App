@@ -1,25 +1,26 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { FlatList, View, StyleSheet } from 'react-native'
+import React from 'react';
+import PropTypes from 'prop-types';
+import { FlatList, View, StyleSheet } from 'react-native';
 import { Button, Toolbar } from 'react-native-material-ui';
-import Page from '../../../components/Page'
-import AlbumRow from '../../album/AlbumRow'
-import Theme from '../../../theme'
+import Page from '../../../components/Page';
+import AlbumRow from '../../album/AlbumRow';
+import Theme from '../../../theme';
 import { ListItem } from 'react-native-material-ui';
-import Icon from '../../../components/Icon'
+import Icon from '../../../components/Icon';
+import i18n from './../../../common/i18n';
 
 class TagSearch extends React.PureComponent {
 
     componentDidMount () {
-        this.props.onSearchReplaceParams()
+        this.props.onSearchReplaceParams();
     }
 
     doSearch(params) {
-        this.props.onSearch(params)
+        this.props.onSearch(params);
     }
 
     refresh() {
-        this.props.onSearchReplaceParams()
+        this.props.onSearchReplaceParams();
     }
 
     renderList () {
@@ -63,7 +64,7 @@ class TagSearch extends React.PureComponent {
                     centerElement="Tags"
                     searchable={{
                         autoFocus: true,
-                        placeholder: 'Find tag',
+                        placeholder: i18n.findTags,
                         onChangeText: queryEntry
                     }}
                 />

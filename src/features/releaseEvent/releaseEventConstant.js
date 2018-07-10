@@ -1,4 +1,5 @@
-import _ from 'lodash'
+import _ from 'lodash';
+import i18n from './../../common/i18n';
 
 export const defaultSearchParams = { maxResults: 50, fields: 'MainPicture', sort: 'Date' }
 
@@ -19,25 +20,64 @@ export const category = {
     other: 'Other'
 }
 
-export const categoryItems = _.values(category).map(value => ({ value }))
+export const categoryItems = [
+    {
+        label: i18n.unspecified,
+        value: 'Unspecified'
+    },
+    {
+        label: i18n.albumRelease,
+        value: 'AlbumRelease'
+    },
+    {
+        label: i18n.anniversary,
+        value: 'Anniversary'
+    },
+    {
+        label: i18n.club,
+        value: 'Club'
+    },
+    {
+        label: i18n.concert,
+        value: 'Concert'
+    },
+    {
+        label: i18n.contest,
+        value: 'Contest'
+    },
+    {
+        label: i18n.convention,
+        value: 'Convention'
+    },
+    {
+        label: i18n.other,
+        value: 'Other'
+    }
+]
 
 export const sortItems = [
     {
-        value: ''
+        value: '',
+        label: ''
     },
     {
-        value: 'None'
+        value: 'None',
+        label: ''
     },
     {
-        value: 'Name'
+        value: 'Name',
+        label: i18n.name
     },
     {
-        value: 'Date'
+        value: 'Date',
+        label: i18n.date
     },
     {
-        value: 'AdditionDate'
+        value: 'AdditionDate',
+        label: i18n.additionDate
     },
     {
-        value: 'SeriesName'
+        value: 'SeriesName',
+        label: i18n.seriesName
     }
 ]

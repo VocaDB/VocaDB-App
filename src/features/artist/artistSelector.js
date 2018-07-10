@@ -1,14 +1,14 @@
 import { createSelector } from 'reselect';
-import { selectNav } from './../../app/appSelector'
-import Routes from './../../app/appRoutes'
-import image from './../../common/assets/images'
-import { selectTagEntity, convertTagIds } from './../tag/tagSelector'
-import { convertSongIds, selectSongEntity } from './../song/songSelector'
-import { convertAlbumIds, selectAlbumEntity } from './../album/albumSelector'
-import { convertEventIds, selectReleaseEventEntity } from './../releaseEvent/releaseEventSelector'
-import { translateLinkType, translateReverseLinkType } from './artistConstant'
-import { defaultSearchParams } from './artistConstant'
-import _ from 'lodash'
+import { selectNav } from './../../app/appSelector';
+import Routes from './../../app/appRoutes';
+import image from './../../common/assets/images';
+import { selectTagEntity, convertTagIds } from './../tag/tagSelector';
+import { convertSongIds, selectSongEntity } from './../song/songSelector';
+import { convertAlbumIds, selectAlbumEntity } from './../album/albumSelector';
+import { convertEventIds, selectReleaseEventEntity } from './../releaseEvent/releaseEventSelector';
+import { translateLinkType, translateReverseLinkType } from './artistConstant';
+import { defaultSearchParams } from './artistConstant';
+import _ from 'lodash';
 
 export const transformArtist = (artist) => {
     if(!artist) {
