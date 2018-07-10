@@ -1,13 +1,14 @@
-import React from 'react'
-import ScrollableTabView from 'react-native-scrollable-tab-view'
-import { Linking, DeviceEventEmitter } from 'react-native'
-import CustomTabBar from '../../../components/CustomTabBar'
-import HomeTab from './../HomeTab'
-import MenuTab from './../MenuTab'
-import FollowedTab from './../FollowedTab'
-import SongRankingTab from './../../song/SongRanking'
-import QuickActions from 'react-native-quick-actions'
-import { shortcutTypes } from './../../../common/constants/shortcuts'
+import React from 'react';
+import ScrollableTabView from 'react-native-scrollable-tab-view';
+import { Linking, DeviceEventEmitter } from 'react-native';
+import CustomTabBar from '../../../components/CustomTabBar';
+import HomeTab from './../HomeTab';
+import MenuTab from './../MenuTab';
+import FollowedTab from './../FollowedTab';
+import SongRankingTab from './../../song/SongRanking';
+import QuickActions from 'react-native-quick-actions';
+import { shortcutTypes } from './../../../common/constants/shortcuts';
+import i18n from './../../../common/i18n';
 
 class Main extends React.PureComponent {
 
@@ -27,43 +28,43 @@ class Main extends React.PureComponent {
                         this.props.onPressAlbumSearchShortcut();
                         break;
                     default:
-                        console.log('Invalid action : ' + JSON.stringify(action))
+                        console.log('Invalid action : ' + JSON.stringify(action));
                 }
             }
-        }).catch(console.error)
+        }).catch(console.error);
 
     }
 
     componentDidMount () {
-        this.refreshHome()
-        this.refreshFollowedSongs()
-        this.props.clearSinglePageState()
+        this.refreshHome();
+        this.refreshFollowedSongs();
+        this.props.clearSinglePageState();
     }
 
     refreshHome () {
-        this.props.fetchHighlighted()
-        this.props.fetchTopAlbums()
-        this.props.fetchLatestEvents()
-        this.props.fetchRecentAlbums()
+        this.props.fetchHighlighted();
+        this.props.fetchTopAlbums();
+        this.props.fetchLatestEvents();
+        this.props.fetchRecentAlbums();
 
     }
 
     refreshFollowedSongs () {
-        this.props.fetchFollowedSongs()
+        this.props.fetchFollowedSongs();
     }
 
     render () {
 
-        const openLink = (url) => Linking.openURL(url).catch(err => console.error('An error occurred', err))
+        const openLink = (url) => Linking.openURL(url).catch(err => console.error('An error occurred', err));
 
         const menus =  [
             { icon: 'ios-log-in', text: 'Sign in', onPress: this.props.onPressSignOut, onlyGuest: true },
-            { icon: 'ios-musical-notes', text: 'Favorite songs', onPress: this.props.onPressMenuFavoriteSongs },
-            { icon: 'ios-disc', text: 'Collections', onPress: this.props.onPressMenuFavoriteAlbums },
-            { icon: 'ios-people', text: 'Followed artists', onPress: this.props.onPressMenuFollowArtists },
+            { icon: 'ios-musical-notes', text: i18n.favoriteSongs, onPress: this.props.onPressMenuFavoriteSongs },
+            { icon: 'ios-disc', text: i18n.favoriteAlbums, onPress: this.props.onPressMenuFavoriteAlbums },
+            { icon: 'ios-people', text: i18n.favoriteArtists, onPress: this.props.onPressMenuFollowArtists },
             { icon: 'ios-globe', text: 'VocaDB website', onPress: () => openLink('https://vocadb.net') },
-            { icon: 'ios-settings', text: 'Settings', onPress: this.props.onPressMenuSettings },
-            { icon: 'logo-github', text: 'About', onPress: () => openLink('https://github.com/VocaDB/VocaDB-App') },
+            { icon: 'ios-settings', text: i18n.settings, onPress: this.props.onPressMenuSettings },
+            { icon: 'logo-github', text: i18n.about, onPress: () => openLink('https://github.com/VocaDB/VocaDB-App') },
             { icon: 'ios-log-out', text: 'Sign out', onPress: this.props.onPressSignOut, onlyMember: true }
         ];
 
