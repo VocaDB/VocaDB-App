@@ -61,7 +61,8 @@ const style = StyleSheet.create({
         margin: 8
     },
     label: {
-        fontSize: 12
+        fontSize: 12,
+        textAlign: 'center'
     }
 })
 
