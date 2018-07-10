@@ -17,6 +17,7 @@ t[labels.randomPopularAlbums] = '最も人気のあるアルバム';
 t[labels.upcomingEvent] = 'Upcoming events';
 t[labels.other] = 'Other';
 t[labels.info] = 'Info';
+t[labels.detail] = 'Detail';
 
 // Ranking
 t[labels.daily] = '24時間';
@@ -25,12 +26,18 @@ t[labels.monthly] = '月間';
 t[labels.overall] = '合計';
 
 // Filter
+t[labels.findSong] = 'Find song';
+t[labels.findAlbum] = 'Find album';
+t[labels.findArtist] = 'Find artist';
+t[labels.findEvent] = 'Find event';
+t[labels.findTag] = 'Find tag';
+t[labels.findAnything] = 'Find anything';
 t[labels.filter] = 'Filter';
 t[labels.filterBy] = 'Filter by';
 t[labels.vocalist] = 'Vocalist';
-t[labels.newlyPublished] = '新しく公開';
-t[labels.newlyAdded] = '新しく追加';
-t[labels.popularity] = '人気度';
+t[labels.newlyPublished] = 'NewlyPublished';
+t[labels.newlyAdded] = 'NewlyAdded';
+t[labels.popularity] = 'Popularity';
 t[labels.all] = 'all';
 t[labels.vocaloid] = 'Vocaloid';
 t[labels.utau] = 'UTAU';
@@ -72,7 +79,9 @@ t[labels.ep] = 'E.P.';
 t[labels.splitAlbum] = 'Split album';
 t[labels.compilation] = 'Compilation';
 t[labels.video] = 'Video';
-t[labels.artBook] = 'Artbook';
+t[labels.artbook] = 'Artbook';
+t[labels.game] = 'Game';
+t[labels.fanmade] = 'Fanmade'
 t[labels.date] = 'Date';
 t[labels.dateRange] = 'Date range';
 t[labels.from] = 'From';
@@ -101,6 +110,19 @@ t[labels.venue] = 'Venue';
 t[labels.description] = 'Description';
 t[labels.relatedLink] = 'Related link';
 t[labels.setlist] = 'Setlist';
+t[labels.groupAndLabels] = 'Groups and labels';
+t[labels.illustratedBy] = 'Illustrated by';
+t[labels.voiceProvider] = 'Voice provider';
+t[labels.characterDesigner] = 'Character designer';
+t[labels.illustratorOf] = 'Illustrator of';
+t[labels.voiceProviderOf] = 'Voice provider of';
+t[labels.designerOf] = 'Designer of';
+t[labels.duration] = 'Duration';
+t[labels.add] = 'Add'
+t[labels.follow] = 'Follow'
+t[labels.following] = 'Following'
+t[labels.baseVoicebank] = 'Base voicebank';
+t[labels.series] = 'Series';
 
 // Menu
 t[labels.favoriteSongs] = 'Favorite songs';
