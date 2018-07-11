@@ -18,6 +18,10 @@ t[labels.upcomingEvent] = 'Acara akan datang';
 t[labels.other] = 'Lain-lain';
 t[labels.info] = 'Maklumat';
 t[labels.detail] = 'Maklumat lanjut';
+t[labels.cancel] = 'Cancel';
+t[labels.ok] = 'OK';
+t[labels.confirm] = 'Confirm';
+t[labels.save] = 'Save'
 
 // Ranking
 t[labels.daily] = 'Harian';
@@ -94,6 +98,14 @@ t[labels.concert] = 'Konsert';
 t[labels.contest] = 'Pertandingan';
 t[labels.convention] = 'Konvensyen';
 t[labels.seriesName] = 'Siri';
+t[labels.label] = 'Label';
+t[labels.animator] = 'Animator';
+t[labels.otherVoiceSynthesizer] = 'Other voice synthesizer';
+t[labels.otherVocalist] = 'Other vocalist';
+t[labels.otherGroup] = 'Other group';
+t[labels.otherIndividual] = 'Other individual';
+t[labels.cevio] = 'CeVIO';
+t[labels.recentSearch] = 'Recent search';
 
 // Detail page or field labels
 t[labels.type] = 'Jenis';
@@ -123,6 +135,9 @@ t[labels.follow] = 'Ikut'
 t[labels.following] = 'Mengikut'
 t[labels.baseVoicebank] = 'Bank suara asas';
 t[labels.series] = 'Siri';
+t[labels.official] = 'Official';
+t[labels.commercial] = 'Commercial';
+t[labels.reference] = 'Reference';
 
 // Menu
 t[labels.favoriteSongs] = 'Lagu kegemaran';
@@ -130,5 +145,10 @@ t[labels.favoriteAlbums] = 'Koleksi';
 t[labels.favoriteArtists] = 'Artis diikut';
 t[labels.settings] = 'Tetapan';
 t[labels.about] = 'Perihal';
+
+// Settings
+t[labels.general] = 'General';
+t[labels.displayLanguage] = 'Display language';
+t[labels.displayLanguageDescription] = 'Preferred display language';
 
 export default t;

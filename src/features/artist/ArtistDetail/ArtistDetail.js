@@ -160,9 +160,9 @@ class ArtistDetailPage extends React.Component {
         const renderWebLink = () => (
             <Section>
                 <Divider />
-                <WebLinkList webLinks={artist.webLinks} category='Official' title='Official' />
-                <WebLinkList webLinks={artist.webLinks} category='Commercial' title='Commercial' />
-                <WebLinkList webLinks={artist.webLinks} category='Reference' title='Reference' />
+                <WebLinkList webLinks={artist.webLinks} category='Official' title={i18n.official} />
+                <WebLinkList webLinks={artist.webLinks} category='Commercial' title={i18n.commercial} />
+                <WebLinkList webLinks={artist.webLinks} category='Reference' title={i18n.reference} />
             </Section>
         )
 

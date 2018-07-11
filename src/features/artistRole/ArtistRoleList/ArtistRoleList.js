@@ -1,10 +1,11 @@
-import React from 'react'
-import { View, Text, SectionList } from 'react-native'
-import Artist from '../../artist/ArtistRow/index'
+import React from 'react';
+import { View, Text, SectionList } from 'react-native';
+import Artist from '../../artist/ArtistRow/index';
 import PropTypes from 'prop-types';
-import images from '../../../common/assets/images'
-import Theme from '../../../theme'
-import _ from 'lodash'
+import images from '../../../common/assets/images';
+import Theme from '../../../theme';
+import _ from 'lodash';
+import { translateArtistType } from './../../artist/artistConstant';
 
 class ArtistRole extends React.Component {
 
@@ -13,7 +14,7 @@ class ArtistRole extends React.Component {
         const renderItem = (artistRole, displayRole) => {
 
             let artist = (artistRole.artist)? artistRole.artist : artistRole;
-            let imageUrl = (artist.mainPicture && artist.mainPicture.urlSmallThumb) ? artist.mainPicture.urlSmallThumb : images.getArtistUri(artist.id, artist.pictureMime)
+            let imageUrl = (artist.mainPicture && artist.mainPicture.urlSmallThumb) ? artist.mainPicture.urlSmallThumb : images.getArtistUri(artist.id, artist.pictureMime);
 
             return  (
                 <Artist
@@ -55,7 +56,7 @@ class ArtistRole extends React.Component {
                 renderSectionHeader={({ section }) => {
                     return (
                         <View style={{ padding: 8 }}>
-                            <Text style={Theme.subhead}>{section.title}</Text>
+                            <Text style={Theme.subhead}>{translateArtistType(section.title)}</Text>
                         </View>
                     )
                 }}

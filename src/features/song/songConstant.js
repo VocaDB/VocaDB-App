@@ -23,6 +23,22 @@ export const songTypeName = {
     other: 'Other'
 }
 
+export const translateSongType = (songType) => {
+    switch (songType) {
+        case songTypeName.original: return i18n.originalSong;
+        case songTypeName.remaster: return i18n.remaster;
+        case songTypeName.remix: return i18n.remix;
+        case songTypeName.cover: return i18n.cover;
+        case songTypeName.instrumental: return i18n.instrumental;
+        case songTypeName.mashup: return i18n.mashup;
+        case songTypeName.musicPV: return i18n.musicPV;
+        case songTypeName.dramaPV: return i18n.dramaPV;
+        case songTypeName.other: return i18n.other;
+        default : return songType;
+    }
+}
+
+
 export const songTypeItems = [
     {
         value: 'Unspecified',

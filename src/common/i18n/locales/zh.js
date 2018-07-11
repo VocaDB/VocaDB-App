@@ -18,6 +18,10 @@ t[labels.upcomingEvent] = 'Upcoming events';
 t[labels.other] = 'Other';
 t[labels.info] = 'Info';
 t[labels.detail] = 'Detail';
+t[labels.cancel] = 'Cancel';
+t[labels.ok] = 'OK';
+t[labels.confirm] = 'Confirm';
+t[labels.save] = 'Save'
 
 // Ranking
 t[labels.daily] = 'Daily';
@@ -94,6 +98,14 @@ t[labels.concert] = 'Concert';
 t[labels.contest] = 'Contest';
 t[labels.convention] = 'Convention';
 t[labels.seriesName] = 'Series';
+t[labels.label] = 'Label';
+t[labels.animator] = 'Animator';
+t[labels.otherVoiceSynthesizer] = 'Other voice synthesizer';
+t[labels.otherVocalist] = 'Other vocalist';
+t[labels.otherGroup] = 'Other group';
+t[labels.otherIndividual] = 'Other individual';
+t[labels.cevio] = 'CeVIO';
+t[labels.recentSearch] = 'Recent search';
 
 // Detail page or field labels
 t[labels.type] = 'Type';
@@ -123,6 +135,9 @@ t[labels.follow] = 'Follow'
 t[labels.following] = 'Following'
 t[labels.baseVoicebank] = 'Base voicebank';
 t[labels.series] = 'Series';
+t[labels.official] = 'Official';
+t[labels.commercial] = 'Commercial';
+t[labels.reference] = 'Reference';
 
 // Menu
 t[labels.favoriteSongs] = 'Favorite songs';
@@ -130,5 +145,10 @@ t[labels.favoriteAlbums] = 'Collections';
 t[labels.favoriteArtists] = 'Followed artists';
 t[labels.settings] = 'Settings';
 t[labels.about] = 'About';
+
+// Settings
+t[labels.general] = 'General';
+t[labels.displayLanguage] = 'Display language';
+t[labels.displayLanguageDescription] = 'Preferred display language';
 
 export default t;

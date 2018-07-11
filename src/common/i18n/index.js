@@ -8,6 +8,7 @@ import labels from './../constants/labels';
 import _ from 'lodash';
 
 I18n.fallbacks = true;
+I18n.missingBehaviour='guess';
 
 I18n.translations = {
     en,

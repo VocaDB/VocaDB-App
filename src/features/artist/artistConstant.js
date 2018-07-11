@@ -74,6 +74,27 @@ export const sortItems = [
     }
 ]
 
+export const translateArtistType = (artistType) => {
+    switch (artistType) {
+        case 'Circle': return i18n.circle;
+        case 'Label': return i18n.label;
+        case 'Producer': return i18n.producer;
+        case 'Animator': return i18n.animator;
+        case 'Illustrator': return i18n.illustrator;
+        case 'Lyricist': return i18n.lyricist;
+        case 'Vocalist': return i18n.vocalist;
+        case 'Vocaloid': return i18n.vocaloid;
+        case 'UTAU': return i18n.utau;
+        case 'CeVIO': return i18n.cevio;
+        case 'OtherVoiceSynthesizer': return i18n.otherVoiceSynthesizer;
+        case 'OtherVocalist': return i18n.otherVocalist;
+        case 'OtherGroup': return i18n.otherGroup;
+        case 'OtherIndividual': return i18n.otherIndividual;
+        case 'Other': return i18n.other;
+        default : return artistType;
+    }
+}
+
 export const translateLinkType = (linkType) => {
     switch (linkType) {
         case 'Group': return i18n.groupAndLabels;

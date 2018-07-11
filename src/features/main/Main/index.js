@@ -1,17 +1,17 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import Main from './Main'
+import React from 'react';
+import { connect } from 'react-redux';
+import Main from './Main';
 import { createSelector } from 'reselect';
-import Icon from '../../../components/Icon/index'
-import Routes from './../../../app/appRoutes'
-import { selectHighlighted, selectFollowedSongs, selectRankingResult, selectRankingState } from '../../song/songSelector'
-import { selectLatestAlbums, selectTopAlbums } from '../../album/albumSelector'
-import { selectLatestReleaseEvents } from '../../releaseEvent/releaseEventSelector'
-import { selectLoading } from '../../../app/appSelector'
-import * as userActions from '../../user/userActions'
-import * as songActions from '../../song/songActions'
-import * as albumActions from '../../album/albumActions'
-import * as eventActions from '../../releaseEvent/releaseEventActions'
+import Icon from '../../../components/Icon/index';
+import Routes from './../../../app/appRoutes';
+import { selectHighlighted, selectFollowedSongs, selectRankingResult, selectRankingState } from '../../song/songSelector';
+import { selectLatestAlbums, selectTopAlbums } from '../../album/albumSelector';
+import { selectLatestReleaseEvents } from '../../releaseEvent/releaseEventSelector';
+import { selectLoading } from '../../../app/appSelector';
+import * as userActions from '../../user/userActions';
+import * as songActions from '../../song/songActions';
+import * as albumActions from '../../album/albumActions';
+import * as eventActions from '../../releaseEvent/releaseEventActions';
 
 
 Main.navigationOptions = ({ navigation }) => ({

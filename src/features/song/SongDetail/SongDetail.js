@@ -14,6 +14,7 @@ import AlbumHorizontalList  from '../../album/AlbumHorizontalList';
 import Expander from './../../../components/Expander';
 import moment from 'moment';
 import SongRow from './../SongRow';
+import { translateSongType } from './../songConstant';
 import i18n from './../../../common/i18n';
 
 const toMSS = function (sec_num) {
@@ -21,7 +22,7 @@ const toMSS = function (sec_num) {
     if(!sec_num) {
         return '0';
     }
-    
+
     var hours   = Math.floor(sec_num / 3600);
     var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
     var seconds = sec_num - (hours * 3600) - (minutes * 60);
@@ -112,7 +113,7 @@ class SongDetail extends React.PureComponent {
         const renderWebLinkList = () => (
             <Section>
                 <Divider />
-                <WebLinkList webLinks={song.webLinks} category='Official' title='Official' />
+                <WebLinkList webLinks={song.webLinks} category='Official' title={i18n.official} />
             </Section>
         )
 
@@ -120,7 +121,7 @@ class SongDetail extends React.PureComponent {
             <Section style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around', padding: 8, backgroundColor: '#2C486E' }}>
                 <View style={{ alignItems: 'center'}}>
                     <View style={{ padding: 4 }}>
-                        <Text style={Theme.boxValue}>{song.songType}</Text>
+                        <Text style={Theme.boxValue}>{translateSongType(song.songType)}</Text>
                     </View>
                     <Text style={Theme.boxTitle}>{i18n.type}</Text>
                 </View>
