@@ -270,3 +270,13 @@ export const selectSelectedNavRoute = () => createSelector(
     selectNav(),
     (nav) => (nav.routes[nav.index])? nav.routes[nav.index] : {}
 )
+
+export const selectOriginalPVs = () => createSelector(
+    selectSongDetail(),
+    (songDetail) => (songDetail && songDetail.pvs && songDetail.pvs.length)? songDetail.pvs.filter(p => p.pvType == 'Original') : []
+)
+
+export const selectOtherPVs = () => createSelector(
+    selectSongDetail(),
+    (songDetail) => (songDetail && songDetail.pvs && songDetail.pvs.length)? songDetail.pvs.filter(p => p.pvType != 'Original') : []
+)

@@ -81,12 +81,26 @@ class SongDetail extends React.PureComponent {
             </Section>
         )
 
-        const renderPVList = () => (
-            <Section>
-                <Divider />
-                <PVList pvs={song.pvs} type='Original' title={i18n.originalPVs} showHeader />
-            </Section>
-        )
+        const renderPVList = () => {
+
+            if(song.pvs && song.pvs.length == 0) {
+                return;
+            }
+
+            if(this.props.originalPVs.length == 0) {
+                return (
+                    <PVList pvs={this.props.otherPVs} title='PVs' showHeader />
+                )
+            }
+
+            return (
+                <Section>
+                    <Divider />
+                    <PVList pvs={this.props.originalPVs} title={i18n.originalPVs} showHeader />
+                    {(this.props.otherPVs.length > 0) && <Expander content={<PVList pvs={this.props.otherPVs} title={i18n.other} showHeader />} />}
+                </Section>
+            )
+        }
 
         const renderAlbumList = () => (
             <Section>
