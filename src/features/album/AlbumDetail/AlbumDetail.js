@@ -161,7 +161,7 @@ class AlbumDetail extends React.Component {
 
         return (
             <ScrollableTabView>
-                <Content tabLabel='Info'>
+                <Content tabLabel={i18n.info}>
                     <Cover
                         imageUri={imageUri}
                         title={album.name}

@@ -1,10 +1,10 @@
-import React from 'react'
-import { View, Text, ScrollView, StyleSheet, FlatList } from 'react-native'
-import PropTypes from 'prop-types'
-import Theme from '../../../theme'
-import { Button } from 'react-native-material-ui';
-import FeatureList from './../../main/FeatureList'
-import AlbumCard from './../AlbumCard'
+import React from 'react';
+import { StyleSheet } from 'react-native';
+import PropTypes from 'prop-types';
+import Theme from '../../../theme';
+import FeatureList from './../../main/FeatureList';
+import AlbumCard from './../AlbumCard';
+import i18n from './../../../common/i18n';
 
 class AlbumHorizontalList extends React.Component {
     render () {
@@ -55,7 +55,7 @@ AlbumHorizontalList.propTypes = {
 }
 
 AlbumHorizontalList.defaultProps = {
-    title: 'Albums',
+    title: i18n.albums,
     albums: [],
     onPressItem: () => console.log('Press item'),
     onPressMore: () => console.log('Press more')

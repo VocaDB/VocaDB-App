@@ -1,9 +1,10 @@
-import React from 'react'
-import { View, Text, FlatList } from 'react-native'
-import Album from '../AlbumRow/index'
+import React from 'react';
+import { View, Text, FlatList } from 'react-native';
+import Album from '../AlbumRow/index';
 import PropTypes from 'prop-types';
-import style from './style'
-import Theme from '../../../theme'
+import style from './style';
+import Theme from '../../../theme';
+import i18n from './../../../common/i18n';
 
 class AlbumList extends React.PureComponent {
     render () {
@@ -54,7 +55,7 @@ AlbumList.propTypes = {
 };
 
 AlbumList.defaultProps = {
-    title: 'Albums',
+    title: i18n.albums,
     max: 0,
     showHeader: false,
     horizontal: false,
