@@ -56,7 +56,7 @@ const mapDispatchToProps = (dispatch, props) => ({
     onPressClearRecent: () => dispatch(actions.clearRecentSearch()),
     onPressMoreSong: query => {
         const params = {
-            title: `More of "${query}"`,
+            title: `${query}`,
             hideSearchBar: true,
             filterParams: {
                 'query': query,
@@ -64,7 +64,7 @@ const mapDispatchToProps = (dispatch, props) => ({
                 'fields': 'thumbUrl'
             }
         }
-        props.navigation.navigate(Routes.SongList, params);
+        props.navigation.navigate(Routes.SongWithParams, params);
     }
 })
 
