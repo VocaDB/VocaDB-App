@@ -81,7 +81,7 @@ SongCard.propTypes = {
 
 SongCard.defaultProps = {
     name: 'Unknown',
-    artist: 'Unknown',
+    artist: '',
     image: 'https://via.placeholder.com/350x150/000000/ffffff?text=NO_IMAGE',
     hideArtist: false,
     songType: 'Other',

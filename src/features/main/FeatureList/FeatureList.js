@@ -6,14 +6,23 @@ import { Button } from 'react-native-material-ui';
 import i18n from './../../../common/i18n';
 
 class FeatureList extends React.PureComponent {
+
+    renderPrefix() {
+        return (this.props.prefix)? this.props.prefix : null;
+    }
+
     render () {
 
         const WrapComponent = Component => <View key={Component.key} style={[styles.wrapContainer]}>{Component}</View>
 
+
         return (
             <View style={[styles.container]}>
                 <View style={[styles.headerContainer]}>
-                    <Text style={Theme.subhead}>{this.props.title}</Text>
+                    <View style={{ alignItems: 'center', flexDirection: 'row', justifyContent: 'center' }}>
+                        {this.renderPrefix()}
+                        <Text style={Theme.subhead}>{this.props.title}</Text>
+                    </View>
                     {this.props.displayMoreButton && <Button primary text={i18n.seeMore} onPress={this.props.onPressMore} />}
                 </View>
                 <FlatList
@@ -52,7 +61,8 @@ FeatureList.propTypes = {
     items: PropTypes.array,
     renderItem: PropTypes.func,
     onPressMore: PropTypes.func,
-    displayMoreButton: PropTypes.bool
+    displayMoreButton: PropTypes.bool,
+    prefix: PropTypes.element
 }
 
 FeatureList.defaultProps = {

@@ -5,6 +5,7 @@ import { createSelector } from 'reselect';
 import Icon from '../../../components/Icon/index';
 import Routes from './../../../app/appRoutes';
 import { selectHighlighted, selectFollowedSongs, selectRankingResult, selectRankingState } from '../../song/songSelector';
+import { selectFollowedArtistsWithLatestSongs } from '../../artist/artistSelector';
 import { selectLatestAlbums, selectTopAlbums } from '../../album/albumSelector';
 import { selectLatestReleaseEvents } from '../../releaseEvent/releaseEventSelector';
 import { selectLoading } from '../../../app/appSelector';
@@ -35,7 +36,8 @@ const mapStateSelector = createSelector(
     selectFollowedSongs(),
     selectRankingState(),
     selectRankingResult(),
-    (recentSongs, refreshing, latestEvents, recentAlbums, topAlbums, followedSongs, rankingState, rankingSongs) => ({
+    selectFollowedArtistsWithLatestSongs(),
+    (recentSongs, refreshing, latestEvents, recentAlbums, topAlbums, followedSongs, rankingState, rankingSongs, followedArtists) => ({
         recentSongs,
         refreshing,
         latestEvents,
@@ -43,7 +45,8 @@ const mapStateSelector = createSelector(
         topAlbums,
         followedSongs,
         rankingState,
-        rankingSongs
+        rankingSongs,
+        followedArtists
     })
 );
 
@@ -68,7 +71,18 @@ const mapDispatchToProps = (dispatch, props) => ({
     onPressTagSearch: () =>  props.navigation.navigate(Routes.TagSearch, { hideHeader: true }),
     onPressSong: song => props.navigation.navigate(Routes.SongDetail, { id: song.id, title: song.name }),
     onPressAlbum: album => props.navigation.navigate(Routes.AlbumDetail, { id: album.id, title: album.name }),
+    onPressArtist: artist => props.navigation.navigate(Routes.ArtistDetail, { id: artist.id, title: artist.name }),
     onPressEvent: event => props.navigation.navigate(Routes.EventDetail, { id: event.id, title: event.name }),
+    onPressArtistRecentSongs: artist => props.navigation.navigate(Routes.SongWithParams, {
+        title: artist.name,
+        filterParams: {
+            onlyWithPVs: true,
+            maxResults: 50,
+            sort: 'AdditionDate',
+            fields: 'thumbUrl',
+            artistId: [ artist.id ]
+        }
+    }),
     onPressMoreRecentSongs: () => props.navigation.navigate(Routes.SongWithParams, {
         title: 'Recent songs',
         filterParams: {

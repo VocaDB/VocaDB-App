@@ -54,7 +54,6 @@ class Main extends React.PureComponent {
     }
 
     render () {
-
         const openLink = (url) => Linking.openURL(url).catch(err => console.error('An error occurred', err));
 
         const menus =  [
@@ -103,11 +102,10 @@ class Main extends React.PureComponent {
                 />
                 <FollowedTab
                     tabLabel="ios-heart"
-                    refreshing={this.props.refreshing}
-                    refresh={this.refreshFollowedSongs.bind(this)}
-                    onFetchMore={this.props.fetchFollowedSongs}
-                    songs={this.props.followedSongs}
-                    onPressSong={this.props.onPressSong} />
+                    artists={this.props.followedArtists}
+                    onPressSong={this.props.onPressSong}
+                    onPressArtist={this.props.onPressArtist}
+                    onPressMore={this.props.onPressArtistRecentSongs} />
                 <MenuTab
                     tabLabel="ios-menu"
                     menus={menus} />
