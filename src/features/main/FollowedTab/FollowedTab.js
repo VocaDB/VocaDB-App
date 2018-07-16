@@ -33,6 +33,7 @@ class FollowedTab extends React.Component {
                           name={song.name}
                           artist={song.artistString}
                           image={song.image}
+                          pvs={song.pvs}
                           songType={song.songType}
                           onPress={() => this.props.onPressSong(song)} />
             )

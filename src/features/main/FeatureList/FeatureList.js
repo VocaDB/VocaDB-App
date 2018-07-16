@@ -15,7 +15,6 @@ class FeatureList extends React.PureComponent {
 
         const WrapComponent = Component => <View key={Component.key} style={[styles.wrapContainer]}>{Component}</View>
 
-
         return (
             <View style={[styles.container]}>
                 <View style={[styles.headerContainer]}>
@@ -45,14 +44,15 @@ const styles = StyleSheet.create({
         margin: 8
     },
     headerContainer: {
-        margin: 8,
+        marginTop: 4,
+        marginHorizontal: 8,
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center'
     },
     contentContainer: {
-        padding: 8,
-        margin: 8
+        paddingHorizontal: 8,
+        marginHorizontal: 8
     }
 });
 

@@ -247,7 +247,8 @@ export const selectFollowedArtistsWithLatestSongs = () => createSelector(
                             name: s.name,
                             artistString: s.artistString,
                             image: s.image,
-                            songType: s.songType
+                            songType: s.songType,
+                            pvs: s.pvs
                         }))
                 }
             });
