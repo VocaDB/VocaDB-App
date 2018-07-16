@@ -139,6 +139,7 @@ t[labels.series] = 'Series';
 t[labels.official] = 'Official';
 t[labels.commercial] = 'Commercial';
 t[labels.reference] = 'Reference';
+t[labels.recentSongsPVs] = 'Recent Songs / PVs';
 
 // Menu
 t[labels.favoriteSongs] = 'Favorite songs';

@@ -18,6 +18,8 @@ import ArtistRow from './../ArtistRow';
 import moment from 'moment';
 import { SongRowList } from './../../song/songHOC';
 import i18n from './../../../common/i18n';
+import EventCard from './../../releaseEvent/EventCard';
+import FeatureList from "../../main/FeatureList/FeatureList";
 
 class ArtistDetailPage extends React.Component {
 
@@ -150,12 +152,44 @@ class ArtistDetailPage extends React.Component {
         )
 
         const renderPopularSongs = () => (
-                <SongHorizontalList title={i18n.popularSongs} songs={popularSongs} onPressItem={this.props.onPressSong} />
+                <SongHorizontalList title={i18n.popularSongs}
+                                    songs={popularSongs}
+                                    onPressItem={this.props.onPressSong}
+                                    onPressMore={() => this.props.onPressMorePopularSongs(artist)}
+                                    displayMoreButton />
         )
 
         const renderPopularAlbums = () => (
-                <AlbumHorizontalList title={i18n.popularAlbums} albums={popularAlbums} onPressItem={this.props.onPressAlbum} />
+                <AlbumHorizontalList title={i18n.popularAlbums} albums={popularAlbums}
+                                     onPressItem={this.props.onPressAlbum}
+                                     onPressMore={() => this.props.onPressMorePopularAlbums(artist)}
+                                     displayMoreButton />
         )
+
+        const renderRecentSongs = () => {
+            if(latestSongs && latestSongs.length > 0) {
+                return (
+                    <SongHorizontalList title={i18n.recentSongs}
+                                        songs={latestSongs}
+                                        onPressItem={this.props.onPressSong}
+                                        onPressMore={() => this.props.onPressMoreRecentSongs(artist)}
+                                        displayMoreButton />
+                )
+            }
+            return null;
+        }
+
+        const renderRecentAlbums = () => {
+            if(hasAlbum) {
+                return (
+                    <AlbumHorizontalList title={i18n.recentAlbums} albums={latestAlbums}
+                                         onPressItem={this.props.onPressAlbum}
+                                         onPressMore={() => this.props.onPressMoreRecentAlbums(artist)}
+                                         displayMoreButton />
+                )
+            }
+        }
+
 
         const renderWebLink = () => (
             <Section>
@@ -181,25 +215,60 @@ class ArtistDetailPage extends React.Component {
                 </Section>
                 {renderExpandableContent()}
                 {artist.tags != undefined && renderTagGroup()}
+                {renderRecentSongs()}
                 {popularSongs && popularSongs.length > 0 && renderPopularSongs()}
+                {renderRecentAlbums()}
                 {popularAlbums && popularAlbums.length > 0 && renderPopularAlbums()}
                 {artist.webLinks != undefined && renderWebLink()}
             </Content>
         )
 
-        const EventListPage = () => (
-            <Content>
-                <EventList events={latestEvents} onPressItem={this.props.onPressEvent} />
-            </Content>
-        )
+        const renderLatestEvent = () => {
+            if(latestEvents && latestEvents.length) {
+
+                const renderEventCard = event => {
+                    return (
+                        <EventCard  key={event.id}
+                                    name={event.name}
+                                    thumbnail={event.image}
+                                    location={event.venueName}
+                                    date={event.date}
+                                    onPress={() => this.props.onPressEvent(event)} />
+                    )
+                }
+
+                return (
+                    <FeatureList
+                        title={i18n.events}
+                        items={latestEvents}
+                        renderItem={renderEventCard}
+                        onPress />
+                )
+            }
+        }
 
         return (
-            <ScrollableTabView>
-                {renderInfoPage}
-                {latestSongs && latestSongs.length > 0 && <SongRowList tabLabel={i18n.songs} data={latestSongs} onPressItem={this.props.onPressSong} />}
-                {hasAlbum && <AlbumGridView tabLabel={i18n.albums}  albums={latestAlbums} onPressItem={this.props.onPressAlbum} />}
-                {hasEvent && <EventListPage tabLabel={i18n.events}  />}
-            </ScrollableTabView>
+            <Content>
+                <Cover
+                    imageUri={artist.image}
+                    title={artist.name}
+                    subtitle={artist.artistType}
+                />
+                <Section style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around' }}>
+                    {!this.props.followed && <Icon name='md-heart' text={i18n.follow} onPress={() => this.props.onPressFollow(artist)} />}
+                    {this.props.followed && <Icon name='md-heart' text={i18n.following} color={Theme.buttonActiveColor} onPress={() => this.props.onPressUnFollow(artist)} />}
+                    <Icon name='md-share' text={i18n.share} onPress={() => this.props.onPressShare(artist)} />
+                    <Icon name='md-globe' text='VocaDB' onPress={() => this.props.onPressToVocaDB(artist)} />
+                </Section>
+                {renderExpandableContent()}
+                {artist.tags != undefined && renderTagGroup()}
+                {renderRecentSongs()}
+                {popularSongs && popularSongs.length > 0 && renderPopularSongs()}
+                {renderRecentAlbums()}
+                {popularAlbums && popularAlbums.length > 0 && renderPopularAlbums()}
+                {renderLatestEvent()}
+                {artist.webLinks != undefined && renderWebLink()}
+            </Content>
         )
     }
 }

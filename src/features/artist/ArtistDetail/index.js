@@ -98,13 +98,40 @@ const mapDispatchToProps = (dispatch, props) => ({
     onPressAlbum: album => props.navigation.navigate(Routes.AlbumDetail, { id: album.id, title: album.name }),
     onPressTag: tag => props.navigation.navigate(Routes.TagDetail, { id: tag.id, title: tag.name }),
     onPressEvent: event => props.navigation.navigate(Routes.EventDetail, { id: event.id, title: event.name }),
-    onPressMoreLatestSongs: artist => props.navigation.navigate('SongList', {
-        title: 'Latest songs of ' + artist.name,
-        params: {
-            'maxResults': 20,
-            'sort': 'AdditionDate',
-            'artistId': artist.id,
-            'fields': 'thumbUrl'
+    onPressMoreRecentSongs: artist => props.navigation.navigate(Routes.SongWithParams, {
+        title: 'Recent songs of ' + artist.name,
+        filterParams: {
+            maxResults: 50,
+            sort: 'AdditionDate',
+            artistId: artist.id,
+            fields: 'thumbUrl'
+        }
+    }),
+    onPressMorePopularSongs: artist => props.navigation.navigate(Routes.SongWithParams, {
+        title: 'Popular songs of ' + artist.name,
+        filterParams: {
+            maxResults: 50,
+            sort: 'RatingScore',
+            artistId: artist.id,
+            fields: 'thumbUrl'
+        }
+    }),
+    onPressMoreRecentAlbums: artist => props.navigation.navigate(Routes.AlbumWithParams, {
+        title: 'Recent albums of ' + artist.name,
+        filterParams: {
+            maxResults: 50,
+            sort: 'AdditionDate',
+            artistId: artist.id,
+            fields: 'MainPicture'
+        }
+    }),
+    onPressMorePopularAlbums: artist => props.navigation.navigate(Routes.AlbumWithParams, {
+        title: 'Popular albums of ' + artist.name,
+        filterParams: {
+            maxResults: 50,
+            sort: 'RatingAverage',
+            artistId: artist.id,
+            fields: 'MainPicture'
         }
     })
 })

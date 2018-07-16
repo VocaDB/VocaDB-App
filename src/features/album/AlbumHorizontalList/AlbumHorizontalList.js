@@ -21,7 +21,8 @@ class AlbumHorizontalList extends React.Component {
             <FeatureList
                 title={this.props.title}
                 items={this.props.albums}
-                displayMoreButton={false}
+                displayMoreButton={this.props.displayMoreButton}
+                onPressMore={this.props.onPressMore}
                 renderItem={renderAlbumCard} />
         )
     }
@@ -52,11 +53,13 @@ AlbumHorizontalList.propTypes = {
     renderItem: PropTypes.func,
     onPressMore: PropTypes.func,
     onPressItem: PropTypes.func,
+    displayMoreButton: PropTypes.bool
 }
 
 AlbumHorizontalList.defaultProps = {
     title: i18n.albums,
     albums: [],
+    displayMoreButton: false,
     onPressItem: () => console.log('Press item'),
     onPressMore: () => console.log('Press more')
 }

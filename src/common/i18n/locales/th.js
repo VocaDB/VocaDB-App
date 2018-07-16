@@ -139,6 +139,7 @@ t[labels.series] = 'ซีรีส์';
 t[labels.official] = 'เว็บไซต์';
 t[labels.commercial] = 'แหล่งจำหน่าย';
 t[labels.reference] = 'อ้างอิง';
+t[labels.recentSongsPVs] = 'เพลง / PV ล่าสุด';
 
 // Menu
 t[labels.favoriteSongs] = 'เพลงโปรด';

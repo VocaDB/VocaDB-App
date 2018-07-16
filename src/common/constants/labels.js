@@ -140,5 +140,6 @@ export default {
     official: 'official',
     commercial: 'commercial',
     reference: 'reference',
-    clearFilter: 'clearFilter'
+    clearFilter: 'clearFilter',
+    recentSongsPVs: 'recentSongsPVs'
 };

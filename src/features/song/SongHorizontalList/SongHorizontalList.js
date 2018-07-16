@@ -24,7 +24,8 @@ class SongHorizontalList extends React.PureComponent {
             <FeatureList
                 title={this.props.title}
                 items={this.props.songs}
-                displayMoreButton={false}
+                displayMoreButton={this.props.displayMoreButton}
+                onPressMore={this.props.onPressMore}
                 renderItem={renderSongCard} />
         )
     }
@@ -55,11 +56,13 @@ SongHorizontalList.propTypes = {
     renderItem: PropTypes.func,
     onPressMore: PropTypes.func,
     onPressItem: PropTypes.func,
+    displayMoreButton: PropTypes.bool
 }
 
 SongHorizontalList.defaultProps = {
     title: 'Songs',
     songs: [],
+    displayMoreButton: false,
     onPressItem: () => console.log('Press item'),
     onPressMore: () => console.log('Press more')
 }

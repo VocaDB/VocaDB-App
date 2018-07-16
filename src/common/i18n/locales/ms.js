@@ -139,6 +139,7 @@ t[labels.series] = 'Siri';
 t[labels.official] = 'Official';
 t[labels.commercial] = 'Commercial';
 t[labels.reference] = 'Reference';
+t[labels.recentSongsPVs] = 'Recent Songs / PVs';
 
 // Menu
 t[labels.favoriteSongs] = 'Lagu kegemaran';
