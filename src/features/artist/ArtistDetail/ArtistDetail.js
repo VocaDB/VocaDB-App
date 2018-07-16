@@ -169,7 +169,7 @@ class ArtistDetailPage extends React.Component {
         const renderRecentSongs = () => {
             if(latestSongs && latestSongs.length > 0) {
                 return (
-                    <SongHorizontalList title={i18n.recentSongs}
+                    <SongHorizontalList title={i18n.recentSongsPVs}
                                         songs={latestSongs}
                                         onPressItem={this.props.onPressSong}
                                         onPressMore={() => this.props.onPressMoreRecentSongs(artist)}
