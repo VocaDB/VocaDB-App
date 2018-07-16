@@ -106,6 +106,7 @@ t[labels.otherGroup] = 'Other group';
 t[labels.otherIndividual] = 'Other individual';
 t[labels.cevio] = 'CeVIO';
 t[labels.recentSearch] = 'Recent search';
+t[labels.clearFilter] = 'Clear filter';
 
 // Detail page or field labels
 t[labels.type] = 'Type';

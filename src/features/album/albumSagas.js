@@ -91,7 +91,8 @@ const albumSaga = function* albumSagaAsync() {
         actions.addSearchParamsArray,
         actions.fetchMoreSearchResult,
         actions.addFilterTag,
-        actions.removeFilterTag], fetchSearchAlbums)
+        actions.removeFilterTag,
+        actions.clearFilter], fetchSearchAlbums)
 
     yield takeLatest(actions.fetchLatestAlbums, fetchLatestAlbums)
     yield takeLatest(actions.fetchTopAlbums, fetchTopAlbums)

@@ -6,9 +6,9 @@ export const defaultSearchParams = {
     nameMatchMode: 'auto',
     sort: 'Name',
     start: 0,
-    artistTypes: '',
-    artistId: [],
+    artistTypes: 'Unknown',
     tagId: [],
+    query: ''
 }
 
 export const filterField = {
@@ -18,8 +18,8 @@ export const filterField = {
 
 export const artistTypes = [
     {
-        value: '',
-        label: ''
+        value: 'Unknown',
+        label: i18n.unspecified
     },
     {
         value: 'Circle',

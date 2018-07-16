@@ -4,7 +4,9 @@ export const defaultSearchParams = {
     maxResults: 30,
     nameMatchMode: 'auto',
     fields: 'MainPicture',
-    sort: 'Name'
+    sort: 'Name',
+    query: '',
+    discTypes: 'Unknown'
 }
 
 export const filterField = {
@@ -44,15 +46,12 @@ export const translateAlbumType = (albumType) => {
 
 export const discTypes = [
     {
-        value: ''
-    },
-    {
-        value: 'Unknow',
-        label: 'Unknow'
+        value: 'Unknown',
+        label: i18n.unspecified
     },
     {
         value: 'Album',
-        label: i18n.album
+        label: i18n.originalAlbum
     },
     {
         value: 'Single',

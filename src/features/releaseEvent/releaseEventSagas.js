@@ -89,7 +89,8 @@ const releaseEventSaga = function* releaseEventSagaAsync() {
         actions.addSearchParamsArray,
         actions.fetchMoreSearchResult,
         actions.addFilterTag,
-        actions.removeFilterTag], fetchSearchEvents)
+        actions.removeFilterTag,
+        actions.clearFilter], fetchSearchEvents)
 }
 
 export { fetchSearchEvents, fetchLatestReleaseEvents, fetchReleaseEventDetail, fetchReleaseEventPublishedSongs }

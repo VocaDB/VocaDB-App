@@ -8,7 +8,9 @@ export const defaultSearchParams = {
     songTypes: '',
     artistId: [],
     tagId: [],
-    sort: 'Name'
+    sort: 'Name',
+    minimumScore: '',
+    query: ''
 }
 
 export const songTypeName = {

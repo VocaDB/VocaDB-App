@@ -51,7 +51,8 @@ const artistSaga = function* artistSagaAsync() {
         actions.addSearchParamsArray,
         actions.fetchMoreSearchResult,
         actions.addFilterTag,
-        actions.removeFilterTag], fetchSearchArtists)
+        actions.removeFilterTag,
+        actions.clearFilter], fetchSearchArtists)
 }
 
 export { fetchArtistDetail, fetchSearchArtists }

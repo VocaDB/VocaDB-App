@@ -106,6 +106,7 @@ t[labels.otherGroup] = 'Other group';
 t[labels.otherIndividual] = 'Other individual';
 t[labels.cevio] = 'CeVIO';
 t[labels.recentSearch] = 'ค้นหาล่าสุด';
+t[labels.clearFilter] = 'ล้างตัวกรอง';
 
 // Detail page or field labels
 t[labels.type] = 'ประเภท';

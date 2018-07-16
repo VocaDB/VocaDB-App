@@ -139,5 +139,6 @@ export default {
     save: 'save',
     official: 'official',
     commercial: 'commercial',
-    reference: 'reference'
+    reference: 'reference',
+    clearFilter: 'clearFilter'
 };

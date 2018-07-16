@@ -45,3 +45,4 @@ export const setResultToPageId = createAction('Add to single list result', (page
     return normalized
 })
 export const clearSinglePageState = createAction('Clear single page state')
+export const clearFilter = createAction('Clear filter')

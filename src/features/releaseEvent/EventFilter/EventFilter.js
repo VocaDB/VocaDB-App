@@ -170,6 +170,11 @@ class EventFilter extends React.PureComponent {
         )
     }
 
+    renderClearFilter () {
+        return (
+            <Button raised icon='clear' text={i18n.clearFilter} style={{ container: { marginHorizontal: 16, marginVertical: 8 } }} onPress={this.props.onPressClearFilter} />
+        )
+    }
 
     render () {
         return (
@@ -179,6 +184,7 @@ class EventFilter extends React.PureComponent {
                 {this.renderInputSort()}
                 {this.renderInputArtists()}
                 {this.renderInputTags()}
+                {this.renderClearFilter()}
             </Content>
         )
     }
