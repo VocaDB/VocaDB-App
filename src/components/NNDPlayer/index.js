@@ -1,1 +1,1 @@
-import { default } from './NNDPlayer'
+export { default } from './NNDPlayer'
