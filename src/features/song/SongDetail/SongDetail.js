@@ -9,6 +9,7 @@ import PVList from '../../pv/PVLIst/index';
 import LyricGroup from '../../lyric/LyricGroup/index';
 import Cover from '../../../components/Cover/index';
 import Divider from '../../../components/Divider/index';
+import YouTubePlayer from '../../../components/YouTubePlayer';
 import Theme from '../../../theme';
 import AlbumHorizontalList  from '../../album/AlbumHorizontalList';
 import Expander from './../../../components/Expander';
@@ -182,15 +183,38 @@ class SongDetail extends React.PureComponent {
             )
         }
 
+        const renderPlayer = () => {
+
+            if(!song.pvs || !song.pvs.length) {
+                return null;
+            }
+
+            const officialPvs = song.pvs.filter(p => p.service === 'Youtube' && p.pvType === 'Original')
+
+            if(!officialPvs || !officialPvs.length) {
+                return null;
+            }
+
+
+            return (
+                <YouTubePlayer pvId={officialPvs[0].pvId} />
+            )
+
+            return (
+                <Cover
+                    imageUri={song.image}
+                    title={song.name}
+                    subtitle={song.artistString}
+                    subtitle2={(song && song.publishDate)? moment(song.publishDate).format('MM/DD/YYYY') : '' }
+                />
+            );
+        }
+
         return (
             <ScrollableTabView>
                 <ScrollView style={{ flex: 1, backgroundColor: 'white', paddingBottom: 18 }} tabLabel={i18n.info} >
-                    <Cover
-                        imageUri={song.image}
-                        title={song.name}
-                        subtitle={song.artistString}
-                        subtitle2={(song && song.publishDate)? moment(song.publishDate).format('MM/DD/YYYY') : '' }
-                    />
+
+                    {renderPlayer()}
 
                     {renderAdditionalInfo()}
 

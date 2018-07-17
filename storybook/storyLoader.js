@@ -15,6 +15,7 @@ function loadStories() {
   require('../src/components/NNDPlayer/test/stories');
   require('../src/components/SearchBar/test/stories');
   require('../src/components/Section/test/stories');
+  require('../src/components/YouTubePlayer/test/stories');
   require('../src/features/album/AlbumCard/test/stories');
   require('../src/features/album/AlbumDetail/test/stories');
   require('../src/features/album/AlbumFilter/test/stories');
@@ -82,6 +83,7 @@ const stories = [
   '../src/components/NNDPlayer/test/stories',
   '../src/components/SearchBar/test/stories',
   '../src/components/Section/test/stories',
+  '../src/components/YouTubePlayer/test/stories',
   '../src/features/album/AlbumCard/test/stories',
   '../src/features/album/AlbumDetail/test/stories',
   '../src/features/album/AlbumFilter/test/stories',
