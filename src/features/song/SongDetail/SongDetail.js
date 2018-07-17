@@ -10,6 +10,7 @@ import LyricGroup from '../../lyric/LyricGroup/index';
 import Cover from '../../../components/Cover/index';
 import Divider from '../../../components/Divider/index';
 import YouTubePlayer from '../../../components/YouTubePlayer';
+import NNDPlayer from '../../../components/NNDPlayer';
 import Theme from '../../../theme';
 import AlbumHorizontalList  from '../../album/AlbumHorizontalList';
 import Expander from './../../../components/Expander';
@@ -185,22 +186,7 @@ class SongDetail extends React.PureComponent {
 
         const renderPlayer = () => {
 
-            if(!song.pvs || !song.pvs.length) {
-                return null;
-            }
-
-            const officialPvs = song.pvs.filter(p => p.service === 'Youtube' && p.pvType === 'Original')
-
-            if(!officialPvs || !officialPvs.length) {
-                return null;
-            }
-
-
-            return (
-                <YouTubePlayer pvId={officialPvs[0].pvId} />
-            )
-
-            return (
+            const defaultElement = (
                 <Cover
                     imageUri={song.image}
                     title={song.name}
@@ -208,6 +194,20 @@ class SongDetail extends React.PureComponent {
                     subtitle2={(song && song.publishDate)? moment(song.publishDate).format('MM/DD/YYYY') : '' }
                 />
             );
+
+            if(!song.pvs || !song.pvs.length) {
+                return defaultElement;
+            }
+
+            let officialPvs = song.pvs.filter(p => p.service === 'Youtube' && p.pvType === 'Original')
+
+            if(officialPvs && officialPvs.length) {
+                return (
+                    <YouTubePlayer pvId={officialPvs[0].pvId} />
+                )
+            }
+
+            return defaultElement;
         }
 
         return (
