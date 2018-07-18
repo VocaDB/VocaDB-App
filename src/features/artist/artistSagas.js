@@ -26,6 +26,22 @@ const fetchSearchArtists = function* fetchSearchArtists() {
     }
 }
 
+const fetchSearchArtistsModal = function* fetchSearchArtistsModal(action) {
+    try {
+        const query = action.payload.query;
+        const displayLanguage = yield select(selectDisplayLanguage())
+
+        yield call(delay, 200)
+
+        const response = yield call(api.find, { query, fields: 'MainPicture', nameMatchMode: 'auto', sort: 'Name', maxResults: 50, lang: displayLanguage });
+
+        yield put(actions.setSearchResultModal(response.items));
+
+    } catch (e) {
+        yield put(appActions.requestError(e));
+    }
+}
+
 const fetchArtistDetail = function* fetchLatestArtists(action) {
     try {
 
@@ -53,6 +69,7 @@ const artistSaga = function* artistSagaAsync() {
         actions.addFilterTag,
         actions.removeFilterTag,
         actions.clearFilter], fetchSearchArtists)
+    yield takeLatest(actions.fetchSearchArtistsModal, fetchSearchArtistsModal)
 }
 
 export { fetchArtistDetail, fetchSearchArtists }

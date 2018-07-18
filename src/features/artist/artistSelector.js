@@ -256,3 +256,15 @@ export const selectFollowedArtistsWithLatestSongs = () => createSelector(
         return a;
     }
 )
+
+export const selectSearchResultModal = () => createSelector(
+    selectArtist(),
+    selectArtistEntity(),
+    (artistState, artistEntity) => {
+        if(!artistState || !artistEntity || !artistState.searchResultModal) {
+            return [];
+        }
+
+        return convertArtistIds(artistState.searchResultModal, artistEntity);
+    }
+)

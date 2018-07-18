@@ -13,7 +13,8 @@ export const defaultState = {
     searchPage: {
         params: {},
         results: []
-    }
+    },
+    searchResultModal: []
 }
 
 const reducer = createReducer({
@@ -217,6 +218,18 @@ const reducer = createReducer({
         searchPage.params = defaultSearchParams;
         searchPage.results = [];
         return { ...state, searchPage }
+    },
+    [actions.setSearchResultModal]: (state, payload) => {
+
+        if(!payload.result) {
+            return state;
+        }
+
+        let newState = { ...state }
+
+        newState.searchResultModal = payload.result;
+
+        return newState;
     }
 }, defaultState)
 
