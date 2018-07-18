@@ -8,5 +8,5 @@ import { View } from 'react-native'
 
 storiesOf('Components/NNDPlayer', module)
     .add('normal', () => (
-        <NNDPlayer pvId='sm33039918' />
+        <NNDPlayer pvId='sm33536295' />
     ));
