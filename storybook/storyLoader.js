@@ -5,6 +5,7 @@
 // https://github.com/elderfo/react-native-storybook-loader.git
 
 function loadStories() {
+  require('../src/components/BBPlayer/test/stories');
   require('../src/components/Cover/test/stories');
   require('../src/components/Divider/test/stories');
   require('../src/components/Empty/test/stories');
@@ -15,6 +16,7 @@ function loadStories() {
   require('../src/components/NNDPlayer/test/stories');
   require('../src/components/SearchBar/test/stories');
   require('../src/components/Section/test/stories');
+  require('../src/components/SoundCloudPlayer/test/stories');
   require('../src/components/YouTubePlayer/test/stories');
   require('../src/features/album/AlbumCard/test/stories');
   require('../src/features/album/AlbumDetail/test/stories');
@@ -73,6 +75,7 @@ function loadStories() {
 }
 
 const stories = [
+  '../src/components/BBPlayer/test/stories',
   '../src/components/Cover/test/stories',
   '../src/components/Divider/test/stories',
   '../src/components/Empty/test/stories',
@@ -83,6 +86,7 @@ const stories = [
   '../src/components/NNDPlayer/test/stories',
   '../src/components/SearchBar/test/stories',
   '../src/components/Section/test/stories',
+  '../src/components/SoundCloudPlayer/test/stories',
   '../src/components/YouTubePlayer/test/stories',
   '../src/features/album/AlbumCard/test/stories',
   '../src/features/album/AlbumDetail/test/stories',
