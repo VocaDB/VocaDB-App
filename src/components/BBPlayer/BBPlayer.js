@@ -5,13 +5,17 @@ import PropTypes from 'prop-types';
 class BBPlayer extends React.Component {
     render () {
 
+        if(!this.props.pvId && this.props.cid) {
+            return null;
+        }
+
         return (
             <View style={{ height: 260 }}>
                 <WebView
                     style={{flex:1}}
                     javaScriptEnabled={true}
                     mediaPlaybackRequiresUserAction={false}
-                    source={{uri: `https://player.bilibili.com/player.html?aid=26644164&cid=45826705&page=1`}}
+                    source={{uri: `https://player.bilibili.com/player.html?aid=${this.props.pvId}&cid=${this.props.cid}&page=1`}}
                 />
             </View>
         )
@@ -19,7 +23,8 @@ class BBPlayer extends React.Component {
 }
 
 BBPlayer.propTypes = {
-    pvId : PropTypes.string
+    pvId : PropTypes.string,
+    cid: PropTypes.number
 }
 
 BBPlayer.defaultProps = {

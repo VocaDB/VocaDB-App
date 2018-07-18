@@ -11,6 +11,8 @@ import Cover from '../../../components/Cover/index';
 import Divider from '../../../components/Divider/index';
 import YouTubePlayer from '../../../components/YouTubePlayer';
 import NNDPlayer from '../../../components/NNDPlayer';
+import BBPlayer from '../../../components/BBPlayer';
+import SoundCloudPlayer from '../../../components/SoundCloudPlayer';
 import Theme from '../../../theme';
 import AlbumHorizontalList  from '../../album/AlbumHorizontalList';
 import Expander from './../../../components/Expander';
@@ -206,6 +208,36 @@ class SongDetail extends React.PureComponent {
                     <YouTubePlayer pvId={officialPvs[0].pvId} />
                 )
             }
+
+            officialPvs = song.pvs.filter(p => p.service === 'NicoNicoDouga' && p.pvType === 'Original')
+
+            if(officialPvs && officialPvs.length) {
+                return (
+                    <NNDPlayer pvId={officialPvs[0].pvId} />
+                )
+            }
+
+            officialPvs = song.pvs.filter(p => p.service === 'Bilibili' && p.pvType === 'Original')
+
+            if(officialPvs && officialPvs.length && officialPvs[0].extendedMetadata && officialPvs[0].extendedMetadata.json) {
+                const metaData = JSON.parse(officialPvs[0].extendedMetadata.json)
+
+                if(metaData.Cid) {
+                    return (
+                        <BBPlayer pvId={officialPvs[0].pvId} cid={metaData.Cid} />
+                    )
+                }
+            }
+            
+            officialPvs = song.pvs.filter(p => p.service === 'SoundCloud' && p.pvType === 'Original')
+
+            if(officialPvs && officialPvs.length) {
+                return (
+                    <SoundCloudPlayer pvId={officialPvs[0].pvId} />
+                )
+            }
+
+
 
             return defaultElement;
         }
