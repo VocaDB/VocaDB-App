@@ -209,14 +209,6 @@ class SongDetail extends React.PureComponent {
                 )
             }
 
-            officialPvs = song.pvs.filter(p => p.service === 'NicoNicoDouga' && p.pvType === 'Original')
-
-            if(officialPvs && officialPvs.length) {
-                return (
-                    <NNDPlayer pvId={officialPvs[0].pvId} />
-                )
-            }
-
             officialPvs = song.pvs.filter(p => p.service === 'Bilibili' && p.pvType === 'Original')
 
             if(officialPvs && officialPvs.length && officialPvs[0].extendedMetadata && officialPvs[0].extendedMetadata.json) {
@@ -228,7 +220,7 @@ class SongDetail extends React.PureComponent {
                     )
                 }
             }
-            
+
             officialPvs = song.pvs.filter(p => p.service === 'SoundCloud' && p.pvType === 'Original')
 
             if(officialPvs && officialPvs.length) {
