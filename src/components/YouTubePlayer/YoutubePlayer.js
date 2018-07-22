@@ -13,7 +13,8 @@ class YoutubePlayer extends React.Component {
                     style={{flex:1}}
                     javaScriptEnabled={true}
                     mediaPlaybackRequiresUserAction={false}
-                    source={{uri: `https://www.youtube.com/embed/${this.props.pvId}`}}
+                    allowsInlineMediaPlayback={true}
+                    source={{uri: `https://www.youtube.com/embed/${this.props.pvId}?playsinline=1`}}
                 />
             </View>
         )
