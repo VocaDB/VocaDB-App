@@ -11,6 +11,7 @@ import { selectSongDetail,
     selectOriginalPVs,
     selectOtherPVs } from '../songSelector';
 import Routes from './../../../app/appRoutes';
+import { selectDefaultPVService } from './../../user/userSelector';
 import { songDetailUrl } from './../../../common/constants/config';
 import i18n from './../../../common/i18n';
 
@@ -40,7 +41,8 @@ const songDetailStateSelect = createSelector(
     selectOriginalSong(),
     selectOriginalPVs(),
     selectOtherPVs(),
-    (song, isFavoriteSong, albums, originalSong, originalPVs, otherPVs) => ({ song, isFavoriteSong, albums, originalSong, originalPVs, otherPVs })
+    selectDefaultPVService(),
+    (song, isFavoriteSong, albums, originalSong, originalPVs, otherPVs, defaultPVService) => ({ song, isFavoriteSong, albums, originalSong, originalPVs, otherPVs, defaultPVService })
 );
 
 const mapDispatchToProps = (dispatch, props) => ({

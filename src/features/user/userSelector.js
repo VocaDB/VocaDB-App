@@ -54,10 +54,18 @@ export const selectAlbums = () => createSelector(
 
 export const selectSettings = () => createSelector(
     selectUser(),
-    (userState) => (userState && userState.settings)? userState.settings : {}
+    (userState) => (userState && userState.settings)? userState.settings : {
+        displayLanguage: 'Default',
+        defaultPVService: 'Default'
+    }
 )
 
 export const selectDisplayLanguage = () => createSelector(
     selectSettings(),
     (settings) => (settings && settings.displayLanguage)? settings.displayLanguage : 'Default'
+)
+
+export const selectDefaultPVService = () => createSelector(
+    selectSettings(),
+    (settings) => (settings && settings.defaultPVService)? settings.defaultPVService : 'Default'
 )

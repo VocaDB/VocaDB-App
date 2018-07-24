@@ -188,6 +188,8 @@ class SongDetail extends React.PureComponent {
 
         const renderPlayer = () => {
 
+            const defaultPVService = this.props.defaultPVService;
+
             const defaultElement = (
                 <Cover
                     imageUri={song.image}
@@ -197,11 +199,37 @@ class SongDetail extends React.PureComponent {
                 />
             );
 
-            if(!song.pvs || !song.pvs.length) {
+            if(!song.pvs || !song.pvs.length || defaultPVService == 'None' ) {
                 return defaultElement;
             }
 
-            let officialPvs = song.pvs.filter(p => p.service === 'Youtube' && p.pvType === 'Original')
+            // Selected service
+            let officialPvs = song.pvs.filter(p => p.service === defaultPVService && p.pvType === 'Original')
+
+            if(officialPvs && officialPvs.length) {
+                if(defaultPVService == 'Youtube') {
+                    return (
+                        <YouTubePlayer pvId={officialPvs[0].pvId} />
+                    )
+                } else if(defaultPVService == 'Bilibili') {
+
+                    const metaData = JSON.parse(officialPvs[0].extendedMetadata.json)
+
+                    if(metaData.Cid) {
+                        return (
+                            <BBPlayer pvId={officialPvs[0].pvId} cid={metaData.Cid} />
+                        )
+                    }
+
+                } else if(defaultPVService == 'SoundCloud') {
+                    return (
+                        <SoundCloudPlayer pvId={officialPvs[0].pvId} />
+                    )
+                }
+            }
+
+
+            officialPvs = song.pvs.filter(p => p.service === 'Youtube' && p.pvType === 'Original')
 
             if(officialPvs && officialPvs.length) {
                 return (

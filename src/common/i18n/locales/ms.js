@@ -152,5 +152,7 @@ t[labels.about] = 'Perihal';
 t[labels.general] = 'General';
 t[labels.displayLanguage] = 'Display language';
 t[labels.displayLanguageDescription] = 'Preferred display language';
+t[labels.defaultPVService] = "Default PV Service";
+t[labels.defaultPVServiceDescription] = "Preferred streaming service";
 
 export default t;

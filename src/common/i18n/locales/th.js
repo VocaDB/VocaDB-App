@@ -152,5 +152,7 @@ t[labels.about] = 'เกี่ยวกับ';
 t[labels.general] = 'ทั่วไป';
 t[labels.displayLanguage] = 'ภาษาที่ใช้แสดง';
 t[labels.displayLanguageDescription] = 'ภาษาที่ใช้แสดงของข้อมูล (เช่น ชื่อเพลง ชื่อศิลปิน เป็นต้น)';
+t[labels.defaultPVService] = "ช่องทางหลักสำหรับชม PV";
+t[labels.defaultPVServiceDescription] = "ระบบจะใช้ค่านี้ในการเลือกช่องทางที่จะแสดง PV ในหน้ารายละเอียดของเพลง";
 
 export default t;

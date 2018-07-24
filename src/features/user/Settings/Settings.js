@@ -40,6 +40,26 @@ class Settings extends React.PureComponent {
                     modalButtonsTitlePositiveStyle={{ color: Theme.primaryColor }}
                 />
 
+                <SettingsPicker
+                    title={i18n.defaultPVService}
+                    dialogDescription={i18n.defaultPVServiceDescription}
+                    possibleValues={[
+                        {label: 'None', value: 'None'},
+                        {label: 'Default', value: 'Default'},
+                        {label: 'Youtube', value: 'Youtube'},
+                        {label: 'Bilibili', value: 'Bilibili'},
+                        {label: 'Soundcloud', value: 'SoundCloud'}
+                    ]}
+                    negativeButtonTitle={i18n.cancel}
+                    positiveButtonTitle={i18n.save}
+                    onSaveValue={defaultPVService => {
+                        this.props.onSettingsChanged({ defaultPVService })
+                    }}
+                    value={settings.defaultPVService}
+                    modalButtonsTitleNegativeStyle={{ color: '#000000', opacity: 0.75 }}
+                    modalButtonsTitlePositiveStyle={{ color: Theme.primaryColor }}
+                />
+
             </ScrollView>
         )
     }

@@ -141,5 +141,7 @@ export default {
     commercial: 'commercial',
     reference: 'reference',
     clearFilter: 'clearFilter',
-    recentSongsPVs: 'recentSongsPVs'
+    recentSongsPVs: 'recentSongsPVs',
+    defaultPVService: 'defaultPVService',
+    defaultPVServiceDescription: 'defaultPVServiceDescription'
 };

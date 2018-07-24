@@ -14,7 +14,9 @@ export const defaultState = {
     userId: 0,
     albums: [],
     settings: {
-        displayLanguage: 'Default'
+        displayLanguage: 'Default',
+        uiLanguage: 'Default',
+        defaultPVService: 'Default'
     }
 }
 
