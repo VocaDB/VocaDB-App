@@ -188,7 +188,7 @@ class SongDetail extends React.PureComponent {
 
         const renderPlayer = () => {
 
-            const defaultPVService = this.props.defaultPVService;
+            const pv = this.props.pv;
 
             const defaultElement = (
                 <Cover
@@ -199,67 +199,30 @@ class SongDetail extends React.PureComponent {
                 />
             );
 
-            if(!song.pvs || !song.pvs.length || defaultPVService == 'None' ) {
+            if(!pv) {
                 return defaultElement;
             }
 
-            // Selected service
-            let officialPvs = song.pvs.filter(p => p.service === defaultPVService && p.pvType === 'Original')
-
-            if(officialPvs && officialPvs.length) {
-                if(defaultPVService == 'Youtube') {
-                    return (
-                        <YouTubePlayer pvId={officialPvs[0].pvId} />
-                    )
-                } else if(defaultPVService == 'Bilibili') {
-
-                    const metaData = JSON.parse(officialPvs[0].extendedMetadata.json)
-
-                    if(metaData.Cid) {
-                        return (
-                            <BBPlayer pvId={officialPvs[0].pvId} cid={metaData.Cid} />
-                        )
-                    }
-
-                } else if(defaultPVService == 'SoundCloud') {
-                    return (
-                        <SoundCloudPlayer pvId={officialPvs[0].pvId} />
-                    )
-                }
-            }
-
-
-            officialPvs = song.pvs.filter(p => p.service === 'Youtube' && p.pvType === 'Original')
-
-            if(officialPvs && officialPvs.length) {
-                return (
-                    <YouTubePlayer pvId={officialPvs[0].pvId} />
-                )
-            }
-
-            officialPvs = song.pvs.filter(p => p.service === 'Bilibili' && p.pvType === 'Original')
-
-            if(officialPvs && officialPvs.length && officialPvs[0].extendedMetadata && officialPvs[0].extendedMetadata.json) {
-                const metaData = JSON.parse(officialPvs[0].extendedMetadata.json)
+            if(pv.service === 'Youtube') {
+                return (<YouTubePlayer pvId={pv.pvId} />);
+            } else if(pv.service === 'Bilibili') {
+                const metaData = JSON.parse(pv.extendedMetadata.json)
 
                 if(metaData.Cid) {
                     return (
-                        <BBPlayer pvId={officialPvs[0].pvId} cid={metaData.Cid} />
+                        <BBPlayer pvId={pv.pvId} cid={metaData.Cid} />
                     )
                 }
-            }
-
-            officialPvs = song.pvs.filter(p => p.service === 'SoundCloud' && p.pvType === 'Original')
-
-            if(officialPvs && officialPvs.length) {
+            } else if(pv.service === 'SoundCloud') {
                 return (
-                    <SoundCloudPlayer pvId={officialPvs[0].pvId} />
+                    <SoundCloudPlayer pvId={pv.pvId} />
                 )
             }
 
 
 
             return defaultElement;
+
         }
 
         return (
