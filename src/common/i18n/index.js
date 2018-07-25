@@ -12,8 +12,8 @@ I18n.missingBehaviour='guess';
 
 I18n.translations = {
     en,
-    ja,
-    zh,
+    // ja,
+    // zh,
     th,
     ms
 };
