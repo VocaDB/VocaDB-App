@@ -1,8 +1,9 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { View, Text, ScrollView, Platform } from 'react-native'
-import {SettingsDividerShort, SettingsDividerLong, SettingsEditText, SettingsCategoryHeader, SettingsSwitch, SettingsPicker} from 'react-native-settings-components'
-import Theme from './../../../theme'
+import React from 'react';
+import PropTypes from 'prop-types';
+import { View, Text, ScrollView, Platform } from 'react-native';
+import {SettingsDividerShort, SettingsDividerLong, SettingsEditText, SettingsCategoryHeader, SettingsSwitch, SettingsPicker} from 'react-native-settings-components';
+import Theme from './../../../theme';
+import i18n from './../../../common/i18n';
 
 class Settings extends React.PureComponent {
     constructor() {
@@ -16,11 +17,11 @@ class Settings extends React.PureComponent {
         return (
             <ScrollView style={{flex: 1, backgroundColor: (Platform.OS === 'ios') ? colors.iosSettingsBackground : colors.white}}>
 
-                <SettingsCategoryHeader title={'General'} textStyle={(Platform.OS === 'android') ? {color: colors.monza} : null}/>
+                <SettingsCategoryHeader title={i18n.general} textStyle={(Platform.OS === 'android') ? {color: colors.monza} : null}/>
 
                 <SettingsPicker
-                    title="Display language"
-                    dialogDescription={'Preferred display language.'}
+                    title={i18n.displayLanguage}
+                    dialogDescription={i18n.displayLanguageDescription}
                     possibleValues={[
                         {label: 'Original', value: ''},
                         {label: 'Non-English', value: 'Default'},
@@ -29,12 +30,32 @@ class Settings extends React.PureComponent {
                         {label: 'English', value: 'English'}
                     ]}
                     valuePlaceholder='Original'
-                    negativeButtonTitle='Cancel'
-                    positiveButtonTitle='Save'
+                    negativeButtonTitle={i18n.cancel}
+                    positiveButtonTitle={i18n.save}
                     onSaveValue={displayLanguage => {
                         this.props.onSettingsChanged({ displayLanguage })
                     }}
                     value={settings.displayLanguage}
+                    modalButtonsTitleNegativeStyle={{ color: '#000000', opacity: 0.75 }}
+                    modalButtonsTitlePositiveStyle={{ color: Theme.primaryColor }}
+                />
+
+                <SettingsPicker
+                    title={i18n.defaultPVService}
+                    dialogDescription={i18n.defaultPVServiceDescription}
+                    possibleValues={[
+                        {label: 'None', value: 'None'},
+                        {label: 'Default', value: 'Default'},
+                        {label: 'Youtube', value: 'Youtube'},
+                        {label: 'Bilibili', value: 'Bilibili'},
+                        {label: 'Soundcloud', value: 'SoundCloud'}
+                    ]}
+                    negativeButtonTitle={i18n.cancel}
+                    positiveButtonTitle={i18n.save}
+                    onSaveValue={defaultPVService => {
+                        this.props.onSettingsChanged({ defaultPVService })
+                    }}
+                    value={settings.defaultPVService}
                     modalButtonsTitleNegativeStyle={{ color: '#000000', opacity: 0.75 }}
                     modalButtonsTitlePositiveStyle={{ color: Theme.primaryColor }}
                 />

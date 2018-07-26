@@ -1,15 +1,13 @@
-import React from 'react'
-import {Modal, Text, TouchableHighlight, View, Button, ScrollView} from 'react-native';
-import PropTypes from 'prop-types'
-import Page from './../../../components/Page'
-import SearchBar from './../../../components/SearchBar'
-import * as mockGenerator from './../../../common/helper/mockGenerator'
-import ArtistList from './../ArtistList'
+import React from 'react';
+import { Modal, ScrollView } from 'react-native';
+import PropTypes from 'prop-types';
+import Page from './../../../components/Page';
+import SearchBar from './../../../components/SearchBar';
+import ArtistList from './../ArtistList';
 import { createSelector } from 'reselect';
-import { selectSearchResult } from './../artistSelector'
-import * as actions from './../artistActions'
-import { connect } from 'react-redux'
-
+import { selectSearchResultModal } from './../artistSelector';
+import * as actions from './../artistActions';
+import { connect } from 'react-redux';
 
 class ArtistSelectModal extends React.Component {
     render () {
@@ -41,7 +39,6 @@ class ArtistSelectModal extends React.Component {
 
             </Modal>
         )
-
     }
 }
 
@@ -54,12 +51,12 @@ ArtistSelectModal.propTypes = {
 }
 
 const mapSelectorToProps = createSelector(
-    selectSearchResult(),
+    selectSearchResultModal(),
     (artists) => ({ artists })
 )
 
 const mapDispatchToProps = (dispatch, props) => ({
-    search: query => dispatch(actions.fetchSearchArtists({ query })),
+    search: query => dispatch(actions.fetchSearchArtistsModal(query)),
     clearSearch: () => dispatch(actions.clearSearch())
 })
 

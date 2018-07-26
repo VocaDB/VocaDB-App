@@ -1,8 +1,8 @@
-import { createReducer } from 'redux-act'
+import { createReducer } from 'redux-act';
 import * as actions from './artistActions';
 import merge from 'deepmerge';
-import _ from 'lodash'
-import { defaultSearchParams } from './artistConstant'
+import _ from 'lodash';
+import { defaultSearchParams } from './artistConstant';
 
 export const defaultState = {
     detail: 0,
@@ -13,7 +13,8 @@ export const defaultState = {
     searchPage: {
         params: {},
         results: []
-    }
+    },
+    searchResultModal: []
 }
 
 const reducer = createReducer({
@@ -211,6 +212,24 @@ const reducer = createReducer({
         }
 
         return newState
+    },
+    [actions.clearFilter]: (state) => {
+        let searchPage = Object.assign({}, state.searchPage);
+        searchPage.params = defaultSearchParams;
+        searchPage.results = [];
+        return { ...state, searchPage }
+    },
+    [actions.setSearchResultModal]: (state, payload) => {
+
+        if(!payload.result) {
+            return state;
+        }
+
+        let newState = { ...state }
+
+        newState.searchResultModal = payload.result;
+
+        return newState;
     }
 }, defaultState)
 

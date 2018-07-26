@@ -4,7 +4,9 @@ export const defaultSearchParams = {
     maxResults: 30,
     nameMatchMode: 'auto',
     fields: 'MainPicture',
-    sort: 'Name'
+    sort: 'Name',
+    query: '',
+    discTypes: 'Unknown'
 }
 
 export const filterField = {
@@ -12,17 +14,44 @@ export const filterField = {
     sort: 'sort'
 }
 
+export const albumTypeName = {
+    album: 'Album',
+    single: 'Single',
+    ep: 'EP',
+    splitAlbum: 'splitAlbum',
+    compilation: 'compilation',
+    artbook: 'artbook',
+    game: 'Game',
+    fanmade: 'Fanmade',
+    instrumental: 'Instrumental',
+    other: 'Other'
+}
+
+export const translateAlbumType = (albumType) => {
+    switch (albumType) {
+        case albumTypeName.album: return i18n.originalAlbum;
+        case albumTypeName.single: return i18n.single;
+        case albumTypeName.ep: return i18n.ep;
+        case albumTypeName.splitAlbum: return i18n.splitAlbum;
+        case albumTypeName.compilation: return i18n.compilation;
+        case albumTypeName.artbook: return i18n.artbook;
+        case albumTypeName.game: return i18n.game;
+        case albumTypeName.fanmade: return i18n.fanmade;
+        case albumTypeName.instrumental: return i18n.instrumental;
+        case albumTypeName.other: return i18n.other;
+        default : return albumType;
+    }
+}
+
+
 export const discTypes = [
     {
-        value: ''
-    },
-    {
-        value: 'Unknow',
-        label: 'Unknow'
+        value: 'Unknown',
+        label: i18n.unspecified
     },
     {
         value: 'Album',
-        label: i18n.album
+        label: i18n.originalAlbum
     },
     {
         value: 'Single',

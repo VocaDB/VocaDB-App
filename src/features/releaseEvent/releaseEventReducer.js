@@ -1,8 +1,8 @@
-import { createReducer } from 'redux-act'
+import { createReducer } from 'redux-act';
 import * as actions from './releaseEventActions';
-import merge from "lodash/merge"
-import _ from 'lodash'
-import { defaultSearchParams } from './releaseEventConstant'
+import merge from "lodash/merge";
+import _ from 'lodash';
+import { defaultSearchParams } from './releaseEventConstant';
 
 export const defaultState = {
     all: [],
@@ -216,6 +216,12 @@ const reducer = createReducer({
         }
 
         return newState
+    },
+    [actions.clearFilter]: (state) => {
+        let searchPage = Object.assign({}, state.searchPage);
+        searchPage.params = defaultSearchParams;
+        searchPage.results = [];
+        return { ...state, searchPage }
     }
 }, defaultState)
 

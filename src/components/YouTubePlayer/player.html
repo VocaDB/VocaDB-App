@@ -1,0 +1,24 @@
+<html>
+<head>
+    <title>Youtube player</title>
+</head>
+
+<body>
+<div id="player"></div>
+
+<script type="text/javascript">
+    window.onNicoPlayerFactoryReady = factory => {
+        this.playerFactory = factory;
+    };
+
+    function createVideo(videoId) {
+
+        if(!window.videoId) {
+            window.videoId = videoId;
+            this.playerFactory.create(document.getElementById('player'), videoId);
+        }
+    }
+
+</script>
+</body>
+</html>

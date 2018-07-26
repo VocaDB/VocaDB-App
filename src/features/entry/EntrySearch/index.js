@@ -1,17 +1,18 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import EntrySearch from './EntrySearch'
-import * as actions from '../entryActions'
+import React from 'react';
+import { connect } from 'react-redux';
+import EntrySearch from './EntrySearch';
+import * as actions from '../entryActions';
 import { createSelector } from 'reselect';
-import { selectLoading } from '../../../app/appSelector'
+import { selectLoading } from '../../../app/appSelector';
 import {
     selectEntries,
     selectRecent,
     selectQuery,
     selectHasResult,
     selectSearching
-} from '../entrySelector'
-import Routes from './../../../app/appRoutes'
+} from '../entrySelector';
+import Routes from './../../../app/appRoutes';
+import i18n from './../../../common/i18n';
 
 EntrySearch.navigationOptions = () => ({
     title: 'Search',
@@ -41,13 +42,13 @@ const mapDispatchToProps = (dispatch, props) => ({
         dispatch(actions.saveRecentSearch(entry))
 
         if(entry.entryType === 'Song') {
-            props.navigation.navigate(Routes.SongDetail, { id: entry.id, title: entry.name })
+            props.navigation.navigate(Routes.SongDetail, { id: entry.id, title: entry.name });
         } else if(entry.entryType === 'Artist') {
-            props.navigation.navigate(Routes.ArtistDetail, { id: entry.id, title: entry.name })
+            props.navigation.navigate(Routes.ArtistDetail, { id: entry.id, title: entry.name });
         } else if(entry.entryType === 'Album') {
-            props.navigation.navigate(Routes.AlbumDetail, { id: entry.id, title: entry.name })
+            props.navigation.navigate(Routes.AlbumDetail, { id: entry.id, title: entry.name });
         } else if(entry.entryType === 'ReleaseEvent') {
-            props.navigation.navigate(Routes.EventDetail, { id: entry.id, title: entry.name })
+            props.navigation.navigate(Routes.EventDetail, { id: entry.id, title: entry.name });
         }
 
 
@@ -55,7 +56,7 @@ const mapDispatchToProps = (dispatch, props) => ({
     onPressClearRecent: () => dispatch(actions.clearRecentSearch()),
     onPressMoreSong: query => {
         const params = {
-            title: `More of "${query}"`,
+            title: `${query}`,
             hideSearchBar: true,
             filterParams: {
                 'query': query,
@@ -63,7 +64,7 @@ const mapDispatchToProps = (dispatch, props) => ({
                 'fields': 'thumbUrl'
             }
         }
-        props.navigation.navigate(Routes.SongList, params)
+        props.navigation.navigate(Routes.SongWithParams, params);
     }
 })
 

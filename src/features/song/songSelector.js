@@ -1,11 +1,12 @@
 import { createSelector } from 'reselect';
-import { selectNav } from './../../app/appSelector'
-import Routes from './../../app/appRoutes'
-import { selectArtistEntity, convertArtistIds } from './../artist/artistSelector'
-import { selectTagEntity, convertTagIds } from './../tag/tagSelector'
-import { durationHoursHelper, filterByHelper, vocalistHelper } from './SongRanking/SongRankingHelper'
-import { convertAlbumIds, selectAlbumEntity } from './../album/albumSelector'
-import { defaultSearchParams } from './songConstant'
+import { selectNav } from './../../app/appSelector';
+import Routes from './../../app/appRoutes';
+import { selectArtistEntity, convertArtistIds } from './../artist/artistSelector';
+import { selectTagEntity, convertTagIds } from './../tag/tagSelector';
+import { durationHoursHelper, filterByHelper, vocalistHelper } from './SongRanking/SongRankingHelper';
+import { convertAlbumIds, selectAlbumEntity } from './../album/albumSelector';
+import { selectDefaultPVService } from './../user/userSelector';
+import { defaultSearchParams } from './songConstant';
 
 export const transformSong = (entry) => {
 
@@ -269,4 +270,66 @@ export const selectSelectedSinglePageResults = () => createSelector(
 export const selectSelectedNavRoute = () => createSelector(
     selectNav(),
     (nav) => (nav.routes[nav.index])? nav.routes[nav.index] : {}
+)
+
+export const selectOriginalPVs = () => createSelector(
+    selectSongDetail(),
+    (songDetail) => (songDetail && songDetail.pvs && songDetail.pvs.length)? songDetail.pvs.filter(p => p.pvType == 'Original') : []
+)
+
+export const selectOtherPVs = () => createSelector(
+    selectSongDetail(),
+    (songDetail) => (songDetail && songDetail.pvs && songDetail.pvs.length)? songDetail.pvs.filter(p => p.pvType != 'Original') : []
+)
+
+export const selectPVByDefaultPVService = () => createSelector(
+    selectSongDetail(),
+    selectDefaultPVService(),
+    (songDetail, defaultPVService) => {
+
+        if(!songDetail || !songDetail.pvs || !songDetail.pvs.length || defaultPVService === 'None') {
+            return null;
+        }
+
+        const pvs = songDetail.pvs;
+
+        if(defaultPVService && defaultPVService != 'Default') {
+
+            let pvsFromSelectedService = pvs.filter(p => p.service === defaultPVService)
+
+            if(pvsFromSelectedService && pvsFromSelectedService.length) {
+
+                let originalPVs = pvsFromSelectedService.filter(p => p.pvType === 'Original');
+
+                if(originalPVs) {
+                    return originalPVs[0];
+                }
+
+                return pvsFromSelectedService[0];
+            }
+
+        }
+
+        const defaultServices = [ "Youtube", "Bilibili", "SoundCloud"];
+
+        for(let i=0;i<defaultServices.length;i++) {
+            const service = defaultServices[i];
+
+            let pvsFromSelectedService = pvs.filter(p => p.service === service)
+
+            if(pvsFromSelectedService && pvsFromSelectedService.length) {
+
+                let originalPVs = pvsFromSelectedService.filter(p => p.pvType === 'Original');
+
+                if(originalPVs) {
+                    return originalPVs[0];
+                }
+
+                return pvsFromSelectedService[0];
+            }
+
+        }
+
+
+    }
 )

@@ -1,8 +1,8 @@
-import { createReducer } from 'redux-act'
+import { createReducer } from 'redux-act';
 import * as actions from './albumActions';
 import merge from 'deepmerge';
-import _ from 'lodash'
-import { defaultSearchParams } from './albumConstant'
+import _ from 'lodash';
+import { defaultSearchParams } from './albumConstant';
 
 export const defaultState = {
     all: [],
@@ -296,6 +296,11 @@ const reducer = createReducer({
     },
     [actions.clearSinglePageState]: (state) => {
         return { ...state, singlePage: {} }
+    },
+    [actions.clearFilter]: (state) => {
+        let newState = { ...state }
+        newState.searchPage.params = defaultSearchParams;
+        return newState;
     }
 
 }, defaultState)

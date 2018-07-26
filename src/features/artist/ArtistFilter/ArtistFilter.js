@@ -91,12 +91,19 @@ class ArtistFilter extends React.Component {
         )
     }
 
+    renderClearFilter () {
+        return (
+            <Button raised icon='clear' text={i18n.clearFilter} style={{ container: { marginHorizontal: 16, marginVertical: 8 } }} onPress={this.props.onPressClearFilter} />
+        )
+    }
+
     render () {
         return (
             <Content>
                 {this.renderInputArtistType()}
                 {this.renderInputSort()}
                 {this.renderInputTags()}
+                {this.renderClearFilter()}
             </Content>
         )
     }

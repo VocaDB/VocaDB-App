@@ -33,6 +33,7 @@ const mapDispatchToProps = (dispatch, props) => ({
     onParamChanged: (name, value) => dispatch(artistActions.updateSearchParams(name, value)),
     onAddFilterTag: tag =>  dispatch(artistActions.addSearchParamsArray('tagId', tag.id)),
     onRemoveFilterTag: tag => dispatch(artistActions.removeSearchParamsArray('tagId', tag.id)),
+    onPressClearFilter: () => dispatch(artistActions.clearFilter()),
     back: () => props.navigation.goBack()
 })
 

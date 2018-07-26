@@ -1,7 +1,14 @@
 import _ from 'lodash';
 import i18n from './../../common/i18n';
 
-export const defaultSearchParams = { maxResults: 50, fields: 'MainPicture', sort: 'Date' }
+export const defaultSearchParams = {
+    maxResults: 50,
+    fields: 'MainPicture',
+    sort: 'Date',
+    category: 'Unspecified',
+    afterDate: '',
+    beforeDate: '',
+}
 
 export const filterField = {
     afterDate: 'afterDate',

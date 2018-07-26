@@ -11,6 +11,9 @@ class NNDPlayer extends React.Component {
         return (
             <View style={{ height: 260 }}>
                 <WebView
+                    scalesPageToFit={true}
+                    bounces={false}
+                    scrollEnabled={true}
                     injectedJavaScript={callJavascript}
                     source={Player}
                     style={{ flex: 1 }}

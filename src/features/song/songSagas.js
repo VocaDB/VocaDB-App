@@ -151,7 +151,8 @@ const songSaga = function* songSagaAsync() {
         actions.addSearchParamsArray,
         actions.fetchMoreSearchResult,
         actions.addSelectedFilterTag,
-        actions.removeSelectedFilterTag], fetchSearchSongs)
+        actions.removeSelectedFilterTag,
+        actions.clearFilter], fetchSearchSongs)
     yield takeLatest([actions.changeDurationHours,
         actions.changeFilterBy,
         actions.changeVocalist,

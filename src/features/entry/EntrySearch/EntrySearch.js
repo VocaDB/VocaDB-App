@@ -1,16 +1,17 @@
-import React from 'react'
-import { View, Text, ScrollView, StatusBar } from 'react-native'
+import React from 'react';
+import { View, Text, ScrollView, StatusBar } from 'react-native';
 import { Toolbar } from 'react-native-material-ui';
-import EntryList from '../EntryList/index'
-import ArtistList from '../../artist/ArtistList/index'
-import EventList from '../../releaseEvent/EventList'
-import AlbumList from '../../album/AlbumList/index'
-import Page from '../../../components/Page/index'
-import PropTypes from 'prop-types'
-import SearchBar from '../../../components/SearchBar/index'
+import EntryList from '../EntryList/index';
+import ArtistList from '../../artist/ArtistList/index';
+import EventList from '../../releaseEvent/EventList';
+import AlbumList from '../../album/AlbumList/index';
+import Page from '../../../components/Page/index';
+import PropTypes from 'prop-types';
+import SearchBar from '../../../components/SearchBar/index';
 import { Button } from 'react-native-material-ui';
-import Theme from '../../../theme'
-import Empty from './../../../components/Empty'
+import Theme from '../../../theme';
+import Empty from './../../../components/Empty';
+import i18n from './../../../common/i18n';
 
 class EntrySearch extends React.Component {
 
@@ -25,7 +26,7 @@ class EntrySearch extends React.Component {
     }
 
     onSearch(query) {
-        this.setState({ query })
+        this.setState({ query });
     }
 
     renderResultNotFound () {
@@ -48,7 +49,7 @@ class EntrySearch extends React.Component {
         return (
             <ScrollView style={{ flex: 1 }}>
                 <View style={{ padding: 8, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
-                    <Text style={Theme.subhead}>Recent search</Text>
+                    <Text style={Theme.subhead}>{i18n.recentSearch}</Text>
                     {renderClearButton()}
                 </View>
                 <EntryList entries={this.props.recentList} onPressItem={this.props.onPressEntry} />
@@ -99,15 +100,15 @@ class EntrySearch extends React.Component {
 
         const ResultContent = () => (
             <ScrollView style={{ flex: 1 }}>
-                {songEntries.length > 0 && <EntryList max={5} title='Songs' entries={songEntries} onPressItem={this.props.onPressEntry} onPressMore={() => this.props.onPressMoreSong(this.props.query)} />}
+                {songEntries.length > 0 && <EntryList max={5} title={i18n.songs} entries={songEntries} onPressItem={this.props.onPressEntry} onPressMore={() => this.props.onPressMoreSong(this.props.query)} />}
                 {artistEntries.length > 0 && <ArtistList artists={artistEntries} onPressItem={this.props.onPressEntry} showHeader={true} />}
                 {albumEntries.length > 0 && <AlbumList albums={albumEntries} onPressItem={this.props.onPressEntry} showHeader />}
                 {eventEntries.length > 0 &&  <EventList
-                    title='Events'
+                    title={i18n.events}
                     events={eventEntries}
                     onPressItem={this.props.onPressEntry}
                     hideMoreButton={true} />}
-                {tagEntries.length > 0 && <EntryList title='Tags' entries={tagEntries} onPressItem={this.props.onPressEntry} />}
+                {tagEntries.length > 0 && <EntryList title={i18n.tags} entries={tagEntries} onPressItem={this.props.onPressEntry} />}
             </ScrollView>
         )
 

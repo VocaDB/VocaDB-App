@@ -65,6 +65,15 @@ class SongFilter extends React.PureComponent {
                     style={{ container: { marginHorizontal: 16, marginVertical: 8 } }}
                     text={i18n.selectArtist}
                     onPress={() => { this.setState({ showArtistModal: true }) }} />
+                <ArtistSelectModal
+                    modalVisible={this.state.showArtistModal}
+                    onBackPress={() => {
+                        this.setState({ showArtistModal: false })
+                    }}
+                    onPressItem={artist => {
+                        this.setState({ showArtistModal: false })
+                        this.props.onAddArtist(artist)
+                    }} />
             </View>
         )
     }
@@ -90,6 +99,15 @@ class SongFilter extends React.PureComponent {
                     style={{ container: { marginHorizontal: 16, marginVertical: 8 } }}
                     text={i18n.selectTag}
                     onPress={() => { this.setState({ showTagModal: true }) }} />
+                <TagSelectModal
+                    modalVisible={this.state.showTagModal}
+                    onBackPress={() => {
+                        this.setState({ showTagModal: false })
+                    }}
+                    onPressItem={tag => {
+                        this.setState({ showTagModal: false })
+                        this.props.onAddFilterTag(tag)
+                    }} />
             </View>
         )
     }
@@ -127,7 +145,15 @@ class SongFilter extends React.PureComponent {
         )
     }
 
+    renderClearFilter () {
+        return (
+            <Button raised icon='clear' text={i18n.clearFilter} style={{ container: { marginHorizontal: 16, marginVertical: 8 } }} onPress={this.props.onPressClearFilter} />
+        )
+    }
+
     render () {
+
+        console.log(`${JSON.stringify(this.props.params)}`)
         return (
                 <Content>
                     {this.renderInputSongType()}
@@ -135,6 +161,7 @@ class SongFilter extends React.PureComponent {
                     {this.renderInputSort()}
                     {this.renderInputArtists()}
                     {this.renderInputTags()}
+                    {this.renderClearFilter()}
                 </Content>
         )
     }

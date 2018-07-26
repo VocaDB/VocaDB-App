@@ -9,11 +9,16 @@ import PVList from '../../pv/PVLIst/index';
 import LyricGroup from '../../lyric/LyricGroup/index';
 import Cover from '../../../components/Cover/index';
 import Divider from '../../../components/Divider/index';
+import YouTubePlayer from '../../../components/YouTubePlayer';
+import NNDPlayer from '../../../components/NNDPlayer';
+import BBPlayer from '../../../components/BBPlayer';
+import SoundCloudPlayer from '../../../components/SoundCloudPlayer';
 import Theme from '../../../theme';
 import AlbumHorizontalList  from '../../album/AlbumHorizontalList';
 import Expander from './../../../components/Expander';
 import moment from 'moment';
 import SongRow from './../SongRow';
+import { translateSongType } from './../songConstant';
 import i18n from './../../../common/i18n';
 
 const toMSS = function (sec_num) {
@@ -21,7 +26,7 @@ const toMSS = function (sec_num) {
     if(!sec_num) {
         return '0';
     }
-    
+
     var hours   = Math.floor(sec_num / 3600);
     var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
     var seconds = sec_num - (hours * 3600) - (minutes * 60);
@@ -81,12 +86,26 @@ class SongDetail extends React.PureComponent {
             </Section>
         )
 
-        const renderPVList = () => (
-            <Section>
-                <Divider />
-                <PVList pvs={song.pvs} type='Original' title={i18n.originalPVs} showHeader />
-            </Section>
-        )
+        const renderPVList = () => {
+
+            if(song.pvs && song.pvs.length == 0) {
+                return;
+            }
+
+            if(this.props.originalPVs.length == 0) {
+                return (
+                    <PVList pvs={this.props.otherPVs} title='PVs' showHeader />
+                )
+            }
+
+            return (
+                <Section>
+                    <Divider />
+                    <PVList pvs={this.props.originalPVs} title={i18n.originalPVs} showHeader />
+                    {(this.props.otherPVs.length > 0) && <Expander content={<PVList pvs={this.props.otherPVs} title={i18n.other} showHeader />} />}
+                </Section>
+            )
+        }
 
         const renderAlbumList = () => (
             <Section>
@@ -98,7 +117,7 @@ class SongDetail extends React.PureComponent {
         const renderWebLinkList = () => (
             <Section>
                 <Divider />
-                <WebLinkList webLinks={song.webLinks} category='Official' title='Official' />
+                <WebLinkList webLinks={song.webLinks} category='Official' title={i18n.official} />
             </Section>
         )
 
@@ -106,7 +125,7 @@ class SongDetail extends React.PureComponent {
             <Section style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around', padding: 8, backgroundColor: '#2C486E' }}>
                 <View style={{ alignItems: 'center'}}>
                     <View style={{ padding: 4 }}>
-                        <Text style={Theme.boxValue}>{song.songType}</Text>
+                        <Text style={Theme.boxValue}>{translateSongType(song.songType)}</Text>
                     </View>
                     <Text style={Theme.boxTitle}>{i18n.type}</Text>
                 </View>
@@ -167,15 +186,50 @@ class SongDetail extends React.PureComponent {
             )
         }
 
+        const renderPlayer = () => {
+
+            const pv = this.props.pv;
+
+            const defaultElement = (
+                <Cover
+                    imageUri={song.image}
+                    title={song.name}
+                    subtitle={song.artistString}
+                    subtitle2={(song && song.publishDate)? moment(song.publishDate).format('MM/DD/YYYY') : '' }
+                />
+            );
+
+            if(!pv) {
+                return defaultElement;
+            }
+
+            if(pv.service === 'Youtube') {
+                return (<YouTubePlayer pvId={pv.pvId} />);
+            } else if(pv.service === 'Bilibili') {
+                const metaData = JSON.parse(pv.extendedMetadata.json)
+
+                if(metaData.Cid) {
+                    return (
+                        <BBPlayer pvId={pv.pvId} cid={metaData.Cid} />
+                    )
+                }
+            } else if(pv.service === 'SoundCloud') {
+                return (
+                    <SoundCloudPlayer pvId={pv.pvId} />
+                )
+            }
+
+
+
+            return defaultElement;
+
+        }
+
         return (
             <ScrollableTabView>
                 <ScrollView style={{ flex: 1, backgroundColor: 'white', paddingBottom: 18 }} tabLabel={i18n.info} >
-                    <Cover
-                        imageUri={song.image}
-                        title={song.name}
-                        subtitle={song.artistString}
-                        subtitle2={(song && song.publishDate)? moment(song.publishDate).format('MM/DD/YYYY') : '' }
-                    />
+
+                    {renderPlayer()}
 
                     {renderAdditionalInfo()}
 

@@ -1,10 +1,9 @@
-import React from 'react'
-import { View, Text, ScrollView } from 'react-native'
-import Artist from '../ArtistRow/index'
+import React from 'react';
+import { View, Text, ScrollView } from 'react-native';
+import Artist from '../ArtistRow/index';
 import PropTypes from 'prop-types';
-import images from '../../../common/assets/images'
-import Theme from '../../../theme'
-import { material } from 'react-native-typography'
+import Theme from '../../../theme';
+import i18n from './../../../common/i18n';
 
 class ArtistList extends React.Component {
 
@@ -68,7 +67,7 @@ ArtistList.propTypes = {
 };
 
 ArtistList.defaultProps = {
-    title: 'Artists',
+    title: i18n.artists,
     artists: [],
     horizontal: false,
     showHeader: false,

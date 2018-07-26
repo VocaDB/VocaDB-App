@@ -4,6 +4,9 @@ import artistSchema from './artistSchema'
 import tagSchema from './../tag/tagSchema'
 
 export const fetchSearchArtists = createAction('fetch search artists', (params, remove, replace) => ({ loading: true, params, remove, replace }))
+export const fetchSearchArtistsModal = createAction('fetch search artists modal', query => ({ query }))
+export const setSearchResultModal = createAction('set search artists modal', data => normalize(data, [ artistSchema ]))
+
 export const fetchSearchArtistsSuccess =  createAction('fetch search artists success', (data, append) => {
     let nom = normalize(data, [ artistSchema ])
     return { ...nom, append }
@@ -26,3 +29,4 @@ export const fetchMoreSearchResult = createAction('Fetch more search result')
 export const onSearching = createAction('Searching', text => ({ text }))
 export const addFilterTag = createAction('add filter tag', data => normalize(data,  tagSchema))
 export const removeFilterTag = createAction('remove filter tag', data => normalize(data,  tagSchema))
+export const clearFilter = createAction('Clear filter')

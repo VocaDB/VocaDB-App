@@ -16,6 +16,7 @@ import Expander from './../../../components/Expander';
 import StarRating from 'react-native-star-rating';
 import PVList from '../../pv/PVLIst/index';
 import i18n from './../../../common/i18n';
+import { translateAlbumType } from './../albumConstant';
 
 class AlbumDetail extends React.Component {
 
@@ -78,7 +79,7 @@ class AlbumDetail extends React.Component {
 
                 <View style={{ alignItems: 'center'}}>
                     <View  style={{ padding: 4 }}>
-                        <Text style={Theme.boxValue}>{album.discType}</Text>
+                        <Text style={Theme.boxValue}>{translateAlbumType(album.discType)}</Text>
                     </View>
                     <Text style={Theme.boxTitle}>{i18n.discType}</Text>
                 </View>
@@ -141,9 +142,9 @@ class AlbumDetail extends React.Component {
         const renderWebLinks = () => (
             <Section>
                 <Divider />
-                <WebLinkList webLinks={album.webLinks} category='Official' title='Official' />
-                <WebLinkList webLinks={album.webLinks} category='Commercial' title='Commercial' />
-                <WebLinkList webLinks={album.webLinks} category='Reference' title='Reference' />
+                <WebLinkList webLinks={album.webLinks} category='Official' title={i18n.official} />
+                <WebLinkList webLinks={album.webLinks} category='Commercial' title={i18n.commercial} />
+                <WebLinkList webLinks={album.webLinks} category='Reference' title={i18n.reference} />
             </Section>
         )
 
@@ -161,7 +162,7 @@ class AlbumDetail extends React.Component {
 
         return (
             <ScrollableTabView>
-                <Content tabLabel='Info'>
+                <Content tabLabel={i18n.info}>
                     <Cover
                         imageUri={imageUri}
                         title={album.name}

@@ -223,3 +223,48 @@ export const selectFilterTags = () => createSelector(
         return convertTagIds(params.tagId, tagEntity)
     }
 )
+
+export const selectFollowedArtistsWithLatestSongs = () => createSelector(
+    selectFollowedArtists(),
+    selectSongEntity(),
+    (artists, songEntity) => {
+        if(!artists || !songEntity) {
+            return [];
+        }
+
+        const a = artists.filter(a => a.relations && a.relations.latestSongs)
+            .map(a => {
+
+                a = transformArtist(a);
+
+                return {
+                    id: a.id,
+                    name: a.name,
+                    image: a.image,
+                    latestSongs: convertSongIds(a.relations.latestSongs, songEntity)
+                        .map(s => ({
+                            id: s.id,
+                            name: s.name,
+                            artistString: s.artistString,
+                            image: s.image,
+                            songType: s.songType,
+                            pvs: s.pvs
+                        }))
+                }
+            });
+
+        return a;
+    }
+)
+
+export const selectSearchResultModal = () => createSelector(
+    selectArtist(),
+    selectArtistEntity(),
+    (artistState, artistEntity) => {
+        if(!artistState || !artistEntity || !artistState.searchResultModal) {
+            return [];
+        }
+
+        return convertArtistIds(artistState.searchResultModal, artistEntity);
+    }
+)

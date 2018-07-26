@@ -4,8 +4,15 @@ import { connect } from 'react-redux';
 import SongDetailPage from './SongDetail';
 import { createSelector } from 'reselect';
 import * as songActions from '../songActions';
-import { selectSongDetail, selectIsFavoriteSong, selectAlbums, selectOriginalSong } from '../songSelector';
+import { selectSongDetail,
+    selectIsFavoriteSong,
+    selectAlbums,
+    selectOriginalSong,
+    selectOriginalPVs,
+    selectOtherPVs,
+    selectPVByDefaultPVService } from '../songSelector';
 import Routes from './../../../app/appRoutes';
+import { selectDefaultPVService } from './../../user/userSelector';
 import { songDetailUrl } from './../../../common/constants/config';
 import i18n from './../../../common/i18n';
 
@@ -33,7 +40,10 @@ const songDetailStateSelect = createSelector(
     selectIsFavoriteSong(),
     selectAlbums(),
     selectOriginalSong(),
-    (song, isFavoriteSong, albums, originalSong) => ({ song, isFavoriteSong, albums, originalSong })
+    selectOriginalPVs(),
+    selectOtherPVs(),
+    selectPVByDefaultPVService(),
+    (song, isFavoriteSong, albums, originalSong, originalPVs, otherPVs, pv) => ({ song, isFavoriteSong, albums, originalSong, originalPVs, otherPVs, pv })
 );
 
 const mapDispatchToProps = (dispatch, props) => ({

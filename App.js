@@ -1,14 +1,12 @@
-import React from 'react'
-import AppNav from './src/AppNavigator'
-import AppNavWithState from './src/app/AppWithNavigationState'
-import { Provider } from 'react-redux'
-import appStore from './src/app/appStore'
-import { PersistGate } from 'redux-persist/integration/react'
-import { StyleProvider } from 'native-base'
-import { View, DeviceEventEmitter } from 'react-native'
+import React from 'react';
+import AppNavWithState from './src/app/AppWithNavigationState';
+import { Provider } from 'react-redux';
+import appStore from './src/app/appStore';
+import { PersistGate } from 'redux-persist/integration/react';
 import StorybookUI from './storybook';
 import { COLOR, ThemeProvider } from 'react-native-material-ui';
-import QuickActions from 'react-native-quick-actions'
+import QuickActions from 'react-native-quick-actions';
+import i18n from './src/common/i18n';
 
 const uiTheme = {
     palette: {
@@ -24,7 +22,7 @@ const uiTheme = {
 QuickActions.setShortcutItems([
     {
         type: "Songs",
-        title: "Find songs",
+        title: i18n.findSong,
         icon: "song",
         userInfo: {
             url: "vocadb://songs"
@@ -32,7 +30,7 @@ QuickActions.setShortcutItems([
     },
     {
         type: "Artists",
-        title: "Find artists",
+        title: i18n.findArtist,
         icon: "artist",
         userInfo: {
             url: "vocadb://artists"
@@ -40,7 +38,7 @@ QuickActions.setShortcutItems([
     },
     {
         type: "Albums",
-        title: "Find albums",
+        title: i18n.findAlbum,
         icon: "album",
         userInfo: {
             url: "vocadb://albums"
@@ -51,7 +49,7 @@ QuickActions.setShortcutItems([
 
 class App extends React.Component {
     constructor(props) {
-        super(props)
+        super(props);
     }
 
     componentWillMount () {
