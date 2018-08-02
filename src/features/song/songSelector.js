@@ -301,8 +301,14 @@ export const selectPVByDefaultPVService = () => createSelector(
 
                 let originalPVs = pvsFromSelectedService.filter(p => p.pvType === 'Original');
 
-                if(originalPVs) {
+                if(originalPVs.length) {
                     return originalPVs[0];
+                }
+
+                let otherPVs = pvsFromSelectedService.filter(p => p.pvType != 'Original');
+
+                if(otherPVs.length) {
+                    return otherPVs[0];
                 }
 
                 return pvsFromSelectedService[0];
@@ -321,8 +327,14 @@ export const selectPVByDefaultPVService = () => createSelector(
 
                 let originalPVs = pvsFromSelectedService.filter(p => p.pvType === 'Original');
 
-                if(originalPVs) {
+                if(originalPVs.length) {
                     return originalPVs[0];
+                }
+
+                let otherPVs = pvsFromSelectedService.filter(p => p.pvType != 'Original');
+
+                if(otherPVs.length) {
+                    return otherPVs[0];
                 }
 
                 return pvsFromSelectedService[0];
