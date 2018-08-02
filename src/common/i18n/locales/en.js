@@ -140,6 +140,9 @@ t[labels.official] = 'Official';
 t[labels.commercial] = 'Commercial';
 t[labels.reference] = 'Reference';
 t[labels.recentSongsPVs] = 'Recent Songs / PVs';
+t[labels.emptyFavoriteSongs] = 'No favorite songs';
+t[labels.emptyFavoriteAlbums] = 'No favorite albums ';
+t[labels.emptyFavoriteArtists] = 'Nothing yet';
 
 // Menu
 t[labels.favoriteSongs] = 'Favorite songs';

@@ -1,14 +1,12 @@
 import React from 'react';
 import { View, Text, ScrollView, RefreshControl, FlatList } from 'react-native';
-import SongList from '../../song/SongList';
 import CenterView from '../../../components/CenterView';
 import PropTypes from 'prop-types';
 import Icon from '../../../components/Icon';
 import FeatureList from './../FeatureList';
-import i18n from './../../../common/i18n';
 import SongCard from '../../song/SongCard';
 import { Avatar } from 'react-native-elements';
-import images from '../../../common/assets/images';
+import i18n from './../../../common/i18n';
 
 class FollowedTab extends React.Component {
 
@@ -16,7 +14,7 @@ class FollowedTab extends React.Component {
         return (
             <CenterView>
                 <Icon name='ios-person' size='xlarge' />
-                <Text>You did not followed any artist.</Text>
+                <Text>{i18n.emptyFavoriteArtists}</Text>
             </CenterView>
         )
     }

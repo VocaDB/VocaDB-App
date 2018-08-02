@@ -1,17 +1,17 @@
-import React from 'react'
-import { ScrollView, Text } from 'react-native'
-import Content from '../../../components/Content'
-import SongList from '../SongList'
-import Empty from './../../../components/Empty'
+import React from 'react';
+import Content from '../../../components/Content';
+import SongList from '../SongList';
+import Empty from './../../../components/Empty';
+import i18n from './../../../common/i18n';
 
 class FavoriteSongs extends React.PureComponent {
 
     render () {
 
-        const noList = (!this.props.songs || this.props.songs.length === 0)
+        const noList = (!this.props.songs || this.props.songs.length === 0);
 
         if(noList) {
-            return (<Empty text='No any favorite song' icon='ios-person' />)
+            return (<Empty text={i18n.emptyFavoriteSongs} icon='ios-person' />);
         }
 
         return (
@@ -24,4 +24,4 @@ class FavoriteSongs extends React.PureComponent {
     }
 }
 
-export default FavoriteSongs
+export default FavoriteSongs;

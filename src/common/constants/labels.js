@@ -143,5 +143,8 @@ export default {
     clearFilter: 'clearFilter',
     recentSongsPVs: 'recentSongsPVs',
     defaultPVService: 'defaultPVService',
-    defaultPVServiceDescription: 'defaultPVServiceDescription'
+    defaultPVServiceDescription: 'defaultPVServiceDescription',
+    emptyFavoriteSongs: 'emptyFavoriteSongs',
+    emptyFavoriteAlbums: 'emptyFavoriteAlbums',
+    emptyFavoriteArtists: 'emptyFavoriteArtists'
 };

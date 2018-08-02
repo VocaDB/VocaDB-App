@@ -1,17 +1,18 @@
-import React from 'react'
-import { ScrollView, Text } from 'react-native'
-import Content from '../../../components/Content'
-import AlbumGridView from './../AlbumGridView'
-import Empty from './../../../components/Empty'
+import React from 'react';
+import { ScrollView, Text } from 'react-native';
+import Content from '../../../components/Content';
+import AlbumGridView from './../AlbumGridView';
+import Empty from './../../../components/Empty';
+import i18n from './../../../common/i18n';
 
 class FavoriteAlbums extends React.PureComponent {
 
     render () {
 
-        const noList = (!this.props.albums || this.props.albums.length === 0)
+        const noList = (!this.props.albums || this.props.albums.length === 0);
 
         if(noList) {
-            return (<Empty text='No any favorite album' icon='ios-disc' />)
+            return (<Empty text={i18n.emptyFavoriteAlbums} icon='ios-disc' />);
         }
 
         return (
@@ -24,4 +25,4 @@ class FavoriteAlbums extends React.PureComponent {
     }
 }
 
-export default FavoriteAlbums
+export default FavoriteAlbums;
