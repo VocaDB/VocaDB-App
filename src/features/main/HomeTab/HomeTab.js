@@ -78,6 +78,18 @@ class HomeTab extends React.PureComponent {
 
         }
 
+        const events = this.props.anniversaryEvents.map(e => {
+            return {
+                key: e.id,
+                title: e.name,
+                data: e.songs,
+                renderItem: renderSongCard,
+                onPressMore: () => {
+                    this.props.onPressEvent(e)
+                }
+            }
+        })
+
         return (
             <FlatList
                 refreshing={this.props.refreshing}
@@ -102,6 +114,7 @@ class HomeTab extends React.PureComponent {
                         renderItem: renderSongCard,
                         onPressMore: this.props.onPressMoreRecentSongs
                     },
+                    ...events,
                     {
                         key: 1,
                         title: i18n.recentAlbums,
@@ -160,7 +173,8 @@ HomeTab.defaultProps = {
     recentSongs: [],
     recentAlbums: [],
     topAlbums: [],
-    latestEvents: []
+    latestEvents: [],
+    anniversaryEvents: []
 }
 
 export default HomeTab

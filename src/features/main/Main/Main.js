@@ -46,7 +46,7 @@ class Main extends React.PureComponent {
         this.props.fetchTopAlbums();
         this.props.fetchLatestEvents();
         this.props.fetchRecentAlbums();
-
+        this.props.fetchRunningEventSongs();
     }
 
     refreshFollowedSongs () {
@@ -76,6 +76,7 @@ class Main extends React.PureComponent {
                     recentSongs={this.props.recentSongs}
                     recentAlbums={this.props.recentAlbums}
                     topAlbums={this.props.topAlbums}
+                    anniversaryEvents={this.props.anniversaryEvents}
                     latestEvents={this.props.latestEvents}
                     onPressSong={this.props.onPressSong}
                     onPressAlbum={this.props.onPressAlbum}

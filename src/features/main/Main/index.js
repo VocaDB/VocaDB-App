@@ -7,7 +7,7 @@ import Routes from './../../../app/appRoutes';
 import { selectHighlighted, selectFollowedSongs, selectRankingResult, selectRankingState } from '../../song/songSelector';
 import { selectFollowedArtistsWithLatestSongs } from '../../artist/artistSelector';
 import { selectLatestAlbums, selectTopAlbums } from '../../album/albumSelector';
-import { selectLatestReleaseEvents } from '../../releaseEvent/releaseEventSelector';
+import { selectLatestReleaseEvents, selectRunningAnniversaryEvents, selectRunningEvents } from '../../releaseEvent/releaseEventSelector';
 import { selectLoading } from '../../../app/appSelector';
 import * as userActions from '../../user/userActions';
 import * as songActions from '../../song/songActions';
@@ -37,7 +37,8 @@ const mapStateSelector = createSelector(
     selectRankingState(),
     selectRankingResult(),
     selectFollowedArtistsWithLatestSongs(),
-    (recentSongs, refreshing, latestEvents, recentAlbums, topAlbums, followedSongs, rankingState, rankingSongs, followedArtists) => ({
+    selectRunningAnniversaryEvents(),
+    (recentSongs, refreshing, latestEvents, recentAlbums, topAlbums, followedSongs, rankingState, rankingSongs, followedArtists, anniversaryEvents) => ({
         recentSongs,
         refreshing,
         latestEvents,
@@ -46,7 +47,8 @@ const mapStateSelector = createSelector(
         followedSongs,
         rankingState,
         rankingSongs,
-        followedArtists
+        followedArtists,
+        anniversaryEvents
     })
 );
 
@@ -55,6 +57,7 @@ const mapDispatchToProps = (dispatch, props) => ({
     fetchTopAlbums: () => dispatch(albumActions.fetchTopAlbums()),
     fetchRecentSongs: () => dispatch(songActions.fetchLatestSongs()),
     fetchLatestEvents: () => dispatch(eventActions.fetchLatestReleaseEvents()),
+    fetchRunningEventSongs: () => dispatch(eventActions.fetchRunningEventSongs()),
     fetchRecentAlbums: () => dispatch(albumActions.fetchLatestAlbums()),
     fetchFollowedSongs: () => dispatch(songActions.fetchFollowedSongs()),
     clearSinglePageState: () => {
