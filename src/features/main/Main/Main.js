@@ -9,6 +9,9 @@ import SongRankingTab from './../../song/SongRanking';
 import QuickActions from 'react-native-quick-actions';
 import { shortcutTypes } from './../../../common/constants/shortcuts';
 import i18n from './../../../common/i18n';
+import firebase from 'react-native-firebase';
+
+const tabs = [ 'Home', 'SongRanking', 'Followed', 'Menu'];
 
 class Main extends React.PureComponent {
 
@@ -68,7 +71,12 @@ class Main extends React.PureComponent {
         ];
 
         return (
-            <ScrollableTabView renderTabBar={() => <CustomTabBar />}>
+            <ScrollableTabView
+                renderTabBar={() => <CustomTabBar />}
+                onChangeTab={(i, ref) => {
+                    firebase.analytics().logEvent(`Page_${tabs[i]}`, {});
+                }}
+            >
                 <HomeTab
                     tabLabel="ios-home"
                     refreshing={this.props.refreshing}
