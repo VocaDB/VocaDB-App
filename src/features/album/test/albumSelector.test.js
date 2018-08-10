@@ -52,7 +52,9 @@ describe('Test album selector', () => {
     })
 
     it('should return result albums correctly', () => {
-        state.album.searchResult = [ album2.id, album1.id ]
+        state.album.searchPage = {
+            results: [ album2.id, album1.id ]
+        }
 
         const actualResult = selectSearchResult()(state);
         const expectedResult = [ album2, album1 ];
@@ -68,7 +70,7 @@ describe('Test album selector', () => {
         const expectedResult = [ album2, album1 ];
 
         expect(actualResult).toBeTruthy();
-        expect(actualResult).toEqual(expectedResult)
+        expect(actualResult).toEqual(expectedResult);
     })
 
     it('should return empty of latest albums', () => {

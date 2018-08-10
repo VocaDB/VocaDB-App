@@ -50,17 +50,4 @@ describe('Test artist reducer', () => {
         expect(nextState.detail).toBeTruthy()
         expect(nextState.detail).toEqual(expectedResult)
     })
-
-    it('should append params when fetch search artist', () => {
-        const expectedResult = { nameMatchMode: 'auto', tagId: [ 1, 2 ] }
-        let currentState = {
-            searchParams: { nameMatchMode: 'auto', tagId: [ 1 ] }
-        }
-
-        let nextState = reducer(currentState, actions.fetchSearchArtists({ tagId: [ 2 ] }))
-
-        expect(nextState).toBeTruthy()
-        expect(nextState.searchParams).toBeTruthy()
-        expect(nextState.searchParams).toEqual(expectedResult)
-    })
 })

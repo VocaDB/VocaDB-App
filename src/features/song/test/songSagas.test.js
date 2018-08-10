@@ -10,45 +10,6 @@ import { selectFollowedArtistIds } from './../../user/userSelector'
 import { selectDisplayLanguage } from './../../user/userSelector'
 
 describe('Test song sagas', () => {
-    it('Should fetch search song success', () => {
-        const params = { artistIds: [ 1, 2 ] }
-        const action = actions.fetchSearchSongs(params)
-        const gen = fetchSearchSongs(action)
-
-        expect(JSON.stringify(gen.next(params).value)).toEqual(JSON.stringify(select(selectSearchParams())));
-
-        expect(JSON.stringify(gen.next(params).value)).toEqual(JSON.stringify(select(selectDisplayLanguage())));
-
-        expect(gen.next('default').value).toEqual(call(delay, 500))
-
-        expect(gen.next(params).value).toEqual(call(api.find, { ...params, lang: 'default' }));
-
-        const mockSongItems = [ mock.CreateSong() ]
-        const mockResponse = { items: mockSongItems }
-        expect(gen.next(mockResponse).value).toEqual(put(actions.fetchSearchSongsSuccess(mockSongItems, false)));
-
-        expect(gen.next().done).toBeTruthy();
-    })
-
-    it('Should fetch search song success with append', () => {
-        const params = { artistIds: [ 1, 2 ], start: 20 }
-        const action = actions.fetchSearchSongs(params)
-        const gen = fetchSearchSongs(action)
-
-        expect(JSON.stringify(gen.next(params).value)).toEqual(JSON.stringify(select(selectSearchParams())));
-
-        expect(JSON.stringify(gen.next(params).value)).toEqual(JSON.stringify(select(selectDisplayLanguage())));
-
-        expect(gen.next('default').value).toEqual(call(delay, 500))
-
-        expect(gen.next(params).value).toEqual(call(api.find, { ...params, lang: 'default' }));
-
-        const mockSongItems = [ mock.CreateSong() ]
-        const mockResponse = { items: mockSongItems }
-        expect(gen.next(mockResponse).value).toEqual(put(actions.fetchSearchSongsSuccess(mockSongItems, true)));
-
-        expect(gen.next().done).toBeTruthy();
-    })
 
     it('Should fetch song success', () => {
         const action = actions.fetchLatestSongs()

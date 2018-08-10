@@ -1,15 +1,16 @@
-import { fetchArtistDetail, fetchSearchArtists } from './../artistSagas'
-import { selectSearchParams } from './../artistSelector'
-import api from './../artistApi'
-import { call, put, select } from 'redux-saga/effects'
-import * as actions from './../artistActions'
-import * as appActions from './../../../app/appActions'
-import * as mock from '../../../common/helper/mockGenerator'
-import { selectDisplayLanguage } from './../../user/userSelector'
+import { fetchArtistDetail, fetchSearchArtists } from './../artistSagas';
+import { selectSearchParams } from './../artistSelector';
+import { delay } from 'redux-saga';
+import api from './../artistApi';
+import { call, put, select } from 'redux-saga/effects';
+import * as actions from './../artistActions';
+import * as appActions from './../../../app/appActions';
+import * as mock from '../../../common/helper/mockGenerator';
+import { selectDisplayLanguage } from './../../user/userSelector';
 
 describe('Test artist sagas', () => {
     it('Should fetch search artists', () => {
-        const params = { tagId: [ 1, 2 ] }
+        const params = { tagId: [ 1, 2 ], lang: "Default" }
         const action = actions.fetchSearchArtists(params)
         const gen = fetchSearchArtists(action)
         const mockItems = [ mock.CreateArtist() ]
@@ -19,9 +20,11 @@ describe('Test artist sagas', () => {
 
         expect(JSON.stringify(gen.next(params).value)).toEqual(JSON.stringify(select(selectDisplayLanguage())));
 
-        expect(gen.next('Default').value).toEqual(call(api.find, { ...params, lang: 'Default' }));
+        expect(gen.next('Default').value).toEqual(call(delay, 500));
 
-        expect(gen.next(mockResponse).value).toEqual(put(actions.fetchSearchArtistsSuccess(mockItems, false)));
+        expect(gen.next().value).toEqual(call(api.find, { ...params, lang: 'Default' }));
+
+        expect(gen.next(mockResponse).value).toEqual(put(actions.setSearchResult(mockItems)));
 
         expect(gen.next().done).toBeTruthy();
     })
