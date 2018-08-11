@@ -4,10 +4,10 @@ import Main from './Main';
 import { createSelector } from 'reselect';
 import Icon from '../../../components/Icon/index';
 import Routes from './../../../app/appRoutes';
-import { selectHighlighted, selectFollowedSongs, selectRankingResult, selectRankingState } from '../../song/songSelector';
+import { selectHighlighted, selectFollowedSongs, selectRankingResult, selectRankingState, selectFavoriteSongs } from '../../song/songSelector';
 import { selectFollowedArtistsWithLatestSongs } from '../../artist/artistSelector';
 import { selectLatestAlbums, selectTopAlbums } from '../../album/albumSelector';
-import { selectLatestReleaseEvents, selectRunningAnniversaryEvents, selectRunningEvents } from '../../releaseEvent/releaseEventSelector';
+import { selectLatestReleaseEvents, selectRunningAnniversaryEvents } from '../../releaseEvent/releaseEventSelector';
 import { selectLoading } from '../../../app/appSelector';
 import * as userActions from '../../user/userActions';
 import * as songActions from '../../song/songActions';
@@ -121,7 +121,9 @@ const mapDispatchToProps = (dispatch, props) => ({
     onPressSignOut: () => {
         dispatch(userActions.signOut())
         dispatch(userActions.resetToSignIn())
-    }
+    },
+    onPressExport: () => dispatch(userActions.exportBackupData()),
+    onPressImport: () => dispatch(userActions.importBackupData())
  })
 
 export default connect(mapStateSelector, mapDispatchToProps)(Main)

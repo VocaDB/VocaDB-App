@@ -1,5 +1,7 @@
 import { createSelector } from 'reselect';
-import { selectAlbumEntity, convertAlbum } from './../album/albumSelector'
+import { selectAlbumEntity, convertAlbum, selectFavoriteAlbums } from './../album/albumSelector';
+import { selectFavoriteSongs } from './../song/songSelector';
+import { selectFollowedArtists } from './../artist/artistSelector';
 
 export const selectUser = () => (state) => {
     return state.user;
@@ -12,12 +14,6 @@ export const selectFollowedArtistIds = () => createSelector(
     userState => {
         return userState.followedArtists
     }
-)
-
-export const selectFollowedArtists = () => createSelector(
-    selectUser(),
-    selectArtistEntity(),
-    (userState, artistEntity) => (userState && artistEntity)? userState.followedArtists.map(id => artistEntity[id.toString()]) : []
 )
 
 export const selectIsAuthenticated = () => createSelector(
@@ -68,4 +64,19 @@ export const selectDisplayLanguage = () => createSelector(
 export const selectDefaultPVService = () => createSelector(
     selectSettings(),
     (settings) => (settings && settings.defaultPVService)? settings.defaultPVService : 'Default'
+)
+
+export const selectBackupData = () => createSelector(
+    selectFollowedArtists(),
+    selectFavoriteAlbums(),
+    selectFavoriteSongs(),
+    selectSettings(),
+    (followedArtists, favoriteAlbums, favoriteSongs, settings) => {
+        return JSON.stringify({
+            followedArtists,
+            favoriteAlbums,
+            favoriteSongs,
+            settings
+        });
+    }
 )
