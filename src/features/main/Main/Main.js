@@ -61,13 +61,13 @@ class Main extends React.PureComponent {
 
         const menus =  [
             { icon: 'ios-log-in', text: 'Sign in', onPress: this.props.onPressSignOut, onlyGuest: true },
-            { icon: 'ios-download', text: 'Import', onPress: this.props.onPressImport },
-            { icon: 'ios-archive', text: 'Export', onPress: this.props.onPressExport },
             { icon: 'ios-musical-notes', text: i18n.favoriteSongs, onPress: this.props.onPressMenuFavoriteSongs },
             { icon: 'ios-disc', text: i18n.favoriteAlbums, onPress: this.props.onPressMenuFavoriteAlbums },
             { icon: 'ios-people', text: i18n.favoriteArtists, onPress: this.props.onPressMenuFollowArtists },
             { icon: 'ios-globe', text: 'VocaDB website', onPress: () => openLink('https://vocadb.net') },
             { icon: 'ios-settings', text: i18n.settings, onPress: this.props.onPressMenuSettings },
+            { icon: 'ios-download', text: 'Import', onPress: this.props.onPressImport },
+            { icon: 'ios-archive', text: 'Export', onPress: this.props.onPressExport },
             { icon: 'logo-github', text: i18n.about, onPress: () => openLink('https://github.com/VocaDB/VocaDB-App') },
             { icon: 'ios-log-out', text: 'Sign out', onPress: this.props.onPressSignOut, onlyMember: true }
         ];
