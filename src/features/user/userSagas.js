@@ -6,6 +6,9 @@ import api from './userApi'
 import { AsyncStorage } from 'react-native'
 import { authKey } from './../../common/constants/storageKey'
 import { selectUserId, selectBackupData } from './userSelector'
+import { mergeFavoriteSongs } from './../song/songActions';
+import { mergeFollowedArtists } from './../artist/artistActions';
+import { mergeFavoriteAlbums } from './../album/albumActions';
 import RNFS from 'react-native-fs';
 import Share from 'react-native-share';
 import moment from 'moment';
@@ -101,12 +104,28 @@ const importBackupData = function* importBackupData() {
         }
 
         if(backupFile.type != 'application/json') {
-            console.log('Invalid file type');
             return;
         }
-        const fileContent = yield RNFS.readFile(backupFile.uri, 'utf8');
 
-        // TODO restore backup data process
+        const userRawData = yield RNFS.readFile(backupFile.uri, 'utf8');
+
+        const userData = JSON.parse(userRawData);
+
+        if(userData.favoriteSongs && userData.favoriteSongs.length) {
+            yield put(mergeFavoriteSongs(userData.favoriteSongs));
+        }
+
+        if(userData.followedArtists && userData.followedArtists.length) {
+            yield put(mergeFollowedArtists(userData.followedArtists));
+        }
+
+        if(userData.favoriteAlbums && userData.favoriteAlbums.length) {
+            yield put(mergeFavoriteAlbums(userData.favoriteAlbums));
+        }
+
+        if(userData.settings) {
+            yield put(actions.updateSettings(userData.settings));
+        }
 
     } catch(e) {
         console.log(e.message)

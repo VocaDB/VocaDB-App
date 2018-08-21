@@ -230,7 +230,19 @@ const reducer = createReducer({
         newState.searchResultModal = payload.result;
 
         return newState;
+    },
+    [actions.mergeFollowedArtists]: (state, payload) => {
+        if(!payload || !payload.result) {
+            return state;
+        }
+
+        const newState = Object.assign({}, state);
+
+        newState.followed = _.union(newState.followed, payload.result )
+
+        return newState;
     }
+
 }, defaultState)
 
 export default reducer
