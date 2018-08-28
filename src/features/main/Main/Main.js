@@ -61,8 +61,8 @@ class Main extends React.PureComponent {
 
         const menus =  [
             { icon: 'ios-log-in', text: 'Sign in', onPress: this.props.onPressSignOut, onlyGuest: true },
-            { icon: 'ios-download', text: 'Import', onPress: this.props.onPressImport },
-            { icon: 'ios-archive', text: 'Export', onPress: this.props.onPressExport },
+            { icon: 'ios-cloud-download', text: 'Import', onPress: this.props.onPressImport },
+            { icon: 'ios-cloud-upload', text: 'Export', onPress: this.props.onPressExport },
             { icon: 'ios-musical-notes', text: i18n.favoriteSongs, onPress: this.props.onPressMenuFavoriteSongs },
             { icon: 'ios-disc', text: i18n.favoriteAlbums, onPress: this.props.onPressMenuFavoriteAlbums },
             { icon: 'ios-people', text: i18n.favoriteArtists, onPress: this.props.onPressMenuFollowArtists },
