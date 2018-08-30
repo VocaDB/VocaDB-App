@@ -81,18 +81,14 @@ const fetchReleaseEventPublishedSongs = function* fetchReleaseEventPublishedSong
 const fetchRunningEventPublishedSongs = function* fetchReleaseEventPublishedSongs() {
     try {
 
-        let runningEvents = yield select(selectLatestReleaseEvents())
-
-        if(runningEvents && runningEvents.length) {
-            runningEvents = runningEvents.filter(e => e.category == 'Anniversary');
-        }
-
         const displayLanguage = yield select(selectDisplayLanguage())
 
-        if(runningEvents.length) {
+        const response = yield call(api.getAnniversaryEvents, { lang: displayLanguage });
 
-            for(var i = 0; i < runningEvents.length; i++) {
-                var e = runningEvents[i];
+        if(response && response.items && response.items.length > 0) {
+
+            for(var i = 0; i < response.items.length; i++) {
+                var e = response.items[i];
 
                 const [detailResponse, songsResponse] = yield all([
                     call(api.getReleaseEvent, e.id, { lang: displayLanguage }),
