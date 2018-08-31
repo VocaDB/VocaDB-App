@@ -17,7 +17,7 @@ const releaseEventApi = {
         afterDate: daysAgo(3),
         beforeDate: dateAfterToday(12),
         fields: 'WebLinks,Description,Artists,MainPicture,Series,SongList' }),
-    getPublishedSongs: (id, params) => api.events.getPublishedSongs(id, { ...params, fields: 'ThumbUrl', maxResults: 20 }),
+    getPublishedSongs: (id, params) => api.events.getPublishedSongs(id, { ...params, fields: 'ThumbUrl,MainPicture,PVs', maxResults: 20 }),
     getAlbums: (id, params) => api.events.getAlbums(id, { ...params, fields: 'MainPicture' }),
     getSongList: (songListId, params) => api.songLists.songs(songListId, { ...params, fields: 'ThumbUrl', maxResults: 50 })
 }
