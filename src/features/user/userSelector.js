@@ -1,5 +1,7 @@
 import { createSelector } from 'reselect';
-import { selectAlbumEntity, convertAlbum } from './../album/albumSelector'
+import { selectAlbumEntity, convertAlbum, selectFavoriteAlbums } from './../album/albumSelector';
+import { selectFavoriteSongs, selectSongEntity, convertSongIds } from './../song/songSelector';
+import { selectFollowedArtists } from './../artist/artistSelector';
 
 export const selectUser = () => (state) => {
     return state.user;
@@ -12,12 +14,6 @@ export const selectFollowedArtistIds = () => createSelector(
     userState => {
         return userState.followedArtists
     }
-)
-
-export const selectFollowedArtists = () => createSelector(
-    selectUser(),
-    selectArtistEntity(),
-    (userState, artistEntity) => (userState && artistEntity)? userState.followedArtists.map(id => artistEntity[id.toString()]) : []
 )
 
 export const selectIsAuthenticated = () => createSelector(
@@ -68,4 +64,47 @@ export const selectDisplayLanguage = () => createSelector(
 export const selectDefaultPVService = () => createSelector(
     selectSettings(),
     (settings) => (settings && settings.defaultPVService)? settings.defaultPVService : 'Default'
+)
+
+export const selectBackupData = () => createSelector(
+    selectFollowedArtists(),
+    selectFavoriteAlbums(),
+    selectFavoriteSongs(),
+    selectSettings(),
+    selectSongEntity(),
+    (followedArtists, favoriteAlbums, favoriteSongs, settings, songEntity) => {
+        return JSON.stringify({
+            followedArtists: followedArtists.map(i => ({
+                id: i.id,
+                name: i.name,
+                mainPicture: i.mainPicture,
+                relations: {
+                    latestSongs: convertSongIds(i.relations.latestSongs, songEntity).map(i => ({
+                        id: i.id,
+                        name: i.name,
+                        artistString: i.artistString,
+                        songType: i.songType,
+                        pvServices: i.pvServices,
+                        mainPicture: i.mainPicture,
+                        thumbUrl: i.thumbUrl
+                    }))
+                }
+            })),
+            favoriteAlbums: favoriteAlbums.map(i => ({
+                id: i.id,
+                name: i.name,
+                mainPicture: i.mainPicture
+            })),
+            favoriteSongs: favoriteSongs.map(i => ({
+                id: i.id,
+                name: i.name,
+                artistString: i.artistString,
+                songType: i.songType,
+                pvServices: i.pvServices,
+                mainPicture: i.mainPicture,
+                thumbUrl: i.thumbUrl
+            })),
+            settings
+        });
+    }
 )

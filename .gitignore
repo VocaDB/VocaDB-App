@@ -5,3 +5,5 @@ package-lock.json
 yarn.lock
 .idea
 .tmp
+ios/Pods
+ios/VocaDB/GoogleService-Info.plist

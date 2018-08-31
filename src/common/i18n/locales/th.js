@@ -140,6 +140,10 @@ t[labels.official] = 'เว็บไซต์';
 t[labels.commercial] = 'แหล่งจำหน่าย';
 t[labels.reference] = 'อ้างอิง';
 t[labels.recentSongsPVs] = 'เพลง / PV ล่าสุด';
+t[labels.recentSongsPVs] = 'Recent Songs / PVs';
+t[labels.emptyFavoriteSongs] = 'ยังไม่มีเพลงที่ชอบเลย';
+t[labels.emptyFavoriteAlbums] = 'ยังไม่มีอัลบั้มที่ชอบเลย';
+t[labels.emptyFavoriteArtists] = 'จะไม่กดติดตามใครสักคนหน่อยเหรอ... :\'(';
 
 // Menu
 t[labels.favoriteSongs] = 'เพลงโปรด';

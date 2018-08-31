@@ -1,10 +1,10 @@
-import { put, takeEvery, takeLatest, call, select, all } from 'redux-saga/effects'
-import * as actions from './releaseEventActions'
-import * as appActions from '../../app/appActions'
-import api from './releaseEventApi'
-import { delay } from 'redux-saga'
-import { selectSearchParams } from './releaseEventSelector'
-import { selectDisplayLanguage } from './../user/userSelector'
+import { put, takeEvery, takeLatest, call, select, all } from 'redux-saga/effects';
+import * as actions from './releaseEventActions';
+import * as appActions from '../../app/appActions';
+import api from './releaseEventApi';
+import { delay } from 'redux-saga';
+import { selectSearchParams, selectLatestReleaseEvents } from './releaseEventSelector';
+import { selectDisplayLanguage } from './../user/userSelector';
 
 const fetchSearchEvents = function* fetchSearchEvents() {
     try {
@@ -78,9 +78,36 @@ const fetchReleaseEventPublishedSongs = function* fetchReleaseEventPublishedSong
     }
 }
 
+const fetchRunningEventPublishedSongs = function* fetchReleaseEventPublishedSongs() {
+    try {
+
+        const displayLanguage = yield select(selectDisplayLanguage())
+
+        const response = yield call(api.getAnniversaryEvents, { lang: displayLanguage });
+
+        if(response && response.items && response.items.length > 0) {
+
+            for(var i = 0; i < response.items.length; i++) {
+                var e = response.items[i];
+
+                const [detailResponse, songsResponse] = yield all([
+                    call(api.getReleaseEvent, e.id, { lang: displayLanguage }),
+                    call(api.getPublishedSongs, e.id, { lang: displayLanguage })
+                ])
+
+                detailResponse.songs = (songsResponse) ? songsResponse : [];
+
+                yield put(actions.fetchReleaseEventDetailSuccess(detailResponse));
+            }
+        }
+    } catch (e) {
+        yield put(appActions.requestError(e));
+    }
+}
+
 const releaseEventSaga = function* releaseEventSagaAsync() {
     yield takeLatest(actions.fetchLatestReleaseEvents, fetchLatestReleaseEvents)
-    yield takeLatest(actions.fetchReleaseEventDetail, fetchReleaseEventDetail)
+    yield takeLatest([actions.fetchReleaseEventDetail], fetchReleaseEventDetail)
     yield takeLatest([
         actions.fetchSearchEvents,
         actions.onSearching,
@@ -91,8 +118,10 @@ const releaseEventSaga = function* releaseEventSagaAsync() {
         actions.addFilterTag,
         actions.removeFilterTag,
         actions.clearFilter], fetchSearchEvents)
+    yield takeLatest(actions.fetchRunningEventSongs,
+        fetchRunningEventPublishedSongs);
 }
 
-export { fetchSearchEvents, fetchLatestReleaseEvents, fetchReleaseEventDetail, fetchReleaseEventPublishedSongs }
+export { fetchSearchEvents, fetchLatestReleaseEvents, fetchReleaseEventDetail, fetchReleaseEventPublishedSongs, fetchRunningEventPublishedSongs }
 
 export default releaseEventSaga

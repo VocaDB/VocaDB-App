@@ -56,3 +56,4 @@ export const setResultToPageId = createAction('Add to single list result', (page
 })
 export const clearSinglePageState = createAction('Clear single page state')
 export const clearFilter = createAction('Clear filter')
+export const mergeFavoriteSongs = createAction('Merge favorite songs', data => normalize(data,  [ songSchema ]))

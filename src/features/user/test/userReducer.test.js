@@ -14,14 +14,16 @@ describe('User reducer test state', () => {
             userId: 0,
             albums: [],
             settings: {
-                displayLanguage: 'Default'
+                defaultPVService: 'Default',
+                displayLanguage: 'Default',
+                uiLanguage: 'Default'
             }
         }
     });
 
     it('Should set default state correctly', () => {
         expect(defaultState).toBeTruthy()
-        expect(defaultState).toEqual(state)
+        expect(defaultState).toEqual(state);
     })
 
     it('Should follow artist', () => {

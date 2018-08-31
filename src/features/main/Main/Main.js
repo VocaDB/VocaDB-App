@@ -9,6 +9,9 @@ import SongRankingTab from './../../song/SongRanking';
 import QuickActions from 'react-native-quick-actions';
 import { shortcutTypes } from './../../../common/constants/shortcuts';
 import i18n from './../../../common/i18n';
+import firebase from 'react-native-firebase';
+
+const tabs = [ 'Home', 'SongRanking', 'Followed', 'Menu'];
 
 class Main extends React.PureComponent {
 
@@ -46,7 +49,7 @@ class Main extends React.PureComponent {
         this.props.fetchTopAlbums();
         this.props.fetchLatestEvents();
         this.props.fetchRecentAlbums();
-
+        this.props.fetchRunningEventSongs();
     }
 
     refreshFollowedSongs () {
@@ -58,6 +61,8 @@ class Main extends React.PureComponent {
 
         const menus =  [
             { icon: 'ios-log-in', text: 'Sign in', onPress: this.props.onPressSignOut, onlyGuest: true },
+            { icon: 'ios-cloud-download', text: 'Import', onPress: this.props.onPressImport },
+            { icon: 'ios-cloud-upload', text: 'Export', onPress: this.props.onPressExport },
             { icon: 'ios-musical-notes', text: i18n.favoriteSongs, onPress: this.props.onPressMenuFavoriteSongs },
             { icon: 'ios-disc', text: i18n.favoriteAlbums, onPress: this.props.onPressMenuFavoriteAlbums },
             { icon: 'ios-people', text: i18n.favoriteArtists, onPress: this.props.onPressMenuFollowArtists },
@@ -68,7 +73,12 @@ class Main extends React.PureComponent {
         ];
 
         return (
-            <ScrollableTabView renderTabBar={() => <CustomTabBar />}>
+            <ScrollableTabView
+                renderTabBar={() => <CustomTabBar />}
+                onChangeTab={(i, ref) => {
+                    firebase.analytics().logEvent(`Page_${tabs[i]}`, {});
+                }}
+            >
                 <HomeTab
                     tabLabel="ios-home"
                     refreshing={this.props.refreshing}
@@ -76,6 +86,7 @@ class Main extends React.PureComponent {
                     recentSongs={this.props.recentSongs}
                     recentAlbums={this.props.recentAlbums}
                     topAlbums={this.props.topAlbums}
+                    anniversaryEvents={this.props.anniversaryEvents}
                     latestEvents={this.props.latestEvents}
                     onPressSong={this.props.onPressSong}
                     onPressAlbum={this.props.onPressAlbum}

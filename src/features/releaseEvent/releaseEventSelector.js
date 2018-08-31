@@ -1,12 +1,12 @@
 import { createSelector } from 'reselect';
-import Routes from './../../app/appRoutes'
-import { selectNav } from './../../app/appSelector'
-import { selectArtistEntity, convertArtistIds } from './../artist/artistSelector'
-import { selectSongEntity, convertSongIds } from './../song/songSelector'
-import { selectAlbumEntity, convertAlbumIds } from './../album/albumSelector'
-import { selectTagEntity, convertTagIds } from './../tag/tagSelector'
-import { transformSong } from './../song/songSelector'
-import { defaultSearchParams } from './releaseEventConstant'
+import Routes from './../../app/appRoutes';
+import { selectNav } from './../../app/appSelector';
+import { selectArtistEntity, convertArtistIds } from './../artist/artistSelector';
+import { selectSongEntity, convertSongIds } from './../song/songSelector';
+import { selectAlbumEntity, convertAlbumIds } from './../album/albumSelector';
+import { selectTagEntity, convertTagIds } from './../tag/tagSelector';
+import { transformSong } from './../song/songSelector';
+import { defaultSearchParams } from './releaseEventConstant';
 
 export const transformEvent = (event) => {
     if(!event) {
@@ -170,5 +170,21 @@ export const selectFilterTags = () => createSelector(
     selectTagEntity(),
     (params, tagEntity) => {
         return convertTagIds(params.tagId, tagEntity)
+    }
+)
+
+export const selectRunningAnniversaryEvents = () => createSelector(
+    selectLatestReleaseEvents(),
+    selectSongEntity(),
+    (runningEvents, songEntity) => {
+        const a = runningEvents
+            .filter(event => event.category == 'Anniversary')
+            .filter(event => (event.songs && event.songs.length))
+            .map(e => ({
+                ...e,
+                songs: convertSongIds(e.songs, songEntity)
+            }));
+
+        return a;
     }
 )

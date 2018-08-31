@@ -361,6 +361,17 @@ const reducer = createReducer({
         searchPage.params = defaultSearchParams;
         searchPage.results = [];
         return { ...state, searchPage }
+    },
+    [actions.mergeFavoriteSongs]: (state, payload) => {
+        if(!payload || !payload.result) {
+            return state;
+        }
+
+        const newState = Object.assign({}, state);
+
+        newState.favoriteSongs = _.union(newState.favoriteSongs, payload.result )
+
+        return newState;
     }
 
 

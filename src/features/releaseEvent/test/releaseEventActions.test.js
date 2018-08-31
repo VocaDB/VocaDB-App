@@ -10,14 +10,4 @@ describe('Test releaseEvent action', () => {
         expect(actualResult.payload).toEqual(expectedPayload)
         expect(actualResult.type).toBeTruthy()
     })
-
-    it('should create fetch releaseEvent detail action success', () => {
-        const actualResult = fetchReleaseEventDetail(1);
-        const expectedPayload = { loading: true, id: 1 }
-
-        expect(actualResult).toBeTruthy()
-        expect(actualResult.error).toEqual(false)
-        expect(actualResult.payload).toEqual(expectedPayload)
-        expect(actualResult.type).toBeTruthy()
-    })
 })

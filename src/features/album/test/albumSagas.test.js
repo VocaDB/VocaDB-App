@@ -23,7 +23,7 @@ describe('Test album sagas', () => {
 
         const mockItems = [ mock.CreateAlbum() ]
         const mockResponse = { items: mockItems }
-        expect(gen.next(mockResponse).value).toEqual(put(actions.fetchSearchAlbumsSuccess(mockItems, false)));
+        expect(gen.next(mockResponse).value).toEqual(put(actions.setSearchResult(mockItems)));
 
         expect(gen.next().done).toBeTruthy();
     })

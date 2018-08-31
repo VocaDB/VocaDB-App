@@ -1,9 +1,9 @@
-import { createAction } from 'redux-act'
-import { normalize } from 'normalizr'
-import releaseEventSchema from './releaseEventSchema'
-import songSchema from './../song/songSchema'
-import albumSchema from './../album/albumSchema'
-import tagSchema from './../tag/tagSchema'
+import { createAction } from 'redux-act';
+import { normalize } from 'normalizr';
+import releaseEventSchema from './releaseEventSchema';
+import songSchema from './../song/songSchema';
+import albumSchema from './../album/albumSchema';
+import tagSchema from './../tag/tagSchema';
 
 export const fetchSearchEvents = createAction('fetch search events', (params, remove, replace) => ({ loading: true, params, remove, replace }))
 export const fetchSearchEventsSuccess =  createAction('fetch search events success', (data, append) => {
@@ -32,3 +32,5 @@ export const onSearching = createAction('Searching', text => ({ text }))
 export const addFilterTag = createAction('add filter tag', data => normalize(data,  tagSchema))
 export const removeFilterTag = createAction('remove filter tag', data => normalize(data,  tagSchema))
 export const clearFilter = createAction('Clear filter')
+
+export const fetchRunningEventSongs = createAction('Fetch running event songs')
