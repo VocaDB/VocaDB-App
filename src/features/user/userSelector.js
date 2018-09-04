@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 import { selectAlbumEntity, convertAlbum, selectFavoriteAlbums } from './../album/albumSelector';
-import { selectFavoriteSongs } from './../song/songSelector';
+import { selectFavoriteSongs, selectSongEntity, convertSongIds } from './../song/songSelector';
 import { selectFollowedArtists } from './../artist/artistSelector';
 
 export const selectUser = () => (state) => {
@@ -71,11 +71,39 @@ export const selectBackupData = () => createSelector(
     selectFavoriteAlbums(),
     selectFavoriteSongs(),
     selectSettings(),
-    (followedArtists, favoriteAlbums, favoriteSongs, settings) => {
+    selectSongEntity(),
+    (followedArtists, favoriteAlbums, favoriteSongs, settings, songEntity) => {
         return JSON.stringify({
-            followedArtists,
-            favoriteAlbums,
-            favoriteSongs,
+            followedArtists: followedArtists.map(i => ({
+                id: i.id,
+                name: i.name,
+                mainPicture: i.mainPicture,
+                relations: {
+                    latestSongs: convertSongIds(i.relations.latestSongs, songEntity).map(i => ({
+                        id: i.id,
+                        name: i.name,
+                        artistString: i.artistString,
+                        songType: i.songType,
+                        pvServices: i.pvServices,
+                        mainPicture: i.mainPicture,
+                        thumbUrl: i.thumbUrl
+                    }))
+                }
+            })),
+            favoriteAlbums: favoriteAlbums.map(i => ({
+                id: i.id,
+                name: i.name,
+                mainPicture: i.mainPicture
+            })),
+            favoriteSongs: favoriteSongs.map(i => ({
+                id: i.id,
+                name: i.name,
+                artistString: i.artistString,
+                songType: i.songType,
+                pvServices: i.pvServices,
+                mainPicture: i.mainPicture,
+                thumbUrl: i.thumbUrl
+            })),
             settings
         });
     }

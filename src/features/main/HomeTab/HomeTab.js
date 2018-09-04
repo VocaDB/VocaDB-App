@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity, StyleSheet, RefreshControl, SectionList, 
 import { Avatar } from 'react-native-material-ui';
 import PropTypes from 'prop-types';
 import FeatureList from './../FeatureList';
+import EventSongList from './../EventSongList';
 import Theme from '../../../theme';
 import SongCard from '../../song/SongCard';
 import AlbumCard from '../../album/AlbumCard';
@@ -51,13 +52,20 @@ class HomeTab extends React.PureComponent {
         }
 
 
-        const renderFeatureList = (title, items, renderItem, onPressMore) => (
-            <FeatureList
-                title={title}
-                items={items}
-                renderItem={renderItem}
-                onPressMore={onPressMore} />
-        )
+        const renderFeatureList = (title, image, items, renderItem, onPressMore) => {
+            return (image) ?
+                (<EventSongList
+                    title={title}
+                    items={items}
+                    image={image}
+                    renderItem={renderItem}
+                    onPressMore={onPressMore}/>) :
+
+                (<FeatureList title={title}
+                              items={items}
+                              renderItem={renderItem}
+                              onPressMore={onPressMore}/>);
+        }
 
 
         const HomeHeader = props => {
@@ -81,7 +89,9 @@ class HomeTab extends React.PureComponent {
         const events = this.props.anniversaryEvents.map(e => {
             return {
                 key: e.id,
+                type: 'event',
                 title: e.name,
+                image: e.image,
                 data: e.songs,
                 renderItem: renderSongCard,
                 onPressMore: () => {
@@ -104,9 +114,10 @@ class HomeTab extends React.PureComponent {
                     </HomeHeader>
 
                 )}
-                renderItem={({ item }) => renderFeatureList(item.title, item.data, item.renderItem, item.onPressMore)}
+                renderItem={({ item }) => renderFeatureList(item.title, item.image, item.data, item.renderItem, item.onPressMore)}
                 ItemSeparatorComponent={() => <View style={{ height: 6, backgroundColor: 'white' }} />}
                 data={[
+                    ...events,
                     {
                         key: 0,
                         title: i18n.highlightPVs,
@@ -114,7 +125,7 @@ class HomeTab extends React.PureComponent {
                         renderItem: renderSongCard,
                         onPressMore: this.props.onPressMoreRecentSongs
                     },
-                    ...events,
+
                     {
                         key: 1,
                         title: i18n.recentAlbums,
