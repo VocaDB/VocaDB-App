@@ -103,10 +103,6 @@ const importBackupData = function* importBackupData() {
             return;
         }
 
-        if(backupFile.type != 'application/json') {
-            return;
-        }
-
         const userRawData = yield RNFS.readFile(backupFile.uri, 'utf8');
 
         const userData = JSON.parse(userRawData);
