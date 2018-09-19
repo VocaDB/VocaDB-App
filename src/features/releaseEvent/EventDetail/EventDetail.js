@@ -69,7 +69,7 @@ class EventDetail extends React.Component {
 
                     <RenderOrNull shouldRender={(event && event.date)}>
                         <SectionHeader text={i18n.date} />
-                        <Text style={Theme.body}>{moment(event.date).format('dddd, MMMM Do YYYY')}</Text>
+                        <Text style={Theme.body}>{moment(event.date).format('LL') + ` (${moment(event.date).fromNow()})`}</Text>
                     </RenderOrNull>
 
                     <RenderOrNull shouldRender={(event && event.venueName)}>
