@@ -95,9 +95,9 @@ SongList.defaultProps = {
     showHeader: false,
     songs: [],
     flatList: false,
+    refreshing: false,
     onPressMore: () => {},
     onPressItem: () => {},
-    onRefresh: () => {},
     onEndReached: () => {}
 };
 
