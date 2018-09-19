@@ -49,6 +49,16 @@ QuickActions.setShortcutItems([
     }
 ]);
 
+const chooseMomentLocale = (locale) => {
+    locale = locale.toLowerCase();
+    if (moment.locales().includes(locale)) {
+        return locale;
+    } else if (moment.locales().includes(locale.substring(0, 2))) {
+        return locale.substring(0, 2);
+    }
+    return 'en';
+};
+
 
 class App extends React.Component {
     constructor(props) {
@@ -56,7 +66,7 @@ class App extends React.Component {
     }
 
     componentWillMount () {
-        moment.locale(nativeI18N.currentLocale());
+        moment.locale(chooseMomentLocale(nativeI18N.currentLocale()));
     }
 
     render () {
