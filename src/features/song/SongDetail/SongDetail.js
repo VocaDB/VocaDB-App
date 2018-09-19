@@ -48,6 +48,7 @@ class SongDetail extends React.PureComponent {
             this.props.fetchSong(params.id);
         }
 
+
         setTimeout(() => { this.setState({ shouldRender: true }) }, 0);
     }
 
@@ -67,13 +68,22 @@ class SongDetail extends React.PureComponent {
             return (
                 <Expander
                     content={
-                        <Section>
-                            <Text style={[Theme.subhead, { padding: 8 }]}>{i18n.name}</Text>
-                            <View style={{ paddingHorizontal: 8 }}>
-                                <Text style={Theme.body} >{song.name}</Text>
-                                <Text style={Theme.body} >{song.additionalNames}</Text>
-                            </View>
-                        </Section>
+                        <View>
+                            <Section>
+                                <Text style={[Theme.subhead, { padding: 8 }]}>{i18n.name}</Text>
+                                <View style={{ paddingHorizontal: 8 }}>
+                                    <Text style={Theme.body} >{song.name}</Text>
+                                    <Text style={Theme.body} >{song.additionalNames}</Text>
+                                </View>
+                            </Section>
+                            <Section>
+                                <Text style={[Theme.subhead, { padding: 8 }]}>{i18n.publishDate}</Text>
+                                <View style={{ paddingHorizontal: 8 }}>
+                                    <Text style={Theme.body} >{(song && song.publishDate)? `${moment(song.publishDate).format('LL')} (${moment(song.publishDate).fromNow()})` : ''}</Text>
+                                </View>
+                            </Section>
+                        </View>
+
                     }
                 />
             )

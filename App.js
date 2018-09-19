@@ -7,6 +7,9 @@ import StorybookUI from './storybook';
 import { COLOR, ThemeProvider } from 'react-native-material-ui';
 import QuickActions from 'react-native-quick-actions';
 import i18n from './src/common/i18n';
+import nativeI18N from 'react-native-i18n';
+import moment from 'moment';
+import 'moment/min/locales';
 
 const uiTheme = {
     palette: {
@@ -53,7 +56,7 @@ class App extends React.Component {
     }
 
     componentWillMount () {
-
+        moment.locale(nativeI18N.currentLocale());
     }
 
     render () {
