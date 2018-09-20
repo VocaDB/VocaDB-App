@@ -75,12 +75,24 @@ const fetchSongDetail = function* fetchLatestSongs(action) {
             const displayLanguage = yield select(selectDisplayLanguage())
             const response = yield call(api.getSong, action.payload.id, { lang: displayLanguage });
 
-            const [detailResponse, altSongsResponse] = yield all([
+            const [detailResponse, altSongsResponse, relatedResponse] = yield all([
                 call(api.getSong, action.payload.id, { lang: displayLanguage }),
                 call(api.getAltSongs, action.payload.id, { lang: displayLanguage }),
-            ])
+                call(api.getRelatedSongs, action.payload.id, { lang: displayLanguage })
+            ]);
 
             detailResponse.alternate = altSongsResponse;
+            detailResponse.related = {
+                artistMatches: [],
+                likeMatches: [],
+                tagMatches: []
+            }
+
+            if(relatedResponse) {
+                detailResponse.related.artistMatches = (relatedResponse.artistMatches)? relatedResponse.artistMatches : [];
+                detailResponse.related.likeMatches = (relatedResponse.likeMatches)? relatedResponse.likeMatches : [];
+                detailResponse.related.tagMatches = (relatedResponse.tagMatches)? relatedResponse.tagMatches : [];
+            }
 
             yield put(actions.fetchSongDetailSuccess(response));
 

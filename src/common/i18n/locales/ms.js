@@ -144,6 +144,7 @@ t[labels.emptyFavoriteSongs] = 'No favorite songs';
 t[labels.emptyFavoriteAlbums] = 'No favorite albums ';
 t[labels.emptyFavoriteArtists] = 'Nothing yet';
 t[labels.alternateVersion] = 'Alternate version';
+t[labels.likeMatches] = 'Users who liked this also liked';
 
 // Menu
 t[labels.favoriteSongs] = 'Lagu kegemaran';

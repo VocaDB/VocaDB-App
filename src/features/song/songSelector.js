@@ -358,3 +358,9 @@ export const selectSongsFromCurrentSongShowAll = () => createSelector(
         && nav.routes[nav.index]
         && nav.routes[nav.index].routeName === Routes.SongShowAll)? nav.routes[nav.index].params.songs : []
 )
+
+export const selectSongDetailLikeMatches = () => createSelector(
+    selectSongDetail(),
+    selectSongEntity(),
+    (songDetail, songEntity) => (songDetail && songDetail.related && songDetail.related.likeMatches)? convertSongIds(songDetail.related.likeMatches, songEntity) : []
+)

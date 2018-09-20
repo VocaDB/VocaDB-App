@@ -242,8 +242,6 @@ class SongDetail extends React.PureComponent {
                 )
             }
 
-
-
             return defaultElement;
 
         }
@@ -265,6 +263,26 @@ class SongDetail extends React.PureComponent {
             )
         }
 
+        const renderRelatedSongs = () => {
+            if(!this.props.likeMatches || this.props.likeMatches.length ==0) {
+                return null;
+            }
+
+            return (
+                <Section>
+                    <Divider />
+                    <FeatureList title={i18n.likeMatches}
+                                 items={this.props.likeMatches}
+                                 renderItem={renderSongCard}
+                                 displayMoreButton={false}
+                                 onPressMore={() => console.log('related')}/>
+                </Section>
+            );
+        }
+
+        console.log(`like matches : .......`)
+        console.log(this.props.likeMatches)
+
         return (
             <ScrollableTabView>
                 <ScrollView style={{ flex: 1, backgroundColor: 'white', paddingBottom: 18 }} tabLabel={i18n.info} >
@@ -282,6 +300,7 @@ class SongDetail extends React.PureComponent {
                     {renderOriginalVersion()}
                     {song.albums && song.albums.length > 0 && renderAlbumList()}
                     {renderAlternateVersion()}
+                    {renderRelatedSongs()}
                     {song.webLinks && song.webLinks.length > 0 && renderWebLinkList()}
 
                 </ScrollView>

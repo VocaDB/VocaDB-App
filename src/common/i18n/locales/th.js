@@ -144,6 +144,7 @@ t[labels.emptyFavoriteSongs] = 'ยังไม่มีเพลงที่ช
 t[labels.emptyFavoriteAlbums] = 'ยังไม่มีอัลบั้มที่ชอบเลย';
 t[labels.emptyFavoriteArtists] = 'จะไม่กดติดตามใครสักคนหน่อยเหรอ... :\'(';
 t[labels.alternateVersion] = 'เวอร์ชันอื่นๆ';
+t[labels.likeMatches] = 'รายการที่มีคนชอบคล้ายกัน';
 
 // Menu
 t[labels.favoriteSongs] = 'เพลงโปรด';

@@ -147,5 +147,6 @@ export default {
     emptyFavoriteSongs: 'emptyFavoriteSongs',
     emptyFavoriteAlbums: 'emptyFavoriteAlbums',
     emptyFavoriteArtists: 'emptyFavoriteArtists',
-    alternateVersion: 'Alternate version'
+    alternateVersion: 'Alternate version',
+    likeMatches: 'likeMatches'
 };
