@@ -22,7 +22,8 @@ const ROUTES = {
     MyAlbums: 'MyAlbums',
     Settings: 'Settings',
     TagSearch: 'TagSearch',
-    EventFilter: 'EventFilter'
+    EventFilter: 'EventFilter',
+    SongShowAll: 'SongShowAll'
 }
 
 export default ROUTES

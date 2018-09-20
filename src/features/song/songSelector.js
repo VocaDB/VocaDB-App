@@ -351,3 +351,10 @@ export const selectAlternateVersion = () => createSelector(
     selectSongEntity(),
     (songDetail, songEntity) => (songDetail && songDetail.alternate)? convertSongIds(songDetail.alternate, songEntity) : []
 )
+
+export const selectSongsFromCurrentSongShowAll = () => createSelector(
+    selectNav(),
+    nav => (nav
+        && nav.routes[nav.index]
+        && nav.routes[nav.index].routeName === Routes.SongShowAll)? nav.routes[nav.index].params.songs : []
+)

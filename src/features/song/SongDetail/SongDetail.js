@@ -260,7 +260,7 @@ class SongDetail extends React.PureComponent {
                                  items={this.props.altVersion}
                                  renderItem={renderSongCard}
                                  max={20}
-                                 onPressMore={this.props.onPressMoreAlternateVersion}/>
+                                 onPressMore={() => this.props.onPressMoreAlternateVersion(this.props.altVersion)}/>
                 </Section>
             )
         }
