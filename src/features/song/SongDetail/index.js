@@ -10,7 +10,8 @@ import { selectSongDetail,
     selectOriginalSong,
     selectOriginalPVs,
     selectOtherPVs,
-    selectPVByDefaultPVService } from '../songSelector';
+    selectPVByDefaultPVService,
+    selectAlternateVersion } from '../songSelector';
 import Routes from './../../../app/appRoutes';
 import { selectDefaultPVService } from './../../user/userSelector';
 import { songDetailUrl } from './../../../common/constants/config';
@@ -43,7 +44,8 @@ const songDetailStateSelect = createSelector(
     selectOriginalPVs(),
     selectOtherPVs(),
     selectPVByDefaultPVService(),
-    (song, isFavoriteSong, albums, originalSong, originalPVs, otherPVs, pv) => ({ song, isFavoriteSong, albums, originalSong, originalPVs, otherPVs, pv })
+    selectAlternateVersion(),
+    (song, isFavoriteSong, albums, originalSong, originalPVs, otherPVs, pv, altVersion) => ({ song, isFavoriteSong, albums, originalSong, originalPVs, otherPVs, pv, altVersion })
 );
 
 const mapDispatchToProps = (dispatch, props) => ({
@@ -70,6 +72,7 @@ const mapDispatchToProps = (dispatch, props) => ({
     onPressAlbum: album => props.navigation.navigate(Routes.AlbumDetail, { id: album.id, title: album.name }),
     onPressTag: tag => props.navigation.navigate(Routes.TagDetail, { id: tag.id, title: tag.name }),
     onPressSong: song => props.navigation.navigate(Routes.SongDetail, { id: song.id, title: song.name }),
+    onPressMoreAlternateVersion: songs => console.log(songs)
 })
 
 export default connect(songDetailStateSelect, mapDispatchToProps)(SongDetailPage)

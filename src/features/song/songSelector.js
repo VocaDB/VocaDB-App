@@ -345,3 +345,9 @@ export const selectPVByDefaultPVService = () => createSelector(
 
     }
 )
+
+export const selectAlternateVersion = () => createSelector(
+    selectSongDetail(),
+    selectSongEntity(),
+    (songDetail, songEntity) => (songDetail && songDetail.alternate)? convertSongIds(songDetail.alternate, songEntity) : []
+)

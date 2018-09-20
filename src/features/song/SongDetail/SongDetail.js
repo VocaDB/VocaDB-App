@@ -20,6 +20,8 @@ import moment from 'moment';
 import SongRow from './../SongRow';
 import { translateSongType } from './../songConstant';
 import i18n from './../../../common/i18n';
+import FeatureList from './../../main/FeatureList';
+import SongCard from '../../song/SongCard';
 
 const toMSS = function (sec_num) {
 
@@ -88,6 +90,17 @@ class SongDetail extends React.PureComponent {
                 />
             )
         }
+
+        const renderSongCard = song => (
+            <SongCard key={song.id}
+                      id={song.id}
+                      name={song.name}
+                      artist={song.artistString}
+                      image={song.image}
+                      pvs={song.pvs}
+                      songType={song.songType}
+                      onPress={() => this.props.onPressSong(song)} />
+        )
 
         const renderTagGroup = () => (
             <Section>
@@ -235,6 +248,23 @@ class SongDetail extends React.PureComponent {
 
         }
 
+        const renderAlternateVersion = () => {
+            if(!this.props.altVersion || this.props.altVersion.length == 0) {
+                return null;
+            }
+
+            return (
+                <Section>
+                    <Divider />
+                    <FeatureList title={`${i18n.alternateVersion} (${this.props.altVersion.length})`}
+                                 items={this.props.altVersion}
+                                 renderItem={renderSongCard}
+                                 max={20}
+                                 onPressMore={this.props.onPressMoreAlternateVersion}/>
+                </Section>
+            )
+        }
+
         return (
             <ScrollableTabView>
                 <ScrollView style={{ flex: 1, backgroundColor: 'white', paddingBottom: 18 }} tabLabel={i18n.info} >
@@ -251,6 +281,7 @@ class SongDetail extends React.PureComponent {
                     {song.pvs && song.pvs.length > 0 && renderPVList()}
                     {renderOriginalVersion()}
                     {song.albums && song.albums.length > 0 && renderAlbumList()}
+                    {renderAlternateVersion()}
                     {song.webLinks && song.webLinks.length > 0 && renderWebLinkList()}
 
                 </ScrollView>

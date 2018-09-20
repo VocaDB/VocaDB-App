@@ -146,5 +146,6 @@ export default {
     defaultPVServiceDescription: 'defaultPVServiceDescription',
     emptyFavoriteSongs: 'emptyFavoriteSongs',
     emptyFavoriteAlbums: 'emptyFavoriteAlbums',
-    emptyFavoriteArtists: 'emptyFavoriteArtists'
+    emptyFavoriteArtists: 'emptyFavoriteArtists',
+    alternateVersion: 'Alternate version'
 };

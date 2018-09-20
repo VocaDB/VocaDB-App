@@ -143,6 +143,7 @@ t[labels.recentSongsPVs] = 'Recent Songs / PVs';
 t[labels.emptyFavoriteSongs] = 'No favorite songs';
 t[labels.emptyFavoriteAlbums] = 'No favorite albums ';
 t[labels.emptyFavoriteArtists] = 'Nothing yet';
+t[labels.alternateVersion] = 'Alternate version';
 
 // Menu
 t[labels.favoriteSongs] = 'Favorite songs';

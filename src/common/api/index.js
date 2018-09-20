@@ -15,7 +15,8 @@ const api = {
         highlighted: params => request('/songs/highlighted', params, mockSong),
         topRated: params => request('/songs/top-rated', params, mockSongs),
         find: params => request('/songs', params, mockSongs),
-        get: (id, params) => request(`/songs/${id}`, params, mockSong)
+        get: (id, params) => request(`/songs/${id}`, params, mockSong),
+        derived: (id, params) => request(`/songs/${id}/derived`, params, mockSongs)
     },
     albums: {
         newAlbum: params => request('/albums/new', params, mockAlbums),
