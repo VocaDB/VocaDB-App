@@ -149,6 +149,7 @@ t[labels.artistMatches] = 'Matching artists';
 t[labels.tagMatches] = 'Matching tags';
 t[labels.relatedSongs] = 'Related songs';
 t[labels.searchYoutube] = 'Search Youtube';
+t[labels.showAll] = 'Show all';
 
 // Menu
 t[labels.favoriteSongs] = 'Lagu kegemaran';

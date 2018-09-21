@@ -152,5 +152,6 @@ export default {
     artistMatches: 'artistMatches',
     tagMatches: 'tagMatches',
     relatedSongs: 'relatedSongs',
-    searchYoutube: 'searchYoutube'
+    searchYoutube: 'searchYoutube',
+    showAll: 'showAll'
 };
