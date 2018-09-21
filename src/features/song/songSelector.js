@@ -364,3 +364,41 @@ export const selectSongDetailLikeMatches = () => createSelector(
     selectSongEntity(),
     (songDetail, songEntity) => (songDetail && songDetail.related && songDetail.related.likeMatches)? convertSongIds(songDetail.related.likeMatches, songEntity) : []
 )
+
+
+export const selectSongIdFromRelatedPage = () => createSelector(
+    selectNav(),
+    nav => (nav
+        && nav.routes[nav.index]
+        && nav.routes[nav.index].routeName === Routes.SongRelated)? nav.routes[nav.index].params.id : 0
+)
+
+export const selectSongFromRelatedPage = () => createSelector(
+    selectSongIdFromRelatedPage(),
+    selectSongEntity(),
+    (songId, songEntity) => transformSong(songEntity[songId.toString()])
+)
+
+export const selectSongRelated = () => createSelector(
+    selectSongFromRelatedPage(),
+    selectSongEntity(),
+    (song, songEntity) => {
+
+        let songRelated = {
+            artistMatches: [],
+            likeMatches: [],
+            tagMatches: []
+        }
+
+        if(!song || !song.related) {
+            return songRelated;
+        }
+
+        songRelated.artistMatches = (song.related.artistMatches)? convertSongIds(song.related.artistMatches, songEntity) : [];
+        songRelated.likeMatches = (song.related.likeMatches)? convertSongIds(song.related.likeMatches, songEntity) : [];
+        songRelated.tagMatches = (song.related.tagMatches)? convertSongIds(song.related.tagMatches, songEntity) : [];
+
+        return songRelated;
+
+    }
+)

@@ -27,6 +27,7 @@ import Theme from './theme';
 import Routes from './app/appRoutes';
 import config from './common/constants/config';
 import SongShowAllPage from './features/song/SongShowAll';
+import SongRelatedPage from './features/song/SongRelated';
 
 
 export const INITIAL_ROUTE = (config.enableAuth)? Routes.SignIn : Routes.Main
@@ -56,7 +57,8 @@ const AppNavigator = StackNavigator({
     TagSearch: { screen: TagSearchPage },
     EventFilter: { screen: EventFilterPage },
     AlbumWithParams: { screen: AlbumWithParamsPage },
-    SongShowAll: { screen: SongShowAllPage }
+    SongShowAll: { screen: SongShowAllPage },
+    SongRelated: { screen: SongRelatedPage }
 }, {
     initialRouteName: INITIAL_ROUTE,
     navigationOptions: {

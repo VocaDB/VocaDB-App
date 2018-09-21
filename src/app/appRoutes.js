@@ -23,7 +23,8 @@ const ROUTES = {
     Settings: 'Settings',
     TagSearch: 'TagSearch',
     EventFilter: 'EventFilter',
-    SongShowAll: 'SongShowAll'
+    SongShowAll: 'SongShowAll',
+    SongRelated: 'SongRelated'
 }
 
 export default ROUTES

@@ -75,6 +75,7 @@ const mapDispatchToProps = (dispatch, props) => ({
     onPressTag: tag => props.navigation.navigate(Routes.TagDetail, { id: tag.id, title: tag.name }),
     onPressSong: song => props.navigation.navigate(Routes.SongDetail, { id: song.id, title: song.name }),
     onPressMoreAlternateVersion: songs => props.navigation.navigate(Routes.SongShowAll, { title: `${i18n.alternateVersion} (${songs.length})`, songs: songs }),
+    onPressMoreRelatedSongs: id => props.navigation.navigate(Routes.SongRelated, { id })
 })
 
 export default connect(songDetailStateSelect, mapDispatchToProps)(SongDetailPage)

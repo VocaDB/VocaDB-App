@@ -148,5 +148,8 @@ export default {
     emptyFavoriteAlbums: 'emptyFavoriteAlbums',
     emptyFavoriteArtists: 'emptyFavoriteArtists',
     alternateVersion: 'Alternate version',
-    likeMatches: 'likeMatches'
+    likeMatches: 'likeMatches',
+    artistMatches: 'artistMatches',
+    tagMatches: 'tagMatches',
+    relatedSongs: 'relatedSongs'
 };

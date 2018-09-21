@@ -274,14 +274,10 @@ class SongDetail extends React.PureComponent {
                     <FeatureList title={i18n.likeMatches}
                                  items={this.props.likeMatches}
                                  renderItem={renderSongCard}
-                                 displayMoreButton={false}
-                                 onPressMore={() => console.log('related')}/>
+                                 onPressMore={() => this.props.onPressMoreRelatedSongs(song.id)}/>
                 </Section>
             );
         }
-
-        console.log(`like matches : .......`)
-        console.log(this.props.likeMatches)
 
         return (
             <ScrollableTabView>
