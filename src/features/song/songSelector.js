@@ -282,6 +282,11 @@ export const selectOtherPVs = () => createSelector(
     (songDetail) => (songDetail && songDetail.pvs && songDetail.pvs.length)? songDetail.pvs.filter(p => p.pvType != 'Original') : []
 )
 
+export const selectIsPVContainYoutubeService = () => createSelector(
+    selectSongDetail(),
+    (songDetail) => (songDetail && songDetail.pvs && songDetail.pvs.length && songDetail.pvs.filter(p => p.service.toLowerCase() == 'youtube').length)
+)
+
 export const selectPVByDefaultPVService = () => createSelector(
     selectSongDetail(),
     selectDefaultPVService(),

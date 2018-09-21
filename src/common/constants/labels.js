@@ -151,5 +151,6 @@ export default {
     likeMatches: 'likeMatches',
     artistMatches: 'artistMatches',
     tagMatches: 'tagMatches',
-    relatedSongs: 'relatedSongs'
+    relatedSongs: 'relatedSongs',
+    searchYoutube: 'searchYoutube'
 };

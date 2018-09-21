@@ -12,7 +12,8 @@ import { selectSongDetail,
     selectOtherPVs,
     selectPVByDefaultPVService,
     selectAlternateVersion,
-    selectSongDetailLikeMatches } from '../songSelector';
+    selectSongDetailLikeMatches,
+    selectIsPVContainYoutubeService } from '../songSelector';
 import Routes from './../../../app/appRoutes';
 import { selectDefaultPVService } from './../../user/userSelector';
 import { songDetailUrl } from './../../../common/constants/config';
@@ -47,7 +48,10 @@ const songDetailStateSelect = createSelector(
     selectPVByDefaultPVService(),
     selectAlternateVersion(),
     selectSongDetailLikeMatches(),
-    (song, isFavoriteSong, albums, originalSong, originalPVs, otherPVs, pv, altVersion, likeMatches) => ({ song, isFavoriteSong, albums, originalSong, originalPVs, otherPVs, pv, altVersion, likeMatches })
+    selectIsPVContainYoutubeService(),
+    (song, isFavoriteSong, albums, originalSong, originalPVs,
+     otherPVs, pv, altVersion, likeMatches, isPVContainYoutubeService) => ({ song, isFavoriteSong, albums, originalSong, originalPVs,
+        otherPVs, pv, altVersion, likeMatches, isPVContainYoutubeService })
 );
 
 const mapDispatchToProps = (dispatch, props) => ({

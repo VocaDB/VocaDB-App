@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, ScrollView } from 'react-native';
+import { View, Text, ScrollView, Linking, TouchableOpacity } from 'react-native';
 import Icon from '../../../components/Icon/index';
 import TagGroup from '../../tag/TagGroup/index';
 import ArtistRoleList from '../../artistRole/ArtistRoleList/index';
@@ -121,11 +121,35 @@ class SongDetail extends React.PureComponent {
                 )
             }
 
+
+            const renderSearchYoutube = () => {
+                if(this.props.isPVContainYoutubeService) {
+                   return null;
+                }
+
+                return (
+                    <TouchableOpacity style={{ padding: 4, flexDirection: 'row', backgroundColor: 'white' }}
+                                      onPress={() => Linking.openURL(`http://www.youtube.com/results?search_query=${song.artistString}+${song.name}`).catch(err => console.error('An error occurred', err))}>
+
+                        <View style={{ flex: 1, flexDirection: 'row' }}>
+                            <View style={{ justifyContent: 'center', marginHorizontal: 8 }}>
+                                <Icon name='Youtube' site />
+                            </View>
+                            <View style={{ flex: 1, justifyContent: 'center', padding: 4 }}>
+                                <Text>{i18n.searchYoutube}</Text>
+                            </View>
+                        </View>
+
+                    </TouchableOpacity>
+                )
+            }
+
             return (
                 <Section>
                     <Divider />
                     <PVList pvs={this.props.originalPVs} title={i18n.originalPVs} showHeader />
                     {(this.props.otherPVs.length > 0) && <Expander content={<PVList pvs={this.props.otherPVs} title={i18n.other} showHeader />} />}
+                    {renderSearchYoutube()}
                 </Section>
             )
         }
