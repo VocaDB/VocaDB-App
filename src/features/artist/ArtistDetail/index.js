@@ -19,6 +19,7 @@ import { selectLoading } from './../../../app/appSelector'
 import { Share, Linking } from 'react-native'
 import Routes from './../../../app/appRoutes'
 import { artistDetailUrl } from './../../../common/constants/config'
+import firebase from 'react-native-firebase';
 
 ArtistDetail.navigationOptions = ({ navigation }) => {
 
@@ -75,10 +76,26 @@ const mapDispatchToProps = (dispatch, props) => ({
     fetchArtist: id => dispatch(artistActions.fetchArtistDetail(id)),
     onPressFollow: artist => {
         dispatch(artistActions.followArtist(artist))
+        firebase.analytics().logEvent(`add_favorite_artist`, {
+            id: artist.id,
+            name: artist.name
+        });
     },
-    onPressUnFollow: artist => dispatch(artistActions.unFollowArtist(artist)),
+    onPressUnFollow: artist => {
+        dispatch(artistActions.unFollowArtist(artist))
+        firebase.analytics().logEvent(`remove_favorite_artist`, {
+            id: artist.id,
+            name: artist.name
+        });
+    },
     onPressShare: artist => {
         const url = 'https://vocadb.net/Ar/' + artist.id
+
+        firebase.analytics().logEvent(`share_artist`, {
+            id: artist.id,
+            name: artist.name
+        });
+
         Share.share({
             message: url,
             url: url,
@@ -91,6 +108,13 @@ const mapDispatchToProps = (dispatch, props) => ({
         if(!artist || !artist.id) {
             return;
         }
+
+        firebase.analytics().logEvent(`redirect_vocadb`, {
+            id: artist.id,
+            name: artist.name,
+            type: 'artist'
+        });
+
         Linking.openURL(artistDetailUrl(artist.id)).catch(err => console.error('An error occurred', err))
     },
     onPressArtist: artist => props.navigation.navigate(Routes.ArtistDetail, { id: artist.id, title: artist.name }),
