@@ -153,5 +153,10 @@ export default {
     tagMatches: 'tagMatches',
     relatedSongs: 'relatedSongs',
     searchYoutube: 'searchYoutube',
-    showAll: 'showAll'
+    showAll: 'showAll',
+    contact: 'contact',
+    contactDescription: 'contactDescription',
+    developerContact: 'developerContact',
+    developerContactDescription: 'developerContactDescription'
+
 };

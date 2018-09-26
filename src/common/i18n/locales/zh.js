@@ -150,6 +150,8 @@ t[labels.tagMatches] = 'Matching tags';
 t[labels.relatedSongs] = 'Related songs';
 t[labels.searchYoutube] = 'Search Youtube';
 t[labels.showAll] = 'Show all';
+t[labels.developerContact] = 'Developer contacts';
+t[labels.developerContact] = 'Suggestion, Feedback or report any issue are welcome';
 
 // Menu
 t[labels.favoriteSongs] = 'Favorite songs';

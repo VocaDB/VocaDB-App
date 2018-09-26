@@ -127,7 +127,8 @@ const mapDispatchToProps = (dispatch, props) => ({
         dispatch(userActions.resetToSignIn())
     },
     onPressExport: () => dispatch(userActions.exportBackupData()),
-    onPressImport: () => dispatch(userActions.importBackupData())
+    onPressImport: () => dispatch(userActions.importBackupData()),
+    onPressContact: () => props.navigation.navigate(Routes.Contact)
  })
 
 export default connect(mapStateSelector, mapDispatchToProps)(Main)

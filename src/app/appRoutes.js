@@ -24,7 +24,8 @@ const ROUTES = {
     TagSearch: 'TagSearch',
     EventFilter: 'EventFilter',
     SongShowAll: 'SongShowAll',
-    SongRelated: 'SongRelated'
+    SongRelated: 'SongRelated',
+    Contact: 'Contact'
 }
 
 export default ROUTES

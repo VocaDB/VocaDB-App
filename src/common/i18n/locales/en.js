@@ -157,6 +157,8 @@ t[labels.favoriteAlbums] = 'Collections';
 t[labels.favoriteArtists] = 'Followed artists';
 t[labels.settings] = 'Settings';
 t[labels.about] = 'About';
+t[labels.developerContact] = 'Developer contacts';
+t[labels.developerContact] = 'Suggestion, Feedback or report any issue are welcome';
 
 // Settings
 t[labels.general] = 'General';
