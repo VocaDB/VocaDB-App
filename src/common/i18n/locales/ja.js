@@ -151,7 +151,7 @@ t[labels.relatedSongs] = 'Related songs';
 t[labels.searchYoutube] = 'Search Youtube';
 t[labels.showAll] = 'Show all';
 t[labels.developerContact] = 'Developer contacts';
-t[labels.developerContact] = 'Suggestion, Feedback or report any issue are welcome';
+t[labels.developerContactDescription] = 'Suggestion, Feedback or report any issue are welcome';
 
 // Menu
 t[labels.favoriteSongs] = 'Favorite songs';
@@ -159,6 +159,7 @@ t[labels.favoriteAlbums] = 'Collections';
 t[labels.favoriteArtists] = 'Followed artists';
 t[labels.settings] = 'Settings';
 t[labels.about] = 'About';
+t[labels.contact] = 'Contact us';
 
 // Settings
 t[labels.general] = 'General';

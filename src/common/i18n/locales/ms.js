@@ -151,7 +151,7 @@ t[labels.relatedSongs] = 'Related songs';
 t[labels.searchYoutube] = 'Search Youtube';
 t[labels.showAll] = 'Show all';
 t[labels.developerContact] = 'Developer contacts';
-t[labels.developerContact] = 'Suggestion, Feedback or report any issue are welcome';
+t[labels.developerContactDescription] = 'Suggestion, Feedback or report any issue are welcome';
 
 // Menu
 t[labels.favoriteSongs] = 'Lagu kegemaran';
@@ -159,6 +159,7 @@ t[labels.favoriteAlbums] = 'Koleksi';
 t[labels.favoriteArtists] = 'Artis diikut';
 t[labels.settings] = 'Tetapan';
 t[labels.about] = 'Perihal';
+t[labels.contact] = 'Contact us';
 
 // Settings
 t[labels.general] = 'General';

@@ -159,6 +159,7 @@ t[labels.favoriteAlbums] = 'อัลบั้มโปรด';
 t[labels.favoriteArtists] = 'ศิลปินที่ติดตาม';
 t[labels.settings] = 'ตั้งค่า';
 t[labels.about] = 'เกี่ยวกับ';
+t[labels.contact] = 'ติดต่อ & ข้อเสนอแนะ';
 
 // Settings
 t[labels.general] = 'ทั่วไป';
