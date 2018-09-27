@@ -114,9 +114,11 @@ class SongDetail extends React.PureComponent {
                 return;
             }
 
+            const query = (song && song.pvs && song.pvs.length)? song.pvs[0].name : `${song.artistString}+${song.name}`;
+
             return (
                 <TouchableOpacity style={{ padding: 4, flexDirection: 'row', backgroundColor: 'white' }}
-                                  onPress={() => Linking.openURL(`http://www.youtube.com/results?search_query=${song.artistString}+${song.name}`).catch(err => console.error('An error occurred', err))}>
+                                  onPress={() => Linking.openURL(`http://www.youtube.com/results?search_query=${query}`).catch(err => console.error('An error occurred', err))}>
 
                     <View style={{ flex: 1, flexDirection: 'row' }}>
                         <View style={{ justifyContent: 'center', marginHorizontal: 8 }}>
