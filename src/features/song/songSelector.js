@@ -282,6 +282,11 @@ export const selectOtherPVs = () => createSelector(
     (songDetail) => (songDetail && songDetail.pvs && songDetail.pvs.length)? songDetail.pvs.filter(p => p.pvType != 'Original') : []
 )
 
+export const selectIsPVContainYoutubeService = () => createSelector(
+    selectSongDetail(),
+    (songDetail) => (songDetail && songDetail.pvs && songDetail.pvs.length && songDetail.pvs.filter(p => p.service.toLowerCase() == 'youtube').length)
+)
+
 export const selectPVByDefaultPVService = () => createSelector(
     selectSongDetail(),
     selectDefaultPVService(),
@@ -342,6 +347,63 @@ export const selectPVByDefaultPVService = () => createSelector(
 
         }
 
+
+    }
+)
+
+export const selectAlternateVersion = () => createSelector(
+    selectSongDetail(),
+    selectSongEntity(),
+    (songDetail, songEntity) => (songDetail && songDetail.alternate)? convertSongIds(songDetail.alternate, songEntity) : []
+)
+
+export const selectSongsFromCurrentSongShowAll = () => createSelector(
+    selectNav(),
+    nav => (nav
+        && nav.routes[nav.index]
+        && nav.routes[nav.index].routeName === Routes.SongShowAll)? nav.routes[nav.index].params.songs : []
+)
+
+export const selectSongDetailLikeMatches = () => createSelector(
+    selectSongDetail(),
+    selectSongEntity(),
+    (songDetail, songEntity) => (songDetail && songDetail.related && songDetail.related.likeMatches)? convertSongIds(songDetail.related.likeMatches, songEntity) : []
+)
+
+
+export const selectSongIdFromRelatedPage = () => createSelector(
+    selectNav(),
+    nav => (nav
+        && nav.routes[nav.index]
+        && nav.routes[nav.index].routeName === Routes.SongRelated)? nav.routes[nav.index].params.id : 0
+)
+
+export const selectSongFromRelatedPage = () => createSelector(
+    selectSongIdFromRelatedPage(),
+    selectSongEntity(),
+    (songId, songEntity) => transformSong(songEntity[songId.toString()])
+)
+
+export const selectSongRelated = () => createSelector(
+    selectSongFromRelatedPage(),
+    selectSongEntity(),
+    (song, songEntity) => {
+
+        let songRelated = {
+            artistMatches: [],
+            likeMatches: [],
+            tagMatches: []
+        }
+
+        if(!song || !song.related) {
+            return songRelated;
+        }
+
+        songRelated.artistMatches = (song.related.artistMatches)? convertSongIds(song.related.artistMatches, songEntity) : [];
+        songRelated.likeMatches = (song.related.likeMatches)? convertSongIds(song.related.likeMatches, songEntity) : [];
+        songRelated.tagMatches = (song.related.tagMatches)? convertSongIds(song.related.tagMatches, songEntity) : [];
+
+        return songRelated;
 
     }
 )

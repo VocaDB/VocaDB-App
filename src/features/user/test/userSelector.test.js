@@ -30,15 +30,6 @@ describe('User selector test', () => {
         expect(selectors.selectUser()(state)).toEqual(state.user)
     });
 
-    it('should get followed artists', () => {
-        const follwedArtists = [ artist2.id, artist1.id ];
-
-        state.user.followedArtists = follwedArtists;
-
-        const expectedResult = [ artist2, artist1 ]
-        expect(selectors.selectFollowedArtists()(state)).toEqual(expectedResult)
-    });
-
     it('should get user id', () => {
         state.user.userId = '1234';
         expect(selectors.selectUserId()(state)).toEqual('1234')

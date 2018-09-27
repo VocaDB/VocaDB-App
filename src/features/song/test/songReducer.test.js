@@ -163,7 +163,8 @@ describe('Test song reducer', () => {
         expect(nextState.searchPage.params).toBeTruthy()
 
         let expectedSearchParams = {
-            songTypes: 'Cover'
+            songTypes: 'Cover',
+            ...defaultSearchParams
         }
 
         expect(nextState.searchPage.params).toEqual(expectedSearchParams)

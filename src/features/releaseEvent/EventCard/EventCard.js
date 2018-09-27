@@ -13,7 +13,7 @@ class EventCard extends React.Component {
                        resizeMethod='resize'
                 />
                 <View style={[styles.infoContainer]}>
-                    <Text style={Theme.subheadWhite}>{moment(this.props.date).format('dddd, MMMM Do YYYY')}</Text>
+                    <Text style={Theme.subheadWhite}>{moment(this.props.date).format('LL') + ` (${moment(this.props.date).fromNow()})`}</Text>
                     <Text numberOfLines={2} style={Theme.subheadWhite}>{this.props.name}</Text>
                     <Text numberOfLines={1} style={Theme.subheadWhite}>{this.props.location}</Text>
                 </View>

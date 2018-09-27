@@ -15,6 +15,14 @@ class FeatureList extends React.PureComponent {
 
         const WrapComponent = Component => <View key={Component.key} style={[styles.wrapContainer]}>{Component}</View>
 
+        let displayMoreButton = this.props.displayMoreButton;
+        let items = this.props.items;
+
+        if(this.props.max && items.length > this.props.max) {
+            items = items.slice(0,this.props.max);
+            displayMoreButton = true;
+        }
+
         return (
             <View style={[styles.container]}>
                 <View style={[styles.headerContainer]}>
@@ -22,12 +30,12 @@ class FeatureList extends React.PureComponent {
                         {this.renderPrefix()}
                         <Text style={Theme.subhead}>{this.props.title}</Text>
                     </View>
-                    {this.props.displayMoreButton && <Button primary text={i18n.seeMore} onPress={this.props.onPressMore} />}
+                    {displayMoreButton && <Button primary text={i18n.seeMore} onPress={this.props.onPressMore} />}
                 </View>
                 <FlatList
                     horizontal
                     showsHorizontalScrollIndicator={false}
-                    data={this.props.items}
+                    data={items}
                     keyExtractor={item => item.id}
                     renderItem={({ item }) => WrapComponent(this.props.renderItem(item))}
                 />
@@ -62,12 +70,14 @@ FeatureList.propTypes = {
     renderItem: PropTypes.func,
     onPressMore: PropTypes.func,
     displayMoreButton: PropTypes.bool,
-    prefix: PropTypes.element
+    prefix: PropTypes.element,
+    max: PropTypes.number
 }
 
 FeatureList.defaultProps = {
     title: 'Unknown',
     items: [],
+    max: 0,
     displayMoreButton: true,
     onPressMore: () => console.log('Press more')
 }

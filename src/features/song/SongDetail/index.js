@@ -10,11 +10,15 @@ import { selectSongDetail,
     selectOriginalSong,
     selectOriginalPVs,
     selectOtherPVs,
-    selectPVByDefaultPVService } from '../songSelector';
+    selectPVByDefaultPVService,
+    selectAlternateVersion,
+    selectSongDetailLikeMatches,
+    selectIsPVContainYoutubeService } from '../songSelector';
 import Routes from './../../../app/appRoutes';
 import { selectDefaultPVService } from './../../user/userSelector';
 import { songDetailUrl } from './../../../common/constants/config';
 import i18n from './../../../common/i18n';
+import firebase from 'react-native-firebase';
 
 SongDetailPage.navigationOptions = ({ navigation }) => {
 
@@ -43,14 +47,37 @@ const songDetailStateSelect = createSelector(
     selectOriginalPVs(),
     selectOtherPVs(),
     selectPVByDefaultPVService(),
-    (song, isFavoriteSong, albums, originalSong, originalPVs, otherPVs, pv) => ({ song, isFavoriteSong, albums, originalSong, originalPVs, otherPVs, pv })
+    selectAlternateVersion(),
+    selectSongDetailLikeMatches(),
+    selectIsPVContainYoutubeService(),
+    (song, isFavoriteSong, albums, originalSong, originalPVs,
+     otherPVs, pv, altVersion, likeMatches, isPVContainYoutubeService) => ({ song, isFavoriteSong, albums, originalSong, originalPVs,
+        otherPVs, pv, altVersion, likeMatches, isPVContainYoutubeService })
 );
 
 const mapDispatchToProps = (dispatch, props) => ({
     fetchSong: id => dispatch(songActions.fetchSongDetail(id)),
-    onPressFavorite: song => dispatch(songActions.addFavoriteSong(song)),
-    onPressUnfavorite: song => dispatch(songActions.removeFavoriteSong(song)),
+    onPressFavorite: song => {
+        dispatch(songActions.addFavoriteSong(song));
+        firebase.analytics().logEvent(`add_favorite_song`, {
+            id: song.id,
+            name: song.name
+        });
+    },
+    onPressUnfavorite: song => {
+        dispatch(songActions.removeFavoriteSong(song));
+        firebase.analytics().logEvent(`remove_favorite_song`, {
+            id: song.id,
+            name: song.name
+        });
+    },
     onPressShare: song => {
+
+        firebase.analytics().logEvent(`share_song`, {
+            id: song.id,
+            name: song.name
+        });
+
         const url = 'https://vocadb.net/S/' + song.id
         Share.share({
             message: url,
@@ -64,12 +91,21 @@ const mapDispatchToProps = (dispatch, props) => ({
         if(!song || !song.id) {
             return;
         }
+
+        firebase.analytics().logEvent(`redirect_vocadb`, {
+            id: song.id,
+            name: song.name,
+            type: 'song'
+        });
+
         Linking.openURL(songDetailUrl(song.id)).catch(err => console.error('An error occurred', err))
     },
     onPressArtist: artist => props.navigation.navigate(Routes.ArtistDetail, { id: artist.id, title: artist.name }),
     onPressAlbum: album => props.navigation.navigate(Routes.AlbumDetail, { id: album.id, title: album.name }),
     onPressTag: tag => props.navigation.navigate(Routes.TagDetail, { id: tag.id, title: tag.name }),
     onPressSong: song => props.navigation.navigate(Routes.SongDetail, { id: song.id, title: song.name }),
+    onPressMoreAlternateVersion: songs => props.navigation.navigate(Routes.SongShowAll, { title: `${i18n.alternateVersion} (${songs.length})`, songs: songs }),
+    onPressMoreRelatedSongs: id => props.navigation.navigate(Routes.SongRelated, { id })
 })
 
 export default connect(songDetailStateSelect, mapDispatchToProps)(SongDetailPage)
