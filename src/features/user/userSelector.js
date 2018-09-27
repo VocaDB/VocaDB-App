@@ -102,7 +102,9 @@ export const selectBackupData = () => createSelector(
                 songType: i.songType,
                 pvServices: i.pvServices,
                 mainPicture: i.mainPicture,
-                thumbUrl: i.thumbUrl
+                thumbUrl: i.thumbUrl,
+                createDate: i.createDate,
+                publishDate: i.publishDate
             })),
             settings
         });
