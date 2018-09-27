@@ -13,16 +13,16 @@ export default {
             {
                 title: 'Facebook',
                 icon: 'logo-facebook',
-                url: 'https://vocadb.net'
+                url: 'https://www.facebook.com/vocadb'
             },
             {
                 title: 'Twitter',
                 icon: 'logo-twitter',
-                url: 'https://twitter/com/VocaDB'
+                url: 'https://twitter.com/VocaDB'
             },
             {
                 title: 'VK',
-                icon: 'logo-vk',
+                icon: 'ios-globe',
                 url: 'https://vk.com/vocadb'
             },
             {
