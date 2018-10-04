@@ -8,7 +8,9 @@ const songApi = {
     getFollowedSongs: (artistIds, params) => api.songs.find({ ...params, 'sort': 'AdditionDate', 'fields': 'thumbUrl' , 'artistId': artistIds }),
     getPopularSongsByTag: tagId => api.songs.find({ 'maxResults': 20, 'fields': 'thumbUrl' , tagId }),
     getSong: (id, params) => api.songs.get(id, { ...params, 'fields': ['ThumbUrl', 'Albums', 'Artists', 'Tags', 'WebLinks', 'PVs', 'Lyrics', 'AdditionalNames'].join(',') }),
-    getTopRated: params => api.songs.topRated({ ...params, 'fields': 'MainPicture,PVs,ThumbUrl'})
+    getTopRated: params => api.songs.topRated({ ...params, 'fields': 'MainPicture,PVs,ThumbUrl'}),
+    getAltSongs: (id, params) => api.songs.derived(id, { ...params, 'fields': ['ThumbUrl', 'MainPicture', 'PVs'].join(',')  }),
+    getRelatedSongs: (id, params) => api.songs.related(id, { ...params, 'fields': ['ThumbUrl', 'MainPicture', 'PVs'].join(',')  }),
 }
 
 export default songApi

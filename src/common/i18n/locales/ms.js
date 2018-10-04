@@ -140,10 +140,18 @@ t[labels.official] = 'Official';
 t[labels.commercial] = 'Commercial';
 t[labels.reference] = 'Reference';
 t[labels.recentSongsPVs] = 'Recent Songs / PVs';
-t[labels.recentSongsPVs] = 'Recent Songs / PVs';
 t[labels.emptyFavoriteSongs] = 'No favorite songs';
 t[labels.emptyFavoriteAlbums] = 'No favorite albums ';
 t[labels.emptyFavoriteArtists] = 'Nothing yet';
+t[labels.alternateVersion] = 'Alternate version';
+t[labels.likeMatches] = 'Users who liked this also liked';
+t[labels.artistMatches] = 'Matching artists';
+t[labels.tagMatches] = 'Matching tags';
+t[labels.relatedSongs] = 'Related songs';
+t[labels.searchYoutube] = 'Search Youtube';
+t[labels.showAll] = 'Show all';
+t[labels.developerContact] = 'Developer contacts';
+t[labels.developerContactDescription] = 'Suggestion, Feedback or report any issue are welcome';
 
 // Menu
 t[labels.favoriteSongs] = 'Lagu kegemaran';
@@ -151,6 +159,7 @@ t[labels.favoriteAlbums] = 'Koleksi';
 t[labels.favoriteArtists] = 'Artis diikut';
 t[labels.settings] = 'Tetapan';
 t[labels.about] = 'Perihal';
+t[labels.contact] = 'Contact us';
 
 // Settings
 t[labels.general] = 'General';

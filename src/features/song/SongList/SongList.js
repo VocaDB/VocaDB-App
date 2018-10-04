@@ -30,7 +30,7 @@ class SongList extends React.PureComponent {
                     artist={song.artistString}
                     dateTime={song.createDate}
                     songType={song.songType}
-                    pvServices={song.pvServices.split(',').map(pvService => pvService.trim())}
+                    pvServices={(song.pvServices && song.pvServices.length)? song.pvServices.split(',').map(pvService => pvService.trim()) : []}
                     onPress={() => this.props.onPressItem(song)}
                 />
             )
@@ -95,7 +95,10 @@ SongList.defaultProps = {
     showHeader: false,
     songs: [],
     flatList: false,
-    onPressItem: () => {}
+    refreshing: false,
+    onPressMore: () => {},
+    onPressItem: () => {},
+    onEndReached: () => {}
 };
 
 export default SongList;

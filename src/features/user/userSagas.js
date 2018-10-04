@@ -62,9 +62,6 @@ const fetchAlbums = function* fetchAlbums() {
 
 const exportBackupData = function* exportBackupData() {
     try {
-
-        console.log('export')
-
         const backupData = yield select(selectBackupData());
 
         let currentTimestamp = moment.utc().valueOf();
@@ -100,10 +97,7 @@ const importBackupData = function* importBackupData() {
         const backupFile = yield pickBackupFile();
 
         if(!backupFile) {
-            return;
-        }
-
-        if(backupFile.type != 'application/json') {
+            yield put(appActions.requestError(new Error("File not found")));
             return;
         }
 
@@ -129,6 +123,7 @@ const importBackupData = function* importBackupData() {
 
     } catch(e) {
         console.log(e.message)
+        yield put(appActions.requestError(e));
     }
 }
 

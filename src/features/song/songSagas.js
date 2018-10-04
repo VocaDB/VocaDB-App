@@ -1,13 +1,13 @@
-import { put, takeLatest, call, select } from 'redux-saga/effects'
-import { delay } from 'redux-saga'
-import * as actions from './songActions'
-import * as appActions from '../../app/appActions'
-import * as artistActions from '../artist/artistActions'
-import * as userActions from './../user/userActions'
-import api from './songApi'
-import { selectFollowedArtistIds } from './../artist/artistSelector'
-import { selectSearchParams, selectRankingState, selectSelectedSinglePageParams, selectSelectedNavRoute } from './songSelector'
-import { selectDisplayLanguage } from './../user/userSelector'
+import { put, takeLatest, call, select, all } from 'redux-saga/effects';
+import { delay } from 'redux-saga';
+import * as actions from './songActions';
+import * as appActions from '../../app/appActions';
+import * as artistActions from '../artist/artistActions';
+import * as userActions from './../user/userActions';
+import api from './songApi';
+import { selectFollowedArtistIds } from './../artist/artistSelector';
+import { selectSearchParams, selectRankingState, selectSelectedSinglePageParams, selectSelectedNavRoute } from './songSelector';
+import { selectDisplayLanguage } from './../user/userSelector';
 
 const fetchHighlighted = function* fetchHighlighted() {
     try {
@@ -74,6 +74,25 @@ const fetchSongDetail = function* fetchLatestSongs(action) {
         if(action.payload && action.payload.id) {
             const displayLanguage = yield select(selectDisplayLanguage())
             const response = yield call(api.getSong, action.payload.id, { lang: displayLanguage });
+
+            const [detailResponse, altSongsResponse, relatedResponse] = yield all([
+                call(api.getSong, action.payload.id, { lang: displayLanguage }),
+                call(api.getAltSongs, action.payload.id, { lang: displayLanguage }),
+                call(api.getRelatedSongs, action.payload.id, { lang: displayLanguage })
+            ]);
+
+            detailResponse.alternate = altSongsResponse;
+            detailResponse.related = {
+                artistMatches: [],
+                likeMatches: [],
+                tagMatches: []
+            }
+
+            if(relatedResponse) {
+                detailResponse.related.artistMatches = (relatedResponse.artistMatches)? relatedResponse.artistMatches : [];
+                detailResponse.related.likeMatches = (relatedResponse.likeMatches)? relatedResponse.likeMatches : [];
+                detailResponse.related.tagMatches = (relatedResponse.tagMatches)? relatedResponse.tagMatches : [];
+            }
 
             yield put(actions.fetchSongDetailSuccess(response));
 

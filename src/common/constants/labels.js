@@ -146,5 +146,17 @@ export default {
     defaultPVServiceDescription: 'defaultPVServiceDescription',
     emptyFavoriteSongs: 'emptyFavoriteSongs',
     emptyFavoriteAlbums: 'emptyFavoriteAlbums',
-    emptyFavoriteArtists: 'emptyFavoriteArtists'
+    emptyFavoriteArtists: 'emptyFavoriteArtists',
+    alternateVersion: 'Alternate version',
+    likeMatches: 'likeMatches',
+    artistMatches: 'artistMatches',
+    tagMatches: 'tagMatches',
+    relatedSongs: 'relatedSongs',
+    searchYoutube: 'searchYoutube',
+    showAll: 'showAll',
+    contact: 'contact',
+    contactDescription: 'contactDescription',
+    developerContact: 'developerContact',
+    developerContactDescription: 'developerContactDescription'
+
 };

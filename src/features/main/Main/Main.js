@@ -1,6 +1,6 @@
 import React from 'react';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
-import { Linking, DeviceEventEmitter } from 'react-native';
+import { Linking, DeviceEventEmitter, Alert } from 'react-native';
 import CustomTabBar from '../../../components/CustomTabBar';
 import HomeTab from './../HomeTab';
 import MenuTab from './../MenuTab';
@@ -38,6 +38,17 @@ class Main extends React.PureComponent {
 
     }
 
+
+    componentDidUpdate (prevProps, prevState) {
+        if(this.props.error) {
+            Alert.alert("Error", this.props.error.message)
+        }
+
+        if(this.props.message) {
+            Alert.alert("Info", this.props.message)
+        }
+    }
+
     componentDidMount () {
         this.refreshHome();
         this.refreshFollowedSongs();
@@ -61,14 +72,13 @@ class Main extends React.PureComponent {
 
         const menus =  [
             { icon: 'ios-log-in', text: 'Sign in', onPress: this.props.onPressSignOut, onlyGuest: true },
-            { icon: 'ios-download', text: 'Import', onPress: this.props.onPressImport },
-            { icon: 'ios-archive', text: 'Export', onPress: this.props.onPressExport },
+            { icon: 'ios-cloud-download', text: 'Import', onPress: this.props.onPressImport },
+            { icon: 'ios-cloud-upload', text: 'Export', onPress: this.props.onPressExport },
             { icon: 'ios-musical-notes', text: i18n.favoriteSongs, onPress: this.props.onPressMenuFavoriteSongs },
             { icon: 'ios-disc', text: i18n.favoriteAlbums, onPress: this.props.onPressMenuFavoriteAlbums },
             { icon: 'ios-people', text: i18n.favoriteArtists, onPress: this.props.onPressMenuFollowArtists },
-            { icon: 'ios-globe', text: 'VocaDB website', onPress: () => openLink('https://vocadb.net') },
             { icon: 'ios-settings', text: i18n.settings, onPress: this.props.onPressMenuSettings },
-            { icon: 'logo-github', text: i18n.about, onPress: () => openLink('https://github.com/VocaDB/VocaDB-App') },
+            { icon: 'ios-information-circle', text: i18n.contact, onPress: this.props.onPressContact },
             { icon: 'ios-log-out', text: 'Sign out', onPress: this.props.onPressSignOut, onlyMember: true }
         ];
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, ScrollView } from 'react-native';
+import { View, Text, ScrollView, Linking, TouchableOpacity } from 'react-native';
 import Icon from '../../../components/Icon/index';
 import TagGroup from '../../tag/TagGroup/index';
 import ArtistRoleList from '../../artistRole/ArtistRoleList/index';
@@ -20,6 +20,8 @@ import moment from 'moment';
 import SongRow from './../SongRow';
 import { translateSongType } from './../songConstant';
 import i18n from './../../../common/i18n';
+import FeatureList from './../../main/FeatureList';
+import SongCard from '../../song/SongCard';
 
 const toMSS = function (sec_num) {
 
@@ -48,6 +50,7 @@ class SongDetail extends React.PureComponent {
             this.props.fetchSong(params.id);
         }
 
+
         setTimeout(() => { this.setState({ shouldRender: true }) }, 0);
     }
 
@@ -67,17 +70,37 @@ class SongDetail extends React.PureComponent {
             return (
                 <Expander
                     content={
-                        <Section>
-                            <Text style={[Theme.subhead, { padding: 8 }]}>{i18n.name}</Text>
-                            <View style={{ paddingHorizontal: 8 }}>
-                                <Text style={Theme.body} >{song.name}</Text>
-                                <Text style={Theme.body} >{song.additionalNames}</Text>
-                            </View>
-                        </Section>
+                        <View>
+                            <Section>
+                                <Text style={[Theme.subhead, { padding: 8 }]}>{i18n.name}</Text>
+                                <View style={{ paddingHorizontal: 8 }}>
+                                    <Text style={Theme.body} >{song.name}</Text>
+                                    <Text style={Theme.body} >{song.additionalNames}</Text>
+                                </View>
+                            </Section>
+                            <Section>
+                                <Text style={[Theme.subhead, { padding: 8 }]}>{i18n.publishDate}</Text>
+                                <View style={{ paddingHorizontal: 8 }}>
+                                    <Text style={Theme.body} >{(song && song.publishDate)? `${moment(song.publishDate).format('LL')} (${moment(song.publishDate).fromNow()})` : ''}</Text>
+                                </View>
+                            </Section>
+                        </View>
+
                     }
                 />
             )
         }
+
+        const renderSongCard = song => (
+            <SongCard key={song.id}
+                      id={song.id}
+                      name={song.name}
+                      artist={song.artistString}
+                      image={song.image}
+                      pvs={song.pvs}
+                      songType={song.songType}
+                      onPress={() => this.props.onPressSong(song)} />
+        )
 
         const renderTagGroup = () => (
             <Section>
@@ -86,7 +109,33 @@ class SongDetail extends React.PureComponent {
             </Section>
         )
 
+        const renderSearchYoutube = () => {
+            if(this.props.isPVContainYoutubeService) {
+                return;
+            }
+
+            const query = (song && song.pvs && song.pvs.length)? song.pvs[0].name : `${song.artistString}+${song.name}`;
+
+            return (
+                <TouchableOpacity style={{ padding: 4, flexDirection: 'row', backgroundColor: 'white' }}
+                                  onPress={() => Linking.openURL(`http://www.youtube.com/results?search_query=${query}`).catch(err => console.error('An error occurred', err))}>
+
+                    <View style={{ flex: 1, flexDirection: 'row' }}>
+                        <View style={{ justifyContent: 'center', marginHorizontal: 8 }}>
+                            <Icon name='Youtube' site />
+                        </View>
+                        <View style={{ flex: 1, justifyContent: 'center', padding: 4 }}>
+                            <Text>{i18n.searchYoutube}</Text>
+                        </View>
+                    </View>
+
+                </TouchableOpacity>
+            )
+        }
+
         const renderPVList = () => {
+
+
 
             if(song.pvs && song.pvs.length == 0) {
                 return;
@@ -97,6 +146,7 @@ class SongDetail extends React.PureComponent {
                     <PVList pvs={this.props.otherPVs} title='PVs' showHeader />
                 )
             }
+
 
             return (
                 <Section>
@@ -219,10 +269,41 @@ class SongDetail extends React.PureComponent {
                 )
             }
 
-
-
             return defaultElement;
 
+        }
+
+        const renderAlternateVersion = () => {
+            if(!this.props.altVersion || this.props.altVersion.length == 0) {
+                return null;
+            }
+
+            return (
+                <Section>
+                    <Divider />
+                    <FeatureList title={`${i18n.alternateVersion} (${this.props.altVersion.length})`}
+                                 items={this.props.altVersion}
+                                 renderItem={renderSongCard}
+                                 max={20}
+                                 onPressMore={() => this.props.onPressMoreAlternateVersion(this.props.altVersion)}/>
+                </Section>
+            )
+        }
+
+        const renderRelatedSongs = () => {
+            if(!this.props.likeMatches || this.props.likeMatches.length ==0) {
+                return null;
+            }
+
+            return (
+                <Section>
+                    <Divider />
+                    <FeatureList title={i18n.likeMatches}
+                                 items={this.props.likeMatches}
+                                 renderItem={renderSongCard}
+                                 onPressMore={() => this.props.onPressMoreRelatedSongs(song.id)}/>
+                </Section>
+            );
         }
 
         return (
@@ -239,8 +320,11 @@ class SongDetail extends React.PureComponent {
 
                     {song.tags && song.tags.length > 0 && renderTagGroup()}
                     {song.pvs && song.pvs.length > 0 && renderPVList()}
+                    {renderSearchYoutube()}
                     {renderOriginalVersion()}
                     {song.albums && song.albums.length > 0 && renderAlbumList()}
+                    {renderAlternateVersion()}
+                    {renderRelatedSongs()}
                     {song.webLinks && song.webLinks.length > 0 && renderWebLinkList()}
 
                 </ScrollView>

@@ -8,7 +8,7 @@ import { selectHighlighted, selectFollowedSongs, selectRankingResult, selectRank
 import { selectFollowedArtistsWithLatestSongs } from '../../artist/artistSelector';
 import { selectLatestAlbums, selectTopAlbums } from '../../album/albumSelector';
 import { selectLatestReleaseEvents, selectRunningAnniversaryEvents } from '../../releaseEvent/releaseEventSelector';
-import { selectLoading } from '../../../app/appSelector';
+import { selectLoading, selectError, selectMessage } from '../../../app/appSelector';
 import * as userActions from '../../user/userActions';
 import * as songActions from '../../song/songActions';
 import * as albumActions from '../../album/albumActions';
@@ -38,7 +38,9 @@ const mapStateSelector = createSelector(
     selectRankingResult(),
     selectFollowedArtistsWithLatestSongs(),
     selectRunningAnniversaryEvents(),
-    (recentSongs, refreshing, latestEvents, recentAlbums, topAlbums, followedSongs, rankingState, rankingSongs, followedArtists, anniversaryEvents) => ({
+    selectError(),
+    selectMessage(),
+    (recentSongs, refreshing, latestEvents, recentAlbums, topAlbums, followedSongs, rankingState, rankingSongs, followedArtists, anniversaryEvents, error, message) => ({
         recentSongs,
         refreshing,
         latestEvents,
@@ -48,7 +50,9 @@ const mapStateSelector = createSelector(
         rankingState,
         rankingSongs,
         followedArtists,
-        anniversaryEvents
+        anniversaryEvents,
+        error,
+        message
     })
 );
 
@@ -123,7 +127,8 @@ const mapDispatchToProps = (dispatch, props) => ({
         dispatch(userActions.resetToSignIn())
     },
     onPressExport: () => dispatch(userActions.exportBackupData()),
-    onPressImport: () => dispatch(userActions.importBackupData())
+    onPressImport: () => dispatch(userActions.importBackupData()),
+    onPressContact: () => props.navigation.navigate(Routes.Contact)
  })
 
 export default connect(mapStateSelector, mapDispatchToProps)(Main)

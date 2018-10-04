@@ -140,10 +140,18 @@ t[labels.official] = 'เว็บไซต์';
 t[labels.commercial] = 'แหล่งจำหน่าย';
 t[labels.reference] = 'อ้างอิง';
 t[labels.recentSongsPVs] = 'เพลง / PV ล่าสุด';
-t[labels.recentSongsPVs] = 'Recent Songs / PVs';
 t[labels.emptyFavoriteSongs] = 'ยังไม่มีเพลงที่ชอบเลย';
 t[labels.emptyFavoriteAlbums] = 'ยังไม่มีอัลบั้มที่ชอบเลย';
 t[labels.emptyFavoriteArtists] = 'จะไม่กดติดตามใครสักคนหน่อยเหรอ... :\'(';
+t[labels.alternateVersion] = 'เวอร์ชันอื่นๆ';
+t[labels.likeMatches] = 'รายการที่มีคนชอบคล้ายกัน';
+t[labels.artistMatches] = 'รายการที่มีศิลปินคล้ายกัน';
+t[labels.tagMatches] = 'รายการที่มีแท็กคล้ายกัน';
+t[labels.relatedSongs] = 'เพลงที่คล้ายกัน';
+t[labels.searchYoutube] = 'ลองค้นหาบน Youtube';
+t[labels.showAll] = 'แสดงทั้งหมด';
+t[labels.developerContact] = 'ติดต่อนักพัฒนา';
+t[labels.developerContactDescription] = 'มีคำถาม ข้อเสนอแนะ หรือพบปัญหาใดๆสามารถแจ้งได้ตามช่องทางต่างๆดังนี้';
 
 // Menu
 t[labels.favoriteSongs] = 'เพลงโปรด';
@@ -151,6 +159,7 @@ t[labels.favoriteAlbums] = 'อัลบั้มโปรด';
 t[labels.favoriteArtists] = 'ศิลปินที่ติดตาม';
 t[labels.settings] = 'ตั้งค่า';
 t[labels.about] = 'เกี่ยวกับ';
+t[labels.contact] = 'ติดต่อ & ข้อเสนอแนะ';
 
 // Settings
 t[labels.general] = 'ทั่วไป';

@@ -65,7 +65,8 @@ const styles = {
     pvContainer: {
         flexDirection: 'row',
         alignItems: 'center',
-        height: 40
+        height: 40,
+        paddingHorizontal: 4
     }
 }
 
