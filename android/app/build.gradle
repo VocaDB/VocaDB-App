@@ -166,6 +166,8 @@ dependencies {
     implementation('com.crashlytics.sdk.android:crashlytics:2.9.4@aar') {
       transitive = true
     }
+    implementation "com.google.firebase:firebase-messaging:17.3.2"
+    implementation 'me.leolin:ShortcutBadger:1.1.21@aar'
 
 }
 
@@ -175,3 +177,5 @@ task copyDownloadableDepsToLibs(type: Copy) {
     from configurations.compile
     into 'libs'
 }
+
+com.google.gms.googleservices.GoogleServicesPlugin.config.disableVersionCheck = true
