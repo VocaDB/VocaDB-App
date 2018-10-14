@@ -24,7 +24,11 @@ class ArtistRole extends React.Component {
                     name={artist.name}
                     artist={artist.artistString}
                     role={(displayRole)? artistRole.roles : undefined}
-                    onPress={() => this.props.onPressItem(artist)}
+                    onPress={() => {
+                        if(artist.id) {
+                            this.props.onPressItem(artist)
+                        }
+                    }}
                 />
             )
         }
