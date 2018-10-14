@@ -17,6 +17,8 @@ import com.facebook.soloader.SoLoader;
 import cl.json.ShareApplication;
 import io.invertase.firebase.analytics.RNFirebaseAnalyticsPackage; // <-- Add this line
 import io.invertase.firebase.fabric.crashlytics.RNFirebaseCrashlyticsPackage;
+import io.invertase.firebase.messaging.RNFirebaseMessagingPackage;
+import io.invertase.firebase.notifications.RNFirebaseNotificationsPackage; // <-- Add this line
 
 import java.util.Arrays;
 import java.util.List;
@@ -41,7 +43,9 @@ public class MainApplication extends Application implements ShareApplication, Re
             new RNI18nPackage(),
             new RNFirebasePackage(),
             new RNFirebaseAnalyticsPackage(),
-            new RNFirebaseCrashlyticsPackage()
+            new RNFirebaseCrashlyticsPackage(),
+            new RNFirebaseMessagingPackage(),
+            new RNFirebaseNotificationsPackage()
       );
     }
 

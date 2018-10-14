@@ -78,7 +78,7 @@ class Main extends React.PureComponent {
             { icon: 'ios-disc', text: i18n.favoriteAlbums, onPress: this.props.onPressMenuFavoriteAlbums },
             { icon: 'ios-people', text: i18n.favoriteArtists, onPress: this.props.onPressMenuFollowArtists },
             { icon: 'ios-settings', text: i18n.settings, onPress: this.props.onPressMenuSettings },
-            { icon: 'ios-information-circle', text: 'ติดต่อ & ข้อเสนอแนะ', onPress: this.props.onPressContact },
+            { icon: 'ios-information-circle', text: i18n.contact, onPress: this.props.onPressContact },
             { icon: 'ios-log-out', text: 'Sign out', onPress: this.props.onPressSignOut, onlyMember: true }
         ];
 

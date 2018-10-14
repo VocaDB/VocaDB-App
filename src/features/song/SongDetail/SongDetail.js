@@ -255,7 +255,7 @@ class SongDetail extends React.PureComponent {
 
             if(pv.service === 'Youtube') {
                 return (<YouTubePlayer pvId={pv.pvId} />);
-            } else if(pv.service === 'Bilibili') {
+            } else if(pv.service === 'Bilibili' && pv.extendedMetadata) {
                 const metaData = JSON.parse(pv.extendedMetadata.json)
 
                 if(metaData.Cid) {
