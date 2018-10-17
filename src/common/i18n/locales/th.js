@@ -152,6 +152,8 @@ t[labels.searchYoutube] = 'ลองค้นหาบน Youtube';
 t[labels.showAll] = 'แสดงทั้งหมด';
 t[labels.developerContact] = 'ติดต่อนักพัฒนา';
 t[labels.developerContactDescription] = 'มีคำถาม ข้อเสนอแนะ หรือพบปัญหาใดๆสามารถแจ้งได้ตามช่องทางต่างๆดังนี้';
+t[labels.artistNotFound] = 'ไม่พบข้อมูลศิลปิน';
+t[labels.artistNotFoundDescription] = 'ข้อมูลของศิลปินดังกล่าวไม่อยู่ในฐานข้อมูล';
 
 // Menu
 t[labels.favoriteSongs] = 'เพลงโปรด';

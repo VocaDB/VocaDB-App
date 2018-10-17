@@ -152,6 +152,8 @@ t[labels.searchYoutube] = 'Search Youtube';
 t[labels.showAll] = 'Show all';
 t[labels.developerContact] = 'Developer contacts';
 t[labels.developerContactDescription] = 'Suggestion, Feedback or report any issue are welcome';
+t[labels.artistNotFound] = 'Artist not found';
+t[labels.artistNotFoundDescription] = 'This artist not exists in database';
 
 // Menu
 t[labels.favoriteSongs] = 'Favorite songs';
