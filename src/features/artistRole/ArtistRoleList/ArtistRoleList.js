@@ -1,11 +1,12 @@
 import React from 'react';
-import { View, Text, SectionList } from 'react-native';
+import { View, Text, SectionList, Alert } from 'react-native';
 import Artist from '../../artist/ArtistRow/index';
 import PropTypes from 'prop-types';
 import images from '../../../common/assets/images';
 import Theme from '../../../theme';
 import _ from 'lodash';
 import { translateArtistType } from './../../artist/artistConstant';
+import i18n from './../../../common/i18n'
 
 class ArtistRole extends React.Component {
 
@@ -25,8 +26,10 @@ class ArtistRole extends React.Component {
                     artist={artist.artistString}
                     role={(displayRole)? artistRole.roles : undefined}
                     onPress={() => {
-                        if(artist.id) {
+                        if(artistRole && artistRole.artist) {
                             this.props.onPressItem(artist)
+                        } else {
+                            Alert.alert("Artist not found", "This artist not exists in database")
                         }
                     }}
                 />
