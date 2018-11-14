@@ -107,7 +107,7 @@ export default {
     instrumental: 'instrumental',
     mashup: 'mashup',
     musicPV: 'musicPV',
-    dramaTV: 'dramaTV',
+    dramaPV: 'dramaPV',
     description: 'description',
     setlist: 'setlist',
     groupAndLabels: 'groupAndLabels',
