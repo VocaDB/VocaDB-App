@@ -157,6 +157,8 @@ export default {
     contact: 'contact',
     contactDescription: 'contactDescription',
     developerContact: 'developerContact',
-    developerContactDescription: 'developerContactDescription'
+    developerContactDescription: 'developerContactDescription',
+    artistNotFound: 'artistNotFound',
+    artistNotFoundDescription: 'artistNotFoundDescription'
 
 };
