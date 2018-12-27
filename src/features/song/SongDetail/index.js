@@ -80,6 +80,7 @@ const mapDispatchToProps = (dispatch, props) => ({
 
         const url = 'https://vocadb.net/S/' + song.id
         Share.share({
+            message: url,
             url: url,
             title: song.name,
         },{

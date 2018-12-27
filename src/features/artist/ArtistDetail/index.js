@@ -97,6 +97,7 @@ const mapDispatchToProps = (dispatch, props) => ({
         });
 
         Share.share({
+            message: url,
             url: url,
             title: artist.name,
         },{
