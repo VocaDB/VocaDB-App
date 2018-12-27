@@ -1,9 +1,11 @@
-import React from 'react'
-import { View, Text, TouchableOpacity, Linking, Image } from 'react-native'
-import PropTypes from 'prop-types'
-import Icon from '../../../components/Icon/index'
-import IconSites from '../../../common/assets/iconSites'
-import images from '../../../common/assets/images'
+import React from 'react';
+import { View, Text, TouchableOpacity, Linking, Image, UIManager, Platform, findNodeHandle, ActionSheetIOS } from 'react-native';
+import PropTypes from 'prop-types';
+import Icon from '../../../components/Icon/index';
+import IconSites from '../../../common/assets/iconSites';
+import images from '../../../common/assets/images';
+import i18n from './../../../common/i18n';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 class PV extends React.Component {
     render () {
@@ -41,6 +43,30 @@ class PV extends React.Component {
                         <Text numberOfLines={1}>{this.props.name}</Text>
                         <Text style={{ fontSize: 12, color: '#546E7A' }}>{this.props.service}</Text>
                     </View>
+                    <View style={{ justifyContent: 'center' }}>
+                        <Icon name='md-more' onPress={() => {
+
+                            if(Platform.OS === 'ios') {
+                                ActionSheetIOS.showActionSheetWithOptions({
+                                        options: [i18n.cancel, i18n.share],
+                                        cancelButtonIndex: 0,
+                                    },
+                                    (buttonIndex) => {
+                                        if (buttonIndex === 1) {
+                                            this.props.onPressShare();
+                                        }
+                                    });
+                            } else {
+                                UIManager.showPopupMenu(
+                                    findNodeHandle(<MaterialIcons name="share" />),
+                                    [ 'Share' ],
+                                    () => { console.log('Popup Error') },
+                                    this.props.onPressShare
+                                )
+                            }
+
+                        }} />
+                    </View>
                 </View>
 
             </TouchableOpacity>
@@ -56,7 +82,8 @@ PV.propTypes = {
     service: PropTypes.string,
     icon: PropTypes.bool,
     thumbnailUrl: PropTypes.string,
-    thumbnail: PropTypes.bool
+    thumbnail: PropTypes.bool,
+    onPressShare: PropTypes.func
 }
 
 PV.defaultProps = {

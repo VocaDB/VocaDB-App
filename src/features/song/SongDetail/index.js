@@ -105,7 +105,20 @@ const mapDispatchToProps = (dispatch, props) => ({
     onPressTag: tag => props.navigation.navigate(Routes.TagDetail, { id: tag.id, title: tag.name }),
     onPressSong: song => props.navigation.navigate(Routes.SongDetail, { id: song.id, title: song.name }),
     onPressMoreAlternateVersion: songs => props.navigation.navigate(Routes.SongShowAll, { title: `${i18n.alternateVersion} (${songs.length})`, songs: songs }),
-    onPressMoreRelatedSongs: id => props.navigation.navigate(Routes.SongRelated, { id })
+    onPressMoreRelatedSongs: id => props.navigation.navigate(Routes.SongRelated, { id }),
+    onPressSharePV: pv => {
+        firebase.analytics().logEvent(`share_pv`, {
+            id: pv.id,
+            name: pv.name
+        });
+
+        Share.share({
+            url: pv.url,
+            title: pv.name,
+        },{
+            dialogTitle: 'Share ' + pv.name,
+        })
+    }
 })
 
 export default connect(songDetailStateSelect, mapDispatchToProps)(SongDetailPage)

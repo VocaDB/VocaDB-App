@@ -128,7 +128,7 @@ class AlbumDetail extends React.Component {
         const renderTracks = () => (
             <Section>
                 <Divider />
-                <TrackList tracks={album.tracks} onPressItem={this.props.onPressTrack} />
+                <TrackList tracks={album.tracks} onPressItem={this.props.onPressTrack} onPressShareTrack={this.props.onPressShareTrack} />
             </Section>
         )
 

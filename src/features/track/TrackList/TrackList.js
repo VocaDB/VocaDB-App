@@ -34,7 +34,8 @@ class TrackList extends React.Component {
                                    name={track.name}
                                    pvServices={pvServices}
                                    artist={artistString}
-                                   onPress={() => this.props.onPressItem(track) } />
+                                   onPress={() => this.props.onPressItem(track) }
+                                   onPressShare={() => this.props.onPressShareTrack(track)} />
                         )
                     })
 
@@ -70,7 +71,8 @@ class TrackList extends React.Component {
                            name={track.name}
                            pvServices={pvServices}
                            artist={artistString}
-                           onPress={() => this.props.onPressItem(track) } />
+                           onPress={() => this.props.onPressItem(track) }
+                           onPressShare={() => this.props.onPressShareTrack(track)}/>
                 )
             })
 
@@ -91,12 +93,14 @@ class TrackList extends React.Component {
 
 TrackList.propTypes = {
     tracks: PropTypes.array,
-    onPressItem: PropTypes.func
+    onPressItem: PropTypes.func,
+    onPressShareTrack: PropTypes.func
 }
 
 TrackList.defaultProps = {
     tracks: [],
-    onPressItem: () => console.log('No action')
+    onPressItem: () => console.log('No action'),
+    onPressShareTrack: () => console.log('No action onPressShareTrack')
 }
 
 export default TrackList;

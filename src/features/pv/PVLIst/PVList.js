@@ -34,6 +34,7 @@ class PVList extends React.Component {
                         name={pv.name}
                         url={pv.url}
                         service={pv.service}
+                        onPressShare={() => this.props.onPressSharePV(pv) }
                     />
                 ))}
             </View>
@@ -46,13 +47,15 @@ PVList.propTypes = {
     type: PropTypes.string,
     service: PropTypes.string,
     title: PropTypes.string,
-    showHeader: PropTypes.bool
+    showHeader: PropTypes.bool,
+    onPressSharePV: PropTypes.func
 };
 
 PVList.defaultProps = {
     pvs: [],
     title: 'PVs',
-    showHeader: false
+    showHeader: false,
+    onPressSharePV: () => console.log('no action on share PV')
 };
 
 export default PVList;
