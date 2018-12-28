@@ -96,12 +96,12 @@ def enableSeparateBuildPerCPUArchitecture = false
 def enableProguardInReleaseBuilds = false
 
 android {
-    compileSdkVersion 27
+    compileSdkVersion 28
 
     defaultConfig {
         applicationId "com.coolappz.Vocadb"
         minSdkVersion 16
-        targetSdkVersion 27
+        targetSdkVersion 28
         versionCode 1
         versionName "1.0"
         ndk {
@@ -159,7 +159,7 @@ dependencies {
     // Firebase dependencies
     implementation "com.google.android.gms:play-services-base:15.0.1"
     implementation fileTree(dir: "libs", include: ["*.jar"])
-    implementation "com.android.support:appcompat-v7:27.1.0"
+    implementation "com.android.support:appcompat-v7:28.0.0"
     implementation ("com.facebook.react:react-native:0.49.5") { force = true }
     implementation 'com.google.firebase:firebase-core:16.0.1'
     implementation('com.crashlytics.sdk.android:crashlytics:2.9.4@aar') {
