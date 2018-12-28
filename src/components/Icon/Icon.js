@@ -24,7 +24,7 @@ class Icon extends React.PureComponent {
                     const iconSiteSource = IconSites.find(this.props.name)
                     return <Image style={{ width: selectedSize, height: selectedSize, alignSelf: 'center' }} resizeMode='cover' source={iconSiteSource} />
                 } else {
-                    return <IconVector name='ios-globe' size={selectedSize} color={this.props.color} style={style.icon}  />
+                    return <IconVector ref={this.props.ref} name='ios-globe' size={selectedSize} color={this.props.color} style={style.icon}  />
                 }
 
             }
@@ -73,7 +73,8 @@ Icon.propTypes = {
     color: PropTypes.string,
     onPress: PropTypes.func,
     pureIcon: PropTypes.bool,
-    site: PropTypes.bool
+    site: PropTypes.bool,
+    ref: PropTypes.func
 }
 
 Icon.defaultProps = {
@@ -81,6 +82,7 @@ Icon.defaultProps = {
     pureIcon: false,
     size: 'large',
     color: '#546E7A',
+    ref: () => {},
     onPress: () => console.log('No action')
 }
 

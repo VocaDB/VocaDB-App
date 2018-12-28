@@ -7,6 +7,20 @@ import i18n from './../../../common/i18n';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 class Track extends React.Component {
+
+    constructor (props) {
+        super(props);
+        this.state = {
+            icon: null
+        };
+    }
+
+    onRef = icon => {
+        if (!this.state.icon) {
+            this.setState({icon});
+        }
+    }
+
     render () {
 
         return (
@@ -27,7 +41,7 @@ class Track extends React.Component {
                     )}
                 </View>
                 <View style={{ justifyContent: 'center' }}>
-                    <Icon name='md-more' onPress={() => {
+                    <Icon name='md-more' ref={this.onRef} onPress={() => {
 
                         if(Platform.OS === 'ios') {
                             ActionSheetIOS.showActionSheetWithOptions({
@@ -41,7 +55,7 @@ class Track extends React.Component {
                                 });
                         } else {
                             UIManager.showPopupMenu(
-                                findNodeHandle(<MaterialIcons name="share" />),
+                                findNodeHandle(this.state.icon),
                                 [ 'Share' ],
                                 () => { console.log('Popup Error') },
                                 this.props.onPressShare
