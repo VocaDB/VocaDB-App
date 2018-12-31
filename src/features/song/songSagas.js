@@ -94,13 +94,14 @@ const fetchSongDetail = function* fetchLatestSongs(action) {
                 detailResponse.related.tagMatches = (relatedResponse.tagMatches)? relatedResponse.tagMatches : [];
             }
 
-            yield put(actions.fetchSongDetailSuccess(response));
-
             if(response.originalVersionId) {
                 const originalSong = yield call(api.getSong, response.originalVersionId, { lang: displayLanguage });
                 yield put(actions.fetchSongDetailSuccess(originalSong));
+
+                response.lyrics = originalSong.lyrics;
             }
 
+            yield put(actions.fetchSongDetailSuccess(response));
 
         } else {
             yield put(appActions.requestError(new Error("id is undefined")));

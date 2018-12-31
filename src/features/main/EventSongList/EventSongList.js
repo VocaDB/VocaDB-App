@@ -62,7 +62,6 @@ class EventSongList extends React.PureComponent {
                         renderItem={({ item, index }) => {
 
                             if(index === 0) {
-                                console.log(this.props.image)
                                 return <HeadComponent
                                     title={this.props.title}
                                     image={this.props.image}

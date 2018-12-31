@@ -1,15 +1,29 @@
-import React from 'react'
-import { View, Text, TouchableOpacity } from 'react-native'
-import PropTypes from 'prop-types'
-import Theme from '../../../theme'
-import Icon from '../../../components/Icon/index'
+import React from 'react';
+import { View, Text, UIManager, TouchableOpacity, ActionSheetIOS, Platform, findNodeHandle } from 'react-native';
+import PropTypes from 'prop-types';
+import Theme from '../../../theme';
+import Icon from '../../../components/Icon/index';
+import i18n from './../../../common/i18n';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 class Track extends React.Component {
+
+    constructor (props) {
+        super(props);
+        this.state = {
+            icon: null
+        };
+    }
+
+    onRef = icon => {
+        if (!this.state.icon) {
+            this.setState({icon});
+        }
+    }
+
     render () {
 
         return (
-
-            // <Text style={[Theme.caption, { marginRight: 4 }]} key={pvService}>{pvService}</Text>
             <TouchableOpacity  onPress={this.props.onPress} style={
                 [{ backgroundColor: '#ffffff', padding: 8, flexDirection: 'row', justifyContent: 'space-between', height: 72 },
                     this.props.style]}>
@@ -27,7 +41,28 @@ class Track extends React.Component {
                     )}
                 </View>
                 <View style={{ justifyContent: 'center' }}>
-                    <Icon name='md-more' />
+                    <Icon name='md-more' ref={this.onRef} onPress={() => {
+
+                        if(Platform.OS === 'ios') {
+                            ActionSheetIOS.showActionSheetWithOptions({
+                                    options: [i18n.cancel, i18n.share],
+                                    cancelButtonIndex: 0,
+                                },
+                                (buttonIndex) => {
+                                    if (buttonIndex === 1) {
+                                        this.props.onPressShare();
+                                    }
+                                });
+                        } else {
+                            UIManager.showPopupMenu(
+                                findNodeHandle(this.state.icon),
+                                [ 'Share' ],
+                                () => { console.log('Popup Error') },
+                                this.props.onPressShare
+                            )
+                        }
+
+                    }} />
                 </View>
             </TouchableOpacity>
         )
@@ -39,12 +74,14 @@ Track.propTypes = {
     artist: PropTypes.string,
     pvServices: PropTypes.array,
     onPress: PropTypes.func,
+    onPressShare: PropTypes.func,
     trackNumber: PropTypes.number
 }
 
 Track.defaultProps = {
     pvServices: [],
-    onPress: () => console.log('No action')
+    onPress: () => console.log('No action'),
+    onPressShare: () => console.log('No action onPressShare')
 }
 
 export default Track;

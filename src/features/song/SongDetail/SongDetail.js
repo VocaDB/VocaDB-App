@@ -151,7 +151,7 @@ class SongDetail extends React.PureComponent {
             return (
                 <Section>
                     <Divider />
-                    <PVList pvs={this.props.originalPVs} title={i18n.originalPVs} showHeader />
+                    <PVList pvs={this.props.originalPVs} title={i18n.originalPVs} showHeader onPressSharePV={pv => this.props.onPressSharePV(pv) } />
                     {(this.props.otherPVs.length > 0) && <Expander content={<PVList pvs={this.props.otherPVs} title={i18n.other} showHeader />} />}
                 </Section>
             )

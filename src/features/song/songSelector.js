@@ -220,7 +220,6 @@ export const selectSearchResult = () => createSelector(
 export const selectFilterTagIds = () => createSelector(
     selectSearchParams(),
     (searchParams) => {
-        console.log(searchParams)
         return (searchParams && searchParams.tagId)? searchParams.tagId : []
     }
 )

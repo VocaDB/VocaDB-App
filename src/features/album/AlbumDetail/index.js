@@ -81,6 +81,26 @@ const mapDispatchToProps = (dispatch, props) => ({
         Linking.openURL(albumDetailUrl(album.id)).catch(err => console.error('An error occurred', err))
     },
     onPressTrack: track => props.navigation.navigate(Routes.SongDetail, { id: track.song.id, title: track.song.name }),
+    onPressShareTrack: track => {
+
+        if(track && track.song) {
+
+            firebase.analytics().logEvent(`share_song`, {
+                id: track.id,
+                name: track.name
+            });
+
+            const url = 'https://vocadb.net/S/' + track.song.id
+            Share.share({
+                message: url,
+                url: url,
+                title: track.name,
+            },{
+                dialogTitle: 'Share ' + track.name,
+            })
+        }
+
+    },
     onPressArtist: artist => props.navigation.navigate(Routes.ArtistDetail, { id: artist.id, title: artist.name }),
     onPressTag: tag => props.navigation.navigate(Routes.TagDetail, { id: tag.id, title: tag.name }),
 })
