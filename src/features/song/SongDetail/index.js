@@ -113,7 +113,7 @@ const mapDispatchToProps = (dispatch, props) => ({
         });
 
         Share.share({
-            message: pv.url
+            message: pv.url,
             url: pv.url,
             title: pv.name,
         },{
