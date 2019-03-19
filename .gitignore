@@ -7,3 +7,4 @@ yarn.lock
 .tmp
 ios/Pods
 ios/VocaDB/GoogleService-Info.plist
+.packages
