@@ -10,3 +10,4 @@ ios/VocaDB/GoogleService-Info.plist
 .packages
 *.lock
 build
+android/key.local.properties
