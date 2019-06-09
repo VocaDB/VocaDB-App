@@ -4,7 +4,7 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Text('Home tab'),
+      child: Text('Home tab', textDirection: TextDirection.ltr),
     );
   }
 

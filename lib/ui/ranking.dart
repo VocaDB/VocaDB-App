@@ -4,7 +4,7 @@ class Ranking extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Text('Ranking tab'),
+      child: Text('Ranking tab', textDirection: TextDirection.ltr),
     );
   }
 
