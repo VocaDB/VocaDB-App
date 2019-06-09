@@ -11,3 +11,7 @@ ios/VocaDB/GoogleService-Info.plist
 *.lock
 build
 android/key.local.properties
+android/.gradle
+android/**/*.iml
+ios/Flutter/Generated.xconfig
+ios/Runner/GeneratedPluginRegistrant.*
