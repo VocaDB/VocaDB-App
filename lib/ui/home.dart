@@ -21,7 +21,7 @@ class Home extends StatelessWidget {
 
 class Section extends StatelessWidget {
 
-  String _title;
+  final String _title;
 
   Section(title) : this._title = title;
 
@@ -59,15 +59,15 @@ class Section extends StatelessWidget {
 }
 
 class SongCard extends StatelessWidget {
-  String _title;
-  String _artist;
-  String _thumbUrl;
+  final String _title;
+  final String _artist;
+  final String _thumbUrl;
 
-  SongCard(String title, String artist, String thumbUrl) {
-    this._title = title;
-    this._artist = artist;
+  SongCard(title, artist, thumbUrl) :
+    this._title = title,
+    this._artist = artist,
     this._thumbUrl = thumbUrl;
-  }
+
 
   @override
   Widget build(BuildContext context) {
