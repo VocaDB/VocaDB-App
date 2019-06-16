@@ -6,7 +6,8 @@ class SongDetail extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: Column(
+      body: ListView(
+        padding: EdgeInsets.only(bottom: 8),
         children: <Widget>[
           new MediaPreview(),
           new ButtonBar(),
@@ -34,6 +35,8 @@ class SongDetail extends StatelessWidget {
           Divider(
             height: 3,
           ),
+
+          // Artist list
           new ArtistLine(
               name: 'kz',
               role: 'producer',
@@ -51,11 +54,61 @@ class SongDetail extends StatelessWidget {
               ),
             ),
           ),
+
+          // Divider
           Padding(
             padding: EdgeInsets.only(bottom: 4.0),
             child: Divider(
               height: 3,
             ),
+          ),
+
+          // PVs
+          Container(
+            padding: EdgeInsets.only(right: 8.0, left: 8.0),
+            child: Column(
+              children: <Widget>[
+                new PVListItem(title: 'livetune feat. 初音ミク 『Tell Your World』Music Video'),
+                new PVListItem(title: 'Google Chrome : Hatsune Miku (初音ミク)'),
+              ],
+            ),
+          ),
+
+          Divider(
+            height: 3,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class PVListItem extends StatelessWidget {
+
+  final String title;
+
+  const PVListItem({
+    Key key,
+    this.title
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 58,
+      child: Row(
+        children: <Widget>[
+          Container(
+            child: Icon(Icons.ondemand_video),
+          ),
+          Expanded(
+            child: Padding(
+              padding: EdgeInsets.only(right: 8.0, left: 8.0),
+                child: Text(this.title, maxLines: 2, overflow: TextOverflow.ellipsis)
+            ),
+          ),
+          Container(
+              child: Icon(Icons.more_vert)
           )
         ],
       ),
