@@ -1,20 +1,66 @@
 import 'package:flutter/material.dart';
-import 'package:youtube_player/youtube_player.dart';
+import 'package:flutter_native_web/flutter_native_web.dart';
 
-class SongDetail extends StatelessWidget {
+class SongDetail extends StatefulWidget {
+  @override
+  _SongDetailState createState() => _SongDetailState();
+}
+
+class _SongDetailState extends State<SongDetail> {
+
+  WebController webController;
+
+  FlutterNativeWeb flutterWebView;
+
+  @override
+  void initState() {
+    super.initState();
+    flutterWebView = new FlutterNativeWeb(
+      onWebCreated: onWebCreated,
+    );
+  }
+
+  void onWebCreated(webController) {
+    this.webController = webController;
+
+    // Youtube
+    String url = 'https://www.youtube.com/embed/PqJNc9KVIZE?playsinline=1';
+
+    // Soundcloud
+//    String url = 'https://w.soundcloud.com/player/?url=https%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F634499643&auto_play=false&show_artwork=true&color=ff7700';
+
+    // BB
+//    String url = '"https://player.bilibili.com/player.html?aid=52990237&cid=92711286&page=1';
+
+    this.webController.loadUrl(url);
+
+    this.webController.onPageStarted.listen((url) =>
+        print("Loading $url")
+    );
+    this.webController.onPageFinished.listen((url) =>
+        print("Finished loading $url")
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
       body: ListView(
-        padding: EdgeInsets.only(bottom: 8),
         children: <Widget>[
-          new MediaPreview(),
-          new ButtonBar(),
+          new Container(
+            key: UniqueKey(),
+          child: flutterWebView,
+            height: 200,
+            width: double.infinity,
+          ),
+          new ButtonBar(key: UniqueKey()),
           Divider(
+            key: UniqueKey(),
             height: 3,
           ),
           Container(
+            key: UniqueKey(),
             padding: EdgeInsets.all(8.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -27,25 +73,30 @@ class SongDetail extends StatelessWidget {
             ),
           ),
           Container(
+            key: UniqueKey(),
             padding: EdgeInsets.only(left: 8.0),
             alignment: Alignment.topLeft,
             child: Text('Original', style: Theme.of(context).textTheme.caption),
           ),
-          new Tags(),
+          new Tags(key: UniqueKey()),
           Divider(
+            key: UniqueKey(),
             height: 3,
           ),
 
           // Artist list
           new ArtistLine(
+              key: UniqueKey(),
               name: 'kz',
               role: 'producer',
               imageUrl: 'https://vocadb.net/Artist/Picture/89'),
           new ArtistLine(
+              key: UniqueKey(),
               name: 'Hatsune Miku',
               role: 'vocalist',
               imageUrl: 'https://vocadb.net/Artist/Picture/1'),
           Container(
+            key: UniqueKey(),
             height: 38,
             child: InkWell(
               onTap: () {},
@@ -57,6 +108,7 @@ class SongDetail extends StatelessWidget {
 
           // Divider
           Padding(
+            key: UniqueKey(),
             padding: EdgeInsets.only(bottom: 4.0),
             child: Divider(
               height: 3,
@@ -65,6 +117,7 @@ class SongDetail extends StatelessWidget {
 
           // PVs
           Container(
+            key: UniqueKey(),
             padding: EdgeInsets.only(right: 8.0, left: 8.0),
             child: Column(
               children: <Widget>[
@@ -75,23 +128,28 @@ class SongDetail extends StatelessWidget {
           ),
 
           Divider(
+            key: UniqueKey(),
             height: 3,
           ),
 
           Section(
+              key: UniqueKey(),
             title: 'Alternate versions (120)',
             items: mockSongs
           ),
           Divider(
+            key: UniqueKey(),
             height: 3,
           ),
 
           Section(
+              key: UniqueKey(),
               title: 'Users who liked this also liked',
               items: mockSongs
           ),
 
           Divider(
+            key: UniqueKey(),
             height: 3,
           )
         ],
@@ -107,9 +165,10 @@ class Section extends StatelessWidget {
   final List items;
 
   Section({
+    Key key,
     this.title,
     this.items
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -330,24 +389,11 @@ class MediaPreview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-//    return Container(
-//      height: 196,
-//      width: double.infinity,
-//      color: Colors.blue,
-//      child: YoutubePlayer(
-//        context: context,
-//        videoId: "iLnmTe5Q2Qw",
-//        isLive: true,
-//        liveUIColor: Colors.amber,
-//      ),
-//    );
-
-    return YoutubePlayer(
-      context: context,
-      showThumbnail: true,
-      autoPlay: true,
-      quality: YoutubeQuality.MEDIUM,
-      source: "PqJNc9KVIZE",
+    return Container(
+      height: 196,
+      width: double.infinity,
+      color: Colors.blue,
+      child: Text('Image or video')
     );
   }
 }
