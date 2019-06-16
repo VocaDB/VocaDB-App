@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:youtube_player/youtube_player.dart';
 
 class SongDetail extends StatelessWidget {
   @override
@@ -19,12 +20,18 @@ class SongDetail extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Container(
-                    child: Text('Song name',
+                    child: Text('Tell Your World',
                         style: Theme.of(context).textTheme.title)),
                 Container(child: Icon(Icons.arrow_drop_down))
               ],
             ),
           ),
+          Container(
+            padding: EdgeInsets.only(left: 8.0),
+            alignment: Alignment.topLeft,
+            child: Text('Original', style: Theme.of(context).textTheme.caption),
+          ),
+
           Padding(
             padding: EdgeInsets.all(8.0),
             child: Row(
@@ -32,13 +39,13 @@ class SongDetail extends StatelessWidget {
                 Container(
                   margin: EdgeInsets.only(right: 4.0),
                   child: Chip(
-                    label: Text('sad'),
+                    label: Text('electropop'),
                   ),
                 ),
                 Container(
                   margin: EdgeInsets.only(right: 4.0),
                   child: Chip(
-                    label: Text('depression'),
+                    label: Text('MMD'),
                   ),
                 ),
               ],
@@ -48,9 +55,9 @@ class SongDetail extends StatelessWidget {
             height: 3,
           ),
           new ArtistLine(
-              name: 'wowaka',
+              name: 'kz',
               role: 'producer',
-              imageUrl: 'https://vocadb.net/Artist/Picture/53'),
+              imageUrl: 'https://vocadb.net/Artist/Picture/89'),
           new ArtistLine(
               name: 'Hatsune Miku',
               role: 'vocalist',
@@ -83,13 +90,24 @@ class MediaPreview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 196,
-      width: double.infinity,
-      color: Colors.blue,
-      child: Center(
-        child: Text('Image or video'),
-      ),
+//    return Container(
+//      height: 196,
+//      width: double.infinity,
+//      color: Colors.blue,
+//      child: YoutubePlayer(
+//        context: context,
+//        videoId: "iLnmTe5Q2Qw",
+//        isLive: true,
+//        liveUIColor: Colors.amber,
+//      ),
+//    );
+
+    return YoutubePlayer(
+      context: context,
+      showThumbnail: true,
+      autoPlay: true,
+      quality: YoutubeQuality.MEDIUM,
+      source: "PqJNc9KVIZE",
     );
   }
 }
