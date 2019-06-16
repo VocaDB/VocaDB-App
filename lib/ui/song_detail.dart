@@ -77,11 +77,182 @@ class SongDetail extends StatelessWidget {
           Divider(
             height: 3,
           ),
+
+          Section(
+            title: 'Alternate versions (120)',
+            items: mockSongs
+          ),
+          Divider(
+            height: 3,
+          ),
+
+          Section(
+              title: 'Users who liked this also liked',
+              items: mockSongs
+          ),
+
+          Divider(
+            height: 3,
+          ),
         ],
       ),
     );
   }
 }
+
+class Section extends StatelessWidget {
+
+  final String title;
+
+  final List items;
+
+  Section({
+    this.title,
+    this.items
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        child: Column(
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.only(left: 8.0),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Text(
+                      this.title,
+                      textDirection: TextDirection.ltr,
+                      style: Theme.of(context).textTheme.subhead,
+                    ),
+                    FlatButton(
+                      child: Text('More'),
+                    )
+                  ],
+                ),
+              ),
+            ),
+            SizedBox(
+              // Horizontal ListView
+              height: 170,
+              child: ListView.builder(
+                itemCount: this.items.length,
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (context, index) {
+                  var s = this.items[index];
+                  return SongCard(s['name'], s['artistString'], s['thumbUrl']);
+                },
+              ),
+            ),
+          ],
+        ));
+  }
+}
+
+class SongCard extends StatelessWidget {
+  final String _title;
+  final String _artist;
+  final String _thumbUrl;
+
+  SongCard(title, artist, thumbUrl) :
+        this._title = title,
+        this._artist = artist,
+        this._thumbUrl = thumbUrl;
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      child: InkWell(
+        onTap: () {
+          Navigator.push(context, MaterialPageRoute(builder: (context) => SongDetail()));
+        },
+        child: Container(
+          width: 130,
+          margin: EdgeInsets.only(right: 8.0, left: 8.0),
+          child: Column(
+            children: <Widget>[
+              Container(
+                width: double.infinity,
+                height: 100,
+                color: Colors.black,
+                child: FittedBox(
+                    fit: BoxFit.fitWidth, child: Image.network(_thumbUrl)),
+              ),
+              Container(
+                height: 4,
+              ),
+              Container(
+                  alignment: Alignment.centerLeft,
+                  child: Text(_title,
+                      style: Theme.of(context).textTheme.body1,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis)),
+              Container(
+                height: 4,
+              ),
+              Container(
+                  alignment: Alignment.centerLeft,
+                  child: Text(_artist,
+                      style: Theme.of(context).textTheme.caption,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis))
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+const mockSongs = [
+  {
+    "artistString": "saqwz feat. 初音ミク",
+    "id": 9273,
+    "name": "Tell Your World (saqwz J-Core Remix)",
+    "thumbUrl": "http://tn-skr4.smilevideo.jp/smile?i=16934711",
+  },
+  {
+    "artistString": "PandaBoY feat. 初音ミク",
+    "id": 10022,
+    "name": "Tell Your World (Panda BoY Remix)",
+    "thumbUrl": "https://i.ytimg.com/vi/wNpIlgDjxWc/default.jpg",
+  },
+  {
+    "artistString": "fu_mou feat. 初音ミク",
+    "id": 10023,
+    "name": "Tell Your World (open the scenery rmx by  fu_mou)",
+    "thumbUrl": "https://i.ytimg.com/vi/LucAjw7vV7c/default.jpg",
+  },
+  {
+    "artistString": "ゆよゆっぺ feat. 巡音ルカ",
+    "id": 10067,
+    "name": "Tell Your World",
+    "thumbUrl": "http://tn-skr1.smilevideo.jp/smile?i=17293900",
+  },
+  {
+    "artistString": "Farhan, rikuu-p feat. 初音ミク Append (Dark)",
+    "id": 10661,
+    "name": "Tell Your World",
+    "thumbUrl": "http://i1.sndcdn.com/artworks-000020141589-d35r0z-large.jpg?5c687d0",
+  },
+  {
+    "artistString": "REVOLUTION BOI feat. 初音ミク",
+    "id": 17486,
+    "name": "Tell Your World (NU VIBE NRG Remix)",
+    "thumbUrl": "http://i1.sndcdn.com/artworks-000017458007-igrddl-large.jpg?e2f8ae2",
+  },
+  {
+    "artistString": "大福P feat. 初音ミク Append (Unknown)",
+    "id": 18924,
+    "name": "Tell Your World (dfk bootleg edit)",
+    "thumbUrl": "https://i.ytimg.com/vi/y8UK-gaD5uA/default.jpg",
+  }
+];
+
 
 class PVListItem extends StatelessWidget {
 
