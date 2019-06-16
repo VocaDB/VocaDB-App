@@ -170,15 +170,42 @@ class ButtonBar extends StatelessWidget {
     return Container(
 //      color: Colors.blueAccent,
       width: double.infinity,
-      height: 48,
+      height: 58,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
-          Center(child: Icon(Icons.favorite)),
-          Center(child: Icon(Icons.share)),
-          Center(child: Icon(Icons.web))
+          new ActionButton(icon: Icons.favorite, label: '39k'),
+          new ActionButton(icon: Icons.share, label: 'Share'),
+          new ActionButton(icon: Icons.note, label: 'Lyrics'),
+          new ActionButton(icon: Icons.info, label: 'VocaDB'),
         ],
       ),
+    );
+  }
+}
+
+class ActionButton extends StatelessWidget {
+
+  final String label;
+
+  final IconData icon;
+
+  const ActionButton({
+    Key key,
+    this.label,
+    this.icon
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(child:
+      Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Icon(icon, color: Colors.white70),
+          Text(label, style: Theme.of(context).textTheme.caption)
+        ],
+      )
     );
   }
 }
