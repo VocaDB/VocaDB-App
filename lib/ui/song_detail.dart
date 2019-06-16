@@ -4,7 +4,6 @@ import 'package:youtube_player/youtube_player.dart';
 class SongDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(),
       body: Column(
@@ -31,26 +30,7 @@ class SongDetail extends StatelessWidget {
             alignment: Alignment.topLeft,
             child: Text('Original', style: Theme.of(context).textTheme.caption),
           ),
-
-          Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Row(
-              children: <Widget>[
-                Container(
-                  margin: EdgeInsets.only(right: 4.0),
-                  child: Chip(
-                    label: Text('electropop'),
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.only(right: 4.0),
-                  child: Chip(
-                    label: Text('MMD'),
-                  ),
-                ),
-              ],
-            ),
-          ),
+          new Tags(),
           Divider(
             height: 3,
           ),
@@ -77,6 +57,41 @@ class SongDetail extends StatelessWidget {
               height: 3,
             ),
           )
+        ],
+      ),
+    );
+  }
+}
+
+class Tags extends StatelessWidget {
+  const Tags({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.all(8.0),
+      child: Row(
+        children: <Widget>[
+          Container(
+            margin: EdgeInsets.only(right: 4.0),
+            child: Chip(
+              label: Text('electropop'),
+            ),
+          ),
+          Container(
+            margin: EdgeInsets.only(right: 4.0),
+            child: Chip(
+              label: Text('MMD'),
+            ),
+          ),
+          Container(
+            margin: EdgeInsets.only(right: 4.0),
+            child: Chip(
+              label: Text('More (18)'),
+            ),
+          ),
         ],
       ),
     );
@@ -185,27 +200,21 @@ class ButtonBar extends StatelessWidget {
 }
 
 class ActionButton extends StatelessWidget {
-
   final String label;
 
   final IconData icon;
 
-  const ActionButton({
-    Key key,
-    this.label,
-    this.icon
-  }) : super(key: key);
+  const ActionButton({Key key, this.label, this.icon}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Center(child:
-      Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Icon(icon, color: Colors.white70),
-          Text(label, style: Theme.of(context).textTheme.caption)
-        ],
-      )
-    );
+    return Center(
+        child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Icon(icon, color: Colors.white70),
+        Text(label, style: Theme.of(context).textTheme.caption)
+      ],
+    ));
   }
 }
