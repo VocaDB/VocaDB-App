@@ -93,7 +93,7 @@ class SongDetail extends StatelessWidget {
 
           Divider(
             height: 3,
-          ),
+          )
         ],
       ),
     );
@@ -129,6 +129,7 @@ class Section extends StatelessWidget {
                       style: Theme.of(context).textTheme.subhead,
                     ),
                     FlatButton(
+                      onPressed: () {},
                       child: Text('More'),
                     )
                   ],
