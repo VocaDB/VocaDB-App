@@ -46,7 +46,7 @@ class _SongDetailState extends State<SongDetail> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: ListView(
+      body: Column(
         children: <Widget>[
           new Container(
             key: UniqueKey(),
@@ -54,104 +54,111 @@ class _SongDetailState extends State<SongDetail> {
             height: 200,
             width: double.infinity,
           ),
-          new ButtonBar(key: UniqueKey()),
-          Divider(
-            key: UniqueKey(),
-            height: 3,
-          ),
-          Container(
-            key: UniqueKey(),
-            padding: EdgeInsets.all(8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          Expanded(
+            child: ListView(
               children: <Widget>[
+                new ButtonBar(key: UniqueKey()),
+                Divider(
+                  key: UniqueKey(),
+                  height: 3,
+                ),
                 Container(
-                    child: Text('Tell Your World',
-                        style: Theme.of(context).textTheme.title)),
-                Container(child: Icon(Icons.arrow_drop_down))
+                  key: UniqueKey(),
+                  padding: EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Container(
+                          child: Text('Tell Your World',
+                              style: Theme.of(context).textTheme.title)),
+                      Container(child: Icon(Icons.arrow_drop_down))
+                    ],
+                  ),
+                ),
+                Container(
+                  key: UniqueKey(),
+                  padding: EdgeInsets.only(left: 8.0),
+                  alignment: Alignment.topLeft,
+                  child: Text('Original', style: Theme.of(context).textTheme.caption),
+                ),
+                new Tags(key: UniqueKey()),
+                Divider(
+                  key: UniqueKey(),
+                  height: 3,
+                ),
+
+                // Artist list
+                new ArtistLine(
+                    key: UniqueKey(),
+                    name: 'kz',
+                    role: 'producer',
+                    imageUrl: 'https://vocadb.net/Artist/Picture/89'),
+                new ArtistLine(
+                    key: UniqueKey(),
+                    name: 'Hatsune Miku',
+                    role: 'vocalist',
+                    imageUrl: 'https://vocadb.net/Artist/Picture/1'),
+                Container(
+                  key: UniqueKey(),
+                  height: 38,
+                  child: InkWell(
+                    onTap: () {},
+                    child: Center(
+                      child: Text('More', style: Theme.of(context).textTheme.subhead),
+                    ),
+                  ),
+                ),
+
+                // Divider
+                Padding(
+                  key: UniqueKey(),
+                  padding: EdgeInsets.only(bottom: 4.0),
+                  child: Divider(
+                    height: 3,
+                  ),
+                ),
+
+                // PVs
+                Container(
+                  key: UniqueKey(),
+                  padding: EdgeInsets.only(right: 8.0, left: 8.0),
+                  child: Column(
+                    children: <Widget>[
+                      new PVListItem(title: 'livetune feat. 初音ミク 『Tell Your World』Music Video'),
+                      new PVListItem(title: 'Google Chrome : Hatsune Miku (初音ミク)'),
+                    ],
+                  ),
+                ),
+
+                Divider(
+                  key: UniqueKey(),
+                  height: 3,
+                ),
+
+                Section(
+                    key: UniqueKey(),
+                    title: 'Alternate versions (120)',
+                    items: mockSongs
+                ),
+                Divider(
+                  key: UniqueKey(),
+                  height: 3,
+                ),
+
+                Section(
+                    key: UniqueKey(),
+                    title: 'Users who liked this also liked',
+                    items: mockSongs
+                ),
+
+                Divider(
+                  key: UniqueKey(),
+                  height: 3,
+                )
               ],
             ),
           ),
-          Container(
-            key: UniqueKey(),
-            padding: EdgeInsets.only(left: 8.0),
-            alignment: Alignment.topLeft,
-            child: Text('Original', style: Theme.of(context).textTheme.caption),
-          ),
-          new Tags(key: UniqueKey()),
-          Divider(
-            key: UniqueKey(),
-            height: 3,
-          ),
 
-          // Artist list
-          new ArtistLine(
-              key: UniqueKey(),
-              name: 'kz',
-              role: 'producer',
-              imageUrl: 'https://vocadb.net/Artist/Picture/89'),
-          new ArtistLine(
-              key: UniqueKey(),
-              name: 'Hatsune Miku',
-              role: 'vocalist',
-              imageUrl: 'https://vocadb.net/Artist/Picture/1'),
-          Container(
-            key: UniqueKey(),
-            height: 38,
-            child: InkWell(
-              onTap: () {},
-              child: Center(
-                child: Text('More', style: Theme.of(context).textTheme.subhead),
-              ),
-            ),
-          ),
-
-          // Divider
-          Padding(
-            key: UniqueKey(),
-            padding: EdgeInsets.only(bottom: 4.0),
-            child: Divider(
-              height: 3,
-            ),
-          ),
-
-          // PVs
-          Container(
-            key: UniqueKey(),
-            padding: EdgeInsets.only(right: 8.0, left: 8.0),
-            child: Column(
-              children: <Widget>[
-                new PVListItem(title: 'livetune feat. 初音ミク 『Tell Your World』Music Video'),
-                new PVListItem(title: 'Google Chrome : Hatsune Miku (初音ミク)'),
-              ],
-            ),
-          ),
-
-          Divider(
-            key: UniqueKey(),
-            height: 3,
-          ),
-
-          Section(
-              key: UniqueKey(),
-            title: 'Alternate versions (120)',
-            items: mockSongs
-          ),
-          Divider(
-            key: UniqueKey(),
-            height: 3,
-          ),
-
-          Section(
-              key: UniqueKey(),
-              title: 'Users who liked this also liked',
-              items: mockSongs
-          ),
-
-          Divider(
-            key: UniqueKey(),
-            height: 3,
-          )
         ],
       ),
     );
