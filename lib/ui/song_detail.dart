@@ -82,6 +82,20 @@ class _SongDetailState extends State<SongDetail> {
                   child: Text('Original', style: Theme.of(context).textTheme.caption),
                 ),
                 new Tags(key: UniqueKey()),
+                Container(
+                  padding: EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text('Addition names', style: Theme.of(context).textTheme.caption),
+                      Text('Test1', style: Theme.of(context).textTheme.body1),
+                      Text('Test2', style: Theme.of(context).textTheme.body1),
+                      SizedBox(height: 14),
+                      Text('Published', style: Theme.of(context).textTheme.caption),
+                      Text('12/03/2012', style: Theme.of(context).textTheme.body1),
+                    ],
+                  ),
+                ),
                 Divider(
                   key: UniqueKey(),
                   height: 3,
