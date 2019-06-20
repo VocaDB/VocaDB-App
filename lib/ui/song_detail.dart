@@ -149,6 +149,17 @@ class _SongDetailState extends State<SongDetail> {
                   height: 3,
                 ),
 
+                AlbumSection(
+                    key: UniqueKey(),
+                    title: 'Albums (10)',
+                    items: mockAlbums
+                ),
+
+                Divider(
+                  key: UniqueKey(),
+                  height: 3,
+                ),
+
                 Section(
                     key: UniqueKey(),
                     title: 'Alternate versions (120)',
@@ -281,6 +292,61 @@ class Section extends StatelessWidget {
   }
 }
 
+class AlbumSection extends StatelessWidget {
+
+  final String title;
+
+  final List items;
+
+  AlbumSection({
+    Key key,
+    this.title,
+    this.items
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        margin: EdgeInsets.only(bottom: 8.0),
+        child: Column(
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.only(left: 8.0),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Text(
+                      this.title,
+                      textDirection: TextDirection.ltr,
+                      style: Theme.of(context).textTheme.subhead,
+                    ),
+                    FlatButton(
+                      onPressed: () {},
+                      child: Text('More'),
+                    )
+                  ],
+                ),
+              ),
+            ),
+            SizedBox(
+              // Horizontal ListView
+              height: 170,
+              child: ListView.builder(
+                itemCount: this.items.length,
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (context, index) {
+                  var s = this.items[index];
+                  return AlbumCard(s['name'], s['artistString'], 'https://vocadb.net/Album/CoverPicture/' + s['id'].toString());
+                },
+              ),
+            ),
+          ],
+        ));
+  }
+}
+
 class SongCard extends StatelessWidget {
   final String _title;
   final String _artist;
@@ -337,6 +403,60 @@ class SongCard extends StatelessWidget {
   }
 }
 
+class AlbumCard extends StatelessWidget {
+  final String _name;
+  final String _artist;
+  final String _thumbUrl;
+
+  AlbumCard(name, artist, thumbUrl) :
+        this._name = name,
+        this._artist = artist,
+        this._thumbUrl = thumbUrl;
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      child: InkWell(
+        onTap: () {},
+        child: Container(
+          width: 130,
+          margin: EdgeInsets.only(right: 8.0, left: 8.0),
+          child: Column(
+            children: <Widget>[
+              Container(
+                width: double.infinity,
+                height: 130,
+                color: Colors.black,
+                child: FittedBox(
+                    fit: BoxFit.fitWidth, child: Image.network(_thumbUrl)),
+              ),
+              Container(
+                height: 4,
+              ),
+              Container(
+                  alignment: Alignment.centerLeft,
+                  child: Text(_name,
+                      style: Theme.of(context).textTheme.body1,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis)),
+              Container(
+                height: 4,
+              ),
+              Container(
+                  alignment: Alignment.centerLeft,
+                  child: Text(_artist,
+                      style: Theme.of(context).textTheme.caption,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis)),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 const mockSongs = [
   {
     "artistString": "saqwz feat. 初音ミク",
@@ -379,6 +499,59 @@ const mockSongs = [
     "id": 18924,
     "name": "Tell Your World (dfk bootleg edit)",
     "thumbUrl": "https://i.ytimg.com/vi/y8UK-gaD5uA/default.jpg",
+  }
+];
+
+const mockAlbums = [
+  {
+    "artistString": "kz, livetune feat. 初音ミク",
+    "id": 1008,
+    "name": "Tell Your World EP",
+  },
+  {
+    "artistString": "kz feat. 初音ミク",
+    "id": 1027,
+    "name": "Tell Your World",
+  },
+  {
+    "artistString": "Various artists",
+    "id": 1490,
+    "name": "初音ミク 5thバースデー ベスト〜memories〜",
+  },
+  {
+    "artistString": "kz, livetune feat. 初音ミク",
+    "id": 2123,
+    "name": "Re:Dial",
+  },
+  {
+    "artistString": "Various artists",
+    "id": 2166,
+    "name": "初音ミク-Project DIVA-F Complete Collection",
+  },
+  {
+    "artistString": "livetune, kz feat. 初音ミク",
+    "id": 3548,
+    "name": "Re:Upload",
+  },
+  {
+    "artistString": "Various artists",
+    "id": 9709,
+    "name": "HATSUNE MIKU EXPO 2014 IN INDONESIA",
+  },
+  {
+    "artistString": "Various artists",
+    "id": 22997,
+    "name": "HATSUNE MIKU 10th Anniversary Album 「Re:Start」",
+  },
+  {
+    "artistString": "Various artists",
+    "id": 23300,
+    "name": "初音ミク「マジカルミライ 2014」 [Live] ",
+  },
+  {
+    "artistString": "Various artists",
+    "id": 26429,
+    "name": "Miku dé Nihongo",
   }
 ];
 
