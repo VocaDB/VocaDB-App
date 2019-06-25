@@ -66,13 +66,20 @@ class _SongDetailState extends State<SongDetail> {
 
 class LyricContent extends StatelessWidget {
 
+  final GestureTapCallback onTapClose;
+
+  const LyricContent({
+    Key key,
+    this.onTapClose
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Container(
       child: Column(
         children: <Widget>[
             InkWell(
-              onTap: () {},
+              onTap: this.onTapClose,
               child: Container(
                 height: 36,
                 alignment: Alignment.center,
@@ -123,13 +130,44 @@ class LyricContent extends StatelessWidget {
   }
 }
 
-class SongContent extends StatelessWidget {
+class SongContent extends StatefulWidget {
+  @override
+  SongContentState createState() => SongContentState();
+
+}
+
+class SongContentState extends State<SongContent> {
+
+  bool showLyrics = false;
 
   @override
   Widget build(BuildContext context) {
+
+    if(showLyrics) return LyricContent(
+      onTapClose: () {
+        setState((){
+          showLyrics = false;
+        });
+      },
+    );
+
     return ListView(
       children: <Widget>[
-        new ButtonBar(key: UniqueKey()),
+        new ButtonBar(
+            key: UniqueKey(),
+          actions: <ActionButton> [
+            new ActionButton(icon: Icons.favorite, label: '39k'),
+            new ActionButton(icon: Icons.share, label: 'Share'),
+            new ActionButton(icon: Icons.note, label: 'Lyrics', onTap: () {
+
+              print('Show lyrics!!');
+              setState((){
+                showLyrics = true;
+              });
+            }),
+            new ActionButton(icon: Icons.info, label: 'VocaDB')
+          ]
+        ),
         Divider(
           key: UniqueKey(),
           height: 3,
@@ -756,8 +794,12 @@ class ArtistLine extends StatelessWidget {
 }
 
 class ButtonBar extends StatelessWidget {
+
+  final List<ActionButton> actions;
+
   const ButtonBar({
     Key key,
+    this.actions
   }) : super(key: key);
 
   @override
@@ -768,12 +810,7 @@ class ButtonBar extends StatelessWidget {
       height: 58,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: <Widget>[
-          new ActionButton(icon: Icons.favorite, label: '39k'),
-          new ActionButton(icon: Icons.share, label: 'Share'),
-          new ActionButton(icon: Icons.note, label: 'Lyrics'),
-          new ActionButton(icon: Icons.info, label: 'VocaDB'),
-        ],
+        children: this.actions,
       ),
     );
   }
@@ -784,17 +821,22 @@ class ActionButton extends StatelessWidget {
 
   final IconData icon;
 
-  const ActionButton({Key key, this.label, this.icon}) : super(key: key);
+  final GestureTapCallback onTap;
+
+  const ActionButton({Key key, this.label, this.icon, this.onTap}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-        child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        Icon(icon, color: Colors.white70),
-        Text(label, style: Theme.of(context).textTheme.caption)
-      ],
-    ));
+    return InkWell(
+      onTap: onTap,
+      child: Center(
+          child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Icon(icon, color: Colors.white70),
+          Text(label, style: Theme.of(context).textTheme.caption)
+        ],
+      )),
+    );
   }
 }
