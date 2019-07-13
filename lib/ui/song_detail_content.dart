@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:vocadb/ui/action_bar.dart';
 import 'package:vocadb/ui/action_button.dart';
-import 'package:vocadb/ui/album_section.dart';
+import 'package:vocadb/ui/album_card.dart';
 import 'package:vocadb/ui/artist_list_item.dart';
 import 'package:vocadb/ui/pv_list_item.dart';
 import 'package:vocadb/ui/section.dart';
+import 'package:vocadb/ui/song_card.dart';
 import 'package:vocadb/ui/tags.dart';
 import 'package:vocadb/ui/web_link.dart';
 
@@ -19,6 +20,20 @@ class SongDetailContent extends StatefulWidget {
 class SongDetailContentState extends State<SongDetailContent> {
 
   bool showLyrics = false;
+
+  List<SongCard> alternateSongList;
+
+  List<SongCard> relatedSongList;
+
+  List<AlbumCard> albumList;
+
+  @override
+  void initState() {
+    super.initState();
+    alternateSongList = mockSongs.map((s) => SongCard(s['name'], s['artistString'], s['thumbUrl'])).toList();
+    relatedSongList = mockSongs.map((s) => SongCard(s['name'], s['artistString'], s['thumbUrl'])).toList();
+    albumList = mockAlbums.map((s) => AlbumCard(s['name'], s['artistString'], 'https://vocadb.net/Album/CoverPicture/' + s['id'].toString())).toList();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -138,10 +153,10 @@ class SongDetailContentState extends State<SongDetailContent> {
             height: 3,
           ),
 
-          AlbumSection(
+          Section(
               key: UniqueKey(),
               title: 'Albums (10)',
-              items: mockAlbums
+              children: albumList
           ),
 
           Divider(
@@ -152,7 +167,7 @@ class SongDetailContentState extends State<SongDetailContent> {
           Section(
               key: UniqueKey(),
               title: 'Alternate versions (120)',
-              items: mockSongs
+              children: alternateSongList
           ),
           Divider(
             key: UniqueKey(),
@@ -162,7 +177,7 @@ class SongDetailContentState extends State<SongDetailContent> {
           Section(
               key: UniqueKey(),
               title: 'Users who liked this also liked',
-              items: mockSongs
+              children: relatedSongList
           ),
 
           Divider(

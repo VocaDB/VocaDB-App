@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:vocadb/ui/song_card.dart';
 
 class Section extends StatelessWidget {
 
   final String title;
 
-  final List items;
+  final List<Widget> children;
 
   Section({
     Key key,
     this.title,
-    this.items
+    this.children
   }) : super(key: key);
 
   @override
@@ -42,11 +41,10 @@ class Section extends StatelessWidget {
               // Horizontal ListView
               height: 170,
               child: ListView.builder(
-                itemCount: this.items.length,
+                itemCount: this.children.length,
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) {
-                  var s = this.items[index];
-                  return SongCard(s['name'], s['artistString'], s['thumbUrl']);
+                  return this.children[index];
                 },
               ),
             ),
