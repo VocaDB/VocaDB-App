@@ -78,6 +78,7 @@ class SongDetailContentState extends State<SongDetailContent> {
 
           // Artist list
           Section(
+              title: 'Artists',
               children: <Widget> [
                 ArtistLine(
                   name: 'kz',
@@ -95,6 +96,7 @@ class SongDetailContentState extends State<SongDetailContent> {
 
           // PVs
           Section(
+              title: 'PVs',
               padding: EdgeInsets.only(right: 8.0, left: 8.0),
               children: <Widget> [
                 PVListItem(title: 'livetune feat. 初音ミク 『Tell Your World』Music Video'),
@@ -130,6 +132,7 @@ class SongDetailContentState extends State<SongDetailContent> {
 
           // Websites
           Section(
+              title: 'Websites',
               padding: EdgeInsets.all(8.0),
               children: <Widget> [
                 WebLink(name: 'Spotify'),

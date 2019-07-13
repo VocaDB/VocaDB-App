@@ -19,12 +19,25 @@ class Section extends StatelessWidget {
   }) : super(key: key);
 
   Widget buildVerticalItems(BuildContext context) {
-    return Container(
-        padding: padding,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: children,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Container(
+          padding: EdgeInsets.all(8.0),
+          child: Text(
+            this.title,
+            textDirection: TextDirection.ltr,
+            style: Theme.of(context).textTheme.subhead,
+          ),
+        ),
+        Container(
+            padding: padding,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: children,
+            )
         )
+      ],
     );
   }
 
