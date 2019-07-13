@@ -7,6 +7,7 @@ import 'package:vocadb/ui/like_action_button.dart';
 import 'package:vocadb/ui/lyrics_action_button.dart';
 import 'package:vocadb/ui/pv_list_item.dart';
 import 'package:vocadb/ui/section.dart';
+import 'package:vocadb/ui/section_divider.dart';
 import 'package:vocadb/ui/share_action_button.dart';
 import 'package:vocadb/ui/song_card.dart';
 import 'package:vocadb/ui/source_action_button.dart';
@@ -67,112 +68,59 @@ class SongDetailContentState extends State<SongDetailContent> {
                 SourceActionButton(),
               ]
           ),
-          Divider(
-            height: 3,
-          ),
-          Container(
-            padding: EdgeInsets.all(8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Container(
-                    child: Text('Tell Your World',
-                        style: Theme.of(context).textTheme.title)),
-                Container(child: Icon(Icons.arrow_drop_down))
-              ],
-            ),
-          ),
-          Container(
-            padding: EdgeInsets.only(left: 8.0),
-            alignment: Alignment.topLeft,
-            child: Text('Original', style: Theme.of(context).textTheme.caption),
-          ),
+          SectionDivider(),
+          SongName(name: 'Tell Your World'),
+          SongType(songType: 'Original'),
           Tags(),
-          Container(
-            padding: EdgeInsets.all(8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text('Addition names', style: Theme.of(context).textTheme.caption),
-                Text('Test1', style: Theme.of(context).textTheme.body1),
-                Text('Test2', style: Theme.of(context).textTheme.body1),
-                SizedBox(height: 14),
-                Text('Published', style: Theme.of(context).textTheme.caption),
-                Text('12/03/2012', style: Theme.of(context).textTheme.body1),
-              ],
-            ),
-          ),
-          Divider(
-            height: 3,
-          ),
+          AdditionInfo(title: 'Addition names', value: 'Test1'),
+          AdditionInfo(title: 'Published', value: '12/03/2012'),
+          SectionDivider(),
 
           // Artist list
-          new ArtistLine(
+          ArtistLine(
               name: 'kz',
               role: 'producer',
               imageUrl: 'https://vocadb.net/Artist/Picture/89'),
-          new ArtistLine(
+          ArtistLine(
               name: 'Hatsune Miku',
               role: 'vocalist',
               imageUrl: 'https://vocadb.net/Artist/Picture/1'),
-          Container(
-            height: 38,
-            child: InkWell(
-              onTap: () {},
-              child: Center(
-                child: Text('More', style: Theme.of(context).textTheme.subhead),
-              ),
-            ),
-          ),
 
           // Divider
-          Padding(
-            padding: EdgeInsets.only(bottom: 4.0),
-            child: Divider(
-              height: 3,
-            ),
-          ),
-
+          SectionDivider(),
           // PVs
           Container(
             padding: EdgeInsets.only(right: 8.0, left: 8.0),
             child: Column(
               children: <Widget>[
-                new PVListItem(title: 'livetune feat. 初音ミク 『Tell Your World』Music Video'),
-                new PVListItem(title: 'Google Chrome : Hatsune Miku (初音ミク)'),
+                PVListItem(title: 'livetune feat. 初音ミク 『Tell Your World』Music Video'),
+                PVListItem(title: 'Google Chrome : Hatsune Miku (初音ミク)'),
               ],
             ),
           ),
 
-          Divider(
-            height: 3,
-          ),
+          SectionDivider(),
 
           Section(
               title: 'Albums (10)',
               children: albumList
           ),
 
-          Divider(
-            height: 3,
-          ),
+          SectionDivider(),
 
           Section(
               title: 'Alternate versions (120)',
               children: alternateSongList
           ),
-          Divider(
-            height: 3,
-          ),
+
+          SectionDivider(),
 
           Section(
               title: 'Users who liked this also liked',
               children: relatedSongList
           ),
 
-          Divider(
-            height: 3,
-          ),
+          SectionDivider(),
 
           Container(
               padding: EdgeInsets.all(8.0),
@@ -202,6 +150,68 @@ class SongDetailContentState extends State<SongDetailContent> {
 }
 
 
+class AdditionInfo extends StatelessWidget {
+
+  final String title;
+
+  final String value;
+
+  const AdditionInfo({Key key, this.title, this.value}) : super(key :key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(8.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text(this.title, style: Theme.of(context).textTheme.caption),
+          Text(this.value, style: Theme.of(context).textTheme.body1),
+        ],
+      ),
+    );
+  }
+}
+
+
+class SongName extends StatelessWidget {
+
+  final String name;
+
+  const SongName({Key key, this.name}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Container(
+              child: Text(this.name,
+                  style: Theme.of(context).textTheme.title)),
+          Container(child: Icon(Icons.arrow_drop_down))
+        ],
+      ),
+    );
+  }
+}
+
+class SongType extends StatelessWidget {
+
+  final String songType;
+
+  const SongType({Key key, this.songType}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.only(left: 8.0),
+      alignment: Alignment.topLeft,
+      child: Text(this.songType, style: Theme.of(context).textTheme.caption),
+    );
+  }
+}
 
 
 const mockSongs = [
