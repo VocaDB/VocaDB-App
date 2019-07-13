@@ -6,14 +6,29 @@ class Section extends StatelessWidget {
 
   final List<Widget> children;
 
+  final bool horizontal;
+
+  final EdgeInsets padding;
+
   Section({
     Key key,
     this.title,
-    this.children
+    this.children,
+    this.horizontal = false,
+    this.padding = EdgeInsets.zero
   }) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
+  Widget buildVerticalItems(BuildContext context) {
+    return Container(
+        padding: padding,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: children,
+        )
+    );
+  }
+
+  Widget buildHorizontalItems(BuildContext context) {
     return Container(
         child: Column(
           children: <Widget>[
@@ -50,5 +65,10 @@ class Section extends StatelessWidget {
             ),
           ],
         ));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return (horizontal)? buildHorizontalItems(context) : buildVerticalItems(context);
   }
 }

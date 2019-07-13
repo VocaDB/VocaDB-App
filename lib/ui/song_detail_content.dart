@@ -77,32 +77,36 @@ class SongDetailContentState extends State<SongDetailContent> {
           SectionDivider(),
 
           // Artist list
-          ArtistLine(
-              name: 'kz',
-              role: 'producer',
-              imageUrl: 'https://vocadb.net/Artist/Picture/89'),
-          ArtistLine(
-              name: 'Hatsune Miku',
-              role: 'vocalist',
-              imageUrl: 'https://vocadb.net/Artist/Picture/1'),
+          Section(
+              children: <Widget> [
+                ArtistLine(
+                  name: 'kz',
+                  role: 'producer',
+                  imageUrl: 'https://vocadb.net/Artist/Picture/89'),
+                ArtistLine(
+                    name: 'Hatsune Miku',
+                    role: 'vocalist',
+                    imageUrl: 'https://vocadb.net/Artist/Picture/1')
+              ]
+          ),
 
           // Divider
           SectionDivider(),
+
           // PVs
-          Container(
-            padding: EdgeInsets.only(right: 8.0, left: 8.0),
-            child: Column(
-              children: <Widget>[
+          Section(
+              padding: EdgeInsets.only(right: 8.0, left: 8.0),
+              children: <Widget> [
                 PVListItem(title: 'livetune feat. 初音ミク 『Tell Your World』Music Video'),
                 PVListItem(title: 'Google Chrome : Hatsune Miku (初音ミク)'),
-              ],
-            ),
+              ]
           ),
 
           SectionDivider(),
 
           Section(
               title: 'Albums (10)',
+              horizontal: true,
               children: albumList
           ),
 
@@ -110,6 +114,7 @@ class SongDetailContentState extends State<SongDetailContent> {
 
           Section(
               title: 'Alternate versions (120)',
+              horizontal: true,
               children: alternateSongList
           ),
 
@@ -117,32 +122,23 @@ class SongDetailContentState extends State<SongDetailContent> {
 
           Section(
               title: 'Users who liked this also liked',
+              horizontal: true,
               children: relatedSongList
           ),
 
           SectionDivider(),
 
-          Container(
+          // Websites
+          Section(
               padding: EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text('Official links', style: Theme.of(context).textTheme.subhead),
-                  new WebLink(name: 'Spotify'),
-                  new WebLink(name: 'Spotify (Re:Upload)'),
-                  SizedBox(height: 4),
-                  Divider(
-                    key: UniqueKey(),
-                    height: 3,
-                  ),
-                  SizedBox(height: 8),
-                  Text('Unofficial links', style: Theme.of(context).textTheme.subhead),
-                  new WebLink(name: 'MikuWiki'),
-                  new WebLink(name: 'MusicBrainz (recoding)'),
-                  new WebLink(name: 'MusicBrainz (work)'),
-                ],
-              )
-          )
+              children: <Widget> [
+                WebLink(name: 'Spotify'),
+                WebLink(name: 'Spotify (Re:Upload)'),
+                WebLink(name: 'MikuWiki'),
+                WebLink(name: 'MusicBrainz (recoding)'),
+                WebLink(name: 'MusicBrainz (work)'),
+              ]
+          ),
         ],
       ),
     );
