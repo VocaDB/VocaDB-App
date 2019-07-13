@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class Ranking extends StatelessWidget {
+class RankingTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(

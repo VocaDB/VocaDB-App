@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:vocadb/ui/song_detail.dart';
+import 'package:vocadb/ui/song_detail_page.dart';
 
-class Home extends StatelessWidget {
+class HomeTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -75,7 +75,7 @@ class SongCard extends StatelessWidget {
     return Material(
       child: InkWell(
         onTap: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => SongDetail()));
+          Navigator.push(context, MaterialPageRoute(builder: (context) => SongDetailPage()));
         },
         child: Container(
           width: 130,

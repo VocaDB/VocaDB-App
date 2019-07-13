@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class Account extends StatelessWidget {
+class AccountTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(

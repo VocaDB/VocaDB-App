@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'ui/account.dart';
-import 'ui/home.dart';
-import 'ui/ranking.dart';
+import 'ui/account_tab.dart';
+import 'ui/home_tab.dart';
+import 'ui/ranking_tab.dart';
 
 void main() => runApp(MyApp());
 
@@ -34,9 +34,9 @@ class _MyHomePageState extends State<MyHomePage> {
   static const TextStyle optionStyle = TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
 
   List<Widget> _widgetOptions = <Widget>[
-    Home(),
-    Ranking(),
-    Account(),
+    HomeTab(),
+    RankingTab(),
+    AccountTab(),
   ];
 
   void _onItemTapped(int index) {
