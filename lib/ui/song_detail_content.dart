@@ -3,9 +3,13 @@ import 'package:vocadb/ui/action_bar.dart';
 import 'package:vocadb/ui/action_button.dart';
 import 'package:vocadb/ui/album_card.dart';
 import 'package:vocadb/ui/artist_list_item.dart';
+import 'package:vocadb/ui/like_action_button.dart';
+import 'package:vocadb/ui/lyrics_action_button.dart';
 import 'package:vocadb/ui/pv_list_item.dart';
 import 'package:vocadb/ui/section.dart';
+import 'package:vocadb/ui/share_action_button.dart';
 import 'package:vocadb/ui/song_card.dart';
+import 'package:vocadb/ui/source_action_button.dart';
 import 'package:vocadb/ui/tags.dart';
 import 'package:vocadb/ui/web_link.dart';
 
@@ -35,6 +39,12 @@ class SongDetailContentState extends State<SongDetailContent> {
     albumList = mockAlbums.map((s) => AlbumCard(s['name'], s['artistString'], 'https://vocadb.net/Album/CoverPicture/' + s['id'].toString())).toList();
   }
 
+  void onTapLyrics() {
+    setState((){
+      showLyrics = true;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
 
@@ -49,25 +59,18 @@ class SongDetailContentState extends State<SongDetailContent> {
     return Container(
       child: ListView(
         children: <Widget>[
-          new ActionBar(
-              key: UniqueKey(),
+          ActionBar(
               actions: <ActionButton> [
-                new ActionButton(icon: Icons.favorite, label: '39k'),
-                new ActionButton(icon: Icons.share, label: 'Share'),
-                new ActionButton(icon: Icons.note, label: 'Lyrics', onTap: () {
-                  setState((){
-                    showLyrics = true;
-                  });
-                }),
-                new ActionButton(icon: Icons.info, label: 'VocaDB')
+                LikeActionButton(),
+                ShareActionButton(),
+                LyricsActionButton(onTap: onTapLyrics),
+                SourceActionButton(),
               ]
           ),
           Divider(
-            key: UniqueKey(),
             height: 3,
           ),
           Container(
-            key: UniqueKey(),
             padding: EdgeInsets.all(8.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -80,12 +83,11 @@ class SongDetailContentState extends State<SongDetailContent> {
             ),
           ),
           Container(
-            key: UniqueKey(),
             padding: EdgeInsets.only(left: 8.0),
             alignment: Alignment.topLeft,
             child: Text('Original', style: Theme.of(context).textTheme.caption),
           ),
-          new Tags(key: UniqueKey()),
+          Tags(),
           Container(
             padding: EdgeInsets.all(8.0),
             child: Column(
@@ -101,23 +103,19 @@ class SongDetailContentState extends State<SongDetailContent> {
             ),
           ),
           Divider(
-            key: UniqueKey(),
             height: 3,
           ),
 
           // Artist list
           new ArtistLine(
-              key: UniqueKey(),
               name: 'kz',
               role: 'producer',
               imageUrl: 'https://vocadb.net/Artist/Picture/89'),
           new ArtistLine(
-              key: UniqueKey(),
               name: 'Hatsune Miku',
               role: 'vocalist',
               imageUrl: 'https://vocadb.net/Artist/Picture/1'),
           Container(
-            key: UniqueKey(),
             height: 38,
             child: InkWell(
               onTap: () {},
@@ -129,7 +127,6 @@ class SongDetailContentState extends State<SongDetailContent> {
 
           // Divider
           Padding(
-            key: UniqueKey(),
             padding: EdgeInsets.only(bottom: 4.0),
             child: Divider(
               height: 3,
@@ -138,7 +135,6 @@ class SongDetailContentState extends State<SongDetailContent> {
 
           // PVs
           Container(
-            key: UniqueKey(),
             padding: EdgeInsets.only(right: 8.0, left: 8.0),
             child: Column(
               children: <Widget>[
@@ -149,39 +145,32 @@ class SongDetailContentState extends State<SongDetailContent> {
           ),
 
           Divider(
-            key: UniqueKey(),
             height: 3,
           ),
 
           Section(
-              key: UniqueKey(),
               title: 'Albums (10)',
               children: albumList
           ),
 
           Divider(
-            key: UniqueKey(),
             height: 3,
           ),
 
           Section(
-              key: UniqueKey(),
               title: 'Alternate versions (120)',
               children: alternateSongList
           ),
           Divider(
-            key: UniqueKey(),
             height: 3,
           ),
 
           Section(
-              key: UniqueKey(),
               title: 'Users who liked this also liked',
               children: relatedSongList
           ),
 
           Divider(
-            key: UniqueKey(),
             height: 3,
           ),
 
