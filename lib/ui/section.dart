@@ -65,15 +65,18 @@ class Section extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(
-              // Horizontal ListView
-              height: 170,
-              child: ListView.builder(
-                itemCount: this.children.length,
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) {
-                  return this.children[index];
-                },
+            Container(
+              padding: EdgeInsets.only(bottom: 16.0),
+              child: SizedBox(
+                // Horizontal ListView
+                height: 170,
+                child: ListView.builder(
+                  itemCount: this.children.length,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, index) {
+                    return this.children[index];
+                  },
+                ),
               ),
             ),
           ],
