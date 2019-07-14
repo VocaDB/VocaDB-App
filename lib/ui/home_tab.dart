@@ -1,115 +1,57 @@
 import 'package:flutter/material.dart';
+import 'package:vocadb/ui/album_card.dart';
+import 'package:vocadb/ui/section.dart';
+import 'package:vocadb/ui/song_card.dart';
 import 'package:vocadb/ui/song_detail_page.dart';
 
-class HomeTab extends StatelessWidget {
+class HomeTab extends StatefulWidget {
+  @override
+  _HomeTabState createState() => _HomeTabState();
+}
+
+class _HomeTabState extends State<HomeTab> {
+
+  List<SongCard> highlightedSongs;
+
+  List<AlbumCard> latestAlbums;
+
+  List<AlbumCard> randomAlbums;
+
+  @override
+  void initState() {
+    super.initState();
+    highlightedSongs = mockSongs.map((s) => SongCard(s['name'], s['artistString'], s['thumbUrl'])).toList();
+    latestAlbums = mockAlbums.map((s) => AlbumCard(s['name'], s['artistString'], 'https://vocadb.net/Album/CoverPicture/' + s['id'].toString())).toList();
+    randomAlbums = mockAlbums.map((s) => AlbumCard(s['name'], s['artistString'], 'https://vocadb.net/Album/CoverPicture/' + s['id'].toString())).toList();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: ListView(
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.all(8.0),
-              child: SearchBar(),
-            ),
-            Section('Highlighted'),
-            Section('Random 1'),
-            Section('Random 2'),
-          ],
-        ),
-    );
-  }
-}
-
-class Section extends StatelessWidget {
-
-  final String _title;
-
-  Section(title) : this._title = title;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-        child: Column(
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  _title,
-                  textDirection: TextDirection.ltr,
-                  style: Theme.of(context).textTheme.subhead,
-                ),
-              ),
-            ),
-            SizedBox(
-              // Horizontal ListView
-              height: 170,
-              child: ListView.builder(
-                itemCount: mockSongs.length,
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) {
-                  var s = mockSongs[index];
-                  return SongCard(s['name'], s['artistString'], s['thumbUrl']);
-                },
-              ),
-            ),
-          ],
-        ));
-  }
-}
-
-class SongCard extends StatelessWidget {
-  final String _title;
-  final String _artist;
-  final String _thumbUrl;
-
-  SongCard(title, artist, thumbUrl) :
-    this._title = title,
-    this._artist = artist,
-    this._thumbUrl = thumbUrl;
-
-
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-      child: InkWell(
-        onTap: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => SongDetailPage()));
-        },
-        child: Container(
-          width: 130,
-          margin: EdgeInsets.only(right: 8.0, left: 8.0),
-          child: Column(
-            children: <Widget>[
-              Container(
-                width: double.infinity,
-                height: 100,
-                color: Colors.black,
-                child: FittedBox(
-                    fit: BoxFit.fitWidth, child: Image.network(_thumbUrl)),
-              ),
-              Container(
-                height: 4,
-              ),
-              Container(
-                  alignment: Alignment.centerLeft,
-                  child: Text(_title,
-                      style: Theme.of(context).textTheme.body1,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis)),
-              Container(
-                height: 4,
-              ),
-              Container(
-                  alignment: Alignment.centerLeft,
-                  child: Text(_artist,
-                      style: Theme.of(context).textTheme.caption,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis))
-            ],
+      child: ListView(
+        children: <Widget>[
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: SearchBar(),
           ),
-        ),
+          Section(
+              title: 'Highlighted',
+              horizontal: true,
+              children: highlightedSongs
+          ),
+
+          Section(
+              title: 'Recent or upcoming albums',
+              horizontal: true,
+              children: latestAlbums
+          ),
+
+          Section(
+              title: 'Random popular albums',
+              horizontal: true,
+              children: randomAlbums
+          ),
+        ],
       ),
     );
   }
@@ -289,5 +231,59 @@ const mockSongs = [
     "id": 2982,
     "name": "結ンデ開イテ羅刹ト骸",
     "thumbUrl": "https://i.ytimg.com/vi/AKffZySqQts/default.jpg",
+  }
+];
+
+
+const mockAlbums = [
+  {
+    "artistString": "kz, livetune feat. 初音ミク",
+    "id": 1008,
+    "name": "Tell Your World EP",
+  },
+  {
+    "artistString": "kz feat. 初音ミク",
+    "id": 1027,
+    "name": "Tell Your World",
+  },
+  {
+    "artistString": "Various artists",
+    "id": 1490,
+    "name": "初音ミク 5thバースデー ベスト〜memories〜",
+  },
+  {
+    "artistString": "kz, livetune feat. 初音ミク",
+    "id": 2123,
+    "name": "Re:Dial",
+  },
+  {
+    "artistString": "Various artists",
+    "id": 2166,
+    "name": "初音ミク-Project DIVA-F Complete Collection",
+  },
+  {
+    "artistString": "livetune, kz feat. 初音ミク",
+    "id": 3548,
+    "name": "Re:Upload",
+  },
+  {
+    "artistString": "Various artists",
+    "id": 9709,
+    "name": "HATSUNE MIKU EXPO 2014 IN INDONESIA",
+  },
+  {
+    "artistString": "Various artists",
+    "id": 22997,
+    "name": "HATSUNE MIKU 10th Anniversary Album 「Re:Start」",
+  },
+  {
+    "artistString": "Various artists",
+    "id": 23300,
+    "name": "初音ミク「マジカルミライ 2014」 [Live] ",
+  },
+  {
+    "artistString": "Various artists",
+    "id": 26429,
+    "name": "Miku dé Nihongo",
   }
 ];
