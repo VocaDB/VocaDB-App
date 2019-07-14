@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vocadb/ui/album_detail_page.dart';
 
 
 class AlbumCard extends StatelessWidget {
@@ -16,7 +17,9 @@ class AlbumCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       child: InkWell(
-        onTap: () {},
+        onTap: () {
+          Navigator.push(context, MaterialPageRoute(builder: (context) => AlbumDetailPage()));
+        },
         child: Container(
           width: 130,
           margin: EdgeInsets.only(right: 8.0, left: 8.0),

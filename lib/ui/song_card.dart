@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vocadb/ui/song_detail_page.dart';
 
 class SongCard extends StatelessWidget {
   final String _title;
@@ -15,7 +16,9 @@ class SongCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       child: InkWell(
-        onTap: () {},
+        onTap: () {
+          Navigator.push(context, MaterialPageRoute(builder: (context) => SongDetailPage()));
+        },
         child: Container(
           width: 130,
           margin: EdgeInsets.only(right: 8.0, left: 8.0),
