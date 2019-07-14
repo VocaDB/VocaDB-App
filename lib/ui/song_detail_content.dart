@@ -37,7 +37,7 @@ class SongDetailContentState extends State<SongDetailContent> {
     super.initState();
     alternateSongList = mockSongs.map((s) => SongCard(s['name'], s['artistString'], s['thumbUrl'])).toList();
     relatedSongList = mockSongs.map((s) => SongCard(s['name'], s['artistString'], s['thumbUrl'])).toList();
-    albumList = mockAlbums.map((s) => AlbumCard(s['name'], s['artistString'], 'https://vocadb.net/Album/CoverPicture/' + s['id'].toString())).toList();
+    albumList = mockAlbums.map((s) => AlbumCard(key: UniqueKey(), id: s['id'], name: s['name'], artist: s['artistString'], thumbUrl: 'https://vocadb.net/Album/CoverPicture/' + s['id'].toString())).toList();
   }
 
   void onTapLyrics() {

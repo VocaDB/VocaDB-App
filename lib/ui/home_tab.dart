@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:vocadb/ui/album_card.dart';
 import 'package:vocadb/ui/section.dart';
 import 'package:vocadb/ui/song_card.dart';
-import 'package:vocadb/ui/song_detail_page.dart';
 
 class HomeTab extends StatefulWidget {
   @override
@@ -21,8 +20,8 @@ class _HomeTabState extends State<HomeTab> {
   void initState() {
     super.initState();
     highlightedSongs = mockSongs.map((s) => SongCard(s['name'], s['artistString'], s['thumbUrl'])).toList();
-    latestAlbums = mockAlbums.map((s) => AlbumCard(s['name'], s['artistString'], 'https://vocadb.net/Album/CoverPicture/' + s['id'].toString())).toList();
-    randomAlbums = mockAlbums.map((s) => AlbumCard(s['name'], s['artistString'], 'https://vocadb.net/Album/CoverPicture/' + s['id'].toString())).toList();
+    latestAlbums = mockAlbums.map((s) => AlbumCard(key: UniqueKey(), id: s['id'], name: s['name'], artist: s['artistString'], thumbUrl: 'https://vocadb.net/Album/CoverPicture/' + s['id'].toString())).toList();
+    randomAlbums = mockAlbums.map((s) => AlbumCard(key: UniqueKey(), id: s['id'], name: s['name'], artist: s['artistString'], thumbUrl: 'https://vocadb.net/Album/CoverPicture/' + s['id'].toString())).toList();
   }
 
   @override
@@ -51,6 +50,8 @@ class _HomeTabState extends State<HomeTab> {
               horizontal: true,
               children: randomAlbums
           ),
+
+
         ],
       ),
     );
