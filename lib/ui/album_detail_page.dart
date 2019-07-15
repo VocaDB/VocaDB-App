@@ -36,9 +36,10 @@ class _AlbumDetailPageState extends State<AlbumDetailPage> {
   void initialTracksByDisc(disc, List<Map<String, Object>> tracks) {
     this.tracks.add(Text('Disc $disc'));
 
-    var discTracks = tracks.map((t) => Track(trackNumber: t['trackNumber'], name: t['name'], artist: 'test',)).toList();
+    var discTracks = tracks.map((t) => Track.parseMap(t)).toList();
 
     this.tracks.addAll(discTracks);
+    this.tracks.add(SpaceDivider());
   }
 
   @override
@@ -61,6 +62,8 @@ class _AlbumDetailPageState extends State<AlbumDetailPage> {
               ),
             ),
 
+          SpaceDivider(),
+
             ActionBar(
                 actions: <ActionButton> [
                   LikeActionButton(),
@@ -68,6 +71,8 @@ class _AlbumDetailPageState extends State<AlbumDetailPage> {
                   SourceActionButton(),
                 ]
             ),
+
+            SpaceDivider(),
 
             Container(
               child: Column(
@@ -81,6 +86,16 @@ class _AlbumDetailPageState extends State<AlbumDetailPage> {
   }
 }
 
+class SpaceDivider extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 16,
+    );
+  }
+}
+
+
 class Track extends StatelessWidget {
 
   final int trackNumber;
@@ -90,6 +105,10 @@ class Track extends StatelessWidget {
   final String artist;
 
   const Track({Key key, this.trackNumber, this.name, this.artist}): super(key: key);
+
+  factory Track.parseMap(Map<String, Object> map, {Key key}) {
+    return Track(key: key, trackNumber: map['trackNumber'], name: map['name'], artist: 'Unknown artist');
+  }
 
   @override
   Widget build(BuildContext context) {
