@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:vocadb/ui/action_bar.dart';
 import 'package:vocadb/ui/action_button.dart';
+import 'package:vocadb/ui/addition_info.dart';
 import 'package:vocadb/ui/like_action_button.dart';
 import 'package:vocadb/ui/share_action_button.dart';
 import 'package:vocadb/ui/source_action_button.dart';
 import "package:collection/collection.dart";
+import 'package:vocadb/ui/tags.dart';
 
 class AlbumDetailPage extends StatefulWidget {
 
@@ -71,6 +73,15 @@ class _AlbumDetailPageState extends State<AlbumDetailPage> {
                   SourceActionButton(),
                 ]
             ),
+
+            SpaceDivider(),
+            
+            Tags(),
+
+            SpaceDivider(),
+
+            AdditionInfo(title: 'Type', value: 'Original'),
+            AdditionInfo(title: 'Released', value: '12/03/2012'),
 
             SpaceDivider(),
 
