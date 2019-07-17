@@ -69,7 +69,7 @@ class Section extends StatelessWidget {
               padding: EdgeInsets.only(bottom: 16.0),
               child: SizedBox(
                 // Horizontal ListView
-                height: 170,
+                height: 180,
                 child: ListView.builder(
                   itemCount: this.children.length,
                   scrollDirection: Axis.horizontal,
