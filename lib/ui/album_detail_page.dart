@@ -6,6 +6,7 @@ import 'package:vocadb/ui/like_action_button.dart';
 import 'package:vocadb/ui/share_action_button.dart';
 import 'package:vocadb/ui/source_action_button.dart';
 import "package:collection/collection.dart";
+import 'package:vocadb/ui/space_divider.dart';
 import 'package:vocadb/ui/tags.dart';
 
 class AlbumDetailPage extends StatefulWidget {
@@ -75,7 +76,7 @@ class _AlbumDetailPageState extends State<AlbumDetailPage> {
             ),
 
             SpaceDivider(),
-            
+
             Tags(),
 
             SpaceDivider(),
@@ -96,16 +97,6 @@ class _AlbumDetailPageState extends State<AlbumDetailPage> {
     );
   }
 }
-
-class SpaceDivider extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 16,
-    );
-  }
-}
-
 
 class Track extends StatelessWidget {
 
