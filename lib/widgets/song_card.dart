@@ -11,10 +11,13 @@ class SongCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    String tag = this.key.toString();
+
     return Material(
       child: InkWell(
         onTap: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => SongDetailPage()));
+          Navigator.push(context, MaterialPageRoute(builder: (context) => SongDetailPage(thumbUrl: this.thumbUrl, tag: tag)));
         },
         child: Container(
           width: 130,
@@ -26,7 +29,9 @@ class SongCard extends StatelessWidget {
                 height: 100,
                 color: Colors.black,
                 child: FittedBox(
-                    fit: BoxFit.fitWidth, child: Image.network(this.thumbUrl)),
+                    fit: BoxFit.fitWidth,
+                    child:
+                        Hero(tag: tag, child: Image.network(this.thumbUrl))),
               ),
               Container(
                 height: 4,
