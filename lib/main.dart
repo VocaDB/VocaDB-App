@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'ui/account_tab.dart';
-import 'ui/home_tab.dart';
-import 'ui/ranking_tab.dart';
+import 'pages/main/account_tab.dart';
+import 'pages/main/home_tab.dart';
+import 'pages/main/ranking_tab.dart';
 
 void main() => runApp(MyApp());
 

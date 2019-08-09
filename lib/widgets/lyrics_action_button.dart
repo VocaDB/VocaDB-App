@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vocadb/ui/action_button.dart';
+import 'package:vocadb/widgets/action_button.dart';
 
 class LyricsActionButton extends ActionButton {
 

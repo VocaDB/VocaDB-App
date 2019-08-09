@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:vocadb/ui/artist_detail_page.dart';
 
 class ArtistLine extends StatelessWidget {
   final String imageUrl;
@@ -14,17 +13,10 @@ class ArtistLine extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    String tag = this.key.toString() + "_" + this.name.toString();
-
     return Container(
       padding: EdgeInsets.all(8.0),
       child: InkWell(
-         onTap: () {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => ArtistDetailPage(thumbUrl: this.imageUrl, tag: tag)));
-        },
+         onTap: () {},
         child: Row(
           children: <Widget>[
             Container(

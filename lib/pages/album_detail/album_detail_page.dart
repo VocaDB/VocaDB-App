@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:vocadb/ui/action_bar.dart';
-import 'package:vocadb/ui/action_button.dart';
-import 'package:vocadb/ui/addition_info.dart';
-import 'package:vocadb/ui/like_action_button.dart';
-import 'package:vocadb/ui/share_action_button.dart';
-import 'package:vocadb/ui/source_action_button.dart';
+import 'package:vocadb/widgets/action_bar.dart';
+import 'package:vocadb/widgets/action_button.dart';
+import 'package:vocadb/widgets/addition_info.dart';
+import 'package:vocadb/widgets/like_action_button.dart';
+import 'package:vocadb/widgets/share_action_button.dart';
+import 'package:vocadb/widgets/source_action_button.dart';
 import "package:collection/collection.dart";
-import 'package:vocadb/ui/space_divider.dart';
-import 'package:vocadb/ui/tags.dart';
+import 'package:vocadb/widgets/space_divider.dart';
+import 'package:vocadb/widgets/tags.dart';
 
 class AlbumDetailPage extends StatefulWidget {
 

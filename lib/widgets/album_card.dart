@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vocadb/ui/album_detail_page.dart';
+import 'package:vocadb/pages/album_detail/album_detail_page.dart';
 
 class AlbumCard extends StatelessWidget {
 

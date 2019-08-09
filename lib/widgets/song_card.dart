@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:vocadb/ui/song_detail_page.dart';
+import 'package:vocadb/pages/song_detail/song_detail_page.dart';
 
 class SongCard extends StatelessWidget {
-  final String _title;
-  final String _artist;
-  final String _thumbUrl;
 
-  SongCard(title, artist, thumbUrl) :
-        this._title = title,
-        this._artist = artist,
-        this._thumbUrl = thumbUrl;
+  final String title;
+  final String artist;
+  final String thumbUrl;
 
+  const SongCard({Key key, this.title, this.artist, this.thumbUrl}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,14 +26,14 @@ class SongCard extends StatelessWidget {
                 height: 100,
                 color: Colors.black,
                 child: FittedBox(
-                    fit: BoxFit.fitWidth, child: Image.network(_thumbUrl)),
+                    fit: BoxFit.fitWidth, child: Image.network(this.thumbUrl)),
               ),
               Container(
                 height: 4,
               ),
               Container(
                   alignment: Alignment.centerLeft,
-                  child: Text(_title,
+                  child: Text(this.title,
                       style: Theme.of(context).textTheme.body1,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis)),
@@ -45,7 +42,7 @@ class SongCard extends StatelessWidget {
               ),
               Container(
                   alignment: Alignment.centerLeft,
-                  child: Text(_artist,
+                  child: Text(this.artist,
                       style: Theme.of(context).textTheme.caption,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis))

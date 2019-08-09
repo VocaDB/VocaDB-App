@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:vocadb/ui/account_tab.dart';
+import 'package:vocadb/pages/main/account_tab.dart';
 
 void main() {
 

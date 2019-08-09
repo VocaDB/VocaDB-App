@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:vocadb/ui/action_bar.dart';
-import 'package:vocadb/ui/action_button.dart';
-import 'package:vocadb/ui/addition_info.dart';
-import 'package:vocadb/ui/album_card.dart';
-import 'package:vocadb/ui/artist_list_item.dart';
-import 'package:vocadb/ui/like_action_button.dart';
-import 'package:vocadb/ui/lyrics_action_button.dart';
-import 'package:vocadb/ui/pv_list_item.dart';
-import 'package:vocadb/ui/section.dart';
-import 'package:vocadb/ui/section_divider.dart';
-import 'package:vocadb/ui/share_action_button.dart';
-import 'package:vocadb/ui/song_card.dart';
-import 'package:vocadb/ui/source_action_button.dart';
-import 'package:vocadb/ui/tags.dart';
-import 'package:vocadb/ui/web_link.dart';
+import 'package:vocadb/widgets/action_bar.dart';
+import 'package:vocadb/widgets/action_button.dart';
+import 'package:vocadb/widgets/addition_info.dart';
+import 'package:vocadb/widgets/album_card.dart';
+import 'package:vocadb/widgets/artist_list_item.dart';
+import 'package:vocadb/widgets/like_action_button.dart';
+import 'package:vocadb/widgets/lyrics_action_button.dart';
+import 'package:vocadb/widgets/pv_list_item.dart';
+import 'package:vocadb/widgets/section.dart';
+import 'package:vocadb/widgets/section_divider.dart';
+import 'package:vocadb/widgets/share_action_button.dart';
+import 'package:vocadb/widgets/song_card.dart';
+import 'package:vocadb/widgets/source_action_button.dart';
+import 'package:vocadb/widgets/tags.dart';
+import 'package:vocadb/widgets/web_link.dart';
 
 import 'lyric_content.dart';
 
@@ -36,8 +36,8 @@ class SongDetailContentState extends State<SongDetailContent> {
   @override
   void initState() {
     super.initState();
-    alternateSongList = mockSongs.map((s) => SongCard(s['name'], s['artistString'], s['thumbUrl'])).toList();
-    relatedSongList = mockSongs.map((s) => SongCard(s['name'], s['artistString'], s['thumbUrl'])).toList();
+    alternateSongList = mockSongs.map((s) => SongCard(key: UniqueKey(), title: s['name'], artist: s['artistString'], thumbUrl: s['thumbUrl'])).toList();
+    relatedSongList = mockSongs.map((s) => SongCard(key: UniqueKey(), title: s['name'], artist: s['artistString'], thumbUrl: s['thumbUrl'])).toList();
     albumList = mockAlbums.map((s) => AlbumCard(key: UniqueKey(), id: s['id'], name: s['name'], artist: s['artistString'], thumbUrl: 'https://vocadb.net/Album/CoverPicture/' + s['id'].toString())).toList();
   }
 

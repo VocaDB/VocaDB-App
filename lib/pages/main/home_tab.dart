@@ -1,7 +1,8 @@
+
 import 'package:flutter/material.dart';
-import 'package:vocadb/ui/album_card.dart';
-import 'package:vocadb/ui/section.dart';
-import 'package:vocadb/ui/song_card.dart';
+import 'package:vocadb/widgets/album_card.dart';
+import 'package:vocadb/widgets/section.dart';
+import 'package:vocadb/widgets/song_card.dart';
 
 class HomeTab extends StatefulWidget {
   @override
@@ -19,7 +20,7 @@ class _HomeTabState extends State<HomeTab> {
   @override
   void initState() {
     super.initState();
-    highlightedSongs = mockSongs.map((s) => SongCard(s['name'], s['artistString'], s['thumbUrl'])).toList();
+    highlightedSongs = mockSongs.map((s) => SongCard(key: UniqueKey(), title: s['name'], artist: s['artistString'], thumbUrl: s['thumbUrl'])).toList();
     latestAlbums = mockAlbums.map((s) => AlbumCard(key: UniqueKey(), id: s['id'], name: s['name'], artist: s['artistString'], thumbUrl: 'https://vocadb.net/Album/CoverPicture/' + s['id'].toString())).toList();
     randomAlbums = mockAlbums.map((s) => AlbumCard(key: UniqueKey(), id: s['id'], name: s['name'], artist: s['artistString'], thumbUrl: 'https://vocadb.net/Album/CoverPicture/' + s['id'].toString())).toList();
   }
@@ -61,7 +62,6 @@ class _HomeTabState extends State<HomeTab> {
 class SearchBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return SizedBox(
       height: 48.0,
       width: double.infinity,

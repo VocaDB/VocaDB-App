@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:vocadb/ui/ranking_tab.dart';
+import 'package:vocadb/pages/main/ranking_tab.dart';
 
 void main() {
 
