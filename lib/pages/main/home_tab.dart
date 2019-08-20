@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:vocadb/widgets/album_card.dart';
 import 'package:vocadb/widgets/section.dart';
 import 'package:vocadb/widgets/song_card.dart';
+import 'package:vocadb/pages/search/search_page.dart';
 
 class HomeTab extends StatefulWidget {
   @override
@@ -68,7 +69,12 @@ class SearchBar extends StatelessWidget {
       child: Material(
         color: Colors.white12,
         child: InkWell(
-          onTap: () {},
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => SearchPage()));
+          },
           child: Padding(
             padding: EdgeInsets.all(12.0),
             child: Row(
