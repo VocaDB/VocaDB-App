@@ -19,11 +19,11 @@ class EntryTile extends StatelessWidget {
 
     switch (entry["entryType"]) {
       case "Song":
-        return SongTile(name: entry["name"], artist: entry["artistString"], imageUrl: getThumbnailUrl());
+        return SongTile(id: entry["id"], name: entry["name"], artist: entry["artistString"], imageUrl: getThumbnailUrl());
       case "Album":
-        return AlbumTile(name: entry["name"], artist: entry["artistString"], imageUrl: getThumbnailUrl());
+        return AlbumTile(id: entry["id"], name: entry["name"], artist: entry["artistString"], imageUrl: getThumbnailUrl());
       case "Artist":
-        return ArtistTile(name: entry["name"], type: entry["artistType"], imageUrl: getThumbnailUrl());
+        return ArtistTile(id: entry["id"], name: entry["name"], type: entry["artistType"], imageUrl: getThumbnailUrl());
 
       default:
         return ListTile(
