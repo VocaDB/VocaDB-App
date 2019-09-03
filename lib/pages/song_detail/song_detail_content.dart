@@ -4,6 +4,7 @@ import 'package:vocadb/widgets/action_button.dart';
 import 'package:vocadb/widgets/addition_info.dart';
 import 'package:vocadb/widgets/album_card.dart';
 import 'package:vocadb/widgets/artist_list_item.dart';
+import 'package:vocadb/widgets/artist_tile.dart';
 import 'package:vocadb/widgets/like_action_button.dart';
 import 'package:vocadb/widgets/lyrics_action_button.dart';
 import 'package:vocadb/widgets/pv_list_item.dart';
@@ -81,13 +82,15 @@ class SongDetailContentState extends State<SongDetailContent> {
           Section(
               title: 'Artists',
               children: <Widget> [
-                ArtistLine(
+                ArtistTile(
+                  id: 89,
                   name: 'kz',
-                  role: 'producer',
+                  type: 'producer',
                   imageUrl: 'https://vocadb.net/Artist/Picture/89'),
-                ArtistLine(
+                ArtistTile(
+                    id: 1,
                     name: 'Hatsune Miku',
-                    role: 'vocalist',
+                    type: 'vocalist',
                     imageUrl: 'https://vocadb.net/Artist/Picture/1')
               ]
           ),
