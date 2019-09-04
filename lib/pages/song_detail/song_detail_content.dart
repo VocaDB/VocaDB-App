@@ -3,11 +3,10 @@ import 'package:vocadb/widgets/action_bar.dart';
 import 'package:vocadb/widgets/action_button.dart';
 import 'package:vocadb/widgets/addition_info.dart';
 import 'package:vocadb/widgets/album_card.dart';
-import 'package:vocadb/widgets/artist_list_item.dart';
 import 'package:vocadb/widgets/artist_tile.dart';
 import 'package:vocadb/widgets/like_action_button.dart';
 import 'package:vocadb/widgets/lyrics_action_button.dart';
-import 'package:vocadb/widgets/pv_list_item.dart';
+import 'package:vocadb/widgets/pv_tile.dart';
 import 'package:vocadb/widgets/section.dart';
 import 'package:vocadb/widgets/section_divider.dart';
 import 'package:vocadb/widgets/share_action_button.dart';
@@ -103,8 +102,8 @@ class SongDetailContentState extends State<SongDetailContent> {
               title: 'PVs',
               padding: EdgeInsets.only(right: 8.0, left: 8.0),
               children: <Widget> [
-                PVListItem(title: 'livetune feat. 初音ミク 『Tell Your World』Music Video'),
-                PVListItem(title: 'Google Chrome : Hatsune Miku (初音ミク)'),
+                PVTile(name: 'livetune feat. 初音ミク 『Tell Your World』Music Video'),
+                PVTile(name: 'Google Chrome : Hatsune Miku (初音ミク)'),
               ]
           ),
 

@@ -11,17 +11,9 @@ class WebLink extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {},
-      child: Container(
-        padding: EdgeInsets.only(top: 8, bottom: 8),
-        height: 48,
-        child: Row(
-          children: <Widget>[
-            Text(this.name, style: Theme.of(context).textTheme.subtitle)
-          ],
-        ),
-      ),
+    return ListTile(
+      leading: Icon(Icons.web),
+      title: Text(this.name),
     );
   }
 }
