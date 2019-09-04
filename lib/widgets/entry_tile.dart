@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vocadb/widgets/event_tile.dart';
 import 'package:vocadb/widgets/song_tile.dart';
 import 'package:vocadb/widgets/album_tile.dart';
 import 'package:vocadb/widgets/artist_tile.dart';
@@ -24,6 +25,8 @@ class EntryTile extends StatelessWidget {
         return AlbumTile(id: entry["id"], name: entry["name"], artist: entry["artistString"], imageUrl: getThumbnailUrl());
       case "Artist":
         return ArtistTile(id: entry["id"], name: entry["name"], type: entry["artistType"], imageUrl: getThumbnailUrl());
+      case "ReleaseEvent":
+        return EventTile(id: entry["id"], name: entry["name"], imageUrl: getThumbnailUrl());
 
       default:
         return ListTile(
