@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vocadb/pages/tag_detail/tag_detail_page.dart';
 
 class Tags extends StatelessWidget {
   const Tags({
@@ -13,19 +14,28 @@ class Tags extends StatelessWidget {
         children: <Widget>[
           Container(
             margin: EdgeInsets.only(right: 4.0),
-            child: Chip(
-              label: Text('electropop'),
+            child: InputChip(
+              label: Text('#electropop'),
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => TagDetailPage()));
+              },
             ),
           ),
           Container(
             margin: EdgeInsets.only(right: 4.0),
-            child: Chip(
-              label: Text('MMD'),
+            child: InputChip(
+              label: Text('#MMD'),
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => TagDetailPage()));
+              },
             ),
           ),
           Container(
             margin: EdgeInsets.only(right: 4.0),
-            child: Chip(
+            child: InputChip(
+              onPressed: () {},
               label: Text('More (18)'),
             ),
           ),
