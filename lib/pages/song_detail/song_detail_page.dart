@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_native_web/flutter_native_web.dart';
 import 'package:vocadb/widgets/album_card.dart';
+import 'package:vocadb/widgets/pv_tile.dart';
 import 'package:vocadb/widgets/song_card.dart';
 import 'dart:io';
 import 'song_detail_content.dart';
@@ -164,10 +165,10 @@ class _SongDetailPageState extends State<SongDetailPage> {
                     title: 'PVs',
                     padding: EdgeInsets.only(right: 8.0, left: 8.0),
                     children: <Widget>[
-                      PVListItem(
-                          title:
+                      PVTile(
+                          name:
                               'livetune feat. 初音ミク 『Tell Your World』Music Video'),
-                      PVListItem(title: 'Google Chrome : Hatsune Miku (初音ミク)'),
+                      PVTile(name: 'Google Chrome : Hatsune Miku (初音ミク)'),
                     ]),
 
                 SectionDivider(),
