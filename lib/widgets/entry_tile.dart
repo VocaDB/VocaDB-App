@@ -10,6 +10,11 @@ class EntryTile extends StatelessWidget {
   const EntryTile(Map<String, Object> entry) : this.entry = entry;
 
   getThumbnailUrl() {
+
+    if(!entry.containsKey("mainPicture")) {
+      return "https://via.placeholder.com/468x60?text=Image";
+    }
+    
     Map<String, Object> mainPicture = entry["mainPicture"];
 
     return mainPicture["urlThumb"];
