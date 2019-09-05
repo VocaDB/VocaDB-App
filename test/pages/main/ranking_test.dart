@@ -1,15 +1,14 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:vocadb/pages/main/ranking_tab.dart';
 
 void main() {
-
   group('Ranking widget test', () {
-    testWidgets('Initial display correctly', (WidgetTester tester) async {
+    testWidgets('Display RankingTab widget correctly',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(MaterialApp(home: Material(child: RankingTab())));
 
-      await tester.pumpWidget(RankingTab());
-
-      expect(find.text('Ranking tab'), findsOneWidget);
-
+      expect(find.text("Weekly"), findsOneWidget);
     });
   });
 }

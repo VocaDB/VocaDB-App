@@ -1,15 +1,14 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:vocadb/pages/main/account_tab.dart';
 
 void main() {
-
   group('Account widget test', () {
-    testWidgets('Initial display correctly', (WidgetTester tester) async {
+    testWidgets('Display AccountTab widget correctly',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(MaterialApp(home: Material(child: AccountTab())));
 
-      await tester.pumpWidget(AccountTab());
-
-      expect(find.text('Account tab'), findsOneWidget);
-
+      expect(find.text("Setting"), findsOneWidget);
     });
   });
 }

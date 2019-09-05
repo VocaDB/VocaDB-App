@@ -18,13 +18,13 @@ void main() {
         await tester.pump();
 
         expect(find.text('Highlighted'), findsNothing);
-        expect(find.text('Ranking tab'), findsOneWidget);
+        expect(find.text('Weekly'), findsOneWidget);
 
         await tester.tap(find.byIcon(Icons.account_circle));
         await tester.pump();
 
-        expect(find.text('Ranking tab'), findsNothing);
-        expect(find.text('Account tab'), findsOneWidget);
+        expect(find.text('Weekly'), findsNothing);
+        expect(find.text('Setting'), findsOneWidget);
       });
 
 
