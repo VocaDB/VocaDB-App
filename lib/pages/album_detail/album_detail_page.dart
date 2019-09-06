@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:vocadb/widgets/action_bar.dart';
 import 'package:vocadb/widgets/action_button.dart';
@@ -144,10 +145,11 @@ class HeroContent extends StatelessWidget {
         child: SizedBox(
           width: 300,
           height: 150,
-          child: Image.network(
-            this.thumbUrl,
-            fit: BoxFit.contain,
-          ),
+          child: CachedNetworkImage(
+            imageUrl: this.thumbUrl,
+            placeholder: (context, url) => Container(color: Colors.grey),
+            errorWidget: (context, url, error) => new Icon(Icons.error),
+        ),
         ),
       ),
     );

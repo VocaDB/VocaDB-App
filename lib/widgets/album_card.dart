@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:vocadb/pages/album_detail/album_detail_page.dart';
 
@@ -35,7 +36,11 @@ class AlbumCard extends StatelessWidget {
                 child: FittedBox(
                     fit: BoxFit.fitWidth,
                     child:
-                        Hero(tag: tag, child: Image.network(this.thumbUrl))),
+                        Hero(tag: tag, child: CachedNetworkImage(
+            imageUrl: this.thumbUrl,
+            placeholder: (context, url) => Container(color: Colors.grey),
+            errorWidget: (context, url, error) => new Icon(Icons.error),
+        ))),
               ),
               Container(
                 height: 4,
