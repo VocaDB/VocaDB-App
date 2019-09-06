@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class RankingTab extends StatefulWidget {
   @override
@@ -102,7 +103,11 @@ class RankingTile extends StatelessWidget {
 
   Widget thumbnailWidget() {
     Widget thumbnail = (this.thumbUrl != null && this.thumbUrl.isNotEmpty)
-        ? Image.network(this.thumbUrl)
+        ? CachedNetworkImage(
+            imageUrl: this.thumbUrl,
+            placeholder: (context, url) => Container(color: Colors.grey),
+            errorWidget: (context, url, error) => new Icon(Icons.error),
+        )
         : Placeholder();
 
     return Padding(
