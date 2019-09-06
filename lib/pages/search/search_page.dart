@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vocadb/widgets/entry_tile.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
 class SearchPage extends StatefulWidget {
   @override
@@ -7,7 +8,6 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
-
   bool _searching = false;
 
   List<Widget> _recentlyListItems;
@@ -84,8 +84,33 @@ class _SearchPageState extends State<SearchPage> {
     return SafeArea(
       child: Scaffold(
           appBar: buildSearchBar(context),
-          body: (_searching)? buildResultListView() : buildRecentlyListView()
+          floatingActionButton: SpeedDial(
+            animatedIcon: AnimatedIcons.menu_close,
+            animatedIconTheme: IconThemeData(size: 22.0),
+            children: [
+              SpeedDialChild(
+                child: Icon(Icons.music_note),
+                backgroundColor: Colors.white,
+                onTap: () => print('Song'),
+              ),
+              SpeedDialChild(
+                child: Icon(Icons.person),
+                backgroundColor: Colors.white,
+                onTap: () => print('Artist'),
+              ),
+              SpeedDialChild(
+                child: Icon(Icons.person),
+                backgroundColor: Colors.white,
+                onTap: () => print('Album'),
+              ),
+              SpeedDialChild(
+                  child: Icon(Icons.close),
+                  backgroundColor: Colors.white,
+                  onTap: () => print('All')
+              ),
+            ],
           ),
+          body: (_searching) ? buildResultListView() : buildRecentlyListView()),
     );
   }
 }
