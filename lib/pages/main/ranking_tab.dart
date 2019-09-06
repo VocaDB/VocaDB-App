@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:vocadb/widgets/song_tile.dart';
 
 class RankingTab extends StatefulWidget {
   @override
@@ -32,15 +31,6 @@ class _RankingTabState extends State<RankingTab>
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> tabChildren = myTabs.map((Tab tab) {
-      final String label = tab.text.toLowerCase();
-      return Center(
-        child: Text(
-          '$label',
-        ),
-      );
-    }).toList();
-
     return SafeArea(
         child: Scaffold(
             appBar: TabBar(controller: _tabController, tabs: myTabs),
@@ -139,7 +129,9 @@ class RankingTile extends StatelessWidget {
   Widget trailing() {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: IconButton(icon: Icon(Icons.more_vert)),
+      child: IconButton(
+        onPressed: () {},
+        icon: Icon(Icons.more_vert)),
     );
   }
 
