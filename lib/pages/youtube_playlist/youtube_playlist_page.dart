@@ -48,18 +48,29 @@ class _YoutubePlaylistPageState extends State<YoutubePlaylistPage> {
   prev() {
     if(this.currentVideoIndex > 0) {
       onChangeVideo(this.currentVideoIndex-1);
+    } else {
+      onChangeVideo(2);
     }
   }
 
   next() {
     if(this.currentVideoIndex < 2) {
       onChangeVideo(this.currentVideoIndex+1);
+    } else {
+      onChangeVideo(0);
     }
   }
 
   playerControllerListen() {
+
+    PlayerState currentState = _playerController.value.playerState;
+
+    if(currentState == PlayerState.ENDED) {
+      this.next();
+    }
+    
     setState(() {
-      youtubeState = _playerController.value.playerState.toString();
+      youtubeState = currentState.toString();
     });
   }
 
