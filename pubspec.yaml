@@ -13,6 +13,7 @@ environment:
   sdk: ">=2.0.0-dev.68.0 <3.0.0"
 
 dependencies:
+  youtube_player_flutter: ^4.1.0
   cached_network_image: ^1.1.1
   flutter_speed_dial: ^1.2.1
   flutter_native_web: ^1.0.1

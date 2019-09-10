@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:vocadb/pages/youtube_playlist/youtube_playlist_page.dart';
 import 'package:vocadb/widgets/album_card.dart';
 import 'package:vocadb/widgets/section.dart';
 import 'package:vocadb/widgets/song_card.dart';
@@ -34,6 +35,12 @@ class _HomeTabState extends State<HomeTab> {
           Padding(
             padding: EdgeInsets.all(8.0),
             child: SearchBar(),
+          ),
+          RaisedButton(
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => YoutubePlaylistPage()));
+            },
+            child: Text('Playlist'),
           ),
           Section(
               title: 'Highlighted',
