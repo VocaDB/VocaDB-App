@@ -12,26 +12,49 @@ class _YoutubePlaylistPageState extends State<YoutubePlaylistPage> {
 
   String youtubeState;
 
+  int currentVideoIndex = 0;
+
   YoutubePlayerController _playerController;
+
+  PV activeVideo;
+
+  List<PV> videoList = [
+    new PV("1 - ビバハピ", "WiUjG9fF3zw"),
+    new PV("2 - Tell Your World", "PqJNc9KVIZE"),
+    new PV("3 - ODDS&ENDS", "6OmwKZ9r07o"),
+  ];
 
   @override
   void initState() {
     super.initState();
-    this.onChangeVideo("WiUjG9fF3zw");
     _playerController = new YoutubePlayerController();
     setState(() {
       youtubeState = "Unknown";
+      activeVideo = videoList[0];
     });
   }
 
-  onChangeVideo(String videoId) {
+  onChangeVideo(int videoIndex) {
     setState(() {
-      currentVideoId = videoId;
+      activeVideo = videoList[videoIndex];
+      currentVideoIndex = videoIndex;
     });
   }
 
-  isSelected(String videoId) {
-    return videoId == this.currentVideoId;
+  isSelected(int videoIndex) {
+    return videoIndex == this.currentVideoIndex;
+  }
+
+  prev() {
+    if(this.currentVideoIndex > 0) {
+      onChangeVideo(this.currentVideoIndex-1);
+    }
+  }
+
+  next() {
+    if(this.currentVideoIndex < 2) {
+      onChangeVideo(this.currentVideoIndex+1);
+    }
   }
 
   playerControllerListen() {
@@ -48,7 +71,7 @@ class _YoutubePlaylistPageState extends State<YoutubePlaylistPage> {
           children: <Widget>[
             YoutubePlayer(
                 context: context,
-                videoId: this.currentVideoId,
+                videoId: this.activeVideo.videoId,
                 flags: YoutubePlayerFlags(
                   autoPlay: false,
                   showVideoProgressIndicator: true,
@@ -64,25 +87,41 @@ class _YoutubePlaylistPageState extends State<YoutubePlaylistPage> {
                 child: Text(this.youtubeState),
               ),
             ),
+             Container(
+              height: 100,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  FlatButton(
+                    onPressed: this.prev,
+                    child: Icon(Icons.skip_previous)
+                  ),
+                  FlatButton(
+                    onPressed: this.next,
+                    child: Icon(Icons.skip_next)
+                  )
+                ],
+              ),
+            ),
             ListTile(
               title: Text("1 - ビバハピ"),
-              selected: isSelected("WiUjG9fF3zw"),
+              selected: isSelected(0),
               onTap: () {
-                this.onChangeVideo("WiUjG9fF3zw");
+                this.onChangeVideo(0);
               },
             ),
             ListTile(
               title: Text("2 - Tell Your World"),
-              selected: isSelected("PqJNc9KVIZE"),
+              selected: isSelected(1),
               onTap: () {
-                this.onChangeVideo("PqJNc9KVIZE");
+                this.onChangeVideo(1);
               },
             ),
             ListTile(
               title: Text("3 - ODDS&ENDS"),
-              selected: isSelected("6OmwKZ9r07o"),
+              selected: isSelected(2),
               onTap: () {
-                this.onChangeVideo("6OmwKZ9r07o");
+                this.onChangeVideo(2);
               },
             )
           ],
@@ -90,4 +129,13 @@ class _YoutubePlaylistPageState extends State<YoutubePlaylistPage> {
       ),
     );
   }
+}
+
+class PV {
+
+  String name;
+
+  String videoId;
+
+  PV(String name, String videoId) : this.name = name, this.videoId = videoId;
 }
