@@ -148,6 +148,7 @@ class _SongDetailPageState extends State<SongDetailPage> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
+          appBar: AppBar(),
       body: Column(
         children: <Widget>[
           YoutubePlayer(
