@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:vocadb/models/album.dart';
 import 'package:vocadb/pages/album_detail/album_detail_page.dart';
 
 class AlbumCard extends StatelessWidget {
@@ -10,6 +11,11 @@ class AlbumCard extends StatelessWidget {
   final String thumbUrl;
 
   const AlbumCard({Key key, this.id, this.name, this.artist, this.thumbUrl}) : super(key: key);
+
+  AlbumCard.album(Album album) : id = album.id,
+  name = album.name, 
+  artist = album.artistString, 
+  thumbUrl = album.imageurl;
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +45,7 @@ class AlbumCard extends StatelessWidget {
                         Hero(tag: tag, child: CachedNetworkImage(
             imageUrl: this.thumbUrl,
             placeholder: (context, url) => Container(color: Colors.grey),
-            errorWidget: (context, url, error) => new Icon(Icons.error),
+            errorWidget: (context, url, error) => Placeholder(),
         ))),
               ),
               Container(

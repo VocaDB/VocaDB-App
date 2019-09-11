@@ -1,6 +1,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:vocadb/pages/main/highlighted_list.dart';
+import 'package:vocadb/pages/main/latest_album_list.dart';
+import 'package:vocadb/pages/main/top_album_list.dart';
 import 'package:vocadb/pages/youtube_playlist/youtube_playlist_page.dart';
 import 'package:vocadb/widgets/album_card.dart';
 import 'package:vocadb/widgets/section.dart';
@@ -40,20 +42,8 @@ class _HomeTabState extends State<HomeTab> {
             child: Text('Playlist'),
           ),
           HighlightedList(),
-
-          Section(
-              title: 'Recent or upcoming albums',
-              horizontal: true,
-              children: latestAlbums
-          ),
-
-          Section(
-              title: 'Random popular albums',
-              horizontal: true,
-              children: randomAlbums
-          ),
-
-
+          LatestAlbumList(),
+          TopAlbumList(),
         ],
       ),
     );
