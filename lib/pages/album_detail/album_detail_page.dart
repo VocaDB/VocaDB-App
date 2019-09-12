@@ -1,5 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:vocadb/models/album.dart';
+import 'package:vocadb/services/web_service.dart';
 import 'package:vocadb/widgets/action_bar.dart';
 import 'package:vocadb/widgets/action_button.dart';
 import 'package:vocadb/widgets/addition_info.dart';
@@ -12,18 +14,19 @@ import 'package:vocadb/widgets/tags.dart';
 
 class AlbumDetailPage extends StatefulWidget {
 
+  final int id;
+  final String name;
   final String thumbUrl;
-
   final String tag;
 
-  const AlbumDetailPage({Key key, this.thumbUrl, this.tag}) : super(key: key);
+  const AlbumDetailPage({Key key, this.id, this.name, this.thumbUrl, this.tag})
+      : super(key: key);
 
   @override
   _AlbumDetailPageState createState() => _AlbumDetailPageState();
 }
 
 class _AlbumDetailPageState extends State<AlbumDetailPage> {
-
   List<Widget> tracks;
 
   @override
@@ -46,53 +49,101 @@ class _AlbumDetailPageState extends State<AlbumDetailPage> {
     this.tracks.add(SpaceDivider());
   }
 
+  Widget detailBuilder() {
+    return FutureBuilder<Album>(
+      future: WebService().load(Album.byId(widget.id)),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          return detailContent(snapshot.data);
+        } else if (snapshot.hasError) {
+          return SliverList(
+            delegate:
+                SliverChildListDelegate.fixed([Text("${snapshot.error}")]),
+          );
+        }
+
+        // By default, show a loading spinner.
+        return SliverList(
+          delegate:
+              SliverChildListDelegate.fixed([]),
+        );
+      },
+    );
+  }
+
+  Widget detailContent(Album album) {
+    return SliverList(
+      delegate: SliverChildListDelegate.fixed(detailWidgets(album)),
+    );
+  }
+
+  List<Widget> detailWidgets(Album album) {
+    return [
+      SpaceDivider(),
+      ActionBar(actions: <ActionButton>[
+        LikeActionButton(),
+        ShareActionButton(),
+        SourceActionButton(),
+      ]),
+      SpaceDivider(),
+      Tags(),
+      SpaceDivider(),
+      AdditionInfo(title: 'Type', value: 'Original'),
+      AdditionInfo(title: 'Released', value: '12/03/2012'),
+      SpaceDivider(),
+      Container(
+          child: Column(
+        children: tracks,
+      ))
+    ];
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      body: Container(
-        // The blue background emphasizes that it's a new route.
-        alignment: Alignment.topLeft,
-        child: ListView(
-          children: <Widget>[
-            HeroContent(tag: widget.tag, thumbUrl: widget.thumbUrl),
+      body: CustomScrollView(
+        slivers: <Widget>[
+          StaticHeroContent(title: widget.name, tag: widget.tag, thumbUrl: widget.thumbUrl),
+          detailBuilder()
+        ],
+      ),
+    );
+  }
+}
 
-            Container(
-              child: Column(
-                children: <Widget>[
-                  Text('Tell your world', style: Theme.of(context).textTheme.title),
-                  Text('kz(livetune)')
-                ],
-              ),
+class StaticHeroContent extends StatelessWidget {
+
+  final String title;
+  final String thumbUrl;
+  final String tag;
+
+  const StaticHeroContent({Key key, this.title, this.thumbUrl, this.tag}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SliverAppBar(
+      expandedHeight: 200.0,
+      flexibleSpace: FlexibleSpaceBar(
+        background: SafeArea(
+          child: Container(
+              child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Hero(
+                    tag: this.tag,
+                    child: SizedBox(
+                      width: 120,
+                      height: 120,
+                      child: Image.network(this.thumbUrl),
+                    )),
+                SizedBox(
+                  height: 16,
+                ),
+                Text(this.title, style: Theme.of(context).textTheme.title),
+              ],
             ),
-
-          SpaceDivider(),
-
-            ActionBar(
-                actions: <ActionButton> [
-                  LikeActionButton(),
-                  ShareActionButton(),
-                  SourceActionButton(),
-                ]
-            ),
-
-            SpaceDivider(),
-
-            Tags(),
-
-            SpaceDivider(),
-
-            AdditionInfo(title: 'Type', value: 'Original'),
-            AdditionInfo(title: 'Released', value: '12/03/2012'),
-
-            SpaceDivider(),
-
-            Container(
-              child: Column(
-                children: tracks,
-              )
-            )
-          ],
+          )),
         ),
       ),
     );
@@ -100,36 +151,34 @@ class _AlbumDetailPageState extends State<AlbumDetailPage> {
 }
 
 class Track extends StatelessWidget {
-
   final int trackNumber;
 
   final String name;
 
   final String artist;
 
-  const Track({Key key, this.trackNumber, this.name, this.artist}): super(key: key);
+  const Track({Key key, this.trackNumber, this.name, this.artist})
+      : super(key: key);
 
   factory Track.parseMap(Map<String, Object> map, {Key key}) {
-    return Track(key: key, trackNumber: map['trackNumber'], name: map['name'], artist: 'Unknown artist');
+    return Track(
+        key: key,
+        trackNumber: map['trackNumber'],
+        name: map['name'],
+        artist: 'Unknown artist');
   }
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
-        leading: Text(this.trackNumber.toString()),
-        title: Text(
-            this.name,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis
-        ),
-        subtitle: Text(this.artist, maxLines: 1, overflow: TextOverflow.ellipsis),
+      leading: Text(this.trackNumber.toString()),
+      title: Text(this.name, maxLines: 1, overflow: TextOverflow.ellipsis),
+      subtitle: Text(this.artist, maxLines: 1, overflow: TextOverflow.ellipsis),
     );
   }
 }
 
-
 class HeroContent extends StatelessWidget {
-
   final String tag;
 
   final String thumbUrl;
@@ -149,7 +198,7 @@ class HeroContent extends StatelessWidget {
             imageUrl: this.thumbUrl,
             placeholder: (context, url) => Container(color: Colors.grey),
             errorWidget: (context, url, error) => new Icon(Icons.error),
-        ),
+          ),
         ),
       ),
     );
@@ -274,7 +323,7 @@ const rawTracks = [
     "song": {
       "artistString": "kz feat. 初音ミク",
       "createDate": "2012-03-13T19:18:09",
-      "defaultName": "ジュビリー",
+      "defaultName": "��ュビリー",
       "defaultNameLanguage": "Japanese",
       "favoritedTimes": 4,
       "id": 10021,
