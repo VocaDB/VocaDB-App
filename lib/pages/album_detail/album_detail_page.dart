@@ -1,11 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:vocadb/models/album.dart';
+import 'package:vocadb/models/track.dart';
 import 'package:vocadb/services/web_service.dart';
 import 'package:vocadb/widgets/space_divider.dart';
 import 'package:vocadb/widgets/tags.dart';
 import "package:collection/collection.dart";
-import 'package:vocadb/widgets/track.dart';
+import 'package:vocadb/widgets/album_track.dart';
 
 class AlbumDetailPage extends StatelessWidget {
   final int id;
@@ -40,32 +41,13 @@ class AlbumDetailContent extends StatefulWidget {
 }
 
 class _AlbumDetailContentState extends State<AlbumDetailContent> {
-  List<Widget> tracks;
-
   @override
   void initState() {
     super.initState();
-
-    var groupTracks = groupBy(rawTracks, (t) => t["discNumber"]);
-
-    this.tracks = List();
-
-    groupTracks.forEach(initialTracksByDisc);
-  }
-
-  void initialTracksByDisc(disc, List<Map<String, Object>> tracks) {
-    this.tracks.add(Text('Disc $disc'));
-
-    var discTracks = tracks.map((t) => Track.parseMap(t)).toList();
-
-    this.tracks.addAll(discTracks);
-    this.tracks.add(SpaceDivider());
   }
 
   buildHasData(Album album) {
-    return SliverList(
-      delegate: SliverChildListDelegate.fixed(detailWidgets(album)),
-    );
+    return SliverList(delegate: SliverChildListDelegate(detailWidgets(album)));
   }
 
   buildError() {
@@ -81,21 +63,75 @@ class _AlbumDetailContentState extends State<AlbumDetailContent> {
   }
 
   List<Widget> detailWidgets(Album album) {
-    return [
+    List<Widget> widgets = [
       SpaceDivider(),
       Tags(),
       SpaceDivider(),
-      Container(
-          child: Column(
-        children: tracks,
-      ))
+      AlbumTracksWidget(album.id),
     ];
+    return widgets;
   }
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<Album>(
       future: WebService().load(Album.byId(widget.id)),
+      builder: (context, snapshot) {
+        if (snapshot.hasData)
+          return buildHasData(snapshot.data);
+        else if (snapshot.hasError) return buildError();
+
+        return buildDefault();
+      },
+    );
+  }
+}
+
+class AlbumTracksWidget extends StatefulWidget {
+  final int id;
+
+  const AlbumTracksWidget(this.id);
+
+  @override
+  _AlbumTracksWidgetState createState() => _AlbumTracksWidgetState();
+}
+
+class _AlbumTracksWidgetState extends State<AlbumTracksWidget> {
+  buildHasData(List<Track> tracks) {
+    List<Widget> widgets = List();
+
+    var groupTracks = groupBy(tracks, (t) => t.discNumber);
+
+    groupTracks.forEach((disc, List<Track> t) {
+      widgets.add(Text("Disc $disc"));
+
+      var discTracks = tracks.map((t) => AlbumTrack(t)).toList();
+
+      widgets.addAll(discTracks);
+      widgets.add(SpaceDivider());
+    });
+
+    return Container(
+      child: Column(
+        children: widgets,
+      ),
+    );
+  }
+
+  buildError() {
+    return Container(
+      child: Text('Error loading tracks'),
+    );
+  }
+
+  buildDefault() {
+    return Container();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<List<Track>>(
+      future: WebService().load(Album.getTracks(widget.id)),
       builder: (context, snapshot) {
         if (snapshot.hasData)
           return buildHasData(snapshot.data);

@@ -48,10 +48,19 @@ class Album {
 
   static Resource<Album> byId(int id) {
     return Resource(
-        url: 'https://vocadb.net/api/albums/$id',
+        url: 'https://vocadb.net/api/albums/$id?',
         parse: (response) {
           final result = json.decode(response.body);
           return Album.fromJson(result);
+        });
+  }
+
+  static Resource<List<Track>> getTracks(int id) {
+    return Resource(
+        url: 'https://vocadb.net/api/albums/$id/tracks',
+        parse: (response) {
+          Iterable result = json.decode(response.body);
+          return result.map((model) => Track.fromJson(model)).toList();
         });
   }
 
