@@ -2,12 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:vocadb/models/album.dart';
 import 'package:vocadb/services/web_service.dart';
-import 'package:vocadb/widgets/action_bar.dart';
-import 'package:vocadb/widgets/action_button.dart';
-import 'package:vocadb/widgets/addition_info.dart';
-import 'package:vocadb/widgets/like_action_button.dart';
-import 'package:vocadb/widgets/share_action_button.dart';
-import 'package:vocadb/widgets/source_action_button.dart';
 import 'package:vocadb/widgets/space_divider.dart';
 import 'package:vocadb/widgets/tags.dart';
 import "package:collection/collection.dart";
@@ -22,30 +16,13 @@ class AlbumDetailPage extends StatelessWidget {
   const AlbumDetailPage({Key key, this.id, this.name, this.thumbUrl, this.tag})
       : super(key: key);
 
-   @override
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(title: Text(this.name)),
       body: CustomScrollView(
         slivers: <Widget>[
-          SliverAppBar(
-            pinned: true,
-            centerTitle: false,
-            expandedHeight: 260,
-            flexibleSpace: FlexibleSpaceBar(
-              title: Text(this.name, overflow: TextOverflow.ellipsis, maxLines: 2),
-              background: SafeArea(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    SizedBox(
-                      width: 120,
-                      height: 120,
-                      child: HeroContent(this.thumbUrl, this.tag))
-                  ],
-                ),
-              ),
-            ),
-          ),
+          HeroContent(this.thumbUrl, this.tag),
           AlbumDetailContent(this.id),
         ],
       ),
@@ -54,17 +31,15 @@ class AlbumDetailPage extends StatelessWidget {
 }
 
 class AlbumDetailContent extends StatefulWidget {
-
   final int id;
 
   const AlbumDetailContent(this.id);
-  
+
   @override
   _AlbumDetailContentState createState() => _AlbumDetailContentState();
 }
 
 class _AlbumDetailContentState extends State<AlbumDetailContent> {
-
   List<Widget> tracks;
 
   @override
@@ -78,7 +53,7 @@ class _AlbumDetailContentState extends State<AlbumDetailContent> {
     groupTracks.forEach(initialTracksByDisc);
   }
 
-    void initialTracksByDisc(disc, List<Map<String, Object>> tracks) {
+  void initialTracksByDisc(disc, List<Map<String, Object>> tracks) {
     this.tracks.add(Text('Disc $disc'));
 
     var discTracks = tracks.map((t) => Track.parseMap(t)).toList();
@@ -107,16 +82,8 @@ class _AlbumDetailContentState extends State<AlbumDetailContent> {
 
   List<Widget> detailWidgets(Album album) {
     return [
-      ActionBar(actions: <ActionButton>[
-        LikeActionButton(),
-        ShareActionButton(),
-        SourceActionButton(),
-      ]),
       SpaceDivider(),
       Tags(),
-      SpaceDivider(),
-      AdditionInfo(title: 'Type', value: 'Original'),
-      AdditionInfo(title: 'Released', value: '12/03/2012'),
       SpaceDivider(),
       Container(
           child: Column(
@@ -130,8 +97,9 @@ class _AlbumDetailContentState extends State<AlbumDetailContent> {
     return FutureBuilder<Album>(
       future: WebService().load(Album.byId(widget.id)),
       builder: (context, snapshot) {
-        if(snapshot.hasData) return buildHasData(snapshot.data);
-        else if(snapshot.hasError) return buildError();
+        if (snapshot.hasData)
+          return buildHasData(snapshot.data);
+        else if (snapshot.hasError) return buildError();
 
         return buildDefault();
       },
@@ -149,16 +117,31 @@ class HeroContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Hero(
-        tag: this.tag,
-        child: CachedNetworkImage(
-          imageUrl: this.thumbUrl,
-          placeholder: (context, url) => Container(color: Colors.grey),
-          errorWidget: (context, url, error) => new Icon(Icons.error),
-        ));
+    return SliverPadding(
+      padding: EdgeInsets.all(16.0),
+      sliver: SliverToBoxAdapter(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Container(
+                width: 160,
+                height: 160,
+                child: Hero(
+                    tag: this.tag,
+                    child: CachedNetworkImage(
+                      imageUrl: this.thumbUrl,
+                      placeholder: (context, url) =>
+                          Container(color: Colors.grey),
+                      errorWidget: (context, url, error) =>
+                          new Icon(Icons.error),
+                    )))
+          ],
+        ),
+      ),
+    );
   }
 }
-
 
 const rawTracks = [
   {
