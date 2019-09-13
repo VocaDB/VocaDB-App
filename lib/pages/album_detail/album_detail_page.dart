@@ -8,12 +8,12 @@ import 'package:vocadb/widgets/addition_info.dart';
 import 'package:vocadb/widgets/like_action_button.dart';
 import 'package:vocadb/widgets/share_action_button.dart';
 import 'package:vocadb/widgets/source_action_button.dart';
-import "package:collection/collection.dart";
 import 'package:vocadb/widgets/space_divider.dart';
 import 'package:vocadb/widgets/tags.dart';
+import "package:collection/collection.dart";
+import 'package:vocadb/widgets/track.dart';
 
-class AlbumDetailPage extends StatefulWidget {
-
+class AlbumDetailPage extends StatelessWidget {
   final int id;
   final String name;
   final String thumbUrl;
@@ -22,11 +22,49 @@ class AlbumDetailPage extends StatefulWidget {
   const AlbumDetailPage({Key key, this.id, this.name, this.thumbUrl, this.tag})
       : super(key: key);
 
-  @override
-  _AlbumDetailPageState createState() => _AlbumDetailPageState();
+   @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: CustomScrollView(
+        slivers: <Widget>[
+          SliverAppBar(
+            pinned: true,
+            centerTitle: false,
+            expandedHeight: 260,
+            flexibleSpace: FlexibleSpaceBar(
+              title: Text(this.name, overflow: TextOverflow.ellipsis, maxLines: 2),
+              background: SafeArea(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    SizedBox(
+                      width: 120,
+                      height: 120,
+                      child: HeroContent(this.thumbUrl, this.tag))
+                  ],
+                ),
+              ),
+            ),
+          ),
+          AlbumDetailContent(this.id),
+        ],
+      ),
+    );
+  }
 }
 
-class _AlbumDetailPageState extends State<AlbumDetailPage> {
+class AlbumDetailContent extends StatefulWidget {
+
+  final int id;
+
+  const AlbumDetailContent(this.id);
+  
+  @override
+  _AlbumDetailContentState createState() => _AlbumDetailContentState();
+}
+
+class _AlbumDetailContentState extends State<AlbumDetailContent> {
+
   List<Widget> tracks;
 
   @override
@@ -40,7 +78,7 @@ class _AlbumDetailPageState extends State<AlbumDetailPage> {
     groupTracks.forEach(initialTracksByDisc);
   }
 
-  void initialTracksByDisc(disc, List<Map<String, Object>> tracks) {
+    void initialTracksByDisc(disc, List<Map<String, Object>> tracks) {
     this.tracks.add(Text('Disc $disc'));
 
     var discTracks = tracks.map((t) => Track.parseMap(t)).toList();
@@ -49,37 +87,26 @@ class _AlbumDetailPageState extends State<AlbumDetailPage> {
     this.tracks.add(SpaceDivider());
   }
 
-  Widget detailBuilder() {
-    return FutureBuilder<Album>(
-      future: WebService().load(Album.byId(widget.id)),
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          return detailContent(snapshot.data);
-        } else if (snapshot.hasError) {
-          return SliverList(
-            delegate:
-                SliverChildListDelegate.fixed([Text("${snapshot.error}")]),
-          );
-        }
-
-        // By default, show a loading spinner.
-        return SliverList(
-          delegate:
-              SliverChildListDelegate.fixed([]),
-        );
-      },
-    );
-  }
-
-  Widget detailContent(Album album) {
+  buildHasData(Album album) {
     return SliverList(
       delegate: SliverChildListDelegate.fixed(detailWidgets(album)),
     );
   }
 
+  buildError() {
+    return SliverFillRemaining(
+      child: Center(
+        child: Text('Error...'),
+      ),
+    );
+  }
+
+  buildDefault() {
+    return SliverFillRemaining();
+  }
+
   List<Widget> detailWidgets(Album album) {
     return [
-      SpaceDivider(),
       ActionBar(actions: <ActionButton>[
         LikeActionButton(),
         ShareActionButton(),
@@ -100,110 +127,38 @@ class _AlbumDetailPageState extends State<AlbumDetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: CustomScrollView(
-        slivers: <Widget>[
-          StaticHeroContent(title: widget.name, tag: widget.tag, thumbUrl: widget.thumbUrl),
-          detailBuilder()
-        ],
-      ),
-    );
-  }
-}
+    return FutureBuilder<Album>(
+      future: WebService().load(Album.byId(widget.id)),
+      builder: (context, snapshot) {
+        if(snapshot.hasData) return buildHasData(snapshot.data);
+        else if(snapshot.hasError) return buildError();
 
-class StaticHeroContent extends StatelessWidget {
-
-  final String title;
-  final String thumbUrl;
-  final String tag;
-
-  const StaticHeroContent({Key key, this.title, this.thumbUrl, this.tag}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return SliverAppBar(
-      expandedHeight: 200.0,
-      flexibleSpace: FlexibleSpaceBar(
-        background: SafeArea(
-          child: Container(
-              child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Hero(
-                    tag: this.tag,
-                    child: SizedBox(
-                      width: 120,
-                      height: 120,
-                      child: Image.network(this.thumbUrl),
-                    )),
-                SizedBox(
-                  height: 16,
-                ),
-                Text(this.title, style: Theme.of(context).textTheme.title),
-              ],
-            ),
-          )),
-        ),
-      ),
-    );
-  }
-}
-
-class Track extends StatelessWidget {
-  final int trackNumber;
-
-  final String name;
-
-  final String artist;
-
-  const Track({Key key, this.trackNumber, this.name, this.artist})
-      : super(key: key);
-
-  factory Track.parseMap(Map<String, Object> map, {Key key}) {
-    return Track(
-        key: key,
-        trackNumber: map['trackNumber'],
-        name: map['name'],
-        artist: 'Unknown artist');
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      leading: Text(this.trackNumber.toString()),
-      title: Text(this.name, maxLines: 1, overflow: TextOverflow.ellipsis),
-      subtitle: Text(this.artist, maxLines: 1, overflow: TextOverflow.ellipsis),
+        return buildDefault();
+      },
     );
   }
 }
 
 class HeroContent extends StatelessWidget {
+  final String thumbUrl;
   final String tag;
 
-  final String thumbUrl;
-
-  const HeroContent({Key key, this.tag, this.thumbUrl}) : super(key: key);
+  const HeroContent(String thumbUrl, String tag)
+      : this.tag = tag,
+        this.thumbUrl = thumbUrl;
 
   @override
   Widget build(BuildContext context) {
     return Hero(
-      tag: this.tag,
-      child: Container(
-        margin: EdgeInsets.all(8.0),
-        child: SizedBox(
-          width: 300,
-          height: 150,
-          child: CachedNetworkImage(
-            imageUrl: this.thumbUrl,
-            placeholder: (context, url) => Container(color: Colors.grey),
-            errorWidget: (context, url, error) => new Icon(Icons.error),
-          ),
-        ),
-      ),
-    );
+        tag: this.tag,
+        child: CachedNetworkImage(
+          imageUrl: this.thumbUrl,
+          placeholder: (context, url) => Container(color: Colors.grey),
+          errorWidget: (context, url, error) => new Icon(Icons.error),
+        ));
   }
 }
+
 
 const rawTracks = [
   {
