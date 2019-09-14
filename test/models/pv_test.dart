@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:vocadb/models/pv.dart';
+import 'package:vocadb/models/pv_model.dart';
 
 void main() {
   group('PV', () {
@@ -11,7 +11,7 @@ void main() {
         "url": "https://youtube.com",
       };
 
-      PV result = PV.fromJson(mockJson);
+      PVModel result = PVModel.fromJson(mockJson);
       expect(result.id, 1);
       expect(result.name, "Melt");
       expect(result.service, "Youtube");
@@ -19,7 +19,7 @@ void main() {
     });
 
     test('should not thrown exception when input empty json', () {
-      PV result = PV.fromJson({});
+      PVModel result = PVModel.fromJson({});
       expect(result, isNotNull);
     });
   });

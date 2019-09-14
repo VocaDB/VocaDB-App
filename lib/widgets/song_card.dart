@@ -1,30 +1,34 @@
 import 'package:flutter/material.dart';
-import 'package:vocadb/models/song.dart';
+import 'package:vocadb/models/song_model.dart';
 import 'package:vocadb/pages/song_detail/song_detail_page.dart';
 
 class SongCard extends StatelessWidget {
-
   final int id;
   final String title;
   final String artist;
   final String thumbUrl;
 
-  const SongCard({Key key, this.id, this.title, this.artist, this.thumbUrl}) : super(key: key);
+  const SongCard({Key key, this.id, this.title, this.artist, this.thumbUrl})
+      : super(key: key);
 
-  SongCard.song(Song song) : id = song.id,
-  title = song.name, 
-  artist = song.artistString, 
-  thumbUrl = song.thumbUrl;
+  SongCard.song(SongModel song)
+      : id = song.id,
+        title = song.name,
+        artist = song.artistString,
+        thumbUrl = song.thumbUrl;
 
   @override
   Widget build(BuildContext context) {
-
     String tag = this.id.toString() + this.key.toString();
 
     return Material(
       child: InkWell(
         onTap: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => SongDetailPage(thumbUrl: this.thumbUrl, tag: tag)));
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) =>
+                      SongDetailPage(thumbUrl: this.thumbUrl, tag: tag)));
         },
         child: Container(
           width: 130,
@@ -37,8 +41,7 @@ class SongCard extends StatelessWidget {
                 color: Colors.black,
                 child: FittedBox(
                     fit: BoxFit.fitWidth,
-                    child:
-                        Hero(tag: tag, child: Image.network(this.thumbUrl))),
+                    child: Hero(tag: tag, child: Image.network(this.thumbUrl))),
               ),
               Container(
                 height: 4,

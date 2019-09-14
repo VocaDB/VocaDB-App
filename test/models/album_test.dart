@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:vocadb/models/album.dart';
+import 'package:vocadb/models/album_model.dart';
 
 void main() {
   group('Album', () {
@@ -17,7 +17,7 @@ void main() {
         ],
       };
 
-      Album result = Album.fromJson(mockJson);
+      AlbumModel result = AlbumModel.fromJson(mockJson);
       expect(result.id, 1);
       expect(result.name, "abc");
       expect(result.artistString, "def");
@@ -27,7 +27,7 @@ void main() {
     });
 
     test('should not thrown exception when input empty json', () {
-      Album result = Album.fromJson({});
+      AlbumModel result = AlbumModel.fromJson({});
       expect(result, isNotNull);
       expect(result.mainPicture, isNull);
       expect(result.tracks, isNull);

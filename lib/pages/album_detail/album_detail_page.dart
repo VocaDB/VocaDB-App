@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:vocadb/models/album.dart';
-import 'package:vocadb/models/track.dart';
+import 'package:vocadb/models/album_model.dart';
+import 'package:vocadb/models/track_model.dart';
 import 'package:vocadb/services/web_service.dart';
 import 'package:vocadb/widgets/space_divider.dart';
 import 'package:vocadb/widgets/tags.dart';
@@ -49,7 +49,7 @@ class _AlbumDetailContentState extends State<AlbumDetailContent> {
     super.initState();
   }
 
-  buildHasData(Album album) {
+  buildHasData(AlbumModel album) {
     return SliverList(delegate: SliverChildListDelegate(detailWidgets(album)));
   }
 
@@ -65,7 +65,7 @@ class _AlbumDetailContentState extends State<AlbumDetailContent> {
     return SliverFillRemaining();
   }
 
-  List<Widget> detailWidgets(Album album) {
+  List<Widget> detailWidgets(AlbumModel album) {
     List<Widget> widgets = [
       SpaceDivider(),
       Tags(),
@@ -77,8 +77,8 @@ class _AlbumDetailContentState extends State<AlbumDetailContent> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<Album>(
-      future: WebService().load(Album.byId(widget.id)),
+    return FutureBuilder<AlbumModel>(
+      future: WebService().load(AlbumModel.byId(widget.id)),
       builder: (context, snapshot) {
         if (snapshot.hasData)
           return buildHasData(snapshot.data);
@@ -94,11 +94,11 @@ class _AlbumDetailContentState extends State<AlbumDetailContent> {
 }
 
 class TrackList extends StatelessWidget {
-  final List<Track> tracks;
+  final List<TrackModel> tracks;
 
   const TrackList(this.tracks);
 
-  buildHasData(List<Track> tracks) {
+  buildHasData(List<TrackModel> tracks) {
     List<Widget> widgets = List();
 
     var groupTracks = groupBy(tracks, (t) => t.discNumber);
@@ -109,7 +109,7 @@ class TrackList extends StatelessWidget {
       widgets.addAll(discTracks);
       widgets.add(SpaceDivider());
     } else {
-      groupTracks.forEach((disc, List<Track> t) {
+      groupTracks.forEach((disc, List<TrackModel> t) {
         widgets.add(Text("Disc $disc"));
 
         var discTracks = tracks.map((t) => AlbumTrack(t)).toList();

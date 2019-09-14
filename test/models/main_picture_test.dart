@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:vocadb/models/main_picture.dart';
+import 'package:vocadb/models/main_picture_model.dart';
 
 void main() {
   group('MainPicture', () {
@@ -11,7 +11,7 @@ void main() {
         "urlTinyThumb": "https://3",
       };
 
-      MainPicture result = MainPicture.fromJson(mockJson);
+      MainPictureModel result = MainPictureModel.fromJson(mockJson);
       expect(result.meme, "jpeg");
       expect(result.urlSmallThumb, "https://1");
       expect(result.urlThumb, "https://2");
@@ -19,7 +19,7 @@ void main() {
     });
 
     test('should not thrown exception when input empty json', () {
-      MainPicture result = MainPicture.fromJson({});
+      MainPictureModel result = MainPictureModel.fromJson({});
       expect(result, isNotNull);
     });
   });

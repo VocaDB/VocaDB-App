@@ -1,56 +1,58 @@
 import 'dart:convert';
 
-import 'package:vocadb/models/main_picture.dart';
-import 'package:vocadb/models/track.dart';
+import 'package:vocadb/models/main_picture_model.dart';
+import 'package:vocadb/models/track_model.dart';
 import 'package:vocadb/services/web_service.dart';
 
-class Album {
+class AlbumModel {
   int id;
   String name;
   String defaultName;
   String artistString;
-  MainPicture mainPicture;
-  List<Track> tracks;
+  MainPictureModel mainPicture;
+  List<TrackModel> tracks;
 
-  Album();
+  AlbumModel();
 
-  Album.fromJson(Map<String, dynamic> json)
+  AlbumModel.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         name = json['name'],
         defaultName = json['defaultName'],
         artistString = json['artistString'],
         mainPicture = json.containsKey('mainPicture')
-            ? MainPicture.fromJson(json['mainPicture'])
+            ? MainPictureModel.fromJson(json['mainPicture'])
             : null,
         tracks = (json.containsKey('tracks'))
-            ? (json['tracks'] as List)?.map((d) => Track.fromJson(d))?.toList()
+            ? (json['tracks'] as List)
+                ?.map((d) => TrackModel.fromJson(d))
+                ?.toList()
             : null;
 
-  static Resource<List<Album>> get all {
+  static Resource<List<AlbumModel>> get all {
     return Resource(
         url: 'https://vocadb.net/api/albums/new?fields=MainPicture',
         parse: (response) {
           Iterable result = json.decode(response.body);
-          return result.map((model) => Album.fromJson(model)).toList();
+          return result.map((model) => AlbumModel.fromJson(model)).toList();
         });
   }
 
-  static Resource<List<Album>> get top {
+  static Resource<List<AlbumModel>> get top {
     return Resource(
         url: 'https://vocadb.net/api/albums/top?fields=MainPicture',
         parse: (response) {
           Iterable result = json.decode(response.body);
-          return result.map((model) => Album.fromJson(model)).toList();
+          return result.map((model) => AlbumModel.fromJson(model)).toList();
         });
   }
 
-  static Resource<Album> byId(int id) {
+  static Resource<AlbumModel> byId(int id) {
     print(id);
     return Resource(
         url: 'https://vocadb.net/api/albums/$id?fields=Tracks',
         parse: (response) {
           final result = json.decode(response.body);
-          return Album.fromJson(result);
+          return AlbumModel.fromJson(result);
         });
   }
 

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vocadb/models/song.dart';
+import 'package:vocadb/models/song_model.dart';
 import 'package:vocadb/services/web_service.dart';
 import 'package:vocadb/widgets/section.dart';
 import 'package:vocadb/widgets/song_card.dart';
@@ -10,10 +10,9 @@ class HighlightedList extends StatefulWidget {
 }
 
 class _HighlightedListState extends State<HighlightedList> {
-
   List<SongCard> highlightedSongs;
 
-  List<Song> _songs = List<Song>(); 
+  List<SongModel> _songs = List<SongModel>();
 
   @override
   void initState() {
@@ -22,11 +21,9 @@ class _HighlightedListState extends State<HighlightedList> {
   }
 
   void _fetch() {
-    WebService().load(Song.all).then((songs) => {
-      setState(() => {
-        _songs = songs
-      })
-    });
+    WebService().load(SongModel.all).then((songs) => {
+          setState(() => {_songs = songs})
+        });
   }
 
   List<Widget> _buildSongCardList() {
@@ -36,9 +33,6 @@ class _HighlightedListState extends State<HighlightedList> {
   @override
   Widget build(BuildContext context) {
     return Section(
-              title: 'Highlighted',
-              horizontal: true,
-              children: _buildSongCardList()
-    );
+        title: 'Highlighted', horizontal: true, children: _buildSongCardList());
   }
 }

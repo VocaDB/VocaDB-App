@@ -1,11 +1,9 @@
-
 import 'package:flutter/material.dart';
 import 'package:vocadb/pages/main/highlighted_list.dart';
 import 'package:vocadb/pages/main/latest_album_list.dart';
 import 'package:vocadb/pages/main/top_album_list.dart';
 import 'package:vocadb/pages/youtube_playlist/youtube_playlist_page.dart';
 import 'package:vocadb/widgets/album_card.dart';
-import 'package:vocadb/widgets/section.dart';
 import 'package:vocadb/pages/search/search_page.dart';
 
 class HomeTab extends StatefulWidget {
@@ -14,7 +12,6 @@ class HomeTab extends StatefulWidget {
 }
 
 class _HomeTabState extends State<HomeTab> {
-
   List<AlbumCard> latestAlbums;
 
   List<AlbumCard> randomAlbums;
@@ -22,8 +19,24 @@ class _HomeTabState extends State<HomeTab> {
   @override
   void initState() {
     super.initState();
-    latestAlbums = mockAlbums.map((s) => AlbumCard(key: UniqueKey(), id: s['id'], name: s['name'], artist: s['artistString'], thumbUrl: 'https://vocadb.net/Album/CoverPicture/' + s['id'].toString())).toList();
-    randomAlbums = mockAlbums.map((s) => AlbumCard(key: UniqueKey(), id: s['id'], name: s['name'], artist: s['artistString'], thumbUrl: 'https://vocadb.net/Album/CoverPicture/' + s['id'].toString())).toList();
+    latestAlbums = mockAlbums
+        .map((s) => AlbumCard(
+            key: UniqueKey(),
+            id: s['id'],
+            name: s['name'],
+            artist: s['artistString'],
+            thumbUrl:
+                'https://vocadb.net/Album/CoverPicture/' + s['id'].toString()))
+        .toList();
+    randomAlbums = mockAlbums
+        .map((s) => AlbumCard(
+            key: UniqueKey(),
+            id: s['id'],
+            name: s['name'],
+            artist: s['artistString'],
+            thumbUrl:
+                'https://vocadb.net/Album/CoverPicture/' + s['id'].toString()))
+        .toList();
   }
 
   @override
@@ -37,7 +50,10 @@ class _HomeTabState extends State<HomeTab> {
           ),
           RaisedButton(
             onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => YoutubePlaylistPage()));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => YoutubePlaylistPage()));
             },
             child: Text('Playlist'),
           ),
@@ -61,9 +77,7 @@ class SearchBar extends StatelessWidget {
         child: InkWell(
           onTap: () {
             Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => SearchPage()));
+                context, MaterialPageRoute(builder: (context) => SearchPage()));
           },
           child: Padding(
             padding: EdgeInsets.all(12.0),
@@ -76,7 +90,6 @@ class SearchBar extends StatelessWidget {
     );
   }
 }
-
 
 const mockSongs = [
   {
@@ -231,7 +244,6 @@ const mockSongs = [
     "thumbUrl": "https://i.ytimg.com/vi/AKffZySqQts/default.jpg",
   }
 ];
-
 
 const mockAlbums = [
   {

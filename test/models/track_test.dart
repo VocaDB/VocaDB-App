@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:vocadb/models/track.dart';
+import 'package:vocadb/models/track_model.dart';
 
 void main() {
   group('Track', () {
@@ -12,7 +12,7 @@ void main() {
         "song": {"id": 4, "name": "melt"},
       };
 
-      Track result = Track.fromJson(mockJson);
+      TrackModel result = TrackModel.fromJson(mockJson);
       expect(result.id, 1);
       expect(result.name, "abc");
       expect(result.trackNumber, 2);
@@ -23,7 +23,7 @@ void main() {
     });
 
     test('should not thrown exception when input empty json', () {
-      Track result = Track.fromJson({});
+      TrackModel result = TrackModel.fromJson({});
       expect(result, isNotNull);
       expect(result.song, isNull);
     });

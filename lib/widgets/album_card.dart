@@ -1,25 +1,25 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:vocadb/models/album.dart';
+import 'package:vocadb/models/album_model.dart';
 import 'package:vocadb/pages/album_detail/album_detail_page.dart';
 
 class AlbumCard extends StatelessWidget {
-
   final int id;
   final String name;
   final String artist;
   final String thumbUrl;
 
-  const AlbumCard({Key key, this.id, this.name, this.artist, this.thumbUrl}) : super(key: key);
+  const AlbumCard({Key key, this.id, this.name, this.artist, this.thumbUrl})
+      : super(key: key);
 
-  AlbumCard.album(Album album) : id = album.id,
-  name = album.name, 
-  artist = album.artistString, 
-  thumbUrl = album.imageurl;
+  AlbumCard.album(AlbumModel album)
+      : id = album.id,
+        name = album.name,
+        artist = album.artistString,
+        thumbUrl = album.imageurl;
 
   @override
   Widget build(BuildContext context) {
-
     String tag = this.key.toString() + "_" + this.id.toString();
 
     return Material(
@@ -28,7 +28,11 @@ class AlbumCard extends StatelessWidget {
           Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => AlbumDetailPage(id: this.id, name: this.name, thumbUrl: this.thumbUrl, tag: tag)));
+                  builder: (context) => AlbumDetailPage(
+                      id: this.id,
+                      name: this.name,
+                      thumbUrl: this.thumbUrl,
+                      tag: tag)));
         },
         child: Container(
           width: 130,
@@ -41,12 +45,14 @@ class AlbumCard extends StatelessWidget {
                 color: Colors.black,
                 child: FittedBox(
                     fit: BoxFit.fitWidth,
-                    child:
-                        Hero(tag: tag, child: CachedNetworkImage(
-            imageUrl: this.thumbUrl,
-            placeholder: (context, url) => Container(color: Colors.grey),
-            errorWidget: (context, url, error) => Placeholder(),
-        ))),
+                    child: Hero(
+                        tag: tag,
+                        child: CachedNetworkImage(
+                          imageUrl: this.thumbUrl,
+                          placeholder: (context, url) =>
+                              Container(color: Colors.grey),
+                          errorWidget: (context, url, error) => Placeholder(),
+                        ))),
               ),
               Container(
                 height: 4,

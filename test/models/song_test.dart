@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:vocadb/models/pv.dart';
-import 'package:vocadb/models/song.dart';
+import 'package:vocadb/models/pv_model.dart';
+import 'package:vocadb/models/song_model.dart';
 
 void main() {
   group('Song', () {
@@ -19,13 +19,13 @@ void main() {
         ],
       };
 
-      Song result = Song.fromJson(mockJson);
+      SongModel result = SongModel.fromJson(mockJson);
       expect(result.id, 1);
       expect(result.name, "song1");
       expect(result.artistString, "test_artist");
       expect(result.pvs.length, 1);
 
-      PV pv = result.pvs[0];
+      PVModel pv = result.pvs[0];
       expect(pv.id, 12);
       expect(pv.name, "abc");
       expect(pv.service, "youtube");
@@ -33,7 +33,7 @@ void main() {
     });
 
     test('should not thrown exception when input empty json', () {
-      Song result = Song.fromJson({});
+      SongModel result = SongModel.fromJson({});
       expect(result, isNotNull);
     });
 
@@ -55,7 +55,7 @@ void main() {
         ]
       };
 
-      Song result = Song.fromJson(mockJson);
+      SongModel result = SongModel.fromJson(mockJson);
       expect(result.pvs.length, 2);
       expect(result.youtubePV, isNotNull);
       expect(result.youtubePV.url, 'https://youtube.com/abc');
@@ -73,7 +73,7 @@ void main() {
         ]
       };
 
-      Song result = Song.fromJson(mockJson);
+      SongModel result = SongModel.fromJson(mockJson);
       expect(result.pvs.length, 1);
       expect(result.youtubePV, isNull);
     });

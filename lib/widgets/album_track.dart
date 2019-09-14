@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:vocadb/models/track.dart';
+import 'package:vocadb/models/track_model.dart';
 
 class AlbumTrack extends StatelessWidget {
-  final Track track;
+  final TrackModel track;
 
   const AlbumTrack(this.track, {Key key}) : super(key: key);
 
