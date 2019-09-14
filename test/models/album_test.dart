@@ -32,5 +32,28 @@ void main() {
       expect(result.mainPicture, isNull);
       expect(result.tracks, isNull);
     });
+
+    test('should get list of tag model', () {
+      const mockJson = {
+        "tags": [
+          {
+            "count": 2,
+            "tag": {"id": 1, "name": "tag_1"}
+          },
+          {
+            "count": 3,
+            "tag": {"id": 2, "name": "tag_2"}
+          },
+          {
+            "count": 1,
+            "tag": {"id": 3, "name": "tag_3"}
+          }
+        ],
+      };
+      AlbumModel result = AlbumModel.fromJson(mockJson);
+      expect(result, isNotNull);
+      expect(result.tags, isNotNull);
+      expect(result.tags.length, 3);
+    });
   });
 }

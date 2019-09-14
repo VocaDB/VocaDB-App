@@ -1,6 +1,8 @@
 import 'dart:convert';
 
 import 'package:vocadb/models/main_picture_model.dart';
+import 'package:vocadb/models/tag_group_model.dart';
+import 'package:vocadb/models/tag_model.dart';
 import 'package:vocadb/models/track_model.dart';
 import 'package:vocadb/services/web_service.dart';
 
@@ -11,6 +13,7 @@ class AlbumModel {
   String artistString;
   MainPictureModel mainPicture;
   List<TrackModel> tracks;
+  List<TagGroupModel> tagGroups;
 
   AlbumModel();
 
@@ -25,6 +28,11 @@ class AlbumModel {
         tracks = (json.containsKey('tracks'))
             ? (json['tracks'] as List)
                 ?.map((d) => TrackModel.fromJson(d))
+                ?.toList()
+            : null,
+        tagGroups = (json.containsKey('tags'))
+            ? (json['tags'] as List)
+                ?.map((d) => TagGroupModel.fromJson(d))
                 ?.toList()
             : null;
 
@@ -49,7 +57,7 @@ class AlbumModel {
   static Resource<AlbumModel> byId(int id) {
     print(id);
     return Resource(
-        url: 'https://vocadb.net/api/albums/$id?fields=Tracks',
+        url: 'https://vocadb.net/api/albums/$id?fields=Tracks,Tags',
         parse: (response) {
           final result = json.decode(response.body);
           return AlbumModel.fromJson(result);
@@ -59,4 +67,7 @@ class AlbumModel {
   get imageurl => (mainPicture != null && mainPicture.urlThumb != null)
       ? mainPicture.urlThumb
       : '';
+
+  List<TagModel> get tags =>
+      (this.tagGroups != null) ? this.tagGroups.map((t) => t.tag).toList() : [];
 }

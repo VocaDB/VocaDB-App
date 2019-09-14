@@ -68,7 +68,7 @@ class _AlbumDetailContentState extends State<AlbumDetailContent> {
   List<Widget> detailWidgets(AlbumModel album) {
     List<Widget> widgets = [
       SpaceDivider(),
-      Tags(),
+      Tags(album.tags),
       SpaceDivider(),
       TrackList(album.tracks),
     ];

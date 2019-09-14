@@ -4,7 +4,6 @@ import 'package:vocadb/widgets/album_card.dart';
 import 'package:vocadb/widgets/pv_tile.dart';
 import 'package:vocadb/widgets/song_card.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
-import 'song_detail_content.dart';
 import 'package:vocadb/widgets/action_bar.dart';
 import 'package:vocadb/widgets/action_button.dart';
 import 'package:vocadb/widgets/addition_info.dart';
@@ -77,9 +76,7 @@ class _SongDetailPageState extends State<SongDetailPage> {
         SourceActionButton(),
       ]),
       SectionDivider(),
-      SongName(name: 'Tell Your World'),
-      SongType(songType: 'Original'),
-      Tags(),
+      Tags([]),
       AdditionInfo(title: 'Addition names', value: 'Test1'),
       AdditionInfo(title: 'Published', value: '12/03/2012'),
       SectionDivider(),
@@ -148,7 +145,7 @@ class _SongDetailPageState extends State<SongDetailPage> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-          appBar: AppBar(),
+      appBar: AppBar(),
       body: Column(
         children: <Widget>[
           YoutubePlayer(
