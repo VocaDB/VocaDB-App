@@ -11,7 +11,7 @@ class Tags extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.all(8.0),
-      child: Row(
+      child: Wrap(
         children: this._tags.map((t) => Tag(t)).toList(),
       ),
     );

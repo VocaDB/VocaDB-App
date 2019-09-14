@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:vocadb/models/album_model.dart';
 import 'package:vocadb/models/track_model.dart';
 import 'package:vocadb/services/web_service.dart';
+import 'package:vocadb/widgets/result.dart';
 import 'package:vocadb/widgets/space_divider.dart';
 import 'package:vocadb/widgets/tags.dart';
 import "package:collection/collection.dart";
@@ -53,16 +54,18 @@ class _AlbumDetailContentState extends State<AlbumDetailContent> {
     return SliverList(delegate: SliverChildListDelegate(detailWidgets(album)));
   }
 
-  buildError() {
+  buildError(String error) {
     return SliverFillRemaining(
-      child: Center(
-        child: Text('Error...'),
-      ),
+      child: Result.error('Something wrong!', subtitle: error),
     );
   }
 
   buildDefault() {
-    return SliverFillRemaining();
+    return SliverFillRemaining(
+      child: Center(
+        child: CircularProgressIndicator(),
+      ),
+    );
   }
 
   List<Widget> detailWidgets(AlbumModel album) {
@@ -83,8 +86,7 @@ class _AlbumDetailContentState extends State<AlbumDetailContent> {
         if (snapshot.hasData)
           return buildHasData(snapshot.data);
         else if (snapshot.hasError) {
-          print(snapshot.error.toString());
-          return buildError();
+          return buildError(snapshot.error);
         }
 
         return buildDefault();
