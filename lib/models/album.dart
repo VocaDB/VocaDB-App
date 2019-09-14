@@ -23,9 +23,7 @@ class Album {
             ? MainPicture.fromJson(json['mainPicture'])
             : null,
         tracks = (json.containsKey('tracks'))
-            ? (json['tracks'] as List<Map<String, dynamic>>)
-                ?.map((d) => Track.fromJson(d))
-                ?.toList()
+            ? (json['tracks'] as List)?.map((d) => Track.fromJson(d))?.toList()
             : null;
 
   static Resource<List<Album>> get all {
@@ -47,20 +45,12 @@ class Album {
   }
 
   static Resource<Album> byId(int id) {
+    print(id);
     return Resource(
-        url: 'https://vocadb.net/api/albums/$id?',
+        url: 'https://vocadb.net/api/albums/$id?fields=Tracks',
         parse: (response) {
           final result = json.decode(response.body);
           return Album.fromJson(result);
-        });
-  }
-
-  static Resource<List<Track>> getTracks(int id) {
-    return Resource(
-        url: 'https://vocadb.net/api/albums/$id/tracks',
-        parse: (response) {
-          Iterable result = json.decode(response.body);
-          return result.map((model) => Track.fromJson(model)).toList();
         });
   }
 

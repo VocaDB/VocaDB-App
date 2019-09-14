@@ -67,7 +67,7 @@ class _AlbumDetailContentState extends State<AlbumDetailContent> {
       SpaceDivider(),
       Tags(),
       SpaceDivider(),
-      AlbumTracksWidget(album.id),
+      TrackList(album.tracks),
     ];
     return widgets;
   }
@@ -79,7 +79,10 @@ class _AlbumDetailContentState extends State<AlbumDetailContent> {
       builder: (context, snapshot) {
         if (snapshot.hasData)
           return buildHasData(snapshot.data);
-        else if (snapshot.hasError) return buildError();
+        else if (snapshot.hasError) {
+          print(snapshot.error.toString());
+          return buildError();
+        }
 
         return buildDefault();
       },
@@ -87,16 +90,11 @@ class _AlbumDetailContentState extends State<AlbumDetailContent> {
   }
 }
 
-class AlbumTracksWidget extends StatefulWidget {
-  final int id;
+class TrackList extends StatelessWidget {
+  final List<Track> tracks;
 
-  const AlbumTracksWidget(this.id);
+  const TrackList(this.tracks);
 
-  @override
-  _AlbumTracksWidgetState createState() => _AlbumTracksWidgetState();
-}
-
-class _AlbumTracksWidgetState extends State<AlbumTracksWidget> {
   buildHasData(List<Track> tracks) {
     List<Widget> widgets = List();
 
@@ -130,16 +128,7 @@ class _AlbumTracksWidgetState extends State<AlbumTracksWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<Track>>(
-      future: WebService().load(Album.getTracks(widget.id)),
-      builder: (context, snapshot) {
-        if (snapshot.hasData)
-          return buildHasData(snapshot.data);
-        else if (snapshot.hasError) return buildError();
-
-        return buildDefault();
-      },
-    );
+    return (this.tracks != null) ? buildHasData(tracks) : buildDefault();
   }
 }
 
