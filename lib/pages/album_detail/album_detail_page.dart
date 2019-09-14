@@ -20,11 +20,14 @@ class AlbumDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(this.name)),
       body: CustomScrollView(
         slivers: <Widget>[
-          HeroContent(this.thumbUrl, this.tag),
-          AlbumDetailContent(this.id),
+          SliverAppBar(
+            floating: true,
+            title: Text(this.name),
+          ),
+          HeroContent(this.name, this.thumbUrl, this.tag),
+          AlbumDetailContent(this.id)
         ],
       ),
     );
@@ -100,14 +103,21 @@ class TrackList extends StatelessWidget {
 
     var groupTracks = groupBy(tracks, (t) => t.discNumber);
 
-    groupTracks.forEach((disc, List<Track> t) {
-      widgets.add(Text("Disc $disc"));
-
+    if (groupTracks.length < 2) {
       var discTracks = tracks.map((t) => AlbumTrack(t)).toList();
 
       widgets.addAll(discTracks);
       widgets.add(SpaceDivider());
-    });
+    } else {
+      groupTracks.forEach((disc, List<Track> t) {
+        widgets.add(Text("Disc $disc"));
+
+        var discTracks = tracks.map((t) => AlbumTrack(t)).toList();
+
+        widgets.addAll(discTracks);
+        widgets.add(SpaceDivider());
+      });
+    }
 
     return Container(
       child: Column(
@@ -133,12 +143,11 @@ class TrackList extends StatelessWidget {
 }
 
 class HeroContent extends StatelessWidget {
+  final String name;
   final String thumbUrl;
   final String tag;
 
-  const HeroContent(String thumbUrl, String tag)
-      : this.tag = tag,
-        this.thumbUrl = thumbUrl;
+  HeroContent(this.name, this.thumbUrl, this.tag);
 
   @override
   Widget build(BuildContext context) {
@@ -160,7 +169,11 @@ class HeroContent extends StatelessWidget {
                           Container(color: Colors.grey),
                       errorWidget: (context, url, error) =>
                           new Icon(Icons.error),
-                    )))
+                    ))),
+            SpaceDivider(),
+            Text(this.name,
+                style: Theme.of(context).textTheme.title,
+                overflow: TextOverflow.ellipsis),
           ],
         ),
       ),
