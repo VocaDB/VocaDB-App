@@ -168,11 +168,11 @@ class _SongDetailPageState extends State<SongDetailPage> {
     return FutureBuilder<SongModel>(
       future: WebService().load(SongModel.byId(widget.id)),
       builder: (context, snapshot) {
-//        if (snapshot.hasData)
-//          return buildHasData(snapshot.data);
-//        else if (snapshot.hasError) {
-//          return buildError(snapshot.error);
-//        }
+        if (snapshot.hasData)
+          return buildHasData(snapshot.data);
+        else if (snapshot.hasError) {
+          return buildError(snapshot.error);
+        }
 
         return buildDefault();
       },
