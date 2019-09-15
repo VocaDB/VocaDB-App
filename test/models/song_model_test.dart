@@ -1,14 +1,29 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:vocadb/models/pv_model.dart';
 import 'package:vocadb/models/song_model.dart';
 
 void main() {
-  group('Song', () {
+  group('Song model', () {
     test('should parse from json correctly', () {
       const mockJson = {
         "id": 1,
         "name": "song1",
         "artistString": "test_artist",
+        "artists": [
+          {
+            "categories": "Producer",
+            "effectiveRoles": "Default",
+            "id": 917,
+            "name": "doriko",
+            "roles": "Default"
+          },
+          {
+            "categories": "Vocalist",
+            "effectiveRoles": "Default",
+            "id": 918,
+            "name": "初音ミク",
+            "roles": "Default"
+          },
+        ],
         "pvs": [
           {
             "id": 12,
@@ -23,13 +38,10 @@ void main() {
       expect(result.id, 1);
       expect(result.name, "song1");
       expect(result.artistString, "test_artist");
+      expect(result.pvs, isNotNull);
       expect(result.pvs.length, 1);
-
-      PVModel pv = result.pvs[0];
-      expect(pv.id, 12);
-      expect(pv.name, "abc");
-      expect(pv.service, "youtube");
-      expect(pv.url, "https://youtube.com/abc");
+      expect(result.artists, isNotNull);
+      expect(result.artists.length, 2);
     });
 
     test('should not thrown exception when input empty json', () {
