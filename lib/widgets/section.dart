@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class Section extends StatelessWidget {
-
   final String title;
 
   final List<Widget> children;
@@ -10,13 +9,13 @@ class Section extends StatelessWidget {
 
   final EdgeInsets padding;
 
-  Section({
-    Key key,
-    this.title,
-    this.children,
-    this.horizontal = false,
-    this.padding = EdgeInsets.zero
-  }) : super(key: key);
+  Section(
+      {Key key,
+      this.title,
+      this.children,
+      this.horizontal = false,
+      this.padding = EdgeInsets.zero})
+      : super(key: key);
 
   Widget buildVerticalItems(BuildContext context) {
     return Column(
@@ -35,8 +34,7 @@ class Section extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: children,
-            )
-        )
+            ))
       ],
     );
   }
@@ -44,47 +42,51 @@ class Section extends StatelessWidget {
   Widget buildHorizontalItems(BuildContext context) {
     return Container(
         child: Column(
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.only(left: 8.0),
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Text(
-                      this.title,
-                      textDirection: TextDirection.ltr,
-                      style: Theme.of(context).textTheme.subhead,
-                    ),
-                    FlatButton(
-                      onPressed: () {},
-                      child: Text('More'),
-                    )
-                  ],
+      children: <Widget>[
+        Padding(
+          padding: EdgeInsets.only(left: 8.0),
+          child: Align(
+            alignment: Alignment.centerLeft,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text(
+                  this.title,
+                  textDirection: TextDirection.ltr,
+                  style: Theme.of(context).textTheme.subhead,
                 ),
-              ),
+                FlatButton(
+                  onPressed: () {},
+                  child: Text('More'),
+                )
+              ],
             ),
-            Container(
-              padding: EdgeInsets.only(bottom: 16.0),
-              child: SizedBox(
-                // Horizontal ListView
-                height: 180,
-                child: ListView.builder(
-                  itemCount: this.children.length,
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) {
-                    return this.children[index];
-                  },
-                ),
-              ),
+          ),
+        ),
+        Container(
+          padding: EdgeInsets.only(bottom: 16.0),
+          child: SizedBox(
+            // Horizontal ListView
+            height: 180,
+            child: ListView.builder(
+              itemCount: this.children.length,
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (context, index) {
+                return this.children[index];
+              },
             ),
-          ],
-        ));
+          ),
+        ),
+      ],
+    ));
   }
 
   @override
   Widget build(BuildContext context) {
-    return (horizontal)? buildHorizontalItems(context) : buildVerticalItems(context);
+    if (this.children.length == 0) return Container();
+
+    return (horizontal)
+        ? buildHorizontalItems(context)
+        : buildVerticalItems(context);
   }
 }

@@ -4,8 +4,12 @@ import 'package:vocadb/models/song_model.dart';
 import 'package:vocadb/services/web_service.dart';
 import 'package:vocadb/widgets/action_bar.dart';
 import 'package:vocadb/widgets/action_button.dart';
+import 'package:vocadb/widgets/album_card.dart';
+import 'package:vocadb/widgets/artist_tile.dart';
 import 'package:vocadb/widgets/like_action_button.dart';
 import 'package:vocadb/widgets/result.dart';
+import 'package:vocadb/widgets/section.dart';
+import 'package:vocadb/widgets/section_divider.dart';
 import 'package:vocadb/widgets/share_action_button.dart';
 import 'package:vocadb/widgets/source_action_button.dart';
 import 'package:vocadb/widgets/space_divider.dart';
@@ -74,7 +78,7 @@ class _SongDetailPageState extends State<SongDetailPage> {
           title: Text(widget.name),
           flexibleSpace: FlexibleSpaceBar(
             background: Opacity(
-              opacity: 0.5,
+              opacity: 0.7,
               child: CachedNetworkImage(
                 fit: BoxFit.cover,
                 imageUrl: widget.thumbUrl,
@@ -100,10 +104,32 @@ class _SongDetailPageState extends State<SongDetailPage> {
       ]),
       SpaceDivider(),
       Padding(
-          padding: EdgeInsets.all(16.0),
+          padding: EdgeInsets.all(8.0),
           child:
               Text(song.name, style: Theme.of(this.context).textTheme.title)),
       Tags(song.tags),
+      SectionDivider(),
+      Section(
+        title: 'Producers',
+        children: song.producers.map((a) => ArtistTile.artistSong(a)).toList(),
+      ),
+      SpaceDivider(),
+      Section(
+        title: 'Vocalists',
+        children: song.vocalists.map((a) => ArtistTile.artistSong(a)).toList(),
+      ),
+      SpaceDivider(),
+      Section(
+        title: 'Other',
+        children: song.otherArtists
+            .map((a) => ArtistTile.artistSong(a, showCategories: true))
+            .toList(),
+      ),
+      SectionDivider(),
+      Section(
+        title: 'Albums',
+        children: song.albums.map((a) => AlbumCard.album(a)).toList(),
+      ),
     ];
   }
 

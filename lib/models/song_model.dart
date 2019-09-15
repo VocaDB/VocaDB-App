@@ -50,6 +50,15 @@ class SongModel {
   List<TagModel> get tags =>
       (this.tagGroups != null) ? this.tagGroups.map((t) => t.tag).toList() : [];
 
+  List<ArtistSongModel> get producers =>
+      this.artists.where((a) => a.isProducer).toList();
+
+  List<ArtistSongModel> get vocalists =>
+      this.artists.where((a) => a.isVocalist).toList();
+
+  List<ArtistSongModel> get otherArtists =>
+      this.artists.where((a) => !a.isVocalist && !a.isProducer).toList();
+
   static Resource<List<SongModel>> get all {
     return Resource(
         url: 'https://vocadb.net/api/songs/highlighted?fields=ThumbUrl',

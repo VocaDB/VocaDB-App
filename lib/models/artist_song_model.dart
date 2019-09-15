@@ -21,4 +21,11 @@ class ArtistSongModel {
   int get artistId => (this.artist == null) ? null : this.artist.id;
 
   String get artistName => (this.artist == null) ? this.name : this.artist.name;
+
+  String get artistImageUrl =>
+      (this.artist == null) ? null : this.artist.imageUrl;
+
+  bool get isProducer => (this.categories == 'Producer');
+
+  bool get isVocalist => (this.categories == 'Vocalist');
 }

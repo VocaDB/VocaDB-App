@@ -51,6 +51,8 @@ void main() {
       expect(result.artists.length, 2);
       expect(result.albums, isNotNull);
       expect(result.albums.length, 1);
+      expect(result.producers.length, 1);
+      expect(result.vocalists.length, 1);
     });
 
     test('should not thrown exception when input empty json', () {

@@ -10,11 +10,10 @@ class EntryTile extends StatelessWidget {
   const EntryTile(Map<String, Object> entry) : this.entry = entry;
 
   getThumbnailUrl() {
-
-    if(!entry.containsKey("mainPicture")) {
+    if (!entry.containsKey("mainPicture")) {
       return "https://via.placeholder.com/468x60?text=Image";
     }
-    
+
     Map<String, Object> mainPicture = entry["mainPicture"];
 
     return mainPicture["urlThumb"];
@@ -22,16 +21,28 @@ class EntryTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     switch (entry["entryType"]) {
       case "Song":
-        return SongTile(id: entry["id"], name: entry["name"], artist: entry["artistString"], imageUrl: getThumbnailUrl());
+        return SongTile(
+            id: entry["id"],
+            name: entry["name"],
+            artist: entry["artistString"],
+            imageUrl: getThumbnailUrl());
       case "Album":
-        return AlbumTile(id: entry["id"], name: entry["name"], artist: entry["artistString"], imageUrl: getThumbnailUrl());
+        return AlbumTile(
+            id: entry["id"],
+            name: entry["name"],
+            artist: entry["artistString"],
+            imageUrl: getThumbnailUrl());
       case "Artist":
-        return ArtistTile(id: entry["id"], name: entry["name"], type: entry["artistType"], imageUrl: getThumbnailUrl());
+        return ArtistTile(
+            id: entry["id"],
+            title: entry["name"],
+            subtitle: entry["artistType"],
+            imageUrl: getThumbnailUrl());
       case "ReleaseEvent":
-        return EventTile(id: entry["id"], name: entry["name"], imageUrl: getThumbnailUrl());
+        return EventTile(
+            id: entry["id"], name: entry["name"], imageUrl: getThumbnailUrl());
 
       default:
         return ListTile(

@@ -9,4 +9,6 @@ class ArtistModel {
         name = json['name'],
         artistType = json['artistType'],
         additionalNames = json['additionalNames'];
+
+  String get imageUrl => 'https://vocadb.net/Artist/Picture/$id';
 }
