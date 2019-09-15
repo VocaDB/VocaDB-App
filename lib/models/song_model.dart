@@ -44,7 +44,7 @@ class SongModel {
             : null;
 
   PVModel get youtubePV =>
-      pvs?.singleWhere((pv) => pv.service.toLowerCase() == "youtube",
+      pvs?.firstWhere((pv) => pv.service.toLowerCase() == "youtube",
           orElse: () => null);
 
   List<TagModel> get tags =>

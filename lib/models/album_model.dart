@@ -55,7 +55,6 @@ class AlbumModel {
   }
 
   static Resource<AlbumModel> byId(int id) {
-    print(id);
     return Resource(
         url: 'https://vocadb.net/api/albums/$id?fields=Tracks,Tags',
         parse: (response) {
@@ -64,9 +63,9 @@ class AlbumModel {
         });
   }
 
-  get imageurl => (mainPicture != null && mainPicture.urlThumb != null)
+  get imageUrl => (mainPicture != null && mainPicture.urlThumb != null)
       ? mainPicture.urlThumb
-      : '';
+      : 'https://vocadb.net/Album/CoverPicture/$id';
 
   List<TagModel> get tags =>
       (this.tagGroups != null) ? this.tagGroups.map((t) => t.tag).toList() : [];

@@ -26,7 +26,7 @@ class ArtistTile extends StatelessWidget {
         context,
         MaterialPageRoute(
             builder: (context) =>
-                ArtistDetailPage(thumbUrl: this.imageUrl, tag: tag)));
+                ArtistDetailPage(this.id, this.title, this.imageUrl, tag)));
   }
 
   Widget buildLeading(String tag) {

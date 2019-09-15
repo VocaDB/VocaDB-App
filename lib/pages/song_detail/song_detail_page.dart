@@ -117,6 +117,7 @@ class _SongDetailPageState extends State<SongDetailPage> {
       SectionDivider(),
       Section(
         title: 'Albums',
+        horizontal: true,
         children: song.albums.map((a) => AlbumCard.album(a)).toList(),
       ),
     ];

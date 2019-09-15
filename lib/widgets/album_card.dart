@@ -16,7 +16,7 @@ class AlbumCard extends StatelessWidget {
       : id = album.id,
         name = album.name,
         artist = album.artistString,
-        thumbUrl = album.imageurl;
+        thumbUrl = album.imageUrl;
 
   @override
   Widget build(BuildContext context) {

@@ -1,231 +1,136 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:vocadb/models/artist_model.dart';
+import 'package:vocadb/services/web_service.dart';
 import 'package:vocadb/widgets/album_card.dart';
+import 'package:vocadb/widgets/result.dart';
+import 'package:vocadb/widgets/song_card.dart';
 import 'package:vocadb/widgets/section.dart';
 import 'package:vocadb/widgets/section_divider.dart';
-import 'package:vocadb/widgets/song_card.dart';
 import 'package:vocadb/widgets/tags.dart';
-import 'package:vocadb/widgets/web_link.dart';
 
-class ArtistDetailPage extends StatefulWidget {
-  final String thumbUrl;
-
+class ArtistDetailPage extends StatelessWidget {
+  final int id;
+  final String name;
+  final String imageUrl;
   final String tag;
 
-  const ArtistDetailPage({Key key, this.thumbUrl, this.tag}) : super(key: key);
-
-  @override
-  _ArtistDetailPageState createState() => _ArtistDetailPageState();
-}
-
-class _ArtistDetailPageState extends State<ArtistDetailPage> {
-  List<SongCard> latestSongs;
-
-  List<SongCard> popularSongs;
-
-  List<AlbumCard> latestAlbums;
-
-  List<AlbumCard> popularAlbums;
-
-  List<WebLink> websites;
-
-  @override
-  void initState() {
-    super.initState();
-
-    latestSongs = mockSongs
-        .map((s) => SongCard(
-            key: UniqueKey(),
-            title: s['name'],
-            artist: s['artistString'],
-            thumbUrl: s['thumbUrl']))
-        .toList();
-    popularSongs = mockSongs
-        .map((s) => SongCard(
-            key: UniqueKey(),
-            title: s['name'],
-            artist: s['artistString'],
-            thumbUrl: s['thumbUrl']))
-        .toList();
-    latestAlbums = mockAlbums
-        .map((s) => AlbumCard(
-            key: UniqueKey(),
-            id: s['id'],
-            name: s['name'],
-            artist: s['artistString'],
-            thumbUrl:
-                'https://vocadb.net/Album/CoverPicture/' + s['id'].toString()))
-        .toList();
-    popularAlbums = mockAlbums
-        .map((s) => AlbumCard(
-            key: UniqueKey(),
-            id: s['id'],
-            name: s['name'],
-            artist: s['artistString'],
-            thumbUrl:
-                'https://vocadb.net/Album/CoverPicture/' + s['id'].toString()))
-        .toList();
-  }
+  const ArtistDetailPage(this.id, this.name, this.imageUrl, this.tag);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      body: ListView(
-        children: <Widget>[
-          HeroContent(tag: widget.tag, thumbUrl: widget.thumbUrl),
-          Container(
-            child: Column(
-              children: <Widget>[
-                Text('Hatsine Miku', style: Theme.of(context).textTheme.title),
-                Text('Voicebank')
-              ],
+      body: CustomScrollView(
+        slivers: <Widget>[
+          SliverAppBar(
+            expandedHeight: 200,
+            pinned: true,
+            flexibleSpace: FlexibleSpaceBar(
+              title: Text(this.name),
+              background: SafeArea(
+                child: Opacity(
+                  opacity: 0.7,
+                  child: Hero(
+                      tag: this.tag,
+                      child: CachedNetworkImage(
+                        imageUrl: this.imageUrl,
+                        placeholder: (context, url) =>
+                            Container(color: Colors.grey),
+                        errorWidget: (context, url, error) =>
+                            new Icon(Icons.error),
+                      )),
+                ),
+              ),
             ),
           ),
-          Tags([]),
-          SectionDivider(),
-          Section(
-              title: 'Recent Songs/PVs',
-              horizontal: true,
-              children: latestSongs),
-          SectionDivider(),
-          Section(
-              title: 'Popular Songs', horizontal: true, children: popularSongs),
-          SectionDivider(),
-          Section(
-              title: 'Recent albums', horizontal: true, children: latestAlbums),
-          SectionDivider(),
-          Section(
-              title: 'Popular albums',
-              horizontal: true,
-              children: popularAlbums),
+          ArtistDetailContent(this.id),
         ],
       ),
     );
   }
 }
 
-class HeroContent extends StatelessWidget {
-  final String tag;
+class ArtistDetailContent extends StatefulWidget {
+  final int id;
 
-  final String thumbUrl;
-
-  const HeroContent({Key key, this.tag, this.thumbUrl}) : super(key: key);
+  const ArtistDetailContent(this.id);
 
   @override
-  Widget build(BuildContext context) {
-    return Hero(
-      tag: this.tag,
-      child: Container(
-        margin: EdgeInsets.all(8.0),
-        child: SizedBox(
-          width: 300,
-          height: 150,
-          child: Image.network(
-            this.thumbUrl,
-            fit: BoxFit.contain,
-          ),
-        ),
+  _ArtistDetailContentState createState() => _ArtistDetailContentState();
+}
+
+class _ArtistDetailContentState extends State<ArtistDetailContent> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  buildHasData(ArtistModel artist) {
+    return SliverList(delegate: SliverChildListDelegate(detailWidgets(artist)));
+  }
+
+  buildError(Object error) {
+    return SliverFillRemaining(
+      child: Result.error('Something wrong!', subtitle: error.toString()),
+    );
+  }
+
+  buildDefault() {
+    return SliverFillRemaining(
+      child: Center(
+        child: CircularProgressIndicator(),
       ),
     );
   }
+
+  List<Widget> detailWidgets(ArtistModel artist) {
+    List<Widget> widgets = [
+      Tags(artist.tags),
+      SectionDivider(),
+      Section(
+          title: 'Recent Songs/PVs',
+          horizontal: true,
+          children: artist.relations.latestSongs
+              .map((s) => SongCard.song(s))
+              .toList()),
+      SectionDivider(),
+      Section(
+          title: 'Popular songs',
+          horizontal: true,
+          children: artist.relations.popularSongs
+              .map((s) => SongCard.song(s))
+              .toList()),
+      SectionDivider(),
+      Section(
+          title: 'Recent or upcoming albums',
+          horizontal: true,
+          children: artist.relations.latestAlbums
+              .map((s) => AlbumCard.album(s))
+              .toList()),
+      SectionDivider(),
+      Section(
+          title: 'Popular albums',
+          horizontal: true,
+          children: artist.relations.popularAlbums
+              .map((s) => AlbumCard.album(s))
+              .toList()),
+    ];
+    return widgets;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<ArtistModel>(
+      future: WebService().load(ArtistModel.byId(widget.id)),
+      builder: (context, snapshot) {
+        if (snapshot.hasData)
+          return buildHasData(snapshot.data);
+        else if (snapshot.hasError) {
+          return buildError(snapshot.error);
+        }
+
+        return buildDefault();
+      },
+    );
+  }
 }
-
-const mockSongs = [
-  {
-    "artistString": "saqwz feat. 初音ミク",
-    "id": 9273,
-    "name": "Tell Your World (saqwz J-Core Remix)",
-    "thumbUrl": "http://tn-skr4.smilevideo.jp/smile?i=16934711",
-  },
-  {
-    "artistString": "PandaBoY feat. 初音ミク",
-    "id": 10022,
-    "name": "Tell Your World (Panda BoY Remix)",
-    "thumbUrl": "https://i.ytimg.com/vi/wNpIlgDjxWc/default.jpg",
-  },
-  {
-    "artistString": "fu_mou feat. 初音ミク",
-    "id": 10023,
-    "name": "Tell Your World (open the scenery rmx by  fu_mou)",
-    "thumbUrl": "https://i.ytimg.com/vi/LucAjw7vV7c/default.jpg",
-  },
-  {
-    "artistString": "ゆよゆっぺ feat. 巡音ルカ",
-    "id": 10067,
-    "name": "Tell Your World",
-    "thumbUrl": "http://tn-skr1.smilevideo.jp/smile?i=17293900",
-  },
-  {
-    "artistString": "Farhan, rikuu-p feat. 初音ミク Append (Dark)",
-    "id": 10661,
-    "name": "Tell Your World",
-    "thumbUrl":
-        "http://i1.sndcdn.com/artworks-000020141589-d35r0z-large.jpg?5c687d0",
-  },
-  {
-    "artistString": "REVOLUTION BOI feat. 初音ミク",
-    "id": 17486,
-    "name": "Tell Your World (NU VIBE NRG Remix)",
-    "thumbUrl":
-        "http://i1.sndcdn.com/artworks-000017458007-igrddl-large.jpg?e2f8ae2",
-  },
-  {
-    "artistString": "大福P feat. 初音ミク Append (Unknown)",
-    "id": 18924,
-    "name": "Tell Your World (dfk bootleg edit)",
-    "thumbUrl": "https://i.ytimg.com/vi/y8UK-gaD5uA/default.jpg",
-  }
-];
-
-const mockAlbums = [
-  {
-    "artistString": "kz, livetune feat. 初音ミク",
-    "id": 1008,
-    "name": "Tell Your World EP",
-  },
-  {
-    "artistString": "kz feat. 初音ミク",
-    "id": 1027,
-    "name": "Tell Your World",
-  },
-  {
-    "artistString": "Various artists",
-    "id": 1490,
-    "name": "初音ミク 5thバースデー ベスト〜memories〜",
-  },
-  {
-    "artistString": "kz, livetune feat. 初音ミク",
-    "id": 2123,
-    "name": "Re:Dial",
-  },
-  {
-    "artistString": "Various artists",
-    "id": 2166,
-    "name": "初音ミク-Project DIVA-F Complete Collection",
-  },
-  {
-    "artistString": "livetune, kz feat. 初音ミク",
-    "id": 3548,
-    "name": "Re:Upload",
-  },
-  {
-    "artistString": "Various artists",
-    "id": 9709,
-    "name": "HATSUNE MIKU EXPO 2014 IN INDONESIA",
-  },
-  {
-    "artistString": "Various artists",
-    "id": 22997,
-    "name": "HATSUNE MIKU 10th Anniversary Album 「Re:Start」",
-  },
-  {
-    "artistString": "Various artists",
-    "id": 23300,
-    "name": "初音ミク「マジカルミライ 2014」 [Live] ",
-  },
-  {
-    "artistString": "Various artists",
-    "id": 26429,
-    "name": "Miku dé Nihongo",
-  }
-];
