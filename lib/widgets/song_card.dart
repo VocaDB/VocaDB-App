@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:vocadb/models/song_model.dart';
 import 'package:vocadb/pages/song_detail/song_detail_page.dart';
@@ -27,8 +28,9 @@ class SongCard extends StatelessWidget {
           Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) =>
-                      SongDetailPage(thumbUrl: this.thumbUrl, tag: tag)));
+                  builder: (context) => SongDetailPage(
+                      this.id, this.title, this.thumbUrl,
+                      tag: tag)));
         },
         child: Container(
           width: 130,
@@ -41,7 +43,15 @@ class SongCard extends StatelessWidget {
                 color: Colors.black,
                 child: FittedBox(
                     fit: BoxFit.fitWidth,
-                    child: Hero(tag: tag, child: Image.network(this.thumbUrl))),
+                    child: Hero(
+                        tag: tag,
+                        child: CachedNetworkImage(
+                          imageUrl: this.thumbUrl,
+                          placeholder: (context, url) =>
+                              Container(color: Colors.grey),
+                          errorWidget: (context, url, error) =>
+                              new Icon(Icons.error),
+                        ))),
               ),
               Container(
                 height: 4,

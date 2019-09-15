@@ -20,7 +20,7 @@ class _TagsState extends State<Tags> {
   void initState() {
     super.initState();
 
-    if (widget._tags == null) return;
+    if (widget._tags == null || widget._tags.length == 0) return;
 
     showMinimumTags();
   }
@@ -46,7 +46,10 @@ class _TagsState extends State<Tags> {
   void showMinimumTags() {
     setState(() {
       tagList = widget._tags.take(this.minimum).map(mapTagWidget).toList();
-      tagList.add(buildShowMoreChip());
+
+      if (widget._tags.length > this.minimum) {
+        tagList.add(buildShowMoreChip());
+      }
     });
   }
 

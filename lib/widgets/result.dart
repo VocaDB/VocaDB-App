@@ -18,18 +18,23 @@ class Result extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          _icon,
-          SpaceDivider(),
-          Text(_title, style: Theme.of(context).textTheme.title),
-          SpaceDivider(),
-          (_subtitle != null)
-              ? Text(_subtitle, style: Theme.of(context).textTheme.caption)
-              : Container()
-        ],
+    return Padding(
+      padding: const EdgeInsets.all(24.0),
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            _icon,
+            SpaceDivider(),
+            Text(_title, style: Theme.of(context).textTheme.title),
+            SpaceDivider(),
+            (_subtitle != null)
+                ? Text(_subtitle,
+                    style: Theme.of(context).textTheme.caption,
+                    textAlign: TextAlign.center)
+                : Container()
+          ],
+        ),
       ),
     );
   }

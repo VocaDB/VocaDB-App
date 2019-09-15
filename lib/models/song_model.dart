@@ -1,6 +1,8 @@
 import 'dart:convert';
 
 import 'package:vocadb/models/pv_model.dart';
+import 'package:vocadb/models/tag_group_model.dart';
+import 'package:vocadb/models/tag_model.dart';
 import 'package:vocadb/services/web_service.dart';
 
 class SongModel {
@@ -9,6 +11,7 @@ class SongModel {
   String artistString;
   String thumbUrl;
   List<PVModel> pvs;
+  List<TagGroupModel> tagGroups;
 
   SongModel();
 
@@ -17,13 +20,21 @@ class SongModel {
         name = json['name'],
         artistString = json['artistString'],
         thumbUrl = json['thumbUrl'],
-        pvs = (json['pvs'] as List<Map<String, dynamic>>)
-            ?.map((pv) => PVModel.fromJson(pv))
-            ?.toList();
+        pvs = (json.containsKey('pvs'))
+            ? (json['pvs'] as List)?.map((d) => PVModel.fromJson(d))?.toList()
+            : null,
+        tagGroups = (json.containsKey('tags'))
+            ? (json['tags'] as List)
+                ?.map((d) => TagGroupModel.fromJson(d))
+                ?.toList()
+            : null;
 
   PVModel get youtubePV =>
       pvs?.singleWhere((pv) => pv.service.toLowerCase() == "youtube",
           orElse: () => null);
+
+  List<TagModel> get tags =>
+      (this.tagGroups != null) ? this.tagGroups.map((t) => t.tag).toList() : [];
 
   static Resource<List<SongModel>> get all {
     return Resource(
