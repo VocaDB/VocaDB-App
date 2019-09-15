@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:vocadb/models/artist_relations_model.dart';
+import 'package:vocadb/models/entry_model.dart';
 import 'package:vocadb/models/tag_group_model.dart';
 import 'package:vocadb/models/tag_model.dart';
 import 'package:vocadb/services/web_service.dart';
@@ -26,6 +27,11 @@ class ArtistModel {
                 ?.map((d) => TagGroupModel.fromJson(d))
                 ?.toList()
             : null;
+
+  ArtistModel.fromEntry(EntryModel entry)
+      : id = entry.id,
+        name = entry.name,
+        artistType = entry.artistType;
 
   String get imageUrl => 'https://vocadb.net/Artist/Picture/$id';
 

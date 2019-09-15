@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:vocadb/models/album_model.dart';
 import 'package:vocadb/models/artist_song_model.dart';
+import 'package:vocadb/models/entry_model.dart';
 import 'package:vocadb/models/pv_model.dart';
 import 'package:vocadb/models/tag_group_model.dart';
 import 'package:vocadb/models/tag_model.dart';
@@ -42,6 +43,12 @@ class SongModel {
                 ?.map((d) => AlbumModel.fromJson(d))
                 ?.toList()
             : null;
+
+  SongModel.fromEntry(EntryModel entry)
+      : id = entry.id,
+        name = entry.name,
+        artistString = entry.artistString,
+        thumbUrl = entry.mainPicture?.urlThumb;
 
   PVModel get youtubePV =>
       pvs?.firstWhere((pv) => pv.service.toLowerCase() == "youtube",

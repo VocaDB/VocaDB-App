@@ -1,5 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:vocadb/models/album_model.dart';
+import 'package:vocadb/models/entry_model.dart';
+import 'package:vocadb/models/main_picture_model.dart';
 
 void main() {
   group('Album', () {
@@ -54,6 +56,28 @@ void main() {
       expect(result, isNotNull);
       expect(result.tags, isNotNull);
       expect(result.tags.length, 3);
+    });
+
+    test('should parse from entry correctly', () {
+      MainPictureModel mockMainPictureModel = new MainPictureModel();
+      mockMainPictureModel.urlThumb = 'https://picture.com';
+
+      EntryModel mockEntryModel = new EntryModel();
+      mockEntryModel.id = 1;
+      mockEntryModel.name = 'album_1';
+      mockEntryModel.artistString = 'artist_1';
+      mockEntryModel.mainPicture = mockMainPictureModel;
+
+      AlbumModel result = AlbumModel.fromEntry(mockEntryModel);
+      expect(result.id, 1);
+      expect(result.name, 'album_1');
+      expect(result.artistString, 'artist_1');
+      expect(result.mainPicture, mockMainPictureModel);
+    });
+
+    test('should not thrown exception when parse empty entry', () {
+      AlbumModel result = AlbumModel.fromEntry(new EntryModel());
+      expect(result, isNotNull);
     });
   });
 }

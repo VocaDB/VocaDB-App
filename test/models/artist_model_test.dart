@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:vocadb/models/artist_model.dart';
+import 'package:vocadb/models/entry_model.dart';
 
 void main() {
   group('Artist model', () {
@@ -59,6 +60,23 @@ void main() {
 
     test('should not thrown exception when input empty json', () {
       ArtistModel result = ArtistModel.fromJson({});
+      expect(result, isNotNull);
+    });
+
+    test('should parse from entry correctly', () {
+      EntryModel mockEntryModel = new EntryModel();
+      mockEntryModel.id = 1;
+      mockEntryModel.name = 'artist_1';
+      mockEntryModel.artistType = 'Producer';
+
+      ArtistModel result = ArtistModel.fromEntry(mockEntryModel);
+      expect(result.id, 1);
+      expect(result.name, 'artist_1');
+      expect(result.artistType, 'Producer');
+    });
+
+    test('should not thrown exception when parse empty entry', () {
+      ArtistModel result = ArtistModel.fromEntry(new EntryModel());
       expect(result, isNotNull);
     });
   });

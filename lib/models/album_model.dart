@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:vocadb/models/entry_model.dart';
 import 'package:vocadb/models/main_picture_model.dart';
 import 'package:vocadb/models/tag_group_model.dart';
 import 'package:vocadb/models/tag_model.dart';
@@ -35,6 +36,12 @@ class AlbumModel {
                 ?.map((d) => TagGroupModel.fromJson(d))
                 ?.toList()
             : null;
+
+  AlbumModel.fromEntry(EntryModel entry)
+      : id = entry.id,
+        name = entry.name,
+        artistString = entry.artistString,
+        mainPicture = entry.mainPicture;
 
   static Resource<List<AlbumModel>> get all {
     return Resource(
