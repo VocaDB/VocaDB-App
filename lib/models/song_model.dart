@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:vocadb/models/album_model.dart';
 import 'package:vocadb/models/artist_song_model.dart';
 import 'package:vocadb/models/pv_model.dart';
 import 'package:vocadb/models/tag_group_model.dart';
@@ -14,6 +15,7 @@ class SongModel {
   List<PVModel> pvs;
   List<TagGroupModel> tagGroups;
   List<ArtistSongModel> artists;
+  List<AlbumModel> albums;
 
   SongModel();
 
@@ -33,6 +35,11 @@ class SongModel {
         artists = (json.containsKey('artists'))
             ? (json['artists'] as List)
                 ?.map((d) => ArtistSongModel.fromJson(d))
+                ?.toList()
+            : null,
+        albums = (json.containsKey('albums'))
+            ? (json['albums'] as List)
+                ?.map((d) => AlbumModel.fromJson(d))
                 ?.toList()
             : null;
 

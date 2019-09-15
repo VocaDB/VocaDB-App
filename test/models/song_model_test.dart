@@ -24,6 +24,13 @@ void main() {
             "roles": "Default"
           },
         ],
+        "albums": [
+          {
+            "additionalNames": "Romeo to Cinderella, Romeo and Cinderella",
+            "id": 17,
+            "name": "ロミオとシンデレラ",
+          },
+        ],
         "pvs": [
           {
             "id": 12,
@@ -42,6 +49,8 @@ void main() {
       expect(result.pvs.length, 1);
       expect(result.artists, isNotNull);
       expect(result.artists.length, 2);
+      expect(result.albums, isNotNull);
+      expect(result.albums.length, 1);
     });
 
     test('should not thrown exception when input empty json', () {
