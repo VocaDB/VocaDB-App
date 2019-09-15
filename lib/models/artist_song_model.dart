@@ -25,6 +25,9 @@ class ArtistSongModel {
   String get artistImageUrl =>
       (this.artist == null) ? null : this.artist.imageUrl;
 
+  String get artistRole =>
+      (this.categories == 'Other') ? this.effectiveRoles : this.categories;
+
   bool get isProducer => (this.categories == 'Producer');
 
   bool get isVocalist => (this.categories == 'Vocalist');

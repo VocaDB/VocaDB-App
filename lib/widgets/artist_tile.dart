@@ -15,11 +15,10 @@ class ArtistTile extends StatelessWidget {
   const ArtistTile({Key key, this.id, this.title, this.subtitle, this.imageUrl})
       : super(key: key);
 
-  ArtistTile.artistSong(ArtistSongModel artistSong,
-      {bool showCategories = false})
+  ArtistTile.artistSong(ArtistSongModel artistSong, {bool showRole = false})
       : id = artistSong.artistId,
         title = artistSong.artistName,
-        subtitle = (showCategories) ? artistSong.categories : null,
+        subtitle = (showRole) ? artistSong.artistRole : null,
         imageUrl = artistSong.artistImageUrl;
 
   void onTap(BuildContext context, String tag) {
@@ -39,17 +38,21 @@ class ArtistTile extends StatelessWidget {
         color: Colors.white,
         child: Hero(
             tag: tag,
-            child: CachedNetworkImage(
-              imageUrl: this.imageUrl,
-              placeholder: (context, url) => Container(color: Colors.grey),
-              errorWidget: (context, url, error) => new Icon(Icons.error),
-            )),
+            child: (this.imageUrl == null)
+                ? Placeholder()
+                : CachedNetworkImage(
+                    imageUrl: this.imageUrl,
+                    placeholder: (context, url) =>
+                        Container(color: Colors.grey),
+                    errorWidget: (context, url, error) => new Icon(Icons.error),
+                  )),
       )),
     );
   }
 
   Widget buildSingleLine(BuildContext context, String tag) {
     return ListTile(
+      enabled: (this.id != null),
       onTap: () {
         onTap(context, tag);
       },
@@ -60,6 +63,7 @@ class ArtistTile extends StatelessWidget {
 
   Widget buildTwoLine(BuildContext context, String tag) {
     return ListTile(
+      enabled: (this.id != null),
       onTap: () {
         onTap(context, tag);
       },

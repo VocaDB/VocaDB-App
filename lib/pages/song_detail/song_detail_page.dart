@@ -2,16 +2,11 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:vocadb/models/song_model.dart';
 import 'package:vocadb/services/web_service.dart';
-import 'package:vocadb/widgets/action_bar.dart';
-import 'package:vocadb/widgets/action_button.dart';
 import 'package:vocadb/widgets/album_card.dart';
 import 'package:vocadb/widgets/artist_tile.dart';
-import 'package:vocadb/widgets/like_action_button.dart';
 import 'package:vocadb/widgets/result.dart';
 import 'package:vocadb/widgets/section.dart';
 import 'package:vocadb/widgets/section_divider.dart';
-import 'package:vocadb/widgets/share_action_button.dart';
-import 'package:vocadb/widgets/source_action_button.dart';
 import 'package:vocadb/widgets/space_divider.dart';
 import 'package:vocadb/widgets/tags.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
@@ -97,12 +92,6 @@ class _SongDetailPageState extends State<SongDetailPage> {
 
   List<Widget> buildDetailContent(SongModel song) {
     return [
-      ActionBar(actions: <ActionButton>[
-        LikeActionButton(),
-        ShareActionButton(),
-        SourceActionButton(),
-      ]),
-      SpaceDivider(),
       Padding(
           padding: EdgeInsets.all(8.0),
           child:
@@ -122,7 +111,7 @@ class _SongDetailPageState extends State<SongDetailPage> {
       Section(
         title: 'Other',
         children: song.otherArtists
-            .map((a) => ArtistTile.artistSong(a, showCategories: true))
+            .map((a) => ArtistTile.artistSong(a, showRole: true))
             .toList(),
       ),
       SectionDivider(),
