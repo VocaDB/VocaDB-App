@@ -12,24 +12,28 @@ class ArtistTile extends StatelessWidget {
 
   final String subtitle;
 
-  const ArtistTile({Key key, this.id, this.title, this.subtitle, this.imageUrl})
+  final String tag;
+
+  const ArtistTile(
+      {Key key, this.id, this.title, this.subtitle, this.imageUrl, this.tag})
       : super(key: key);
 
-  ArtistTile.artistSong(ArtistSongModel artistSong, {bool showRole = false})
+  ArtistTile.artistSong(ArtistSongModel artistSong,
+      {bool showRole = false, this.tag})
       : id = artistSong.artistId,
         title = artistSong.artistName,
         subtitle = (showRole) ? artistSong.artistRole : null,
         imageUrl = artistSong.artistImageUrl;
 
-  void onTap(BuildContext context, String tag) {
+  void onTap(BuildContext context) {
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) =>
-                ArtistDetailPage(this.id, this.title, this.imageUrl, tag)));
+            builder: (context) => ArtistDetailPage(
+                this.id, this.title, this.imageUrl, this.tag)));
   }
 
-  Widget buildLeading(String tag) {
+  Widget buildLeading() {
     return SizedBox(
       width: 50,
       height: 50,
@@ -37,7 +41,7 @@ class ArtistTile extends StatelessWidget {
           child: Container(
         color: Colors.white,
         child: Hero(
-            tag: tag,
+            tag: this.tag,
             child: (this.imageUrl == null)
                 ? Placeholder()
                 : CachedNetworkImage(
@@ -50,24 +54,24 @@ class ArtistTile extends StatelessWidget {
     );
   }
 
-  Widget buildSingleLine(BuildContext context, String tag) {
+  Widget buildSingleLine(BuildContext context) {
     return ListTile(
       enabled: (this.id != null),
       onTap: () {
-        onTap(context, tag);
+        onTap(context);
       },
-      leading: buildLeading(tag),
+      leading: buildLeading(),
       title: Text(this.title, overflow: TextOverflow.ellipsis),
     );
   }
 
-  Widget buildTwoLine(BuildContext context, String tag) {
+  Widget buildTwoLine(BuildContext context) {
     return ListTile(
       enabled: (this.id != null),
       onTap: () {
-        onTap(context, tag);
+        onTap(context);
       },
-      leading: buildLeading(tag),
+      leading: buildLeading(),
       title: Text(this.title, overflow: TextOverflow.ellipsis),
       subtitle: Text(this.subtitle, overflow: TextOverflow.ellipsis),
     );
@@ -75,10 +79,8 @@ class ArtistTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String tag = this.key.toString() + "_" + this.id.toString();
-
     return (this.subtitle == null)
-        ? buildSingleLine(context, tag)
-        : buildTwoLine(context, tag);
+        ? buildSingleLine(context)
+        : buildTwoLine(context);
   }
 }

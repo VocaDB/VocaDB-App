@@ -27,7 +27,9 @@ class _HighlightedListState extends State<HighlightedList> {
   }
 
   List<Widget> _buildSongCardList() {
-    return _songs.map((song) => SongCard.song(song)).toList();
+    return _songs
+        .map((song) => SongCard.song(song, tag: 'highlighted_list_${song.id}'))
+        .toList();
   }
 
   @override

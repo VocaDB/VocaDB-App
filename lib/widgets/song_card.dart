@@ -8,11 +8,13 @@ class SongCard extends StatelessWidget {
   final String title;
   final String artist;
   final String thumbUrl;
+  final String tag;
 
-  const SongCard({Key key, this.id, this.title, this.artist, this.thumbUrl})
+  const SongCard(
+      {Key key, this.id, this.title, this.artist, this.thumbUrl, this.tag})
       : super(key: key);
 
-  SongCard.song(SongModel song)
+  SongCard.song(SongModel song, {this.tag})
       : id = song.id,
         title = song.name,
         artist = song.artistString,
@@ -20,17 +22,16 @@ class SongCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String tag = this.id.toString() + this.key.toString();
-
     return Material(
       child: InkWell(
         onTap: () {
+          print('tag : $tag');
           Navigator.push(
               context,
               MaterialPageRoute(
                   builder: (context) => SongDetailPage(
                       this.id, this.title, this.thumbUrl,
-                      tag: tag)));
+                      tag: this.tag)));
         },
         child: Container(
           width: 130,

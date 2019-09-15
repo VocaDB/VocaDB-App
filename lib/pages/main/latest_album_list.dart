@@ -25,7 +25,10 @@ class _LatestAlbumListState extends State<LatestAlbumList> {
   }
 
   List<Widget> _buildAlbumCardList() {
-    return _albums.map((album) => AlbumCard.album(album)).toList();
+    return _albums
+        .map((album) =>
+            AlbumCard.album(album, tag: 'latest_album_list_${album.id}'))
+        .toList();
   }
 
   @override

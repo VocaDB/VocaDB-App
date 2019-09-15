@@ -8,11 +8,13 @@ class AlbumCard extends StatelessWidget {
   final String name;
   final String artist;
   final String thumbUrl;
+  final String tag;
 
-  const AlbumCard({Key key, this.id, this.name, this.artist, this.thumbUrl})
+  const AlbumCard(
+      {Key key, this.id, this.name, this.artist, this.thumbUrl, this.tag})
       : super(key: key);
 
-  AlbumCard.album(AlbumModel album)
+  AlbumCard.album(AlbumModel album, {this.tag})
       : id = album.id,
         name = album.name,
         artist = album.artistString,
@@ -20,8 +22,6 @@ class AlbumCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String tag = this.key.toString() + "_" + this.id.toString();
-
     return Material(
       child: InkWell(
         onTap: () {
@@ -32,7 +32,7 @@ class AlbumCard extends StatelessWidget {
                       id: this.id,
                       name: this.name,
                       thumbUrl: this.thumbUrl,
-                      tag: tag)));
+                      tag: this.tag)));
         },
         child: Container(
           width: 130,

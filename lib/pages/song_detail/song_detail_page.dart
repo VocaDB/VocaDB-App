@@ -74,11 +74,14 @@ class _SongDetailPageState extends State<SongDetailPage> {
           flexibleSpace: FlexibleSpaceBar(
             background: Opacity(
               opacity: 0.7,
-              child: CachedNetworkImage(
-                fit: BoxFit.cover,
-                imageUrl: widget.thumbUrl,
-                placeholder: (context, url) => Container(color: Colors.grey),
-                errorWidget: (context, url, error) => new Icon(Icons.error),
+              child: Hero(
+                tag: widget.tag,
+                child: CachedNetworkImage(
+                  fit: BoxFit.cover,
+                  imageUrl: widget.thumbUrl,
+                  placeholder: (context, url) => Container(color: Colors.grey),
+                  errorWidget: (context, url, error) => new Icon(Icons.error),
+                ),
               ),
             ),
           ),
@@ -100,25 +103,36 @@ class _SongDetailPageState extends State<SongDetailPage> {
       SectionDivider(),
       Section(
         title: 'Producers',
-        children: song.producers.map((a) => ArtistTile.artistSong(a)).toList(),
+        children: song.producers
+            .map((a) => ArtistTile.artistSong(a,
+                tag: 'song_detail_producer_${song.id}_${a.artistId}'))
+            .toList(),
       ),
       SpaceDivider(),
       Section(
         title: 'Vocalists',
-        children: song.vocalists.map((a) => ArtistTile.artistSong(a)).toList(),
+        children: song.vocalists
+            .map((a) => ArtistTile.artistSong(a,
+                tag: 'song_detail_vocalist_${song.id}_${a.artistId}'))
+            .toList(),
       ),
       SpaceDivider(),
       Section(
         title: 'Other',
         children: song.otherArtists
-            .map((a) => ArtistTile.artistSong(a, showRole: true))
+            .map((a) => ArtistTile.artistSong(a,
+                showRole: true,
+                tag: 'song_detail_other_${song.id}_${a.artistId}'))
             .toList(),
       ),
       SectionDivider(),
       Section(
         title: 'Albums',
         horizontal: true,
-        children: song.albums.map((a) => AlbumCard.album(a)).toList(),
+        children: song.albums
+            .map((a) =>
+                AlbumCard.album(a, tag: 'song_detail_album_${song.id}_${a.id}'))
+            .toList(),
       ),
     ];
   }

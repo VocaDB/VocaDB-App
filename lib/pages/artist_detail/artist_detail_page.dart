@@ -91,28 +91,32 @@ class _ArtistDetailContentState extends State<ArtistDetailContent> {
           title: 'Recent Songs/PVs',
           horizontal: true,
           children: artist.relations.latestSongs
-              .map((s) => SongCard.song(s))
+              .map((s) => SongCard.song(s,
+                  tag: 'artist_detail_latest_song_${artist.id}_${s.id}'))
               .toList()),
       SectionDivider(),
       Section(
           title: 'Popular songs',
           horizontal: true,
           children: artist.relations.popularSongs
-              .map((s) => SongCard.song(s))
+              .map((s) => SongCard.song(s,
+                  tag: 'artist_detail_popular_song_${artist.id}_${s.id}'))
               .toList()),
       SectionDivider(),
       Section(
           title: 'Recent or upcoming albums',
           horizontal: true,
           children: artist.relations.latestAlbums
-              .map((s) => AlbumCard.album(s))
+              .map((s) => AlbumCard.album(s,
+                  tag: 'artist_detail_latest_album_${artist.id}_${s.id}'))
               .toList()),
       SectionDivider(),
       Section(
           title: 'Popular albums',
           horizontal: true,
           children: artist.relations.popularAlbums
-              .map((s) => AlbumCard.album(s))
+              .map((s) => AlbumCard.album(s,
+                  tag: 'artist_detail_popular_album_${artist.id}_${s.id}'))
               .toList()),
     ];
     return widgets;
