@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:vocadb/models/main_picture_model.dart';
+import 'package:vocadb/services/web_service.dart';
 
 class EntryModel {
   int id;
@@ -20,6 +23,21 @@ class EntryModel {
             ? MainPictureModel.fromJson(json['mainPicture'])
             : null;
 
+  String get imageUrl {
+    if (mainPicture != null) {
+      return mainPicture.urlThumb;
+    }
+
+    switch (entryType) {
+      case EntryType.Artist:
+        return 'https://vocadb.net/Artist/Picture/$id';
+      case EntryType.Album:
+        return 'https://vocadb.net/Album/CoverPicture/$id';
+      default:
+        return 'https://via.placeholder.com/150x150?text=no_image';
+    }
+  }
+
   static EntryType entryTypeToEnum(String str) {
     switch (str) {
       case 'Song':
@@ -34,6 +52,16 @@ class EntryModel {
         return EntryType.Tag;
     }
     return EntryType.Undefined;
+  }
+
+  static Resource<List<EntryModel>> query(String query) {
+    return Resource(
+        url:
+            'https://vocadb.net/api/entries?query=${query}&fields=MainPicture&nameMatchMode=auto',
+        parse: (response) {
+          Iterable result = json.decode(response.body)['items'];
+          return result.map((model) => EntryModel.fromJson(model)).toList();
+        });
   }
 }
 

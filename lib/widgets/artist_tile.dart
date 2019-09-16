@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:vocadb/models/artist_song_model.dart';
+import 'package:vocadb/models/entry_model.dart';
 import 'package:vocadb/pages/artist_detail/artist_detail_page.dart';
 
 class ArtistTile extends StatelessWidget {
@@ -24,6 +25,12 @@ class ArtistTile extends StatelessWidget {
         title = artistSong.artistName,
         subtitle = (showRole) ? artistSong.artistRole : null,
         imageUrl = artistSong.artistImageUrl;
+
+  ArtistTile.fromEntry(EntryModel entry, {this.tag})
+      : this.id = entry.id,
+        this.imageUrl = entry.imageUrl,
+        this.title = entry.name,
+        this.subtitle = entry.artistString;
 
   void onTap(BuildContext context) {
     Navigator.push(

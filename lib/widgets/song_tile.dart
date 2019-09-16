@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vocadb/models/entry_model.dart';
 import 'package:vocadb/pages/song_detail/song_detail_page.dart';
 
 class SongTile extends StatelessWidget {
@@ -10,13 +11,20 @@ class SongTile extends StatelessWidget {
 
   final String artist;
 
-  const SongTile({Key key, this.id, this.name, this.artist, this.imageUrl})
+  final String tag;
+
+  const SongTile(
+      {Key key, this.id, this.name, this.artist, this.imageUrl, this.tag})
       : super(key: key);
+
+  SongTile.fromEntry(EntryModel entry, {this.tag})
+      : this.id = entry.id,
+        this.imageUrl = entry.imageUrl,
+        this.name = entry.name,
+        this.artist = entry.artistString;
 
   @override
   Widget build(BuildContext context) {
-    String tag = this.key.toString() + "_" + this.id.toString();
-
     return ListTile(
       onTap: () {
         Navigator.push(
