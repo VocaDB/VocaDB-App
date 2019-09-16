@@ -50,7 +50,7 @@ class _SongDetailPageState extends State<SongDetailPage> {
             context: context,
             videoId: YoutubePlayer.convertUrlToId(song.youtubePV.url),
             flags: YoutubePlayerFlags(
-              autoPlay: false,
+              autoPlay: true,
               showVideoProgressIndicator: true,
             ),
           ),
