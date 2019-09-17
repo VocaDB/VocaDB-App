@@ -11,10 +11,14 @@ class SearchPage extends StatefulWidget {
   _SearchPageState createState() => _SearchPageState();
 }
 
+enum SearchType { All, Song, Artist, Album }
+
 class _SearchPageState extends State<SearchPage> {
   String _query = '';
 
   TextEditingController _controller = TextEditingController();
+
+  SearchType _searchType = SearchType.All;
 
   Timer _debounce;
 
@@ -34,6 +38,25 @@ class _SearchPageState extends State<SearchPage> {
     });
   }
 
+  void onChangeSearchType(SearchType searchType) {
+    setState(() {
+      _searchType = searchType;
+    });
+  }
+
+  IconData getSuffixIcon() {
+    switch (_searchType) {
+      case SearchType.Song:
+        return Icons.music_note;
+      case SearchType.Artist:
+        return Icons.person;
+      case SearchType.Album:
+        return Icons.album;
+      default:
+        return Icons.search;
+    }
+  }
+
   @override
   void dispose() {
     _controller.removeListener(_onSearchChanged);
@@ -41,16 +64,76 @@ class _SearchPageState extends State<SearchPage> {
     super.dispose();
   }
 
+  void _showModalBottomSheet(context) {
+    showModalBottomSheet(
+        context: context,
+        builder: (BuildContext bc) {
+          return Container(
+            child: Wrap(
+              children: <Widget>[
+                ListTile(
+                    leading: Icon(Icons.search),
+                    selected: _searchType == SearchType.All,
+                    title: Text('Anything'),
+                    onTap: () {
+                      onChangeSearchType(SearchType.All);
+                      Navigator.pop(context);
+                    }),
+                ListTile(
+                    leading: Icon(Icons.music_note),
+                    selected: _searchType == SearchType.Song,
+                    title: Text('Song'),
+                    onTap: () {
+                      onChangeSearchType(SearchType.Song);
+                      Navigator.pop(context);
+                    }),
+                ListTile(
+                    leading: Icon(Icons.person),
+                    selected: _searchType == SearchType.Artist,
+                    title: Text('Artist'),
+                    onTap: () {
+                      onChangeSearchType(SearchType.Artist);
+                      Navigator.pop(context);
+                    }),
+                ListTile(
+                    leading: Icon(Icons.album),
+                    selected: _searchType == SearchType.Album,
+                    title: Text('Album'),
+                    onTap: () {
+                      onChangeSearchType(SearchType.Album);
+                      Navigator.pop(context);
+                    }),
+              ],
+            ),
+          );
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: new TextField(
-          autofocus: true,
-          controller: _controller,
-          style: Theme.of(context).primaryTextTheme.title,
-          decoration:
-              InputDecoration(border: InputBorder.none, hintText: "Search"),
+        title: Row(
+          children: <Widget>[
+            Expanded(
+              child: TextField(
+                autofocus: true,
+                controller: _controller,
+                style: Theme.of(context).primaryTextTheme.title,
+                decoration: InputDecoration(
+                    border: InputBorder.none, hintText: "Search"),
+              ),
+            ),
+            Container(
+              width: 48,
+              child: IconButton(
+                icon: Icon(getSuffixIcon()),
+                onPressed: () {
+                  _showModalBottomSheet(context);
+                },
+              ),
+            ),
+          ],
         ),
       ),
       body: SearchResult(
@@ -60,25 +143,14 @@ class _SearchPageState extends State<SearchPage> {
   }
 }
 
-class EntryList {
-  final List<EntryModel> entries;
-
-  EntryList(this.entries);
-
-  List<EntryModel> get songs =>
-      entries.where((e) => e.entryType == EntryType.Song).toList();
-  List<EntryModel> get artists =>
-      entries.where((e) => e.entryType == EntryType.Artist).toList();
-  List<EntryModel> get albums =>
-      entries.where((e) => e.entryType == EntryType.Album).toList();
-}
-
 class SearchResult extends StatelessWidget {
   final String query;
 
   const SearchResult({Key key, this.query}) : super(key: key);
 
   Widget buildHasData(List<EntryModel> entries) {
+    if (entries.isEmpty) return buildEmpty();
+
     List<Widget> contents = [];
 
     EntryList entryList = EntryList(entries);
@@ -100,6 +172,18 @@ class SearchResult extends StatelessWidget {
       itemBuilder: (context, index) {
         return contents[index];
       },
+    );
+  }
+
+  Widget buildInitial() {
+    return Center(
+      child: Result(Icon(Icons.search, size: 48), 'Find anythings here.'),
+    );
+  }
+
+  Widget buildEmpty() {
+    return Center(
+      child: Result(Icon(Icons.search, size: 48), 'Not results found.'),
     );
   }
 

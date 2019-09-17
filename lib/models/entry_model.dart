@@ -65,4 +65,17 @@ class EntryModel {
   }
 }
 
+class EntryList {
+  final List<EntryModel> entries;
+
+  EntryList(this.entries);
+
+  List<EntryModel> get songs =>
+      entries.where((e) => e.entryType == EntryType.Song).toList();
+  List<EntryModel> get artists =>
+      entries.where((e) => e.entryType == EntryType.Artist).toList();
+  List<EntryModel> get albums =>
+      entries.where((e) => e.entryType == EntryType.Album).toList();
+}
+
 enum EntryType { Undefined, Song, Artist, Album, ReleaseEvent, Tag }
