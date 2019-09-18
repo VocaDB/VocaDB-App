@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:vocadb/models/song_model.dart';
+import 'package:vocadb/pages/song_detail/song_detail_page.dart';
 import 'package:vocadb/services/web_service.dart';
 import 'package:vocadb/widgets/result.dart';
 
@@ -51,7 +52,6 @@ class _RankingTabState extends State<RankingTab>
 }
 
 class RankingContent extends StatelessWidget {
-
   final int rankDuration;
 
   const RankingContent({Key key, this.rankDuration}) : super(key: key);
@@ -60,7 +60,7 @@ class RankingContent extends StatelessWidget {
     return ListView.builder(
       itemCount: songs.length,
       itemBuilder: (context, index) {
-        return RankingTile.fromSong((index+1).toString(), songs[index]);
+        return RankingTile.fromSong((index + 1).toString(), songs[index]);
       },
     );
   }
@@ -109,11 +109,11 @@ class RankingTile extends StatelessWidget {
       this.thumbUrl})
       : super(key: key);
 
-  RankingTile.fromSong(this.rankNumber, SongModel song) : 
-  this.id = song.id,
-  this.name = song.name,
-  this.artist = song.artistString,
-  this.thumbUrl = song.thumbUrl;
+  RankingTile.fromSong(this.rankNumber, SongModel song)
+      : this.id = song.id,
+        this.name = song.name,
+        this.artist = song.artistString,
+        this.thumbUrl = song.thumbUrl;
 
   Widget rankNumberWidget() {
     return Padding(
@@ -128,7 +128,7 @@ class RankingTile extends StatelessWidget {
             imageUrl: this.thumbUrl,
             placeholder: (context, url) => Container(color: Colors.grey),
             errorWidget: (context, url, error) => new Icon(Icons.error),
-        )
+          )
         : Placeholder();
 
     return Padding(
@@ -139,15 +139,21 @@ class RankingTile extends StatelessWidget {
         ));
   }
 
-  Widget infoWidget() {
+  Widget infoWidget(BuildContext context) {
     return Expanded(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Text(this.name, overflow: TextOverflow.ellipsis),
-          Text(this.artist, overflow: TextOverflow.ellipsis),
-        ],
+      child: Padding(
+        padding: EdgeInsets.symmetric(vertical: 8.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            Text(this.name, overflow: TextOverflow.ellipsis),
+            Text(this.artist,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 2,
+                style: Theme.of(context).textTheme.caption),
+          ],
+        ),
       ),
     );
   }
@@ -155,23 +161,28 @@ class RankingTile extends StatelessWidget {
   Widget trailing() {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: IconButton(
-        onPressed: () {},
-        icon: Icon(Icons.more_vert)),
+      child: IconButton(onPressed: () {}, icon: Icon(Icons.more_vert)),
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      onTap: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => SongDetailPage(
+                    this.id, this.name, this.thumbUrl,
+                    tag: 'ranking_${id}')));
+      },
       child: Container(
         height: 100,
         child: Row(
           children: <Widget>[
             rankNumberWidget(),
             thumbnailWidget(),
-            infoWidget(),
-            trailing(),
+            infoWidget(context),
           ],
         ),
       ),

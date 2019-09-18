@@ -25,7 +25,6 @@ class SongCard extends StatelessWidget {
     return Material(
       child: InkWell(
         onTap: () {
-          print('tag : $tag');
           Navigator.push(
               context,
               MaterialPageRoute(
