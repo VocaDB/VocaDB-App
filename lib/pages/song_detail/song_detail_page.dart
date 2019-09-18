@@ -64,6 +64,17 @@ class _SongDetailPageState extends State<SongDetailPage> {
     );
   }
 
+  Widget buildImageWidget(String imageUrl) {
+    return imageUrl == null
+        ? Placeholder()
+        : CachedNetworkImage(
+            fit: BoxFit.cover,
+            imageUrl: imageUrl,
+            placeholder: (context, url) => Container(color: Colors.grey),
+            errorWidget: (context, url, error) => new Icon(Icons.error),
+          );
+  }
+
   Widget buildWithoutPlayer(SongModel song) {
     return Scaffold(
         body: CustomScrollView(
@@ -74,15 +85,12 @@ class _SongDetailPageState extends State<SongDetailPage> {
           flexibleSpace: FlexibleSpaceBar(
             background: Opacity(
               opacity: 0.7,
-              child: Hero(
-                tag: widget.tag,
-                child: CachedNetworkImage(
-                  fit: BoxFit.cover,
-                  imageUrl: widget.thumbUrl,
-                  placeholder: (context, url) => Container(color: Colors.grey),
-                  errorWidget: (context, url, error) => new Icon(Icons.error),
-                ),
-              ),
+              child: (widget.tag == null || song.thumbUrl == null)
+                  ? buildImageWidget(song.thumbUrl)
+                  : Hero(
+                      tag: widget.tag,
+                      child: buildImageWidget(song.thumbUrl),
+                    ),
             ),
           ),
         ),
@@ -144,15 +152,12 @@ class _SongDetailPageState extends State<SongDetailPage> {
         children: <Widget>[
           Container(
             height: 200,
-            child: Hero(
-              tag: widget.tag,
-              child: CachedNetworkImage(
-                fit: BoxFit.cover,
-                imageUrl: widget.thumbUrl,
-                placeholder: (context, url) => Container(color: Colors.grey),
-                errorWidget: (context, url, error) => new Icon(Icons.error),
-              ),
-            ),
+            child: (widget.thumbUrl == null || widget.tag == null)
+                ? buildImageWidget(widget.thumbUrl)
+                : Hero(
+                    tag: widget.tag,
+                    child: buildImageWidget(widget.thumbUrl),
+                  ),
           ),
           Expanded(
             child: Center(
@@ -166,30 +171,37 @@ class _SongDetailPageState extends State<SongDetailPage> {
   }
 
   Widget buildDefault() {
+    Widget defaultWidget = (widget.thumbUrl == null || widget.tag == null)
+        ? Center(
+            child: CircularProgressIndicator(),
+          )
+        : Column(
+            children: <Widget>[
+              Container(
+                height: 200,
+                width: double.infinity,
+                child: Hero(
+                  tag: widget.tag,
+                  child: CachedNetworkImage(
+                    fit: BoxFit.cover,
+                    imageUrl: widget.thumbUrl,
+                    placeholder: (context, url) =>
+                        Container(color: Colors.grey),
+                    errorWidget: (context, url, error) => new Icon(Icons.error),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: Center(
+                  child: CircularProgressIndicator(),
+                ),
+              )
+            ],
+          );
+
     return Scaffold(
       appBar: AppBar(title: Text(widget.name)),
-      body: Column(
-        children: <Widget>[
-          Container(
-            height: 200,
-            width: double.infinity,
-            child: Hero(
-              tag: widget.tag,
-              child: CachedNetworkImage(
-                fit: BoxFit.cover,
-                imageUrl: widget.thumbUrl,
-                placeholder: (context, url) => Container(color: Colors.grey),
-                errorWidget: (context, url, error) => new Icon(Icons.error),
-              ),
-            ),
-          ),
-          Expanded(
-            child: Center(
-              child: CircularProgressIndicator(),
-            ),
-          )
-        ],
-      ),
+      body: defaultWidget,
     );
   }
 
