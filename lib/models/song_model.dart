@@ -84,4 +84,22 @@ class SongModel {
           return SongModel.fromJson(result);
         });
   }
+
+  static Resource<List<SongModel>> topRated(int durationHours) {
+    String url = 'https://vocadb.net/api/songs/top-rated?durationHours=$durationHours&filterBy=CreateDate&fields=MainPicture,PVs,ThumbUrl';
+    return Resource(
+        url: url,
+        parse: (response) {
+          Iterable result = json.decode(response.body);
+          return result.map((model) => SongModel.fromJson(model)).toList();
+        });
+  }
+}
+
+
+class RankDuration {
+  static const int DAILY = 24;
+  static const int WEEKLY = 168;
+  static const int MONTHLY = 720;
+  static const int OVERALL = 0;
 }

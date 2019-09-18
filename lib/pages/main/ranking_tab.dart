@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:vocadb/models/song_model.dart';
+import 'package:vocadb/services/web_service.dart';
+import 'package:vocadb/widgets/result.dart';
 
 class RankingTab extends StatefulWidget {
   @override
@@ -38,41 +41,53 @@ class _RankingTabState extends State<RankingTab>
             body: TabBarView(
               controller: _tabController,
               children: [
-                Center(
-                  child: Text(
-                    "Daily",
-                  ),
-                ),
-                RankingContent(),
-                Center(
-                  child: Text(
-                    "Monthly",
-                  ),
-                ),
-                Center(
-                  child: Text(
-                    "Overall",
-                  ),
-                )
+                RankingContent(rankDuration: RankDuration.DAILY),
+                RankingContent(rankDuration: RankDuration.WEEKLY),
+                RankingContent(rankDuration: RankDuration.MONTHLY),
+                RankingContent(rankDuration: RankDuration.OVERALL),
               ],
             )));
   }
 }
 
 class RankingContent extends StatelessWidget {
+
+  final int rankDuration;
+
+  const RankingContent({Key key, this.rankDuration}) : super(key: key);
+
+  buildHasData(List<SongModel> songs) {
+    return ListView.builder(
+      itemCount: songs.length,
+      itemBuilder: (context, index) {
+        return RankingTile.fromSong((index+1).toString(), songs[index]);
+      },
+    );
+  }
+
+  buildError(Object error) {
+    return Center(
+      child: Result.error('Something wrong!', subtitle: error.toString()),
+    );
+  }
+
+  buildDefault() {
+    return Center(
+      child: CircularProgressIndicator(),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: mockRanking.length,
-      itemBuilder: (BuildContext context, int index) {
-        Map<String, dynamic> song = mockRanking[index];
-        return RankingTile(
-          rankNumber: (index + 1).toString(),
-          id: song["id"],
-          name: song["name"],
-          artist: song["artistString"],
-          thumbUrl: song["thumbUrl"],
-        );
+    return FutureBuilder<List<SongModel>>(
+      future: WebService().load(SongModel.topRated(rankDuration)),
+      builder: (context, snapshot) {
+        if (snapshot.hasData)
+          return buildHasData(snapshot.data);
+        else if (snapshot.hasError) {
+          return buildError(snapshot.error);
+        }
+        return buildDefault();
       },
     );
   }
@@ -93,6 +108,12 @@ class RankingTile extends StatelessWidget {
       this.artist,
       this.thumbUrl})
       : super(key: key);
+
+  RankingTile.fromSong(this.rankNumber, SongModel song) : 
+  this.id = song.id,
+  this.name = song.name,
+  this.artist = song.artistString,
+  this.thumbUrl = song.thumbUrl;
 
   Widget rankNumberWidget() {
     return Padding(
