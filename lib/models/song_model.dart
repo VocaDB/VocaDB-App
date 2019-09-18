@@ -66,36 +66,36 @@ class SongModel {
   List<ArtistSongModel> get otherArtists =>
       this.artists.where((a) => !a.isVocalist && !a.isProducer).toList();
 
-  static Resource<List<SongModel>> get all {
-    return Resource(
-        url: 'https://vocadb.net/api/songs/highlighted?fields=ThumbUrl',
-        parse: (response) {
-          Iterable result = json.decode(response.body);
-          return result.map((model) => SongModel.fromJson(model)).toList();
-        });
+  static SongModel _mapObjectResponse(response) {
+    final result = json.decode(response.body);
+    return SongModel.fromJson(result);
+  }
+
+  static List<SongModel> _mapArrayResponse(response) {
+    Iterable result = json.decode(response.body);
+    return result.map((model) => SongModel.fromJson(model)).toList();
   }
 
   static Resource<SongModel> byId(int id) {
     return Resource(
-        url:
-            'https://vocadb.net/api/songs/$id?fields=PVs,ThumbUrl,Albums,Artists,Tags,WebLinks',
-        parse: (response) {
-          final result = json.decode(response.body);
-          return SongModel.fromJson(result);
-        });
+        endpoint:
+            '/api/songs/$id?fields=PVs,ThumbUrl,Albums,Artists,Tags,WebLinks',
+        parse: _mapObjectResponse);
+  }
+
+  static Resource<List<SongModel>> get all {
+    return Resource(
+        endpoint: '/api/songs/highlighted?fields=ThumbUrl',
+        parse: _mapArrayResponse);
   }
 
   static Resource<List<SongModel>> topRated(int durationHours) {
-    String url = 'https://vocadb.net/api/songs/top-rated?durationHours=$durationHours&filterBy=CreateDate&fields=MainPicture,PVs,ThumbUrl';
     return Resource(
-        url: url,
-        parse: (response) {
-          Iterable result = json.decode(response.body);
-          return result.map((model) => SongModel.fromJson(model)).toList();
-        });
+        endpoint:
+            '/api/songs/top-rated?durationHours=$durationHours&filterBy=CreateDate&fields=MainPicture,PVs,ThumbUrl',
+        parse: _mapArrayResponse);
   }
 }
-
 
 class RankDuration {
   static const int DAILY = 24;

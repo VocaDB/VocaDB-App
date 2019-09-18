@@ -56,8 +56,8 @@ class EntryModel {
 
   static Resource<List<EntryModel>> query(String query) {
     return Resource(
-        url:
-            'https://vocadb.net/api/entries?query=${query}&fields=MainPicture&nameMatchMode=auto',
+        endpoint:
+            '/api/entries?query=${query}&fields=MainPicture&nameMatchMode=auto',
         parse: (response) {
           Iterable result = json.decode(response.body)['items'];
           return result.map((model) => EntryModel.fromJson(model)).toList();

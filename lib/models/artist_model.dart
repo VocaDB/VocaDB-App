@@ -38,12 +38,14 @@ class ArtistModel {
   List<TagModel> get tags =>
       (this.tagGroups != null) ? this.tagGroups.map((t) => t.tag).toList() : [];
 
+  static ArtistModel _mapObjectResponse(response) {
+    final result = json.decode(response.body);
+    return ArtistModel.fromJson(result);
+  }
+
   static Resource<ArtistModel> byId(int id) {
     return Resource(
-        url: 'https://vocadb.net/api/artists/$id?fields=Tags&relations=All',
-        parse: (response) {
-          final result = json.decode(response.body);
-          return ArtistModel.fromJson(result);
-        });
+        endpoint: '/api/artists/$id?fields=Tags&relations=All',
+        parse: _mapObjectResponse);
   }
 }

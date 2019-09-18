@@ -43,31 +43,32 @@ class AlbumModel {
         artistString = entry.artistString,
         mainPicture = entry.mainPicture;
 
-  static Resource<List<AlbumModel>> get all {
-    return Resource(
-        url: 'https://vocadb.net/api/albums/new?fields=MainPicture',
-        parse: (response) {
-          Iterable result = json.decode(response.body);
-          return result.map((model) => AlbumModel.fromJson(model)).toList();
-        });
+  static AlbumModel _mapObjectResponse(response) {
+    final result = json.decode(response.body);
+    return AlbumModel.fromJson(result);
   }
 
-  static Resource<List<AlbumModel>> get top {
-    return Resource(
-        url: 'https://vocadb.net/api/albums/top?fields=MainPicture',
-        parse: (response) {
-          Iterable result = json.decode(response.body);
-          return result.map((model) => AlbumModel.fromJson(model)).toList();
-        });
+  static List<AlbumModel> _mapArrayResponse(response) {
+    Iterable result = json.decode(response.body);
+    return result.map((model) => AlbumModel.fromJson(model)).toList();
   }
 
   static Resource<AlbumModel> byId(int id) {
     return Resource(
-        url: 'https://vocadb.net/api/albums/$id?fields=Tracks,Tags',
-        parse: (response) {
-          final result = json.decode(response.body);
-          return AlbumModel.fromJson(result);
-        });
+        endpoint: '/api/albums/$id?fields=Tracks,Tags',
+        parse: _mapObjectResponse);
+  }
+
+  static Resource<List<AlbumModel>> get all {
+    return Resource(
+        endpoint: '/api/albums/new?fields=MainPicture',
+        parse: _mapArrayResponse);
+  }
+
+  static Resource<List<AlbumModel>> get top {
+    return Resource(
+        endpoint: '/api/albums/top?fields=MainPicture',
+        parse: _mapArrayResponse);
   }
 
   get imageUrl => (mainPicture != null && mainPicture.urlThumb != null)
