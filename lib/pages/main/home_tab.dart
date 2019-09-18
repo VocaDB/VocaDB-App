@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:vocadb/pages/main/highlighted_list.dart';
 import 'package:vocadb/pages/main/latest_album_list.dart';
 import 'package:vocadb/pages/main/top_album_list.dart';
-import 'package:vocadb/pages/youtube_playlist/youtube_playlist_page.dart';
 import 'package:vocadb/widgets/album_card.dart';
 import 'package:vocadb/pages/search/search_page.dart';
 
@@ -47,15 +46,6 @@ class _HomeTabState extends State<HomeTab> {
           Padding(
             padding: EdgeInsets.all(8.0),
             child: SearchBar(),
-          ),
-          RaisedButton(
-            onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => YoutubePlaylistPage()));
-            },
-            child: Text('Playlist'),
           ),
           HighlightedList(),
           LatestAlbumList(),
