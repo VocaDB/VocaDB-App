@@ -10,32 +10,37 @@ class LatestAlbumList extends StatefulWidget {
 }
 
 class _LatestAlbumListState extends State<LatestAlbumList> {
-  List<AlbumModel> _albums = List<AlbumModel>();
-
-  @override
-  void initState() {
-    super.initState();
-    _fetch();
-  }
-
-  void _fetch() {
-    WebService().load(AlbumModel.all).then((albums) => {
-          setState(() => {_albums = albums})
-        });
-  }
-
-  List<Widget> _buildAlbumCardList() {
-    return _albums
+  buildHasData(List<AlbumModel> albums) {
+    List<AlbumCard> albumCards = albums
         .map((album) =>
             AlbumCard.album(album, tag: 'latest_album_list_${album.id}'))
         .toList();
+    return Section(
+        title: 'Recent or upcoming albums',
+        horizontal: true,
+        children: albumCards);
+  }
+
+  buildDefault() {
+    return Section(
+        title: 'Recent or upcoming albums',
+        horizontal: true,
+        children: [0, 1, 2].map((i) => AlbumCardPlaceholder()).toList());
   }
 
   @override
   Widget build(BuildContext context) {
-    return Section(
-        title: 'Recent or upcoming albums',
-        horizontal: true,
-        children: _buildAlbumCardList());
+    return FutureBuilder<List<AlbumModel>>(
+      future: WebService().load(AlbumModel.all),
+      builder: (context, snapshot) {
+        if (snapshot.hasData)
+          return buildHasData(snapshot.data);
+        else if (snapshot.hasError) {
+          print(snapshot.error);
+        }
+
+        return buildDefault();
+      },
+    );
   }
 }

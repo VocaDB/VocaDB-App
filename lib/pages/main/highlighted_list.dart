@@ -10,31 +10,33 @@ class HighlightedList extends StatefulWidget {
 }
 
 class _HighlightedListState extends State<HighlightedList> {
-  List<SongCard> highlightedSongs;
-
-  List<SongModel> _songs = List<SongModel>();
-
-  @override
-  void initState() {
-    super.initState();
-    _fetch();
-  }
-
-  void _fetch() {
-    WebService().load(SongModel.all).then((songs) => {
-          setState(() => {_songs = songs})
-        });
-  }
-
-  List<Widget> _buildSongCardList() {
-    return _songs
+  buildHasData(List<SongModel> songs) {
+    List<SongCard> songCards = songs
         .map((song) => SongCard.song(song, tag: 'highlighted_list_${song.id}'))
         .toList();
+    return Section(title: 'Highlighted', horizontal: true, children: songCards);
+  }
+
+  buildDefault() {
+    return Section(
+        title: 'Highlighted',
+        horizontal: true,
+        children: [0, 1, 2].map((i) => SongCardPlaceholder()).toList());
   }
 
   @override
   Widget build(BuildContext context) {
-    return Section(
-        title: 'Highlighted', horizontal: true, children: _buildSongCardList());
+    return FutureBuilder<List<SongModel>>(
+      future: WebService().load(SongModel.all),
+      builder: (context, snapshot) {
+        if (snapshot.hasData)
+          return buildHasData(snapshot.data);
+        else if (snapshot.hasError) {
+          print(snapshot.error);
+        }
+
+        return buildDefault();
+      },
+    );
   }
 }
