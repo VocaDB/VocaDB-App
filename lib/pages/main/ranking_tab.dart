@@ -174,7 +174,7 @@ class RankingTile extends StatelessWidget {
             MaterialPageRoute(
                 builder: (context) => SongDetailPage(
                     this.id, this.name, this.thumbUrl,
-                    tag: 'ranking_${id}')));
+                    tag: 'ranking_$id')));
       },
       child: Container(
         height: 100,

@@ -57,7 +57,7 @@ class EntryModel {
   static Resource<List<EntryModel>> query(String query) {
     return Resource(
         endpoint:
-            '/api/entries?query=${query}&fields=MainPicture&nameMatchMode=auto',
+            '/api/entries?query=$query&fields=MainPicture&nameMatchMode=auto',
         parse: (response) {
           Iterable result = json.decode(response.body)['items'];
           return result.map((model) => EntryModel.fromJson(model)).toList();
