@@ -76,6 +76,11 @@ class SongModel {
     return result.map((model) => SongModel.fromJson(model)).toList();
   }
 
+  static List<SongModel> _mapItemsResponse(response) {
+    Iterable result = json.decode(response.body)['items'];
+    return result.map((model) => SongModel.fromJson(model)).toList();
+  }
+
   static Resource<SongModel> byId(int id) {
     return Resource(
         endpoint:
@@ -94,6 +99,18 @@ class SongModel {
         endpoint:
             '/api/songs/top-rated?durationHours=$durationHours&filterBy=CreateDate&fields=MainPicture,PVs,ThumbUrl',
         parse: _mapArrayResponse);
+  }
+
+  static Resource<List<SongModel>> latestByTagId(int tagId) {
+    return Resource(
+        endpoint: '/api/songs?tagId=$tagId&fields=ThumbUrl&sort=AdditionDate',
+        parse: _mapItemsResponse);
+  }
+
+  static Resource<List<SongModel>> topByTagId(int tagId) {
+    return Resource(
+        endpoint: '/api/songs?tagId=$tagId&fields=ThumbUrl&sort=RatingScore',
+        parse: _mapItemsResponse);
   }
 }
 

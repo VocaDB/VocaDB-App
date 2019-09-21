@@ -34,7 +34,9 @@ class _TagsState extends State<Tags> {
 
   toTagDetailPage(TagModel tagModel) {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => TagDetailPage()));
+        context,
+        MaterialPageRoute(
+            builder: (context) => TagDetailPage(tagModel.id, tagModel.name)));
   }
 
   Widget mapTagWidget(TagModel tagModel) {

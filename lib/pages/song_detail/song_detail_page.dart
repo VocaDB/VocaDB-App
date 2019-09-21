@@ -4,6 +4,7 @@ import 'package:vocadb/models/song_model.dart';
 import 'package:vocadb/services/web_service.dart';
 import 'package:vocadb/widgets/album_card.dart';
 import 'package:vocadb/widgets/artist_tile.dart';
+import 'package:vocadb/widgets/model_future_builder.dart';
 import 'package:vocadb/widgets/result.dart';
 import 'package:vocadb/widgets/section.dart';
 import 'package:vocadb/widgets/section_divider.dart';
@@ -50,7 +51,7 @@ class _SongDetailPageState extends State<SongDetailPage> {
             context: context,
             videoId: YoutubePlayer.convertUrlToId(song.youtubePV.url),
             flags: YoutubePlayerFlags(
-              autoPlay: true,
+              autoPlay: false,
               showVideoProgressIndicator: true,
             ),
           ),
@@ -207,17 +208,11 @@ class _SongDetailPageState extends State<SongDetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<SongModel>(
+    return ModelFutureBuilder<SongModel>(
       future: WebService().load(SongModel.byId(widget.id)),
-      builder: (context, snapshot) {
-        if (snapshot.hasData)
-          return buildHasData(snapshot.data);
-        else if (snapshot.hasError) {
-          return buildError(snapshot.error);
-        }
-
-        return buildDefault();
-      },
+      buildData: (song) => buildHasData(song),
+      buildError: (error) => buildError(error),
+      buildLoading: () => buildDefault(),
     );
   }
 }
