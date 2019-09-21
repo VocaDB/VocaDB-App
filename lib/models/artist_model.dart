@@ -1,5 +1,4 @@
-import 'dart:convert';
-
+import 'package:dio/dio.dart';
 import 'package:vocadb/models/artist_relations_model.dart';
 import 'package:vocadb/models/entry_model.dart';
 import 'package:vocadb/models/tag_group_model.dart';
@@ -38,8 +37,8 @@ class ArtistModel {
   List<TagModel> get tags =>
       (this.tagGroups != null) ? this.tagGroups.map((t) => t.tag).toList() : [];
 
-  static ArtistModel _mapObjectResponse(response) {
-    final result = json.decode(response.body);
+  static ArtistModel _mapObjectResponse(Response response) {
+    final result = response.data;
     return ArtistModel.fromJson(result);
   }
 

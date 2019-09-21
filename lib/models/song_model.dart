@@ -1,5 +1,4 @@
-import 'dart:convert';
-
+import 'package:dio/dio.dart';
 import 'package:vocadb/models/album_model.dart';
 import 'package:vocadb/models/artist_song_model.dart';
 import 'package:vocadb/models/entry_model.dart';
@@ -66,18 +65,17 @@ class SongModel {
   List<ArtistSongModel> get otherArtists =>
       this.artists.where((a) => !a.isVocalist && !a.isProducer).toList();
 
-  static SongModel _mapObjectResponse(response) {
-    final result = json.decode(response.body);
-    return SongModel.fromJson(result);
+  static SongModel _mapObjectResponse(Response response) {
+    return SongModel.fromJson(response.data);
   }
 
-  static List<SongModel> _mapArrayResponse(response) {
-    Iterable result = json.decode(response.body);
+  static List<SongModel> _mapArrayResponse(Response response) {
+    Iterable result = response.data;
     return result.map((model) => SongModel.fromJson(model)).toList();
   }
 
-  static List<SongModel> _mapItemsResponse(response) {
-    Iterable result = json.decode(response.body)['items'];
+  static List<SongModel> _mapItemsResponse(Response response) {
+    Iterable result = response.data['items'];
     return result.map((model) => SongModel.fromJson(model)).toList();
   }
 

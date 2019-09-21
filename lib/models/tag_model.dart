@@ -1,5 +1,4 @@
-import 'dart:convert';
-
+import 'package:dio/dio.dart';
 import 'package:vocadb/models/main_picture_model.dart';
 import 'package:vocadb/services/web_service.dart';
 
@@ -22,8 +21,8 @@ class TagModel {
             ? MainPictureModel.fromJson(json['mainPicture'])
             : null;
 
-  static TagModel _mapObjectResponse(response) {
-    final result = json.decode(response.body);
+  static TagModel _mapObjectResponse(Response response) {
+    final result = response.data;
     return TagModel.fromJson(result);
   }
 

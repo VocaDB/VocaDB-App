@@ -1,9 +1,10 @@
 import 'dart:async';
 
-import 'package:http/http.dart' as http;
-import 'package:http/http.dart';
+import 'package:dio/dio.dart';
+import 'package:dio_http_cache/dio_http_cache.dart';
 
 const host = 'https://vocadb.net';
+final dio = Dio();
 
 class Resource<T> {
   final String url;
@@ -18,8 +19,11 @@ class WebService {
   Future<T> load<T>(Resource<T> resource) async {
     String actualUrl =
         (resource.url == null) ? host + resource.endpoint : resource.url;
+    dio.interceptors
+        .add(DioCacheManager(CacheConfig(baseUrl: host)).interceptor);
 
-    final response = await http.get(actualUrl);
+    final response = await dio.get(actualUrl,
+        options: buildCacheOptions(Duration(minutes: 5)));
     if (response.statusCode == 200) {
       return resource.parse(response);
     } else {

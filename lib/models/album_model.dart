@@ -1,5 +1,4 @@
-import 'dart:convert';
-
+import 'package:dio/dio.dart';
 import 'package:vocadb/models/entry_model.dart';
 import 'package:vocadb/models/main_picture_model.dart';
 import 'package:vocadb/models/tag_group_model.dart';
@@ -43,13 +42,12 @@ class AlbumModel {
         artistString = entry.artistString,
         mainPicture = entry.mainPicture;
 
-  static AlbumModel _mapObjectResponse(response) {
-    final result = json.decode(response.body);
-    return AlbumModel.fromJson(result);
+  static AlbumModel _mapObjectResponse(Response response) {
+    return AlbumModel.fromJson(response.data);
   }
 
-  static List<AlbumModel> _mapArrayResponse(response) {
-    Iterable result = json.decode(response.body);
+  static List<AlbumModel> _mapArrayResponse(Response response) {
+    Iterable result = response.data;
     return result.map((model) => AlbumModel.fromJson(model)).toList();
   }
 

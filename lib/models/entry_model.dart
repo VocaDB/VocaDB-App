@@ -59,7 +59,7 @@ class EntryModel {
         endpoint:
             '/api/entries?query=$query&fields=MainPicture&nameMatchMode=auto',
         parse: (response) {
-          Iterable result = json.decode(response.body)['items'];
+          Iterable result = json.decode(response.data)['items'];
           return result.map((model) => EntryModel.fromJson(model)).toList();
         });
   }
