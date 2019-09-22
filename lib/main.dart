@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:vocadb/app_theme.dart';
 import 'package:vocadb/blocs/config_bloc.dart';
+import 'package:vocadb/global_variables.dart';
 import 'package:vocadb/providers/global_provider.dart';
 
 import 'pages/main/account_tab.dart';
 import 'pages/main/home_tab.dart';
 import 'pages/main/ranking_tab.dart';
 
-void main() => runApp(VocaDBApp());
+void main() async {
+  await GlobalVariables.init();
+
+  runApp(VocaDBApp());
+}
 
 class VocaDBApp extends StatelessWidget {
   @override
@@ -87,7 +92,6 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.amber[800],
         onTap: _onItemTapped,
       ),
     );

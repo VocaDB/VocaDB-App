@@ -36,11 +36,14 @@ class _HomeTabState extends State<HomeTab> {
 class SearchBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return SizedBox(
       height: 48.0,
       width: double.infinity,
       child: Material(
-        color: Colors.white12,
+        color: theme.cardColor,
+        elevation: 3,
         child: InkWell(
           onTap: () {
             Navigator.push(
@@ -49,7 +52,9 @@ class SearchBar extends StatelessWidget {
           child: Padding(
             padding: EdgeInsets.all(12.0),
             child: Row(
-              children: <Widget>[Icon(Icons.search, color: Colors.grey)],
+              children: <Widget>[
+                Icon(Icons.search, color: theme.iconTheme.color)
+              ],
             ),
           ),
         ),

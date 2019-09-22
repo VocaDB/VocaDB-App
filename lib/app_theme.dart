@@ -10,4 +10,10 @@ class AppTheme {
   static final lightTheme = ThemeData(
     brightness: Brightness.light,
   );
+
+  static ThemeEnum toEnum(String name) {
+    if (name == ThemeEnum.Light.toString()) return ThemeEnum.Light;
+
+    return ThemeEnum.Dark;
+  }
 }

@@ -36,9 +36,15 @@ class _RankingTabState extends State<RankingTab>
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return SafeArea(
         child: Scaffold(
-            appBar: TabBar(controller: _tabController, tabs: myTabs),
+            appBar: TabBar(
+              controller: _tabController,
+              tabs: myTabs,
+              labelColor: theme.primaryColor,
+              unselectedLabelColor: theme.textTheme.title.color,
+            ),
             body: TabBarView(
               controller: _tabController,
               children: [

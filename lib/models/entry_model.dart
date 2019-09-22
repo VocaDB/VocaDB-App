@@ -1,5 +1,4 @@
-import 'dart:convert';
-
+import 'package:dio/dio.dart';
 import 'package:vocadb/models/main_picture_model.dart';
 import 'package:vocadb/services/web_service.dart';
 
@@ -58,8 +57,8 @@ class EntryModel {
     return Resource(
         endpoint:
             '/api/entries?query=$query&fields=MainPicture&nameMatchMode=auto',
-        parse: (response) {
-          Iterable result = json.decode(response.data)['items'];
+        parse: (Response response) {
+          Iterable result = response.data['items'];
           return result.map((model) => EntryModel.fromJson(model)).toList();
         });
   }
