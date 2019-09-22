@@ -15,6 +15,11 @@ class YoutubePlaylistBloc {
 
   void updatePlaylist(List<SongModel> songs) {
     _playlist.add(songs);
+
+    int nextPlayableIndex =
+        SongList(_playlist.value).getFirstWithYoutubePVIndex(0);
+
+    _currentIndex.add(nextPlayableIndex);
   }
 
   void next() {
@@ -26,6 +31,11 @@ class YoutubePlaylistBloc {
 
     int nextPlayableIndex =
         SongList(_playlist.value).getFirstWithYoutubePVIndex(newIndex);
+
+    if (nextPlayableIndex == -1) {
+      nextPlayableIndex =
+          SongList(_playlist.value).getFirstWithYoutubePVIndex(0);
+    }
 
     _currentIndex.add(nextPlayableIndex);
   }
@@ -39,6 +49,11 @@ class YoutubePlaylistBloc {
 
     int lastPlayableIndex =
         SongList(_playlist.value).getLastWithYoutubePVIndex(newIndex);
+
+    if (lastPlayableIndex == -1) {
+      lastPlayableIndex = SongList(_playlist.value)
+          .getLastWithYoutubePVIndex(_playlist.value.length - 1);
+    }
 
     _currentIndex.add(lastPlayableIndex);
   }
