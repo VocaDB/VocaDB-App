@@ -9,10 +9,13 @@ class Section extends StatelessWidget {
 
   final EdgeInsets padding;
 
+  final Widget extraMenus;
+
   Section(
       {Key key,
       this.title,
       this.children,
+      this.extraMenus,
       this.horizontal = false,
       this.padding = EdgeInsets.zero})
       : super(key: key);
@@ -47,19 +50,19 @@ class Section extends StatelessWidget {
           padding: EdgeInsets.only(left: 8.0),
           child: Align(
             alignment: Alignment.centerLeft,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Text(
-                  this.title,
-                  textDirection: TextDirection.ltr,
-                  style: Theme.of(context).textTheme.subhead,
-                ),
-                FlatButton(
-                  onPressed: () {},
-                  child: Text('More'),
-                )
-              ],
+            child: SizedBox(
+              height: 48,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Text(
+                    this.title,
+                    textDirection: TextDirection.ltr,
+                    style: Theme.of(context).textTheme.subhead,
+                  ),
+                  this.extraMenus ?? Container()
+                ],
+              ),
             ),
           ),
         ),
