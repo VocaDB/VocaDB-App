@@ -13,6 +13,8 @@ environment:
   sdk: ">=2.0.0-dev.68.0 <3.0.0"
 
 dependencies:
+  dio_http_cache: ^0.2.0
+  dio: ^3.0.1
   shimmer: ^1.0.1
   youtube_player_flutter: ^4.1.0
   cached_network_image: ^1.1.1
