@@ -125,4 +125,76 @@ void main() {
       expect(result, isNotNull);
     });
   });
+
+  group('Song list', () {
+    List<SongModel> songs = [
+      SongModel.fromJson({
+        "id": 1,
+        "name": "A",
+        "pvs": [
+          {"id": 1, "service": "NicoNico"}
+        ]
+      }),
+      SongModel.fromJson({
+        "id": 2,
+        "name": "B",
+        "pvs": [
+          {"id": 1, "service": "Youtube"}
+        ]
+      }),
+      SongModel.fromJson({
+        "id": 3,
+        "name": "C",
+        "pvs": [
+          {"id": 2, "service": "SoundCloud"}
+        ]
+      }),
+      SongModel.fromJson({
+        "id": 4,
+        "name": "D",
+        "pvs": [
+          {"id": 2, "service": "Youtube"}
+        ]
+      }),
+      SongModel.fromJson({
+        "id": 5,
+        "name": "E",
+        "pvs": [
+          {"id": 1, "service": "SomeService"}
+        ]
+      }),
+      SongModel.fromJson({
+        "id": 6,
+        "name": "E",
+        "pvs": [
+          {"id": 1, "service": "SomeService2"}
+        ]
+      }),
+    ];
+
+    SongList songList;
+
+    setUp(() {
+      songList = SongList(songs);
+    });
+
+    test('should return song with youtube pv', () {
+      SongModel songWithYoutubePV = songList.getFirstWithYoutubePV();
+
+      expect(songWithYoutubePV, isNotNull);
+      expect(songWithYoutubePV.id, 2);
+
+      songWithYoutubePV = songList.getFirstWithYoutubePV(start: 1);
+
+      expect(songWithYoutubePV, isNotNull);
+      expect(songWithYoutubePV.id, 2);
+    });
+
+    test('should return null when youtube pv not found from specific index',
+        () {
+      SongModel songWithYoutubePV = songList.getFirstWithYoutubePV(start: 4);
+
+      expect(songWithYoutubePV, isNull);
+    });
+  });
 }

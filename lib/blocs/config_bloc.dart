@@ -26,7 +26,6 @@ class ConfigBloc {
   }
 
   void updateTheme(ThemeEnum selectedTheme) async {
-    print(selectedTheme.toString());
     await GlobalVariables.pref.setString('theme', selectedTheme.toString());
     _themeData.add(selectedTheme);
   }

@@ -117,8 +117,28 @@ class SongList {
 
   SongList(this.songs);
 
-  SongModel getFirstWithYoutubePV() {
-    return this.songs.firstWhere((s) => s.youtubePV != null);
+  SongModel getFirstWithYoutubePV({int start = 0}) {
+    if (start == 0) {
+      return this
+          .songs
+          .firstWhere((s) => s.youtubePV != null, orElse: () => null);
+    }
+
+    int index = this.songs.indexWhere((s) => s.youtubePV != null, start);
+
+    return (index == -1) ? null : this.songs[index];
+  }
+
+  int getFirstWithYoutubePVIndex(int start) {
+    int index = this.songs.indexWhere((s) => s.youtubePV != null, start);
+
+    return index;
+  }
+
+  int getLastWithYoutubePVIndex(int start) {
+    int index = this.songs.lastIndexWhere((s) => s.youtubePV != null, start);
+
+    return index;
   }
 }
 

@@ -1,152 +1,125 @@
 import 'package:flutter/material.dart';
+import 'package:vocadb/blocs/youtube_playlist_bloc.dart';
+import 'package:vocadb/models/song_model.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class YoutubePlaylistPage extends StatefulWidget {
+  final List<SongModel> songs;
+
+  const YoutubePlaylistPage({Key key, this.songs}) : super(key: key);
+
   @override
   _YoutubePlaylistPageState createState() => _YoutubePlaylistPageState();
 }
 
 class _YoutubePlaylistPageState extends State<YoutubePlaylistPage> {
-
-  String currentVideoId;
-
-  String youtubeState;
-
-  int currentVideoIndex = 0;
-
   YoutubePlayerController _playerController;
-
-  PV activeVideo;
-
-  List<PV> videoList = [
-    new PV("1 - ビバハピ", "WiUjG9fF3zw"),
-    new PV("2 - Tell Your World", "PqJNc9KVIZE"),
-    new PV("3 - ODDS&ENDS", "6OmwKZ9r07o"),
-  ];
+  YoutubePlaylistBloc bloc;
 
   @override
   void initState() {
     super.initState();
     _playerController = new YoutubePlayerController();
-    setState(() {
-      youtubeState = "Unknown";
-      activeVideo = videoList[0];
-    });
-  }
-
-  onChangeVideo(int videoIndex) {
-    setState(() {
-      activeVideo = videoList[videoIndex];
-      currentVideoIndex = videoIndex;
-    });
-  }
-
-  isSelected(int videoIndex) {
-    return videoIndex == this.currentVideoIndex;
-  }
-
-  prev() {
-    if(this.currentVideoIndex > 0) {
-      onChangeVideo(this.currentVideoIndex-1);
-    } else {
-      onChangeVideo(2);
-    }
-  }
-
-  next() {
-    if(this.currentVideoIndex < 2) {
-      onChangeVideo(this.currentVideoIndex+1);
-    } else {
-      onChangeVideo(0);
-    }
+    bloc = YoutubePlaylistBloc();
+    bloc.updatePlaylist(widget.songs);
   }
 
   playerControllerListen() {
-
     PlayerState currentState = _playerController.value.playerState;
 
-    if(currentState == PlayerState.ENDED) {
-      this.next();
+    if (currentState == PlayerState.ENDED) {
+      bloc.next();
     }
-    
-    setState(() {
-      youtubeState = currentState.toString();
-    });
+  }
+
+  buildPlaylist() {
+    return StreamBuilder(
+      stream: bloc.currentIndexStream,
+      builder: (context, snapshot) {
+        return ListView.builder(
+          itemCount: widget.songs.length,
+          itemBuilder: (BuildContext context, int index) {
+            SongModel song = widget.songs[index];
+            return ListTile(
+              onTap: () {
+                bloc.select(index);
+              },
+              selected: snapshot.data == index,
+              enabled: song.youtubePV != null,
+              leading: Text((index + 1).toString()),
+              title: Text(song.name),
+              subtitle: Text(song.artistString),
+            );
+          },
+        );
+      },
+    );
+  }
+
+  buildPlayer() {
+    return StreamBuilder(
+      stream: bloc.currentIndexStream,
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) {
+          return SizedBox(
+            height: 200,
+            child: Center(
+              child: CircularProgressIndicator(),
+            ),
+          );
+        }
+        SongModel song = widget.songs[snapshot.data];
+
+        if (song.youtubePV == null) {
+          return SizedBox(
+            height: 200,
+            child: Center(
+              child: Text('Player not available for this song.'),
+            ),
+          );
+        }
+
+        return YoutubePlayer(
+          context: context,
+          videoId: YoutubePlayer.convertUrlToId(song.youtubePV.url),
+          flags: YoutubePlayerFlags(
+            autoPlay: false,
+            showVideoProgressIndicator: true,
+          ),
+          onPlayerInitialized: (controller) {
+            _playerController = controller;
+            _playerController.addListener(playerControllerListen);
+          },
+        );
+      },
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-     return SafeArea(
+    return SafeArea(
       child: Scaffold(
+        appBar: AppBar(title: Text('Playlist')),
         body: Column(
           children: <Widget>[
-            YoutubePlayer(
-                context: context,
-                videoId: this.activeVideo.videoId,
-                flags: YoutubePlayerFlags(
-                  autoPlay: false,
-                  showVideoProgressIndicator: true,
-                ),    
-                onPlayerInitialized: (controller) {
-                  _playerController = controller;
-                  _playerController.addListener(playerControllerListen);
-                },
-            ),
+            buildPlayer(),
             Container(
-              height: 100,
-              child: Center(
-                child: Text(this.youtubeState),
-              ),
-            ),
-             Container(
               height: 100,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   FlatButton(
-                    onPressed: this.prev,
-                    child: Icon(Icons.skip_previous)
-                  ),
-                  FlatButton(
-                    onPressed: this.next,
-                    child: Icon(Icons.skip_next)
-                  )
+                      onPressed: bloc.prev, child: Icon(Icons.skip_previous)),
+                  FlatButton(onPressed: bloc.next, child: Icon(Icons.skip_next))
                 ],
               ),
             ),
-            ListTile(
-              title: Text("1 - ビバハピ"),
-              selected: isSelected(0),
-              onTap: () {
-                this.onChangeVideo(0);
-              },
-            ),
-            ListTile(
-              title: Text("2 - Tell Your World"),
-              selected: isSelected(1),
-              onTap: () {
-                this.onChangeVideo(1);
-              },
-            ),
-            ListTile(
-              title: Text("3 - ODDS&ENDS"),
-              selected: isSelected(2),
-              onTap: () {
-                this.onChangeVideo(2);
-              },
+            Expanded(
+              child: buildPlaylist(),
             )
           ],
         ),
       ),
     );
   }
-}
-
-class PV {
-
-  String name;
-
-  String videoId;
-
-  PV(String name, String videoId) : this.name = name, this.videoId = videoId;
 }
