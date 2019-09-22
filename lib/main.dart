@@ -1,20 +1,40 @@
 import 'package:flutter/material.dart';
+import 'package:vocadb/app_theme.dart';
+import 'package:vocadb/blocs/config_bloc.dart';
+import 'package:vocadb/providers/global_provider.dart';
 
 import 'pages/main/account_tab.dart';
 import 'pages/main/home_tab.dart';
 import 'pages/main/ranking_tab.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(VocaDBApp());
 
-class MyApp extends StatelessWidget {
+class VocaDBApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'VocaDB Flutter Demo',
-      theme: ThemeData(
-        brightness: Brightness.dark,
-      ),
-      home: MyHomePage(title: 'VocaDB Demo Home Page'),
+    return GlobalProvider(
+      configBloc: ConfigBloc(),
+      child: RootApp(),
+    );
+  }
+}
+
+class RootApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final config = GlobalProvider.of(context).configBloc;
+    return StreamBuilder(
+      stream: config.themeDataStream,
+      builder: (context, snapshot) {
+        return MaterialApp(
+          title: 'VocaDB Flutter Demo',
+          theme: (snapshot.hasData)
+              ? config.getThemeData(snapshot.data)
+              : AppTheme.darkTheme,
+          darkTheme: AppTheme.darkTheme,
+          home: MyHomePage(title: 'VocaDB Demo Home Page'),
+        );
+      },
     );
   }
 }
@@ -29,9 +49,9 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   int _selectedIndex = 0;
-  static const TextStyle optionStyle = TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+  static const TextStyle optionStyle =
+      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
 
   List<Widget> _widgetOptions = <Widget>[
     HomeTab(),
@@ -44,7 +64,6 @@ class _MyHomePageState extends State<MyHomePage> {
       _selectedIndex = index;
     });
   }
-
 
   @override
   Widget build(BuildContext context) {

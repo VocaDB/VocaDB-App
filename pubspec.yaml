@@ -13,6 +13,8 @@ environment:
   sdk: ">=2.0.0-dev.68.0 <3.0.0"
 
 dependencies:
+  rxdart: ^0.22.2
+  shared_preferences: ^0.5.3+4
   dio_http_cache: ^0.2.0
   dio: ^3.0.1
   shimmer: ^1.0.1
