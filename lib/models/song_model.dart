@@ -88,7 +88,7 @@ class SongModel {
 
   static Resource<List<SongModel>> get all {
     return Resource(
-        endpoint: '/api/songs/highlighted?fields=ThumbUrl',
+        endpoint: '/api/songs/highlighted?fields=ThumbUrl,PVs',
         parse: _mapArrayResponse);
   }
 
@@ -109,6 +109,16 @@ class SongModel {
     return Resource(
         endpoint: '/api/songs?tagId=$tagId&fields=ThumbUrl&sort=RatingScore',
         parse: _mapItemsResponse);
+  }
+}
+
+class SongList {
+  final List<SongModel> songs;
+
+  SongList(this.songs);
+
+  SongModel getFirstWithYoutubePV() {
+    return this.songs.firstWhere((s) => s.youtubePV != null);
   }
 }
 
