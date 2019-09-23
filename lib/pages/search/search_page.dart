@@ -1,8 +1,6 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
+import 'package:vocadb/blocs/search_bloc.dart';
 import 'package:vocadb/models/entry_model.dart';
-import 'package:vocadb/services/web_service.dart';
 import 'package:vocadb/widgets/entry_tile.dart';
 import 'package:vocadb/widgets/result.dart';
 
@@ -11,57 +9,31 @@ class SearchPage extends StatefulWidget {
   _SearchPageState createState() => _SearchPageState();
 }
 
-enum SearchType { All, Song, Artist, Album }
-
 class _SearchPageState extends State<SearchPage> {
-  String _query = '';
 
-  TextEditingController _controller = TextEditingController();
-
-  SearchType _searchType = SearchType.All;
-
-  Timer _debounce;
+  SearchBloc bloc;
 
   @override
   void initState() {
     super.initState();
-    _controller.addListener(_onSearchChanged);
+    bloc = SearchBloc();
   }
 
-  void _onSearchChanged() {
-    if (_debounce?.isActive ?? false) _debounce.cancel();
-    _debounce = Timer(const Duration(milliseconds: 500), () {
-      // do something with _searchQuery.text
-      setState(() {
-        _query = _controller.text;
-      });
-    });
-  }
-
-  void onChangeSearchType(SearchType searchType) {
-    setState(() {
-      _searchType = searchType;
-    });
+  void onChangeEntryType(EntryType entryType) {
+    bloc.updateEntryType(entryType);
   }
 
   IconData getSuffixIcon() {
-    switch (_searchType) {
-      case SearchType.Song:
+    switch (bloc.entryType) {
+      case EntryType.Song:
         return Icons.music_note;
-      case SearchType.Artist:
+      case EntryType.Artist:
         return Icons.person;
-      case SearchType.Album:
+      case EntryType.Album:
         return Icons.album;
       default:
         return Icons.search;
     }
-  }
-
-  @override
-  void dispose() {
-    _controller.removeListener(_onSearchChanged);
-    _controller.dispose();
-    super.dispose();
   }
 
   void _showModalBottomSheet(context) {
@@ -73,34 +45,34 @@ class _SearchPageState extends State<SearchPage> {
               children: <Widget>[
                 ListTile(
                     leading: Icon(Icons.search),
-                    selected: _searchType == SearchType.All,
+                    selected: bloc.entryType == EntryType.Undefined,
                     title: Text('Anything'),
                     onTap: () {
-                      onChangeSearchType(SearchType.All);
+                      onChangeEntryType(EntryType.Undefined);
                       Navigator.pop(context);
                     }),
                 ListTile(
                     leading: Icon(Icons.music_note),
-                    selected: _searchType == SearchType.Song,
+                    selected: bloc.entryType == EntryType.Song,
                     title: Text('Song'),
                     onTap: () {
-                      onChangeSearchType(SearchType.Song);
+                      onChangeEntryType(EntryType.Song);
                       Navigator.pop(context);
                     }),
                 ListTile(
                     leading: Icon(Icons.person),
-                    selected: _searchType == SearchType.Artist,
+                    selected: bloc.entryType == EntryType.Artist,
                     title: Text('Artist'),
                     onTap: () {
-                      onChangeSearchType(SearchType.Artist);
+                      onChangeEntryType(EntryType.Artist);
                       Navigator.pop(context);
                     }),
                 ListTile(
                     leading: Icon(Icons.album),
-                    selected: _searchType == SearchType.Album,
+                    selected: bloc.entryType == EntryType.Album,
                     title: Text('Album'),
                     onTap: () {
-                      onChangeSearchType(SearchType.Album);
+                      onChangeEntryType(EntryType.Album);
                       Navigator.pop(context);
                     }),
               ],
@@ -118,7 +90,7 @@ class _SearchPageState extends State<SearchPage> {
             Expanded(
               child: TextField(
                 autofocus: true,
-                controller: _controller,
+                onChanged: bloc.updateQuery,
                 style: Theme.of(context).primaryTextTheme.title,
                 decoration: InputDecoration(
                     border: InputBorder.none, hintText: "Search"),
@@ -136,17 +108,49 @@ class _SearchPageState extends State<SearchPage> {
           ],
         ),
       ),
-      body: SearchResult(
-        query: _query,
+      body: StreamBuilder(
+        stream: bloc.resultStream,
+        builder: (context, snapshot) {
+          if(snapshot.hasData) {
+            return SearchResult(entries: snapshot.data);
+          } else if(snapshot.hasError) {
+            return CenterError(message: snapshot.error.toString());
+          }
+
+          return CenterLoading();
+        },
       ),
     );
   }
 }
 
-class SearchResult extends StatelessWidget {
-  final String query;
+class CenterLoading extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: CircularProgressIndicator(),
+    );
+  }
+}
 
-  const SearchResult({Key key, this.query}) : super(key: key);
+class CenterError extends StatelessWidget {
+
+  final String message;
+
+  const CenterError({Key key, this.message}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Result(Icon(Icons.search, size: 48), message),
+    );
+  }
+}
+
+class SearchResult extends StatelessWidget {
+  final List<EntryModel> entries;
+
+  const SearchResult({Key key, this.entries}) : super(key: key);
 
   Widget buildHasData(List<EntryModel> entries) {
     if (entries.isEmpty) return buildEmpty();
@@ -202,31 +206,8 @@ class SearchResult extends StatelessWidget {
     );
   }
 
-  Widget buildError(Object error) {
-    return Center(
-      child: Result.error('Something wrong', subtitle: error.toString()),
-    );
-  }
-
-  Widget buildDefault() {
-    return Center(
-      child: CircularProgressIndicator(),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<EntryModel>>(
-      future: WebService().load(EntryModel.query(this.query)),
-      builder: (context, snapshot) {
-        if (snapshot.hasData)
-          return buildHasData(snapshot.data);
-        else if (snapshot.hasError) {
-          return buildError(snapshot.error);
-        }
-
-        return buildDefault();
-      },
-    );
+    return buildHasData(this.entries);
   }
 }
