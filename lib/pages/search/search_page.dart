@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:vocadb/blocs/search_bloc.dart';
+import 'package:vocadb/global_variables.dart';
 import 'package:vocadb/models/entry_model.dart';
+import 'package:vocadb/services/entry_service.dart';
 import 'package:vocadb/widgets/entry_tile.dart';
 import 'package:vocadb/widgets/result.dart';
 
@@ -10,13 +12,12 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
-
   SearchBloc bloc;
 
   @override
   void initState() {
     super.initState();
-    bloc = SearchBloc();
+    bloc = SearchBloc(EntryService(GlobalVariables.restService));
   }
 
   void onChangeEntryType(EntryType entryType) {
@@ -111,9 +112,9 @@ class _SearchPageState extends State<SearchPage> {
       body: StreamBuilder(
         stream: bloc.resultStream,
         builder: (context, snapshot) {
-          if(snapshot.hasData) {
+          if (snapshot.hasData) {
             return SearchResult(entries: snapshot.data);
-          } else if(snapshot.hasError) {
+          } else if (snapshot.hasError) {
             return CenterError(message: snapshot.error.toString());
           }
 
@@ -134,7 +135,6 @@ class CenterLoading extends StatelessWidget {
 }
 
 class CenterError extends StatelessWidget {
-
   final String message;
 
   const CenterError({Key key, this.message}) : super(key: key);
