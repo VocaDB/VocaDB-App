@@ -20,8 +20,6 @@ dependencies:
   shimmer: ^1.0.1
   youtube_player_flutter: ^4.1.0
   cached_network_image: ^1.1.1
-  flutter_speed_dial: ^1.2.1
-  flutter_native_web: ^1.0.1
   flutter:
     sdk: flutter
 
@@ -31,7 +29,6 @@ dependencies:
 
 dev_dependencies:
   mockito: ^3.0.0
-  image_test_utils: ^1.0.0
   flutter_test:
     sdk: flutter
 
