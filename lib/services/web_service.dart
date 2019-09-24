@@ -31,3 +31,25 @@ class WebService {
     }
   }
 }
+
+class RestService {
+  final String host = 'https://vocadb.net';
+  final Dio dio = Dio();
+
+  RestService() {
+    dio.interceptors
+        .add(DioCacheManager(CacheConfig(baseUrl: host)).interceptor);
+  }
+
+  Future<Map<String, dynamic>> get(
+      String endpoint, Map<String, dynamic> params) async {
+    final response = await dio.get<Map<String, dynamic>>(
+        Uri.https(host, endpoint, params).toString(),
+        options: buildCacheOptions(Duration(minutes: 5)));
+    if (response.statusCode == 200) {
+      return response.data;
+    }
+
+    throw Exception('Failed to load data!');
+  }
+}
