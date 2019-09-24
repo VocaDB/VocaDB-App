@@ -17,7 +17,7 @@ main() {
   ];
 
   setUp(() {
-    when(mockEntryService.query(any, any))
+    when(mockEntryService.query(any))
         .thenAnswer((_) => Future.value(mockResults));
   });
   test('should emits query when update query', () async {

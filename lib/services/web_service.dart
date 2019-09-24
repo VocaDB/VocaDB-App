@@ -33,7 +33,7 @@ class WebService {
 }
 
 class RestService {
-  final String host = 'https://vocadb.net';
+  final String host = 'vocadb.net';
   final Dio dio = Dio();
 
   RestService() {
@@ -41,10 +41,10 @@ class RestService {
         .add(DioCacheManager(CacheConfig(baseUrl: host)).interceptor);
   }
 
-  Future<Map> get(
-      String endpoint, Map params) async {
-    final response = await dio.get<Map>(
-        Uri.https(host, endpoint, params).toString(),
+  Future<Map> get(String endpoint, Map<String, String> params) async {
+    String url = Uri.https(host, endpoint, params).toString();
+    print(url);
+    final response = await dio.get<Map>(url,
         options: buildCacheOptions(Duration(minutes: 5)));
     if (response.statusCode == 200) {
       return response.data;

@@ -51,7 +51,7 @@ class SearchBloc {
   }
 
   void fetch() {
-    entryService.query(query, entryType).then(updateResults);
+    entryService.search(query, entryType).then(updateResults);
   }
 
   void dispose() {

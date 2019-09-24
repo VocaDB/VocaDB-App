@@ -1,8 +1,9 @@
 import 'package:dio/dio.dart';
+import 'package:vocadb/models/base_model.dart';
 import 'package:vocadb/models/main_picture_model.dart';
 import 'package:vocadb/services/web_service.dart';
 
-class EntryModel {
+class EntryModel extends BaseModel {
   int id;
   EntryType entryType;
   String name;
@@ -61,6 +62,11 @@ class EntryModel {
           Iterable result = response.data['items'];
           return result.map((model) => EntryModel.fromJson(model)).toList();
         });
+  }
+
+  @override
+  String toString() {
+    return {'id': 1, 'name': name}.toString();
   }
 }
 
