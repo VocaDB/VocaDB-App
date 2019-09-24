@@ -5,13 +5,12 @@ import 'package:vocadb/services/web_service.dart';
 
 class EntryService {
   RestService restService;
-
+ 
   EntryService(this.restService);
 
   Future<List<EntryModel>> query(String query, EntryType entryType) async {
-    return restService.get('/api/entries', {'query': query}).then((v) {
-      Iterable it = v['items'];
-      return it;
-    }).then((items) => items.map((json) => EntryModel.fromJson(json)).toList());
+    return restService.get('/api/entries', {'query': query})
+    .then((v) => v['items'] as Iterable)
+    .then((items) => items.map((json) => EntryModel.fromJson(json)).toList());
   }
 }

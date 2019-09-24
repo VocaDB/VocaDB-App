@@ -18,7 +18,7 @@ class VocaDBApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GlobalProvider(
-      configBloc: ConfigBloc(),
+      configBloc: ConfigBloc(GlobalVariables.pref),
       child: RootApp(),
     );
   }

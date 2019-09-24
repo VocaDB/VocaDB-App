@@ -41,9 +41,9 @@ class RestService {
         .add(DioCacheManager(CacheConfig(baseUrl: host)).interceptor);
   }
 
-  Future<Map<String, dynamic>> get(
-      String endpoint, Map<String, dynamic> params) async {
-    final response = await dio.get<Map<String, dynamic>>(
+  Future<Map> get(
+      String endpoint, Map params) async {
+    final response = await dio.get<Map>(
         Uri.https(host, endpoint, params).toString(),
         options: buildCacheOptions(Duration(minutes: 5)));
     if (response.statusCode == 200) {

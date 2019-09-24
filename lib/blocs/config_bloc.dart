@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vocadb/app_theme.dart';
-import 'package:vocadb/global_variables.dart';
 
 class ConfigBloc {
-  BehaviorSubject<ThemeEnum> _themeData = new BehaviorSubject.seeded(
-      GlobalVariables.defaultTheme ?? AppTheme.darkTheme);
+  BehaviorSubject<ThemeEnum> _themeData = new BehaviorSubject.seeded(ThemeEnum.Dark);
 
   Observable get themeDataStream => _themeData.stream;
 
-  ConfigBloc() {
-    initTheme();
-  }
+  final SharedPreferences pref;
+
+  ConfigBloc(this.pref);
+
   void dispose() {
     _themeData.close();
   }
 
   void initTheme() async {
-    String t = GlobalVariables.pref.getString('theme');
+    String t = pref.getString('theme');
     if (t == ThemeEnum.Light.toString()) {
       updateTheme(ThemeEnum.Light);
     } else {
@@ -26,7 +26,7 @@ class ConfigBloc {
   }
 
   void updateTheme(ThemeEnum selectedTheme) async {
-    await GlobalVariables.pref.setString('theme', selectedTheme.toString());
+    pref.setString('theme', selectedTheme.toString());
     _themeData.add(selectedTheme);
   }
 

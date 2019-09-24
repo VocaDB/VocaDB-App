@@ -16,6 +16,7 @@ class TagModel {
         name = json['name'],
         description = json['description'],
         categoryName = json['categoryName'],
+        urlSlug = json['urlSlug'],
         additionalNames = json['additionalNames'],
         mainPicture = json.containsKey('mainPicture')
             ? MainPictureModel.fromJson(json['mainPicture'])

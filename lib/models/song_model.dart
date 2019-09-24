@@ -1,13 +1,14 @@
 import 'package:dio/dio.dart';
 import 'package:vocadb/models/album_model.dart';
 import 'package:vocadb/models/artist_song_model.dart';
+import 'package:vocadb/models/base_model.dart';
 import 'package:vocadb/models/entry_model.dart';
 import 'package:vocadb/models/pv_model.dart';
 import 'package:vocadb/models/tag_group_model.dart';
 import 'package:vocadb/models/tag_model.dart';
 import 'package:vocadb/services/web_service.dart';
 
-class SongModel {
+class SongModel extends BaseModel {
   int id;
   String name;
   String artistString;
