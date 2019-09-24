@@ -7,6 +7,10 @@ import 'package:vocadb/services/web_service.dart';
 class MockRestService extends Mock implements RestService {}
 
 main() {
+
+  final mockRestService = MockRestService();
+  final service = EntryService(mockRestService);
+
   test('should return future list of entries', () {
     final mockResult = {
       'items': [
@@ -15,15 +19,11 @@ main() {
       ]
     };
 
-    final mockRestService = MockRestService();
-
     when(mockRestService.get('/api/entries', {'query': 'abc'}))
         .thenAnswer((_) => Future.value(mockResult));
 
-    final service = EntryService(mockRestService);
-
     service.query('abc', EntryType.Song);
 
-    expect(service.query('abc', EntryType.Song), completion(isNotNull));
+    expect(service.query('abc', EntryType.Song), completion(isA<List<EntryModel>>()));
   });
 }
