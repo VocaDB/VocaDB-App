@@ -3,7 +3,6 @@ import 'package:vocadb/models/entry_model.dart';
 import 'package:vocadb/services/web_service.dart';
 
 class TagModel extends EntryModel {
-
   EntryType entryType = EntryType.Tag;
   String categoryName;
   String additionalNames;
@@ -16,6 +15,10 @@ class TagModel extends EntryModel {
         urlSlug = json['urlSlug'],
         additionalNames = json['additionalNames'],
         super.fromJson(json);
+
+  static List<TagModel> jsonToList(List items) {
+    return items.map((i) => TagModel.fromJson(i)).toList();
+  }
 
   static TagModel _mapObjectResponse(Response response) {
     final result = response.data;

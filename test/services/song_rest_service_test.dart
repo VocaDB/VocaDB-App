@@ -10,7 +10,7 @@ main() {
   final mockRestService = MockRestService();
   final service = SongRestService(mockRestService);
 
-  test('should return future list of songs', () {
+  test('should return list of songs when get highlighted songs', () {
     final mockResult = {
       'items': [
         {'id': 1, 'name': 'A'},

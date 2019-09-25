@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vocadb/models/album_model.dart';
-import 'package:vocadb/services/web_service.dart';
+import 'package:vocadb/providers/global_provider.dart';
 import 'package:vocadb/widgets/album_card.dart';
 import 'package:vocadb/widgets/section.dart';
 
@@ -28,8 +28,10 @@ class _TopAlbumListState extends State<TopAlbumList> {
 
   @override
   Widget build(BuildContext context) {
+    final albumService = GlobalProvider.of(context).albumService;
+
     return FutureBuilder<List<AlbumModel>>(
-      future: WebService().load(AlbumModel.top),
+      future: albumService.top(),
       builder: (context, snapshot) {
         if (snapshot.hasData)
           return buildHasData(snapshot.data);

@@ -32,6 +32,10 @@ class EntryModel extends BaseModel {
                 ?.toList()
             : null;
 
+  static List<EntryModel> jsonToList(List items) {
+    return items.map((i) => EntryModel.fromJson(i)).toList();
+  }
+
   String get imageUrl {
     if (mainPicture != null) {
       return mainPicture.urlThumb;

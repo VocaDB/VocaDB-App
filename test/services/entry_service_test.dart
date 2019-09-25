@@ -10,7 +10,7 @@ main() {
   final mockRestService = MockRestService();
   final service = EntryService(mockRestService);
 
-  test('should return future list of entries', () {
+  test('should return future list of entries when search', () {
     final mockResult = {
       'items': [
         {'id': 1, 'name': 'A'},
@@ -18,13 +18,10 @@ main() {
       ]
     };
 
-    Map<String, String> params = {'query': 'abc'};
-
     when(mockRestService.get(any, any))
         .thenAnswer((_) => Future.value(mockResult));
 
-    service.query<EntryModel>('/', params);
-
-    expect(service.query<EntryModel>('/',params), completion(isA<List<EntryModel>>()));
+    expect(service.search('abc', EntryType.Song),
+        completion(isA<List<EntryModel>>()));
   });
 }

@@ -3,6 +3,7 @@ import 'package:vocadb/app_theme.dart';
 import 'package:vocadb/blocs/config_bloc.dart';
 import 'package:vocadb/global_variables.dart';
 import 'package:vocadb/providers/global_provider.dart';
+import 'package:vocadb/services/album_rest_service.dart';
 import 'package:vocadb/services/song_rest_service.dart';
 
 import 'pages/main/account_tab.dart';
@@ -21,6 +22,7 @@ class VocaDBApp extends StatelessWidget {
     return GlobalProvider(
       configBloc: ConfigBloc(GlobalVariables.pref),
       songService: SongRestService(GlobalVariables.restService),
+      albumService: AlbumRestService(GlobalVariables.restService),
       child: RootApp(),
     );
   }

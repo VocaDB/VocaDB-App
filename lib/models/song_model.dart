@@ -7,12 +7,20 @@ import 'package:vocadb/models/tag_model.dart';
 import 'package:vocadb/services/web_service.dart';
 import 'package:vocadb/utils/json_utils.dart';
 
-enum SongType { 
-  Original, Remaster, Remix, Cover, Instrumental, Mashup, MusicPV, DramaPV, Other, Undefined
+enum SongType {
+  Original,
+  Remaster,
+  Remix,
+  Cover,
+  Instrumental,
+  Mashup,
+  MusicPV,
+  DramaPV,
+  Other,
+  Undefined
 }
 
 class SongModel extends EntryModel {
-
   EntryType entryType = EntryType.Song;
   SongType songType;
   String thumbUrl;
@@ -20,17 +28,24 @@ class SongModel extends EntryModel {
   List<ArtistSongModel> artists;
   List<AlbumModel> albums;
   int originalVersionId;
- 
+
   SongModel();
 
   SongModel.fromJson(Map<String, dynamic> json)
       : thumbUrl = json['thumbUrl'],
         songType = songTypeToEnum(json['songType']),
         originalVersionId = json['originalVersionId'],
-        pvs = JSONUtils.mapJsonArray<PVModel>(json['pvs'], (v) => PVModel.fromJson(v)),
-        artists = JSONUtils.mapJsonArray<ArtistSongModel>(json['artists'], (v) => ArtistSongModel.fromJson(v)),
-        albums = JSONUtils.mapJsonArray<AlbumModel>(json['albums'], (v) => AlbumModel.fromJson(v)),
+        pvs = JSONUtils.mapJsonArray<PVModel>(
+            json['pvs'], (v) => PVModel.fromJson(v)),
+        artists = JSONUtils.mapJsonArray<ArtistSongModel>(
+            json['artists'], (v) => ArtistSongModel.fromJson(v)),
+        albums = JSONUtils.mapJsonArray<AlbumModel>(
+            json['albums'], (v) => AlbumModel.fromJson(v)),
         super.fromJson(json);
+
+  static List<SongModel> jsonToList(List items) {
+    return items.map((i) => SongModel.fromJson(i)).toList();
+  }
 
   PVModel get youtubePV =>
       pvs?.firstWhere((pv) => pv.service.toLowerCase() == "youtube",
@@ -69,12 +84,6 @@ class SongModel extends EntryModel {
         parse: _mapObjectResponse);
   }
 
-  static Resource<List<SongModel>> get all {
-    return Resource(
-        endpoint: '/api/songs/highlighted?fields=ThumbUrl,PVs',
-        parse: _mapArrayResponse);
-  }
-
   static Resource<List<SongModel>> topRated(int durationHours) {
     return Resource(
         endpoint:
@@ -94,15 +103,21 @@ class SongModel extends EntryModel {
         parse: _mapItemsResponse);
   }
 
-    static SongType songTypeToEnum(String str) {
-      switch (str) {
-        case 'Original': return SongType.Original;
-        case 'Remaster': return SongType.Remaster;
-        case 'Remix': return SongType.Remix;
-        case 'Cover': return SongType.Cover;
-        case 'Instrumental': return SongType.Instrumental;
-        default: return SongType.Undefined;
-      }
+  static SongType songTypeToEnum(String str) {
+    switch (str) {
+      case 'Original':
+        return SongType.Original;
+      case 'Remaster':
+        return SongType.Remaster;
+      case 'Remix':
+        return SongType.Remix;
+      case 'Cover':
+        return SongType.Cover;
+      case 'Instrumental':
+        return SongType.Instrumental;
+      default:
+        return SongType.Undefined;
+    }
   }
 }
 

@@ -5,7 +5,6 @@ import 'package:vocadb/models/tag_model.dart';
 import 'package:vocadb/services/web_service.dart';
 
 class ArtistModel extends EntryModel {
-
   EntryType entryType = EntryType.Artist;
   String additionalNames;
   ArtistRelations relations;
@@ -16,6 +15,10 @@ class ArtistModel extends EntryModel {
             ? ArtistRelations.fromJson(json['relations'])
             : null,
         super.fromJson(json);
+
+  static List<ArtistModel> jsonToList(List items) {
+    return items.map((i) => ArtistModel.fromJson(i)).toList();
+  }
 
   String get imageUrl => 'https://vocadb.net/Artist/Picture/$id';
 
