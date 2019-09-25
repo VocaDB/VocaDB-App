@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:vocadb/models/entry_model.dart';
 import 'package:vocadb/models/tag_model.dart';
 
 void main() {
@@ -15,6 +16,7 @@ void main() {
       TagModel result = TagModel.fromJson(mockJson);
       expect(result.id, 481);
       expect(result.name, "rock");
+      expect(result.entryType, EntryType.Tag);
       expect(result.urlSlug, "rock");
       expect(result.categoryName, "Genres");
       expect(result.additionalNames, "rock n roll");
