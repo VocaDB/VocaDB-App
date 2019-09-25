@@ -1,46 +1,20 @@
 import 'package:dio/dio.dart';
 import 'package:vocadb/models/entry_model.dart';
-import 'package:vocadb/models/main_picture_model.dart';
-import 'package:vocadb/models/tag_group_model.dart';
 import 'package:vocadb/models/tag_model.dart';
 import 'package:vocadb/models/track_model.dart';
 import 'package:vocadb/services/web_service.dart';
+import 'package:vocadb/utils/json_utils.dart';
 
-class AlbumModel {
-  int id;
-  String name;
-  String defaultName;
-  String artistString;
-  MainPictureModel mainPicture;
+class AlbumModel extends EntryModel {
+
+  EntryType entryType = EntryType.Album;
   List<TrackModel> tracks;
-  List<TagGroupModel> tagGroups;
 
   AlbumModel();
 
   AlbumModel.fromJson(Map<String, dynamic> json)
-      : id = json['id'],
-        name = json['name'],
-        defaultName = json['defaultName'],
-        artistString = json['artistString'],
-        mainPicture = json.containsKey('mainPicture')
-            ? MainPictureModel.fromJson(json['mainPicture'])
-            : null,
-        tracks = (json.containsKey('tracks'))
-            ? (json['tracks'] as List)
-                ?.map((d) => TrackModel.fromJson(d))
-                ?.toList()
-            : null,
-        tagGroups = (json.containsKey('tags'))
-            ? (json['tags'] as List)
-                ?.map((d) => TagGroupModel.fromJson(d))
-                ?.toList()
-            : null;
-
-  AlbumModel.fromEntry(EntryModel entry)
-      : id = entry.id,
-        name = entry.name,
-        artistString = entry.artistString,
-        mainPicture = entry.mainPicture;
+      : tracks = JSONUtils.mapJsonArray<TrackModel>(json['tracks'], (v) => TrackModel.fromJson(v)),
+        super.fromJson(json);
 
   static AlbumModel _mapObjectResponse(Response response) {
     return AlbumModel.fromJson(response.data);

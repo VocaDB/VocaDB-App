@@ -42,6 +42,7 @@ void main() {
 
       ArtistModel result = ArtistModel.fromJson(mockJson);
       expect(result.id, 1);
+      expect(result.entryType, EntryType.Artist);
       expect(result.name, "初音ミク");
       expect(result.artistType, "Vocaloid");
       expect(result.additionalNames, "Hatsune Miku");
@@ -60,23 +61,6 @@ void main() {
 
     test('should not thrown exception when input empty json', () {
       ArtistModel result = ArtistModel.fromJson({});
-      expect(result, isNotNull);
-    });
-
-    test('should parse from entry correctly', () {
-      EntryModel mockEntryModel = new EntryModel();
-      mockEntryModel.id = 1;
-      mockEntryModel.name = 'artist_1';
-      mockEntryModel.artistType = 'Producer';
-
-      ArtistModel result = ArtistModel.fromEntry(mockEntryModel);
-      expect(result.id, 1);
-      expect(result.name, 'artist_1');
-      expect(result.artistType, 'Producer');
-    });
-
-    test('should not thrown exception when parse empty entry', () {
-      ArtistModel result = ArtistModel.fromEntry(new EntryModel());
       expect(result, isNotNull);
     });
   });

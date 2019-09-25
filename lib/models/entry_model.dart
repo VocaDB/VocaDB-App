@@ -1,25 +1,35 @@
 import 'package:dio/dio.dart';
+import 'package:vocadb/models/base_model.dart';
 import 'package:vocadb/models/main_picture_model.dart';
+import 'package:vocadb/models/tag_group_model.dart';
 import 'package:vocadb/services/web_service.dart';
 
-class EntryModel {
+class EntryModel extends BaseModel {
   int id;
   EntryType entryType;
+  String defaultName;
   String name;
   String artistString;
   String artistType;
   MainPictureModel mainPicture;
+  List<TagGroupModel> tagGroups;
 
   EntryModel();
 
   EntryModel.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         name = json['name'],
+        defaultName = json['defaultName'],
         entryType = entryTypeToEnum(json['entryType']),
         artistString = json['artistString'],
         artistType = json['artistType'],
         mainPicture = json.containsKey('mainPicture')
             ? MainPictureModel.fromJson(json['mainPicture'])
+            : null,
+        tagGroups = (json.containsKey('tags'))
+            ? (json['tags'] as List)
+                ?.map((d) => TagGroupModel.fromJson(d))
+                ?.toList()
             : null;
 
   String get imageUrl {

@@ -1,54 +1,36 @@
 import 'package:dio/dio.dart';
 import 'package:vocadb/models/album_model.dart';
 import 'package:vocadb/models/artist_song_model.dart';
-import 'package:vocadb/models/base_model.dart';
 import 'package:vocadb/models/entry_model.dart';
 import 'package:vocadb/models/pv_model.dart';
-import 'package:vocadb/models/tag_group_model.dart';
 import 'package:vocadb/models/tag_model.dart';
 import 'package:vocadb/services/web_service.dart';
+import 'package:vocadb/utils/json_utils.dart';
 
-class SongModel extends BaseModel {
-  int id;
-  String name;
-  String artistString;
+enum SongType { 
+  Original, Remaster, Remix, Cover, Instrumental, Mashup, MusicPV, DramaPV, Other, Undefined
+}
+
+class SongModel extends EntryModel {
+
+  EntryType entryType = EntryType.Song;
+  SongType songType;
   String thumbUrl;
   List<PVModel> pvs;
-  List<TagGroupModel> tagGroups;
   List<ArtistSongModel> artists;
   List<AlbumModel> albums;
-
+  int originalVersionId;
+ 
   SongModel();
 
   SongModel.fromJson(Map<String, dynamic> json)
-      : id = json['id'],
-        name = json['name'],
-        artistString = json['artistString'],
-        thumbUrl = json['thumbUrl'],
-        pvs = (json.containsKey('pvs'))
-            ? (json['pvs'] as List)?.map((d) => PVModel.fromJson(d))?.toList()
-            : null,
-        tagGroups = (json.containsKey('tags'))
-            ? (json['tags'] as List)
-                ?.map((d) => TagGroupModel.fromJson(d))
-                ?.toList()
-            : null,
-        artists = (json.containsKey('artists'))
-            ? (json['artists'] as List)
-                ?.map((d) => ArtistSongModel.fromJson(d))
-                ?.toList()
-            : null,
-        albums = (json.containsKey('albums'))
-            ? (json['albums'] as List)
-                ?.map((d) => AlbumModel.fromJson(d))
-                ?.toList()
-            : null;
-
-  SongModel.fromEntry(EntryModel entry)
-      : id = entry.id,
-        name = entry.name,
-        artistString = entry.artistString,
-        thumbUrl = entry.mainPicture?.urlThumb;
+      : thumbUrl = json['thumbUrl'],
+        songType = songTypeToEnum(json['songType']),
+        originalVersionId = json['originalVersionId'],
+        pvs = JSONUtils.mapJsonArray<PVModel>(json['pvs'], (v) => PVModel.fromJson(v)),
+        artists = JSONUtils.mapJsonArray<ArtistSongModel>(json['artists'], (v) => ArtistSongModel.fromJson(v)),
+        albums = JSONUtils.mapJsonArray<AlbumModel>(json['albums'], (v) => AlbumModel.fromJson(v)),
+        super.fromJson(json);
 
   PVModel get youtubePV =>
       pvs?.firstWhere((pv) => pv.service.toLowerCase() == "youtube",
@@ -110,6 +92,17 @@ class SongModel extends BaseModel {
     return Resource(
         endpoint: '/api/songs?tagId=$tagId&fields=ThumbUrl&sort=RatingScore',
         parse: _mapItemsResponse);
+  }
+
+    static SongType songTypeToEnum(String str) {
+      switch (str) {
+        case 'Original': return SongType.Original;
+        case 'Remaster': return SongType.Remaster;
+        case 'Remix': return SongType.Remix;
+        case 'Cover': return SongType.Cover;
+        case 'Instrumental': return SongType.Instrumental;
+        default: return SongType.Undefined;
+      }
   }
 }
 

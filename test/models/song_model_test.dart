@@ -1,6 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:vocadb/models/entry_model.dart';
-import 'package:vocadb/models/main_picture_model.dart';
 import 'package:vocadb/models/song_model.dart';
 
 void main() {
@@ -10,6 +9,8 @@ void main() {
         "id": 1,
         "name": "song1",
         "artistString": "test_artist",
+        "originalVersionId": 2,
+        "songType": "Original",
         "artists": [
           {
             "categories": "Producer",
@@ -47,6 +48,9 @@ void main() {
       expect(result.id, 1);
       expect(result.name, "song1");
       expect(result.artistString, "test_artist");
+      expect(result.entryType, EntryType.Song);
+      expect(result.songType, SongType.Original);
+      expect(result.originalVersionId, 2);
       expect(result.pvs, isNotNull);
       expect(result.pvs.length, 1);
       expect(result.artists, isNotNull);
@@ -60,6 +64,9 @@ void main() {
     test('should not thrown exception when input empty json', () {
       SongModel result = SongModel.fromJson({});
       expect(result, isNotNull);
+      expect(result.pvs, isEmpty);
+      expect(result.artists, isEmpty);
+      expect(result.albums, isEmpty);
     });
 
     test('should return youtube url when youtube pv is exists', () {
@@ -101,28 +108,6 @@ void main() {
       SongModel result = SongModel.fromJson(mockJson);
       expect(result.pvs.length, 1);
       expect(result.youtubePV, isNull);
-    });
-
-    test('should parse from entry correctly', () {
-      MainPictureModel mockMainPictureModel = new MainPictureModel();
-      mockMainPictureModel.urlThumb = 'https://picture.com';
-
-      EntryModel mockEntryModel = new EntryModel();
-      mockEntryModel.id = 1;
-      mockEntryModel.name = 'song_1';
-      mockEntryModel.artistString = 'artist_1';
-      mockEntryModel.mainPicture = mockMainPictureModel;
-
-      SongModel result = SongModel.fromEntry(mockEntryModel);
-      expect(result.id, 1);
-      expect(result.name, 'song_1');
-      expect(result.artistString, 'artist_1');
-      expect(result.thumbUrl, 'https://picture.com');
-    });
-
-    test('should not thrown exception when parse empty entry', () {
-      SongModel result = SongModel.fromEntry(new EntryModel());
-      expect(result, isNotNull);
     });
   });
 
