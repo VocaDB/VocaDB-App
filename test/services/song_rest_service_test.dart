@@ -1,16 +1,16 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-import 'package:vocadb/models/entry_model.dart';
-import 'package:vocadb/services/entry_service.dart';
+import 'package:vocadb/models/song_model.dart';
+import 'package:vocadb/services/song_rest_service.dart';
 import 'package:vocadb/services/web_service.dart';
 
 class MockRestService extends Mock implements RestService {}
 
 main() {
   final mockRestService = MockRestService();
-  final service = EntryService(mockRestService);
+  final service = SongRestService(mockRestService);
 
-  test('should return future list of entries', () {
+  test('should return future list of songs', () {
     final mockResult = {
       'items': [
         {'id': 1, 'name': 'A'},
@@ -18,13 +18,9 @@ main() {
       ]
     };
 
-    Map<String, String> params = {'query': 'abc'};
-
     when(mockRestService.get(any, any))
         .thenAnswer((_) => Future.value(mockResult));
 
-    service.query<EntryModel>('/', params);
-
-    expect(service.query<EntryModel>('/',params), completion(isA<List<EntryModel>>()));
+    expect(service.highlighted(), completion(isA<List<SongModel>>()));
   });
 }

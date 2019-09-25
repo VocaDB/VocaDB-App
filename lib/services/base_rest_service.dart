@@ -4,7 +4,6 @@ import 'package:vocadb/models/base_model.dart';
 import 'package:vocadb/services/web_service.dart';
 
 abstract class BaseRestService<T extends BaseModel> {
-  String endpoint;
 
   RestService restService;
 
@@ -12,10 +11,10 @@ abstract class BaseRestService<T extends BaseModel> {
 
   T mapModel(Map json);
 
-  Future<List<T>> query(Map params) async {
+  Future<List<T>> query<T>(String endpoint, Map<String, String> params) async {
     return restService
-        .get(endpoint, params)
-        .then((v) => v['items'] as Iterable)
-        .then((items) => items.map((_) => mapModel(_)).toList());
+        .get('$endpoint', params)
+        .then((v) => (v is Iterable)? v : v['items'] as Iterable)
+        .then((items) => items.map((_) => mapModel(_) as T).toList());
   }
 }

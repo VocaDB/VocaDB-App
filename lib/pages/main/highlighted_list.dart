@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vocadb/models/song_model.dart';
 import 'package:vocadb/pages/youtube_playlist/youtube_playlist_page.dart';
-import 'package:vocadb/services/web_service.dart';
+import 'package:vocadb/providers/global_provider.dart';
 import 'package:vocadb/widgets/section.dart';
 import 'package:vocadb/widgets/song_card.dart';
 
@@ -46,8 +46,10 @@ class _HighlightedListState extends State<HighlightedList> {
 
   @override
   Widget build(BuildContext context) {
+    final songService = GlobalProvider.of(context).songService;
+
     return FutureBuilder<List<SongModel>>(
-      future: WebService().load(SongModel.all),
+      future: songService.highlighted(),
       builder: (context, snapshot) {
         if (snapshot.hasData)
           return buildHasData(snapshot.data);
