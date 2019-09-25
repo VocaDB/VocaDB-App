@@ -10,7 +10,9 @@ class ConfigBloc {
 
   final SharedPreferences pref;
 
-  ConfigBloc(this.pref);
+  ConfigBloc(this.pref) {
+    initTheme();
+  }
 
   void dispose() {
     _themeData.close();
