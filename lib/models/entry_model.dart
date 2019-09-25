@@ -72,6 +72,11 @@ class EntryModel extends BaseModel {
           return result.map((model) => EntryModel.fromJson(model)).toList();
         });
   }
+
+  @override
+  String toString() {
+    return {'id': 1, 'name': name}.toString();
+  }
 }
 
 class EntryList {
