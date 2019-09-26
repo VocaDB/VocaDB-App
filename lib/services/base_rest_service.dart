@@ -12,4 +12,10 @@ abstract class BaseRestService {
         .get('$endpoint', params)
         .then((v) => (v is Iterable) ? v : v['items'] as Iterable);
   }
+
+  Future<T> getObject<T>(String endpoint, Map<String, String> params) async {
+    return restService
+        .get('$endpoint', params)
+        .then((v) => v as T);
+  }
 }

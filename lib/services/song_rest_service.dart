@@ -31,4 +31,13 @@ class SongRestService extends BaseRestService {
         .query(endpoint, params)
         .then((items) => SongModel.jsonToList(items));
   }
+
+  Future<SongModel> byId(int id, { String lang = 'Default' }) {
+    final Map<String, String> params = {
+      'fields': 'MainPicture,PVs,ThumbUrl,Albums,Artists,Tags,WebLinks',
+      'languagePreference': lang,
+    };
+    return super.getObject('/api/songs/$id', params)
+    .then((i) => SongModel.fromJson(i));
+  } 
 }
