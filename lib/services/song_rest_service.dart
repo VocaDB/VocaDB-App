@@ -7,9 +7,10 @@ import 'package:vocadb/services/web_service.dart';
 class SongRestService extends BaseRestService {
   SongRestService(RestService restService) : super(restService);
 
-  Future<List<SongModel>> highlighted() async {
+  Future<List<SongModel>> highlighted({String lang = 'Default'}) async {
     final String endpoint = '/api/songs/highlighted';
     final Map<String, String> params = {'fields': 'ThumbUrl,PVs'};
+    params['languagePreference'] = lang;
     return super
         .query(endpoint, params)
         .then((items) => SongModel.jsonToList(items));

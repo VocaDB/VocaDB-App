@@ -5,8 +5,10 @@ import 'package:vocadb/app_theme.dart';
 
 class ConfigBloc {
   BehaviorSubject<ThemeEnum> _themeData = new BehaviorSubject.seeded(ThemeEnum.Dark);
+  BehaviorSubject<String> _contentLang = new BehaviorSubject.seeded('Default');
 
   Observable get themeDataStream => _themeData.stream;
+  Observable get contentLangStream => _contentLang.stream;
 
   final SharedPreferences pref;
 
@@ -15,6 +17,7 @@ class ConfigBloc {
   }
 
   void dispose() {
+    _contentLang.close();
     _themeData.close();
   }
 
@@ -25,6 +28,16 @@ class ConfigBloc {
     } else {
       updateTheme(ThemeEnum.Dark);
     }
+  }
+
+  void initContentLnaguage() {
+    String value = pref.getString('content_language');
+    updateContentLanguage(value);
+  }
+
+  void updateContentLanguage(String lang) {
+    pref.setString('content_language', lang);
+    _contentLang.add(lang);
   }
 
   void updateTheme(ThemeEnum selectedTheme) async {

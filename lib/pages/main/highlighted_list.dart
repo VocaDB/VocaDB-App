@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:vocadb/models/song_model.dart';
 import 'package:vocadb/pages/youtube_playlist/youtube_playlist_page.dart';
 import 'package:vocadb/providers/global_provider.dart';
+import 'package:vocadb/widgets/model_future_builder.dart';
 import 'package:vocadb/widgets/section.dart';
 import 'package:vocadb/widgets/song_card.dart';
 
@@ -47,18 +48,17 @@ class _HighlightedListState extends State<HighlightedList> {
   @override
   Widget build(BuildContext context) {
     final songService = GlobalProvider.of(context).songService;
+    final config = GlobalProvider.of(context).configBloc;
 
-    return FutureBuilder<List<SongModel>>(
-      future: songService.highlighted(),
-      builder: (context, snapshot) {
-        if (snapshot.hasData)
-          return buildHasData(snapshot.data);
-        else if (snapshot.hasError) {
-          print(snapshot.error);
-        }
-
-        return buildDefault();
-      },
+    return StreamBuilder(
+      stream: config.contentLangStream,
+      initialData: 'Default',
+      builder: (context, snapshot) => ModelFutureBuilder<List<SongModel>>(
+        future: songService.highlighted(lang: snapshot.data),
+        buildData: buildHasData,
+        buildLoading: buildDefault,
+        buildError: print,
+      ),
     );
   }
 }

@@ -1,0 +1,1 @@
+enum ContentLanguage { Default, Japanese, Romaji, English }

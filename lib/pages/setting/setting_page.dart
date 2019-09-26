@@ -1,22 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:vocadb/app_theme.dart';
+import 'package:vocadb/blocs/config_bloc.dart';
 import 'package:vocadb/providers/global_provider.dart';
 
-class SettingPage extends StatelessWidget {
+class SettingPage extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    final configBloc = GlobalProvider.of(context).configBloc;
+  _SettingPageState createState() => _SettingPageState();
+}
 
-    return Scaffold(
-      appBar: AppBar(title: Text('Setting')),
-      body: StreamBuilder(
+class _SettingPageState extends State<SettingPage> {
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  buildThemeOptions(ConfigBloc configBloc) {
+    return StreamBuilder(
         stream: configBloc.themeDataStream,
         builder: (context, snapshot) {
           ThemeEnum te = snapshot.data;
 
-          return ListView(
+          return Column(
             children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text('Theme', style: Theme.of(this.context).textTheme.title),
+              ),
               ListTile(
                 title: const Text('Dark'),
                 leading: Radio(
@@ -36,6 +47,71 @@ class SettingPage extends StatelessWidget {
             ],
           );
         },
+      );
+  }
+
+  buildContentLang(ConfigBloc configBloc) {
+    return StreamBuilder(
+        stream: configBloc.contentLangStream,
+        builder: (context, snapshot) {
+          String value = snapshot.data;
+
+          return Column(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text('Content language', style: Theme.of(this.context).textTheme.title),
+              ),
+              ListTile(
+                title: const Text('Default'),
+                leading: Radio(
+                  value: 'Default',
+                  groupValue: value,
+                  onChanged: configBloc.updateContentLanguage,
+                ),
+              ),
+              ListTile(
+                title: const Text('English'),
+                leading: Radio(
+                  value: 'English',
+                  groupValue: value,
+                  onChanged: configBloc.updateContentLanguage,
+                ),
+              ),
+                            ListTile(
+                title: const Text('Romaji'),
+                leading: Radio(
+                  value: 'Romaji',
+                  groupValue: value,
+                  onChanged: configBloc.updateContentLanguage,
+                ),
+              ),
+                            ListTile(
+                title: const Text('Japanese'),
+                leading: Radio(
+                  value: 'Japanese',
+                  groupValue: value,
+                  onChanged: configBloc.updateContentLanguage,
+                ),
+              ),
+            ],
+          );
+        },
+      );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    
+    final ConfigBloc configBloc = GlobalProvider.of(this.context).configBloc;
+
+    return Scaffold(
+      appBar: AppBar(title: Text('Setting')),
+      body: Column(
+        children: <Widget>[
+          buildThemeOptions(configBloc),
+          buildContentLang(configBloc)
+        ],
       ),
     );
   }
