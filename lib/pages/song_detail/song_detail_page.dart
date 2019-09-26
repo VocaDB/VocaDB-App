@@ -20,6 +20,7 @@ import 'package:vocadb/widgets/source_action_button.dart';
 import 'package:vocadb/widgets/space_divider.dart';
 import 'package:vocadb/widgets/tags.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
+import 'package:share/share.dart';
 
 class SongDetailBloc {
 
@@ -163,7 +164,9 @@ class _SongDetailPageState extends State<SongDetailPage> {
       ActionBar(
         actions: [
           ShareActionButton(
-            onTap: () {},
+            onTap: () {
+              Share.share('$HOST/S/${song.id}');
+            },
           ),
           SourceActionButton(
             onTap: () {
