@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:vocadb/models/song_model.dart';
 import 'package:vocadb/pages/song_detail/song_detail_page.dart';
+import 'package:vocadb/pages/youtube_playlist/youtube_playlist_page.dart';
 import 'package:vocadb/services/web_service.dart';
 import 'package:vocadb/widgets/result.dart';
 
@@ -34,6 +35,14 @@ class _RankingTabState extends State<RankingTab>
     super.dispose();
   }
 
+
+  void openPlaylist(List<SongModel> songs) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => YoutubePlaylistPage(songs: songs)));
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -48,10 +57,10 @@ class _RankingTabState extends State<RankingTab>
             body: TabBarView(
               controller: _tabController,
               children: [
-                RankingContent(rankDuration: RankDuration.DAILY),
-                RankingContent(rankDuration: RankDuration.WEEKLY),
-                RankingContent(rankDuration: RankDuration.MONTHLY),
-                RankingContent(rankDuration: RankDuration.OVERALL),
+                RankingContent(rankDuration: RankDuration.DAILY, openPlaylist: openPlaylist,),
+                RankingContent(rankDuration: RankDuration.WEEKLY, openPlaylist: openPlaylist,),
+                RankingContent(rankDuration: RankDuration.MONTHLY, openPlaylist: openPlaylist,),
+                RankingContent(rankDuration: RankDuration.OVERALL, openPlaylist: openPlaylist,),
               ],
             )));
   }
@@ -59,15 +68,30 @@ class _RankingTabState extends State<RankingTab>
 
 class RankingContent extends StatelessWidget {
   final int rankDuration;
+  final Function openPlaylist;
 
-  const RankingContent({Key key, this.rankDuration}) : super(key: key);
+  const RankingContent({Key key, this.rankDuration, this.openPlaylist}) : super(key: key);
 
   buildHasData(List<SongModel> songs) {
-    return ListView.builder(
-      itemCount: songs.length,
-      itemBuilder: (context, index) {
-        return RankingTile.fromSong((index + 1).toString(), songs[index]);
-      },
+    return Column(
+      children: <Widget>[
+        (songs == null || songs.length == 0)? Container() : FlatButton(
+          onPressed: () {
+            this.openPlaylist(songs);
+          },
+          child: Row(
+            children: <Widget>[Icon(Icons.play_arrow), Text('Play all')],
+          ),
+        ),
+        Expanded(
+          child: ListView.builder(
+            itemCount: songs.length,
+            itemBuilder: (context, index) {
+              return RankingTile.fromSong((index + 1).toString(), songs[index]);
+            },
+          ),
+        ),
+      ],
     );
   }
 
