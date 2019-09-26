@@ -50,15 +50,11 @@ class _HighlightedListState extends State<HighlightedList> {
     final songService = GlobalProvider.of(context).songService;
     final config = GlobalProvider.of(context).configBloc;
 
-    return StreamBuilder(
-      stream: config.contentLangStream,
-      initialData: 'Default',
-      builder: (context, snapshot) => ModelFutureBuilder<List<SongModel>>(
-        future: songService.highlighted(lang: snapshot.data),
+    return ModelFutureBuilder<List<SongModel>>(
+        future: songService.highlighted(lang: config.contentLang),
         buildData: buildHasData,
         buildLoading: buildDefault,
         buildError: print,
-      ),
     );
   }
 }

@@ -3,7 +3,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:vocadb/models/song_model.dart';
 import 'package:vocadb/pages/song_detail/song_detail_page.dart';
 import 'package:vocadb/pages/youtube_playlist/youtube_playlist_page.dart';
-import 'package:vocadb/services/web_service.dart';
+import 'package:vocadb/providers/global_provider.dart';
+import 'package:vocadb/widgets/model_future_builder.dart';
 import 'package:vocadb/widgets/result.dart';
 
 class RankingTab extends StatefulWidget {
@@ -109,16 +110,14 @@ class RankingContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<SongModel>>(
-      future: WebService().load(SongModel.topRated(rankDuration)),
-      builder: (context, snapshot) {
-        if (snapshot.hasData)
-          return buildHasData(snapshot.data);
-        else if (snapshot.hasError) {
-          return buildError(snapshot.error);
-        }
-        return buildDefault();
-      },
+    final songService = GlobalProvider.of(context).songService;
+    final config = GlobalProvider.of(context).configBloc;
+
+    return ModelFutureBuilder<List<SongModel>>(
+        future: songService.topRated(durationHours: rankDuration, lang: config.contentLang),
+        buildData: buildHasData,
+        buildLoading: buildDefault,
+        buildError: print,
     );
   }
 }

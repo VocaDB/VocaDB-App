@@ -15,4 +15,20 @@ class SongRestService extends BaseRestService {
         .query(endpoint, params)
         .then((items) => SongModel.jsonToList(items));
   }
+
+  Future<List<SongModel>> topRated({int durationHours = 0, String lang = 'Default'}) async {
+    final String endpoint = '/api/songs/top-rated';
+    final Map<String, String> params = {
+      'fields': 'MainPicture,ThumbUrl,PVs',
+      'languagePreference': lang,
+      'filterBy': 'CreateDate'
+    };
+
+    if(durationHours != 0) {
+      params['durationHours'] = durationHours.toString();
+    }
+    return super
+        .query(endpoint, params)
+        .then((items) => SongModel.jsonToList(items));
+  }
 }

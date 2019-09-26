@@ -34,15 +34,11 @@ class _LatestAlbumListState extends State<LatestAlbumList> {
     final albumService = GlobalProvider.of(context).albumService;
     final config = GlobalProvider.of(context).configBloc;
 
-    return StreamBuilder(
-      stream: config.contentLangStream,
-      initialData: 'Default',
-      builder: (context, snapshot) => ModelFutureBuilder<List<AlbumModel>>(
-        future: albumService.latest(lang: snapshot.data),
+    return ModelFutureBuilder<List<AlbumModel>>(
+        future: albumService.latest(lang: config.contentLang),
         buildData: buildHasData,
         buildLoading: buildDefault,
         buildError: print,
-      ),
     );
   }
 }

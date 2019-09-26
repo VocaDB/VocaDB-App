@@ -10,6 +10,8 @@ class ConfigBloc {
   Observable get themeDataStream => _themeData.stream;
   Observable get contentLangStream => _contentLang.stream;
 
+  String get contentLang => _contentLang.value;
+
   final SharedPreferences pref;
 
   ConfigBloc(this.pref) {

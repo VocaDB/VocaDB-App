@@ -32,15 +32,11 @@ class _TopAlbumListState extends State<TopAlbumList> {
     final albumService = GlobalProvider.of(context).albumService;
     final config = GlobalProvider.of(context).configBloc;
 
-    return StreamBuilder(
-      stream: config.contentLangStream,
-      initialData: 'Default',
-      builder: (context, snapshot) => ModelFutureBuilder<List<AlbumModel>>(
-        future: albumService.top(lang: snapshot.data),
+    return ModelFutureBuilder<List<AlbumModel>>(
+        future: albumService.top(lang: config.contentLang),
         buildData: buildHasData,
         buildLoading: buildDefault,
         buildError: print,
-      ),
     );
   }
 }

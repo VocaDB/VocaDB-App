@@ -84,13 +84,6 @@ class SongModel extends EntryModel {
         parse: _mapObjectResponse);
   }
 
-  static Resource<List<SongModel>> topRated(int durationHours) {
-    return Resource(
-        endpoint:
-            '/api/songs/top-rated?durationHours=$durationHours&filterBy=CreateDate&fields=MainPicture,PVs,ThumbUrl',
-        parse: _mapArrayResponse);
-  }
-
   static Resource<List<SongModel>> latestByTagId(int tagId) {
     return Resource(
         endpoint: '/api/songs?tagId=$tagId&fields=ThumbUrl&sort=AdditionDate',
