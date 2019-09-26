@@ -4,6 +4,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:rxdart/subjects.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:vocadb/constants.dart';
 import 'package:vocadb/global_variables.dart';
 import 'package:vocadb/models/song_model.dart';
 import 'package:vocadb/services/song_rest_service.dart';
@@ -164,7 +166,10 @@ class _SongDetailPageState extends State<SongDetailPage> {
             onTap: () {},
           ),
           SourceActionButton(
-            onTap: () {},
+            onTap: () {
+              String url = '$HOST/S/${song.id}';
+              launch(url);
+            },
           )
         ],
       ),
