@@ -32,7 +32,7 @@ class ConfigBloc {
   }
 
   void initContentLnaguage() {
-    String value = pref.getString('content_language');
+    String value = pref.getString('content_language') ?? 'Default';
     updateContentLanguage(value);
   }
 
