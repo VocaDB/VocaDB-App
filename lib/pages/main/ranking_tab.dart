@@ -42,7 +42,7 @@ class _RankingTabState extends State<RankingTab>
             appBar: TabBar(
               controller: _tabController,
               tabs: myTabs,
-              labelColor: theme.primaryColor,
+              labelColor: theme.textSelectionColor,
               unselectedLabelColor: theme.textTheme.title.color,
             ),
             body: TabBarView(
