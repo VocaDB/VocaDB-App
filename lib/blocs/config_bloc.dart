@@ -14,6 +14,7 @@ class ConfigBloc {
 
   ConfigBloc(this.pref) {
     initTheme();
+    initContentLnaguage();
   }
 
   void dispose() {

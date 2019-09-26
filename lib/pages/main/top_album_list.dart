@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:vocadb/models/album_model.dart';
 import 'package:vocadb/providers/global_provider.dart';
 import 'package:vocadb/widgets/album_card.dart';
+import 'package:vocadb/widgets/model_future_builder.dart';
 import 'package:vocadb/widgets/section.dart';
 
 class TopAlbumList extends StatefulWidget {
@@ -29,18 +30,17 @@ class _TopAlbumListState extends State<TopAlbumList> {
   @override
   Widget build(BuildContext context) {
     final albumService = GlobalProvider.of(context).albumService;
+    final config = GlobalProvider.of(context).configBloc;
 
-    return FutureBuilder<List<AlbumModel>>(
-      future: albumService.top(),
-      builder: (context, snapshot) {
-        if (snapshot.hasData)
-          return buildHasData(snapshot.data);
-        else if (snapshot.hasError) {
-          print(snapshot.error);
-        }
-
-        return buildDefault();
-      },
+    return StreamBuilder(
+      stream: config.contentLangStream,
+      initialData: 'Default',
+      builder: (context, snapshot) => ModelFutureBuilder<List<AlbumModel>>(
+        future: albumService.top(lang: snapshot.data),
+        buildData: buildHasData,
+        buildLoading: buildDefault,
+        buildError: print,
+      ),
     );
   }
 }

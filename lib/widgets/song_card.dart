@@ -46,7 +46,7 @@ class SongCard extends StatelessWidget {
                     fit: BoxFit.fitWidth,
                     child: Hero(
                         tag: tag,
-                        child: CachedNetworkImage(
+                        child: (this.thumbUrl == null)? Placeholder() : CachedNetworkImage(
                           imageUrl: this.thumbUrl,
                           placeholder: (context, url) =>
                               Container(color: Colors.grey),
