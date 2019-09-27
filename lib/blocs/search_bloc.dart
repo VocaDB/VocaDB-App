@@ -18,9 +18,9 @@ class SearchBloc {
   String get query => _query.value;
   EntryType get entryType => _entryType.value;
 
-  final EntryService entryService;
+  final entryService = EntryService();
 
-  SearchBloc(this.entryService) {
+  SearchBloc() {
     _query.listen(onQueryChanged);
     _entryType.listen(onEntryTypeChanged);
     _results.listen(print);

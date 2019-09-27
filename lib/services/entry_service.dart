@@ -5,10 +5,8 @@ import 'package:vocadb/models/artist_model.dart';
 import 'package:vocadb/models/entry_model.dart';
 import 'package:vocadb/models/song_model.dart';
 import 'package:vocadb/services/base_rest_service.dart';
-import 'package:vocadb/services/web_service.dart';
 
 class EntryService extends BaseRestService {
-  EntryService(RestService restService) : super(restService);
 
   List<EntryModel> jsonToList(List items) {
     return items.map((i) => EntryModel.fromJson(i)).toList();

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:vocadb/app_theme.dart';
 import 'package:vocadb/blocs/config_bloc.dart';
+import 'package:vocadb/blocs/home_bloc.dart';
+import 'package:vocadb/blocs/ranking_bloc.dart';
 import 'package:vocadb/global_variables.dart';
-import 'package:vocadb/providers/global_provider.dart';
-import 'package:vocadb/services/album_rest_service.dart';
-import 'package:vocadb/services/song_rest_service.dart';
 
 import 'pages/main/account_tab.dart';
 import 'pages/main/home_tab.dart';
@@ -19,10 +19,15 @@ void main() async {
 class VocaDBApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return GlobalProvider(
-      configBloc: ConfigBloc(GlobalVariables.pref),
-      songService: SongRestService(GlobalVariables.restService),
-      albumService: AlbumRestService(GlobalVariables.restService),
+
+    ConfigBloc configBloc = ConfigBloc(GlobalVariables.pref);
+
+    return MultiProvider(
+      providers: [
+        Provider<ConfigBloc>.value(value: configBloc),
+        Provider<HomeBloc>.value(value: HomeBloc(configBloc)),
+        Provider<RankingBloc>.value(value: RankingBloc(configBloc))
+      ],
       child: RootApp(),
     );
   }
@@ -31,7 +36,7 @@ class VocaDBApp extends StatelessWidget {
 class RootApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final config = GlobalProvider.of(context).configBloc;
+    final config = Provider.of<ConfigBloc>(context);
     return StreamBuilder(
       stream: config.themeDataStream,
       builder: (context, snapshot) {
@@ -68,14 +73,12 @@ class _MyHomePageState extends State<MyHomePage> {
     AccountTab(),
   ];
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
+
+    final homeBloc = Provider.of<HomeBloc>(context);
+    final rankingBloc = Provider.of<RankingBloc>(context);
+
     return Scaffold(
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
@@ -96,7 +99,17 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ],
         currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
+        onTap: (index) {
+
+          switch(index) {
+            case 0: homeBloc.fetch(); break;
+            case 1: rankingBloc.fetch(); break;
+          }
+          
+          setState(() {
+            _selectedIndex = index;
+          });
+        },
       ),
     );
   }

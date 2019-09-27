@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:provider/provider.dart';
 import 'package:vocadb/app_theme.dart';
 import 'package:vocadb/blocs/config_bloc.dart';
 import 'package:vocadb/providers/global_provider.dart';
@@ -103,7 +104,7 @@ class _SettingPageState extends State<SettingPage> {
   @override
   Widget build(BuildContext context) {
     
-    final ConfigBloc configBloc = GlobalProvider.of(this.context).configBloc;
+    final ConfigBloc configBloc = Provider.of<ConfigBloc>(context);
 
     return Scaffold(
       appBar: AppBar(title: Text('Setting')),

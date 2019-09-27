@@ -8,7 +8,7 @@ class MockRestService extends Mock implements RestService {}
 
 main() {
   final mockRestService = MockRestService();
-  final service = EntryService(mockRestService);
+  final service = EntryService();
 
   test('should return future list of entries when search', () {
     final mockResult = {

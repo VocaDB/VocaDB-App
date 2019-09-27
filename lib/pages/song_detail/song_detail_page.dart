@@ -25,7 +25,7 @@ import 'package:share/share.dart';
 class SongDetailBloc {
 
   final int id;
-  final SongRestService songService = SongRestService(GlobalVariables.restService);
+  final SongRestService songService = SongRestService();
 
   BehaviorSubject<SongModel> _song = BehaviorSubject();
   BehaviorSubject<SongModel> _originalVersion = BehaviorSubject();

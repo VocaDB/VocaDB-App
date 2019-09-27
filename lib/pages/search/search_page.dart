@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vocadb/blocs/search_bloc.dart';
-import 'package:vocadb/global_variables.dart';
 import 'package:vocadb/models/entry_model.dart';
-import 'package:vocadb/services/entry_service.dart';
 import 'package:vocadb/widgets/entry_tile.dart';
 import 'package:vocadb/widgets/result.dart';
 
@@ -12,12 +10,11 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
-  SearchBloc bloc;
+  final SearchBloc bloc = SearchBloc();
 
   @override
   void initState() {
     super.initState();
-    bloc = SearchBloc(EntryService(GlobalVariables.restService));
   }
 
   void onChangeEntryType(EntryType entryType) {

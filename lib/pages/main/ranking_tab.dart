@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:provider/provider.dart';
+import 'package:vocadb/blocs/ranking_bloc.dart';
 import 'package:vocadb/models/song_model.dart';
 import 'package:vocadb/pages/song_detail/song_detail_page.dart';
 import 'package:vocadb/pages/youtube_playlist/youtube_playlist_page.dart';
-import 'package:vocadb/providers/global_provider.dart';
-import 'package:vocadb/widgets/model_future_builder.dart';
 import 'package:vocadb/widgets/result.dart';
 
 class RankingTab extends StatefulWidget {
@@ -47,6 +47,8 @@ class _RankingTabState extends State<RankingTab>
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final rankingBloc = Provider.of<RankingBloc>(context);
+
     return SafeArea(
         child: Scaffold(
             appBar: TabBar(
@@ -58,27 +60,96 @@ class _RankingTabState extends State<RankingTab>
             body: TabBarView(
               controller: _tabController,
               children: [
-                RankingContent(rankDuration: RankDuration.DAILY, openPlaylist: openPlaylist,),
-                RankingContent(rankDuration: RankDuration.WEEKLY, openPlaylist: openPlaylist,),
-                RankingContent(rankDuration: RankDuration.MONTHLY, openPlaylist: openPlaylist,),
-                RankingContent(rankDuration: RankDuration.OVERALL, openPlaylist: openPlaylist,),
+                StreamBuilder(
+                  stream: rankingBloc.daily$,
+                  builder: (context, snapshot) {
+                    if(snapshot.hasData) {
+                      return RankingContent(songs: snapshot.data);
+                    } else if (snapshot.hasError) {
+                      return CenterError(message: snapshot.error.toString());
+                    }
+                    return CenterLoading();
+                   },
+                ),
+
+                StreamBuilder(
+                  stream: rankingBloc.weekly$,
+                  builder: (context, snapshot) {
+                    if(snapshot.hasData) {
+                      return RankingContent(songs: snapshot.data);
+                    } else if (snapshot.hasError) {
+                      return CenterError(message: snapshot.error.toString());
+                    }
+                    return CenterLoading();
+                   },
+                ),
+
+                StreamBuilder(
+                  stream: rankingBloc.monthly$,
+                  builder: (context, snapshot) {
+                    if(snapshot.hasData) {
+                      return RankingContent(songs: snapshot.data);
+                    } else if (snapshot.hasError) {
+                      return CenterError(message: snapshot.error.toString());
+                    }
+                    return CenterLoading();
+                   },
+                ),
+
+                StreamBuilder(
+                  stream: rankingBloc.overall$,
+                  builder: (context, snapshot) {
+                    if(snapshot.hasData) {
+                      return RankingContent(songs: snapshot.data);
+                    } else if (snapshot.hasError) {
+                      return CenterError(message: snapshot.error.toString());
+                    }
+                    return CenterLoading();
+                   },
+                ),
               ],
             )));
   }
 }
 
+class CenterError extends StatelessWidget {
+
+  final String message;
+
+  const CenterError({Key key, this.message}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Result.error('Something wrong!', subtitle: message),
+    );
+  }
+}
+
+class CenterLoading extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: CircularProgressIndicator(),
+    );
+  }
+}
+
 class RankingContent extends StatelessWidget {
-  final int rankDuration;
-  final Function openPlaylist;
+  final List<SongModel> songs;
 
-  const RankingContent({Key key, this.rankDuration, this.openPlaylist}) : super(key: key);
+  const RankingContent({Key key, this.songs}) : super(key: key);
 
-  buildHasData(List<SongModel> songs) {
+  @override
+  Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
         (songs == null || songs.length == 0)? Container() : FlatButton(
           onPressed: () {
-            this.openPlaylist(songs);
+             Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => YoutubePlaylistPage(songs: songs)));
           },
           child: Row(
             children: <Widget>[Icon(Icons.play_arrow), Text('Play all')],
@@ -93,31 +164,6 @@ class RankingContent extends StatelessWidget {
           ),
         ),
       ],
-    );
-  }
-
-  buildError(Object error) {
-    return Center(
-      child: Result.error('Something wrong!', subtitle: error.toString()),
-    );
-  }
-
-  buildDefault() {
-    return Center(
-      child: CircularProgressIndicator(),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final songService = GlobalProvider.of(context).songService;
-    final config = GlobalProvider.of(context).configBloc;
-
-    return ModelFutureBuilder<List<SongModel>>(
-        future: songService.topRated(durationHours: rankDuration, lang: config.contentLang),
-        buildData: buildHasData,
-        buildLoading: buildDefault,
-        buildError: print,
     );
   }
 }

@@ -8,7 +8,7 @@ class MockRestService extends Mock implements RestService {}
 
 main() {
   final mockRestService = MockRestService();
-  final service = SongRestService(mockRestService);
+  final service = SongRestService();
 
   test('should return list of songs when get highlighted songs', () {
     final mockResult = {

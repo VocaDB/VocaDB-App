@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:vocadb/blocs/home_bloc.dart';
 import 'package:vocadb/models/album_model.dart';
 import 'package:vocadb/providers/global_provider.dart';
 import 'package:vocadb/widgets/album_card.dart';
@@ -31,14 +33,18 @@ class _LatestAlbumListState extends State<LatestAlbumList> {
 
   @override
   Widget build(BuildContext context) {
-    final albumService = GlobalProvider.of(context).albumService;
-    final config = GlobalProvider.of(context).configBloc;
+    final bloc = Provider.of<HomeBloc>(context);
 
-    return ModelFutureBuilder<List<AlbumModel>>(
-        future: albumService.latest(lang: config.contentLang),
-        buildData: buildHasData,
-        buildLoading: buildDefault,
-        buildError: print,
+    return StreamBuilder(
+      stream: bloc.latestAlbums$,
+      builder: (context, snapshot) {
+        if(snapshot.hasData) {
+          return buildHasData(snapshot.data);
+        } else if(snapshot.hasError) {
+          print(snapshot.error.toString());
+        }
+        return buildDefault();
+      },
     );
   }
 }
