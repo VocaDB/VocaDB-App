@@ -6,12 +6,11 @@ import 'package:vocadb/models/song_model.dart';
 import 'package:vocadb/services/song_rest_service.dart';
 
 class RankingBloc {
+  final _daily = BehaviorSubject<List<SongModel>>.seeded(null);
+  final _weekly = BehaviorSubject<List<SongModel>>.seeded(null);
+  final _monthly = BehaviorSubject<List<SongModel>>.seeded(null);
+  final _overall = BehaviorSubject<List<SongModel>>.seeded(null);
 
-  final _daily = BehaviorSubject<List<SongModel>>.seeded([]);
-  final _weekly = BehaviorSubject<List<SongModel>>.seeded([]);
-  final _monthly = BehaviorSubject<List<SongModel>>.seeded([]);
-  final _overall = BehaviorSubject<List<SongModel>>.seeded([]);
-  
   Observable get daily$ => _daily.stream;
   Observable get weekly$ => _weekly.stream;
   Observable get monthly$ => _monthly.stream;
@@ -33,7 +32,8 @@ class RankingBloc {
 
   Future<List<SongModel>> updateByDuration(int durationHours) async {
     print('updateDaily...$durationHours');
-    return _songService.topRated(durationHours: durationHours, lang: configBloc.contentLang);
+    return _songService.topRated(
+        durationHours: durationHours, lang: configBloc.contentLang);
   }
 
   void dispose() {

@@ -8,11 +8,10 @@ import 'package:vocadb/services/album_rest_service.dart';
 import 'package:vocadb/services/song_rest_service.dart';
 
 class HomeBloc {
+  final _highlighted = BehaviorSubject<List<SongModel>>.seeded(null);
+  final _latestAlbums = BehaviorSubject<List<AlbumModel>>.seeded(null);
+  final _topAlbums = BehaviorSubject<List<AlbumModel>>.seeded(null);
 
-  final _highlighted = BehaviorSubject<List<SongModel>>.seeded([]);
-  final _latestAlbums = BehaviorSubject<List<AlbumModel>>.seeded([]);
-  final _topAlbums = BehaviorSubject<List<AlbumModel>>.seeded([]);
-  
   Observable get highlighted$ => _highlighted.stream;
   Observable get latestAlbums$ => _latestAlbums.stream;
   Observable get topAlbums$ => _topAlbums.stream;
@@ -33,7 +32,9 @@ class HomeBloc {
 
   Future<void> updateHighlighted() async {
     print('update highlighted...');
-    _songService.highlighted(lang: configBloc.contentLang).then(_highlighted.add);
+    _songService
+        .highlighted(lang: configBloc.contentLang)
+        .then(_highlighted.add);
   }
 
   Future<void> updateLatestAlbums() async {

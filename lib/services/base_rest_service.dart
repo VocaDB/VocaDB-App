@@ -2,10 +2,12 @@ import 'dart:async';
 
 import 'package:vocadb/services/web_service.dart';
 
-abstract class BaseRestService {
+class BaseRestService {
   RestApi restApi = RestApi();
 
-  BaseRestService({this.restApi});
+  BaseRestService({RestApi restApi}) {
+    this.restApi = restApi ?? RestApi();
+  }
 
   Future<dynamic> query(String endpoint, Map<String, String> params) async {
     return restApi
