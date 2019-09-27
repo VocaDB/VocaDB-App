@@ -4,11 +4,11 @@ import 'package:vocadb/models/album_model.dart';
 import 'package:vocadb/services/album_rest_service.dart';
 import 'package:vocadb/services/web_service.dart';
 
-class MockRestService extends Mock implements RestService {}
+class MockRestApi extends Mock implements RestApi {}
 
 main() {
-  final mockRestService = MockRestService();
-  final service = AlbumRestService();
+  final mcckRestApi = MockRestApi();
+  final service = AlbumRestService(restApi: mcckRestApi);
 
   test('should return list of albums when get latest albums', () {
     final mockResult = {
@@ -18,8 +18,7 @@ main() {
       ]
     };
 
-    when(mockRestService.get(any, any))
-        .thenAnswer((_) => Future.value(mockResult));
+    when(mcckRestApi.get(any, any)).thenAnswer((_) => Future.value(mockResult));
 
     expect(service.latest(), completion(isA<List<AlbumModel>>()));
   });
@@ -32,8 +31,7 @@ main() {
       ]
     };
 
-    when(mockRestService.get(any, any))
-        .thenAnswer((_) => Future.value(mockResult));
+    when(mcckRestApi.get(any, any)).thenAnswer((_) => Future.value(mockResult));
 
     expect(service.top(), completion(isA<List<AlbumModel>>()));
   });

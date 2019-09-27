@@ -5,13 +5,13 @@ import 'package:vocadb/services/web_service.dart';
 class GlobalVariables {
   static SharedPreferences pref;
 
-  static RestService restService;
+  static RestApi restApi;
 
   static ThemeEnum defaultTheme;
 
   static init() async {
     pref = await SharedPreferences.getInstance();
-    restService = RestService();
+    restApi = RestApi();
     defaultTheme = AppTheme.toEnum(pref.get('theme'));
   }
 }

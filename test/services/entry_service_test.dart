@@ -4,11 +4,11 @@ import 'package:vocadb/models/entry_model.dart';
 import 'package:vocadb/services/entry_service.dart';
 import 'package:vocadb/services/web_service.dart';
 
-class MockRestService extends Mock implements RestService {}
+class MockRestApi extends Mock implements RestApi {}
 
 main() {
-  final mockRestService = MockRestService();
-  final service = EntryService();
+  final mockRestApi = MockRestApi();
+  final service = EntryService(restApi: mockRestApi);
 
   test('should return future list of entries when search', () {
     final mockResult = {
@@ -18,8 +18,7 @@ main() {
       ]
     };
 
-    when(mockRestService.get(any, any))
-        .thenAnswer((_) => Future.value(mockResult));
+    when(mockRestApi.get(any, any)).thenAnswer((_) => Future.value(mockResult));
 
     expect(service.search('abc', EntryType.Song),
         completion(isA<List<EntryModel>>()));

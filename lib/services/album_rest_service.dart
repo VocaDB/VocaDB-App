@@ -2,8 +2,10 @@ import 'dart:async';
 
 import 'package:vocadb/models/album_model.dart';
 import 'package:vocadb/services/base_rest_service.dart';
+import 'package:vocadb/services/web_service.dart';
 
 class AlbumRestService extends BaseRestService {
+  AlbumRestService({RestApi restApi}) : super(restApi: restApi);
 
   Future<List<AlbumModel>> latest({String lang = 'Default'}) async {
     final String endpoint = '/api/albums/new';

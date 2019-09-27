@@ -33,10 +33,10 @@ class WebService {
   }
 }
 
-class RestService {
+class RestApi {
   final Dio dio = Dio();
 
-  RestService() {
+  RestApi() {
     dio.interceptors
         .add(DioCacheManager(CacheConfig(baseUrl: host)).interceptor);
   }
@@ -44,8 +44,8 @@ class RestService {
   Future<dynamic> get(String endpoint, Map<String, String> params) async {
     String url = Uri.https(AUTHORITY, endpoint, params).toString();
     print(url);
-    final response = await dio.get(url,
-        options: buildCacheOptions(Duration(minutes: 5)));
+    final response =
+        await dio.get(url, options: buildCacheOptions(Duration(minutes: 5)));
     if (response.statusCode == 200) {
       return response.data;
     }

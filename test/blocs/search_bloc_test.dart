@@ -21,7 +21,7 @@ main() {
         .thenAnswer((_) => Future.value(mockResults));
   });
   test('should emits query when update query', () async {
-    final bloc = SearchBloc();
+    final bloc = SearchBloc(entryService: mockEntryService);
 
     bloc.updateQuery('abc');
 
@@ -29,7 +29,7 @@ main() {
   });
 
   test('should emits empty query when clear query', () async {
-    final bloc = SearchBloc();
+    final bloc = SearchBloc(entryService: mockEntryService);
 
     bloc.updateQuery('abc');
 
@@ -41,7 +41,7 @@ main() {
   });
 
   test('should emits empty query when clear query', () async {
-    final bloc = SearchBloc();
+    final bloc = SearchBloc(entryService: mockEntryService);
 
     bloc.updateQuery('abc');
 
