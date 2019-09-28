@@ -32,7 +32,7 @@ class SongDetailBloc {
   }
 
   Future<void> fetchOriginalVersion(int id) async {
-    songService.byId(id).then(_song.add);
+    songService.byId(id).then(_originalVersion.add);
   }
 
   void dispose() {

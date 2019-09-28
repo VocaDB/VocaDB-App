@@ -145,6 +145,14 @@ class _SongDetailPageState extends State<SongDetailPage> {
           padding: EdgeInsets.all(8.0),
           child:
               Text(song.name, style: Theme.of(this.context).textTheme.title)),
+      Padding(
+        padding: EdgeInsets.all(8.0),
+        child: Text(song.additionalNames),
+      ),
+      Padding(
+        padding: EdgeInsets.all(8.0),
+        child: Text(song.songType),
+      ),
       Tags(song.tags),
       SpaceDivider(),
       Section(
@@ -181,15 +189,19 @@ class _SongDetailPageState extends State<SongDetailPage> {
             .toList(),
       ),
       SpaceDivider(),
-      StreamBuilder(
-        stream: bloc.originalVersion$,
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return SongTile.fromEntry(snapshot.data,
-                tag: 'original_${song.id}_${song.originalVersionId}');
-          }
-          return Container();
-        },
+      ContentSection(
+        title: 'Original',
+        hide: !song.hasOriginalVersion,
+        child: StreamBuilder(
+          stream: bloc.originalVersion$,
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return SongTile.fromEntry(snapshot.data,
+                  tag: 'original_${song.id}_${song.originalVersionId}');
+            }
+            return Container();
+          },
+        ),
       ),
     ];
   }
@@ -267,6 +279,35 @@ class _SongDetailPageState extends State<SongDetailPage> {
 
         return buildDefault();
       },
+    );
+  }
+}
+
+class ContentSection extends StatelessWidget {
+  final String title;
+  final Widget child;
+  final bool hide;
+
+  const ContentSection({Key key, this.title, this.child, this.hide = false})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    if (hide) return Container();
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Padding(
+          padding: EdgeInsets.all(8.0),
+          child: Text(
+            'Original',
+            textDirection: TextDirection.ltr,
+            style: Theme.of(context).textTheme.subhead,
+          ),
+        ),
+        child
+      ],
     );
   }
 }

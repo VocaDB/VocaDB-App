@@ -6,29 +6,10 @@ import 'package:vocadb/pages/song_detail/song_detail_page.dart';
 import 'package:vocadb/widgets/song_type_symbol.dart';
 
 class SongCard extends StatelessWidget {
-  final int id;
-  final String title;
-  final String artist;
-  final String thumbUrl;
-  final String songType;
+  final SongModel song;
   final String tag;
 
-  const SongCard(
-      {Key key,
-      this.id,
-      this.title,
-      this.artist,
-      this.thumbUrl,
-      this.songType,
-      this.tag})
-      : super(key: key);
-
-  SongCard.song(SongModel song, {this.tag})
-      : id = song.id,
-        title = song.name,
-        artist = song.artistString,
-        thumbUrl = song.thumbUrl,
-        songType = song.songType;
+  SongCard.song(this.song, {this.tag});
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +20,7 @@ class SongCard extends StatelessWidget {
               context,
               MaterialPageRoute(
                 builder: (context) => SongDetailPage(
-                    this.id, this.title, this.thumbUrl,
+                    song.id, song.name, song.thumbUrl,
                     tag: this.tag),
               ));
         },
@@ -54,28 +35,17 @@ class SongCard extends StatelessWidget {
                 color: Colors.black,
                 child: FittedBox(
                   fit: BoxFit.fitWidth,
-                  child: Stack(
-                    alignment: Alignment.bottomRight,
-                    children: <Widget>[
-                      Hero(
-                          tag: tag,
-                          child: (this.thumbUrl == null)
-                              ? Placeholder()
-                              : CachedNetworkImage(
-                                  imageUrl: this.thumbUrl,
-                                  placeholder: (context, url) =>
-                                      Container(color: Colors.grey),
-                                  errorWidget: (context, url, error) =>
-                                      new Icon(Icons.error),
-                                )),
-                      Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: SongTypeSymbol(
-                          songType: songType,
-                        ),
-                      )
-                    ],
-                  ),
+                  child: Hero(
+                      tag: tag,
+                      child: (song.thumbUrl == null)
+                          ? Placeholder()
+                          : CachedNetworkImage(
+                              imageUrl: song.thumbUrl,
+                              placeholder: (context, url) =>
+                                  Container(color: Colors.grey),
+                              errorWidget: (context, url, error) =>
+                                  new Icon(Icons.error),
+                            )),
                 ),
               ),
               Container(
@@ -83,7 +53,7 @@ class SongCard extends StatelessWidget {
               ),
               Container(
                   alignment: Alignment.centerLeft,
-                  child: Text(this.title,
+                  child: Text(song.name,
                       style: Theme.of(context).textTheme.body1,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis)),
@@ -92,10 +62,23 @@ class SongCard extends StatelessWidget {
               ),
               Container(
                   alignment: Alignment.centerLeft,
-                  child: Text(this.artist,
+                  child: Text(song.artistString,
                       style: Theme.of(context).textTheme.caption,
                       maxLines: 1,
-                      overflow: TextOverflow.ellipsis))
+                      overflow: TextOverflow.ellipsis)),
+              Container(
+                height: 4,
+              ),
+              Row(
+                children: <Widget>[
+                  SongTypeSymbol(
+                    songType: song.songType,
+                  ),
+                  (song.youtubePV != null)
+                      ? Icon(Icons.local_movies)
+                      : Container()
+                ],
+              )
             ],
           ),
         ),

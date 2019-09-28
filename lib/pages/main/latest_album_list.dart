@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:vocadb/blocs/home_bloc.dart';
 import 'package:vocadb/models/album_model.dart';
-import 'package:vocadb/providers/global_provider.dart';
 import 'package:vocadb/widgets/album_card.dart';
-import 'package:vocadb/widgets/model_future_builder.dart';
 import 'package:vocadb/widgets/section.dart';
 
 class LatestAlbumList extends StatefulWidget {
@@ -38,9 +36,9 @@ class _LatestAlbumListState extends State<LatestAlbumList> {
     return StreamBuilder(
       stream: bloc.latestAlbums$,
       builder: (context, snapshot) {
-        if(snapshot.hasData) {
+        if (snapshot.hasData) {
           return buildHasData(snapshot.data);
-        } else if(snapshot.hasError) {
+        } else if (snapshot.hasError) {
           print(snapshot.error.toString());
         }
         return buildDefault();

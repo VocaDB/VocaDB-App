@@ -7,6 +7,7 @@ import 'package:vocadb/services/web_service.dart';
 class EntryModel extends BaseModel {
   int id;
   EntryType entryType;
+  String additionalNames;
   String defaultName;
   String name;
   String artistString;
@@ -19,6 +20,7 @@ class EntryModel extends BaseModel {
   EntryModel.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         name = json['name'],
+        additionalNames = json['additionalNames'],
         defaultName = json['defaultName'],
         entryType = entryTypeToEnum(json['entryType']),
         artistString = json['artistString'],

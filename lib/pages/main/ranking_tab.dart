@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:provider/provider.dart';
 import 'package:vocadb/blocs/ranking_bloc.dart';
 import 'package:vocadb/models/song_model.dart';
-import 'package:vocadb/pages/song_detail/song_detail_page.dart';
 import 'package:vocadb/pages/youtube_playlist/youtube_playlist_page.dart';
 import 'package:vocadb/widgets/result.dart';
-import 'package:vocadb/widgets/song_type_symbol.dart';
+import 'package:vocadb/widgets/song_tile.dart';
 
 class RankingTab extends StatefulWidget {
   @override
@@ -158,123 +156,14 @@ class RankingContent extends StatelessWidget {
           child: ListView.builder(
             itemCount: songs.length,
             itemBuilder: (context, index) {
-              return RankingTile.fromSong((index + 1).toString(), songs[index]);
+              SongModel song = songs[index];
+              return SongTile.fromEntry(songs[index],
+                  leading: Text((index + 1).toString()),
+                  tag: 'ranking_${song.id}');
             },
           ),
         ),
       ],
-    );
-  }
-}
-
-class RankingTile extends StatelessWidget {
-  final int id;
-  final String rankNumber;
-  final String name;
-  final String artist;
-  final String thumbUrl;
-  final String songType;
-
-  const RankingTile(
-      {Key key,
-      this.rankNumber,
-      this.id,
-      this.name,
-      this.artist,
-      this.songType,
-      this.thumbUrl})
-      : super(key: key);
-
-  RankingTile.fromSong(this.rankNumber, SongModel song)
-      : this.id = song.id,
-        this.name = song.name,
-        this.artist = song.artistString,
-        this.thumbUrl = song.thumbUrl,
-        this.songType = song.songType;
-
-  Widget rankNumberWidget() {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Text(this.rankNumber),
-    );
-  }
-
-  Widget thumbnailWidget() {
-    Widget thumbnail = (this.thumbUrl != null && this.thumbUrl.isNotEmpty)
-        ? CachedNetworkImage(
-            fit: BoxFit.cover,
-            imageUrl: this.thumbUrl,
-            placeholder: (context, url) => Container(color: Colors.grey),
-            errorWidget: (context, url, error) => new Icon(Icons.error),
-          )
-        : Placeholder();
-
-    return Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: SizedBox(
-          width: 120,
-          child: Stack(
-            alignment: Alignment.bottomRight,
-            children: <Widget>[
-              thumbnail,
-              Padding(
-                padding: EdgeInsets.all(4.0),
-                child: SongTypeSymbol(
-                  songType: songType,
-                ),
-              ),
-            ],
-          ),
-        ));
-  }
-
-  Widget infoWidget(BuildContext context) {
-    return Expanded(
-      child: Padding(
-        padding: EdgeInsets.symmetric(vertical: 8.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            Text(this.name, overflow: TextOverflow.ellipsis),
-            Text(this.artist,
-                overflow: TextOverflow.ellipsis,
-                maxLines: 2,
-                style: Theme.of(context).textTheme.caption),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget trailing() {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: IconButton(onPressed: () {}, icon: Icon(Icons.more_vert)),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => SongDetailPage(
-                    this.id, this.name, this.thumbUrl,
-                    tag: 'ranking_$id')));
-      },
-      child: Container(
-        height: 100,
-        child: Row(
-          children: <Widget>[
-            rankNumberWidget(),
-            thumbnailWidget(),
-            infoWidget(context),
-          ],
-        ),
-      ),
     );
   }
 }

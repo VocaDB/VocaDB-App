@@ -50,20 +50,12 @@ class SongModel extends EntryModel {
   List<ArtistSongModel> get otherArtists =>
       this.artists.where((a) => !a.isVocalist && !a.isProducer).toList();
 
-  static SongModel _mapObjectResponse(Response response) {
-    return SongModel.fromJson(response.data);
-  }
+  bool get hasOriginalVersion =>
+      (this.originalVersionId != null && this.originalVersionId > 0);
 
   static List<SongModel> _mapItemsResponse(Response response) {
     Iterable result = response.data['items'];
     return result.map((model) => SongModel.fromJson(model)).toList();
-  }
-
-  static Resource<SongModel> byId(int id) {
-    return Resource(
-        endpoint:
-            '/api/songs/$id?fields=PVs,ThumbUrl,Albums,Artists,Tags,WebLinks',
-        parse: _mapObjectResponse);
   }
 
   static Resource<List<SongModel>> latestByTagId(int tagId) {
