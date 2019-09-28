@@ -29,9 +29,10 @@ class SongCard extends StatelessWidget {
           Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => SongDetailPage(
-                      this.id, this.title, this.thumbUrl,
-                      tag: this.tag)));
+                builder: (context) => SongDetailPage(
+                    this.id, this.title, this.thumbUrl,
+                    tag: this.tag),
+              ));
         },
         child: Container(
           width: 130,
@@ -46,13 +47,15 @@ class SongCard extends StatelessWidget {
                     fit: BoxFit.fitWidth,
                     child: Hero(
                         tag: tag,
-                        child: (this.thumbUrl == null)? Placeholder() : CachedNetworkImage(
-                          imageUrl: this.thumbUrl,
-                          placeholder: (context, url) =>
-                              Container(color: Colors.grey),
-                          errorWidget: (context, url, error) =>
-                              new Icon(Icons.error),
-                        ))),
+                        child: (this.thumbUrl == null)
+                            ? Placeholder()
+                            : CachedNetworkImage(
+                                imageUrl: this.thumbUrl,
+                                placeholder: (context, url) =>
+                                    Container(color: Colors.grey),
+                                errorWidget: (context, url, error) =>
+                                    new Icon(Icons.error),
+                              ))),
               ),
               Container(
                 height: 4,

@@ -3,8 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:vocadb/blocs/home_bloc.dart';
 import 'package:vocadb/models/song_model.dart';
 import 'package:vocadb/pages/youtube_playlist/youtube_playlist_page.dart';
-import 'package:vocadb/providers/global_provider.dart';
-import 'package:vocadb/widgets/model_future_builder.dart';
 import 'package:vocadb/widgets/section.dart';
 import 'package:vocadb/widgets/song_card.dart';
 
@@ -55,9 +53,9 @@ class _HighlightedListState extends State<HighlightedList> {
     return StreamBuilder(
       stream: bloc.highlighted$,
       builder: (context, snapshot) {
-        if(snapshot.hasData) {
+        if (snapshot.hasData) {
           return buildHasData(snapshot.data);
-        } else if(snapshot.hasError) {
+        } else if (snapshot.hasError) {
           print(snapshot.error.toString());
         }
         return buildDefault();

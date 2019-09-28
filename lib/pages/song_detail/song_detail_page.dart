@@ -2,13 +2,10 @@ import 'dart:async';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:rxdart/rxdart.dart';
-import 'package:rxdart/subjects.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:vocadb/blocs/song_detail_bloc.dart';
 import 'package:vocadb/constants.dart';
-import 'package:vocadb/global_variables.dart';
 import 'package:vocadb/models/song_model.dart';
-import 'package:vocadb/services/song_rest_service.dart';
 import 'package:vocadb/widgets/action_bar.dart';
 import 'package:vocadb/widgets/album_card.dart';
 import 'package:vocadb/widgets/artist_tile.dart';
@@ -22,40 +19,6 @@ import 'package:vocadb/widgets/tags.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import 'package:share/share.dart';
 
-class SongDetailBloc {
-
-  final int id;
-  final SongRestService songService = SongRestService();
-
-  BehaviorSubject<SongModel> _song = BehaviorSubject();
-  BehaviorSubject<SongModel> _originalVersion = BehaviorSubject();
-
-  Observable get songStream => _song.stream;
-  Observable get originalSongStream => _originalVersion.stream;
-
-  SongDetailBloc(this.id) {
-    _song.listen(fetched);
-    fetch();
-  }
-
-  void fetched(SongModel song) {
-    if(song.originalVersionId == null) {
-      return;
-    }
-
-    songService.byId(song.originalVersionId).then(_originalVersion.add);
-  }
-
-  void fetch() {
-    songService.byId(id).then(_song.add);
-  }
-
-  void dispose() {
-    _originalVersion?.close();
-    _song?.close();
-  }
-}
-
 class SongDetailPage extends StatefulWidget {
   final int id;
   final String name;
@@ -65,13 +28,16 @@ class SongDetailPage extends StatefulWidget {
   const SongDetailPage(this.id, this.name, this.thumbUrl, {this.tag});
 
   @override
-  _SongDetailPageState createState() => _SongDetailPageState();
+  _SongDetailPageState createState() =>
+      _SongDetailPageState(SongDetailBloc(id));
 }
 
 class _SongDetailPageState extends State<SongDetailPage> {
+  final SongDetailBloc bloc;
 
-  SongDetailBloc bloc;
   YoutubePlayerController _controller;
+
+  _SongDetailPageState(this.bloc);
 
   Widget buildPlayerWithContent(String url) {
     return YoutubePlayer(
@@ -92,7 +58,6 @@ class _SongDetailPageState extends State<SongDetailPage> {
 
   Future dispose() async {
     _controller?.dispose();
-    bloc?.dispose();
     super.dispose();
   }
 
@@ -215,12 +180,13 @@ class _SongDetailPageState extends State<SongDetailPage> {
                 AlbumCard.album(a, tag: 'song_detail_album_${song.id}_${a.id}'))
             .toList(),
       ),
-
+      SpaceDivider(),
       StreamBuilder(
-        stream: bloc.originalSongStream,
+        stream: bloc.originalVersion$,
         builder: (context, snapshot) {
-          if(snapshot.hasData) {
-            return SongTile.fromEntry(snapshot.data, tag: 'original_${song.id}_${song.originalVersionId}');
+          if (snapshot.hasData) {
+            return SongTile.fromEntry(snapshot.data,
+                tag: 'original_${song.id}_${song.originalVersionId}');
           }
           return Container();
         },
@@ -286,26 +252,21 @@ class _SongDetailPageState extends State<SongDetailPage> {
       appBar: AppBar(title: Text(widget.name)),
       body: defaultWidget,
     );
-  }  
+  }
 
   @override
   Widget build(BuildContext context) {
-
-    bloc = SongDetailBloc(widget.id);
- 
     return StreamBuilder(
-      stream: bloc.songStream,
+      stream: bloc.song$,
       builder: (context, snapshot) {
-        if(snapshot.hasData) {
+        if (snapshot.hasData) {
           return buildHasData(snapshot.data);
-        } else if(snapshot.hasError) {
+        } else if (snapshot.hasError) {
           return buildError(snapshot.error);
         }
-        
+
         return buildDefault();
       },
     );
   }
-
-
 }
