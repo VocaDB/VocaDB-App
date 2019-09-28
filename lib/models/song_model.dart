@@ -7,22 +7,9 @@ import 'package:vocadb/models/tag_model.dart';
 import 'package:vocadb/services/web_service.dart';
 import 'package:vocadb/utils/json_utils.dart';
 
-enum SongType {
-  Original,
-  Remaster,
-  Remix,
-  Cover,
-  Instrumental,
-  Mashup,
-  MusicPV,
-  DramaPV,
-  Other,
-  Undefined
-}
-
 class SongModel extends EntryModel {
   EntryType entryType = EntryType.Song;
-  SongType songType;
+  String songType;
   String thumbUrl;
   List<PVModel> pvs;
   List<ArtistSongModel> artists;
@@ -33,7 +20,7 @@ class SongModel extends EntryModel {
 
   SongModel.fromJson(Map<String, dynamic> json)
       : thumbUrl = json['thumbUrl'],
-        songType = songTypeToEnum(json['songType']),
+        songType = json['songType'],
         originalVersionId = json['originalVersionId'],
         pvs = JSONUtils.mapJsonArray<PVModel>(
             json['pvs'], (v) => PVModel.fromJson(v)),
@@ -67,11 +54,6 @@ class SongModel extends EntryModel {
     return SongModel.fromJson(response.data);
   }
 
-  static List<SongModel> _mapArrayResponse(Response response) {
-    Iterable result = response.data;
-    return result.map((model) => SongModel.fromJson(model)).toList();
-  }
-
   static List<SongModel> _mapItemsResponse(Response response) {
     Iterable result = response.data['items'];
     return result.map((model) => SongModel.fromJson(model)).toList();
@@ -94,23 +76,6 @@ class SongModel extends EntryModel {
     return Resource(
         endpoint: '/api/songs?tagId=$tagId&fields=ThumbUrl&sort=RatingScore',
         parse: _mapItemsResponse);
-  }
-
-  static SongType songTypeToEnum(String str) {
-    switch (str) {
-      case 'Original':
-        return SongType.Original;
-      case 'Remaster':
-        return SongType.Remaster;
-      case 'Remix':
-        return SongType.Remix;
-      case 'Cover':
-        return SongType.Cover;
-      case 'Instrumental':
-        return SongType.Instrumental;
-      default:
-        return SongType.Undefined;
-    }
   }
 }
 

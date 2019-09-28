@@ -49,7 +49,7 @@ void main() {
       expect(result.name, "song1");
       expect(result.artistString, "test_artist");
       expect(result.entryType, EntryType.Song);
-      expect(result.songType, SongType.Original);
+      expect(result.songType, 'Original');
       expect(result.originalVersionId, 2);
       expect(result.pvs, isNotNull);
       expect(result.pvs.length, 1);

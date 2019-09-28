@@ -7,6 +7,26 @@ import 'package:vocadb/models/song_model.dart';
 import 'package:vocadb/services/album_rest_service.dart';
 import 'package:vocadb/services/song_rest_service.dart';
 
+final List<SongModel> mockSongs = [
+  {
+    'id': 1501,
+    'name': 'ローリンガール',
+    'artistString': 'wowaka feat. 初音ミク',
+    'thumbUrl': 'http://nicovideo.cdn.nimg.jp/thumbnails/9714351/9714351'
+  },
+  {
+    'id': 8394,
+    'name': '千本桜',
+    'artistString': '黒うさP feat. 初音ミク',
+    'thumbUrl': 'http://tn-skr3.smilevideo.jp/smile?i=15630734'
+  }
+].map((s) => SongModel.fromJson(s)).toList();
+
+final List<AlbumModel> mockAlbums = [
+  {'id': 9553, 'name': 'No title+', 'artistString': 'GigaP feat. various'},
+  {'id': 1927, 'name': 'I am BIG TROUBLE', 'artistString': 'Various artists'}
+].map((s) => AlbumModel.fromJson(s)).toList();
+
 class HomeBloc {
   final _highlighted = BehaviorSubject<List<SongModel>>.seeded(null);
   final _latestAlbums = BehaviorSubject<List<AlbumModel>>.seeded(null);

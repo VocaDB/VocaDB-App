@@ -6,6 +6,7 @@ import 'package:vocadb/models/song_model.dart';
 import 'package:vocadb/pages/song_detail/song_detail_page.dart';
 import 'package:vocadb/pages/youtube_playlist/youtube_playlist_page.dart';
 import 'package:vocadb/widgets/result.dart';
+import 'package:vocadb/widgets/song_type_symbol.dart';
 
 class RankingTab extends StatefulWidget {
   @override
@@ -36,7 +37,6 @@ class _RankingTabState extends State<RankingTab>
     super.dispose();
   }
 
-
   void openPlaylist(List<SongModel> songs) {
     Navigator.push(
         context,
@@ -63,49 +63,46 @@ class _RankingTabState extends State<RankingTab>
                 StreamBuilder(
                   stream: rankingBloc.daily$,
                   builder: (context, snapshot) {
-                    if(snapshot.hasData) {
+                    if (snapshot.hasData) {
                       return RankingContent(songs: snapshot.data);
                     } else if (snapshot.hasError) {
                       return CenterError(message: snapshot.error.toString());
                     }
                     return CenterLoading();
-                   },
+                  },
                 ),
-
                 StreamBuilder(
                   stream: rankingBloc.weekly$,
                   builder: (context, snapshot) {
-                    if(snapshot.hasData) {
+                    if (snapshot.hasData) {
                       return RankingContent(songs: snapshot.data);
                     } else if (snapshot.hasError) {
                       return CenterError(message: snapshot.error.toString());
                     }
                     return CenterLoading();
-                   },
+                  },
                 ),
-
                 StreamBuilder(
                   stream: rankingBloc.monthly$,
                   builder: (context, snapshot) {
-                    if(snapshot.hasData) {
+                    if (snapshot.hasData) {
                       return RankingContent(songs: snapshot.data);
                     } else if (snapshot.hasError) {
                       return CenterError(message: snapshot.error.toString());
                     }
                     return CenterLoading();
-                   },
+                  },
                 ),
-
                 StreamBuilder(
                   stream: rankingBloc.overall$,
                   builder: (context, snapshot) {
-                    if(snapshot.hasData) {
+                    if (snapshot.hasData) {
                       return RankingContent(songs: snapshot.data);
                     } else if (snapshot.hasError) {
                       return CenterError(message: snapshot.error.toString());
                     }
                     return CenterLoading();
-                   },
+                  },
                 ),
               ],
             )));
@@ -113,7 +110,6 @@ class _RankingTabState extends State<RankingTab>
 }
 
 class CenterError extends StatelessWidget {
-
   final String message;
 
   const CenterError({Key key, this.message}) : super(key: key);
@@ -144,17 +140,20 @@ class RankingContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        (songs == null || songs.length == 0)? Container() : FlatButton(
-          onPressed: () {
-             Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => YoutubePlaylistPage(songs: songs)));
-          },
-          child: Row(
-            children: <Widget>[Icon(Icons.play_arrow), Text('Play all')],
-          ),
-        ),
+        (songs == null || songs.length == 0)
+            ? Container()
+            : FlatButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              YoutubePlaylistPage(songs: songs)));
+                },
+                child: Row(
+                  children: <Widget>[Icon(Icons.play_arrow), Text('Play all')],
+                ),
+              ),
         Expanded(
           child: ListView.builder(
             itemCount: songs.length,
@@ -174,6 +173,7 @@ class RankingTile extends StatelessWidget {
   final String name;
   final String artist;
   final String thumbUrl;
+  final String songType;
 
   const RankingTile(
       {Key key,
@@ -181,6 +181,7 @@ class RankingTile extends StatelessWidget {
       this.id,
       this.name,
       this.artist,
+      this.songType,
       this.thumbUrl})
       : super(key: key);
 
@@ -188,7 +189,8 @@ class RankingTile extends StatelessWidget {
       : this.id = song.id,
         this.name = song.name,
         this.artist = song.artistString,
-        this.thumbUrl = song.thumbUrl;
+        this.thumbUrl = song.thumbUrl,
+        this.songType = song.songType;
 
   Widget rankNumberWidget() {
     return Padding(
@@ -200,6 +202,7 @@ class RankingTile extends StatelessWidget {
   Widget thumbnailWidget() {
     Widget thumbnail = (this.thumbUrl != null && this.thumbUrl.isNotEmpty)
         ? CachedNetworkImage(
+            fit: BoxFit.cover,
             imageUrl: this.thumbUrl,
             placeholder: (context, url) => Container(color: Colors.grey),
             errorWidget: (context, url, error) => new Icon(Icons.error),
@@ -210,7 +213,18 @@ class RankingTile extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: SizedBox(
           width: 120,
-          child: thumbnail,
+          child: Stack(
+            alignment: Alignment.bottomRight,
+            children: <Widget>[
+              thumbnail,
+              Padding(
+                padding: EdgeInsets.all(4.0),
+                child: SongTypeSymbol(
+                  songType: songType,
+                ),
+              ),
+            ],
+          ),
         ));
   }
 

@@ -3,23 +3,32 @@ import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:vocadb/models/song_model.dart';
 import 'package:vocadb/pages/song_detail/song_detail_page.dart';
+import 'package:vocadb/widgets/song_type_symbol.dart';
 
 class SongCard extends StatelessWidget {
   final int id;
   final String title;
   final String artist;
   final String thumbUrl;
+  final String songType;
   final String tag;
 
   const SongCard(
-      {Key key, this.id, this.title, this.artist, this.thumbUrl, this.tag})
+      {Key key,
+      this.id,
+      this.title,
+      this.artist,
+      this.thumbUrl,
+      this.songType,
+      this.tag})
       : super(key: key);
 
   SongCard.song(SongModel song, {this.tag})
       : id = song.id,
         title = song.name,
         artist = song.artistString,
-        thumbUrl = song.thumbUrl;
+        thumbUrl = song.thumbUrl,
+        songType = song.songType;
 
   @override
   Widget build(BuildContext context) {
@@ -44,18 +53,30 @@ class SongCard extends StatelessWidget {
                 height: 100,
                 color: Colors.black,
                 child: FittedBox(
-                    fit: BoxFit.fitWidth,
-                    child: Hero(
-                        tag: tag,
-                        child: (this.thumbUrl == null)
-                            ? Placeholder()
-                            : CachedNetworkImage(
-                                imageUrl: this.thumbUrl,
-                                placeholder: (context, url) =>
-                                    Container(color: Colors.grey),
-                                errorWidget: (context, url, error) =>
-                                    new Icon(Icons.error),
-                              ))),
+                  fit: BoxFit.fitWidth,
+                  child: Stack(
+                    alignment: Alignment.bottomRight,
+                    children: <Widget>[
+                      Hero(
+                          tag: tag,
+                          child: (this.thumbUrl == null)
+                              ? Placeholder()
+                              : CachedNetworkImage(
+                                  imageUrl: this.thumbUrl,
+                                  placeholder: (context, url) =>
+                                      Container(color: Colors.grey),
+                                  errorWidget: (context, url, error) =>
+                                      new Icon(Icons.error),
+                                )),
+                      Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: SongTypeSymbol(
+                          songType: songType,
+                        ),
+                      )
+                    ],
+                  ),
+                ),
               ),
               Container(
                 height: 4,
