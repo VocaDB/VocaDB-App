@@ -19,9 +19,7 @@ class RankingBloc {
   final ConfigBloc configBloc;
   final _songService = SongRestService();
 
-  RankingBloc(this.configBloc) {
-    fetch();
-  }
+  RankingBloc(this.configBloc);
 
   void fetch() {
     updateByDuration(RankDuration.DAILY).then(_daily.add);
