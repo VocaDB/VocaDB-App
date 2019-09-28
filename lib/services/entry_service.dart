@@ -16,7 +16,15 @@ class EntryService extends BaseRestService {
 
   Future<List<EntryModel>> search(String query, EntryType entryType) {
     final String endpoint = getEndpointByEntryType(entryType);
-    final Map<String, String> params = {'query': query};
+    final Map<String, String> params = {
+      'fields': 'MainPicture',
+      'nameMatchMode': 'Auto'
+    };
+
+    if (query != null && query.isNotEmpty) {
+      params['query'] = query;
+    }
+
     return super.query(endpoint, params).then((items) {
       switch (entryType) {
         case EntryType.Song:

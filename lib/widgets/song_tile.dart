@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:vocadb/models/entry_model.dart';
 import 'package:vocadb/models/song_model.dart';
 import 'package:vocadb/pages/song_detail/song_detail_page.dart';
 import 'package:vocadb/widgets/song_type_symbol.dart';
@@ -9,7 +10,19 @@ class SongTile extends StatelessWidget {
   final SongModel song;
   final String tag;
 
-  SongTile.fromEntry(this.song, {this.leading, this.tag});
+  SongTile.fromSong(this.song, {this.leading, this.tag});
+
+  factory SongTile.fromEntry(EntryModel entryModel,
+      {Widget leading, String tag}) {
+    SongModel song = SongModel();
+    song.id = entryModel.id;
+    song.songType = entryModel.songType;
+    song.name = entryModel.name;
+    song.artistString = entryModel.artistString;
+    song.thumbUrl = entryModel.imageUrl;
+
+    return SongTile.fromSong(song, leading: leading, tag: tag);
+  }
 
   Widget leadingWidget() {
     return Padding(
@@ -49,6 +62,9 @@ class SongTile extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
                 maxLines: 2,
                 style: Theme.of(context).textTheme.caption),
+            SizedBox(
+              height: 8.0,
+            ),
             Row(
               children: <Widget>[
                 SongTypeSymbol(

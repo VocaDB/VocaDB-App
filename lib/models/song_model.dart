@@ -9,7 +9,6 @@ import 'package:vocadb/utils/json_utils.dart';
 
 class SongModel extends EntryModel {
   EntryType entryType = EntryType.Song;
-  String songType;
   String thumbUrl;
   List<PVModel> pvs;
   List<ArtistSongModel> artists;
@@ -20,7 +19,6 @@ class SongModel extends EntryModel {
 
   SongModel.fromJson(Map<String, dynamic> json)
       : thumbUrl = json['thumbUrl'],
-        songType = json['songType'],
         originalVersionId = json['originalVersionId'],
         pvs = JSONUtils.mapJsonArray<PVModel>(
             json['pvs'], (v) => PVModel.fromJson(v)),

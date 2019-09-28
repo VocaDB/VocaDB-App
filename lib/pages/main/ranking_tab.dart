@@ -157,7 +157,7 @@ class RankingContent extends StatelessWidget {
             itemCount: songs.length,
             itemBuilder: (context, index) {
               SongModel song = songs[index];
-              return SongTile.fromEntry(songs[index],
+              return SongTile.fromSong(songs[index],
                   leading: Text((index + 1).toString()),
                   tag: 'ranking_${song.id}');
             },

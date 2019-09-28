@@ -12,6 +12,7 @@ class EntryModel extends BaseModel {
   String name;
   String artistString;
   String artistType;
+  String songType;
   MainPictureModel mainPicture;
   List<TagGroupModel> tagGroups;
 
@@ -20,6 +21,7 @@ class EntryModel extends BaseModel {
   EntryModel.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         name = json['name'],
+        songType = json['songType'],
         additionalNames = json['additionalNames'],
         defaultName = json['defaultName'],
         entryType = entryTypeToEnum(json['entryType']),

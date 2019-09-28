@@ -17,6 +17,12 @@ class _SearchPageState extends State<SearchPage> {
     super.initState();
   }
 
+  @override
+  void dispose() {
+    bloc.dispose();
+    super.dispose();
+  }
+
   void onChangeEntryType(EntryType entryType) {
     bloc.updateEntryType(entryType);
   }
@@ -79,6 +85,21 @@ class _SearchPageState extends State<SearchPage> {
         });
   }
 
+  Widget buildStreamResult() {
+    return StreamBuilder(
+      stream: bloc.resultStream,
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          return SearchResult(entries: snapshot.data);
+        } else if (snapshot.hasError) {
+          return CenterError(message: snapshot.error.toString());
+        }
+
+        return CenterLoading();
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -87,7 +108,6 @@ class _SearchPageState extends State<SearchPage> {
           children: <Widget>[
             Expanded(
               child: TextField(
-                autofocus: true,
                 onChanged: bloc.updateQuery,
                 style: Theme.of(context).primaryTextTheme.title,
                 decoration: InputDecoration(
@@ -107,15 +127,13 @@ class _SearchPageState extends State<SearchPage> {
         ),
       ),
       body: StreamBuilder(
-        stream: bloc.resultStream,
+        stream: bloc.isSearching$,
         builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return SearchResult(entries: snapshot.data);
-          } else if (snapshot.hasError) {
-            return CenterError(message: snapshot.error.toString());
-          }
-
-          return CenterLoading();
+          return (snapshot.hasData && snapshot.data)
+              ? buildStreamResult()
+              : Center(
+                  child: Text('Search anything here'),
+                );
         },
       ),
     );

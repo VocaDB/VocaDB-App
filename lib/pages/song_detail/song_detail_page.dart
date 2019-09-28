@@ -196,7 +196,7 @@ class _SongDetailPageState extends State<SongDetailPage> {
           stream: bloc.originalVersion$,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              return SongTile.fromEntry(snapshot.data,
+              return SongTile.fromSong(snapshot.data,
                   tag: 'original_${song.id}_${song.originalVersionId}');
             }
             return Container();
