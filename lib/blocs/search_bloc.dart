@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:rxdart/rxdart.dart';
 import 'package:rxdart/subjects.dart';
+import 'package:vocadb/blocs/search_song_filter_bloc.dart';
 import 'package:vocadb/models/entry_model.dart';
 import 'package:vocadb/services/entry_service.dart';
 
@@ -22,10 +23,18 @@ class SearchBloc {
 
   EntryService entryService;
 
-  SearchBloc({this.entryService}) {
+  SearchSongFilterBloc songFilterBloc;
+
+  SearchBloc({this.entryService, this.songFilterBloc}) {
     this.entryService ??= EntryService();
-    _query.listen(onQueryChanged);
-    _entryType.listen(onEntryTypeChanged);
+    this.songFilterBloc ??= SearchSongFilterBloc();
+
+    Observable.concat([
+      queryStream,
+      entryTypeStream,
+      songFilterBloc.params$.asBroadcastStream()
+    ]).listen(fetch);
+
     _results.listen(print);
   }
 
@@ -55,18 +64,22 @@ class SearchBloc {
     _entryType.add(entryType);
   }
 
-  void onQueryChanged(String query) {
-    fetch();
-  }
-
-  void onEntryTypeChanged(EntryType entryType) {
-    fetch();
-  }
-
-  void fetch() {
+  void fetch(event) {
+    print(event);
     if (!isSearching) return;
 
-    entryService.search(query, entryType).then(updateResults);
+    Map<String, String> params = getParamsByEntryType();
+
+    entryService.search(query, entryType, params: params).then(updateResults);
+  }
+
+  Map<String, String> getParamsByEntryType() {
+    switch (entryType) {
+      case EntryType.Song:
+        return songFilterBloc.params();
+      default:
+        return {};
+    }
   }
 
   void dispose() {
@@ -74,5 +87,9 @@ class SearchBloc {
     _results?.close();
     _query?.close();
     _isSearching?.close();
+  }
+
+  void onParamsChanged(event) {
+    print(getParamsByEntryType());
   }
 }

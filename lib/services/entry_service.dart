@@ -14,16 +14,17 @@ class EntryService extends BaseRestService {
     return items.map((i) => EntryModel.fromJson(i)).toList();
   }
 
-  Future<List<EntryModel>> search(String query, EntryType entryType) {
+  Future<List<EntryModel>> search(String query, EntryType entryType,
+      {Map<String, String> params}) {
     final String endpoint = getEndpointByEntryType(entryType);
-    final Map<String, String> params = {
-      'fields': 'MainPicture',
-      'nameMatchMode': 'Auto'
-    };
+
+    params ??= {};
 
     if (query != null && query.isNotEmpty) {
       params['query'] = query;
     }
+
+    params.addAll({'fields': 'MainPicture', 'nameMatchMode': 'Auto'});
 
     return super.query(endpoint, params).then((items) {
       switch (entryType) {
