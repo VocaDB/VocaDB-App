@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:rxdart/rxdart.dart';
 import 'package:rxdart/subjects.dart';
+import 'package:vocadb/blocs/search_album_filter_bloc.dart';
 import 'package:vocadb/blocs/search_artist_filter_bloc.dart';
 import 'package:vocadb/blocs/search_song_filter_bloc.dart';
 import 'package:vocadb/models/entry_model.dart';
@@ -26,17 +27,24 @@ class SearchBloc {
 
   SearchSongFilterBloc songFilterBloc;
   SearchArtistFilterBloc artistFilterBloc;
+  SearchAlbumFilterBloc albumFilterBloc;
 
-  SearchBloc({this.entryService, this.songFilterBloc, this.artistFilterBloc}) {
+  SearchBloc(
+      {this.entryService,
+      this.songFilterBloc,
+      this.artistFilterBloc,
+      this.albumFilterBloc}) {
     this.entryService ??= EntryService();
     this.songFilterBloc ??= SearchSongFilterBloc();
     this.artistFilterBloc ??= SearchArtistFilterBloc();
+    this.albumFilterBloc ??= SearchAlbumFilterBloc();
 
     Observable.merge([
       queryStream,
       entryTypeStream,
       songFilterBloc.params$,
-      artistFilterBloc.params$
+      artistFilterBloc.params$,
+      albumFilterBloc.params$
     ]).debounceTime(Duration(milliseconds: 500)).distinct().listen(fetch);
   }
 
@@ -83,6 +91,8 @@ class SearchBloc {
         return songFilterBloc.params();
       case EntryType.Artist:
         return artistFilterBloc.params();
+      case EntryType.Album:
+        return albumFilterBloc.params();
       default:
         return {};
     }

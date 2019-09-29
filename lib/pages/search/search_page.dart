@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vocadb/blocs/search_bloc.dart';
 import 'package:vocadb/models/entry_model.dart';
+import 'package:vocadb/pages/search/search_album_filter_page.dart';
 import 'package:vocadb/pages/search/search_artist_filter_page.dart';
 import 'package:vocadb/pages/search/search_song_filter_page.dart';
 import 'package:vocadb/widgets/entry_tile.dart';
@@ -111,6 +112,9 @@ class _SearchPageState extends State<SearchPage> {
         break;
       case EntryType.Artist:
         filterPage = SearchArtistFilterPage(bloc: bloc.artistFilterBloc);
+        break;
+      case EntryType.Album:
+        filterPage = SearchAlbumFilterPage(bloc: bloc.albumFilterBloc);
         break;
       default:
         return;
