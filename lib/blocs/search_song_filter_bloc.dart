@@ -33,10 +33,12 @@ class SearchSongFilterBloc {
     _sort.add(sort);
   }
 
-  void addArtist(ArtistModel artist) {
+  Future<void> addArtist(ArtistModel artist) {
     Map<int, ArtistModel> a = artists ?? {};
     a.putIfAbsent(artist.id, () => artist);
     _artists.add(a);
+
+    return Future.value();
   }
 
   void removeArtist(int id) {
@@ -64,6 +66,8 @@ class SearchSongFilterBloc {
     if (songType != null) params['songTypes'] = songType;
     if (tagList != null && tagList.length > 0)
       params['tagId'] = tags.keys.join(',');
+    if (artistList != null && artistList.length > 0)
+      params['artistId'] = artists.keys.join(',');
 
     return params;
   }

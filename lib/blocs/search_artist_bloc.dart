@@ -1,19 +1,19 @@
 import 'package:rxdart/rxdart.dart';
-import 'package:vocadb/models/tag_model.dart';
-import 'package:vocadb/services/tag_rest_service.dart';
+import 'package:vocadb/models/artist_model.dart';
+import 'package:vocadb/services/artist_rest_service.dart';
 
-class SearchTagBloc {
+class SearchArtistBloc {
   final _query = BehaviorSubject<String>.seeded(null);
-  final _results = BehaviorSubject<List<TagModel>>.seeded(null);
+  final _results = BehaviorSubject<List<ArtistModel>>.seeded(null);
 
   Observable get result$ => _results.stream;
   Observable get query$ => _query.stream;
 
   String get query => _query.value;
 
-  TagRestService tagService = TagRestService();
+  ArtistRestService artistService = ArtistRestService();
 
-  SearchTagBloc() {
+  SearchArtistBloc() {
     _query
         .debounceTime(Duration(milliseconds: 500))
         .distinct()
@@ -28,16 +28,16 @@ class SearchTagBloc {
     _query.add(query);
   }
 
-  void updateResults(List<TagModel> results) {
+  void updateResults(List<ArtistModel> results) {
     _results.add(results);
   }
 
   void fetch() {
-    tagService.search(query).then(updateResults);
+    artistService.search(query).then(updateResults);
   }
 
   void dispose() {
-    _query.close();
+    _query?.close();
     _results?.close();
   }
 }

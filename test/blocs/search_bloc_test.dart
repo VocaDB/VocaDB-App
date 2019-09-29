@@ -1,6 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:vocadb/blocs/search_bloc.dart';
+import 'package:vocadb/models/artist_model.dart';
 import 'package:vocadb/models/entry_model.dart';
 import 'package:vocadb/models/tag_model.dart';
 import 'package:vocadb/services/entry_service.dart';
@@ -59,6 +60,8 @@ main() {
 
     await bloc.updateQuery('abc');
 
+    await Future.delayed(Duration(milliseconds: 500));
+
     verify(mockEntryService.search('abc', EntryType.Undefined, params: {}))
         .called(1);
 
@@ -68,6 +71,8 @@ main() {
 
     await expectLater(bloc.queryStream, emits('de'));
 
+    await Future.delayed(Duration(milliseconds: 500));
+
     verify(mockEntryService.search('de', EntryType.Undefined, params: {}))
         .called(1);
 
@@ -75,13 +80,28 @@ main() {
 
     await expectLater(bloc.entryTypeStream, emits(EntryType.Song));
 
+    await Future.delayed(Duration(milliseconds: 500));
+
     verify(mockEntryService
         .search('de', EntryType.Song, params: {'sort': 'Name'})).called(1);
 
     await bloc.songFilterBloc
         .addTag(TagModel.fromJson({'id': 1, 'name': 'tag_01'}));
 
+    await Future.delayed(Duration(milliseconds: 500));
+
     verify(mockEntryService.search('de', EntryType.Song,
         params: {'sort': 'Name', 'tagId': '1'})).called(1);
+
+    await bloc.songFilterBloc
+        .addArtist(ArtistModel.fromJson({'id': 1, 'name': 'miku_01'}));
+
+    await Future.delayed(Duration(milliseconds: 500));
+
+    verify(mockEntryService.search('de', EntryType.Song, params: {
+      'sort': 'Name',
+      'tagId': '1',
+      'artistId': '1',
+    })).called(1);
   });
 }

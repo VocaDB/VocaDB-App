@@ -30,6 +30,8 @@ class SearchBloc {
     this.songFilterBloc ??= SearchSongFilterBloc();
 
     Observable.merge([queryStream, entryTypeStream, songFilterBloc.params$])
+        .debounceTime(Duration(milliseconds: 500))
+        .distinct()
         .listen(fetch);
   }
 

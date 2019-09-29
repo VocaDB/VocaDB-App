@@ -1,6 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:vocadb/blocs/search_song_filter_bloc.dart';
+import 'package:vocadb/models/artist_model.dart';
 import 'package:vocadb/models/tag_model.dart';
+import 'package:vocadb/pages/search/search_artist_page.dart';
 import 'package:vocadb/pages/search/search_tag_page.dart';
 import 'package:vocadb/widgets/space_divider.dart';
 
@@ -14,6 +17,14 @@ class SearchSongFilterPage extends StatelessWidget {
         context,
         MaterialPageRoute(
             builder: (context) => SearchTagPage(onSelected: bloc.addTag)));
+  }
+
+  void browseArtists(BuildContext context) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) =>
+                SearchArtistPage(onSelected: bloc.addArtist)));
   }
 
   @override
@@ -74,15 +85,89 @@ class SearchSongFilterPage extends StatelessWidget {
                 text: 'Artists',
               ),
               SpaceDivider(),
-              FlatButton(
-                onPressed: () {},
-                child: Row(
-                  children: <Widget>[Icon(Icons.add), Text('Add artist')],
-                ),
+              StreamBuilder(
+                stream: bloc.artists$,
+                builder: (context, snapshot) {
+                  List<ArtistModel> artists = (snapshot.hasData)
+                      ? (snapshot.data as Map<int, ArtistModel>).values.toList()
+                      : [];
+
+                  return ArtistFilters(
+                    artists: artists,
+                    onRemove: bloc.removeArtist,
+                    onBrowseArtists: () {
+                      browseArtists(context);
+                    },
+                  );
+                },
               ),
             ],
           ),
         ));
+  }
+}
+
+class ArtistFilters extends StatelessWidget {
+  final List<ArtistModel> artists;
+  final Function onBrowseArtists;
+  final Function onRemove;
+
+  const ArtistFilters(
+      {Key key, this.artists, this.onBrowseArtists, this.onRemove})
+      : super(key: key);
+
+  List<Widget> buildChildren(BuildContext context) {
+    List<Widget> children = [];
+
+    if (artists != null && artists.length > 0) {
+      children.addAll(artists
+          .map((t) => ListTile(
+                onTap: () {},
+                trailing: IconButton(
+                  icon: Icon(Icons.close),
+                  onPressed: () {
+                    this.onRemove(t.id);
+                  },
+                ),
+                leading: buildLeading(t.imageUrl),
+                title: Text(t.name),
+                subtitle: Text(t.artistType),
+              ))
+          .toList());
+    }
+
+    children.add(ListTile(
+      onTap: this.onBrowseArtists,
+      leading: Icon(Icons.add),
+      title: Text('Add artist'),
+    ));
+
+    return children;
+  }
+
+  Widget buildLeading(String imageUrl) {
+    return SizedBox(
+      width: 50,
+      height: 50,
+      child: ClipOval(
+          child: Container(
+        color: Colors.white,
+        child: (imageUrl == null)
+            ? Placeholder()
+            : CachedNetworkImage(
+                imageUrl: imageUrl,
+                placeholder: (context, url) => Container(color: Colors.grey),
+                errorWidget: (context, url, error) => new Icon(Icons.error),
+              ),
+      )),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: buildChildren(context),
+    );
   }
 }
 
