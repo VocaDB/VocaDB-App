@@ -1,12 +1,18 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:share/share.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:vocadb/constants.dart';
 import 'package:vocadb/models/artist_model.dart';
 import 'package:vocadb/services/web_service.dart';
+import 'package:vocadb/widgets/action_bar.dart';
 import 'package:vocadb/widgets/album_card.dart';
 import 'package:vocadb/widgets/result.dart';
+import 'package:vocadb/widgets/share_action_button.dart';
 import 'package:vocadb/widgets/song_card.dart';
 import 'package:vocadb/widgets/section.dart';
 import 'package:vocadb/widgets/section_divider.dart';
+import 'package:vocadb/widgets/source_action_button.dart';
 import 'package:vocadb/widgets/tags.dart';
 
 class ArtistDetailPage extends StatelessWidget {
@@ -85,6 +91,21 @@ class _ArtistDetailContentState extends State<ArtistDetailContent> {
 
   List<Widget> detailWidgets(ArtistModel artist) {
     List<Widget> widgets = [
+      ActionBar(
+        actions: [
+          ShareActionButton(
+            onTap: () {
+              Share.share('$HOST/Ar/${artist.id}');
+            },
+          ),
+          SourceActionButton(
+            onTap: () {
+              String url = '$HOST/Ar/${artist.id}';
+              launch(url);
+            },
+          )
+        ],
+      ),
       Tags(artist.tags),
       SectionDivider(),
       Section(

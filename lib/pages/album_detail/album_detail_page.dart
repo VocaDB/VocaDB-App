@@ -1,9 +1,15 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:share/share.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:vocadb/constants.dart';
 import 'package:vocadb/models/album_model.dart';
 import 'package:vocadb/models/track_model.dart';
 import 'package:vocadb/services/web_service.dart';
+import 'package:vocadb/widgets/action_bar.dart';
 import 'package:vocadb/widgets/result.dart';
+import 'package:vocadb/widgets/share_action_button.dart';
+import 'package:vocadb/widgets/source_action_button.dart';
 import 'package:vocadb/widgets/space_divider.dart';
 import 'package:vocadb/widgets/tags.dart';
 import "package:collection/collection.dart";
@@ -70,6 +76,21 @@ class _AlbumDetailContentState extends State<AlbumDetailContent> {
 
   List<Widget> detailWidgets(AlbumModel album) {
     List<Widget> widgets = [
+      ActionBar(
+        actions: [
+          ShareActionButton(
+            onTap: () {
+              Share.share('$HOST/Al/${album.id}');
+            },
+          ),
+          SourceActionButton(
+            onTap: () {
+              String url = '$HOST/Al/${album.id}';
+              launch(url);
+            },
+          )
+        ],
+      ),
       SpaceDivider(),
       Tags(album.tags),
       SpaceDivider(),

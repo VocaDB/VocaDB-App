@@ -7,7 +7,8 @@ class ActionButton extends StatelessWidget {
 
   final GestureTapCallback onTap;
 
-  const ActionButton({Key key, this.label, this.icon, this.onTap}) : super(key: key);
+  const ActionButton({Key key, this.label, this.icon, this.onTap})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,12 +16,15 @@ class ActionButton extends StatelessWidget {
       onTap: onTap,
       child: Center(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Icon(icon, color: Colors.white70),
-              Text(label, style: Theme.of(context).textTheme.caption)
-            ],
-          )),
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Icon(icon),
+          SizedBox(
+            height: 4,
+          ),
+          Text(label, style: Theme.of(context).textTheme.caption)
+        ],
+      )),
     );
   }
 }
