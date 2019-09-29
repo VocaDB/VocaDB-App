@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:rxdart/rxdart.dart';
 import 'package:rxdart/subjects.dart';
+import 'package:vocadb/blocs/search_artist_filter_bloc.dart';
 import 'package:vocadb/blocs/search_song_filter_bloc.dart';
 import 'package:vocadb/models/entry_model.dart';
 import 'package:vocadb/services/entry_service.dart';
@@ -24,15 +25,19 @@ class SearchBloc {
   EntryService entryService;
 
   SearchSongFilterBloc songFilterBloc;
+  SearchArtistFilterBloc artistFilterBloc;
 
-  SearchBloc({this.entryService, this.songFilterBloc}) {
+  SearchBloc({this.entryService, this.songFilterBloc, this.artistFilterBloc}) {
     this.entryService ??= EntryService();
     this.songFilterBloc ??= SearchSongFilterBloc();
+    this.artistFilterBloc ??= SearchArtistFilterBloc();
 
-    Observable.merge([queryStream, entryTypeStream, songFilterBloc.params$])
-        .debounceTime(Duration(milliseconds: 500))
-        .distinct()
-        .listen(fetch);
+    Observable.merge([
+      queryStream,
+      entryTypeStream,
+      songFilterBloc.params$,
+      artistFilterBloc.params$
+    ]).debounceTime(Duration(milliseconds: 500)).distinct().listen(fetch);
   }
 
   void updateResults(List<EntryModel> entries) {
@@ -76,6 +81,8 @@ class SearchBloc {
     switch (entryType) {
       case EntryType.Song:
         return songFilterBloc.params();
+      case EntryType.Artist:
+        return artistFilterBloc.params();
       default:
         return {};
     }
