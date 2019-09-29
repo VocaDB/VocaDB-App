@@ -9,30 +9,37 @@ import 'package:vocadb/widgets/entry_tile.dart';
 import 'package:vocadb/widgets/result.dart';
 
 class SearchPage extends StatefulWidget {
+  final SearchBloc bloc;
+
+  const SearchPage({Key key, this.bloc}) : super(key: key);
+
   @override
   _SearchPageState createState() => _SearchPageState();
 }
 
 class _SearchPageState extends State<SearchPage> {
-  final SearchBloc bloc = SearchBloc();
-
   @override
   void initState() {
     super.initState();
   }
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+  }
+
+  @override
   void dispose() {
-    bloc.dispose();
+    widget.bloc.dispose();
     super.dispose();
   }
 
   void onChangeEntryType(EntryType entryType) {
-    bloc.updateEntryType(entryType);
+    widget.bloc.updateEntryType(entryType);
   }
 
   IconData getSuffixIcon() {
-    switch (bloc.entryType) {
+    switch (widget.bloc.entryType) {
       case EntryType.Song:
         return Icons.music_note;
       case EntryType.Artist:
@@ -53,7 +60,7 @@ class _SearchPageState extends State<SearchPage> {
               children: <Widget>[
                 ListTile(
                     leading: Icon(Icons.search),
-                    selected: bloc.entryType == EntryType.Undefined,
+                    selected: widget.bloc.entryType == EntryType.Undefined,
                     title: Text('Anything'),
                     onTap: () {
                       onChangeEntryType(EntryType.Undefined);
@@ -61,7 +68,7 @@ class _SearchPageState extends State<SearchPage> {
                     }),
                 ListTile(
                     leading: Icon(Icons.music_note),
-                    selected: bloc.entryType == EntryType.Song,
+                    selected: widget.bloc.entryType == EntryType.Song,
                     title: Text('Song'),
                     onTap: () {
                       onChangeEntryType(EntryType.Song);
@@ -69,7 +76,7 @@ class _SearchPageState extends State<SearchPage> {
                     }),
                 ListTile(
                     leading: Icon(Icons.person),
-                    selected: bloc.entryType == EntryType.Artist,
+                    selected: widget.bloc.entryType == EntryType.Artist,
                     title: Text('Artist'),
                     onTap: () {
                       onChangeEntryType(EntryType.Artist);
@@ -77,7 +84,7 @@ class _SearchPageState extends State<SearchPage> {
                     }),
                 ListTile(
                     leading: Icon(Icons.album),
-                    selected: bloc.entryType == EntryType.Album,
+                    selected: widget.bloc.entryType == EntryType.Album,
                     title: Text('Album'),
                     onTap: () {
                       onChangeEntryType(EntryType.Album);
@@ -91,7 +98,7 @@ class _SearchPageState extends State<SearchPage> {
 
   Widget buildStreamResult() {
     return StreamBuilder(
-      stream: bloc.resultStream,
+      stream: widget.bloc.resultStream,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return SearchResult(entries: snapshot.data);
@@ -107,18 +114,18 @@ class _SearchPageState extends State<SearchPage> {
   void openFilterPage() {
     Widget filterPage;
 
-    switch (bloc.entryType) {
+    switch (widget.bloc.entryType) {
       case EntryType.Undefined:
-        filterPage = SearchEntryFilterPage(bloc: bloc.entryFilterBloc);
+        filterPage = SearchEntryFilterPage(bloc: widget.bloc.entryFilterBloc);
         break;
       case EntryType.Song:
-        filterPage = SearchSongFilterPage(bloc: bloc.songFilterBloc);
+        filterPage = SearchSongFilterPage(bloc: widget.bloc.songFilterBloc);
         break;
       case EntryType.Artist:
-        filterPage = SearchArtistFilterPage(bloc: bloc.artistFilterBloc);
+        filterPage = SearchArtistFilterPage(bloc: widget.bloc.artistFilterBloc);
         break;
       case EntryType.Album:
-        filterPage = SearchAlbumFilterPage(bloc: bloc.albumFilterBloc);
+        filterPage = SearchAlbumFilterPage(bloc: widget.bloc.albumFilterBloc);
         break;
       default:
         return;
@@ -140,7 +147,7 @@ class _SearchPageState extends State<SearchPage> {
           children: <Widget>[
             Expanded(
               child: TextField(
-                onChanged: bloc.updateQuery,
+                onChanged: widget.bloc.updateQuery,
                 style: Theme.of(context).primaryTextTheme.title,
                 decoration: InputDecoration(
                     border: InputBorder.none, hintText: "Search"),
@@ -159,7 +166,7 @@ class _SearchPageState extends State<SearchPage> {
         ),
       ),
       body: StreamBuilder(
-        stream: bloc.isSearching$,
+        stream: widget.bloc.isSearching$,
         builder: (context, snapshot) {
           return (snapshot.hasData && snapshot.data)
               ? buildStreamResult()

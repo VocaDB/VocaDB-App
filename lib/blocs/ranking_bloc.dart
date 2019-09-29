@@ -31,7 +31,6 @@ class RankingBloc {
   }
 
   Future<List<SongModel>> updateByDuration(int durationHours) async {
-    print('updateDaily...$durationHours');
     return _songService.topRated(
         durationHours: durationHours, lang: configBloc.contentLang);
   }

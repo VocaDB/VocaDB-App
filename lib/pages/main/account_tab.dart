@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:vocadb/pages/login/login_page.dart';
 import 'package:vocadb/pages/setting/setting_page.dart';
 
 class AccountTab extends StatelessWidget {
@@ -16,24 +15,16 @@ class GuestTab extends StatelessWidget {
       children: <Widget>[
         ListTile(
           onTap: () {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => LoginPage()));
-          },
-          leading: Icon(Icons.lock),
-          title: Text("Sign in"),
-        ),
-        ListTile(
-          onTap: () {
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => SettingPage()));
           },
           leading: Icon(Icons.settings),
-          title: Text("Setting"),
+          title: Text("Settings"),
         ),
         ListTile(
           leading: Icon(Icons.info),
           title: Text("Version"),
-          subtitle: Text("3.0.0-alpha.1"),
+          subtitle: Text("3.0.0-dev"),
         )
       ],
     );

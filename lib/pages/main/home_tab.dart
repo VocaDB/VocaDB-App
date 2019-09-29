@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:vocadb/blocs/config_bloc.dart';
+import 'package:vocadb/blocs/search_bloc.dart';
 import 'package:vocadb/pages/main/highlighted_list.dart';
 import 'package:vocadb/pages/main/latest_album_list.dart';
 import 'package:vocadb/pages/main/top_album_list.dart';
@@ -37,6 +40,9 @@ class SearchBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final configBloc = Provider.of<ConfigBloc>(context);
+
+    final searchPage = SearchPage(bloc: SearchBloc(configBloc: configBloc));
 
     return SizedBox(
       height: 48.0,
@@ -47,7 +53,7 @@ class SearchBar extends StatelessWidget {
         child: InkWell(
           onTap: () {
             Navigator.push(
-                context, MaterialPageRoute(builder: (context) => SearchPage()));
+                context, MaterialPageRoute(builder: (context) => searchPage));
           },
           child: Padding(
             padding: EdgeInsets.all(12.0),

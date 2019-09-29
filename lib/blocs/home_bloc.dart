@@ -31,19 +31,16 @@ class HomeBloc {
   }
 
   Future<void> updateHighlighted() async {
-    print('update highlighted...');
     _songService
         .highlighted(lang: configBloc.contentLang)
         .then(_highlighted.add);
   }
 
   Future<void> updateLatestAlbums() async {
-    print('update latest albums...');
     _albumService.latest(lang: configBloc.contentLang).then(_latestAlbums.add);
   }
 
   Future<void> updateTopAlbums() async {
-    print('update top albums...');
     _albumService.top(lang: configBloc.contentLang).then(_topAlbums.add);
   }
 

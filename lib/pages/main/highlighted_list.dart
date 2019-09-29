@@ -48,7 +48,6 @@ class _HighlightedListState extends State<HighlightedList> {
   @override
   Widget build(BuildContext context) {
     final bloc = Provider.of<HomeBloc>(context);
-    print('build highlighted_list...');
 
     return StreamBuilder(
       stream: bloc.highlighted$,

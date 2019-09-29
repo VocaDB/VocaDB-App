@@ -19,7 +19,6 @@ void main() async {
 class VocaDBApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-
     ConfigBloc configBloc = ConfigBloc(GlobalVariables.pref);
 
     return MultiProvider(
@@ -75,7 +74,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-
     final homeBloc = Provider.of<HomeBloc>(context);
     final rankingBloc = Provider.of<RankingBloc>(context);
 
@@ -94,18 +92,21 @@ class _MyHomePageState extends State<MyHomePage> {
             title: Text('Ranking'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.account_circle),
-            title: Text('Account'),
+            icon: Icon(Icons.menu),
+            title: Text('Menu'),
           ),
         ],
         currentIndex: _selectedIndex,
         onTap: (index) {
-
-          switch(index) {
-            case 0: homeBloc.fetch(); break;
-            case 1: rankingBloc.fetch(); break;
+          switch (index) {
+            case 0:
+              homeBloc.fetch();
+              break;
+            case 1:
+              rankingBloc.fetch();
+              break;
           }
-          
+
           setState(() {
             _selectedIndex = index;
           });

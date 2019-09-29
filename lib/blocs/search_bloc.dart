@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:rxdart/rxdart.dart';
 import 'package:rxdart/subjects.dart';
+import 'package:vocadb/blocs/config_bloc.dart';
 import 'package:vocadb/blocs/search_album_filter_bloc.dart';
 import 'package:vocadb/blocs/search_artist_filter_bloc.dart';
 import 'package:vocadb/blocs/search_entry_filter_bloc.dart';
@@ -30,13 +31,15 @@ class SearchBloc {
   SearchSongFilterBloc songFilterBloc;
   SearchArtistFilterBloc artistFilterBloc;
   SearchAlbumFilterBloc albumFilterBloc;
+  ConfigBloc configBloc;
 
   SearchBloc(
       {this.entryService,
       this.songFilterBloc,
       this.artistFilterBloc,
       this.albumFilterBloc,
-      this.entryFilterBloc}) {
+      this.entryFilterBloc,
+      this.configBloc}) {
     this.entryService ??= EntryService();
     this.entryFilterBloc ??= SearchEntryFilterBloc();
     this.songFilterBloc ??= SearchSongFilterBloc();
@@ -82,10 +85,13 @@ class SearchBloc {
   }
 
   void fetch(event) {
-    print('event : $event');
     if (!isSearching) return;
 
     Map<String, String> params = getParamsByEntryType();
+
+    if (configBloc != null && configBloc.contentLang != null) {
+      params['lang'] = configBloc.contentLang;
+    }
 
     entryService.search(query, entryType, params: params).then(updateResults);
   }
