@@ -72,9 +72,13 @@ main() {
     expect(bloc.tags.containsKey(tag1.id), isFalse);
     expect(bloc.tags.containsKey(tag2.id), isTrue);
     expect(bloc.tags.containsKey(tag3.id), isTrue);
+
+    Map<String, String> params = bloc.params();
+    expect(params.containsKey('tagId'), isTrue);
+    expect(params['tagId'], equals('2,3'));
   });
 
-  test('should return params', () {
+  test('should return params correctly', () {
     Map<String, String> params = bloc.params();
 
     expect(params.containsKey('songTypes'), isFalse);

@@ -8,17 +8,17 @@ import 'package:vocadb/services/entry_service.dart';
 
 class SearchBloc {
   final _query = BehaviorSubject<String>();
-  final _entryType = BehaviorSubject<EntryType>.seeded(EntryType.Undefined);
+  final _entryType = BehaviorSubject<EntryType>();
   final _results = BehaviorSubject<List<EntryModel>>();
   final _isSearching = BehaviorSubject<bool>.seeded(false);
 
-  Stream<String> get queryStream => _query.stream;
-  Stream<EntryType> get entryTypeStream => _entryType.stream;
-  Stream<List<EntryModel>> get resultStream => _results.stream;
-  Observable get isSearching$ => _isSearching.stream;
+  Observable<String> get queryStream => _query.stream;
+  Observable<EntryType> get entryTypeStream => _entryType.stream;
+  Observable<List<EntryModel>> get resultStream => _results.stream;
+  Observable<bool> get isSearching$ => _isSearching.stream;
 
   String get query => _query.value;
-  EntryType get entryType => _entryType.value;
+  EntryType get entryType => _entryType.value ?? EntryType.Undefined;
   bool get isSearching => _isSearching.value;
 
   EntryService entryService;
@@ -29,20 +29,15 @@ class SearchBloc {
     this.entryService ??= EntryService();
     this.songFilterBloc ??= SearchSongFilterBloc();
 
-    Observable.concat([
-      queryStream,
-      entryTypeStream,
-      songFilterBloc.params$.asBroadcastStream()
-    ]).listen(fetch);
-
-    _results.listen(print);
+    Observable.merge([queryStream, entryTypeStream, songFilterBloc.params$])
+        .listen(fetch);
   }
 
   void updateResults(List<EntryModel> entries) {
     _results.add(entries);
   }
 
-  void updateQuery(String str) {
+  Future<void> updateQuery(String str) {
     if (str == null || str.isEmpty) {
       toggleSearching(false);
       updateResults(null);
@@ -50,6 +45,8 @@ class SearchBloc {
       toggleSearching(true);
       _query.add(str);
     }
+
+    return Future.value();
   }
 
   void toggleSearching(bool searching) {
@@ -65,7 +62,7 @@ class SearchBloc {
   }
 
   void fetch(event) {
-    print(event);
+    print('event : $event');
     if (!isSearching) return;
 
     Map<String, String> params = getParamsByEntryType();

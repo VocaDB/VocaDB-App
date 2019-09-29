@@ -1,12 +1,14 @@
+import 'dart:async';
+
 import 'package:rxdart/rxdart.dart';
 import 'package:vocadb/models/artist_model.dart';
 import 'package:vocadb/models/tag_model.dart';
 
 class SearchSongFilterBloc {
-  final _songType = BehaviorSubject<String>.seeded(null);
-  final _sort = BehaviorSubject<String>.seeded('Name');
-  final _artists = BehaviorSubject<Map<int, ArtistModel>>.seeded({});
-  final _tags = BehaviorSubject<Map<int, TagModel>>.seeded({});
+  final _songType = BehaviorSubject<String>();
+  final _sort = BehaviorSubject<String>();
+  final _artists = BehaviorSubject<Map<int, ArtistModel>>();
+  final _tags = BehaviorSubject<Map<int, TagModel>>();
 
   Observable get songType$ => _songType.stream;
   Observable get sort$ => _sort.stream;
@@ -17,9 +19,11 @@ class SearchSongFilterBloc {
   String get sort => _sort.value;
   Map<int, ArtistModel> get artists => _artists.value;
   Map<int, TagModel> get tags => _tags.value;
+  List<ArtistModel> get artistList => artists?.values?.toList();
+  List<TagModel> get tagList => tags?.values?.toList();
 
   Observable get params$ =>
-      Observable.concat([songType$, sort$, artists$, tags$]);
+      Observable.merge([songType$, sort$, artists$, tags$]);
 
   void updateSongType(String songType) {
     _songType.add(songType);
@@ -30,7 +34,7 @@ class SearchSongFilterBloc {
   }
 
   void addArtist(ArtistModel artist) {
-    Map<int, ArtistModel> a = artists;
+    Map<int, ArtistModel> a = artists ?? {};
     a.putIfAbsent(artist.id, () => artist);
     _artists.add(a);
   }
@@ -41,10 +45,12 @@ class SearchSongFilterBloc {
     _artists.add(a);
   }
 
-  void addTag(TagModel tag) {
-    Map<int, TagModel> a = tags;
+  Future<void> addTag(TagModel tag) {
+    Map<int, TagModel> a = tags ?? {};
     a.putIfAbsent(tag.id, () => tag);
     _tags.add(a);
+
+    return Future.value();
   }
 
   void removeTag(int id) {
@@ -54,9 +60,10 @@ class SearchSongFilterBloc {
   }
 
   Map<String, String> params() {
-    Map<String, String> params = {};
+    Map<String, String> params = {'sort': sort ?? 'Name'};
     if (songType != null) params['songTypes'] = songType;
-    if (sort != null) params['sort'] = sort;
+    if (tagList != null && tagList.length > 0)
+      params['tagId'] = tags.keys.join(',');
 
     return params;
   }

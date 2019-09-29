@@ -23,6 +23,7 @@ class _SearchTagPageState extends State<SearchTagPage> {
         return ListTile(
           onTap: () {
             widget.onSelected(t);
+            Navigator.pop(context);
           },
           title: Text(t.name),
         );

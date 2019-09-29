@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vocadb/blocs/search_song_filter_bloc.dart';
+import 'package:vocadb/models/tag_model.dart';
 import 'package:vocadb/pages/search/search_tag_page.dart';
 import 'package:vocadb/widgets/space_divider.dart';
 
@@ -27,28 +28,20 @@ class SearchSongFilterPage extends StatelessWidget {
                 text: 'Tags',
               ),
               SpaceDivider(),
-              Wrap(
-                spacing: 8.0,
-                children: <Widget>[
-                  InputChip(
-                    label: Text('rock'),
-                    selected: true,
-                    onPressed: () {},
-                  ),
-                  InputChip(
-                    label: Text('jazz'),
-                    onPressed: () {},
-                  ),
-                  InputChip(
-                    label: Wrap(
-                      crossAxisAlignment: WrapCrossAlignment.center,
-                      children: <Widget>[Icon(Icons.add), Text('Add')],
-                    ),
-                    onPressed: () {
+              StreamBuilder(
+                stream: bloc.tags$,
+                builder: (context, snapshot) {
+                  List<TagModel> tags = (snapshot.hasData)
+                      ? (snapshot.data as Map<int, TagModel>).values.toList()
+                      : [];
+
+                  return TagFilters(
+                    tags: tags,
+                    onBrowseTags: () {
                       browseTags(context);
                     },
-                  )
-                ],
+                  );
+                },
               ),
               SpaceDivider(),
               Title(
@@ -90,6 +83,45 @@ class SearchSongFilterPage extends StatelessWidget {
             ],
           ),
         ));
+  }
+}
+
+class TagFilters extends StatelessWidget {
+  final Function onBrowseTags;
+  final List<TagModel> tags;
+
+  const TagFilters({Key key, this.onBrowseTags, this.tags}) : super(key: key);
+
+  List<Widget> buildChildren(BuildContext context) {
+    List<Widget> children = [];
+
+    if (tags != null && tags.length > 0) {
+      children.addAll(tags
+          .map((t) => InputChip(
+                label: Text(t.name),
+                selected: true,
+                onPressed: () {},
+              ))
+          .toList());
+    }
+
+    children.add(InputChip(
+      label: Wrap(
+        crossAxisAlignment: WrapCrossAlignment.center,
+        children: <Widget>[Icon(Icons.add), Text('Add')],
+      ),
+      onPressed: this.onBrowseTags,
+    ));
+
+    return children;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Wrap(
+      spacing: 8.0,
+      children: buildChildren(context),
+    );
   }
 }
 
