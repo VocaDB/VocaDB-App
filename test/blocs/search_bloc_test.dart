@@ -62,8 +62,8 @@ main() {
 
     await Future.delayed(Duration(milliseconds: 500));
 
-    verify(mockEntryService.search('abc', EntryType.Undefined, params: {}))
-        .called(1);
+    verify(mockEntryService.search('abc', EntryType.Undefined,
+        params: {'sort': 'Name'})).called(1);
 
     await expectLater(bloc.isSearching$, emits(true));
 
@@ -73,8 +73,8 @@ main() {
 
     await Future.delayed(Duration(milliseconds: 500));
 
-    verify(mockEntryService.search('de', EntryType.Undefined, params: {}))
-        .called(1);
+    verify(mockEntryService
+        .search('de', EntryType.Undefined, params: {'sort': 'Name'})).called(1);
 
     bloc.updateEntryType(EntryType.Song);
 

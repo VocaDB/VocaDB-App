@@ -4,6 +4,7 @@ import 'package:rxdart/rxdart.dart';
 import 'package:rxdart/subjects.dart';
 import 'package:vocadb/blocs/search_album_filter_bloc.dart';
 import 'package:vocadb/blocs/search_artist_filter_bloc.dart';
+import 'package:vocadb/blocs/search_entry_filter_bloc.dart';
 import 'package:vocadb/blocs/search_song_filter_bloc.dart';
 import 'package:vocadb/models/entry_model.dart';
 import 'package:vocadb/services/entry_service.dart';
@@ -25,6 +26,7 @@ class SearchBloc {
 
   EntryService entryService;
 
+  SearchEntryFilterBloc entryFilterBloc;
   SearchSongFilterBloc songFilterBloc;
   SearchArtistFilterBloc artistFilterBloc;
   SearchAlbumFilterBloc albumFilterBloc;
@@ -33,8 +35,10 @@ class SearchBloc {
       {this.entryService,
       this.songFilterBloc,
       this.artistFilterBloc,
-      this.albumFilterBloc}) {
+      this.albumFilterBloc,
+      this.entryFilterBloc}) {
     this.entryService ??= EntryService();
+    this.entryFilterBloc ??= SearchEntryFilterBloc();
     this.songFilterBloc ??= SearchSongFilterBloc();
     this.artistFilterBloc ??= SearchArtistFilterBloc();
     this.albumFilterBloc ??= SearchAlbumFilterBloc();
@@ -42,6 +46,7 @@ class SearchBloc {
     Observable.merge([
       queryStream,
       entryTypeStream,
+      entryFilterBloc.params$,
       songFilterBloc.params$,
       artistFilterBloc.params$,
       albumFilterBloc.params$
@@ -87,6 +92,8 @@ class SearchBloc {
 
   Map<String, String> getParamsByEntryType() {
     switch (entryType) {
+      case EntryType.Undefined:
+        return entryFilterBloc.params();
       case EntryType.Song:
         return songFilterBloc.params();
       case EntryType.Artist:
