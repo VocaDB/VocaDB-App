@@ -2,9 +2,11 @@ import 'dart:async';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:vocadb/blocs/song_detail_bloc.dart';
 import 'package:vocadb/constants.dart';
+import 'package:vocadb/models/pv_model.dart';
 import 'package:vocadb/models/song_model.dart';
 import 'package:vocadb/widgets/action_bar.dart';
 import 'package:vocadb/widgets/album_card.dart';
@@ -180,6 +182,17 @@ class _SongDetailPageState extends State<SongDetailPage> {
             .toList(),
       ),
       SpaceDivider(),
+      PVList(pvs: song.pvs),
+      SpaceDivider(),
+      Section(
+        title: 'Albums',
+        horizontal: true,
+        children: song.albums
+            .map((a) =>
+                AlbumCard.album(a, tag: 'song_detail_album_${song.id}_${a.id}'))
+            .toList(),
+      ),
+      SpaceDivider(),
       Section(
         title: 'Albums',
         horizontal: true,
@@ -279,6 +292,59 @@ class _SongDetailPageState extends State<SongDetailPage> {
 
         return buildDefault();
       },
+    );
+  }
+}
+
+class PVList extends StatelessWidget {
+  final List<PVModel> pvs;
+
+  final List<PopupMenuItem<String>> _popUpMenuItems = const [
+    PopupMenuItem<String>(
+      value: 'share',
+      child: Text('Share'),
+    ),
+  ];
+
+  const PVList({Key key, this.pvs}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    List<Widget> children = [];
+
+    children.add(Padding(
+      padding: EdgeInsets.all(8.0),
+      child: Text(
+        'PVs',
+        textDirection: TextDirection.ltr,
+        style: Theme.of(context).textTheme.subhead,
+      ),
+    ));
+
+    List<Widget> pvTiles = pvs
+        .map((pv) => ListTile(
+              leading: Icon(Icons.ondemand_video),
+              title: Text(pv.name, overflow: TextOverflow.ellipsis),
+              subtitle: Text('${pv.service} - ${pv.pvType}'),
+              onTap: () {
+                launch(pv.url);
+              },
+              trailing: PopupMenuButton<String>(
+                onSelected: (String selectedValue) {
+                  if (selectedValue == 'share') {
+                    Share.share(pv.url);
+                  }
+                },
+                itemBuilder: (BuildContext context) => _popUpMenuItems,
+              ),
+            ))
+        .toList();
+
+    children.addAll(pvTiles);
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: children,
     );
   }
 }

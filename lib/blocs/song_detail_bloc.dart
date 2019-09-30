@@ -22,7 +22,7 @@ class SongDetailBloc {
   }
 
   void onFetched(SongModel song) {
-    if (song.originalVersionId != null) {
+    if (song != null && song.originalVersionId != null) {
       fetchOriginalVersion(song.originalVersionId);
     }
   }
