@@ -88,18 +88,16 @@ class SongTile extends StatelessWidget {
     );
   }
 
+  void navigateToSongDetail(BuildContext context) {
+    Navigator.pushNamed(context, SongDetailScreen.routeName,
+        arguments: SongDetailScreenArguments(song.id, song.name,
+            thumbUrl: song.thumbUrl, tag: tag));
+  }
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => SongDetailPage(
-                  song.id, song.name, song.thumbUrl,
-                  tag: this.tag),
-            ));
-      },
+      onTap: () => navigateToSongDetail(context),
       child: Container(
         height: 100,
         child: Row(

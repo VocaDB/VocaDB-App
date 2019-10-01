@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:intl/intl.dart';
 import 'package:vocadb/models/album_model.dart';
 import 'package:vocadb/models/artist_song_model.dart';
 import 'package:vocadb/models/entry_model.dart';
@@ -14,12 +15,14 @@ class SongModel extends EntryModel {
   List<ArtistSongModel> artists;
   List<AlbumModel> albums;
   int originalVersionId;
+  String publishDate;
 
   SongModel();
 
   SongModel.fromJson(Map<String, dynamic> json)
       : thumbUrl = json['thumbUrl'],
         originalVersionId = json['originalVersionId'],
+        publishDate = json['publishDate'],
         pvs = JSONUtils.mapJsonArray<PVModel>(
             json['pvs'], (v) => PVModel.fromJson(v)),
         artists = JSONUtils.mapJsonArray<ArtistSongModel>(
@@ -50,6 +53,9 @@ class SongModel extends EntryModel {
 
   bool get hasOriginalVersion =>
       (this.originalVersionId != null && this.originalVersionId > 0);
+
+  String get publishDateFormatted =>
+      DateFormat('yyyy-MM-dd').format(DateTime.parse(publishDate));
 
   static List<SongModel> _mapItemsResponse(Response response) {
     Iterable result = response.data['items'];

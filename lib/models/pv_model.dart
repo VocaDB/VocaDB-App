@@ -12,3 +12,15 @@ class PVModel {
         pvType = json['pvType'],
         url = json['url'];
 }
+
+class PVList {
+  final List<PVModel> pvs;
+
+  PVList(this.pvs);
+
+  List<PVModel> get originalPVs =>
+      pvs.where((pv) => pv.pvType == 'Original').toList();
+
+  List<PVModel> get otherPVs =>
+      pvs.where((pv) => pv.pvType != 'Original').toList();
+}

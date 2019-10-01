@@ -11,6 +11,7 @@ void main() {
         "artistString": "test_artist",
         "originalVersionId": 2,
         "songType": "Original",
+        "publishDate": "2009-08-19T00:00:00Z",
         "artists": [
           {
             "categories": "Producer",
@@ -51,6 +52,7 @@ void main() {
       expect(result.entryType, EntryType.Song);
       expect(result.songType, 'Original');
       expect(result.originalVersionId, 2);
+      expect(result.publishDate, '2009-08-19T00:00:00Z');
       expect(result.pvs, isNotNull);
       expect(result.pvs.length, 1);
       expect(result.artists, isNotNull);
@@ -59,6 +61,7 @@ void main() {
       expect(result.albums.length, 1);
       expect(result.producers.length, 1);
       expect(result.vocalists.length, 1);
+      expect(result.publishDateFormatted, '2009-08-19');
     });
 
     test('should not thrown exception when input empty json', () {
