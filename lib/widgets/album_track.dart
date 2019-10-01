@@ -21,7 +21,7 @@ class AlbumTrack extends StatelessWidget {
                     tag: null)));
       },
       title: Text(track.name, maxLines: 1, overflow: TextOverflow.ellipsis),
-      subtitle: Text(track.song.artistString,
+      subtitle: Text(track.song?.artistString ?? ' ',
           maxLines: 1, overflow: TextOverflow.ellipsis),
     );
   }
