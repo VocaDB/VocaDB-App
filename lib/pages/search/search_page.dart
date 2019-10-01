@@ -38,19 +38,6 @@ class _SearchPageState extends State<SearchPage> {
     widget.bloc.updateEntryType(entryType);
   }
 
-  IconData getSuffixIcon() {
-    switch (widget.bloc.entryType) {
-      case EntryType.Song:
-        return Icons.music_note;
-      case EntryType.Artist:
-        return Icons.person;
-      case EntryType.Album:
-        return Icons.album;
-      default:
-        return Icons.search;
-    }
-  }
-
   void _showModalBottomSheet(context) {
     showModalBottomSheet(
         context: context,
@@ -156,7 +143,21 @@ class _SearchPageState extends State<SearchPage> {
             Container(
               width: 48,
               child: IconButton(
-                icon: Icon(getSuffixIcon()),
+                icon: StreamBuilder(
+                  stream: widget.bloc.entryTypeStream,
+                  builder: (context, snapshot) {
+                    switch (snapshot.data) {
+                      case EntryType.Song:
+                        return Icon(Icons.music_note);
+                      case EntryType.Artist:
+                        return Icon(Icons.person);
+                      case EntryType.Album:
+                        return Icon(Icons.album);
+                      default:
+                        return Icon(Icons.search);
+                    }
+                  },
+                ),
                 onPressed: () {
                   _showModalBottomSheet(context);
                 },
