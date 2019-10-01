@@ -3,7 +3,9 @@ import 'dart:async';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:vocadb/blocs/config_bloc.dart';
 import 'package:vocadb/blocs/song_detail_bloc.dart';
 import 'package:vocadb/constants.dart';
 import 'package:vocadb/models/pv_model.dart';
@@ -21,6 +23,32 @@ import 'package:vocadb/widgets/tags.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import 'package:share/share.dart';
 
+class SongDetailScreenArguments {
+  final int id;
+  final String name;
+  final String thumbUrl;
+  final String tag;
+
+  SongDetailScreenArguments(this.id, this.name, {this.thumbUrl, this.tag});
+}
+
+class SongDetailScreen extends StatelessWidget {
+  static const String routeName = '/songDetail';
+
+  @override
+  Widget build(BuildContext context) {
+    final SongDetailScreenArguments args =
+        ModalRoute.of(context).settings.arguments;
+    final configBloc = Provider.of<ConfigBloc>(context);
+
+    return Provider<SongDetailBloc>(
+      builder: (context) => SongDetailBloc(args.id, configBloc: configBloc),
+      dispose: (context, bloc) => bloc.dispose(),
+      child: SongDetailPage(args.id, args.name, args.thumbUrl, tag: args.tag),
+    );
+  }
+}
+
 class SongDetailPage extends StatefulWidget {
   final int id;
   final String name;
@@ -30,16 +58,11 @@ class SongDetailPage extends StatefulWidget {
   const SongDetailPage(this.id, this.name, this.thumbUrl, {this.tag});
 
   @override
-  _SongDetailPageState createState() =>
-      _SongDetailPageState(SongDetailBloc(id));
+  _SongDetailPageState createState() => _SongDetailPageState();
 }
 
 class _SongDetailPageState extends State<SongDetailPage> {
-  final SongDetailBloc bloc;
-
   YoutubePlayerController _controller;
-
-  _SongDetailPageState(this.bloc);
 
   Widget buildPlayerWithContent(String url) {
     return YoutubePlayer(
@@ -206,7 +229,7 @@ class _SongDetailPageState extends State<SongDetailPage> {
         title: 'Original',
         hide: !song.hasOriginalVersion,
         child: StreamBuilder(
-          stream: bloc.originalVersion$,
+          stream: Provider.of<SongDetailBloc>(context).originalVersion$,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               return SongTile.fromSong(snapshot.data,
@@ -282,7 +305,7 @@ class _SongDetailPageState extends State<SongDetailPage> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-      stream: bloc.song$,
+      stream: Provider.of<SongDetailBloc>(context).song$,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return buildHasData(snapshot.data);

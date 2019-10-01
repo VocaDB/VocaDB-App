@@ -5,6 +5,7 @@ import 'package:vocadb/blocs/config_bloc.dart';
 import 'package:vocadb/blocs/home_bloc.dart';
 import 'package:vocadb/blocs/ranking_bloc.dart';
 import 'package:vocadb/global_variables.dart';
+import 'package:vocadb/pages/song_detail/song_detail_page.dart';
 
 import 'pages/main/account_tab.dart';
 import 'pages/main/home_tab.dart';
@@ -45,7 +46,11 @@ class RootApp extends StatelessWidget {
               ? config.getThemeData(snapshot.data)
               : AppTheme.darkTheme,
           darkTheme: AppTheme.darkTheme,
-          home: MyHomePage(title: 'VocaDB Demo Home Page'),
+          initialRoute: '/',
+          routes: {
+            '/': (context) => MyHomePage(title: 'VocaDB Demo Home Page'),
+            SongDetailScreen.routeName: (context) => SongDetailScreen(),
+          },
         );
       },
     );

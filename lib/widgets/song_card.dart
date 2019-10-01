@@ -11,19 +11,17 @@ class SongCard extends StatelessWidget {
 
   SongCard.song(this.song, {this.tag});
 
+  void navigateToSongDetail(BuildContext context) {
+    Navigator.pushNamed(context, SongDetailScreen.routeName,
+        arguments: SongDetailScreenArguments(song.id, song.name,
+            thumbUrl: song.thumbUrl, tag: tag));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Material(
       child: InkWell(
-        onTap: () {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => SongDetailPage(
-                    song.id, song.name, song.thumbUrl,
-                    tag: this.tag),
-              ));
-        },
+        onTap: () => navigateToSongDetail(context),
         child: Container(
           width: 130,
           margin: EdgeInsets.only(right: 8.0, left: 8.0),

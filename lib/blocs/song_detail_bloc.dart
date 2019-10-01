@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:rxdart/rxdart.dart';
+import 'package:vocadb/blocs/config_bloc.dart';
 import 'package:vocadb/models/song_model.dart';
 import 'package:vocadb/services/song_rest_service.dart';
 
@@ -15,8 +16,13 @@ class SongDetailBloc {
 
   SongRestService songService = SongRestService();
 
-  SongDetailBloc(this.id, {SongRestService songService}) {
+  ConfigBloc configBloc;
+
+  SongDetailBloc(this.id,
+      {SongRestService songService, ConfigBloc configBloc}) {
     this.songService ??= songService;
+    this.configBloc ??= configBloc;
+
     _song.listen(onFetched);
     fetch();
   }
@@ -28,11 +34,15 @@ class SongDetailBloc {
   }
 
   Future<void> fetch() async {
-    return songService.byId(this.id).then(_song.add);
+    return songService
+        .byId(this.id, lang: configBloc.contentLang)
+        .then(_song.add);
   }
 
   Future<void> fetchOriginalVersion(int id) async {
-    songService.byId(id).then(_originalVersion.add);
+    songService
+        .byId(id, lang: configBloc.contentLang)
+        .then(_originalVersion.add);
   }
 
   void dispose() {

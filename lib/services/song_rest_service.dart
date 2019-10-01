@@ -37,7 +37,7 @@ class SongRestService extends BaseRestService {
     final Map<String, String> params = {
       'fields':
           'MainPicture,PVs,ThumbUrl,Albums,Artists,Tags,WebLinks,AdditionalNames',
-      'languagePreference': lang,
+      'lang': lang,
     };
     return super
         .getObject('/api/songs/$id', params)
