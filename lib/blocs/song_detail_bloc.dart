@@ -32,12 +32,11 @@ class SongDetailBloc {
   }
 
   void onFetched(SongModel song) {
-
-    if(song == null) {
+    if (song == null) {
       return;
     }
 
-    if(song.originalVersionId != null) {
+    if (song.originalVersionId != null) {
       fetchOriginalVersion(song.originalVersionId);
     }
 
@@ -58,17 +57,17 @@ class SongDetailBloc {
   }
 
   Future<void> fetchAlternateVersions(int id) async {
-      songService
-          .derived(id, lang: configBloc.contentLang)
-          .then((songs) => songs.take(10).toList())
-          .then(_altVersions.add);
+    songService
+        .derived(id, lang: configBloc.contentLang)
+        .then((songs) => songs.take(20).toList())
+        .then(_altVersions.add);
   }
 
-    Future<void> fetchRelated(int id) async {
-      songService
-          .related(id, lang: configBloc.contentLang)
-          .then((songs) => songs.take(10))
-          .then(_relatedSongs.add);
+  Future<void> fetchRelated(int id) async {
+    songService
+        .related(id, lang: configBloc.contentLang)
+        .then((songs) => songs.take(20).toList())
+        .then(_relatedSongs.add);
   }
 
   void dispose() {

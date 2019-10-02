@@ -239,24 +239,23 @@ class _SongDetailPageState extends State<SongDetailPage> {
           },
         ),
       ),
-
       StreamBuilder(
         stream: Provider.of<SongDetailBloc>(context).altVersions$,
         builder: (context, snapshot) {
-          if(snapshot.hasData) {
-
+          if (snapshot.hasData) {
             List<SongModel> alts = snapshot.data;
 
             return Column(
               children: <Widget>[
                 Section(
-                title: 'Alternate versions',
-                horizontal: true,
-                children: alts.map<Widget>((SongModel alt) => SongCard.song(alt,
-                        tag: 'song_alt_${song.id}_${alt.id}'))
-                    .toList(),
-              ),
-              Divider()
+                  title: 'Alternate versions',
+                  horizontal: true,
+                  children: alts
+                      .map<Widget>((SongModel alt) => SongCard.song(alt,
+                          tag: 'song_alt_${song.id}_${alt.id}'))
+                      .toList(),
+                ),
+                Divider()
               ],
             );
           } else {
@@ -264,25 +263,24 @@ class _SongDetailPageState extends State<SongDetailPage> {
           }
         },
       ),
-
       StreamBuilder(
         stream: Provider.of<SongDetailBloc>(context).relatedSongs$,
         builder: (context, snapshot) {
-          if(snapshot.hasData) {
-
+          if (snapshot.hasData) {
             List<SongModel> relatedSongs = snapshot.data;
 
             List<Widget> children = relatedSongs
-                    .map<Widget>((SongModel alt) => SongCard.song(alt,
-                        tag: 'song_related_${song.id}_${alt.id}'))
-                    .toList();
+                .map<Widget>((SongModel alt) => SongCard.song(alt,
+                    tag: 'song_related_${song.id}_${alt.id}'))
+                .toList();
             return Column(
               children: <Widget>[
                 Section(
-                title: 'Related',
-                children: children,
-              ),
-              Divider()
+                  title: 'Related',
+                  horizontal: true,
+                  children: children,
+                ),
+                Divider()
               ],
             );
           } else {
@@ -399,14 +397,12 @@ class AlbumSection extends StatelessWidget {
 }
 
 class WebLinkSection extends StatelessWidget {
-
   final List<WebLinkModel> webLinks;
 
   const WebLinkSection({Key key, this.webLinks}) : super(key: key);
-  
+
   @override
   Widget build(BuildContext context) {
-
     List<Widget> children = [];
 
     if (webLinks.length == 0) {
@@ -415,7 +411,7 @@ class WebLinkSection extends StatelessWidget {
 
     final WebLinkList webLinkList = WebLinkList(webLinks);
 
-    if(webLinkList.officialLinks.length > 0) {
+    if (webLinkList.officialLinks.length > 0) {
       children.add(Padding(
         padding: EdgeInsets.all(8.0),
         child: Text(
@@ -426,12 +422,12 @@ class WebLinkSection extends StatelessWidget {
       ));
 
       List<Widget> officialLinks =
-        webLinkList.officialLinks.map((link) => WebLinkTile(link)).toList();
+          webLinkList.officialLinks.map((link) => WebLinkTile(link)).toList();
 
       children.addAll(officialLinks);
     }
 
-    if(webLinkList.unofficialLinks.length > 0) {
+    if (webLinkList.unofficialLinks.length > 0) {
       children.add(Padding(
         padding: EdgeInsets.all(8.0),
         child: Text(
@@ -442,7 +438,7 @@ class WebLinkSection extends StatelessWidget {
       ));
 
       List<Widget> unofficialLinks =
-        webLinkList.unofficialLinks.map((link) => WebLinkTile(link)).toList();
+          webLinkList.unofficialLinks.map((link) => WebLinkTile(link)).toList();
 
       children.addAll(unofficialLinks);
     }
@@ -488,13 +484,13 @@ class PVSection extends StatelessWidget {
 
     if (otherPVs.length > 0) {
       children.add(Padding(
-      padding: EdgeInsets.all(8.0),
-      child: Text(
-        'Other media',
-        textDirection: TextDirection.ltr,
-        style: Theme.of(context).textTheme.subhead,
-      ),
-    ));
+        padding: EdgeInsets.all(8.0),
+        child: Text(
+          'Other media',
+          textDirection: TextDirection.ltr,
+          style: Theme.of(context).textTheme.subhead,
+        ),
+      ));
 
       children.addAll(otherPVs);
     }
@@ -525,7 +521,7 @@ class PVTile extends StatelessWidget {
     return ListTile(
       leading: Icon(Icons.ondemand_video),
       title: Text(pv.name, overflow: TextOverflow.ellipsis),
-      subtitle: Text('${pv.service} - ${pv.pvType}'),
+      subtitle: Text('${pv.service} • ${pv.pvType}'),
       onTap: () {
         launch(pv.url);
       },

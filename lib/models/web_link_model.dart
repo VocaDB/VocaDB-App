@@ -1,7 +1,6 @@
 import 'package:vocadb/models/base_model.dart';
 
 class WebLinkModel extends BaseModel {
-  
   int id;
   String description;
   String category;
@@ -19,15 +18,14 @@ class WebLinkModel extends BaseModel {
   }
 }
 
-
 class WebLinkList {
   final List<WebLinkModel> webLinks;
 
   WebLinkList(this.webLinks);
 
   List<WebLinkModel> get officialLinks =>
-      webLinks.where((link) => link.category == 'Official').toList();
+      webLinks.where((link) => link.category != 'Reference').toList();
 
   List<WebLinkModel> get unofficialLinks =>
-      webLinks.where((link) => link.category != 'Original').toList();
+      webLinks.where((link) => link.category == 'Reference').toList();
 }
