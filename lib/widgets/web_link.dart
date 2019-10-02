@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:vocadb/models/web_link_model.dart';
 
-class WebLink extends StatelessWidget {
+class WebLinkTile extends StatelessWidget {
 
-  final String name;
+  final WebLinkModel webLink;
 
-  const WebLink({
+  const WebLinkTile(this.webLink, {
     Key key,
-    this.name
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      onTap: () { launch(webLink.url); },
       leading: Icon(Icons.web),
-      title: Text(this.name),
+      title: Text(webLink.description),
     );
   }
 }

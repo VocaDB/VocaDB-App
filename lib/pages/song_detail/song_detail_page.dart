@@ -11,6 +11,7 @@ import 'package:vocadb/constants.dart';
 import 'package:vocadb/models/album_model.dart';
 import 'package:vocadb/models/pv_model.dart';
 import 'package:vocadb/models/song_model.dart';
+import 'package:vocadb/models/web_link_model.dart';
 import 'package:vocadb/widgets/action_bar.dart';
 import 'package:vocadb/widgets/album_card.dart';
 import 'package:vocadb/widgets/artist_tile.dart';
@@ -21,6 +22,7 @@ import 'package:vocadb/widgets/song_tile.dart';
 import 'package:vocadb/widgets/source_action_button.dart';
 import 'package:vocadb/widgets/space_divider.dart';
 import 'package:vocadb/widgets/tags.dart';
+import 'package:vocadb/widgets/web_link.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import 'package:share/share.dart';
 
@@ -236,6 +238,7 @@ class _SongDetailPageState extends State<SongDetailPage> {
           },
         ),
       ),
+      WebLinkSection(webLinks: song.webLinks)
     ];
   }
 
@@ -343,6 +346,62 @@ class AlbumSection extends StatelessWidget {
   }
 }
 
+class WebLinkSection extends StatelessWidget {
+
+  final List<WebLinkModel> webLinks;
+
+  const WebLinkSection({Key key, this.webLinks}) : super(key: key);
+  
+  @override
+  Widget build(BuildContext context) {
+
+    List<Widget> children = [];
+
+    if (webLinks.length == 0) {
+      return Container();
+    }
+
+    final WebLinkList webLinkList = WebLinkList(webLinks);
+
+    if(webLinkList.officialLinks.length > 0) {
+      children.add(Padding(
+        padding: EdgeInsets.all(8.0),
+        child: Text(
+          'Official links',
+          textDirection: TextDirection.ltr,
+          style: Theme.of(context).textTheme.subhead,
+        ),
+      ));
+
+      List<Widget> officialLinks =
+        webLinkList.officialLinks.map((link) => WebLinkTile(link)).toList();
+
+      children.addAll(officialLinks);
+    }
+
+    if(webLinkList.unofficialLinks.length > 0) {
+      children.add(Padding(
+        padding: EdgeInsets.all(8.0),
+        child: Text(
+          'Unofficial links',
+          textDirection: TextDirection.ltr,
+          style: Theme.of(context).textTheme.subhead,
+        ),
+      ));
+
+      List<Widget> unofficialLinks =
+        webLinkList.unofficialLinks.map((link) => WebLinkTile(link)).toList();
+
+      children.addAll(unofficialLinks);
+    }
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: children,
+    );
+  }
+}
+
 class PVSection extends StatelessWidget {
   final List<PVModel> pvs;
 
@@ -356,16 +415,16 @@ class PVSection extends StatelessWidget {
       return Container();
     }
 
+    final pvList = PVList(pvs);
+
     children.add(Padding(
       padding: EdgeInsets.all(8.0),
       child: Text(
-        'PVs',
+        'Original media',
         textDirection: TextDirection.ltr,
         style: Theme.of(context).textTheme.subhead,
       ),
     ));
-
-    final pvList = PVList(pvs);
 
     List<Widget> originalPVs =
         pvList.originalPVs.map((pv) => PVTile(pv: pv)).toList();
@@ -376,6 +435,15 @@ class PVSection extends StatelessWidget {
         pvList.otherPVs.map((pv) => PVTile(pv: pv)).toList();
 
     if (otherPVs.length > 0) {
+      children.add(Padding(
+      padding: EdgeInsets.all(8.0),
+      child: Text(
+        'Other media',
+        textDirection: TextDirection.ltr,
+        style: Theme.of(context).textTheme.subhead,
+      ),
+    ));
+
       children.addAll(otherPVs);
     }
 

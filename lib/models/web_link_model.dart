@@ -18,3 +18,16 @@ class WebLinkModel extends BaseModel {
     return items.map((i) => WebLinkModel.fromJson(i)).toList();
   }
 }
+
+
+class WebLinkList {
+  final List<WebLinkModel> webLinks;
+
+  WebLinkList(this.webLinks);
+
+  List<WebLinkModel> get officialLinks =>
+      webLinks.where((link) => link.category == 'Official').toList();
+
+  List<WebLinkModel> get unofficialLinks =>
+      webLinks.where((link) => link.category != 'Original').toList();
+}
