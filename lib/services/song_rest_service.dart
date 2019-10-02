@@ -43,4 +43,32 @@ class SongRestService extends BaseRestService {
         .getObject('/api/songs/$id', params)
         .then((i) => SongModel.fromJson(i));
   }
+
+  Future<List<SongModel>> related(int id, {String lang = 'Default'}) async {
+    final String endpoint = '/api/songs/$id/related';
+    final Map<String, String> params = {
+      'fields': 'MainPicture,ThumbUrl',
+      'lang': lang,
+    };
+
+    return super
+        .query(endpoint, params)
+        .then((related) => SongModel.jsonToList(related['likeMatches']));
+  }
+
+    Future<List<SongModel>> derived(int id, {String lang = 'Default'}) async {
+    final String endpoint = '/api/songs/$id/derived';
+    final Map<String, String> params = {
+      'fields': 'MainPicture,ThumbUrl',
+      'lang': lang,
+    };
+
+    return super
+        .query(endpoint, params)
+        .then((items) {
+          print(items);
+          return items;
+        })
+        .then((items) => SongModel.jsonToList(items));
+  }
 }

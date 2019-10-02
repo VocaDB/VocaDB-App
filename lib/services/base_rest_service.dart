@@ -12,7 +12,7 @@ class BaseRestService {
   Future<dynamic> query(String endpoint, Map<String, String> params) async {
     return restApi
         .get('$endpoint', params)
-        .then((v) => (v is Iterable) ? v : v['items'] as Iterable);
+        .then((v) => (v is Iterable) ? v : (v.containsKey('items'))? v['items'] as Iterable : v);
   }
 
   Future<T> getObject<T>(String endpoint, Map<String, String> params) async {

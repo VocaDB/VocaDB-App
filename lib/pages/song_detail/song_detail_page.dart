@@ -18,6 +18,7 @@ import 'package:vocadb/widgets/artist_tile.dart';
 import 'package:vocadb/widgets/result.dart';
 import 'package:vocadb/widgets/section.dart';
 import 'package:vocadb/widgets/share_action_button.dart';
+import 'package:vocadb/widgets/song_card.dart';
 import 'package:vocadb/widgets/song_tile.dart';
 import 'package:vocadb/widgets/source_action_button.dart';
 import 'package:vocadb/widgets/space_divider.dart';
@@ -237,6 +238,57 @@ class _SongDetailPageState extends State<SongDetailPage> {
             return Container();
           },
         ),
+      ),
+
+      StreamBuilder(
+        stream: Provider.of<SongDetailBloc>(context).altVersions$,
+        builder: (context, snapshot) {
+          if(snapshot.hasData) {
+
+            List<SongModel> alts = snapshot.data;
+
+            return Column(
+              children: <Widget>[
+                Section(
+                title: 'Alternate versions',
+                horizontal: true,
+                children: alts.map<Widget>((SongModel alt) => SongCard.song(alt,
+                        tag: 'song_alt_${song.id}_${alt.id}'))
+                    .toList(),
+              ),
+              Divider()
+              ],
+            );
+          } else {
+            return Container();
+          }
+        },
+      ),
+
+      StreamBuilder(
+        stream: Provider.of<SongDetailBloc>(context).relatedSongs$,
+        builder: (context, snapshot) {
+          if(snapshot.hasData) {
+
+            List<SongModel> relatedSongs = snapshot.data;
+
+            List<Widget> children = relatedSongs
+                    .map<Widget>((SongModel alt) => SongCard.song(alt,
+                        tag: 'song_related_${song.id}_${alt.id}'))
+                    .toList();
+            return Column(
+              children: <Widget>[
+                Section(
+                title: 'Related',
+                children: children,
+              ),
+              Divider()
+              ],
+            );
+          } else {
+            return Container();
+          }
+        },
       ),
       WebLinkSection(webLinks: song.webLinks)
     ];

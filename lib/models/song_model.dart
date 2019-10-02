@@ -32,7 +32,7 @@ class SongModel extends EntryModel {
         super.fromJson(json);
 
   static List<SongModel> jsonToList(List items) {
-    return items.map((i) => SongModel.fromJson(i)).toList();
+    return (items == null)? [] : items.map((i) => SongModel.fromJson(i)).toList();
   }
 
   PVModel get youtubePV =>
