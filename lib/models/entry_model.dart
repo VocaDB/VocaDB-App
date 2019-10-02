@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:vocadb/models/base_model.dart';
 import 'package:vocadb/models/main_picture_model.dart';
 import 'package:vocadb/models/tag_group_model.dart';
+import 'package:vocadb/models/web_link_model.dart';
 import 'package:vocadb/services/web_service.dart';
 
 class EntryModel extends BaseModel {
@@ -15,6 +16,7 @@ class EntryModel extends BaseModel {
   String songType;
   MainPictureModel mainPicture;
   List<TagGroupModel> tagGroups;
+  List<WebLinkModel> webLinks;
 
   EntryModel();
 
@@ -33,6 +35,11 @@ class EntryModel extends BaseModel {
         tagGroups = (json.containsKey('tags'))
             ? (json['tags'] as List)
                 ?.map((d) => TagGroupModel.fromJson(d))
+                ?.toList()
+            : null,
+        webLinks = (json.containsKey('webLinks'))
+            ? (json['webLinks'] as List)
+                ?.map((d) => WebLinkModel.fromJson(d))
                 ?.toList()
             : null;
 

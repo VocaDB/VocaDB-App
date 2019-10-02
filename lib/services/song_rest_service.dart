@@ -36,7 +36,7 @@ class SongRestService extends BaseRestService {
   Future<SongModel> byId(int id, {String lang = 'Default'}) {
     final Map<String, String> params = {
       'fields':
-          'MainPicture,PVs,ThumbUrl,Albums,Artists,Tags,WebLinks,AdditionalNames',
+          'MainPicture,PVs,ThumbUrl,Albums,Artists,Tags,WebLinks,AdditionalNames,WebLinks',
       'lang': lang,
     };
     return super
