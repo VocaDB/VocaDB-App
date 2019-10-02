@@ -15,6 +15,7 @@ import 'package:vocadb/models/web_link_model.dart';
 import 'package:vocadb/widgets/action_bar.dart';
 import 'package:vocadb/widgets/album_card.dart';
 import 'package:vocadb/widgets/artist_tile.dart';
+import 'package:vocadb/widgets/pv_tile.dart';
 import 'package:vocadb/widgets/result.dart';
 import 'package:vocadb/widgets/section.dart';
 import 'package:vocadb/widgets/share_action_button.dart';
@@ -500,39 +501,6 @@ class PVSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: children,
-    );
-  }
-}
-
-class PVTile extends StatelessWidget {
-  final PVModel pv;
-
-  const PVTile({Key key, this.pv}) : super(key: key);
-
-  final List<PopupMenuItem<String>> _popUpMenuItems = const [
-    PopupMenuItem<String>(
-      value: 'share',
-      child: Text('Share'),
-    ),
-  ];
-
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      leading: Icon(Icons.ondemand_video),
-      title: Text(pv.name, overflow: TextOverflow.ellipsis),
-      subtitle: Text('${pv.service} • ${pv.pvType}'),
-      onTap: () {
-        launch(pv.url);
-      },
-      trailing: PopupMenuButton<String>(
-        onSelected: (String selectedValue) {
-          if (selectedValue == 'share') {
-            Share.share(pv.url);
-          }
-        },
-        itemBuilder: (BuildContext context) => _popUpMenuItems,
-      ),
     );
   }
 }
