@@ -7,19 +7,17 @@ class AlbumTrack extends StatelessWidget {
 
   const AlbumTrack(this.track, {Key key}) : super(key: key);
 
+  void navigateToSongDetail(BuildContext context) {
+    Navigator.pushNamed(context, SongDetailScreen.routeName,
+        arguments: SongDetailScreenArguments(track.id, track.name));
+  }
+
   @override
   Widget build(BuildContext context) {
     return ListTile(
       leading: Text(track.trackNumber.toString()),
       enabled: (track.song != null),
-      onTap: () {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => SongDetailPage(
-                    track.song?.id, track.name, null,
-                    tag: null)));
-      },
+      onTap: () => navigateToSongDetail(context),
       title: Text(track.name, maxLines: 1, overflow: TextOverflow.ellipsis),
       subtitle: Text(track.song?.artistString ?? ' ',
           maxLines: 1, overflow: TextOverflow.ellipsis),
