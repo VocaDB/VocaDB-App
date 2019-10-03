@@ -13,9 +13,47 @@ void main() {
         "mainPicture": {
           "urlThumb": "https://i.ytimg.com/vi/iMZeB_yU_4s/default.jpg"
         },
+        "artists": [
+            {
+              "artist": {
+                "additionalNames": "OkameP, かるび太郎, Calvi Taro",
+                "artistType": "Producer",
+                "id": 87,
+                "name": "オカメP",
+              },
+              "categories": "Producer",
+              "effectiveRoles": "Default",
+              "name": "オカメP",
+              "roles": "Default"
+            },
+            {
+              "artist": {
+                "additionalNames": "Hatsune Miku",
+                "artistType": "Vocaloid",
+                "id": 1,
+                "name": "初音ミク",
+                "status": "Locked",
+              },
+              "categories": "Vocalist",
+              "effectiveRoles": "Default",
+              "name": "初音ミク",
+              "roles": "Default"
+            },
+        ],
+        "catalogNumber": "KRHS-90072",
         "tracks": [
           {"id": 1, "name": "defaultTrack"}
         ],
+        "description": "abc",
+        "ratingAverage": 4.33,
+        "ratingCount": 3,
+        "releaseDate": {
+          "day": 18,
+          "formatted": "9/18/2019",
+          "month": 9,
+          "year": 2019
+        }
+
       };
 
       AlbumModel result = AlbumModel.fromJson(mockJson);
@@ -26,6 +64,12 @@ void main() {
       expect(result.defaultName, "testname");
       expect(result.mainPicture, isNotNull);
       expect(result.tracks, isNotNull);
+      expect(result.releaseDate, isNotNull);
+      expect(result.artists, isNotNull);
+      expect(result.artists.length, 2);
+      expect(result.ratingAverage, 4.33);
+      expect(result.ratingCount, 3);
+      expect(result.catalogNumber, "KRHS-90072");
     });
 
     test('should not thrown exception when input empty json', () {
