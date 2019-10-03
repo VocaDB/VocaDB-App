@@ -65,10 +65,6 @@ class SongRestService extends BaseRestService {
 
     return super
         .query(endpoint, params)
-        .then((items) {
-          print(items);
-          return items;
-        })
         .then((items) => SongModel.jsonToList(items));
   }
 }

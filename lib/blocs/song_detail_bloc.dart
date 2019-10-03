@@ -6,10 +6,11 @@ import 'package:vocadb/models/song_model.dart';
 import 'package:vocadb/services/song_rest_service.dart';
 
 class SongDetailBloc {
-  final _song = BehaviorSubject<SongModel>.seeded(null);
-  final _originalVersion = BehaviorSubject<SongModel>.seeded(null);
-  final _altVersions = BehaviorSubject<List<SongModel>>.seeded(null);
-  final _relatedSongs = BehaviorSubject<List<SongModel>>.seeded(null);
+  final _song = BehaviorSubject<SongModel>();
+  final _originalVersion = BehaviorSubject<SongModel>();
+  final _altVersions = BehaviorSubject<List<SongModel>>();
+  final _relatedSongs = BehaviorSubject<List<SongModel>>();
+  final _isLyricOpened = BehaviorSubject<bool>.seeded(false);
 
   final int id;
 
@@ -17,15 +18,15 @@ class SongDetailBloc {
   Observable get originalVersion$ => _originalVersion.stream;
   Observable get altVersions$ => _altVersions.stream;
   Observable get relatedSongs$ => _relatedSongs.stream;
+  Observable get showHideLyric$ => _isLyricOpened.stream;
 
-  SongRestService songService = SongRestService();
+  SongRestService songService;
 
   ConfigBloc configBloc;
 
   SongDetailBloc(this.id,
-      {SongRestService songService, ConfigBloc configBloc}) {
-    this.songService ??= songService;
-    this.configBloc ??= configBloc;
+      {SongRestService songService, this.configBloc}) {
+    this.songService ??= songService ?? SongRestService();
 
     _song.distinct().listen(onFetched);
     fetch();
@@ -36,7 +37,7 @@ class SongDetailBloc {
       return;
     }
 
-    if (song.originalVersionId != null) {
+    if (song.originalVersionId != null && song.originalVersionId > 0){
       fetchOriginalVersion(song.originalVersionId);
     }
 
@@ -70,10 +71,19 @@ class SongDetailBloc {
         .then(_relatedSongs.add);
   }
 
+  void showLyric() {
+    _isLyricOpened.add(true);
+  }
+
+  void hideLyric() {
+    _isLyricOpened.add(false);
+  }
+
   void dispose() {
     _song?.close();
     _originalVersion?.close();
     _altVersions?.close();
     _relatedSongs?.close();
+    _isLyricOpened?.close();
   }
 }
