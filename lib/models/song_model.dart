@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:vocadb/models/album_model.dart';
 import 'package:vocadb/models/artist_song_model.dart';
 import 'package:vocadb/models/entry_model.dart';
+import 'package:vocadb/models/lyric_model.dart';
 import 'package:vocadb/models/pv_model.dart';
 import 'package:vocadb/models/tag_model.dart';
 import 'package:vocadb/services/web_service.dart';
@@ -16,6 +17,7 @@ class SongModel extends EntryModel {
   List<AlbumModel> albums;
   int originalVersionId;
   String publishDate;
+  List<LyricModel> lyrics;
 
   SongModel();
 
@@ -29,10 +31,14 @@ class SongModel extends EntryModel {
             json['artists'], (v) => ArtistSongModel.fromJson(v)),
         albums = JSONUtils.mapJsonArray<AlbumModel>(
             json['albums'], (v) => AlbumModel.fromJson(v)),
+        lyrics = JSONUtils.mapJsonArray<LyricModel>(
+            json['lyrics'], (v) => LyricModel.fromJson(v)),
         super.fromJson(json);
 
   static List<SongModel> jsonToList(List items) {
-    return (items == null)? [] : items.map((i) => SongModel.fromJson(i)).toList();
+    return (items == null)
+        ? []
+        : items.map((i) => SongModel.fromJson(i)).toList();
   }
 
   PVModel get youtubePV =>
@@ -56,6 +62,8 @@ class SongModel extends EntryModel {
 
   String get publishDateFormatted =>
       DateFormat('yyyy-MM-dd').format(DateTime.parse(publishDate));
+
+  bool get hasLyrics => lyrics != null && lyrics.length > 0;
 
   static List<SongModel> _mapItemsResponse(Response response) {
     Iterable result = response.data['items'];

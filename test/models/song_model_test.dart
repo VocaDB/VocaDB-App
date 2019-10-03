@@ -28,6 +28,10 @@ void main() {
             "roles": "Default"
           },
         ],
+        "lyrics": [
+          {"id": 548, "translationType": "Original", "value": "ja_lyric"},
+          {"id": 2798, "translationType": "Romanized", "value": "ro_lyric"},
+        ],
         "albums": [
           {
             "additionalNames": "Romeo to Cinderella, Romeo and Cinderella",
@@ -62,6 +66,7 @@ void main() {
       expect(result.producers.length, 1);
       expect(result.vocalists.length, 1);
       expect(result.publishDateFormatted, '2009-08-19');
+      expect(result.lyrics.length, 2);
     });
 
     test('should not thrown exception when input empty json', () {

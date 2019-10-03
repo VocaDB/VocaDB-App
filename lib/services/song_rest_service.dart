@@ -36,7 +36,7 @@ class SongRestService extends BaseRestService {
   Future<SongModel> byId(int id, {String lang = 'Default'}) {
     final Map<String, String> params = {
       'fields':
-          'MainPicture,PVs,ThumbUrl,Albums,Artists,Tags,WebLinks,AdditionalNames,WebLinks',
+          'MainPicture,PVs,ThumbUrl,Albums,Artists,Tags,WebLinks,AdditionalNames,WebLinks,Lyrics',
       'lang': lang,
     };
     return super
@@ -56,7 +56,7 @@ class SongRestService extends BaseRestService {
         .then((related) => SongModel.jsonToList(related['likeMatches']));
   }
 
-    Future<List<SongModel>> derived(int id, {String lang = 'Default'}) async {
+  Future<List<SongModel>> derived(int id, {String lang = 'Default'}) async {
     final String endpoint = '/api/songs/$id/derived';
     final Map<String, String> params = {
       'fields': 'MainPicture,ThumbUrl',

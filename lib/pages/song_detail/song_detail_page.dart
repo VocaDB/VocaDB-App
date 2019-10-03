@@ -6,15 +6,19 @@ import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:vocadb/blocs/config_bloc.dart';
+import 'package:vocadb/blocs/lyric_content_bloc.dart';
 import 'package:vocadb/blocs/song_detail_bloc.dart';
 import 'package:vocadb/constants.dart';
 import 'package:vocadb/models/album_model.dart';
 import 'package:vocadb/models/pv_model.dart';
 import 'package:vocadb/models/song_model.dart';
 import 'package:vocadb/models/web_link_model.dart';
+import 'package:vocadb/pages/song_detail/lyric_content.dart';
 import 'package:vocadb/widgets/action_bar.dart';
+import 'package:vocadb/widgets/action_button.dart';
 import 'package:vocadb/widgets/album_card.dart';
 import 'package:vocadb/widgets/artist_tile.dart';
+import 'package:vocadb/widgets/lyrics_action_button.dart';
 import 'package:vocadb/widgets/pv_tile.dart';
 import 'package:vocadb/widgets/result.dart';
 import 'package:vocadb/widgets/section.dart';
@@ -108,8 +112,30 @@ class _SongDetailPageState extends State<SongDetailPage> {
             },
           ),
           Expanded(
-            child: ListView(
-              children: buildDetailContent(song),
+            child: StreamBuilder(
+              stream: Provider.of<SongDetailBloc>(context).showHideLyric$,
+              builder: (context, snapshot) {
+                if (snapshot.hasData && snapshot.data) {
+                  return AnimatedSwitcher(
+                    duration: Duration(milliseconds: 200),
+                    child: Provider<LyricContentBloc>(
+                      builder: (context) => LyricContentBloc(song.lyrics),
+                      dispose: (context, bloc) => bloc.dispose(),
+                      child: LyricContent(
+                          lyrics: song.lyrics,
+                          onTapClose:
+                              Provider.of<SongDetailBloc>(context).hideLyric),
+                    ),
+                  );
+                }
+
+                return AnimatedSwitcher(
+                  duration: Duration(milliseconds: 200),
+                  child: ListView(
+                    children: buildDetailContent(song),
+                  ),
+                );
+              },
             ),
           )
         ],
@@ -174,21 +200,30 @@ class _SongDetailPageState extends State<SongDetailPage> {
       ],
     ));
 
+    List<ActionButton> actions = [];
+
+    actions.add(ShareActionButton(
+      onTap: () {
+        Share.share('$HOST/S/${song.id}');
+      },
+    ));
+
+    if (song.lyrics != null && song.lyrics.length > 0) {
+      actions.add(LyricsActionButton(
+        onTap: Provider.of<SongDetailBloc>(context).showLyric,
+      ));
+    }
+
+    actions.add(SourceActionButton(
+      onTap: () {
+        String url = '$HOST/S/${song.id}';
+        launch(url);
+      },
+    ));
+
     return [
       ActionBar(
-        actions: [
-          ShareActionButton(
-            onTap: () {
-              Share.share('$HOST/S/${song.id}');
-            },
-          ),
-          SourceActionButton(
-            onTap: () {
-              String url = '$HOST/S/${song.id}';
-              launch(url);
-            },
-          )
-        ],
+        actions: actions,
       ),
       Padding(
           padding: EdgeInsets.all(8.0),
