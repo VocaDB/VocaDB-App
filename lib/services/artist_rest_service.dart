@@ -24,4 +24,16 @@ class ArtistRestService extends BaseRestService {
         .query(endpoint, params)
         .then((items) => ArtistModel.jsonToList(items));
   }
+
+    Future<ArtistModel> byId(int id, {String lang = 'Default'}) {
+    final Map<String, String> params = {
+      'fields': 'Tags,MainPicture,WebLinks,BaseVoicebank,Description,ArtistLinks,ArtistLinksReverse,AdditionalNames',
+      'relations': 'All',
+      'lang': lang,
+    };
+
+    return super
+        .getObject('/api/artists/$id', params)
+        .then((i) => ArtistModel.fromJson(i));
+  }
 }
