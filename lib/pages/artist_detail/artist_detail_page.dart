@@ -1,7 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:vocadb/blocs/artist_detail_bloc.dart';
+import 'package:vocadb/blocs/config_bloc.dart';
 import 'package:vocadb/constants.dart';
 import 'package:vocadb/models/artist_model.dart';
 import 'package:vocadb/services/web_service.dart';
@@ -14,6 +17,32 @@ import 'package:vocadb/widgets/section.dart';
 import 'package:vocadb/widgets/section_divider.dart';
 import 'package:vocadb/widgets/source_action_button.dart';
 import 'package:vocadb/widgets/tags.dart';
+
+class ArtistDetailScreenArguments {
+  final int id;
+  final String name;
+  final String thumbUrl;
+  final String tag;
+
+  ArtistDetailScreenArguments(this.id, this.name, {this.thumbUrl, this.tag});
+}
+
+class ArtistDetailScreen extends StatelessWidget {
+  static const String routeName = '/artistDetail';
+
+  @override
+  Widget build(BuildContext context) {
+    final ArtistDetailScreenArguments args =
+        ModalRoute.of(context).settings.arguments;
+    final configBloc = Provider.of<ConfigBloc>(context);
+
+    return Provider<ArtistDetailBloc>(
+      builder: (context) => ArtistDetailBloc(args.id, configBloc: configBloc),
+      dispose: (context, bloc) => bloc.dispose(),
+      child: ArtistDetailPage(args.id, args.name, args.thumbUrl, args.tag),
+    );
+  }
+}
 
 class ArtistDetailPage extends StatelessWidget {
   final int id;
@@ -145,8 +174,8 @@ class _ArtistDetailContentState extends State<ArtistDetailContent> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<ArtistModel>(
-      future: WebService().load(ArtistModel.byId(widget.id)),
+    return StreamBuilder(
+      stream: Provider.of<ArtistDetailBloc>(context).artist$,
       builder: (context, snapshot) {
         if (snapshot.hasData)
           return buildHasData(snapshot.data);

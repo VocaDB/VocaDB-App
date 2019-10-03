@@ -1,8 +1,6 @@
-import 'package:dio/dio.dart';
 import 'package:vocadb/models/artist_relations_model.dart';
 import 'package:vocadb/models/entry_model.dart';
 import 'package:vocadb/models/tag_model.dart';
-import 'package:vocadb/services/web_service.dart';
 
 class ArtistModel extends EntryModel {
   EntryType entryType = EntryType.Artist;
@@ -24,15 +22,4 @@ class ArtistModel extends EntryModel {
 
   List<TagModel> get tags =>
       (this.tagGroups != null) ? this.tagGroups.map((t) => t.tag).toList() : [];
-
-  static ArtistModel _mapObjectResponse(Response response) {
-    final result = response.data;
-    return ArtistModel.fromJson(result);
-  }
-
-  static Resource<ArtistModel> byId(int id) {
-    return Resource(
-        endpoint: '/api/artists/$id?fields=Tags&relations=All',
-        parse: _mapObjectResponse);
-  }
 }

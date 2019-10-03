@@ -32,12 +32,10 @@ class ArtistTile extends StatelessWidget {
         this.title = entry.name,
         this.subtitle = entry.artistString;
 
-  void onTap(BuildContext context) {
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => ArtistDetailPage(
-                this.id, this.title, this.imageUrl, this.tag)));
+  void navigateToDetail(BuildContext context) {
+    Navigator.pushNamed(context, ArtistDetailScreen.routeName,
+        arguments: ArtistDetailScreenArguments(this.id, this.title,
+            thumbUrl: this.imageUrl, tag: tag));
   }
 
   Widget buildLeading() {
@@ -64,9 +62,7 @@ class ArtistTile extends StatelessWidget {
   Widget buildSingleLine(BuildContext context) {
     return ListTile(
       enabled: (this.id != null),
-      onTap: () {
-        onTap(context);
-      },
+      onTap: () => navigateToDetail(context),
       leading: buildLeading(),
       title: Text(this.title, overflow: TextOverflow.ellipsis),
     );
@@ -75,9 +71,7 @@ class ArtistTile extends StatelessWidget {
   Widget buildTwoLine(BuildContext context) {
     return ListTile(
       enabled: (this.id != null),
-      onTap: () {
-        onTap(context);
-      },
+      onTap: () => navigateToDetail(context),
       leading: buildLeading(),
       title: Text(this.title, overflow: TextOverflow.ellipsis),
       subtitle: Text(this.subtitle, overflow: TextOverflow.ellipsis),
