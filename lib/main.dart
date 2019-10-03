@@ -5,6 +5,7 @@ import 'package:vocadb/blocs/config_bloc.dart';
 import 'package:vocadb/blocs/home_bloc.dart';
 import 'package:vocadb/blocs/ranking_bloc.dart';
 import 'package:vocadb/global_variables.dart';
+import 'package:vocadb/pages/album_detail/album_detail_page.dart';
 import 'package:vocadb/pages/song_detail/song_detail_page.dart';
 
 import 'pages/main/account_tab.dart';
@@ -50,6 +51,7 @@ class RootApp extends StatelessWidget {
           routes: {
             '/': (context) => MyHomePage(title: 'VocaDB Demo Home Page'),
             SongDetailScreen.routeName: (context) => SongDetailScreen(),
+            AlbumDetailScreen.routeName: (context) => AlbumDetailScreen(),
           },
         );
       },

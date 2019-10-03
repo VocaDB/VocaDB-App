@@ -23,16 +23,16 @@ class AlbumTile extends StatelessWidget {
         this.name = entry.name,
         this.artist = entry.artistString;
 
+  void navigateToDetail(BuildContext context) {
+    Navigator.pushNamed(context, AlbumDetailScreen.routeName,
+        arguments: AlbumDetailScreenArguments(this.id, this.name,
+            thumbUrl: this.imageUrl, tag: tag));
+  }
+
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      onTap: () {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) =>
-                    AlbumDetailPage(thumbUrl: this.imageUrl, tag: tag)));
-      },
+      onTap: () => navigateToDetail(context),
       leading: SizedBox(
         width: 50,
         height: 50,

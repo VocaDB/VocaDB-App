@@ -1,10 +1,8 @@
-import 'package:dio/dio.dart';
 import 'package:vocadb/models/artist_album_model.dart';
 import 'package:vocadb/models/entry_model.dart';
 import 'package:vocadb/models/release_date_model.dart';
 import 'package:vocadb/models/tag_model.dart';
 import 'package:vocadb/models/track_model.dart';
-import 'package:vocadb/services/web_service.dart';
 import 'package:vocadb/utils/json_utils.dart';
 
 class AlbumModel extends EntryModel {
@@ -45,16 +43,6 @@ class AlbumModel extends EntryModel {
 
   List<ArtistAlbumModel> get otherArtists =>
       this.artists.where((a) => !a.isVocalist && !a.isProducer).toList();
-
-  static AlbumModel _mapObjectResponse(Response response) {
-    return AlbumModel.fromJson(response.data);
-  }
-
-  static Resource<AlbumModel> byId(int id) {
-    return Resource(
-        endpoint: '/api/albums/$id?fields=Tracks,Tags',
-        parse: _mapObjectResponse);
-  }
 
   get imageUrl => (mainPicture != null && mainPicture.urlThumb != null)
       ? mainPicture.urlThumb

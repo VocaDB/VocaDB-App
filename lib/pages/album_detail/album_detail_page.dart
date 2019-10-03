@@ -1,11 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:vocadb/blocs/album_detail_bloc.dart';
+import 'package:vocadb/blocs/config_bloc.dart';
 import 'package:vocadb/constants.dart';
 import 'package:vocadb/models/album_model.dart';
 import 'package:vocadb/models/track_model.dart';
-import 'package:vocadb/services/web_service.dart';
 import 'package:vocadb/widgets/action_bar.dart';
 import 'package:vocadb/widgets/result.dart';
 import 'package:vocadb/widgets/share_action_button.dart';
@@ -14,6 +16,33 @@ import 'package:vocadb/widgets/space_divider.dart';
 import 'package:vocadb/widgets/tags.dart';
 import "package:collection/collection.dart";
 import 'package:vocadb/widgets/album_track.dart';
+
+class AlbumDetailScreenArguments {
+  final int id;
+  final String name;
+  final String thumbUrl;
+  final String tag;
+
+  AlbumDetailScreenArguments(this.id, this.name, {this.thumbUrl, this.tag});
+}
+
+class AlbumDetailScreen extends StatelessWidget {
+  static const String routeName = '/albumDetail';
+
+  @override
+  Widget build(BuildContext context) {
+    final AlbumDetailScreenArguments args =
+        ModalRoute.of(context).settings.arguments;
+    final configBloc = Provider.of<ConfigBloc>(context);
+
+    return Provider<AlbumDetailBloc>(
+      builder: (context) => AlbumDetailBloc(args.id, configBloc: configBloc),
+      dispose: (context, bloc) => bloc.dispose(),
+      child: AlbumDetailPage(
+          id: args.id, name: args.name, thumbUrl: args.thumbUrl, tag: args.tag),
+    );
+  }
+}
 
 class AlbumDetailPage extends StatelessWidget {
   final int id;
@@ -101,8 +130,8 @@ class _AlbumDetailContentState extends State<AlbumDetailContent> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<AlbumModel>(
-      future: WebService().load(AlbumModel.byId(widget.id)),
+    return StreamBuilder(
+      stream: Provider.of<AlbumDetailBloc>(context).album$,
       builder: (context, snapshot) {
         if (snapshot.hasData)
           return buildHasData(snapshot.data);
@@ -203,206 +232,3 @@ class HeroContent extends StatelessWidget {
     );
   }
 }
-
-const rawTracks = [
-  {
-    "discNumber": 1,
-    "id": 8776,
-    "name": "Tell Your World",
-    "song": {
-      "artistString": "kz feat. 初音ミク",
-      "createDate": "2012-01-14T17:36:16",
-      "defaultName": "Tell Your World",
-      "defaultNameLanguage": "English",
-      "favoritedTimes": 90,
-      "id": 8395,
-      "lengthSeconds": 257,
-      "name": "Tell Your World",
-      "publishDate": "2012-03-12T00:00:00Z",
-      "pvServices": "Youtube, SoundCloud",
-      "ratingScore": 456,
-      "songType": "Original",
-      "status": "Approved",
-      "version": 26
-    },
-    "trackNumber": 1
-  },
-  {
-    "discNumber": 1,
-    "id": 8780,
-    "name": "Far Away",
-    "song": {
-      "artistString": "kz feat. 初音ミク",
-      "createDate": "2012-01-14T17:38:09",
-      "defaultName": "Far Away",
-      "defaultNameLanguage": "English",
-      "favoritedTimes": 7,
-      "id": 8396,
-      "lengthSeconds": 308,
-      "name": "Far Away",
-      "publishDate": "2012-03-14T00:00:00Z",
-      "pvServices": "Youtube",
-      "ratingScore": 31,
-      "songType": "Original",
-      "status": "Finished",
-      "version": 9
-    },
-    "trackNumber": 2
-  },
-  {
-    "discNumber": 1,
-    "id": 8781,
-    "name": "Star Story",
-    "song": {
-      "artistString": "kz feat. 初音ミク",
-      "createDate": "2012-01-14T17:38:09",
-      "defaultName": "Star Story",
-      "defaultNameLanguage": "English",
-      "favoritedTimes": 14,
-      "id": 8397,
-      "lengthSeconds": 286,
-      "name": "Star Story",
-      "publishDate": "2012-03-14T00:00:00Z",
-      "pvServices": "Youtube",
-      "ratingScore": 66,
-      "songType": "Original",
-      "status": "Finished",
-      "version": 10
-    },
-    "trackNumber": 3
-  },
-  {
-    "discNumber": 1,
-    "id": 10119,
-    "name": "Half Step",
-    "song": {
-      "artistString": "kz feat. 初音ミク",
-      "createDate": "2012-03-13T19:18:09",
-      "defaultName": "Half Step",
-      "defaultNameLanguage": "English",
-      "favoritedTimes": 6,
-      "id": 10020,
-      "lengthSeconds": 254,
-      "name": "Half Step",
-      "publishDate": "2012-03-14T00:00:00Z",
-      "pvServices": "Youtube",
-      "ratingScore": 20,
-      "songType": "Original",
-      "status": "Finished",
-      "version": 6
-    },
-    "trackNumber": 4
-  },
-  {
-    "discNumber": 1,
-    "id": 8777,
-    "name": "Fly Out",
-    "song": {
-      "artistString": "kz feat. 初音ミク",
-      "createDate": "2011-11-24T19:08:40",
-      "defaultName": "Fly Out",
-      "defaultNameLanguage": "English",
-      "favoritedTimes": 5,
-      "id": 4137,
-      "lengthSeconds": 277,
-      "name": "Fly Out",
-      "publishDate": "2012-03-13T00:00:00Z",
-      "pvServices": "Youtube",
-      "ratingScore": 31,
-      "songType": "Original",
-      "status": "Finished",
-      "version": 9
-    },
-    "trackNumber": 5
-  },
-  {
-    "discNumber": 1,
-    "id": 10120,
-    "name": "ジュビリー",
-    "song": {
-      "artistString": "kz feat. 初音ミク",
-      "createDate": "2012-03-13T19:18:09",
-      "defaultName": "��ュビリー",
-      "defaultNameLanguage": "Japanese",
-      "favoritedTimes": 4,
-      "id": 10021,
-      "lengthSeconds": 374,
-      "name": "ジュビリー",
-      "publishDate": "2012-03-14T00:00:00Z",
-      "pvServices": "Youtube",
-      "ratingScore": 14,
-      "songType": "Original",
-      "status": "Finished",
-      "version": 8
-    },
-    "trackNumber": 6
-  },
-  {
-    "discNumber": 1,
-    "id": 10121,
-    "name": "Tell Your World (Panda BoY Remix)",
-    "song": {
-      "artistString": "PandaBoY feat. 初音ミク",
-      "createDate": "2012-03-13T19:18:09",
-      "defaultName": "Tell Your World (Panda BoY Remix)",
-      "defaultNameLanguage": "English",
-      "favoritedTimes": 4,
-      "id": 10022,
-      "lengthSeconds": 271,
-      "name": "Tell Your World (Panda BoY Remix)",
-      "originalVersionId": 8395,
-      "publishDate": "2012-03-14T00:00:00Z",
-      "pvServices": "Youtube",
-      "ratingScore": 14,
-      "songType": "Remix",
-      "status": "Finished",
-      "version": 8
-    },
-    "trackNumber": 7
-  },
-  {
-    "discNumber": 1,
-    "id": 10122,
-    "name": "Tell Your World (open the scenery rmx by  fu_mou)",
-    "song": {
-      "artistString": "fu_mou feat. 初音ミク",
-      "createDate": "2012-03-13T19:18:09",
-      "defaultName": "Tell Your World (open the scenery rmx by  fu_mou)",
-      "defaultNameLanguage": "English",
-      "favoritedTimes": 0,
-      "id": 10023,
-      "lengthSeconds": 305,
-      "name": "Tell Your World (open the scenery rmx by  fu_mou)",
-      "originalVersionId": 8395,
-      "publishDate": "2012-03-14T00:00:00Z",
-      "pvServices": "Youtube",
-      "ratingScore": 6,
-      "songType": "Remix",
-      "status": "Finished",
-      "version": 7
-    },
-    "trackNumber": 8
-  },
-  {
-    "discNumber": 2,
-    "id": 51783,
-    "name": "Tell Your World",
-    "song": {
-      "artistString": "kz feat. 初音ミク",
-      "createDate": "2012-01-14T17:36:16",
-      "defaultName": "Tell Your World",
-      "defaultNameLanguage": "English",
-      "favoritedTimes": 90,
-      "id": 8395,
-      "lengthSeconds": 257,
-      "name": "Tell Your World",
-      "publishDate": "2012-03-12T00:00:00Z",
-      "pvServices": "Youtube, SoundCloud",
-      "ratingScore": 456,
-      "songType": "Original",
-      "status": "Approved",
-      "version": 26
-    },
-    "trackNumber": 1
-  }
-];

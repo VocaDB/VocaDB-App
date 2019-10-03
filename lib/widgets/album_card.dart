@@ -21,20 +21,17 @@ class AlbumCard extends StatelessWidget {
         artist = album.artistString,
         thumbUrl = album.imageUrl;
 
+  void navigateToDetail(BuildContext context) {
+    Navigator.pushNamed(context, AlbumDetailScreen.routeName,
+        arguments: AlbumDetailScreenArguments(this.id, this.name,
+            thumbUrl: this.thumbUrl, tag: tag));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Material(
       child: InkWell(
-        onTap: () {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => AlbumDetailPage(
-                      id: this.id,
-                      name: this.name,
-                      thumbUrl: this.thumbUrl,
-                      tag: this.tag)));
-        },
+        onTap: () => navigateToDetail(context),
         child: Container(
           width: 130,
           margin: EdgeInsets.only(right: 8.0, left: 8.0),
