@@ -23,4 +23,15 @@ class TagRestService extends BaseRestService {
         .query(endpoint, params)
         .then((items) => TagModel.jsonToList(items));
   }
+
+  Future<TagModel> byId(int id, {String lang = 'Default'}) {
+    final Map<String, String> params = {
+      'fields': 'MainPicture,AdditionalNames,Description,Parent,RelatedTags',
+      'lang': lang,
+    };
+
+    return super
+        .getObject('/api/tags/$id', params)
+        .then((i) => TagModel.fromJson(i));
+  }
 }
