@@ -24,4 +24,15 @@ class AlbumRestService extends BaseRestService {
         .query(endpoint, params)
         .then((items) => AlbumModel.jsonToList(items));
   }
+
+  Future<AlbumModel> byId(int id, {String lang = 'Default'}) {
+    final Map<String, String> params = {
+      'fields': 'Tags,MainPicture,Tracks,AdditionalNames,Artists,Description,WebLinks,PVs',
+      'lang': lang,
+    };
+
+    return super
+        .getObject('/api/albums/$id', params)
+        .then((i) => AlbumModel.fromJson(i));
+  }
 }
