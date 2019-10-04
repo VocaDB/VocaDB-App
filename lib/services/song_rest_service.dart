@@ -7,6 +7,16 @@ import 'package:vocadb/services/web_service.dart';
 class SongRestService extends BaseRestService {
   SongRestService({RestApi restApi}) : super(restApi: restApi);
 
+  Future<List<SongModel>> list({Map<String, String> params}) async {
+    final String endpoint = '/api/songs';
+
+    params ??= {};
+
+    return super
+        .query(endpoint, params)
+        .then((items) => SongModel.jsonToList(items));
+  }
+
   Future<List<SongModel>> highlighted({String lang = 'Default'}) async {
     final String endpoint = '/api/songs/highlighted';
     final Map<String, String> params = {'fields': 'ThumbUrl,PVs'};
@@ -66,5 +76,38 @@ class SongRestService extends BaseRestService {
     return super
         .query(endpoint, params)
         .then((items) => SongModel.jsonToList(items));
+  }
+
+  Future<List<SongModel>> latestByTagId(int tagId, {String lang = 'Default'}) async {
+    final Map<String, String> params = {
+      'tagId': tagId.toString(),
+      'fields': 'MainPicture,ThumbUrl',
+      'sort': 'AdditionDate',
+      'lang': lang,
+    };
+
+    return this.list(params: params);
+  }
+
+  Future<List<SongModel>> topByTagId(int tagId, {String lang = 'Default'}) async {
+    final Map<String, String> params = {
+      'tagId': tagId.toString(),
+      'fields': 'MainPicture,ThumbUrl',
+      'sort': 'RatingScore',
+      'lang': lang,
+    };
+
+    return this.list(params: params);
+  }
+
+  Future<List<SongModel>> latestByArtistId(int artistId, {String lang = 'Default'}) async {
+    final Map<String, String> params = {
+      'artistId': artistId.toString(),
+      'fields': 'MainPicture,ThumbUrl',
+      'sort': 'AdditionDate',
+      'lang': lang,
+    };
+
+    return this.list(params: params);
   }
 }

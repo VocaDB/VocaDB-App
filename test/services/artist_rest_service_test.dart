@@ -10,7 +10,7 @@ main() {
   final mockApi = MockRestService();
   final service = ArtistRestService(restApi: mockApi);
 
-  test('should return list of artists when searched', () {
+  test('should return list of artists', () {
     final mockResult = {
       'items': [
         {'id': 1, 'name': 'A'},
@@ -21,6 +21,7 @@ main() {
     when(mockApi.get(any, any)).thenAnswer((_) => Future.value(mockResult));
 
     expect(service.search('miku'), completion(isA<List<ArtistModel>>()));
+    expect(service.topByTagId(1), completion(isA<List<ArtistModel>>()));
   });
 
   test('should return artist detail', () {

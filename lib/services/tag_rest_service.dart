@@ -7,8 +7,18 @@ import 'package:vocadb/services/web_service.dart';
 class TagRestService extends BaseRestService {
   TagRestService({RestApi restApi}) : super(restApi: restApi);
 
-  Future<List<TagModel>> search(String query, {String lang = 'Default'}) async {
+
+  Future<List<TagModel>> list({Map<String, String> params}) async {
     final String endpoint = '/api/tags';
+
+    params ??= {};
+
+    return super
+        .query(endpoint, params)
+        .then((items) => TagModel.jsonToList(items));
+  }
+
+  Future<List<TagModel>> search(String query, {String lang = 'Default'}) async {
     final Map<String, String> params = {
       'lang': lang,
       'nameMatchMode': 'Auto',
@@ -19,9 +29,7 @@ class TagRestService extends BaseRestService {
       params['query'] = query;
     }
 
-    return super
-        .query(endpoint, params)
-        .then((items) => TagModel.jsonToList(items));
+    return this.list(params: params);
   }
 
   Future<TagModel> byId(int id, {String lang = 'Default'}) {
