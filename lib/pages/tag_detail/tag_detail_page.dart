@@ -2,6 +2,10 @@ import 'dart:async';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:vocadb/blocs/config_bloc.dart';
+import 'package:vocadb/blocs/song_detail_bloc.dart';
+import 'package:vocadb/blocs/tag_detail_bloc.dart';
 import 'package:vocadb/models/song_model.dart';
 import 'package:vocadb/models/tag_model.dart';
 import 'package:vocadb/services/web_service.dart';
@@ -9,6 +13,30 @@ import 'package:vocadb/widgets/model_future_builder.dart';
 import 'package:vocadb/widgets/result.dart';
 import 'package:vocadb/widgets/section.dart';
 import 'package:vocadb/widgets/song_card.dart';
+
+class TagDetailScreenArguments {
+  final int id;
+  final String name;
+
+  TagDetailScreenArguments(this.id, this.name);
+}
+
+class TagDetailScreen extends StatelessWidget {
+  static const String routeName = '/tagDetail';
+
+  @override
+  Widget build(BuildContext context) {
+    final TagDetailScreenArguments args =
+        ModalRoute.of(context).settings.arguments;
+    final configBloc = Provider.of<ConfigBloc>(context);
+
+    return Provider<TagDetailBloc>(
+      builder: (context) => TagDetailBloc(args.id, configBloc: configBloc),
+      dispose: (context, bloc) => bloc.dispose(),
+      child: TagDetailPage(args.id, args.name),
+    );
+  }
+}
 
 class TagDetailPage extends StatelessWidget {
   final int id;

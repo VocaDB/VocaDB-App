@@ -8,6 +8,7 @@ import 'package:vocadb/global_variables.dart';
 import 'package:vocadb/pages/album_detail/album_detail_page.dart';
 import 'package:vocadb/pages/artist_detail/artist_detail_page.dart';
 import 'package:vocadb/pages/song_detail/song_detail_page.dart';
+import 'package:vocadb/pages/tag_detail/tag_detail_page.dart';
 
 import 'pages/main/account_tab.dart';
 import 'pages/main/home_tab.dart';
@@ -54,6 +55,7 @@ class RootApp extends StatelessWidget {
             SongDetailScreen.routeName: (context) => SongDetailScreen(),
             AlbumDetailScreen.routeName: (context) => AlbumDetailScreen(),
             ArtistDetailScreen.routeName: (context) => ArtistDetailScreen(),
+            TagDetailScreen.routeName: (context) => TagDetailScreen(),
           },
         );
       },
