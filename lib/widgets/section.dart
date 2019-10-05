@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vocadb/widgets/space_divider.dart';
 
 class Section extends StatelessWidget {
   final String title;
@@ -25,13 +26,14 @@ class Section extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Container(
-          padding: EdgeInsets.all(8.0),
+          padding: EdgeInsets.symmetric(horizontal: 8.0),
           child: Text(
             this.title,
             textDirection: TextDirection.ltr,
             style: Theme.of(context).textTheme.subhead,
           ),
         ),
+        SpaceDivider(),
         Container(
             padding: padding,
             child: Column(

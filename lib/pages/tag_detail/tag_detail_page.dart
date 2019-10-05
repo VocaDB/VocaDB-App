@@ -63,12 +63,7 @@ class TagDetailPage extends StatelessWidget {
           ),
         ),
         SliverList(
-          delegate: SliverChildListDelegate.fixed([
-            SongListSection('Latest songs',
-                WebService().load(SongModel.latestByTagId(this.id))),
-            SongListSection(
-                'Top songs', WebService().load(SongModel.topByTagId(this.id)))
-          ]),
+          delegate: SliverChildListDelegate.fixed([]),
         )
       ],
     );
@@ -115,43 +110,6 @@ class TagDetailPage extends StatelessWidget {
         buildError: (err) => buildError(err),
         buildLoading: () => buildLoading(),
       ),
-    );
-  }
-}
-
-class SongListSection extends StatelessWidget {
-  final String title;
-  final Future<List<SongModel>> future;
-
-  const SongListSection(this.title, this.future);
-
-  buildHasData(List<SongModel> songs) {
-    List<SongCard> songCards = songs
-        .map((song) => SongCard.song(song, tag: '${this.title}_${song.id}'))
-        .toList();
-    return Section(title: title, horizontal: true, children: songCards);
-  }
-
-  buildDefault() {
-    return Section(
-        title: title,
-        horizontal: true,
-        children: [0, 1, 2].map((i) => SongCardPlaceholder()).toList());
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return FutureBuilder<List<SongModel>>(
-      future: future,
-      builder: (context, snapshot) {
-        if (snapshot.hasData)
-          return buildHasData(snapshot.data);
-        else if (snapshot.hasError) {
-          print(snapshot.error);
-        }
-
-        return buildDefault();
-      },
     );
   }
 }

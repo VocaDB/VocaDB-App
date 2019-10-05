@@ -5,7 +5,9 @@ import 'package:vocadb/pages/tag_detail/tag_detail_page.dart';
 class Tags extends StatefulWidget {
   final List<TagModel> _tags;
 
-  const Tags(this._tags);
+  final double padding;
+
+  const Tags(this._tags, {this.padding = 8.0});
 
   @override
   _TagsState createState() => _TagsState();
@@ -62,7 +64,7 @@ class _TagsState extends State<Tags> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(8.0),
+      padding: EdgeInsets.all(widget.padding),
       child: Wrap(
         children: tagList,
       ),
