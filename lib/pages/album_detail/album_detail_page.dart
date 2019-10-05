@@ -9,6 +9,7 @@ import 'package:vocadb/constants.dart';
 import 'package:vocadb/models/album_model.dart';
 import 'package:vocadb/models/track_model.dart';
 import 'package:vocadb/widgets/action_bar.dart';
+import 'package:vocadb/widgets/expandable_content.dart';
 import 'package:vocadb/widgets/result.dart';
 import 'package:vocadb/widgets/share_action_button.dart';
 import 'package:vocadb/widgets/source_action_button.dart';
@@ -16,6 +17,7 @@ import 'package:vocadb/widgets/space_divider.dart';
 import 'package:vocadb/widgets/tags.dart';
 import "package:collection/collection.dart";
 import 'package:vocadb/widgets/album_track.dart';
+import 'package:vocadb/widgets/text_info_section.dart';
 
 class AlbumDetailScreenArguments {
   final int id;
@@ -105,6 +107,60 @@ class _AlbumDetailContentState extends State<AlbumDetailContent> {
 
   List<Widget> detailWidgets(AlbumModel album) {
     List<Widget> widgets = [
+      Padding(
+        padding: EdgeInsets.symmetric(horizontal: 8.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              album.name,
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.title,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+            ),
+            SizedBox(
+              height: 4,
+            ),
+            Text(
+              album.artistString,
+            ),
+          ],
+        ),
+      ),
+      Container(
+        height: 64,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            (album.ratingAverage == 0)
+                ? Text('No rating', style: Theme.of(context).textTheme.caption)
+                : Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text('${album.ratingAverage} ★',
+                          style: TextStyle(fontWeight: FontWeight.bold)),
+                      SizedBox(
+                        height: 4,
+                      ),
+                      Text('${album.ratingCount} rating',
+                          style: Theme.of(context).textTheme.caption)
+                    ],
+                  ),
+            Text(album.discType),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text(album.releaseDateFormatted),
+                SizedBox(
+                  height: 4,
+                ),
+                Text('Released', style: Theme.of(context).textTheme.caption)
+              ],
+            ),
+          ],
+        ),
+      ),
       ActionBar(
         actions: [
           ShareActionButton(
@@ -122,7 +178,24 @@ class _AlbumDetailContentState extends State<AlbumDetailContent> {
       ),
       SpaceDivider(),
       Tags(album.tags),
-      SpaceDivider(),
+      ExpandableContent(
+          child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 8.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(album.name),
+            (album.additionalNames == null)
+                ? Container()
+                : Text(album.additionalNames),
+            SpaceDivider(),
+            TextInfoSection(
+              title: 'Description',
+              text: album.description,
+            )
+          ],
+        ),
+      )),
       TrackList(album.tracks),
     ];
     return widgets;
@@ -222,10 +295,6 @@ class HeroContent extends StatelessWidget {
                       errorWidget: (context, url, error) =>
                           new Icon(Icons.error),
                     ))),
-            SpaceDivider(),
-            Text(this.name,
-                style: Theme.of(context).textTheme.title,
-                overflow: TextOverflow.ellipsis),
           ],
         ),
       ),

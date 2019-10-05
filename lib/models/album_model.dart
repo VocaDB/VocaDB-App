@@ -48,6 +48,8 @@ class AlbumModel extends EntryModel {
       ? mainPicture.urlThumb
       : 'https://vocadb.net/Album/CoverPicture/$id';
 
+  String get releaseDateFormatted => releaseDate.formatted;
+
   List<TagModel> get tags =>
       (this.tagGroups != null) ? this.tagGroups.map((t) => t.tag).toList() : [];
 }

@@ -14,6 +14,7 @@ class EntryModel extends BaseModel {
   String artistString;
   String artistType;
   String songType;
+  String discType;
   MainPictureModel mainPicture;
   List<TagGroupModel> tagGroups;
   List<WebLinkModel> webLinks;
@@ -24,6 +25,7 @@ class EntryModel extends BaseModel {
       : id = json['id'],
         name = json['name'],
         songType = json['songType'],
+        discType = json['discType'],
         additionalNames = json['additionalNames'],
         defaultName = json['defaultName'],
         entryType = entryTypeToEnum(json['entryType']),
