@@ -9,6 +9,8 @@ import 'package:vocadb/constants.dart';
 import 'package:vocadb/models/album_model.dart';
 import 'package:vocadb/models/track_model.dart';
 import 'package:vocadb/widgets/action_bar.dart';
+import 'package:vocadb/widgets/artist_section.dart';
+import 'package:vocadb/widgets/center_content.dart';
 import 'package:vocadb/widgets/expandable_content.dart';
 import 'package:vocadb/widgets/result.dart';
 import 'package:vocadb/widgets/share_action_button.dart';
@@ -40,32 +42,26 @@ class AlbumDetailScreen extends StatelessWidget {
     return Provider<AlbumDetailBloc>(
       builder: (context) => AlbumDetailBloc(args.id, configBloc: configBloc),
       dispose: (context, bloc) => bloc.dispose(),
-      child: AlbumDetailPage(
-          id: args.id, name: args.name, thumbUrl: args.thumbUrl, tag: args.tag),
+      child: AlbumDetailPage(),
     );
   }
 }
 
 class AlbumDetailPage extends StatelessWidget {
-  final int id;
-  final String name;
-  final String thumbUrl;
-  final String tag;
-
-  const AlbumDetailPage({Key key, this.id, this.name, this.thumbUrl, this.tag})
-      : super(key: key);
-
   @override
   Widget build(BuildContext context) {
+    final AlbumDetailScreenArguments args =
+        ModalRoute.of(context).settings.arguments;
+
     return Scaffold(
       body: CustomScrollView(
         slivers: <Widget>[
           SliverAppBar(
             floating: true,
-            title: Text(this.name),
+            title: Text(args.name),
           ),
-          HeroContent(this.name, this.thumbUrl, this.tag),
-          AlbumDetailContent(this.id)
+          HeroContent(args.name, args.thumbUrl, args.tag),
+          AlbumDetailContent(args.id)
         ],
       ),
     );
@@ -116,7 +112,7 @@ class _AlbumDetailContentState extends State<AlbumDetailContent> {
               album.name,
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.title,
-              maxLines: 2,
+              maxLines: 1,
               overflow: TextOverflow.ellipsis,
             ),
             SizedBox(
@@ -184,15 +180,39 @@ class _AlbumDetailContentState extends State<AlbumDetailContent> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(album.name),
+            SpaceDivider(),
+            TextInfoSection(
+              title: 'Name',
+              text: album.name,
+            ),
             (album.additionalNames == null)
                 ? Container()
                 : Text(album.additionalNames),
-            SpaceDivider(),
             TextInfoSection(
               title: 'Description',
               text: album.description,
-            )
+            ),
+            Divider(),
+            ArtistForAlbumSection(
+              title: 'Producers',
+              prefixTag: 'producer_${album.id}',
+              artists: album.producers,
+            ),
+            ArtistForAlbumSection(
+              title: 'Vocalists',
+              prefixTag: 'vocalist_${album.id}',
+              artists: album.vocalists,
+            ),
+            ArtistForAlbumSection(
+              title: 'Labels',
+              prefixTag: 'labels_${album.id}',
+              artists: album.labels,
+            ),
+            ArtistForAlbumSection(
+              title: 'Other artists',
+              prefixTag: 'other_${album.id}',
+              artists: album.otherArtists,
+            ),
           ],
         ),
       )),

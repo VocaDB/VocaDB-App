@@ -41,8 +41,13 @@ class AlbumModel extends EntryModel {
   List<ArtistAlbumModel> get vocalists =>
       this.artists.where((a) => a.isVocalist).toList();
 
-  List<ArtistAlbumModel> get otherArtists =>
-      this.artists.where((a) => !a.isVocalist && !a.isProducer).toList();
+  List<ArtistAlbumModel> get labels =>
+      this.artists.where((a) => a.isLabel).toList();
+
+  List<ArtistAlbumModel> get otherArtists => this
+      .artists
+      .where((a) => !a.isVocalist && !a.isProducer && !a.isLabel)
+      .toList();
 
   get imageUrl => (mainPicture != null && mainPicture.urlThumb != null)
       ? mainPicture.urlThumb

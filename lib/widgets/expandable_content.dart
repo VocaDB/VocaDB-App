@@ -34,7 +34,7 @@ class _ExpandableContentState extends State<ExpandableContent> {
       width: double.infinity,
       child: FlatButton(
         onPressed: open,
-        child: Icon(Icons.arrow_drop_down),
+        child: Text('Show more'),
       ),
     );
   }
@@ -47,7 +47,7 @@ class _ExpandableContentState extends State<ExpandableContent> {
           width: double.infinity,
           child: FlatButton(
             onPressed: close,
-            child: Icon(Icons.arrow_drop_up),
+            child: Text('Hide'),
           ),
         ),
       ],
