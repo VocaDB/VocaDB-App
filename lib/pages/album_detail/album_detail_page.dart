@@ -10,7 +10,6 @@ import 'package:vocadb/models/album_model.dart';
 import 'package:vocadb/models/track_model.dart';
 import 'package:vocadb/widgets/action_bar.dart';
 import 'package:vocadb/widgets/artist_section.dart';
-import 'package:vocadb/widgets/center_content.dart';
 import 'package:vocadb/widgets/expandable_content.dart';
 import 'package:vocadb/widgets/result.dart';
 import 'package:vocadb/widgets/share_action_button.dart';

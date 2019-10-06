@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:rxdart/rxdart.dart';
 import 'package:vocadb/blocs/lyric_content_bloc.dart';
 import 'package:vocadb/models/lyric_model.dart';
 

@@ -1,27 +1,19 @@
-import 'dart:async';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:vocadb/blocs/config_bloc.dart';
-import 'package:vocadb/blocs/song_detail_bloc.dart';
 import 'package:vocadb/blocs/tag_detail_bloc.dart';
 import 'package:vocadb/constants.dart';
-import 'package:vocadb/models/song_model.dart';
 import 'package:vocadb/models/tag_model.dart';
-import 'package:vocadb/services/web_service.dart';
 import 'package:vocadb/widgets/action_bar.dart';
 import 'package:vocadb/widgets/album_list_section.dart';
 import 'package:vocadb/widgets/artist_section.dart';
 import 'package:vocadb/widgets/expandable_content.dart';
 import 'package:vocadb/widgets/info_section.dart';
-import 'package:vocadb/widgets/model_future_builder.dart';
 import 'package:vocadb/widgets/result.dart';
-import 'package:vocadb/widgets/section.dart';
 import 'package:vocadb/widgets/share_action_button.dart';
-import 'package:vocadb/widgets/song_card.dart';
 import 'package:vocadb/widgets/song_list_section.dart';
 import 'package:vocadb/widgets/source_action_button.dart';
 import 'package:vocadb/widgets/tags.dart';
