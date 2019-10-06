@@ -60,8 +60,9 @@ class SongModel extends EntryModel {
   bool get hasOriginalVersion =>
       (this.originalVersionId != null && this.originalVersionId > 0);
 
-  String get publishDateFormatted =>
-      DateFormat('yyyy-MM-dd').format(DateTime.parse(publishDate));
+  String get publishDateFormatted => (publishDate == null)
+      ? null
+      : DateFormat('yyyy-MM-dd').format(DateTime.parse(publishDate));
 
   bool get hasLyrics => lyrics != null && lyrics.length > 0;
 

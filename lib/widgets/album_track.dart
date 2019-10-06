@@ -9,7 +9,7 @@ class AlbumTrack extends StatelessWidget {
 
   void navigateToSongDetail(BuildContext context) {
     Navigator.pushNamed(context, SongDetailScreen.routeName,
-        arguments: SongDetailScreenArguments(track.id, track.name));
+        arguments: SongDetailScreenArguments(track.song.id, track.name));
   }
 
   @override
