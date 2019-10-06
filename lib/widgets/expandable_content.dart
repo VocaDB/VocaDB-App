@@ -41,6 +41,7 @@ class _ExpandableContentState extends State<ExpandableContent> {
 
   Widget buildShow() {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         widget.child,
         Container(

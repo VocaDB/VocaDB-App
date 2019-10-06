@@ -4,8 +4,9 @@ import 'package:vocadb/widgets/web_link.dart';
 
 class WebLinkSection extends StatelessWidget {
   final List<WebLinkModel> webLinks;
+  final String title;
 
-  const WebLinkSection({Key key, this.webLinks}) : super(key: key);
+  const WebLinkSection({Key key, this.webLinks, this.title}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -13,6 +14,27 @@ class WebLinkSection extends StatelessWidget {
 
     if (webLinks.length == 0) {
       return Container();
+    }
+
+    if (this.title != null) {
+      children.add(Padding(
+        padding: EdgeInsets.all(8.0),
+        child: Text(
+          title,
+          textDirection: TextDirection.ltr,
+          style: Theme.of(context).textTheme.subhead,
+        ),
+      ));
+
+      List<Widget> allWebLinks =
+          this.webLinks.map((link) => WebLinkTile(link)).toList();
+
+      children.addAll(allWebLinks);
+
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: children,
+      );
     }
 
     final WebLinkList webLinkList = WebLinkList(webLinks);

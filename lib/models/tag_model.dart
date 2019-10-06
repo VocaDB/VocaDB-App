@@ -40,6 +40,6 @@ class TagModel extends EntryModel {
   }
 
   get imageUrl => (mainPicture != null && mainPicture.urlThumb != null)
-      ? mainPicture.urlThumb
+      ? mainPicture.urlThumb.replaceAll('-t.', '.')
       : null;
 }
