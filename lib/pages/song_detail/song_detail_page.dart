@@ -6,6 +6,7 @@ import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:vocadb/blocs/config_bloc.dart';
+import 'package:vocadb/blocs/favorite_song_bloc.dart';
 import 'package:vocadb/blocs/lyric_content_bloc.dart';
 import 'package:vocadb/blocs/song_detail_bloc.dart';
 import 'package:vocadb/constants.dart';
@@ -18,6 +19,7 @@ import 'package:vocadb/widgets/action_bar.dart';
 import 'package:vocadb/widgets/action_button.dart';
 import 'package:vocadb/widgets/album_card.dart';
 import 'package:vocadb/widgets/artist_tile.dart';
+import 'package:vocadb/widgets/like_action_button.dart';
 import 'package:vocadb/widgets/lyrics_action_button.dart';
 import 'package:vocadb/widgets/pv_tile.dart';
 import 'package:vocadb/widgets/result.dart';
@@ -69,6 +71,31 @@ class SongDetailPage extends StatefulWidget {
 
   @override
   _SongDetailPageState createState() => _SongDetailPageState();
+}
+
+class LikeButton extends StatelessWidget {
+  final Function onPressed;
+  final bool isLiked;
+
+  const LikeButton({Key key, this.onPressed, this.isLiked = false})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return FlatButton(
+        onPressed: onPressed,
+        textColor: (isLiked)
+            ? Theme.of(context).accentColor
+            : Theme.of(context).iconTheme.color,
+        child: Column(
+          children: <Widget>[
+            Icon(
+              Icons.favorite,
+            ),
+            Text((isLiked) ? 'Liked' : 'Like', style: TextStyle(fontSize: 12))
+          ],
+        ));
+  }
 }
 
 class _SongDetailPageState extends State<SongDetailPage> {
@@ -201,30 +228,61 @@ class _SongDetailPageState extends State<SongDetailPage> {
       ],
     ));
 
-    List<ActionButton> actions = [];
-
-    actions.add(ShareActionButton(
-      onTap: () {
-        Share.share('$HOST/S/${song.id}');
-      },
-    ));
-
-    if (song.lyrics != null && song.lyrics.length > 0) {
-      actions.add(LyricsActionButton(
-        onTap: Provider.of<SongDetailBloc>(context).showLyric,
-      ));
-    }
-
-    actions.add(SourceActionButton(
-      onTap: () {
-        String url = '$HOST/S/${song.id}';
-        launch(url);
-      },
-    ));
-
     return [
-      ActionBar(
-        actions: actions,
+      Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            Expanded(
+              child: StreamBuilder(
+                stream: Provider.of<FavoriteSongBloc>(context).songs$,
+                builder: (context, snapshot) {
+                  Map<int, SongModel> songMap = snapshot.data;
+
+                  if ((songMap != null && songMap.containsKey(song.id))) {
+                    return LikeButton(
+                      onPressed: () => Provider.of<FavoriteSongBloc>(context)
+                          .remove(song.id),
+                      isLiked: true,
+                    );
+                  }
+
+                  return LikeButton(
+                    onPressed: () =>
+                        Provider.of<FavoriteSongBloc>(context).add(song),
+                  );
+                },
+              ),
+            ),
+            Expanded(
+              child: FlatButton(
+                  onPressed: () => Share.share('$HOST/S/${song.id}'),
+                  child: Column(
+                    children: <Widget>[
+                      Icon(
+                        Icons.share,
+                      ),
+                      Text('Share', style: TextStyle(fontSize: 12))
+                    ],
+                  )),
+            ),
+            Expanded(
+              child: FlatButton(
+                  onPressed: () {
+                    launch('$HOST/S/${song.id}');
+                  },
+                  child: Column(
+                    children: <Widget>[
+                      Icon(
+                        Icons.info,
+                      ),
+                      Text('More info', style: TextStyle(fontSize: 12))
+                    ],
+                  )),
+            ),
+          ],
+        ),
       ),
       Padding(
           padding: EdgeInsets.all(8.0),

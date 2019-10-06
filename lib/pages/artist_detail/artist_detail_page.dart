@@ -7,18 +7,13 @@ import 'package:vocadb/blocs/artist_detail_bloc.dart';
 import 'package:vocadb/blocs/config_bloc.dart';
 import 'package:vocadb/constants.dart';
 import 'package:vocadb/models/artist_model.dart';
-import 'package:vocadb/pages/main/ranking_tab.dart';
 import 'package:vocadb/widgets/action_bar.dart';
-import 'package:vocadb/widgets/album_card.dart';
 import 'package:vocadb/widgets/album_list_section.dart';
 import 'package:vocadb/widgets/artist_section.dart';
 import 'package:vocadb/widgets/artist_tile.dart';
+import 'package:vocadb/widgets/center_content.dart';
 import 'package:vocadb/widgets/expandable_content.dart';
-import 'package:vocadb/widgets/result.dart';
 import 'package:vocadb/widgets/share_action_button.dart';
-import 'package:vocadb/widgets/song_card.dart';
-import 'package:vocadb/widgets/section.dart';
-import 'package:vocadb/widgets/section_divider.dart';
 import 'package:vocadb/widgets/song_list_section.dart';
 import 'package:vocadb/widgets/source_action_button.dart';
 import 'package:vocadb/widgets/space_divider.dart';
@@ -93,7 +88,7 @@ class ArtistDetailPage extends StatelessWidget {
                 return ArtistDetailContent(artist: snapshot.data);
               } else if (snapshot.hasError) {
                 return SliverFillRemaining(
-                  child: CenterError(
+                  child: CenterResult.error(
                     message: snapshot.error.toString(),
                   ),
                 );

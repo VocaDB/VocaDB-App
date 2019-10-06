@@ -5,6 +5,7 @@ import 'package:vocadb/pages/search/search_album_filter_page.dart';
 import 'package:vocadb/pages/search/search_artist_filter_page.dart';
 import 'package:vocadb/pages/search/search_entry_filter_page.dart';
 import 'package:vocadb/pages/search/search_song_filter_page.dart';
+import 'package:vocadb/widgets/center_content.dart';
 import 'package:vocadb/widgets/entry_tile.dart';
 import 'package:vocadb/widgets/result.dart';
 
@@ -90,7 +91,7 @@ class _SearchPageState extends State<SearchPage> {
         if (snapshot.hasData) {
           return SearchResult(entries: snapshot.data);
         } else if (snapshot.hasError) {
-          return CenterError(message: snapshot.error.toString());
+          return CenterResult.error(message: snapshot.error.toString());
         }
 
         return CenterLoading();
@@ -176,28 +177,6 @@ class _SearchPageState extends State<SearchPage> {
                 );
         },
       ),
-    );
-  }
-}
-
-class CenterLoading extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: CircularProgressIndicator(),
-    );
-  }
-}
-
-class CenterError extends StatelessWidget {
-  final String message;
-
-  const CenterError({Key key, this.message}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Result(Icon(Icons.search, size: 48), message),
     );
   }
 }

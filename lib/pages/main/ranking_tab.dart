@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:vocadb/blocs/ranking_bloc.dart';
 import 'package:vocadb/models/song_model.dart';
 import 'package:vocadb/pages/youtube_playlist/youtube_playlist_page.dart';
-import 'package:vocadb/widgets/result.dart';
+import 'package:vocadb/widgets/center_content.dart';
 import 'package:vocadb/widgets/song_tile.dart';
 
 class RankingTab extends StatefulWidget {
@@ -64,7 +64,8 @@ class _RankingTabState extends State<RankingTab>
                     if (snapshot.hasData) {
                       return RankingContent(songs: snapshot.data);
                     } else if (snapshot.hasError) {
-                      return CenterError(message: snapshot.error.toString());
+                      return CenterResult.error(
+                          message: snapshot.error.toString());
                     }
                     return CenterLoading();
                   },
@@ -75,7 +76,8 @@ class _RankingTabState extends State<RankingTab>
                     if (snapshot.hasData) {
                       return RankingContent(songs: snapshot.data);
                     } else if (snapshot.hasError) {
-                      return CenterError(message: snapshot.error.toString());
+                      return CenterResult.error(
+                          message: snapshot.error.toString());
                     }
                     return CenterLoading();
                   },
@@ -86,7 +88,8 @@ class _RankingTabState extends State<RankingTab>
                     if (snapshot.hasData) {
                       return RankingContent(songs: snapshot.data);
                     } else if (snapshot.hasError) {
-                      return CenterError(message: snapshot.error.toString());
+                      return CenterResult.error(
+                          message: snapshot.error.toString());
                     }
                     return CenterLoading();
                   },
@@ -97,35 +100,14 @@ class _RankingTabState extends State<RankingTab>
                     if (snapshot.hasData) {
                       return RankingContent(songs: snapshot.data);
                     } else if (snapshot.hasError) {
-                      return CenterError(message: snapshot.error.toString());
+                      return CenterResult.error(
+                          message: snapshot.error.toString());
                     }
                     return CenterLoading();
                   },
                 ),
               ],
             )));
-  }
-}
-
-class CenterError extends StatelessWidget {
-  final String message;
-
-  const CenterError({Key key, this.message}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Result.error('Something wrong!', subtitle: message),
-    );
-  }
-}
-
-class CenterLoading extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: CircularProgressIndicator(),
-    );
   }
 }
 

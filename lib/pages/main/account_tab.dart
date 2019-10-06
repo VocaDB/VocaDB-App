@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vocadb/pages/setting/setting_page.dart';
+import 'package:vocadb/pages/users/favorite_song_page.dart';
 
 class AccountTab extends StatelessWidget {
   @override
@@ -13,6 +14,12 @@ class GuestTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView(
       children: <Widget>[
+        ListTile(
+          onTap: () =>
+              Navigator.pushNamed(context, FavoriteSongScreen.routeName),
+          leading: Icon(Icons.library_music),
+          title: Text("Favorite songs"),
+        ),
         ListTile(
           onTap: () {
             Navigator.push(context,

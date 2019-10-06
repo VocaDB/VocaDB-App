@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:vocadb/app_theme.dart';
 import 'package:vocadb/blocs/config_bloc.dart';
+import 'package:vocadb/blocs/favorite_song_bloc.dart';
 import 'package:vocadb/blocs/home_bloc.dart';
 import 'package:vocadb/blocs/ranking_bloc.dart';
 import 'package:vocadb/global_variables.dart';
@@ -9,6 +10,7 @@ import 'package:vocadb/pages/album_detail/album_detail_page.dart';
 import 'package:vocadb/pages/artist_detail/artist_detail_page.dart';
 import 'package:vocadb/pages/song_detail/song_detail_page.dart';
 import 'package:vocadb/pages/tag_detail/tag_detail_page.dart';
+import 'package:vocadb/pages/users/favorite_song_page.dart';
 
 import 'pages/main/account_tab.dart';
 import 'pages/main/home_tab.dart';
@@ -29,7 +31,8 @@ class VocaDBApp extends StatelessWidget {
       providers: [
         Provider<ConfigBloc>.value(value: configBloc),
         Provider<HomeBloc>.value(value: HomeBloc(configBloc)),
-        Provider<RankingBloc>.value(value: RankingBloc(configBloc))
+        Provider<RankingBloc>.value(value: RankingBloc(configBloc)),
+        Provider<FavoriteSongBloc>.value(value: FavoriteSongBloc())
       ],
       child: RootApp(),
     );
@@ -56,6 +59,7 @@ class RootApp extends StatelessWidget {
             AlbumDetailScreen.routeName: (context) => AlbumDetailScreen(),
             ArtistDetailScreen.routeName: (context) => ArtistDetailScreen(),
             TagDetailScreen.routeName: (context) => TagDetailScreen(),
+            FavoriteSongScreen.routeName: (context) => FavoriteSongScreen(),
           },
         );
       },
