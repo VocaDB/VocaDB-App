@@ -19,16 +19,16 @@ class EventTile extends StatelessWidget {
         this.imageUrl = entry.imageUrl,
         this.name = entry.name;
 
+  void navigateToDetail(BuildContext context) {
+    Navigator.pushNamed(context, ReleaseEventDetailScreen.routeName,
+        arguments: ReleaseEventDetailScreenArguments(this.id, this.name,
+            thumbUrl: this.imageUrl, tag: tag));
+  }
+
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      onTap: () {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) =>
-                    EventDetailPage(thumbUrl: this.imageUrl, tag: tag)));
-      },
+      onTap: () => navigateToDetail(context),
       leading: SizedBox(
         width: 50,
         height: 50,
