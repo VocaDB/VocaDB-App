@@ -29,6 +29,18 @@ class ReleaseEventRestService extends BaseRestService {
     return this.list(params: params);
   }
 
+  Future<List<ReleaseEventModel>> recently({String lang = 'Default'}) async {
+    final Map<String, String> params = {
+      'fields': 'MainPicture',
+      'sort': 'Date',
+      'lang': lang,
+      'afterDate': DateTime.now().subtract(Duration(days: 3)).toString(),
+      'beforeDate': DateTime.now().add(Duration(days: 12)).toString(),
+    };
+
+    return this.list(params: params);
+  }
+
   Future<ReleaseEventModel> byId(int id, {String lang = 'Default'}) {
     final Map<String, String> params = {
       'fields': 'Artists,MainPicture,AdditionalNames,Description,WebLinks',

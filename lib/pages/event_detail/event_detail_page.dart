@@ -32,12 +32,19 @@ class ReleaseEventDetailScreen extends StatelessWidget {
       builder: (context) =>
           ReleaseEventDetailBloc(args.id, configBloc: configBloc),
       dispose: (context, bloc) => bloc.dispose(),
-      child: EventDetailPage(),
+      child: EventDetailPage(name: args.name, imageUrl: args.thumbUrl, tag: args.tag),
     );
   }
 }
 
 class EventDetailPage extends StatelessWidget {
+
+  final String name;
+  final String imageUrl;
+  final String tag;
+
+  const EventDetailPage({Key key, this.name, this.imageUrl, this.tag}) : super(key: key);
+
   List<Widget> buildContent() {
     return [Text('Expansion panel')];
   }
@@ -112,12 +119,27 @@ class EventDetailPage extends StatelessWidget {
     );
   }
 
-  buildLoading() {
+  buildDefault(BuildContext context) {
     return CustomScrollView(
       slivers: <Widget>[
         SliverAppBar(
           expandedHeight: 200.0,
           pinned: true,
+          flexibleSpace: FlexibleSpaceBar(
+            title: Text("#" + this.name),
+            background: (this.imageUrl == null)
+                ? Container()
+                : Hero(
+                  tag: this.tag,
+                  child: CachedNetworkImage(
+                    imageUrl: this.imageUrl,
+                    fit: BoxFit.cover,
+                    placeholder: (context, url) =>
+                        Container(color: Colors.grey),
+                    errorWidget: (context, url, error) => new Icon(Icons.error),
+                  ),
+                ) 
+          ),
         ),
         SliverFillRemaining(
           child: Center(
@@ -140,7 +162,7 @@ class EventDetailPage extends StatelessWidget {
             return buildError(snapshot.error.toString());
           }
 
-          return buildLoading();
+          return buildDefault(context);
         },
       ),
     );

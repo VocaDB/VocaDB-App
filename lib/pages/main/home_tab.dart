@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:vocadb/blocs/config_bloc.dart';
+import 'package:vocadb/blocs/home_bloc.dart';
 import 'package:vocadb/blocs/search_bloc.dart';
+import 'package:vocadb/models/release_event_model.dart';
 import 'package:vocadb/pages/main/highlighted_list.dart';
 import 'package:vocadb/pages/main/latest_album_list.dart';
 import 'package:vocadb/pages/main/top_album_list.dart';
 import 'package:vocadb/pages/search/search_page.dart';
+import 'package:vocadb/widgets/event_tile.dart';
+import 'package:vocadb/widgets/section.dart';
 
 class HomeTab extends StatefulWidget {
   @override
@@ -30,6 +34,18 @@ class _HomeTabState extends State<HomeTab> {
           HighlightedList(),
           LatestAlbumList(),
           TopAlbumList(),
+          StreamBuilder(
+              stream: Provider.of<HomeBloc>(context).recentEvents$,
+              builder: (context, snapshot) {
+                if (!snapshot.hasData) return Container();
+
+                List<ReleaseEventModel> releaseEvents = snapshot.data;
+                return Section(
+                  title: 'Recent events',
+                  children: releaseEvents.map((e) => EventTile.fromEntry(e, tag: 'recent_event_${e.id}')).toList(),
+                );
+              },
+            ),
         ],
       ),
     );

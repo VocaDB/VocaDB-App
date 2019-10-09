@@ -25,6 +25,20 @@ main() {
     expect(service.latest(), completion(isA<List<ReleaseEventModel>>()));
   });
 
+  test('should return list of recently release events', () {
+    final mockResult = {
+      'items': [
+        {'id': 1, 'name': 'A'},
+        {'id': 2, 'name': 'B'}
+      ]
+    };
+
+    when(mockRestApi.get(any, any)).thenAnswer((_) => Future.value(mockResult));
+
+    expect(service.recently(), completion(isA<List<ReleaseEventModel>>()));
+
+  });
+
   test('should return list of releaseEvents albums', () {
     final mockResult = {
       'items': [
