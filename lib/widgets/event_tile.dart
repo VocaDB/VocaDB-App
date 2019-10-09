@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:vocadb/models/entry_model.dart';
 import 'package:vocadb/pages/event_detail/event_detail_page.dart';
@@ -34,9 +35,12 @@ class EventTile extends StatelessWidget {
         height: 50,
         child: Hero(
             tag: tag,
-            child: Image.network(
-              this.imageUrl,
-              fit: BoxFit.fill,
+            child: CachedNetworkImage(
+              imageUrl: this.imageUrl,
+              fit: BoxFit.cover,
+              placeholder: (context, url) =>
+                  Container(color: Colors.grey),
+              errorWidget: (context, url, error) => new Icon(Icons.error),
             )),
       ),
       title: Text(this.name, overflow: TextOverflow.ellipsis),
