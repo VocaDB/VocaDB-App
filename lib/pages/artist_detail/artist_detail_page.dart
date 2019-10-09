@@ -7,6 +7,7 @@ import 'package:vocadb/blocs/artist_detail_bloc.dart';
 import 'package:vocadb/blocs/config_bloc.dart';
 import 'package:vocadb/constants.dart';
 import 'package:vocadb/models/artist_model.dart';
+import 'package:vocadb/pages/search/more_song_page.dart';
 import 'package:vocadb/widgets/action_bar.dart';
 import 'package:vocadb/widgets/album_list_section.dart';
 import 'package:vocadb/widgets/artist_section.dart';
@@ -254,12 +255,34 @@ class ArtistDetailContent extends StatelessWidget {
           songs: artist.relations.latestSongs,
           horizontal: true,
           prefixTag: 'artist_latest_song_${artist.id}}',
+          extraMenus: PopupMenuButton<String>(
+            onSelected: (String selectedValue) {
+              MoreSongScreen.showLatestByArtist(context, 'More songs from ${artist.name}', artist.id);
+            },
+            itemBuilder: (BuildContext context) => [
+              PopupMenuItem<String>(
+                value: 'more',
+                child: Text('Show more'),
+              ),
+            ],
+          ),
         ),
         SongListSection(
           title: 'Popular songs',
           songs: artist.relations.popularSongs,
           horizontal: true,
           prefixTag: 'artist_popular_song_${artist.id}}',
+                    extraMenus: PopupMenuButton<String>(
+            onSelected: (String selectedValue) {
+              MoreSongScreen.showTopByArtist(context, 'Top songs from ${artist.name}', artist.id);
+            },
+            itemBuilder: (BuildContext context) => [
+              PopupMenuItem<String>(
+                value: 'more',
+                child: Text('Show more'),
+              ),
+            ],
+          ),
         ),
         AlbumListSection(
           title: 'Recent or upcoming albums',

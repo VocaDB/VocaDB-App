@@ -9,6 +9,7 @@ import 'package:vocadb/global_variables.dart';
 import 'package:vocadb/pages/album_detail/album_detail_page.dart';
 import 'package:vocadb/pages/artist_detail/artist_detail_page.dart';
 import 'package:vocadb/pages/event_detail/event_detail_page.dart';
+import 'package:vocadb/pages/search/more_song_page.dart';
 import 'package:vocadb/pages/song_detail/song_detail_page.dart';
 import 'package:vocadb/pages/tag_detail/tag_detail_page.dart';
 import 'package:vocadb/pages/users/favorite_song_page.dart';
@@ -63,6 +64,7 @@ class RootApp extends StatelessWidget {
             ReleaseEventDetailScreen.routeName: (context) =>
                 ReleaseEventDetailScreen(),
             FavoriteSongScreen.routeName: (context) => FavoriteSongScreen(),
+            MoreSongScreen.routeName: (context) => MoreSongScreen(),
           },
         );
       },

@@ -39,6 +39,13 @@ class SongDetailScreenArguments {
 class SongDetailScreen extends StatelessWidget {
   static const String routeName = '/songDetail';
 
+
+  static void navigateToSongDetail(BuildContext context, SongModel song, {String tag}) {
+    Navigator.pushNamed(context, SongDetailScreen.routeName,
+        arguments: SongDetailScreenArguments(song.id, song.name,
+            thumbUrl: song.thumbUrl, tag: tag));
+  }
+
   @override
   Widget build(BuildContext context) {
     final SongDetailScreenArguments args =
