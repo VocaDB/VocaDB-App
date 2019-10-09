@@ -7,6 +7,7 @@ import 'package:vocadb/blocs/artist_detail_bloc.dart';
 import 'package:vocadb/blocs/config_bloc.dart';
 import 'package:vocadb/constants.dart';
 import 'package:vocadb/models/artist_model.dart';
+import 'package:vocadb/pages/search/more_album_page.dart';
 import 'package:vocadb/pages/search/more_song_page.dart';
 import 'package:vocadb/widgets/action_bar.dart';
 import 'package:vocadb/widgets/album_list_section.dart';
@@ -272,7 +273,7 @@ class ArtistDetailContent extends StatelessWidget {
           songs: artist.relations.popularSongs,
           horizontal: true,
           prefixTag: 'artist_popular_song_${artist.id}}',
-                    extraMenus: PopupMenuButton<String>(
+          extraMenus: PopupMenuButton<String>(
             onSelected: (String selectedValue) {
               MoreSongScreen.showTopByArtist(context, 'Top songs from ${artist.name}', artist.id);
             },
@@ -289,12 +290,34 @@ class ArtistDetailContent extends StatelessWidget {
           albums: artist.relations.latestAlbums,
           horizontal: true,
           prefixTag: 'artist_latest_album_${artist.id}}',
+          extraMenus: PopupMenuButton<String>(
+            onSelected: (String selectedValue) {
+              MoreAlbumScreen.showLatestByArtist(context, 'Latest albums from ${artist.name}', artist.id);
+            },
+            itemBuilder: (BuildContext context) => [
+              PopupMenuItem<String>(
+                value: 'more',
+                child: Text('Show more'),
+              ),
+            ],
+          ),
         ),
         AlbumListSection(
           title: 'Popular albums',
           albums: artist.relations.popularAlbums,
           horizontal: true,
           prefixTag: 'artist_latest_album_${artist.id}}',
+          extraMenus: PopupMenuButton<String>(
+            onSelected: (String selectedValue) {
+              MoreAlbumScreen.showTopByArtist(context, 'Top albums from ${artist.name}', artist.id);
+            },
+            itemBuilder: (BuildContext context) => [
+              PopupMenuItem<String>(
+                value: 'more',
+                child: Text('Show more'),
+              ),
+            ],
+          ),
         ),
         WebLinkSection(
           webLinks: artist.webLinks,

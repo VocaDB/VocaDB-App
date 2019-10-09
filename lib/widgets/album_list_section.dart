@@ -9,13 +9,15 @@ class AlbumListSection extends StatelessWidget {
   final List<AlbumModel> albums;
   final bool horizontal;
   final String prefixTag;
+  final Widget extraMenus;
 
   const AlbumListSection(
       {Key key,
       this.albums,
       this.horizontal = false,
       this.prefixTag,
-      this.title})
+      this.title,
+      this.extraMenus})
       : super(key: key);
 
   Widget mapWidget(AlbumModel album) {
@@ -30,6 +32,7 @@ class AlbumListSection extends StatelessWidget {
     return Section(
         title: title,
         horizontal: true,
+        extraMenus: extraMenus,
         children: albums.map<Widget>(mapWidget).toList());
   }
 }
