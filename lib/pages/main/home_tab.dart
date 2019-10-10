@@ -9,6 +9,7 @@ import 'package:vocadb/pages/artist/artist_page.dart';
 import 'package:vocadb/pages/main/highlighted_list.dart';
 import 'package:vocadb/pages/main/latest_album_list.dart';
 import 'package:vocadb/pages/main/top_album_list.dart';
+import 'package:vocadb/pages/release_event/release_event_page.dart';
 import 'package:vocadb/pages/search/search_page.dart';
 import 'package:vocadb/pages/song/song_page.dart';
 import 'package:vocadb/pages/tag/tag_page.dart';
@@ -43,7 +44,7 @@ class _HomeTabState extends State<HomeTab> {
               ShortcutMenuButton(title: 'Artists', iconData: Icons.person, onPressed: () => ArtistScreen.navigate(context)),
               ShortcutMenuButton(title: 'Albums', iconData: Icons.album, onPressed: () => AlbumScreen.navigate(context)),
               ShortcutMenuButton(title: 'Tags', iconData: Icons.label, onPressed: () => TagScreen.navigate(context)),
-              ShortcutMenuButton(title: 'Events', iconData: Icons.event, onPressed: () => {}),
+              ShortcutMenuButton(title: 'Events', iconData: Icons.event, onPressed: () => ReleaseEventScreen.navigate(context)),
             ],
           ),
           HighlightedList(),
