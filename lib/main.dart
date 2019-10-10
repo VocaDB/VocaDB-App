@@ -15,6 +15,7 @@ import 'package:vocadb/pages/search/more_album_page.dart';
 import 'package:vocadb/pages/search/more_song_page.dart';
 import 'package:vocadb/pages/song/song_page.dart';
 import 'package:vocadb/pages/song_detail/song_detail_page.dart';
+import 'package:vocadb/pages/tag/tag_page.dart';
 import 'package:vocadb/pages/tag_detail/tag_detail_page.dart';
 import 'package:vocadb/pages/users/favorite_song_page.dart';
 
@@ -73,6 +74,7 @@ class RootApp extends StatelessWidget {
             SongScreen.routeName: (context) => SongScreen(),
             ArtistScreen.routeName: (context) => ArtistScreen(),
             AlbumScreen.routeName: (context) => AlbumScreen(),
+            TagScreen.routeName: (context) => TagScreen(),
           },
         );
       },

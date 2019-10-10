@@ -4,11 +4,14 @@ import 'package:vocadb/blocs/config_bloc.dart';
 import 'package:vocadb/blocs/home_bloc.dart';
 import 'package:vocadb/blocs/search_bloc.dart';
 import 'package:vocadb/models/release_event_model.dart';
+import 'package:vocadb/pages/album/album_page.dart';
+import 'package:vocadb/pages/artist/artist_page.dart';
 import 'package:vocadb/pages/main/highlighted_list.dart';
 import 'package:vocadb/pages/main/latest_album_list.dart';
 import 'package:vocadb/pages/main/top_album_list.dart';
 import 'package:vocadb/pages/search/search_page.dart';
 import 'package:vocadb/pages/song/song_page.dart';
+import 'package:vocadb/pages/tag/tag_page.dart';
 import 'package:vocadb/widgets/event_tile.dart';
 import 'package:vocadb/widgets/section.dart';
 
@@ -37,9 +40,9 @@ class _HomeTabState extends State<HomeTab> {
             runSpacing: 12.0,
             children: <Widget>[
               ShortcutMenuButton(title: 'Songs', iconData: Icons.music_note, onPressed: () => SongScreen.navigate(context)),
-              ShortcutMenuButton(title: 'Artists', iconData: Icons.person, onPressed: () => {}),
-              ShortcutMenuButton(title: 'Albums', iconData: Icons.album, onPressed: () => {}),
-              ShortcutMenuButton(title: 'Tags', iconData: Icons.label, onPressed: () => {}),
+              ShortcutMenuButton(title: 'Artists', iconData: Icons.person, onPressed: () => ArtistScreen.navigate(context)),
+              ShortcutMenuButton(title: 'Albums', iconData: Icons.album, onPressed: () => AlbumScreen.navigate(context)),
+              ShortcutMenuButton(title: 'Tags', iconData: Icons.label, onPressed: () => TagScreen.navigate(context)),
               ShortcutMenuButton(title: 'Events', iconData: Icons.event, onPressed: () => {}),
             ],
           ),
