@@ -8,10 +8,12 @@ import 'package:vocadb/pages/main/highlighted_list.dart';
 import 'package:vocadb/pages/main/latest_album_list.dart';
 import 'package:vocadb/pages/main/top_album_list.dart';
 import 'package:vocadb/pages/search/search_page.dart';
+import 'package:vocadb/pages/song/song_page.dart';
 import 'package:vocadb/widgets/event_tile.dart';
 import 'package:vocadb/widgets/section.dart';
 
 class HomeTab extends StatefulWidget {
+
   @override
   _HomeTabState createState() => _HomeTabState();
 }
@@ -30,6 +32,16 @@ class _HomeTabState extends State<HomeTab> {
           Padding(
             padding: EdgeInsets.all(8.0),
             child: SearchBar(),
+          ),
+          Wrap(
+            runSpacing: 12.0,
+            children: <Widget>[
+              ShortcutMenuButton(title: 'Songs', iconData: Icons.music_note, onPressed: () => SongScreen.navigate(context)),
+              ShortcutMenuButton(title: 'Artists', iconData: Icons.person, onPressed: () => {}),
+              ShortcutMenuButton(title: 'Albums', iconData: Icons.album, onPressed: () => {}),
+              ShortcutMenuButton(title: 'Tags', iconData: Icons.label, onPressed: () => {}),
+              ShortcutMenuButton(title: 'Events', iconData: Icons.event, onPressed: () => {}),
+            ],
           ),
           HighlightedList(),
           LatestAlbumList(),
@@ -75,12 +87,45 @@ class SearchBar extends StatelessWidget {
             padding: EdgeInsets.all(12.0),
             child: Row(
               children: <Widget>[
-                Icon(Icons.search, color: theme.iconTheme.color)
+                Icon(Icons.search, color: theme.iconTheme.color),
+                SizedBox(width: 8,),
+                Text('Search anything')
               ],
             ),
           ),
         ),
       ),
     );
+  }
+}
+
+
+class ShortcutMenuButton extends StatelessWidget {
+
+  final String title;
+  final IconData iconData;
+  final Function onPressed;
+
+  const ShortcutMenuButton({Key key, this.title, this.iconData, this.onPressed}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+                children: <Widget>[
+                  RawMaterialButton(
+                    onPressed: this.onPressed,
+                    child: Icon(
+                      iconData,
+                      color: Theme.of(context).iconTheme.color,
+                      size: 24.0,
+                    ),
+                    shape: CircleBorder(),
+                    elevation: 2.0,
+                    fillColor: Theme.of(context).cardColor,
+                    padding: const EdgeInsets.all(15.0),
+                  ),
+                  Text(title)
+                ],
+              );
   }
 }

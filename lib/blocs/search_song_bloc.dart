@@ -17,7 +17,15 @@ class SearchSongBloc {
   Map<String, String> params;
   ConfigBloc configBloc;
 
-  SearchSongBloc({this.params = const {}, this.configBloc}) {
+  SearchSongBloc({this.params, this.configBloc}) {
+
+    if(params == null) {
+      params = {
+        'sort': 'AdditionDate',
+        'fields': 'PVs,MainPicture,ThumbUrl'
+      };
+    }
+
     _query
         .debounceTime(Duration(milliseconds: 500))
         .distinct()
