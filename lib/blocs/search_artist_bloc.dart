@@ -1,4 +1,5 @@
 import 'package:rxdart/rxdart.dart';
+import 'package:vocadb/blocs/config_bloc.dart';
 import 'package:vocadb/models/artist_model.dart';
 import 'package:vocadb/services/artist_rest_service.dart';
 
@@ -13,7 +14,9 @@ class SearchArtistBloc {
 
   ArtistRestService artistService = ArtistRestService();
 
-  SearchArtistBloc() {
+  ConfigBloc configBloc;
+
+  SearchArtistBloc({this.configBloc}) {
     _query
         .debounceTime(Duration(milliseconds: 500))
         .distinct()

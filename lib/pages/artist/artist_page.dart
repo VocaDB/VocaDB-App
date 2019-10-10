@@ -2,38 +2,37 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:vocadb/blocs/config_bloc.dart';
-import 'package:vocadb/blocs/search_song_bloc.dart';
-import 'package:vocadb/models/song_model.dart';
+import 'package:vocadb/blocs/search_artist_bloc.dart';
+import 'package:vocadb/models/artist_model.dart';
 import 'package:vocadb/widgets/result.dart';
-import 'package:vocadb/widgets/song_tile.dart';
+import 'package:vocadb/widgets/artist_tile.dart';
 
-class SongScreen extends StatelessWidget {
-  static const String routeName = '/songs';
-
+class ArtistScreen extends StatelessWidget {
+  static const String routeName = '/artists';
 
   static void navigate(BuildContext context) {
-    Navigator.pushNamed(context, SongScreen.routeName);
+    Navigator.pushNamed(context, ArtistScreen.routeName);
   }
 
   @override
   Widget build(BuildContext context) {
     final configBloc = Provider.of<ConfigBloc>(context);
 
-    return Provider<SearchSongBloc>(
-      builder: (context) => SearchSongBloc(configBloc: configBloc),
+    return Provider<SearchArtistBloc>(
+      builder: (context) => SearchArtistBloc(configBloc: configBloc),
       dispose: (context, bloc) => bloc.dispose(),
-      child: SongPage(),
+      child: ArtistPage(),
     );
   }
 }
 
-class SongPage extends StatelessWidget {
- Widget buildData(List<SongModel> songs) {
+class ArtistPage extends StatelessWidget {
+ Widget buildData(List<ArtistModel> artists) {
     return ListView.builder(
-      itemCount: songs.length,
+      itemCount: artists.length,
       itemBuilder: (context, index) {
-        SongModel song = songs[index];
-        return SongTile.fromSong(song);
+        ArtistModel artist = artists[index];
+        return ArtistTile.fromEntry(artist, tag: 'artist_${artist.id}');
       },
     );
   }
@@ -71,11 +70,11 @@ class SongPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final bloc = Provider.of<SearchSongBloc>(context);
+    final bloc = Provider.of<SearchArtistBloc>(context);
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Songs'),
+        title: Text('Artists'),
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.search),

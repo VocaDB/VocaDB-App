@@ -17,7 +17,14 @@ class SearchAlbumBloc {
   Map<String, String> params;
   ConfigBloc configBloc;
 
-  SearchAlbumBloc({this.params = const {}, this.configBloc}) {
+  SearchAlbumBloc({this.params, this.configBloc}) {
+
+    if(this.params == null) {
+      params = {
+        'sort': 'Date',
+        'fields': 'MainPicture',
+      };
+    }
     _query
         .debounceTime(Duration(milliseconds: 500))
         .distinct()

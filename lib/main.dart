@@ -6,7 +6,9 @@ import 'package:vocadb/blocs/favorite_song_bloc.dart';
 import 'package:vocadb/blocs/home_bloc.dart';
 import 'package:vocadb/blocs/ranking_bloc.dart';
 import 'package:vocadb/global_variables.dart';
+import 'package:vocadb/pages/album/album_page.dart';
 import 'package:vocadb/pages/album_detail/album_detail_page.dart';
+import 'package:vocadb/pages/artist/artist_page.dart';
 import 'package:vocadb/pages/artist_detail/artist_detail_page.dart';
 import 'package:vocadb/pages/event_detail/event_detail_page.dart';
 import 'package:vocadb/pages/search/more_album_page.dart';
@@ -69,6 +71,8 @@ class RootApp extends StatelessWidget {
             MoreSongScreen.routeName: (context) => MoreSongScreen(),
             MoreAlbumScreen.routeName: (context) => MoreAlbumScreen(),
             SongScreen.routeName: (context) => SongScreen(),
+            ArtistScreen.routeName: (context) => ArtistScreen(),
+            AlbumScreen.routeName: (context) => AlbumScreen(),
           },
         );
       },
