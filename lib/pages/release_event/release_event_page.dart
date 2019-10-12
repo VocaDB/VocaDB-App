@@ -1,8 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:vocadb/blocs/config_bloc.dart';
+import 'package:vocadb/blocs/release_event_bloc.dart';
 import 'package:vocadb/blocs/search_release_event_bloc.dart';
 import 'package:vocadb/models/release_event_model.dart';
+import 'package:vocadb/pages/search/release_event_filter_page.dart';
+import 'package:vocadb/widgets/center_content.dart';
 import 'package:vocadb/widgets/event_tile.dart';
 import 'package:vocadb/widgets/result.dart';
 
@@ -15,16 +19,39 @@ class ReleaseEventScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Provider<SearchReleaseEventBloc>(
-      builder: (context) => SearchReleaseEventBloc(),
+    final configBloc = Provider.of<ConfigBloc>(context);
+
+    return Provider<ReleaseEventBloc>(
+      builder: (context) => ReleaseEventBloc(configBloc: configBloc),
       dispose: (context, bloc) => bloc.dispose(),
       child: ReleaseEventPage(),
     );
   }
 }
 
-class ReleaseEventPage extends StatelessWidget {
- Widget buildData(List<ReleaseEventModel> releaseEvents) {
+class ReleaseEventPage extends StatefulWidget {
+  @override
+  _ReleaseEventPageState createState() => _ReleaseEventPageState();
+}
+
+class _ReleaseEventPageState extends State<ReleaseEventPage> {
+  final TextEditingController _controller = TextEditingController();
+
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  Widget buildData(List<ReleaseEventModel> releaseEvents) {
+    if (releaseEvents.length == 0) {
+      return CenterResult(
+        result: Result(
+          Icon(Icons.event),
+          'No result',
+        ),
+      );
+    }
+
     return ListView.builder(
       itemCount: releaseEvents.length,
       itemBuilder: (context, index) {
@@ -66,20 +93,60 @@ class ReleaseEventPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    final bloc = Provider.of<SearchReleaseEventBloc>(context);
+    final bloc = Provider.of<ReleaseEventBloc>(context);
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Release events'),
+        title: StreamBuilder(
+          stream: bloc.searching$,
+          builder: (context, snapshot) {
+            return AnimatedSwitcher(
+              duration: Duration(milliseconds: 100),
+              child: (snapshot.hasData && snapshot.data)
+                  ? Row(
+                      children: <Widget>[
+                        Expanded(
+                          child: TextField(
+                            controller: _controller,
+                            onChanged: bloc.updateQuery,
+                            style: Theme.of(context).primaryTextTheme.title,
+                            autofocus: true,
+                            decoration: InputDecoration(
+                                border: InputBorder.none, hintText: "Search"),
+                          ),
+                        ),
+                      ],
+                    )
+                  : Text('Release events'),
+            );
+          },
+        ),
         actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.search),
-            onPressed: () {},
-          ),
+          StreamBuilder(
+              stream: bloc.searching$,
+              builder: (context, snapshot) {
+                return (snapshot.hasData && snapshot.data)
+                    ? IconButton(
+                        icon: Icon(Icons.clear),
+                        onPressed: () {
+                          bloc.updateQuery('');
+                          _controller.clear();
+                        },
+                      )
+                    : IconButton(
+                        icon: Icon(Icons.search),
+                        onPressed: () => bloc.openSearch(),
+                      );
+              }),
           IconButton(
             icon: Icon(Icons.filter_list),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => ReleaseEventFilterPage(
+                          bloc: bloc.releaseEventFilterBloc)));
+            },
           ),
         ],
       ),
