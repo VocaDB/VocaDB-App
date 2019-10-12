@@ -20,8 +20,13 @@ class FavoriteSongBloc {
   }
 
   void initialLoad() {
-    Map<String, dynamic> jsonMap =
-        json.decode(_personalBox.get('favorite_songs'));
+    dynamic rawData = _personalBox.get('favorite_songs');
+
+    if (rawData == null) {
+      return;
+    }
+
+    Map<String, dynamic> jsonMap = json.decode(rawData);
 
     Map<int, SongModel> mapSongs = jsonMap.map(
         (key, value) => MapEntry(int.parse(key), SongModel.fromJson(value)));
