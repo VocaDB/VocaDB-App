@@ -81,15 +81,15 @@ main() {
   test('should return params correctly', () {
     Map<String, String> params = bloc.params();
 
-    expect(params.containsKey('albumTypes'), isFalse);
+    expect(params.containsKey('discTypes'), isFalse);
 
     bloc.updateAlbumType('Single');
     bloc.updateSort('CreateDate');
 
     params = bloc.params();
 
-    expect(params.containsKey('albumTypes'), isTrue);
-    expect(params['albumTypes'], equals('Single'));
+    expect(params.containsKey('discTypes'), isTrue);
+    expect(params['discTypes'], equals('Single'));
 
     expect(params.containsKey('sort'), isTrue);
     expect(params['sort'], equals('CreateDate'));

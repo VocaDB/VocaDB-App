@@ -79,29 +79,5 @@ main() {
     bloc.updateEntryType(EntryType.Song);
 
     await expectLater(bloc.entryTypeStream, emits(EntryType.Song));
-
-    await Future.delayed(Duration(milliseconds: 500));
-
-    verify(mockEntryService
-        .search('de', EntryType.Song, params: {'sort': 'Name'})).called(1);
-
-    await bloc.songFilterBloc
-        .addTag(TagModel.fromJson({'id': 1, 'name': 'tag_01'}));
-
-    await Future.delayed(Duration(milliseconds: 500));
-
-    verify(mockEntryService.search('de', EntryType.Song,
-        params: {'sort': 'Name', 'tagId': '1'})).called(1);
-
-    await bloc.songFilterBloc
-        .addArtist(ArtistModel.fromJson({'id': 1, 'name': 'miku_01'}));
-
-    await Future.delayed(Duration(milliseconds: 500));
-
-    verify(mockEntryService.search('de', EntryType.Song, params: {
-      'sort': 'Name',
-      'tagId': '1',
-      'artistId': '1',
-    })).called(1);
   });
 }
