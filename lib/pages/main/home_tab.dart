@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:vocadb/blocs/config_bloc.dart';
 import 'package:vocadb/blocs/home_bloc.dart';
-import 'package:vocadb/blocs/search_bloc.dart';
 import 'package:vocadb/models/release_event_model.dart';
 import 'package:vocadb/pages/album/album_page.dart';
 import 'package:vocadb/pages/artist/artist_page.dart';
@@ -10,7 +8,6 @@ import 'package:vocadb/pages/main/highlighted_list.dart';
 import 'package:vocadb/pages/main/latest_album_list.dart';
 import 'package:vocadb/pages/main/top_album_list.dart';
 import 'package:vocadb/pages/release_event/release_event_page.dart';
-import 'package:vocadb/pages/search/search_page.dart';
 import 'package:vocadb/pages/song/song_page.dart';
 import 'package:vocadb/pages/tag/tag_page.dart';
 import 'package:vocadb/widgets/event_tile.dart';
@@ -40,7 +37,6 @@ class _HomeTabState extends State<HomeTab> {
               crossAxisAlignment: WrapCrossAlignment.center,
               alignment: WrapAlignment.start,
               runAlignment: WrapAlignment.center,
-              spacing: 8.0,
               runSpacing: 24.0,
               children: <Widget>[
                 ShortcutMenuButton(
@@ -81,8 +77,8 @@ class _HomeTabState extends State<HomeTab> {
               return Section(
                 title: 'Recent events',
                 children: releaseEvents
-                    .map((e) =>
-                        EventTile.fromEntry(e, tag: 'recent_event_${e.id}'))
+                    .map((e) => EventTile.fromReleaseEvent(e,
+                        tag: 'recent_event_${e.id}'))
                     .toList(),
               );
             },

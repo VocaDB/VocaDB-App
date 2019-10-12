@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:vocadb/models/album_model.dart';
 import 'package:vocadb/models/artist_model.dart';
 import 'package:vocadb/models/entry_model.dart';
+import 'package:vocadb/models/release_event_model.dart';
 import 'package:vocadb/models/song_model.dart';
 import 'package:vocadb/services/base_rest_service.dart';
 import 'package:vocadb/services/web_service.dart';
@@ -16,7 +17,8 @@ class EntryService extends BaseRestService {
 
   Future<List<EntryModel>> search(String query, EntryType entryType,
       {Map<String, String> params}) {
-    final String endpoint = getEndpointByEntryType(entryType);
+    final String endpoint = '/api/entries';
+    String entryTypeText = EntryModel.entryTypeEnumToString(entryType);
 
     params ??= {};
 
@@ -24,8 +26,12 @@ class EntryService extends BaseRestService {
       params['query'] = query;
     }
 
-    params.addAll(
-        {'fields': 'MainPicture', 'nameMatchMode': 'Auto', 'maxResults': '30'});
+    params.addAll({
+      'fields': 'MainPicture',
+      'entryTypes': entryTypeText,
+      'nameMatchMode': 'Auto',
+      'maxResults': '30'
+    });
 
     return super.query(endpoint, params).then((items) {
       switch (entryType) {
@@ -35,22 +41,11 @@ class EntryService extends BaseRestService {
           return ArtistModel.jsonToList(items);
         case EntryType.Album:
           return AlbumModel.jsonToList(items);
+        case EntryType.ReleaseEvent:
+          return ReleaseEventModel.jsonToList(items);
         default:
           return EntryModel.jsonToList(items);
       }
     });
-  }
-
-  String getEndpointByEntryType(EntryType entryType) {
-    switch (entryType) {
-      case EntryType.Song:
-        return '/api/songs';
-      case EntryType.Album:
-        return '/api/albums';
-      case EntryType.Artist:
-        return '/api/artists';
-      default:
-        return '/api/entries';
-    }
   }
 }

@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:intl/intl.dart';
 import 'package:vocadb/models/base_model.dart';
 import 'package:vocadb/models/main_picture_model.dart';
 import 'package:vocadb/models/tag_group_model.dart';
@@ -15,6 +16,8 @@ class EntryModel extends BaseModel {
   String artistType;
   String songType;
   String discType;
+  String eventCategory;
+  String activityDate;
   MainPictureModel mainPicture;
   List<TagGroupModel> tagGroups;
   List<WebLinkModel> webLinks;
@@ -26,6 +29,8 @@ class EntryModel extends BaseModel {
         name = json['name'],
         songType = json['songType'],
         discType = json['discType'],
+        eventCategory = json['eventCategory'],
+        activityDate = json['activityDate'],
         additionalNames = json['additionalNames'],
         defaultName = json['defaultName'],
         entryType = entryTypeToEnum(json['entryType']),
@@ -99,15 +104,9 @@ class EntryModel extends BaseModel {
     }
   }
 
-  static Resource<List<EntryModel>> query(String query) {
-    return Resource(
-        endpoint:
-            '/api/entries?query=$query&fields=MainPicture&nameMatchMode=auto',
-        parse: (Response response) {
-          Iterable result = response.data['items'];
-          return result.map((model) => EntryModel.fromJson(model)).toList();
-        });
-  }
+  String get activityDateFormatted => (activityDate == null)
+      ? null
+      : DateFormat('yyyy-MM-dd').format(DateTime.parse(activityDate));
 
   @override
   String toString() {
@@ -137,6 +136,8 @@ class EntryList {
       entries.where((e) => e.entryType == EntryType.Artist).toList();
   List<EntryModel> get albums =>
       entries.where((e) => e.entryType == EntryType.Album).toList();
+  List<EntryModel> get releaseEvents =>
+      entries.where((e) => e.entryType == EntryType.ReleaseEvent).toList();
 }
 
 enum EntryType { Undefined, Song, Artist, Album, ReleaseEvent, Tag }
