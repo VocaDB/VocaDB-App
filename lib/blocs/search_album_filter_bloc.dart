@@ -63,7 +63,7 @@ class SearchAlbumFilterBloc {
 
   Map<String, String> params() {
     Map<String, String> params = {'sort': sort ?? 'Name'};
-    if (albumType != null) params['albumTypes'] = albumType;
+    if (albumType != null) params['discTypes'] = albumType;
     if (tagList != null && tagList.length > 0)
       params['tagId'] = tags.keys.join(',');
     if (artistList != null && artistList.length > 0)

@@ -248,9 +248,10 @@ class AlbumSortDropDown extends StatelessWidget {
   final sorts = const [
     {'name': 'Name', 'value': 'Name'},
     {'name': 'Addition date', 'value': 'AdditionDate'},
-    {'name': 'Publish date', 'value': 'PublishDate'},
-    {'name': 'Time favorited', 'value': 'FavoritedTimes'},
-    {'name': 'Rating score', 'value': 'RatingScore'},
+    {'name': 'Release date', 'value': 'ReleaseDate'},
+    {'name': 'Rating average', 'value': 'RatingAverage'},
+    {'name': 'Total score', 'value': 'RatingTotal'},
+    {'name': 'Collection count', 'value': 'CollectionCount'},
   ];
 
   final Function onChanged;
