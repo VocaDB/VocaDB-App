@@ -40,7 +40,6 @@ class _HomeTabState extends State<HomeTab> {
               crossAxisAlignment: WrapCrossAlignment.center,
               alignment: WrapAlignment.start,
               runAlignment: WrapAlignment.center,
-              spacing: 8.0,
               runSpacing: 24.0,
               children: <Widget>[
                 ShortcutMenuButton(
