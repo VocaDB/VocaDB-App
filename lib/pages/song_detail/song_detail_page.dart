@@ -39,8 +39,8 @@ class SongDetailScreenArguments {
 class SongDetailScreen extends StatelessWidget {
   static const String routeName = '/songDetail';
 
-
-  static void navigateToSongDetail(BuildContext context, SongModel song, {String tag}) {
+  static void navigateToSongDetail(BuildContext context, SongModel song,
+      {String tag}) {
     Navigator.pushNamed(context, SongDetailScreen.routeName,
         arguments: SongDetailScreenArguments(song.id, song.name,
             thumbUrl: song.thumbUrl, tag: tag));
@@ -142,25 +142,28 @@ class _SongDetailPageState extends State<SongDetailPage> {
             child: StreamBuilder(
               stream: Provider.of<SongDetailBloc>(context).showHideLyric$,
               builder: (context, snapshot) {
-                if (snapshot.hasData && snapshot.data) {
-                  return AnimatedSwitcher(
-                    duration: Duration(milliseconds: 200),
-                    child: Provider<LyricContentBloc>(
-                      builder: (context) => LyricContentBloc(song.lyrics),
-                      dispose: (context, bloc) => bloc.dispose(),
-                      child: LyricContent(
-                          lyrics: song.lyrics,
-                          onTapClose:
-                              Provider.of<SongDetailBloc>(context).hideLyric),
-                    ),
+                if (!snapshot.hasData) {
+                  return ListView(
+                    children: buildDetailContent(song),
                   );
                 }
 
+                bool showLyric = snapshot.data;
+
                 return AnimatedSwitcher(
-                  duration: Duration(milliseconds: 200),
-                  child: ListView(
-                    children: buildDetailContent(song),
-                  ),
+                  duration: Duration(milliseconds: 300),
+                  child: (showLyric)
+                      ? Provider<LyricContentBloc>(
+                          builder: (context) => LyricContentBloc(song.lyrics),
+                          dispose: (context, bloc) => bloc.dispose(),
+                          child: LyricContent(
+                              lyrics: song.lyrics,
+                              onTapClose: Provider.of<SongDetailBloc>(context)
+                                  .hideLyric),
+                        )
+                      : ListView(
+                          children: buildDetailContent(song),
+                        ),
                 );
               },
             ),
@@ -254,6 +257,21 @@ class _SongDetailPageState extends State<SongDetailPage> {
                 },
               ),
             ),
+            (song.lyrics.isEmpty)
+                ? Container()
+                : Expanded(
+                    child: FlatButton(
+                        onPressed: () =>
+                            Provider.of<SongDetailBloc>(context).showLyric(),
+                        child: Column(
+                          children: <Widget>[
+                            Icon(
+                              Icons.subtitles,
+                            ),
+                            Text('Lyrics', style: TextStyle(fontSize: 12))
+                          ],
+                        )),
+                  ),
             Expanded(
               child: FlatButton(
                   onPressed: () => Share.share('$HOST/S/${song.id}'),

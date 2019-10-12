@@ -28,7 +28,7 @@ class LyricContent extends StatelessWidget {
                   child: Container(
                     height: 36,
                     alignment: Alignment.center,
-                    child: Icon(Icons.arrow_drop_down),
+                    child: Icon(Icons.close),
                   ),
                 ),
                 Padding(
