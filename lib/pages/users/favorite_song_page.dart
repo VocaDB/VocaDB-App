@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:vocadb/blocs/favorite_song_bloc.dart';
 import 'package:vocadb/models/song_model.dart';
+import 'package:vocadb/pages/youtube_playlist/youtube_playlist_page.dart';
 import 'package:vocadb/widgets/center_content.dart';
 import 'package:vocadb/widgets/result.dart';
 import 'package:vocadb/widgets/song_tile.dart';
@@ -21,37 +22,65 @@ class FavoriteSongPage extends StatelessWidget {
     final bloc = Provider.of<FavoriteSongBloc>(context);
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Favorite songs'),
-      ),
-      body: StreamBuilder(
-        stream: bloc.songs$,
-        builder: (context, snapshot) {
-          if (snapshot.hasError)
-            return CenterResult.error(
-              message: snapshot.error.toString(),
-            );
-
-          Map<int, SongModel> songMap = snapshot.data;
-
-          if (songMap == null || songMap.isEmpty) {
-            return CenterResult(
-                result: Result(Icon(Icons.music_note), 'No song'));
-          }
-          List<SongModel> songs = songMap.values.toList();
-
-          return ListView.builder(
-            itemCount: songs.length,
-            itemBuilder: (context, index) {
-              final SongModel song = songs[index];
-              return SongTile.fromSong(
-                song,
-                tag: 'favorite_song_${song.id}',
+        appBar: AppBar(
+          title: Text('Favorite songs'),
+        ),
+        body: StreamBuilder(
+          stream: bloc.songs$,
+          builder: (context, snapshot) {
+            if (snapshot.hasError)
+              return CenterResult.error(
+                message: snapshot.error.toString(),
               );
-            },
-          );
-        },
-      ),
-    );
+
+            Map<int, SongModel> songMap = snapshot.data;
+
+            if (songMap == null || songMap.isEmpty) {
+              return CenterResult(
+                  result: Result(Icon(Icons.music_note), 'No song'));
+            }
+            List<SongModel> songs = songMap.values.toList().reversed.toList();
+
+            return ListView.builder(
+              itemCount: songs.length,
+              itemBuilder: (context, index) {
+                final SongModel song = songs[index];
+                return SongTile.fromSong(
+                  song,
+                  tag: 'favorite_song_${song.id}',
+                );
+              },
+            );
+          },
+        ),
+        floatingActionButton: StreamBuilder(
+          stream: bloc.songs$,
+          builder: (context, snapshot) {
+            if (!snapshot.hasData) {
+              return Container();
+            }
+
+            Map<int, SongModel> songMap = snapshot.data;
+
+            List<SongModel> songs = songMap.values.toList().reversed.toList();
+
+            if (songs.indexWhere(
+                    (s) => s.youtubePV != null && s.youtubePV.url != null) >=
+                0) {
+              return FloatingActionButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              YoutubePlaylistPage(songs: songs)));
+                },
+                child: Icon(Icons.play_arrow),
+              );
+            }
+
+            return Container();
+          },
+        ));
   }
 }

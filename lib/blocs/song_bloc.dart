@@ -43,7 +43,6 @@ class SongBloc {
   }
 
   void fetch(dynamic event) {
-    print(event);
     Map<String, String> params = songFilterBloc.params();
 
     params['fields'] = 'PVs,MainPicture,ThumbUrl';

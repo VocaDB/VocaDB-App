@@ -189,5 +189,35 @@ void main() {
 
       expect(songWithYoutubePV, isNull);
     });
+
+    test('should return json correctly', () {
+      const mockJson = {
+        "id": 1,
+        "name": "song1",
+        "artistString": "test_artist",
+        "songType": "Original",
+        "mainPicture": {"urlThumb": "https://image.com"},
+        "pvs": [
+          {
+            "id": 12,
+            "name": "abc",
+            "service": "youtube",
+            "url": "https://youtube.com/abc"
+          }
+        ],
+      };
+
+      SongModel result = SongModel.fromJson(mockJson);
+
+      expect(result, isNotNull);
+
+      Map<String, dynamic> jsonResult = result.toJson();
+      expect(jsonResult['id'], 1);
+      expect(jsonResult['name'], 'song1');
+      expect(jsonResult['artistString'], 'test_artist');
+      expect(jsonResult['songType'], 'Original');
+      expect(jsonResult['pvs'], isNotNull);
+      expect(jsonResult['mainPicture'], isNotNull);
+    });
   });
 }

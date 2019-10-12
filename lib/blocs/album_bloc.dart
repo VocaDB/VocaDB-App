@@ -43,7 +43,6 @@ class AlbumBloc {
   }
 
   void fetch(dynamic event) {
-    print(event);
     Map<String, String> params = albumFilterBloc.params();
 
     params['fields'] = 'MainPicture';

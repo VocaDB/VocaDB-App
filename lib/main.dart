@@ -1,4 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:vocadb/app_theme.dart';
 import 'package:vocadb/blocs/config_bloc.dart';
@@ -26,7 +30,11 @@ import 'pages/main/home_tab.dart';
 import 'pages/main/ranking_tab.dart';
 
 void main() async {
+  var dir = await getApplicationDocumentsDirectory();
+  Hive.init(dir.path);
+
   await GlobalVariables.init();
+  await Hive.openBox('personal');
 
   runApp(VocaDBApp());
 }
@@ -45,6 +53,41 @@ class VocaDBApp extends StatelessWidget {
       ],
       child: RootApp(),
     );
+//    return FutureBuilder(
+//      future: _openBoxes(),
+//      builder: (context, snapshot) {
+//        if (snapshot.connectionState == ConnectionState.done) {
+//          if (snapshot.error != null) {
+//            print(snapshot.error);
+//            return MaterialApp(
+//              home: Scaffold(
+//                body: Center(
+//                  child: Text('Something went wrong :/'),
+//                ),
+//              ),
+//            );
+//          } else {
+//            return MultiProvider(
+//              providers: [
+//                Provider<ConfigBloc>.value(value: configBloc),
+//                Provider<HomeBloc>.value(value: HomeBloc(configBloc)),
+//                Provider<RankingBloc>.value(value: RankingBloc(configBloc)),
+//                Provider<FavoriteSongBloc>.value(value: FavoriteSongBloc())
+//              ],
+//              child: RootApp(),
+//            );
+//          }
+//        } else {
+//          return MaterialApp(
+//            home: Scaffold(
+//              body: Center(
+//                child: CircularProgressIndicator(),
+//              ),
+//            ),
+//          );
+//        }
+//      },
+//    );
   }
 }
 
@@ -56,7 +99,7 @@ class RootApp extends StatelessWidget {
       stream: config.themeDataStream,
       builder: (context, snapshot) {
         return MaterialApp(
-          title: 'VocaDB Flutter Demo',
+          title: 'VocaDB',
           theme: (snapshot.hasData)
               ? config.getThemeData(snapshot.data)
               : AppTheme.darkTheme,

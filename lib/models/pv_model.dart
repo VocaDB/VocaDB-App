@@ -11,6 +11,20 @@ class PVModel {
         service = json['service'],
         pvType = json['pvType'],
         url = json['url'];
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'name': name,
+      'service': service,
+      'url': url,
+      'pvType': pvType,
+    };
+  }
+
+  String toString() {
+    return toJson().toString();
+  }
 }
 
 class PVList {

@@ -43,7 +43,6 @@ class ArtistBloc {
   }
 
   void fetch(dynamic event) {
-    print(event);
     Map<String, String> params = artistFilterBloc.params();
 
     params['fields'] = 'MainPicture';

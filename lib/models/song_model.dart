@@ -82,6 +82,21 @@ class SongModel extends EntryModel {
         endpoint: '/api/songs?tagId=$tagId&fields=ThumbUrl&sort=RatingScore',
         parse: _mapItemsResponse);
   }
+
+  @override
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> json = super.toJson();
+
+    if (pvs != null) {
+      json['pvs'] = pvs.map((pv) => pv.toJson()).toList();
+    }
+
+    if (thumbUrl != null) {
+      json['thumbUrl'] = thumbUrl;
+    }
+
+    return json;
+  }
 }
 
 class SongList {

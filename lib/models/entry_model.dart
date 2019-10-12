@@ -111,7 +111,18 @@ class EntryModel extends BaseModel {
 
   @override
   String toString() {
-    return {'id': 1, 'name': name}.toString();
+    return toJson().toString();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'name': name,
+      'songType': songType,
+      'artistString': artistString,
+      'mainPicture': mainPicture?.toJson(),
+    };
   }
 }
 

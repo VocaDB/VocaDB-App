@@ -43,7 +43,6 @@ class ReleaseEventBloc {
   }
 
   void fetch(dynamic event) {
-    print(event);
     Map<String, String> params = releaseEventFilterBloc.params();
 
     params['fields'] = 'MainPicture';
