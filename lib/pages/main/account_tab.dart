@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:package_info/package_info.dart';
 import 'package:vocadb/pages/setting/setting_page.dart';
 import 'package:vocadb/pages/users/favorite_song_page.dart';
 
@@ -28,11 +29,21 @@ class GuestTab extends StatelessWidget {
           leading: Icon(Icons.settings),
           title: Text("Settings"),
         ),
-        ListTile(
-          leading: Icon(Icons.info),
-          title: Text("Version"),
-          subtitle: Text("3.0.0-dev"),
-        )
+        FutureBuilder(
+          future: PackageInfo.fromPlatform(),
+          builder: (context, snapshot) {
+            String versionName = 'Unknown';
+            if (snapshot.connectionState == ConnectionState.done) {
+              PackageInfo packageInfo = snapshot.data;
+              versionName = '${packageInfo.version}-${packageInfo.buildNumber}';
+            }
+            return ListTile(
+              leading: Icon(Icons.info),
+              title: Text("Version"),
+              subtitle: Text(versionName),
+            );
+          },
+        ),
       ],
     );
   }
