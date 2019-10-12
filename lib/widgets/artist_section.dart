@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vocadb/models/artist_album_model.dart';
+import 'package:vocadb/models/artist_event_model.dart';
 import 'package:vocadb/models/artist_model.dart';
 import 'package:vocadb/models/artist_song_model.dart';
 import 'package:vocadb/widgets/artist_tile.dart';
@@ -82,6 +83,37 @@ class ArtistForAlbumSection extends StatelessWidget {
           title: title,
           children: artists
               .map((a) => ArtistTile.artistAlbum(
+                    a,
+                    tag: '${prefixTag}_${a.artistId}',
+                    showRole: (a.effectiveRoles != 'Default'),
+                  ))
+              .toList(),
+        ),
+        SpaceDivider(),
+      ],
+    );
+  }
+}
+
+class ArtistForEventSection extends StatelessWidget {
+  final String title;
+  final List<ArtistEventModel> artists;
+  final String prefixTag;
+
+  const ArtistForEventSection(
+      {Key key, this.title, this.artists, this.prefixTag})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    if (artists.length == 0) return Container();
+
+    return Column(
+      children: <Widget>[
+        Section(
+          title: title,
+          children: artists
+              .map((a) => ArtistTile.artistEvent(
                     a,
                     tag: '${prefixTag}_${a.artistId}',
                     showRole: (a.effectiveRoles != 'Default'),

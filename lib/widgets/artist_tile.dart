@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:vocadb/models/artist_album_model.dart';
+import 'package:vocadb/models/artist_event_model.dart';
 import 'package:vocadb/models/artist_song_model.dart';
 import 'package:vocadb/models/entry_model.dart';
 import 'package:vocadb/pages/artist_detail/artist_detail_page.dart';
@@ -28,6 +29,13 @@ class ArtistTile extends StatelessWidget {
         imageUrl = artistSong.artistImageUrl;
 
   ArtistTile.artistAlbum(ArtistAlbumModel artistAlbum,
+      {bool showRole = false, this.tag})
+      : id = artistAlbum.artistId,
+        title = artistAlbum.artistName,
+        subtitle = (showRole) ? artistAlbum.artistRole : null,
+        imageUrl = artistAlbum.artistImageUrl;
+
+  ArtistTile.artistEvent(ArtistEventModel artistAlbum,
       {bool showRole = false, this.tag})
       : id = artistAlbum.artistId,
         title = artistAlbum.artistName,
