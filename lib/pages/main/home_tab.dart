@@ -17,7 +17,6 @@ import 'package:vocadb/widgets/event_tile.dart';
 import 'package:vocadb/widgets/section.dart';
 
 class HomeTab extends StatefulWidget {
-
   @override
   _HomeTabState createState() => _HomeTabState();
 }
@@ -37,31 +36,55 @@ class _HomeTabState extends State<HomeTab> {
             padding: EdgeInsets.all(8.0),
             child: SearchBar(),
           ),
-          Wrap(
-            runSpacing: 12.0,
-            children: <Widget>[
-              ShortcutMenuButton(title: 'Songs', iconData: Icons.music_note, onPressed: () => SongScreen.navigate(context)),
-              ShortcutMenuButton(title: 'Artists', iconData: Icons.person, onPressed: () => ArtistScreen.navigate(context)),
-              ShortcutMenuButton(title: 'Albums', iconData: Icons.album, onPressed: () => AlbumScreen.navigate(context)),
-              ShortcutMenuButton(title: 'Tags', iconData: Icons.label, onPressed: () => TagScreen.navigate(context)),
-              ShortcutMenuButton(title: 'Events', iconData: Icons.event, onPressed: () => ReleaseEventScreen.navigate(context)),
-            ],
+          Center(
+            child: Wrap(
+              crossAxisAlignment: WrapCrossAlignment.center,
+              alignment: WrapAlignment.start,
+              runAlignment: WrapAlignment.center,
+              spacing: 8.0,
+              runSpacing: 16.0,
+              children: <Widget>[
+                ShortcutMenuButton(
+                    title: 'Songs',
+                    iconData: Icons.music_note,
+                    onPressed: () => SongScreen.navigate(context)),
+                ShortcutMenuButton(
+                    title: 'Artists',
+                    iconData: Icons.person,
+                    onPressed: () => ArtistScreen.navigate(context)),
+                ShortcutMenuButton(
+                    title: 'Albums',
+                    iconData: Icons.album,
+                    onPressed: () => AlbumScreen.navigate(context)),
+                ShortcutMenuButton(
+                    title: 'Tags',
+                    iconData: Icons.label,
+                    onPressed: () => TagScreen.navigate(context)),
+                ShortcutMenuButton(
+                    title: 'Events',
+                    iconData: Icons.event,
+                    onPressed: () => ReleaseEventScreen.navigate(context)),
+              ],
+            ),
           ),
           HighlightedList(),
           LatestAlbumList(),
           TopAlbumList(),
           StreamBuilder(
-              stream: Provider.of<HomeBloc>(context).recentEvents$,
-              builder: (context, snapshot) {
-                if (!snapshot.hasData) return Container();
+            stream: Provider.of<HomeBloc>(context).recentEvents$,
+            builder: (context, snapshot) {
+              if (!snapshot.hasData) return Container();
 
-                List<ReleaseEventModel> releaseEvents = snapshot.data;
-                return Section(
-                  title: 'Recent events',
-                  children: releaseEvents.map((e) => EventTile.fromEntry(e, tag: 'recent_event_${e.id}')).toList(),
-                );
-              },
-            ),
+              List<ReleaseEventModel> releaseEvents = snapshot.data;
+              return Section(
+                title: 'Recent events',
+                children: releaseEvents
+                    .map((e) =>
+                        EventTile.fromEntry(e, tag: 'recent_event_${e.id}'))
+                    .toList(),
+              );
+            },
+          ),
         ],
       ),
     );
@@ -92,7 +115,9 @@ class SearchBar extends StatelessWidget {
             child: Row(
               children: <Widget>[
                 Icon(Icons.search, color: theme.iconTheme.color),
-                SizedBox(width: 8,),
+                SizedBox(
+                  width: 8,
+                ),
                 Text('Search anything')
               ],
             ),
@@ -103,33 +128,32 @@ class SearchBar extends StatelessWidget {
   }
 }
 
-
 class ShortcutMenuButton extends StatelessWidget {
-
   final String title;
   final IconData iconData;
   final Function onPressed;
 
-  const ShortcutMenuButton({Key key, this.title, this.iconData, this.onPressed}) : super(key: key);
+  const ShortcutMenuButton({Key key, this.title, this.iconData, this.onPressed})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Column(
-                children: <Widget>[
-                  RawMaterialButton(
-                    onPressed: this.onPressed,
-                    child: Icon(
-                      iconData,
-                      color: Theme.of(context).iconTheme.color,
-                      size: 24.0,
-                    ),
-                    shape: CircleBorder(),
-                    elevation: 2.0,
-                    fillColor: Theme.of(context).cardColor,
-                    padding: const EdgeInsets.all(15.0),
-                  ),
-                  Text(title)
-                ],
-              );
+      children: <Widget>[
+        RawMaterialButton(
+          onPressed: this.onPressed,
+          child: Icon(
+            iconData,
+            color: Theme.of(context).iconTheme.color,
+            size: 24.0,
+          ),
+          shape: CircleBorder(),
+          elevation: 2.0,
+          fillColor: Theme.of(context).cardColor,
+          padding: const EdgeInsets.all(15.0),
+        ),
+        Text(title)
+      ],
+    );
   }
 }
