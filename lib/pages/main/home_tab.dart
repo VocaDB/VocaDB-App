@@ -77,8 +77,8 @@ class _HomeTabState extends State<HomeTab> {
               return Section(
                 title: 'Recent events',
                 children: releaseEvents
-                    .map((e) =>
-                        EventTile.fromEntry(e, tag: 'recent_event_${e.id}'))
+                    .map((e) => EventTile.fromReleaseEvent(e,
+                        tag: 'recent_event_${e.id}'))
                     .toList(),
               );
             },

@@ -87,6 +87,14 @@ class _SearchPageState extends State<SearchPage> {
                       onChangeEntryType(EntryType.Album);
                       Navigator.pop(context);
                     }),
+                ListTile(
+                    leading: Icon(Icons.event),
+                    selected: bloc.entryType == EntryType.ReleaseEvent,
+                    title: Text('Release events'),
+                    onTap: () {
+                      onChangeEntryType(EntryType.ReleaseEvent);
+                      Navigator.pop(context);
+                    }),
               ],
             ),
           );
@@ -154,6 +162,8 @@ class _SearchPageState extends State<SearchPage> {
                         return Icon(Icons.person);
                       case EntryType.Album:
                         return Icon(Icons.album);
+                      case EntryType.ReleaseEvent:
+                        return Icon(Icons.event);
                       default:
                         return Icon(Icons.search);
                     }
@@ -203,6 +213,10 @@ class SearchResult extends StatelessWidget {
 
     if (entryList.albums.length > 0) {
       contents.add(buildSection('Albums', entryList.albums));
+    }
+
+    if (entryList.releaseEvents.length > 0) {
+      contents.add(buildSection('Release events', entryList.releaseEvents));
     }
 
     return ListView.builder(
