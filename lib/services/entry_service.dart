@@ -24,7 +24,8 @@ class EntryService extends BaseRestService {
       params['query'] = query;
     }
 
-    params.addAll({'fields': 'MainPicture', 'nameMatchMode': 'Auto'});
+    params.addAll(
+        {'fields': 'MainPicture', 'nameMatchMode': 'Auto', 'maxResults': '30'});
 
     return super.query(endpoint, params).then((items) {
       switch (entryType) {

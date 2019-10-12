@@ -1,19 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:vocadb/blocs/config_bloc.dart';
 import 'package:vocadb/blocs/search_bloc.dart';
 import 'package:vocadb/models/entry_model.dart';
-import 'package:vocadb/pages/search/search_album_filter_page.dart';
-import 'package:vocadb/pages/search/search_artist_filter_page.dart';
 import 'package:vocadb/pages/search/search_entry_filter_page.dart';
-import 'package:vocadb/pages/search/search_song_filter_page.dart';
 import 'package:vocadb/widgets/center_content.dart';
 import 'package:vocadb/widgets/entry_tile.dart';
 import 'package:vocadb/widgets/result.dart';
 
+class SearchScreen extends StatelessWidget {
+  static const String routeName = '/search';
+
+  static void navigate(BuildContext context) {
+    Navigator.pushNamed(context, SearchScreen.routeName);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final configBloc = Provider.of<ConfigBloc>(context);
+
+    return Provider<SearchBloc>(
+      builder: (context) => SearchBloc(configBloc: configBloc),
+      dispose: (context, bloc) => bloc.dispose(),
+      child: SearchPage(),
+    );
+  }
+}
+
 class SearchPage extends StatefulWidget {
-  final SearchBloc bloc;
-
-  const SearchPage({Key key, this.bloc}) : super(key: key);
-
   @override
   _SearchPageState createState() => _SearchPageState();
 }
@@ -29,26 +43,21 @@ class _SearchPageState extends State<SearchPage> {
     super.didChangeDependencies();
   }
 
-  @override
-  void dispose() {
-    widget.bloc.dispose();
-    super.dispose();
-  }
-
   void onChangeEntryType(EntryType entryType) {
-    widget.bloc.updateEntryType(entryType);
+    Provider.of<SearchBloc>(context).updateEntryType(entryType);
   }
 
   void _showModalBottomSheet(context) {
     showModalBottomSheet(
         context: context,
         builder: (BuildContext bc) {
+          final bloc = Provider.of<SearchBloc>(context);
           return Container(
             child: Wrap(
               children: <Widget>[
                 ListTile(
                     leading: Icon(Icons.search),
-                    selected: widget.bloc.entryType == EntryType.Undefined,
+                    selected: bloc.entryType == EntryType.Undefined,
                     title: Text('Anything'),
                     onTap: () {
                       onChangeEntryType(EntryType.Undefined);
@@ -56,7 +65,7 @@ class _SearchPageState extends State<SearchPage> {
                     }),
                 ListTile(
                     leading: Icon(Icons.music_note),
-                    selected: widget.bloc.entryType == EntryType.Song,
+                    selected: bloc.entryType == EntryType.Song,
                     title: Text('Song'),
                     onTap: () {
                       onChangeEntryType(EntryType.Song);
@@ -64,7 +73,7 @@ class _SearchPageState extends State<SearchPage> {
                     }),
                 ListTile(
                     leading: Icon(Icons.person),
-                    selected: widget.bloc.entryType == EntryType.Artist,
+                    selected: bloc.entryType == EntryType.Artist,
                     title: Text('Artist'),
                     onTap: () {
                       onChangeEntryType(EntryType.Artist);
@@ -72,7 +81,7 @@ class _SearchPageState extends State<SearchPage> {
                     }),
                 ListTile(
                     leading: Icon(Icons.album),
-                    selected: widget.bloc.entryType == EntryType.Album,
+                    selected: bloc.entryType == EntryType.Album,
                     title: Text('Album'),
                     onTap: () {
                       onChangeEntryType(EntryType.Album);
@@ -85,8 +94,10 @@ class _SearchPageState extends State<SearchPage> {
   }
 
   Widget buildStreamResult() {
+    final bloc = Provider.of<SearchBloc>(context);
+
     return StreamBuilder(
-      stream: widget.bloc.resultStream,
+      stream: bloc.resultStream,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return SearchResult(entries: snapshot.data);
@@ -100,31 +111,19 @@ class _SearchPageState extends State<SearchPage> {
   }
 
   void openFilterPage() {
-    Widget filterPage;
-
-    switch (widget.bloc.entryType) {
-      case EntryType.Undefined:
-        filterPage = SearchEntryFilterPage(bloc: widget.bloc.entryFilterBloc);
-        break;
-      case EntryType.Song:
-        filterPage = SearchSongFilterPage(bloc: widget.bloc.songFilterBloc);
-        break;
-      case EntryType.Artist:
-        filterPage = SearchArtistFilterPage(bloc: widget.bloc.artistFilterBloc);
-        break;
-      case EntryType.Album:
-        filterPage = SearchAlbumFilterPage(bloc: widget.bloc.albumFilterBloc);
-        break;
-      default:
-        return;
-    }
+    final bloc = Provider.of<SearchBloc>(context);
 
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => filterPage));
+        context,
+        MaterialPageRoute(
+            builder: (context) =>
+                SearchEntryFilterPage(bloc: bloc.entryFilterBloc)));
   }
 
   @override
   Widget build(BuildContext context) {
+    final bloc = Provider.of<SearchBloc>(context);
+
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: openFilterPage,
@@ -135,7 +134,8 @@ class _SearchPageState extends State<SearchPage> {
           children: <Widget>[
             Expanded(
               child: TextField(
-                onChanged: widget.bloc.updateQuery,
+                onChanged: bloc.updateQuery,
+                autofocus: true,
                 style: Theme.of(context).primaryTextTheme.title,
                 decoration: InputDecoration(
                     border: InputBorder.none, hintText: "Search"),
@@ -145,7 +145,7 @@ class _SearchPageState extends State<SearchPage> {
               width: 48,
               child: IconButton(
                 icon: StreamBuilder(
-                  stream: widget.bloc.entryTypeStream,
+                  stream: bloc.entryTypeStream,
                   builder: (context, snapshot) {
                     switch (snapshot.data) {
                       case EntryType.Song:
@@ -168,7 +168,7 @@ class _SearchPageState extends State<SearchPage> {
         ),
       ),
       body: StreamBuilder(
-        stream: widget.bloc.isSearching$,
+        stream: bloc.isSearching$,
         builder: (context, snapshot) {
           return (snapshot.hasData && snapshot.data)
               ? buildStreamResult()

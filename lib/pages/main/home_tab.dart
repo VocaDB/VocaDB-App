@@ -32,9 +32,8 @@ class _HomeTabState extends State<HomeTab> {
     return SafeArea(
       child: ListView(
         children: <Widget>[
-          Padding(
-            padding: EdgeInsets.all(8.0),
-            child: SearchBar(),
+          SizedBox(
+            height: 16,
           ),
           Center(
             child: Wrap(
@@ -42,7 +41,7 @@ class _HomeTabState extends State<HomeTab> {
               alignment: WrapAlignment.start,
               runAlignment: WrapAlignment.center,
               spacing: 8.0,
-              runSpacing: 16.0,
+              runSpacing: 24.0,
               children: <Widget>[
                 ShortcutMenuButton(
                     title: 'Songs',
@@ -67,6 +66,9 @@ class _HomeTabState extends State<HomeTab> {
               ],
             ),
           ),
+          SizedBox(
+            height: 8,
+          ),
           HighlightedList(),
           LatestAlbumList(),
           TopAlbumList(),
@@ -86,43 +88,6 @@ class _HomeTabState extends State<HomeTab> {
             },
           ),
         ],
-      ),
-    );
-  }
-}
-
-class SearchBar extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final configBloc = Provider.of<ConfigBloc>(context);
-
-    final searchPage = SearchPage(bloc: SearchBloc(configBloc: configBloc));
-
-    return SizedBox(
-      height: 48.0,
-      width: double.infinity,
-      child: Material(
-        color: theme.cardColor,
-        elevation: 3,
-        child: InkWell(
-          onTap: () {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => searchPage));
-          },
-          child: Padding(
-            padding: EdgeInsets.all(12.0),
-            child: Row(
-              children: <Widget>[
-                Icon(Icons.search, color: theme.iconTheme.color),
-                SizedBox(
-                  width: 8,
-                ),
-                Text('Search anything')
-              ],
-            ),
-          ),
-        ),
       ),
     );
   }

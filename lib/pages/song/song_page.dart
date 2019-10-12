@@ -135,8 +135,7 @@ class _SongPageState extends State<SongPage> {
                         )
                       : IconButton(
                           icon: Icon(Icons.search),
-                          onPressed: () => bloc.openSearch(),
-                        );
+                          onPressed: () => bloc.openSearch);
                 }),
             IconButton(
               icon: Icon(Icons.filter_list),

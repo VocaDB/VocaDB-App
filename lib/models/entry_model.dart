@@ -51,7 +51,9 @@ class EntryModel extends BaseModel {
 
   String get imageUrl {
     if (mainPicture != null) {
-      return (entryType == EntryType.ReleaseEvent)?  mainPicture.urlThumb.replaceAll('mainThumb', 'mainOrig') : mainPicture.urlThumb ;
+      return (entryType == EntryType.ReleaseEvent)
+          ? mainPicture.urlThumb.replaceAll('mainThumb', 'mainOrig')
+          : mainPicture.urlThumb;
     }
 
     switch (entryType) {
@@ -78,6 +80,23 @@ class EntryModel extends BaseModel {
         return EntryType.Tag;
     }
     return EntryType.Undefined;
+  }
+
+  static String entryTypeEnumToString(EntryType entryType) {
+    switch (entryType) {
+      case EntryType.Song:
+        return 'Song';
+      case EntryType.Artist:
+        return 'Artist';
+      case EntryType.Album:
+        return 'Artist';
+      case EntryType.ReleaseEvent:
+        return 'ReleaseEvent';
+      case EntryType.Tag:
+        return 'tag';
+      default:
+        return 'Undefined';
+    }
   }
 
   static Resource<List<EntryModel>> query(String query) {

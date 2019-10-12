@@ -14,6 +14,7 @@ import 'package:vocadb/pages/event_detail/event_detail_page.dart';
 import 'package:vocadb/pages/release_event/release_event_page.dart';
 import 'package:vocadb/pages/search/more_album_page.dart';
 import 'package:vocadb/pages/search/more_song_page.dart';
+import 'package:vocadb/pages/search/search_page.dart';
 import 'package:vocadb/pages/song/song_page.dart';
 import 'package:vocadb/pages/song_detail/song_detail_page.dart';
 import 'package:vocadb/pages/tag/tag_page.dart';
@@ -77,6 +78,7 @@ class RootApp extends StatelessWidget {
             AlbumScreen.routeName: (context) => AlbumScreen(),
             TagScreen.routeName: (context) => TagScreen(),
             ReleaseEventScreen.routeName: (context) => ReleaseEventScreen(),
+            SearchScreen.routeName: (context) => SearchScreen(),
           },
         );
       },
@@ -109,7 +111,19 @@ class _MyHomePageState extends State<MyHomePage> {
     final homeBloc = Provider.of<HomeBloc>(context);
     final rankingBloc = Provider.of<RankingBloc>(context);
 
+    final configBloc = Provider.of<ConfigBloc>(context);
+
     return Scaffold(
+      appBar: AppBar(
+        title: Text('VocaDB'),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.search),
+            onPressed: () =>
+                Navigator.pushNamed(context, SearchScreen.routeName),
+          )
+        ],
+      ),
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),

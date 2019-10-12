@@ -3,10 +3,7 @@ import 'dart:async';
 import 'package:rxdart/rxdart.dart';
 import 'package:rxdart/subjects.dart';
 import 'package:vocadb/blocs/config_bloc.dart';
-import 'package:vocadb/blocs/search_album_filter_bloc.dart';
-import 'package:vocadb/blocs/search_artist_filter_bloc.dart';
 import 'package:vocadb/blocs/search_entry_filter_bloc.dart';
-import 'package:vocadb/blocs/search_song_filter_bloc.dart';
 import 'package:vocadb/models/entry_model.dart';
 import 'package:vocadb/services/entry_service.dart';
 
@@ -28,31 +25,16 @@ class SearchBloc {
   EntryService entryService;
 
   SearchEntryFilterBloc entryFilterBloc;
-  SearchSongFilterBloc songFilterBloc;
-  SearchArtistFilterBloc artistFilterBloc;
-  SearchAlbumFilterBloc albumFilterBloc;
   ConfigBloc configBloc;
 
-  SearchBloc(
-      {this.entryService,
-      this.songFilterBloc,
-      this.artistFilterBloc,
-      this.albumFilterBloc,
-      this.entryFilterBloc,
-      this.configBloc}) {
+  SearchBloc({this.entryService, this.entryFilterBloc, this.configBloc}) {
     this.entryService ??= EntryService();
     this.entryFilterBloc ??= SearchEntryFilterBloc();
-    this.songFilterBloc ??= SearchSongFilterBloc();
-    this.artistFilterBloc ??= SearchArtistFilterBloc();
-    this.albumFilterBloc ??= SearchAlbumFilterBloc();
 
     Observable.merge([
       queryStream,
       entryTypeStream,
       entryFilterBloc.params$,
-      songFilterBloc.params$,
-      artistFilterBloc.params$,
-      albumFilterBloc.params$
     ]).debounceTime(Duration(milliseconds: 500)).distinct().listen(fetch);
   }
 
@@ -87,7 +69,13 @@ class SearchBloc {
   void fetch(event) {
     if (!isSearching) return;
 
-    Map<String, String> params = getParamsByEntryType();
+    Map<String, String> params = entryFilterBloc.params();
+
+    String entryTypeStr = EntryModel.entryTypeEnumToString(entryType);
+
+    if (entryTypeStr != 'Undefined') {
+      params['entryType'] = entryTypeStr;
+    }
 
     if (configBloc != null && configBloc.contentLang != null) {
       params['lang'] = configBloc.contentLang;
@@ -96,29 +84,10 @@ class SearchBloc {
     entryService.search(query, entryType, params: params).then(updateResults);
   }
 
-  Map<String, String> getParamsByEntryType() {
-    switch (entryType) {
-      case EntryType.Undefined:
-        return entryFilterBloc.params();
-      case EntryType.Song:
-        return songFilterBloc.params();
-      case EntryType.Artist:
-        return artistFilterBloc.params();
-      case EntryType.Album:
-        return albumFilterBloc.params();
-      default:
-        return {};
-    }
-  }
-
   void dispose() {
     _entryType?.close();
     _results?.close();
     _query?.close();
     _isSearching?.close();
-  }
-
-  void onParamsChanged(event) {
-    print(getParamsByEntryType());
   }
 }
