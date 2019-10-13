@@ -43,6 +43,8 @@ class FavoriteAlbumBloc {
         .where((v) => v != null)
         .forEach((v) => mapAlbums.putIfAbsent(v.id, () => v));
     _albums.add(mapAlbums);
+
+    save(mapAlbums);
   }
 
   void save(Map<int, AlbumModel> albums) {
