@@ -23,13 +23,16 @@ class ArtistModel extends EntryModel {
         relations = (json.containsKey('relations'))
             ? ArtistRelations.fromJson(json['relations'])
             : null,
-        baseVoicebank = (json.containsKey('baseVoicebank'))
+        baseVoicebank = (json.containsKey('baseVoicebank') &&
+                !(json['baseVoicebank'] is int))
             ? ArtistModel.fromJson(json['baseVoicebank'])
             : null,
         artistLinks = JSONUtils.mapJsonArray<ArtistLinkModel>(
-            json['artistLinks'], (v) => ArtistLinkModel.fromJson(v)),
+            json['artistLinks'],
+            (v) => (v is int) ? null : ArtistLinkModel.fromJson(v)),
         artistLinksReverse = JSONUtils.mapJsonArray<ArtistLinkModel>(
-            json['artistLinksReverse'], (v) => ArtistLinkModel.fromJson(v)),
+            json['artistLinksReverse'],
+            (v) => (v is int) ? null : ArtistLinkModel.fromJson(v)),
         super.fromJson(json);
 
   static List<ArtistModel> jsonToList(List items) {

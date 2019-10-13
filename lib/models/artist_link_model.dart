@@ -6,7 +6,7 @@ class ArtistLinkModel {
 
   ArtistLinkModel.fromJson(Map<String, dynamic> json)
       : linkType = json['linkType'],
-        artist = (json.containsKey('artist'))
+        artist = (json.containsKey('artist') && !(json['artist'] is int))
             ? ArtistModel.fromJson(json['artist'])
             : null;
 

@@ -10,6 +10,7 @@ import 'package:vocadb/blocs/favorite_album_bloc.dart';
 import 'package:vocadb/blocs/favorite_artist_bloc.dart';
 import 'package:vocadb/blocs/favorite_song_bloc.dart';
 import 'package:vocadb/blocs/home_bloc.dart';
+import 'package:vocadb/blocs/profile_bloc.dart';
 import 'package:vocadb/blocs/ranking_bloc.dart';
 import 'package:vocadb/global_variables.dart';
 import 'package:vocadb/pages/album/album_page.dart';
@@ -49,14 +50,24 @@ class VocaDBApp extends StatelessWidget {
   Widget build(BuildContext context) {
     ConfigBloc configBloc = ConfigBloc(GlobalVariables.pref);
 
+    final favoriteSongBloc = FavoriteSongBloc();
+    final favoriteArtistBloc = FavoriteArtistBloc();
+    final favoriteAlbumBloc = FavoriteAlbumBloc();
+    final profileBloc = ProfileBloc(
+      favoriteSongBloc: favoriteSongBloc,
+      favoriteArtistBloc: favoriteArtistBloc,
+      favoriteAlbumBloc: favoriteAlbumBloc,
+    );
+
     return MultiProvider(
       providers: [
         Provider<ConfigBloc>.value(value: configBloc),
         Provider<HomeBloc>.value(value: HomeBloc(configBloc)),
         Provider<RankingBloc>.value(value: RankingBloc(configBloc)),
-        Provider<FavoriteSongBloc>.value(value: FavoriteSongBloc()),
-        Provider<FavoriteArtistBloc>.value(value: FavoriteArtistBloc()),
-        Provider<FavoriteAlbumBloc>.value(value: FavoriteAlbumBloc())
+        Provider<FavoriteSongBloc>.value(value: favoriteSongBloc),
+        Provider<FavoriteArtistBloc>.value(value: favoriteArtistBloc),
+        Provider<FavoriteAlbumBloc>.value(value: favoriteAlbumBloc),
+        Provider<ProfileBloc>.value(value: profileBloc),
       ],
       child: RootApp(),
     );

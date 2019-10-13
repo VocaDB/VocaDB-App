@@ -9,7 +9,9 @@ class FavoriteSongBloc {
 
   Observable get songs$ => _songs.stream;
 
-  Map<int, SongModel> get songs => _songs.value;
+  Map<int, SongModel> get songs => _songs.value ?? {};
+
+  List<SongModel> get songList => (songs == null) ? [] : songs.values.toList();
 
   Box _personalBox;
 
@@ -31,6 +33,14 @@ class FavoriteSongBloc {
     Map<int, SongModel> mapSongs = jsonMap.map(
         (key, value) => MapEntry(int.parse(key), SongModel.fromJson(value)));
 
+    _songs.add(mapSongs);
+  }
+
+  void update(List<SongModel> songs) {
+    Map<int, SongModel> mapSongs = this.songs;
+    songs
+        .where((v) => v != null)
+        .forEach((v) => mapSongs.putIfAbsent(v.id, () => v));
     _songs.add(mapSongs);
   }
 

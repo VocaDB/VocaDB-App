@@ -26,13 +26,13 @@ class SongModel extends EntryModel {
         originalVersionId = json['originalVersionId'],
         publishDate = json['publishDate'],
         pvs = JSONUtils.mapJsonArray<PVModel>(
-            json['pvs'], (v) => PVModel.fromJson(v)),
-        artists = JSONUtils.mapJsonArray<ArtistSongModel>(
-            json['artists'], (v) => ArtistSongModel.fromJson(v)),
+            json['pvs'], (v) => (v is int) ? null : PVModel.fromJson(v)),
+        artists = JSONUtils.mapJsonArray<ArtistSongModel>(json['artists'],
+            (v) => (v is int) ? null : ArtistSongModel.fromJson(v)),
         albums = JSONUtils.mapJsonArray<AlbumModel>(
-            json['albums'], (v) => AlbumModel.fromJson(v)),
+            json['albums'], (v) => (v is int) ? null : AlbumModel.fromJson(v)),
         lyrics = JSONUtils.mapJsonArray<LyricModel>(
-            json['lyrics'], (v) => LyricModel.fromJson(v)),
+            json['lyrics'], (v) => (v is int) ? null : LyricModel.fromJson(v)),
         super.fromJson(json);
 
   static List<SongModel> jsonToList(List items) {
