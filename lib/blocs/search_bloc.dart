@@ -39,7 +39,6 @@ class SearchBloc {
   }
 
   void updateResults(List<EntryModel> entries) {
-    print(entries);
     _results.add(entries);
   }
 

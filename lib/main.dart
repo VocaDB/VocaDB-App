@@ -30,6 +30,7 @@ import 'package:vocadb/pages/tag_detail/tag_detail_page.dart';
 import 'package:vocadb/pages/users/favorite_album_page.dart';
 import 'package:vocadb/pages/users/favorite_artist_page.dart';
 import 'package:vocadb/pages/users/favorite_song_page.dart';
+import 'package:vocadb/pages/youtube_playlist/youtube_playlist_page.dart';
 
 import 'pages/main/account_tab.dart';
 import 'pages/main/home_tab.dart';
@@ -107,6 +108,8 @@ class RootApp extends StatelessWidget {
             TagScreen.routeName: (context) => TagScreen(),
             ReleaseEventScreen.routeName: (context) => ReleaseEventScreen(),
             SearchScreen.routeName: (context) => SearchScreen(),
+            YoutubePlaylistScreen.routeName: (context) =>
+                YoutubePlaylistScreen(),
           },
         );
       },

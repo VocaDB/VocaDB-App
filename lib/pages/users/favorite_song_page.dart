@@ -69,11 +69,8 @@ class FavoriteSongPage extends StatelessWidget {
                 0) {
               return FloatingActionButton(
                 onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              YoutubePlaylistPage(songs: songs)));
+                  YoutubePlaylistScreen.navigate(context, songs,
+                      title: 'Favorite playlist');
                 },
                 child: Icon(Icons.play_arrow),
               );

@@ -13,10 +13,7 @@ class HighlightedList extends StatefulWidget {
 
 class _HighlightedListState extends State<HighlightedList> {
   void openPlaylist(List<SongModel> songs) {
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => YoutubePlaylistPage(songs: songs)));
+    YoutubePlaylistScreen.navigate(context, songs, title: 'Highlighted songs');
   }
 
   buildHasData(List<SongModel> songs) {

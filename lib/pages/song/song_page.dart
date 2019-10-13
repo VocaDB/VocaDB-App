@@ -174,13 +174,7 @@ class _SongPageState extends State<SongPage> {
 
             if (songs.indexWhere((s) => s.youtubePV != null) >= 0) {
               return FloatingActionButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              YoutubePlaylistPage(songs: songs)));
-                },
+                onPressed: () => YoutubePlaylistScreen.navigate(context, songs),
                 child: Icon(Icons.play_arrow),
               );
             }

@@ -41,13 +41,6 @@ class _RankingTabState extends State<RankingTab>
     super.dispose();
   }
 
-  void openPlaylist(List<SongModel> songs) {
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => YoutubePlaylistPage(songs: songs)));
-  }
-
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -125,7 +118,8 @@ class _RankingTabState extends State<RankingTab>
             }
 
             return FloatingActionButton(
-              onPressed: () => YoutubePlaylistPage.navigate(context, songs),
+              onPressed: () => YoutubePlaylistScreen.navigate(context, songs,
+                  title: 'Ranking playlist'),
               child: Icon(Icons.play_arrow),
             );
           },

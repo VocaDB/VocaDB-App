@@ -1,9 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:vocadb/blocs/search_bloc.dart';
-import 'package:vocadb/models/artist_model.dart';
 import 'package:vocadb/models/entry_model.dart';
-import 'package:vocadb/models/tag_model.dart';
 import 'package:vocadb/services/entry_service.dart';
 
 class MockEntryService extends Mock implements EntryService {}

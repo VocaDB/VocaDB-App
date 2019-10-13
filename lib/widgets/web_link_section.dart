@@ -12,7 +12,7 @@ class WebLinkSection extends StatelessWidget {
   Widget build(BuildContext context) {
     List<Widget> children = [];
 
-    if (webLinks.length == 0) {
+    if (webLinks == null || webLinks.length == 0) {
       return Container();
     }
 
