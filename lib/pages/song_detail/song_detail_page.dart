@@ -374,6 +374,8 @@ class _SongDetailPageState extends State<SongDetailPage> {
           if (snapshot.hasData) {
             List<SongModel> alts = snapshot.data;
 
+            if (alts.isEmpty) return Container();
+
             return Column(
               children: <Widget>[
                 Section(
