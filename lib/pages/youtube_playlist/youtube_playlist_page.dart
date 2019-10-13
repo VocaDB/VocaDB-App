@@ -8,6 +8,13 @@ class YoutubePlaylistPage extends StatefulWidget {
 
   const YoutubePlaylistPage({Key key, this.songs}) : super(key: key);
 
+  static navigate(BuildContext context, List<SongModel> songs) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => YoutubePlaylistPage(songs: songs)));
+  }
+
   @override
   _YoutubePlaylistPageState createState() => _YoutubePlaylistPageState();
 }

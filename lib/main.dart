@@ -15,6 +15,7 @@ import 'package:vocadb/pages/album_detail/album_detail_page.dart';
 import 'package:vocadb/pages/artist/artist_page.dart';
 import 'package:vocadb/pages/artist_detail/artist_detail_page.dart';
 import 'package:vocadb/pages/event_detail/event_detail_page.dart';
+import 'package:vocadb/pages/main/ranking_filter_page.dart';
 import 'package:vocadb/pages/release_event/release_event_page.dart';
 import 'package:vocadb/pages/search/more_album_page.dart';
 import 'package:vocadb/pages/search/more_song_page.dart';
@@ -53,41 +54,6 @@ class VocaDBApp extends StatelessWidget {
       ],
       child: RootApp(),
     );
-//    return FutureBuilder(
-//      future: _openBoxes(),
-//      builder: (context, snapshot) {
-//        if (snapshot.connectionState == ConnectionState.done) {
-//          if (snapshot.error != null) {
-//            print(snapshot.error);
-//            return MaterialApp(
-//              home: Scaffold(
-//                body: Center(
-//                  child: Text('Something went wrong :/'),
-//                ),
-//              ),
-//            );
-//          } else {
-//            return MultiProvider(
-//              providers: [
-//                Provider<ConfigBloc>.value(value: configBloc),
-//                Provider<HomeBloc>.value(value: HomeBloc(configBloc)),
-//                Provider<RankingBloc>.value(value: RankingBloc(configBloc)),
-//                Provider<FavoriteSongBloc>.value(value: FavoriteSongBloc())
-//              ],
-//              child: RootApp(),
-//            );
-//          }
-//        } else {
-//          return MaterialApp(
-//            home: Scaffold(
-//              body: Center(
-//                child: CircularProgressIndicator(),
-//              ),
-//            ),
-//          );
-//        }
-//      },
-//    );
   }
 }
 
@@ -153,9 +119,6 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     final homeBloc = Provider.of<HomeBloc>(context);
     final rankingBloc = Provider.of<RankingBloc>(context);
-
-    final configBloc = Provider.of<ConfigBloc>(context);
-
     return Scaffold(
       appBar: AppBar(
         title: Text('VocaDB'),
@@ -164,7 +127,12 @@ class _MyHomePageState extends State<MyHomePage> {
             icon: Icon(Icons.search),
             onPressed: () =>
                 Navigator.pushNamed(context, SearchScreen.routeName),
-          )
+          ),
+          (_selectedIndex != 1)
+              ? Container()
+              : IconButton(
+                  icon: Icon(Icons.filter_list),
+                  onPressed: () => RankingFilterPage.navigate(context)),
         ],
       ),
       body: Center(

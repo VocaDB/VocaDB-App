@@ -27,6 +27,12 @@ class _RankingTabState extends State<RankingTab>
     super.initState();
     _tabController =
         TabController(vsync: this, length: myTabs.length, initialIndex: 1);
+    _tabController.addListener(onTabChanged);
+  }
+
+  void onTabChanged() {
+    int currentIndex = _tabController.index;
+    Provider.of<RankingBloc>(context).updateIndex(currentIndex);
   }
 
   @override
@@ -48,66 +54,84 @@ class _RankingTabState extends State<RankingTab>
     final rankingBloc = Provider.of<RankingBloc>(context);
 
     return SafeArea(
-        child: Scaffold(
-            appBar: TabBar(
-              controller: _tabController,
-              tabs: myTabs,
-              labelColor: theme.textSelectionColor,
-              unselectedLabelColor: theme.textTheme.title.color,
+      child: Scaffold(
+        appBar: TabBar(
+          controller: _tabController,
+          tabs: myTabs,
+          labelColor: theme.textSelectionColor,
+          unselectedLabelColor: theme.textTheme.title.color,
+        ),
+        body: TabBarView(
+          controller: _tabController,
+          children: [
+            StreamBuilder(
+              stream: rankingBloc.daily$,
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return RankingContent(songs: snapshot.data);
+                } else if (snapshot.hasError) {
+                  return CenterResult.error(message: snapshot.error.toString());
+                }
+                return CenterLoading();
+              },
             ),
-            body: TabBarView(
-              controller: _tabController,
-              children: [
-                StreamBuilder(
-                  stream: rankingBloc.daily$,
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      return RankingContent(songs: snapshot.data);
-                    } else if (snapshot.hasError) {
-                      return CenterResult.error(
-                          message: snapshot.error.toString());
-                    }
-                    return CenterLoading();
-                  },
-                ),
-                StreamBuilder(
-                  stream: rankingBloc.weekly$,
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      return RankingContent(songs: snapshot.data);
-                    } else if (snapshot.hasError) {
-                      return CenterResult.error(
-                          message: snapshot.error.toString());
-                    }
-                    return CenterLoading();
-                  },
-                ),
-                StreamBuilder(
-                  stream: rankingBloc.monthly$,
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      return RankingContent(songs: snapshot.data);
-                    } else if (snapshot.hasError) {
-                      return CenterResult.error(
-                          message: snapshot.error.toString());
-                    }
-                    return CenterLoading();
-                  },
-                ),
-                StreamBuilder(
-                  stream: rankingBloc.overall$,
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      return RankingContent(songs: snapshot.data);
-                    } else if (snapshot.hasError) {
-                      return CenterResult.error(
-                          message: snapshot.error.toString());
-                    }
-                    return CenterLoading();
-                  },
-                ),
-              ],
-            )));
+            StreamBuilder(
+              stream: rankingBloc.weekly$,
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return RankingContent(songs: snapshot.data);
+                } else if (snapshot.hasError) {
+                  return CenterResult.error(message: snapshot.error.toString());
+                }
+                return CenterLoading();
+              },
+            ),
+            StreamBuilder(
+              stream: rankingBloc.monthly$,
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return RankingContent(songs: snapshot.data);
+                } else if (snapshot.hasError) {
+                  return CenterResult.error(message: snapshot.error.toString());
+                }
+                return CenterLoading();
+              },
+            ),
+            StreamBuilder(
+              stream: rankingBloc.overall$,
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return RankingContent(songs: snapshot.data);
+                } else if (snapshot.hasError) {
+                  return CenterResult.error(message: snapshot.error.toString());
+                }
+                return CenterLoading();
+              },
+            ),
+          ],
+        ),
+        floatingActionButton: StreamBuilder(
+          stream: Provider.of<RankingBloc>(context).currentIndex,
+          initialData: 1,
+          builder: (context, snapshot) {
+            if (!snapshot.hasData) {
+              return Container();
+            }
+
+            List<SongModel> songs = rankingBloc.currentSongs;
+
+            if (songs == null || songs.isEmpty) {
+              return Container();
+            }
+
+            return FloatingActionButton(
+              onPressed: () => YoutubePlaylistPage.navigate(context, songs),
+              child: Icon(Icons.play_arrow),
+            );
+          },
+        ),
+      ),
+    );
   }
 }
 
@@ -118,34 +142,13 @@ class RankingContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        (songs == null || songs.length == 0)
-            ? Container()
-            : FlatButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              YoutubePlaylistPage(songs: songs)));
-                },
-                child: Row(
-                  children: <Widget>[Icon(Icons.play_arrow), Text('Play all')],
-                ),
-              ),
-        Expanded(
-          child: ListView.builder(
-            itemCount: songs.length,
-            itemBuilder: (context, index) {
-              SongModel song = songs[index];
-              return SongTile.fromSong(songs[index],
-                  leading: Text((index + 1).toString()),
-                  tag: 'ranking_${song.id}');
-            },
-          ),
-        ),
-      ],
+    return ListView.builder(
+      itemCount: songs.length,
+      itemBuilder: (context, index) {
+        SongModel song = songs[index];
+        return SongTile.fromSong(songs[index],
+            leading: Text((index + 1).toString()), tag: 'ranking_${song.id}');
+      },
     );
   }
 }

@@ -27,13 +27,24 @@ class SongRestService extends BaseRestService {
   }
 
   Future<List<SongModel>> topRated(
-      {int durationHours = 0, String lang = 'Default'}) async {
+      {int durationHours = 0,
+      String filterBy,
+      String vocalist,
+      String lang = 'Default'}) async {
     final String endpoint = '/api/songs/top-rated';
     final Map<String, String> params = {
       'fields': 'MainPicture,ThumbUrl,PVs',
       'languagePreference': lang,
       'filterBy': 'CreateDate'
     };
+
+    if (vocalist != null) {
+      params['filterBy'] = filterBy;
+    }
+
+    if (vocalist != null) {
+      params['vocalist'] = vocalist;
+    }
 
     if (durationHours != 0) {
       params['durationHours'] = durationHours.toString();
@@ -78,7 +89,8 @@ class SongRestService extends BaseRestService {
         .then((items) => SongModel.jsonToList(items));
   }
 
-  Future<List<SongModel>> latestByTagId(int tagId, {String lang = 'Default'}) async {
+  Future<List<SongModel>> latestByTagId(int tagId,
+      {String lang = 'Default'}) async {
     final Map<String, String> params = {
       'tagId': tagId.toString(),
       'fields': 'MainPicture,ThumbUrl',
@@ -89,7 +101,8 @@ class SongRestService extends BaseRestService {
     return this.list(params: params);
   }
 
-  Future<List<SongModel>> topByTagId(int tagId, {String lang = 'Default'}) async {
+  Future<List<SongModel>> topByTagId(int tagId,
+      {String lang = 'Default'}) async {
     final Map<String, String> params = {
       'tagId': tagId.toString(),
       'fields': 'MainPicture,ThumbUrl',
@@ -100,7 +113,8 @@ class SongRestService extends BaseRestService {
     return this.list(params: params);
   }
 
-  Future<List<SongModel>> latestByArtistId(int artistId, {String lang = 'Default'}) async {
+  Future<List<SongModel>> latestByArtistId(int artistId,
+      {String lang = 'Default'}) async {
     final Map<String, String> params = {
       'artistId': artistId.toString(),
       'fields': 'MainPicture,ThumbUrl',
