@@ -21,7 +21,9 @@ class AlbumModel extends EntryModel {
   AlbumModel.fromJson(Map<String, dynamic> json)
       : catalogNumber = json['catalogNumber'],
         description = json['description'],
-        ratingAverage = json['ratingAverage'],
+        ratingAverage = (json['ratingAverage'] is int)
+            ? double.parse(json['ratingAverage'].toString())
+            : json['ratingAverage'],
         ratingCount = json['ratingCount'],
         tracks = JSONUtils.mapJsonArray<TrackModel>(
             json['tracks'], (v) => TrackModel.fromJson(v)),
