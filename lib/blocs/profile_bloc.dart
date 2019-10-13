@@ -53,14 +53,13 @@ class ProfileBloc {
     File file = await FilePicker.getFile(type: FileType.ANY);
 
     if (file == null) {
-      return;
+      throw ("No file selected");
     }
 
     String content = await file.readAsString();
 
     if (content == null || content.isEmpty) {
-      print('no pick any file');
-      return;
+      throw ("Invalid file content.");
     }
 
     Map<String, dynamic> jsonDecoded = json.decode(content);
