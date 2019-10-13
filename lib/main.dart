@@ -6,6 +6,8 @@ import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:vocadb/app_theme.dart';
 import 'package:vocadb/blocs/config_bloc.dart';
+import 'package:vocadb/blocs/favorite_album_bloc.dart';
+import 'package:vocadb/blocs/favorite_artist_bloc.dart';
 import 'package:vocadb/blocs/favorite_song_bloc.dart';
 import 'package:vocadb/blocs/home_bloc.dart';
 import 'package:vocadb/blocs/ranking_bloc.dart';
@@ -24,6 +26,8 @@ import 'package:vocadb/pages/song/song_page.dart';
 import 'package:vocadb/pages/song_detail/song_detail_page.dart';
 import 'package:vocadb/pages/tag/tag_page.dart';
 import 'package:vocadb/pages/tag_detail/tag_detail_page.dart';
+import 'package:vocadb/pages/users/favorite_album_page.dart';
+import 'package:vocadb/pages/users/favorite_artist_page.dart';
 import 'package:vocadb/pages/users/favorite_song_page.dart';
 
 import 'pages/main/account_tab.dart';
@@ -50,7 +54,9 @@ class VocaDBApp extends StatelessWidget {
         Provider<ConfigBloc>.value(value: configBloc),
         Provider<HomeBloc>.value(value: HomeBloc(configBloc)),
         Provider<RankingBloc>.value(value: RankingBloc(configBloc)),
-        Provider<FavoriteSongBloc>.value(value: FavoriteSongBloc())
+        Provider<FavoriteSongBloc>.value(value: FavoriteSongBloc()),
+        Provider<FavoriteArtistBloc>.value(value: FavoriteArtistBloc()),
+        Provider<FavoriteAlbumBloc>.value(value: FavoriteAlbumBloc())
       ],
       child: RootApp(),
     );
@@ -80,6 +86,8 @@ class RootApp extends StatelessWidget {
             ReleaseEventDetailScreen.routeName: (context) =>
                 ReleaseEventDetailScreen(),
             FavoriteSongScreen.routeName: (context) => FavoriteSongScreen(),
+            FavoriteArtistScreen.routeName: (context) => FavoriteArtistScreen(),
+            FavoriteAlbumScreen.routeName: (context) => FavoriteAlbumScreen(),
             MoreSongScreen.routeName: (context) => MoreSongScreen(),
             MoreAlbumScreen.routeName: (context) => MoreAlbumScreen(),
             SongScreen.routeName: (context) => SongScreen(),

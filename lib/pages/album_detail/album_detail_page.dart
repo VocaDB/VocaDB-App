@@ -5,15 +5,14 @@ import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:vocadb/blocs/album_detail_bloc.dart';
 import 'package:vocadb/blocs/config_bloc.dart';
+import 'package:vocadb/blocs/favorite_album_bloc.dart';
 import 'package:vocadb/constants.dart';
 import 'package:vocadb/models/album_model.dart';
 import 'package:vocadb/models/track_model.dart';
-import 'package:vocadb/widgets/action_bar.dart';
 import 'package:vocadb/widgets/artist_section.dart';
 import 'package:vocadb/widgets/expandable_content.dart';
+import 'package:vocadb/widgets/like_button.dart';
 import 'package:vocadb/widgets/result.dart';
-import 'package:vocadb/widgets/share_action_button.dart';
-import 'package:vocadb/widgets/source_action_button.dart';
 import 'package:vocadb/widgets/space_divider.dart';
 import 'package:vocadb/widgets/tags.dart';
 import "package:collection/collection.dart";
@@ -156,20 +155,61 @@ class _AlbumDetailContentState extends State<AlbumDetailContent> {
           ],
         ),
       ),
-      ActionBar(
-        actions: [
-          ShareActionButton(
-            onTap: () {
-              Share.share('$HOST/Al/${album.id}');
-            },
-          ),
-          SourceActionButton(
-            onTap: () {
-              String url = '$HOST/Al/${album.id}';
-              launch(url);
-            },
-          )
-        ],
+      Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            Expanded(
+              child: StreamBuilder(
+                stream: Provider.of<FavoriteAlbumBloc>(context).albums$,
+                builder: (context, snapshot) {
+                  Map<int, AlbumModel> songMap = snapshot.data;
+
+                  if ((songMap != null && songMap.containsKey(album.id))) {
+                    return LikeButton(
+                      onPressed: () => Provider.of<FavoriteAlbumBloc>(context)
+                          .remove(album.id),
+                      isLiked: true,
+                    );
+                  }
+
+                  return LikeButton(
+                    onPressed: () =>
+                        Provider.of<FavoriteAlbumBloc>(context).add(album),
+                  );
+                },
+              ),
+            ),
+            Expanded(
+              child: FlatButton(
+                  onPressed: () => Share.share('$HOST/Al/${album.id}'),
+                  child: Column(
+                    children: <Widget>[
+                      Icon(
+                        Icons.share,
+                      ),
+                      Text('Share', style: TextStyle(fontSize: 12))
+                    ],
+                  )),
+            ),
+            Expanded(
+              child: FlatButton(
+                  onPressed: () {
+                    String url = '$HOST/Al/${album.id}';
+                    launch(url);
+                  },
+                  child: Column(
+                    children: <Widget>[
+                      Icon(
+                        Icons.info,
+                      ),
+                      Text('More info', style: TextStyle(fontSize: 12))
+                    ],
+                  )),
+            ),
+          ],
+        ),
       ),
       SpaceDivider(),
       Tags(album.tags),

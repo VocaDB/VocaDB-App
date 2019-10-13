@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:package_info/package_info.dart';
 import 'package:vocadb/pages/setting/setting_page.dart';
+import 'package:vocadb/pages/users/favorite_album_page.dart';
+import 'package:vocadb/pages/users/favorite_artist_page.dart';
 import 'package:vocadb/pages/users/favorite_song_page.dart';
 
 class AccountTab extends StatelessWidget {
@@ -20,6 +22,18 @@ class GuestTab extends StatelessWidget {
               Navigator.pushNamed(context, FavoriteSongScreen.routeName),
           leading: Icon(Icons.library_music),
           title: Text("Favorite songs"),
+        ),
+        ListTile(
+          onTap: () =>
+              Navigator.pushNamed(context, FavoriteArtistScreen.routeName),
+          leading: Icon(Icons.people),
+          title: Text("Followed artists"),
+        ),
+        ListTile(
+          onTap: () =>
+              Navigator.pushNamed(context, FavoriteAlbumScreen.routeName),
+          leading: Icon(Icons.album),
+          title: Text("Collections"),
         ),
         ListTile(
           onTap: () {

@@ -5,19 +5,18 @@ import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:vocadb/blocs/artist_detail_bloc.dart';
 import 'package:vocadb/blocs/config_bloc.dart';
+import 'package:vocadb/blocs/favorite_artist_bloc.dart';
 import 'package:vocadb/constants.dart';
 import 'package:vocadb/models/artist_model.dart';
 import 'package:vocadb/pages/search/more_album_page.dart';
 import 'package:vocadb/pages/search/more_song_page.dart';
-import 'package:vocadb/widgets/action_bar.dart';
 import 'package:vocadb/widgets/album_list_section.dart';
 import 'package:vocadb/widgets/artist_section.dart';
 import 'package:vocadb/widgets/artist_tile.dart';
 import 'package:vocadb/widgets/center_content.dart';
 import 'package:vocadb/widgets/expandable_content.dart';
-import 'package:vocadb/widgets/share_action_button.dart';
+import 'package:vocadb/widgets/like_button.dart';
 import 'package:vocadb/widgets/song_list_section.dart';
-import 'package:vocadb/widgets/source_action_button.dart';
 import 'package:vocadb/widgets/space_divider.dart';
 import 'package:vocadb/widgets/tags.dart';
 import 'package:vocadb/widgets/text_info_section.dart';
@@ -232,20 +231,63 @@ class ArtistDetailContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverList(
       delegate: SliverChildListDelegate([
-        ActionBar(
-          actions: [
-            ShareActionButton(
-              onTap: () {
-                Share.share('$HOST/Ar/${artist.id}');
-              },
-            ),
-            SourceActionButton(
-              onTap: () {
-                String url = '$HOST/Ar/${artist.id}';
-                launch(url);
-              },
-            )
-          ],
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              Expanded(
+                child: StreamBuilder(
+                  stream: Provider.of<FavoriteArtistBloc>(context).artists$,
+                  builder: (context, snapshot) {
+                    Map<int, ArtistModel> artistMap = snapshot.data;
+
+                    if ((artistMap != null &&
+                        artistMap.containsKey(artist.id))) {
+                      return LikeButton(
+                        onPressed: () =>
+                            Provider.of<FavoriteArtistBloc>(context)
+                                .remove(artist.id),
+                        isLiked: true,
+                      );
+                    }
+
+                    return LikeButton(
+                      onPressed: () =>
+                          Provider.of<FavoriteArtistBloc>(context).add(artist),
+                    );
+                  },
+                ),
+              ),
+              Expanded(
+                child: FlatButton(
+                    onPressed: () => Share.share('$HOST/Ar/${artist.id}'),
+                    child: Column(
+                      children: <Widget>[
+                        Icon(
+                          Icons.share,
+                        ),
+                        Text('Share', style: TextStyle(fontSize: 12))
+                      ],
+                    )),
+              ),
+              Expanded(
+                child: FlatButton(
+                    onPressed: () {
+                      String url = '$HOST/Ar/${artist.id}';
+                      launch(url);
+                    },
+                    child: Column(
+                      children: <Widget>[
+                        Icon(
+                          Icons.info,
+                        ),
+                        Text('More info', style: TextStyle(fontSize: 12))
+                      ],
+                    )),
+              ),
+            ],
+          ),
         ),
         //
         ArtistInfo(
@@ -258,7 +300,8 @@ class ArtistDetailContent extends StatelessWidget {
           prefixTag: 'artist_latest_song_${artist.id}}',
           extraMenus: PopupMenuButton<String>(
             onSelected: (String selectedValue) {
-              MoreSongScreen.showLatestByArtist(context, 'More songs from ${artist.name}', artist.id);
+              MoreSongScreen.showLatestByArtist(
+                  context, 'More songs from ${artist.name}', artist.id);
             },
             itemBuilder: (BuildContext context) => [
               PopupMenuItem<String>(
@@ -275,7 +318,8 @@ class ArtistDetailContent extends StatelessWidget {
           prefixTag: 'artist_popular_song_${artist.id}}',
           extraMenus: PopupMenuButton<String>(
             onSelected: (String selectedValue) {
-              MoreSongScreen.showTopByArtist(context, 'Top songs from ${artist.name}', artist.id);
+              MoreSongScreen.showTopByArtist(
+                  context, 'Top songs from ${artist.name}', artist.id);
             },
             itemBuilder: (BuildContext context) => [
               PopupMenuItem<String>(
@@ -292,7 +336,8 @@ class ArtistDetailContent extends StatelessWidget {
           prefixTag: 'artist_latest_album_${artist.id}}',
           extraMenus: PopupMenuButton<String>(
             onSelected: (String selectedValue) {
-              MoreAlbumScreen.showLatestByArtist(context, 'Latest albums from ${artist.name}', artist.id);
+              MoreAlbumScreen.showLatestByArtist(
+                  context, 'Latest albums from ${artist.name}', artist.id);
             },
             itemBuilder: (BuildContext context) => [
               PopupMenuItem<String>(
@@ -309,7 +354,8 @@ class ArtistDetailContent extends StatelessWidget {
           prefixTag: 'artist_latest_album_${artist.id}}',
           extraMenus: PopupMenuButton<String>(
             onSelected: (String selectedValue) {
-              MoreAlbumScreen.showTopByArtist(context, 'Top albums from ${artist.name}', artist.id);
+              MoreAlbumScreen.showTopByArtist(
+                  context, 'Top albums from ${artist.name}', artist.id);
             },
             itemBuilder: (BuildContext context) => [
               PopupMenuItem<String>(

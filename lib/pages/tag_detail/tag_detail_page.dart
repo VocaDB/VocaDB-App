@@ -7,15 +7,12 @@ import 'package:vocadb/blocs/config_bloc.dart';
 import 'package:vocadb/blocs/tag_detail_bloc.dart';
 import 'package:vocadb/constants.dart';
 import 'package:vocadb/models/tag_model.dart';
-import 'package:vocadb/widgets/action_bar.dart';
 import 'package:vocadb/widgets/album_list_section.dart';
 import 'package:vocadb/widgets/artist_section.dart';
 import 'package:vocadb/widgets/expandable_content.dart';
 import 'package:vocadb/widgets/info_section.dart';
 import 'package:vocadb/widgets/result.dart';
-import 'package:vocadb/widgets/share_action_button.dart';
 import 'package:vocadb/widgets/song_list_section.dart';
-import 'package:vocadb/widgets/source_action_button.dart';
 import 'package:vocadb/widgets/tags.dart';
 import 'package:vocadb/widgets/text_info_section.dart';
 import 'package:vocadb/widgets/web_link_section.dart';
@@ -26,7 +23,6 @@ class TagDetailScreenArguments {
 
   TagDetailScreenArguments(this.id, this.name);
 }
-
 
 class TagDetailScreen extends StatelessWidget {
   static const String routeName = '/tagDetail';
@@ -83,20 +79,40 @@ class TagDetailPage extends StatelessWidget {
         ),
         SliverList(
           delegate: SliverChildListDelegate.fixed([
-            ActionBar(
-              actions: [
-                ShareActionButton(
-                  onTap: () {
-                    Share.share('$HOST/T/${tag.id}');
-                  },
-                ),
-                SourceActionButton(
-                  onTap: () {
-                    String url = '$HOST/T/${tag.id}';
-                    launch(url);
-                  },
-                )
-              ],
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Expanded(
+                    child: FlatButton(
+                        onPressed: () => Share.share('$HOST/T/${tag.id}'),
+                        child: Column(
+                          children: <Widget>[
+                            Icon(
+                              Icons.share,
+                            ),
+                            Text('Share', style: TextStyle(fontSize: 12))
+                          ],
+                        )),
+                  ),
+                  Expanded(
+                    child: FlatButton(
+                        onPressed: () {
+                          String url = '$HOST/T/${tag.id}';
+                          launch(url);
+                        },
+                        child: Column(
+                          children: <Widget>[
+                            Icon(
+                              Icons.info,
+                            ),
+                            Text('More info', style: TextStyle(fontSize: 12))
+                          ],
+                        )),
+                  ),
+                ],
+              ),
             ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 8.0),

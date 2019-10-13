@@ -16,6 +16,7 @@ import 'package:vocadb/models/song_model.dart';
 import 'package:vocadb/pages/song_detail/lyric_content.dart';
 import 'package:vocadb/widgets/album_card.dart';
 import 'package:vocadb/widgets/artist_tile.dart';
+import 'package:vocadb/widgets/like_button.dart';
 import 'package:vocadb/widgets/pv_tile.dart';
 import 'package:vocadb/widgets/result.dart';
 import 'package:vocadb/widgets/section.dart';
@@ -70,31 +71,6 @@ class SongDetailPage extends StatefulWidget {
 
   @override
   _SongDetailPageState createState() => _SongDetailPageState();
-}
-
-class LikeButton extends StatelessWidget {
-  final Function onPressed;
-  final bool isLiked;
-
-  const LikeButton({Key key, this.onPressed, this.isLiked = false})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return FlatButton(
-        onPressed: onPressed,
-        textColor: (isLiked)
-            ? Theme.of(context).accentColor
-            : Theme.of(context).iconTheme.color,
-        child: Column(
-          children: <Widget>[
-            Icon(
-              Icons.favorite,
-            ),
-            Text((isLiked) ? 'Liked' : 'Like', style: TextStyle(fontSize: 12))
-          ],
-        ));
-  }
 }
 
 class _SongDetailPageState extends State<SongDetailPage> {
