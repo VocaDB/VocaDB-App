@@ -139,7 +139,7 @@ class ArtistInfo extends StatelessWidget {
         ),
         SpaceDivider(),
         (!artist.isContainsDetail)
-            ? null
+            ? Container()
             : ExpandableContent(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

@@ -84,8 +84,9 @@ class ArtistModel extends EntryModel {
   List<TagModel> get tags =>
       (this.tagGroups != null) ? this.tagGroups.map((t) => t.tag).toList() : [];
 
-  bool get isContainsDetail => (description != null ||
-      artistLinksReverse.length > 0 ||
-      artistLinks.length > 0 ||
-      releaseDate != null);
+  bool get isContainsDetail =>
+      ((description != null && description.isNotEmpty) ||
+          artistLinksReverse.isNotEmpty ||
+          artistLinks.isNotEmpty ||
+          (releaseDate != null && releaseDate.isNotEmpty));
 }

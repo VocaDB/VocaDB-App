@@ -16,12 +16,14 @@ class MoreSongScreenArguments {
 class MoreSongScreen extends StatelessWidget {
   static const String routeName = '/songs/more';
 
-  static void navigate(BuildContext context, String title, {Map<String, String> params}) {
+  static void navigate(BuildContext context, String title,
+      {Map<String, String> params}) {
     Navigator.pushNamed(context, MoreSongScreen.routeName,
         arguments: MoreSongScreenArguments(title, params: params));
   }
 
-  static void showLatestByArtist(BuildContext context, String title, int artistId) {
+  static void showLatestByArtist(
+      BuildContext context, String title, int artistId) {
     Map<String, String> params = {
       'artistId': artistId.toString(),
       'sort': 'PublishDate',
@@ -32,7 +34,8 @@ class MoreSongScreen extends StatelessWidget {
     navigate(context, title, params: params);
   }
 
-  static void showTopByArtist(BuildContext context, String title, int artistId) {
+  static void showTopByArtist(
+      BuildContext context, String title, int artistId) {
     Map<String, String> params = {
       'artistId': artistId.toString(),
       'sort': 'RatingScore',
@@ -50,7 +53,8 @@ class MoreSongScreen extends StatelessWidget {
     final configBloc = Provider.of<ConfigBloc>(context);
 
     return Provider<SearchSongBloc>(
-      builder: (context) => SearchSongBloc(params: args.params, configBloc: configBloc),
+      builder: (context) =>
+          SearchSongBloc(params: args.params, configBloc: configBloc),
       dispose: (context, bloc) => bloc.dispose(),
       child: MoreSongPage(title: args.title),
     );
@@ -58,7 +62,6 @@ class MoreSongScreen extends StatelessWidget {
 }
 
 class MoreSongPage extends StatelessWidget {
-
   final String title;
 
   const MoreSongPage({Key key, this.title = 'More songs'}) : super(key: key);
@@ -90,18 +93,7 @@ class MoreSongPage extends StatelessWidget {
     final bloc = Provider.of<SearchSongBloc>(context);
     return Scaffold(
       appBar: AppBar(
-        title: Row(
-          children: <Widget>[
-            Expanded(
-              child: TextField(
-                onChanged: bloc.updateQuery,
-                style: Theme.of(context).primaryTextTheme.title,
-                decoration: InputDecoration(
-                    border: InputBorder.none, hintText: title),
-              ),
-            ),
-          ],
-        ),
+        title: Text(title),
       ),
       body: StreamBuilder(
         stream: bloc.result$,
