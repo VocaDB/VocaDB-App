@@ -34,7 +34,6 @@ class FavoriteSongBloc {
         (key, value) => MapEntry(int.parse(key), SongModel.fromJson(value)));
 
     _songs.add(mapSongs);
-    save(mapSongs);
   }
 
   void update(List<SongModel> songs) {
@@ -43,6 +42,7 @@ class FavoriteSongBloc {
         .where((v) => v != null)
         .forEach((v) => mapSongs.putIfAbsent(v.id, () => v));
     _songs.add(mapSongs);
+    save(mapSongs);
   }
 
   void save(Map<int, SongModel> songs) {
