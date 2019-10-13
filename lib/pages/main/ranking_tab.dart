@@ -136,6 +136,12 @@ class RankingContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (songs == null || songs.isEmpty) {
+      return CenterResult.error(
+        title: 'No songs found.',
+      );
+    }
+
     return ListView.builder(
       itemCount: songs.length,
       itemBuilder: (context, index) {

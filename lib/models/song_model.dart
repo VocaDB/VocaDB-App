@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:intl/intl.dart';
 import 'package:vocadb/models/album_model.dart';
 import 'package:vocadb/models/artist_song_model.dart';
@@ -6,7 +5,6 @@ import 'package:vocadb/models/entry_model.dart';
 import 'package:vocadb/models/lyric_model.dart';
 import 'package:vocadb/models/pv_model.dart';
 import 'package:vocadb/models/tag_model.dart';
-import 'package:vocadb/services/web_service.dart';
 import 'package:vocadb/utils/json_utils.dart';
 
 class SongModel extends EntryModel {
@@ -65,23 +63,6 @@ class SongModel extends EntryModel {
       : DateFormat('yyyy-MM-dd').format(DateTime.parse(publishDate));
 
   bool get hasLyrics => lyrics != null && lyrics.length > 0;
-
-  static List<SongModel> _mapItemsResponse(Response response) {
-    Iterable result = response.data['items'];
-    return result.map((model) => SongModel.fromJson(model)).toList();
-  }
-
-  static Resource<List<SongModel>> latestByTagId(int tagId) {
-    return Resource(
-        endpoint: '/api/songs?tagId=$tagId&fields=ThumbUrl&sort=AdditionDate',
-        parse: _mapItemsResponse);
-  }
-
-  static Resource<List<SongModel>> topByTagId(int tagId) {
-    return Resource(
-        endpoint: '/api/songs?tagId=$tagId&fields=ThumbUrl&sort=RatingScore',
-        parse: _mapItemsResponse);
-  }
 
   @override
   Map<String, dynamic> toJson() {

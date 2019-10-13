@@ -1,3 +1,4 @@
+import 'package:vocadb/constants.dart';
 import 'package:vocadb/models/artist_album_model.dart';
 import 'package:vocadb/models/entry_model.dart';
 import 'package:vocadb/models/release_date_model.dart';
@@ -51,7 +52,7 @@ class AlbumModel extends EntryModel {
 
   get imageUrl => (mainPicture != null && mainPicture.urlThumb != null)
       ? mainPicture.urlThumb
-      : 'https://vocadb.net/Album/CoverPicture/$id';
+      : '$HOST/Album/CoverPicture/$id';
 
   String get releaseDateFormatted => releaseDate.formatted;
 

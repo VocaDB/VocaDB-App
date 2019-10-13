@@ -1,10 +1,9 @@
-import 'package:dio/dio.dart';
 import 'package:intl/intl.dart';
+import 'package:vocadb/constants.dart';
 import 'package:vocadb/models/base_model.dart';
 import 'package:vocadb/models/main_picture_model.dart';
 import 'package:vocadb/models/tag_group_model.dart';
 import 'package:vocadb/models/web_link_model.dart';
-import 'package:vocadb/services/web_service.dart';
 
 class EntryModel extends BaseModel {
   int id;
@@ -63,9 +62,9 @@ class EntryModel extends BaseModel {
 
     switch (entryType) {
       case EntryType.Artist:
-        return 'https://vocadb.net/Artist/Picture/$id';
+        return '$HOST/Artist/Picture/$id';
       case EntryType.Album:
-        return 'https://vocadb.net/Album/CoverPicture/$id';
+        return '$HOST/Album/CoverPicture/$id';
       default:
         return 'https://via.placeholder.com/150x150?text=no_image';
     }

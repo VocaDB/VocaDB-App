@@ -1,6 +1,4 @@
-import 'package:dio/dio.dart';
 import 'package:vocadb/models/entry_model.dart';
-import 'package:vocadb/services/web_service.dart';
 import 'package:vocadb/utils/json_utils.dart';
 
 class TagModel extends EntryModel {
@@ -26,17 +24,6 @@ class TagModel extends EntryModel {
 
   static List<TagModel> jsonToList(List items) {
     return items.map((i) => TagModel.fromJson(i)).toList();
-  }
-
-  static TagModel _mapObjectResponse(Response response) {
-    final result = response.data;
-    return TagModel.fromJson(result);
-  }
-
-  static Resource<TagModel> byId(int id) {
-    return Resource(
-        endpoint: '/api/tags/$id?fields=Description',
-        parse: _mapObjectResponse);
   }
 
   get imageUrl => (mainPicture != null && mainPicture.urlThumb != null)

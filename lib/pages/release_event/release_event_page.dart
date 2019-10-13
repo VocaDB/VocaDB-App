@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:vocadb/blocs/config_bloc.dart';
 import 'package:vocadb/blocs/release_event_bloc.dart';
-import 'package:vocadb/blocs/search_release_event_bloc.dart';
 import 'package:vocadb/models/release_event_model.dart';
 import 'package:vocadb/pages/search/release_event_filter_page.dart';
 import 'package:vocadb/widgets/center_content.dart';
@@ -56,7 +55,7 @@ class _ReleaseEventPageState extends State<ReleaseEventPage> {
       itemCount: releaseEvents.length,
       itemBuilder: (context, index) {
         ReleaseEventModel e = releaseEvents[index];
-        return EventTile.fromEntry(e, tag: 'release_event_${e.id}');
+        return EventTile.fromReleaseEvent(e, tag: 'release_event_${e.id}');
       },
     );
   }
