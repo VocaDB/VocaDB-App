@@ -21,7 +21,7 @@ class ArtistModel extends EntryModel {
         description = json['description'],
         releaseDate = json['releaseDate'],
         relations = (json.containsKey('relations'))
-            ? ArtistRelations.fromJson(json['relations'])
+            ? ArtistRelations.fromJson(json['relations'] ?? {})
             : null,
         baseVoicebank = (json.containsKey('baseVoicebank') &&
                 !(json['baseVoicebank'] is int))

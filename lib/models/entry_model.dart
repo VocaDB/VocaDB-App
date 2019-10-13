@@ -36,7 +36,7 @@ class EntryModel extends BaseModel {
         artistString = json['artistString'],
         artistType = json['artistType'],
         mainPicture = json.containsKey('mainPicture')
-            ? MainPictureModel.fromJson(json['mainPicture'])
+            ? MainPictureModel.fromJson(json['mainPicture'] ?? {})
             : null,
         tagGroups = (json.containsKey('tags'))
             ? (json['tags'] as List)
