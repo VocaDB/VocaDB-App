@@ -14,7 +14,7 @@
          FlutterApplication and put your custom class here. -->
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="VocaDB-Dev"
+        android:label="VocaDB"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
