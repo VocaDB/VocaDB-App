@@ -7,3 +7,11 @@ yarn.lock
 .tmp
 ios/Pods
 ios/VocaDB/GoogleService-Info.plist
+.packages
+*.lock
+build
+android/key.local.properties
+android/.gradle
+android/**/*.iml
+ios/Flutter/Generated.xconfig
+ios/Runner/GeneratedPluginRegistrant.*
