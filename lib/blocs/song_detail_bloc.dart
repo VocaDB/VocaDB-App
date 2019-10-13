@@ -24,8 +24,7 @@ class SongDetailBloc {
 
   ConfigBloc configBloc;
 
-  SongDetailBloc(this.id,
-      {SongRestService songService, this.configBloc}) {
+  SongDetailBloc(this.id, {SongRestService songService, this.configBloc}) {
     this.songService ??= songService ?? SongRestService();
 
     _song.distinct().listen(onFetched);
@@ -37,7 +36,7 @@ class SongDetailBloc {
       return;
     }
 
-    if (song.originalVersionId != null && song.originalVersionId > 0){
+    if (song.originalVersionId != null && song.originalVersionId > 0) {
       fetchOriginalVersion(song.originalVersionId);
     }
 
@@ -72,10 +71,12 @@ class SongDetailBloc {
   }
 
   void showLyric() {
+    print('show lyric');
     _isLyricOpened.add(true);
   }
 
   void hideLyric() {
+    print('hide lyric');
     _isLyricOpened.add(false);
   }
 

@@ -12,6 +12,8 @@ class LyricContentBloc {
   Observable get selectedLyric$ => _selectedLyric.stream;
 
   LyricContentBloc(this.lyrics) {
+    print('show lyrics');
+    print(this.lyrics);
     initMapTranslationLyric();
   }
 

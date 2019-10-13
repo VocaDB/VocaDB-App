@@ -117,14 +117,19 @@ class _SongDetailPageState extends State<SongDetailPage> {
           Expanded(
             child: StreamBuilder(
               stream: Provider.of<SongDetailBloc>(context).showHideLyric$,
+              initialData: false,
               builder: (context, snapshot) {
                 if (!snapshot.hasData) {
+                  print('dont have data');
                   return ListView(
                     children: buildDetailContent(song),
                   );
                 }
 
                 bool showLyric = snapshot.data;
+
+                print('stream updated');
+                print(showLyric);
 
                 return AnimatedSwitcher(
                   duration: Duration(milliseconds: 300),
@@ -179,11 +184,47 @@ class _SongDetailPageState extends State<SongDetailPage> {
             ),
           ),
         ),
-        SliverList(
-          delegate: SliverChildListDelegate.fixed(buildDetailContent(song)),
-        )
+        StreamBuilder(
+          stream: Provider.of<SongDetailBloc>(context).showHideLyric$,
+          initialData: false,
+          builder: (context, snapshot) {
+            if (!snapshot.hasData) {
+              print('dont have data');
+              return SliverList(
+                delegate:
+                    SliverChildListDelegate.fixed(buildDetailContent(song)),
+              );
+            }
+
+            bool showLyric = snapshot.data;
+
+//            return SliverList(
+//              delegate: SliverChildListDelegate.fixed(buildDetailContent(song)),
+//            );
+
+            if (showLyric) {
+              return SliverFillRemaining(
+                child: buildLyricContent(song),
+              );
+            }
+
+            return SliverList(
+              delegate: SliverChildListDelegate.fixed(buildDetailContent(song)),
+            );
+          },
+        ),
       ],
     ));
+  }
+
+  Widget buildLyricContent(SongModel song) {
+    return Provider<LyricContentBloc>(
+      builder: (context) => LyricContentBloc(song.lyrics),
+      dispose: (context, bloc) => bloc.dispose(),
+      child: LyricContent(
+          lyrics: song.lyrics,
+          onTapClose: Provider.of<SongDetailBloc>(context).hideLyric),
+    );
   }
 
   List<Widget> buildDetailContent(SongModel song) {
