@@ -142,7 +142,6 @@ class _YoutubePlaylistPageState extends State<YoutubePlaylistPage> {
 
   @override
   Widget build(BuildContext context) {
-    final bloc = Provider.of<YoutubePlaylistBloc>(context);
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(title: Text(widget.title)),

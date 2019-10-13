@@ -1,8 +1,3 @@
-import 'dart:io';
-import 'dart:typed_data';
-
-import 'package:esys_flutter_share/esys_flutter_share.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info/package_info.dart';
 import 'package:provider/provider.dart';

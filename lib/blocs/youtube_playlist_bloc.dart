@@ -1,6 +1,5 @@
 import 'package:rxdart/rxdart.dart';
 import 'package:vocadb/models/song_model.dart';
-import 'package:vocadb/services/song_rest_service.dart';
 
 class YoutubePlaylistBloc {
   BehaviorSubject<List<SongModel>> _playlist = new BehaviorSubject.seeded([]);
