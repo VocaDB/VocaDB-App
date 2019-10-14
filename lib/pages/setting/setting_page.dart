@@ -101,6 +101,41 @@ class _SettingPageState extends State<SettingPage> {
     );
   }
 
+  buildUILanguage(ConfigBloc configBloc) {
+    return StreamBuilder(
+      stream: configBloc.contentLangStream,
+      builder: (context, snapshot) {
+        String value = snapshot.data;
+
+        return Column(
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text('UI language',
+                  style: Theme.of(this.context).textTheme.title),
+            ),
+            ListTile(
+              title: const Text('English'),
+              leading: Radio(
+                value: 'en',
+                groupValue: value,
+                onChanged: configBloc.updateContentLanguage,
+              ),
+            ),
+            ListTile(
+              title: const Text('ไทย'),
+              leading: Radio(
+                value: 'th',
+                groupValue: value,
+                onChanged: configBloc.updateContentLanguage,
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final ConfigBloc configBloc = Provider.of<ConfigBloc>(context);
@@ -110,7 +145,8 @@ class _SettingPageState extends State<SettingPage> {
       body: Column(
         children: <Widget>[
           buildThemeOptions(configBloc),
-          buildContentLang(configBloc)
+          buildContentLang(configBloc),
+          buildUILanguage(configBloc),
         ],
       ),
     );

@@ -9,15 +9,18 @@ class ConfigBloc {
   BehaviorSubject<String> _contentLang = new BehaviorSubject.seeded('Default');
   BehaviorSubject<String> _rankingFilterBy = new BehaviorSubject();
   BehaviorSubject<String> _rankingVocalist = new BehaviorSubject();
+  BehaviorSubject<String> _uiLang = new BehaviorSubject.seeded('en');
 
   Observable get themeDataStream => _themeData.stream;
   Observable get contentLangStream => _contentLang.stream;
   Observable get rankingFilterBy$ => _rankingFilterBy.stream;
   Observable get rankingVocalist$ => _rankingVocalist.stream;
+  Observable get uiLang$ => _uiLang.stream;
 
   String get contentLang => _contentLang.value;
   String get rankingFilterBy => _rankingFilterBy.value;
   String get rankingVocalist => _rankingVocalist.value;
+  String get uiLang => _uiLang.value;
 
   final SharedPreferences pref;
 
@@ -26,6 +29,7 @@ class ConfigBloc {
     initContentLanguage();
     initRankingFilterBy();
     initRankingVocalist();
+    initUILanguage();
   }
 
   void dispose() {
@@ -33,6 +37,7 @@ class ConfigBloc {
     _themeData?.close();
     _rankingFilterBy?.close();
     _rankingVocalist?.close();
+    _uiLang?.close();
   }
 
   void initTheme() async {
@@ -53,6 +58,11 @@ class ConfigBloc {
     String value = pref.getString('ranking_filter_by');
 
     if (value != null) updateRankingFilterBy(value);
+  }
+
+  void initUILanguage() {
+    String value = pref.getString('ui_language') ?? 'en';
+    updateContentLanguage(value);
   }
 
   void initRankingVocalist() {
@@ -79,6 +89,11 @@ class ConfigBloc {
   void updateRankingVocalist(String rankingVocalist) async {
     pref.setString('ranking_vocalist', rankingVocalist);
     _rankingVocalist.add(rankingVocalist);
+  }
+
+  void updateUILanguage(String uiLanguage) async {
+    pref.setString('ui_language', uiLanguage);
+    _uiLang.add(uiLanguage);
   }
 
   ThemeData getThemeData(ThemeEnum t) {

@@ -1,0 +1,118 @@
+{
+  "label": {
+    "menu": "Menu",
+    "home": "Home",
+    "highlighted": "Highlighted PVs",
+    "latestAlbums":  "Recent or upcoming albums",
+    "randomPopularAlbums":  "Random popular album",
+    "upcomingEvent":  "Upcoming",
+    "highlightPVs": "Highlighted PVs",
+    "ranking": "Ranking",
+    "search": "Search",
+    "category": "Category",
+    "playAll": "Play all",
+    "Share": "Share",
+    "Like": "Like",
+    "Liked": "Liked",
+    "sort": "Sort",
+    "notSpecified": "Not specified",
+    "songs": "Songs",
+    "artists": "Artists",
+    "albums": "Albums",
+    "releaseEvents": "Release events",
+    "tags": "Tags"
+  },
+  "songType": {
+    "notSpecified": "Not specified",
+    "original": "Original",
+    "remaster": "Remaster",
+    "remix": "Remix",
+    "cover": "Cover",
+    "instrumental": "Instrumental",
+    "mashup": "Mashup",
+    "musicPV": "Music PV",
+    "dramaPV": "Drama PV",
+    "other": "Other"
+  },
+  "sort": {
+    "name": "Name",
+    "additionDate": "Addition date",
+    "publishDate": "Publish date",
+    "favoritedTimes": "Time favorited",
+    "ratingScore": "Rating score"
+  },
+  "artistType": {
+    "notSpecified": "Not specified",
+    "circle": "Circle",
+    "label": "Label",
+    "producer": "Music producer",
+    "animator": "Animator",
+    "illustrator": "Illustrator",
+    "lyricist": "Lyricist",
+    "vocaloid": "Vocaloid",
+    "UTAU": "UTAU",
+    "CeVIO": "CeVIO",
+    "otherVoiceSynthesizer": "Other voice synthesizer",
+    "otherVocalist": "Other vocalist",
+    "otherGroup": "Other group",
+    "otherIndividual": "Other individual"
+  },
+  "albumType": {
+    "notSpecified": "Not specified",
+    "album": "Original album",
+    "single": "Single",
+    "ep": "E.P.",
+    "splitAlbum": "Split album",
+    "compilation": "Compilation",
+    "video": "Video",
+    "artbook": "Artbook",
+    "Other": "other"
+  },
+  "releaseEventCategory": {
+    "unspecified": "Unspecified",
+    "albumRelease": "Album release",
+    "anniversary": "Character anniversary",
+    "club": "Club",
+    "concert": "Concert",
+    "contest": "Contest",
+    "convention": "Convention",
+    "other": "other"
+  },
+  "ranking": {
+    "rankingFilter": "Ranking filter",
+    "daily": "Daily",
+    "weekly": "Weekly",
+    "monthly": "Monthly",
+    "overall": "Overall",
+    "newlyAdded": "Newly added",
+    "newlyPublished": "Newly published",
+    "popularity": "Popularity",
+    "filter": "Filter by",
+    "vocalist": "Vocalist",
+    "allVocalist": "All vocalists",
+    "onlyVocaloid": "Only vocaloid",
+    "onlyUTAU": "Only UTAU",
+    "otherVocalists": "Other vocalists"
+  },
+  "menu": {
+    "importProfile": "Import profile",
+    "exportProfile": "export profile",
+    "favoriteSongs": "Favorite songs",
+    "favoriteArtists": "Followed artists",
+    "favoriteAlbums": "Collections",
+    "settings": "Settings",
+    "version": "Version"
+  },
+  "entryType": {
+    "anything": "Anything",
+    "song": "Song",
+    "artist": "Artist",
+    "album": "Album",
+    "releaseEvent": "ReleaseEvent"
+  },
+  "setting": {
+    "theme": "Theme",
+    "contentLanguage": "Content language",
+    "uiLanguage": "UI language"
+  }
+}
