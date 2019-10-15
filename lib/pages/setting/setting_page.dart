@@ -103,7 +103,7 @@ class _SettingPageState extends State<SettingPage> {
 
   buildUILanguage(ConfigBloc configBloc) {
     return StreamBuilder(
-      stream: configBloc.contentLangStream,
+      stream: configBloc.uiLang$,
       builder: (context, snapshot) {
         String value = snapshot.data;
 
@@ -119,7 +119,7 @@ class _SettingPageState extends State<SettingPage> {
               leading: Radio(
                 value: 'en',
                 groupValue: value,
-                onChanged: configBloc.updateContentLanguage,
+                onChanged: configBloc.updateUILanguage,
               ),
             ),
             ListTile(
@@ -127,7 +127,7 @@ class _SettingPageState extends State<SettingPage> {
               leading: Radio(
                 value: 'th',
                 groupValue: value,
-                onChanged: configBloc.updateContentLanguage,
+                onChanged: configBloc.updateUILanguage,
               ),
             ),
           ],

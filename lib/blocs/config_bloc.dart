@@ -62,7 +62,7 @@ class ConfigBloc {
 
   void initUILanguage() {
     String value = pref.getString('ui_language') ?? 'en';
-    updateContentLanguage(value);
+    updateUILanguage(value);
   }
 
   void initRankingVocalist() {
