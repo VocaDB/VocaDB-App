@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:flutter_i18n/flutter_i18n_delegate.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
@@ -78,15 +81,29 @@ class RootApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final config = Provider.of<ConfigBloc>(context);
     return StreamBuilder(
-      stream: config.themeDataStream,
+      stream: config.uiConfigs$,
       builder: (context, snapshot) {
+        print('ui lang changed...');
         return MaterialApp(
           title: 'VocaDB',
-          theme: (snapshot.hasData)
-              ? config.getThemeData(snapshot.data)
-              : AppTheme.darkTheme,
+          theme: config.getThemeData(Provider.of<ConfigBloc>(context).theme),
           darkTheme: AppTheme.darkTheme,
           initialRoute: '/',
+          localizationsDelegates: [
+            FlutterI18nDelegate(
+                useCountryCode: false,
+                fallbackFile: 'assets/i18n/en',
+                path: 'assets/i18n',
+                forcedLocale: Locale.fromSubtags(
+                    languageCode: Provider.of<ConfigBloc>(context).uiLang ??
+                        Localizations.localeOf(context))),
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate
+          ],
+          supportedLocales: [
+            const Locale.fromSubtags(languageCode: 'en'),
+            const Locale.fromSubtags(languageCode: 'th'),
+          ],
           routes: {
             '/': (context) => MyHomePage(title: 'VocaDB Demo Home Page'),
             SongDetailScreen.routeName: (context) => SongDetailScreen(),
@@ -162,7 +179,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
+        items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             title: Text('Home'),
@@ -173,7 +190,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.menu),
-            title: Text('Menu'),
+            title: Text(FlutterI18n.translate(context, 'label.menu')),
           ),
         ],
         currentIndex: _selectedIndex,

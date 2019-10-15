@@ -20,7 +20,8 @@
     "artists": "Artists",
     "albums": "Albums",
     "releaseEvents": "Release events",
-    "tags": "Tags"
+    "tags": "Tags",
+    "settings": "Settings"
   },
   "songType": {
     "notSpecified": "Not specified",

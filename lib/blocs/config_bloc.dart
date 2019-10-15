@@ -17,12 +17,15 @@ class ConfigBloc {
   Observable get rankingVocalist$ => _rankingVocalist.stream;
   Observable get uiLang$ => _uiLang.stream;
 
+  ThemeEnum get theme => _themeData.value;
   String get contentLang => _contentLang.value;
   String get rankingFilterBy => _rankingFilterBy.value;
   String get rankingVocalist => _rankingVocalist.value;
   String get uiLang => _uiLang.value;
 
   final SharedPreferences pref;
+
+  Observable get uiConfigs$ => Observable.merge([uiLang$, themeDataStream]);
 
   ConfigBloc(this.pref) {
     initTheme();

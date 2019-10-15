@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:provider/provider.dart';
 import 'package:vocadb/app_theme.dart';
 import 'package:vocadb/blocs/config_bloc.dart';
@@ -25,8 +26,8 @@ class _SettingPageState extends State<SettingPage> {
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child:
-                  Text('Theme', style: Theme.of(this.context).textTheme.title),
+              child: Text(FlutterI18n.translate(context, 'setting.theme'),
+                  style: Theme.of(this.context).textTheme.title),
             ),
             ListTile(
               title: const Text('Dark'),
@@ -60,7 +61,8 @@ class _SettingPageState extends State<SettingPage> {
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text('Content language',
+              child: Text(
+                  FlutterI18n.translate(context, 'setting.contentLanguage'),
                   style: Theme.of(this.context).textTheme.title),
             ),
             ListTile(
@@ -111,7 +113,7 @@ class _SettingPageState extends State<SettingPage> {
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text('UI language',
+              child: Text(FlutterI18n.translate(context, 'setting.uiLanguage'),
                   style: Theme.of(this.context).textTheme.title),
             ),
             ListTile(
@@ -119,7 +121,12 @@ class _SettingPageState extends State<SettingPage> {
               leading: Radio(
                 value: 'en',
                 groupValue: value,
-                onChanged: configBloc.updateUILanguage,
+                onChanged: (v) async {
+                  print('change to $v');
+                  await FlutterI18n.refresh(
+                      context, Locale.fromSubtags(languageCode: 'en'));
+                  configBloc.updateUILanguage(v);
+                },
               ),
             ),
             ListTile(
@@ -127,7 +134,12 @@ class _SettingPageState extends State<SettingPage> {
               leading: Radio(
                 value: 'th',
                 groupValue: value,
-                onChanged: configBloc.updateUILanguage,
+                onChanged: (v) async {
+                  print('change to $v');
+                  await FlutterI18n.refresh(
+                      context, Locale.fromSubtags(languageCode: 'th'));
+                  configBloc.updateUILanguage(v);
+                },
               ),
             ),
           ],
@@ -141,7 +153,8 @@ class _SettingPageState extends State<SettingPage> {
     final ConfigBloc configBloc = Provider.of<ConfigBloc>(context);
 
     return Scaffold(
-      appBar: AppBar(title: Text('Setting')),
+      appBar:
+          AppBar(title: Text(FlutterI18n.translate(context, 'label.settings'))),
       body: Column(
         children: <Widget>[
           buildThemeOptions(configBloc),

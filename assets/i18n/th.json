@@ -1,6 +1,6 @@
 {
   "label": {
-    "menu": "Menu",
+    "menu": "เมนู",
     "home": "Home",
     "highlighted": "Highlighted PVs",
     "latestAlbums":  "Recent or upcoming albums",
@@ -20,7 +20,8 @@
     "artists": "Artists",
     "albums": "Albums",
     "releaseEvents": "Release events",
-    "tags": "Tags"
+    "tags": "Tags",
+    "settings": "ตั้งค่า"
   },
   "songType": {
     "notSpecified": "Not specified",
@@ -111,8 +112,8 @@
     "releaseEvent": "ReleaseEvent"
   },
   "setting": {
-    "theme": "Theme",
-    "contentLanguage": "Content language",
-    "uiLanguage": "UI language"
+    "theme": "ธีม",
+    "contentLanguage": "ภาษาเนื้อหา",
+    "uiLanguage": "ภาษาแอป"
   }
 }
