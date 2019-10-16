@@ -83,7 +83,6 @@ class RootApp extends StatelessWidget {
     return StreamBuilder(
       stream: config.uiConfigs$,
       builder: (context, snapshot) {
-        print('ui lang changed...');
         return MaterialApp(
           title: 'VocaDB',
           theme: config.getThemeData(Provider.of<ConfigBloc>(context).theme),
@@ -95,14 +94,14 @@ class RootApp extends StatelessWidget {
                 fallbackFile: 'assets/i18n/en',
                 path: 'assets/i18n',
                 forcedLocale: Locale.fromSubtags(
-                    languageCode: Provider.of<ConfigBloc>(context).uiLang ??
-                        Localizations.localeOf(context))),
+                    languageCode: Provider.of<ConfigBloc>(context).uiLang)),
             GlobalMaterialLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate
           ],
           supportedLocales: [
-            const Locale.fromSubtags(languageCode: 'en'),
-            const Locale.fromSubtags(languageCode: 'th'),
+            const Locale('en'), // English
+            const Locale('th'), // Hebrew
+            // ... other locales the app supports
           ],
           routes: {
             '/': (context) => MyHomePage(title: 'VocaDB Demo Home Page'),
@@ -182,15 +181,15 @@ class _MyHomePageState extends State<MyHomePage> {
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
-            title: Text('Home'),
+            title: Text(FlutterI18n.translate(context, 'home')),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.trending_up),
-            title: Text('Ranking'),
+            title: Text(FlutterI18n.translate(context, 'ranking')),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.menu),
-            title: Text(FlutterI18n.translate(context, 'label.menu')),
+            title: Text(FlutterI18n.translate(context, 'menu')),
           ),
         ],
         currentIndex: _selectedIndex,

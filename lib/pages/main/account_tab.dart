@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:package_info/package_info.dart';
 import 'package:provider/provider.dart';
 import 'package:vocadb/blocs/profile_bloc.dart';
@@ -33,7 +34,7 @@ class GuestTab extends StatelessWidget {
             });
           },
           leading: Icon(Icons.import_export),
-          title: Text("Import profile"),
+          title: Text(FlutterI18n.translate(context, 'importProfile')),
         ),
         ListTile(
           onTap: () {
@@ -45,25 +46,25 @@ class GuestTab extends StatelessWidget {
             });
           },
           leading: Icon(Icons.import_export),
-          title: Text("Export profile"),
+          title: Text(FlutterI18n.translate(context, 'exportProfile')),
         ),
         ListTile(
           onTap: () =>
               Navigator.pushNamed(context, FavoriteSongScreen.routeName),
           leading: Icon(Icons.library_music),
-          title: Text("Favorite songs"),
+          title: Text(FlutterI18n.translate(context, 'favoriteSongs')),
         ),
         ListTile(
           onTap: () =>
               Navigator.pushNamed(context, FavoriteArtistScreen.routeName),
           leading: Icon(Icons.people),
-          title: Text("Followed artists"),
+          title: Text(FlutterI18n.translate(context, 'favoriteArtists')),
         ),
         ListTile(
           onTap: () =>
               Navigator.pushNamed(context, FavoriteAlbumScreen.routeName),
           leading: Icon(Icons.album),
-          title: Text("Collections"),
+          title: Text(FlutterI18n.translate(context, 'favoriteAlbums')),
         ),
         ListTile(
           onTap: () {
@@ -71,7 +72,7 @@ class GuestTab extends StatelessWidget {
                 MaterialPageRoute(builder: (context) => SettingPage()));
           },
           leading: Icon(Icons.settings),
-          title: Text("Settings"),
+          title: Text(FlutterI18n.translate(context, 'settings')),
         ),
         FutureBuilder(
           future: PackageInfo.fromPlatform(),

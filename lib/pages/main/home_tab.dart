@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:provider/provider.dart';
 import 'package:vocadb/blocs/home_bloc.dart';
 import 'package:vocadb/models/release_event_model.dart';
@@ -40,23 +41,23 @@ class _HomeTabState extends State<HomeTab> {
               runSpacing: 24.0,
               children: <Widget>[
                 ShortcutMenuButton(
-                    title: 'Songs',
+                    title: FlutterI18n.translate(context, 'songs'),
                     iconData: Icons.music_note,
                     onPressed: () => SongScreen.navigate(context)),
                 ShortcutMenuButton(
-                    title: 'Artists',
+                    title: FlutterI18n.translate(context, 'artists'),
                     iconData: Icons.person,
                     onPressed: () => ArtistScreen.navigate(context)),
                 ShortcutMenuButton(
-                    title: 'Albums',
+                    title: FlutterI18n.translate(context, 'albums'),
                     iconData: Icons.album,
                     onPressed: () => AlbumScreen.navigate(context)),
                 ShortcutMenuButton(
-                    title: 'Tags',
+                    title: FlutterI18n.translate(context, 'tags'),
                     iconData: Icons.label,
                     onPressed: () => TagScreen.navigate(context)),
                 ShortcutMenuButton(
-                    title: 'Events',
+                    title: FlutterI18n.translate(context, 'events'),
                     iconData: Icons.event,
                     onPressed: () => ReleaseEventScreen.navigate(context)),
               ],
@@ -75,7 +76,7 @@ class _HomeTabState extends State<HomeTab> {
 
               List<ReleaseEventModel> releaseEvents = snapshot.data;
               return Section(
-                title: 'Recent events',
+                title: FlutterI18n.translate(context, 'upcomingEvent'),
                 children: releaseEvents
                     .map((e) => EventTile.fromReleaseEvent(e,
                         tag: 'recent_event_${e.id}'))

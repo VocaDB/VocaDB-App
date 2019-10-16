@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:provider/provider.dart';
 import 'package:vocadb/blocs/home_bloc.dart';
 import 'package:vocadb/models/song_model.dart';
@@ -13,7 +14,8 @@ class HighlightedList extends StatefulWidget {
 
 class _HighlightedListState extends State<HighlightedList> {
   void openPlaylist(List<SongModel> songs) {
-    YoutubePlaylistScreen.navigate(context, songs, title: 'Highlighted songs');
+    YoutubePlaylistScreen.navigate(context, songs,
+        title: FlutterI18n.translate(context, 'highlighted'));
   }
 
   buildHasData(List<SongModel> songs) {
@@ -21,7 +23,7 @@ class _HighlightedListState extends State<HighlightedList> {
         .map((song) => SongCard.song(song, tag: 'highlighted_list_${song.id}'))
         .toList();
     return Section(
-      title: 'Highlighted',
+      title: FlutterI18n.translate(context, 'highlighted'),
       horizontal: true,
       children: songCards,
       extraMenus: FlatButton(
@@ -29,7 +31,10 @@ class _HighlightedListState extends State<HighlightedList> {
           openPlaylist(songs);
         },
         child: Row(
-          children: <Widget>[Icon(Icons.play_arrow), Text('Play all')],
+          children: <Widget>[
+            Icon(Icons.play_arrow),
+            Text(FlutterI18n.translate(context, 'playAll'))
+          ],
         ),
       ),
     );
@@ -37,7 +42,7 @@ class _HighlightedListState extends State<HighlightedList> {
 
   buildDefault() {
     return Section(
-        title: 'Highlighted',
+        title: FlutterI18n.translate(context, 'highlighted'),
         horizontal: true,
         children: [0, 1, 2].map((i) => SongCardPlaceholder()).toList());
   }

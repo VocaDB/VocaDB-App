@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:provider/provider.dart';
 import 'package:vocadb/blocs/ranking_bloc.dart';
 import 'package:vocadb/models/song_model.dart';
@@ -25,8 +26,7 @@ class _RankingTabState extends State<RankingTab>
   @override
   void initState() {
     super.initState();
-    _tabController =
-        TabController(vsync: this, length: myTabs.length, initialIndex: 1);
+    _tabController = TabController(vsync: this, length: 4, initialIndex: 1);
     _tabController.addListener(onTabChanged);
   }
 
@@ -50,7 +50,12 @@ class _RankingTabState extends State<RankingTab>
       child: Scaffold(
         appBar: TabBar(
           controller: _tabController,
-          tabs: myTabs,
+          tabs: [
+            Tab(text: FlutterI18n.translate(context, 'daily')),
+            Tab(text: FlutterI18n.translate(context, 'weekly')),
+            Tab(text: FlutterI18n.translate(context, 'monthly')),
+            Tab(text: FlutterI18n.translate(context, 'overall'))
+          ],
           labelColor: theme.textSelectionColor,
           unselectedLabelColor: theme.textTheme.title.color,
         ),
@@ -119,7 +124,7 @@ class _RankingTabState extends State<RankingTab>
 
             return FloatingActionButton(
               onPressed: () => YoutubePlaylistScreen.navigate(context, songs,
-                  title: 'Ranking playlist'),
+                  title: FlutterI18n.translate(context, 'ranking')),
               child: Icon(Icons.play_arrow),
             );
           },

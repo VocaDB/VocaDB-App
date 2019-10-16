@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:vocadb/blocs/config_bloc.dart';
@@ -128,9 +129,6 @@ class _SongDetailPageState extends State<SongDetailPage> {
 
                 bool showLyric = snapshot.data;
 
-                print('stream updated');
-                print(showLyric);
-
                 return AnimatedSwitcher(
                   duration: Duration(milliseconds: 300),
                   child: (showLyric)
@@ -189,7 +187,6 @@ class _SongDetailPageState extends State<SongDetailPage> {
           initialData: false,
           builder: (context, snapshot) {
             if (!snapshot.hasData) {
-              print('dont have data');
               return SliverList(
                 delegate:
                     SliverChildListDelegate.fixed(buildDetailContent(song)),
@@ -285,7 +282,8 @@ class _SongDetailPageState extends State<SongDetailPage> {
                             Icon(
                               Icons.subtitles,
                             ),
-                            Text('Lyrics', style: TextStyle(fontSize: 12))
+                            Text(FlutterI18n.translate(context, 'lyrics'),
+                                style: TextStyle(fontSize: 12))
                           ],
                         )),
                   ),
@@ -297,7 +295,8 @@ class _SongDetailPageState extends State<SongDetailPage> {
                       Icon(
                         Icons.share,
                       ),
-                      Text('Share', style: TextStyle(fontSize: 12))
+                      Text(FlutterI18n.translate(context, 'share'),
+                          style: TextStyle(fontSize: 12))
                     ],
                   )),
             ),
@@ -311,7 +310,8 @@ class _SongDetailPageState extends State<SongDetailPage> {
                       Icon(
                         Icons.info,
                       ),
-                      Text('More info', style: TextStyle(fontSize: 12))
+                      Text(FlutterI18n.translate(context, 'info'),
+                          style: TextStyle(fontSize: 12))
                     ],
                   )),
             ),
@@ -327,7 +327,7 @@ class _SongDetailPageState extends State<SongDetailPage> {
       Tags(song.tags),
       Divider(),
       Section(
-        title: 'Producers',
+        title: FlutterI18n.translate(context, 'producers'),
         children: song.producers
             .map((a) => ArtistTile.artistSong(a,
                 tag: 'song_detail_producer_${song.id}_${a.artistId}'))
@@ -335,7 +335,7 @@ class _SongDetailPageState extends State<SongDetailPage> {
       ),
       SpaceDivider(),
       Section(
-        title: 'Vocalists',
+        title: FlutterI18n.translate(context, 'vocalists'),
         children: song.vocalists
             .map((a) => ArtistTile.artistSong(a,
                 tag: 'song_detail_vocalist_${song.id}_${a.artistId}'))
@@ -343,7 +343,7 @@ class _SongDetailPageState extends State<SongDetailPage> {
       ),
       SpaceDivider(),
       Section(
-        title: 'Other',
+        title: FlutterI18n.translate(context, 'other'),
         children: song.otherArtists
             .map((a) => ArtistTile.artistSong(a,
                 showRole: true,
@@ -355,7 +355,7 @@ class _SongDetailPageState extends State<SongDetailPage> {
       AlbumSection(
           albums: song.albums, tagPrefix: 'song_detail_album_${song.id}'),
       ContentSection(
-        title: 'Original',
+        title: FlutterI18n.translate(context, 'original'),
         hide: !song.hasOriginalVersion,
         child: StreamBuilder(
           stream: Provider.of<SongDetailBloc>(context).originalVersion$,
@@ -379,7 +379,7 @@ class _SongDetailPageState extends State<SongDetailPage> {
             return Column(
               children: <Widget>[
                 Section(
-                  title: 'Alternate versions',
+                  title: FlutterI18n.translate(context, 'alternateVersions'),
                   horizontal: true,
                   children: alts
                       .map<Widget>((SongModel alt) => SongCard.song(alt,
@@ -515,7 +515,7 @@ class AlbumSection extends StatelessWidget {
     return Column(
       children: <Widget>[
         Section(
-          title: 'Albums',
+          title: FlutterI18n.translate(context, 'albums'),
           horizontal: true,
           children: albums
               .map((a) => AlbumCard.album(a, tag: '${this.tagPrefix}_${a.id}'))
@@ -599,7 +599,7 @@ class ContentSection extends StatelessWidget {
         Padding(
           padding: EdgeInsets.all(8.0),
           child: Text(
-            'Original',
+            FlutterI18n.translate(context, 'original'),
             textDirection: TextDirection.ltr,
             style: Theme.of(context).textTheme.subhead,
           ),

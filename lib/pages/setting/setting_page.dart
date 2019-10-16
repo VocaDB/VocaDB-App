@@ -26,7 +26,7 @@ class _SettingPageState extends State<SettingPage> {
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text(FlutterI18n.translate(context, 'setting.theme'),
+              child: Text(FlutterI18n.translate(context, 'theme'),
                   style: Theme.of(this.context).textTheme.title),
             ),
             ListTile(
@@ -61,8 +61,7 @@ class _SettingPageState extends State<SettingPage> {
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text(
-                  FlutterI18n.translate(context, 'setting.contentLanguage'),
+              child: Text(FlutterI18n.translate(context, 'contentLanguage'),
                   style: Theme.of(this.context).textTheme.title),
             ),
             ListTile(
@@ -113,7 +112,7 @@ class _SettingPageState extends State<SettingPage> {
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text(FlutterI18n.translate(context, 'setting.uiLanguage'),
+              child: Text(FlutterI18n.translate(context, 'uiLanguage'),
                   style: Theme.of(this.context).textTheme.title),
             ),
             ListTile(
@@ -121,10 +120,9 @@ class _SettingPageState extends State<SettingPage> {
               leading: Radio(
                 value: 'en',
                 groupValue: value,
-                onChanged: (v) async {
-                  print('change to $v');
+                onChanged: (String v) async {
                   await FlutterI18n.refresh(
-                      context, Locale.fromSubtags(languageCode: 'en'));
+                      context, Locale.fromSubtags(languageCode: v));
                   configBloc.updateUILanguage(v);
                 },
               ),
@@ -134,10 +132,9 @@ class _SettingPageState extends State<SettingPage> {
               leading: Radio(
                 value: 'th',
                 groupValue: value,
-                onChanged: (v) async {
-                  print('change to $v');
+                onChanged: (String v) async {
                   await FlutterI18n.refresh(
-                      context, Locale.fromSubtags(languageCode: 'th'));
+                      context, Locale.fromSubtags(languageCode: v));
                   configBloc.updateUILanguage(v);
                 },
               ),
@@ -153,8 +150,7 @@ class _SettingPageState extends State<SettingPage> {
     final ConfigBloc configBloc = Provider.of<ConfigBloc>(context);
 
     return Scaffold(
-      appBar:
-          AppBar(title: Text(FlutterI18n.translate(context, 'label.settings'))),
+      appBar: AppBar(title: Text(FlutterI18n.translate(context, 'settings'))),
       body: Column(
         children: <Widget>[
           buildThemeOptions(configBloc),

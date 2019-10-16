@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:provider/provider.dart';
 import 'package:vocadb/blocs/home_bloc.dart';
 import 'package:vocadb/models/album_model.dart';
@@ -17,12 +18,14 @@ class _TopAlbumListState extends State<TopAlbumList> {
             (album) => AlbumCard.album(album, tag: 'popular_album_${album.id}'))
         .toList();
     return Section(
-        title: 'Random popular album', horizontal: true, children: albumCards);
+        title: FlutterI18n.translate(context, 'randomPopularAlbums'),
+        horizontal: true,
+        children: albumCards);
   }
 
   buildDefault() {
     return Section(
-        title: 'Random popular album',
+        title: FlutterI18n.translate(context, 'randomPopularAlbums'),
         horizontal: true,
         children: [0, 1, 2].map((i) => AlbumCardPlaceholder()).toList());
   }
