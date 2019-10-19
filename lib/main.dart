@@ -1,3 +1,5 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_i18n/flutter_i18n_delegate.dart';
@@ -48,6 +50,10 @@ void main() async {
 }
 
 class VocaDBApp extends StatelessWidget {
+  static FirebaseAnalytics analytics = FirebaseAnalytics();
+  static FirebaseAnalyticsObserver observer =
+      FirebaseAnalyticsObserver(analytics: analytics);
+
   @override
   Widget build(BuildContext context) {
     ConfigBloc configBloc = ConfigBloc(GlobalVariables.pref);
@@ -63,6 +69,8 @@ class VocaDBApp extends StatelessWidget {
 
     return MultiProvider(
       providers: [
+        Provider<FirebaseAnalytics>.value(value: analytics),
+        Provider<FirebaseAnalyticsObserver>.value(value: observer),
         Provider<ConfigBloc>.value(value: configBloc),
         Provider<HomeBloc>.value(value: HomeBloc(configBloc)),
         Provider<RankingBloc>.value(value: RankingBloc(configBloc)),
@@ -80,6 +88,8 @@ class RootApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final config = Provider.of<ConfigBloc>(context);
+    final observer = Provider.of<FirebaseAnalyticsObserver>(context);
+
     return StreamBuilder(
       stream: config.uiConfigs$,
       builder: (context, snapshot) {
@@ -88,6 +98,7 @@ class RootApp extends StatelessWidget {
           theme: config.getThemeData(Provider.of<ConfigBloc>(context).theme),
           darkTheme: AppTheme.darkTheme,
           initialRoute: '/',
+          navigatorObservers: <NavigatorObserver>[observer],
           localizationsDelegates: [
             FlutterI18nDelegate(
                 useCountryCode: false,
