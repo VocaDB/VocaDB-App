@@ -17,4 +17,4 @@ VocaDB mobile version with [Flutter framework](https://flutter.dev/).
 
 ## Translation
 
-**WIP**
+Translation files in assets/i18n
