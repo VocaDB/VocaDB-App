@@ -129,9 +129,33 @@ class _SettingPageState extends State<SettingPage> {
               ),
             ),
             ListTile(
-              title: const Text('ไทย'),
+              title: const Text('日本語 (Japanese)'),
+              leading: Radio(
+                value: 'ja',
+                groupValue: value,
+                onChanged: (String v) async {
+                  await FlutterI18n.refresh(
+                      context, Locale.fromSubtags(languageCode: v));
+                  configBloc.updateUILanguage(v);
+                },
+              ),
+            ),
+            ListTile(
+              title: const Text('ไทย (Thai)'),
               leading: Radio(
                 value: 'th',
+                groupValue: value,
+                onChanged: (String v) async {
+                  await FlutterI18n.refresh(
+                      context, Locale.fromSubtags(languageCode: v));
+                  configBloc.updateUILanguage(v);
+                },
+              ),
+            ),
+            ListTile(
+              title: const Text('Malay'),
+              leading: Radio(
+                value: 'ms',
                 groupValue: value,
                 onChanged: (String v) async {
                   await FlutterI18n.refresh(
@@ -153,7 +177,7 @@ class _SettingPageState extends State<SettingPage> {
     return Scaffold(
       appBar:
           AppBar(title: Text(FlutterI18n.translate(context, 'label.settings'))),
-      body: Column(
+      body: ListView(
         children: <Widget>[
           buildThemeOptions(configBloc),
           buildContentLang(configBloc),

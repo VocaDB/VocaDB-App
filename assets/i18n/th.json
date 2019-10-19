@@ -95,6 +95,7 @@
     "vocalists": "นักร้อง",
     "producers": "โปรดิวเซอร์",
     "other": "อื่นๆ",
+    "otherArtists": "อื่นๆ",
     "noRating": "ยังไม่มีคะแนน",
     "ratingCount": "{rating} คะแนน",
     "labels": "ค่าย",
@@ -104,7 +105,11 @@
     "like": "ชอบ",
     "liked": "ชอบ",
     "discNo": "แผ่น {disc}",
-    "hide": "ซ่อน"
+    "hide": "ซ่อน",
+    "originalVersion": "ต้นฉบับ",
+    "topSongs": "เพลงยอดนิยม",
+    "topAlbums": "อัลบั้มยอดนิยม",
+    "topArtists": "ศิลปินยอดนิยม"
   },
   "error": {
     "emptyFavoriteSongs": "ยังไม่มีเพลงที่ชอบ",

@@ -236,7 +236,7 @@ class _SongDetailPageState extends State<SongDetailPage> {
     headerContent.add(Row(
       crossAxisAlignment: CrossAxisAlignment.end,
       children: <Widget>[
-        Text(song.songType),
+        Text(FlutterI18n.translate(context, 'songType.${song.songType}')),
         Text(' • '),
         Text(
             FlutterI18n.translate(context, 'label.publishedOn',
@@ -356,7 +356,7 @@ class _SongDetailPageState extends State<SongDetailPage> {
       AlbumSection(
           albums: song.albums, tagPrefix: 'song_detail_album_${song.id}'),
       ContentSection(
-        title: FlutterI18n.translate(context, 'label.original'),
+        title: FlutterI18n.translate(context, 'label.originalVersion'),
         hide: !song.hasOriginalVersion,
         child: StreamBuilder(
           stream: Provider.of<SongDetailBloc>(context).originalVersion$,
@@ -381,7 +381,7 @@ class _SongDetailPageState extends State<SongDetailPage> {
               children: <Widget>[
                 Section(
                   title:
-                      FlutterI18n.translate(context, 'label.alternateVersions'),
+                      FlutterI18n.translate(context, 'label.alternateVersion'),
                   horizontal: true,
                   children: alts
                       .map<Widget>((SongModel alt) => SongCard.song(alt,

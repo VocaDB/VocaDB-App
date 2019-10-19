@@ -31,6 +31,8 @@ class Section extends StatelessWidget {
             this.title,
             textDirection: TextDirection.ltr,
             style: Theme.of(context).textTheme.subhead,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
           ),
         ),
         SpaceDivider(),
@@ -61,6 +63,8 @@ class Section extends StatelessWidget {
                     this.title,
                     textDirection: TextDirection.ltr,
                     style: Theme.of(context).textTheme.subhead,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                   ),
                   this.extraMenus ?? Container()
                 ],

@@ -83,8 +83,8 @@
     "about": "About",
     "contact": "Contact us",
     "general": "General",
-    "uiLanguage": "UI language",
-    "contentLanguage": "Content language",
+    "uiLanguage": "Interface language",
+    "contentLanguage": "Preferred display language",
     "importProfile": "Import profile",
     "exportProfile": "Export profile",
     "releasedDate": "Released",
@@ -100,6 +100,7 @@
     "vocalists": "Vocalists",
     "producers": "Producers",
     "other": "Other",
+    "otherArtists": "Other",
     "noRating": "No rating",
     "ratingCount": "{rating} rating",
     "labels": "Labels",
@@ -109,7 +110,11 @@
     "like": "Like",
     "liked": "Liked",
     "discNo": "Disc {disc}",
-    "hide": "Hide"
+    "hide": "Hide",
+    "originalVersion": "Original version",
+    "topSongs": "Top songs",
+    "topAlbums": "Top albums",
+    "topArtists": "Top artists"
   },
   "error": {
     "emptyFavoriteSongs": "No favorite songs",
