@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:provider/provider.dart';
 import 'package:vocadb/blocs/config_bloc.dart';
 import 'package:vocadb/blocs/release_event_bloc.dart';
@@ -46,7 +47,7 @@ class _ReleaseEventPageState extends State<ReleaseEventPage> {
       return CenterResult(
         result: Result(
           Icon(Icons.event),
-          'No result',
+          FlutterI18n.translate(context, 'error.searchResultNotMatched'),
         ),
       );
     }
@@ -116,7 +117,7 @@ class _ReleaseEventPageState extends State<ReleaseEventPage> {
                         ),
                       ],
                     )
-                  : Text('Release events'),
+                  : Text(FlutterI18n.translate(context, 'label.releaseEvents')),
             );
           },
         ),

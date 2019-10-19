@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 
 class LikeButton extends StatelessWidget {
   final Function onPressed;
@@ -19,7 +20,11 @@ class LikeButton extends StatelessWidget {
             Icon(
               Icons.favorite,
             ),
-            Text((isLiked) ? 'Liked' : 'Like', style: TextStyle(fontSize: 12))
+            Text(
+                (isLiked)
+                    ? FlutterI18n.translate(context, 'label.liked')
+                    : FlutterI18n.translate(context, 'label.like'),
+                style: TextStyle(fontSize: 12))
           ],
         ));
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:vocadb/blocs/search_entry_filter_bloc.dart';
 import 'package:vocadb/models/tag_model.dart';
 import 'package:vocadb/pages/search/search_tag_page.dart';
@@ -25,7 +26,7 @@ class SearchEntryFilterPage extends StatelessWidget {
           child: ListView(
             children: <Widget>[
               Title(
-                text: 'Tags',
+                text: FlutterI18n.translate(context, 'label.tags'),
               ),
               SpaceDivider(),
               StreamBuilder(
@@ -45,7 +46,7 @@ class SearchEntryFilterPage extends StatelessWidget {
               ),
               SpaceDivider(),
               Title(
-                text: 'Sort',
+                text: FlutterI18n.translate(context, 'label.sort'),
               ),
               StreamBuilder(
                 stream: bloc.sort$,
@@ -85,7 +86,10 @@ class TagFilters extends StatelessWidget {
     children.add(InputChip(
       label: Wrap(
         crossAxisAlignment: WrapCrossAlignment.center,
-        children: <Widget>[Icon(Icons.add), Text('Add')],
+        children: <Widget>[
+          Icon(Icons.add),
+          Text(FlutterI18n.translate(context, 'label.add'))
+        ],
       ),
       onPressed: this.onBrowseTags,
     ));
@@ -122,7 +126,8 @@ class EntrySortDropDown extends StatelessWidget {
         items: sorts
             .map((st) => DropdownMenuItem<String>(
                   value: st['value'],
-                  child: Text(st['name']),
+                  child: Text(FlutterI18n.translate(
+                      context, 'sort.${st['name'].toLowerCase()}')),
                 ))
             .toList(),
         onChanged: this.onChanged);

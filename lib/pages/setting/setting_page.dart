@@ -26,7 +26,7 @@ class _SettingPageState extends State<SettingPage> {
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text(FlutterI18n.translate(context, 'theme'),
+              child: Text(FlutterI18n.translate(context, 'label.theme'),
                   style: Theme.of(this.context).textTheme.title),
             ),
             ListTile(
@@ -61,7 +61,8 @@ class _SettingPageState extends State<SettingPage> {
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text(FlutterI18n.translate(context, 'contentLanguage'),
+              child: Text(
+                  FlutterI18n.translate(context, 'label.contentLanguage'),
                   style: Theme.of(this.context).textTheme.title),
             ),
             ListTile(
@@ -112,7 +113,7 @@ class _SettingPageState extends State<SettingPage> {
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text(FlutterI18n.translate(context, 'uiLanguage'),
+              child: Text(FlutterI18n.translate(context, 'label.uiLanguage'),
                   style: Theme.of(this.context).textTheme.title),
             ),
             ListTile(
@@ -150,7 +151,8 @@ class _SettingPageState extends State<SettingPage> {
     final ConfigBloc configBloc = Provider.of<ConfigBloc>(context);
 
     return Scaffold(
-      appBar: AppBar(title: Text(FlutterI18n.translate(context, 'settings'))),
+      appBar:
+          AppBar(title: Text(FlutterI18n.translate(context, 'label.settings'))),
       body: Column(
         children: <Widget>[
           buildThemeOptions(configBloc),

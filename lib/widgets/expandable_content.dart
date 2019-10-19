@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 
 class ExpandableContent extends StatefulWidget {
   final Widget child;
@@ -34,7 +35,7 @@ class _ExpandableContentState extends State<ExpandableContent> {
       width: double.infinity,
       child: FlatButton(
         onPressed: open,
-        child: Text('Show more'),
+        child: Text(FlutterI18n.translate(context, 'label.showMore')),
       ),
     );
   }
@@ -48,7 +49,7 @@ class _ExpandableContentState extends State<ExpandableContent> {
           width: double.infinity,
           child: FlatButton(
             onPressed: close,
-            child: Text('Hide'),
+            child: Text(FlutterI18n.translate(context, 'label.hide')),
           ),
         ),
       ],

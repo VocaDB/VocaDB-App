@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:provider/provider.dart';
 import 'package:vocadb/blocs/config_bloc.dart';
 import 'package:vocadb/blocs/song_bloc.dart';
@@ -42,7 +43,7 @@ class _SongPageState extends State<SongPage> {
       return CenterResult(
         result: Result(
           Icon(Icons.search),
-          'No result',
+          FlutterI18n.translate(context, 'error.searchResultNotMatched'),
         ),
       );
     }
@@ -117,7 +118,7 @@ class _SongPageState extends State<SongPage> {
                           ),
                         ],
                       )
-                    : Text('Songs'),
+                    : Text(FlutterI18n.translate(context, 'label.songs')),
               );
             },
           ),

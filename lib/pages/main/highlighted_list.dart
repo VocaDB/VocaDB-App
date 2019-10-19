@@ -15,7 +15,7 @@ class HighlightedList extends StatefulWidget {
 class _HighlightedListState extends State<HighlightedList> {
   void openPlaylist(List<SongModel> songs) {
     YoutubePlaylistScreen.navigate(context, songs,
-        title: FlutterI18n.translate(context, 'highlighted'));
+        title: FlutterI18n.translate(context, 'label.highlighted'));
   }
 
   buildHasData(List<SongModel> songs) {
@@ -23,7 +23,7 @@ class _HighlightedListState extends State<HighlightedList> {
         .map((song) => SongCard.song(song, tag: 'highlighted_list_${song.id}'))
         .toList();
     return Section(
-      title: FlutterI18n.translate(context, 'highlighted'),
+      title: FlutterI18n.translate(context, 'label.highlighted'),
       horizontal: true,
       children: songCards,
       extraMenus: FlatButton(
@@ -33,7 +33,7 @@ class _HighlightedListState extends State<HighlightedList> {
         child: Row(
           children: <Widget>[
             Icon(Icons.play_arrow),
-            Text(FlutterI18n.translate(context, 'playAll'))
+            Text(FlutterI18n.translate(context, 'label.playAll'))
           ],
         ),
       ),
@@ -42,7 +42,7 @@ class _HighlightedListState extends State<HighlightedList> {
 
   buildDefault() {
     return Section(
-        title: FlutterI18n.translate(context, 'highlighted'),
+        title: FlutterI18n.translate(context, 'label.highlighted'),
         horizontal: true,
         children: [0, 1, 2].map((i) => SongCardPlaceholder()).toList());
   }

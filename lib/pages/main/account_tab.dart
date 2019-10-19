@@ -34,7 +34,7 @@ class GuestTab extends StatelessWidget {
             });
           },
           leading: Icon(Icons.import_export),
-          title: Text(FlutterI18n.translate(context, 'importProfile')),
+          title: Text(FlutterI18n.translate(context, 'label.importProfile')),
         ),
         ListTile(
           onTap: () {
@@ -46,25 +46,25 @@ class GuestTab extends StatelessWidget {
             });
           },
           leading: Icon(Icons.import_export),
-          title: Text(FlutterI18n.translate(context, 'exportProfile')),
+          title: Text(FlutterI18n.translate(context, 'label.exportProfile')),
         ),
         ListTile(
           onTap: () =>
               Navigator.pushNamed(context, FavoriteSongScreen.routeName),
           leading: Icon(Icons.library_music),
-          title: Text(FlutterI18n.translate(context, 'favoriteSongs')),
+          title: Text(FlutterI18n.translate(context, 'label.favoriteSongs')),
         ),
         ListTile(
           onTap: () =>
               Navigator.pushNamed(context, FavoriteArtistScreen.routeName),
           leading: Icon(Icons.people),
-          title: Text(FlutterI18n.translate(context, 'favoriteArtists')),
+          title: Text(FlutterI18n.translate(context, 'label.favoriteArtists')),
         ),
         ListTile(
           onTap: () =>
               Navigator.pushNamed(context, FavoriteAlbumScreen.routeName),
           leading: Icon(Icons.album),
-          title: Text(FlutterI18n.translate(context, 'favoriteAlbums')),
+          title: Text(FlutterI18n.translate(context, 'label.favoriteAlbums')),
         ),
         ListTile(
           onTap: () {
@@ -72,7 +72,7 @@ class GuestTab extends StatelessWidget {
                 MaterialPageRoute(builder: (context) => SettingPage()));
           },
           leading: Icon(Icons.settings),
-          title: Text(FlutterI18n.translate(context, 'settings')),
+          title: Text(FlutterI18n.translate(context, 'label.settings')),
         ),
         FutureBuilder(
           future: PackageInfo.fromPlatform(),

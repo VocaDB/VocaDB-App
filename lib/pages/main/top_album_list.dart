@@ -18,14 +18,14 @@ class _TopAlbumListState extends State<TopAlbumList> {
             (album) => AlbumCard.album(album, tag: 'popular_album_${album.id}'))
         .toList();
     return Section(
-        title: FlutterI18n.translate(context, 'randomPopularAlbums'),
+        title: FlutterI18n.translate(context, 'label.randomPopularAlbums'),
         horizontal: true,
         children: albumCards);
   }
 
   buildDefault() {
     return Section(
-        title: FlutterI18n.translate(context, 'randomPopularAlbums'),
+        title: FlutterI18n.translate(context, 'label.randomPopularAlbums'),
         horizontal: true,
         children: [0, 1, 2].map((i) => AlbumCardPlaceholder()).toList());
   }

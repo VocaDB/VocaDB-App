@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:provider/provider.dart';
 import 'package:vocadb/blocs/config_bloc.dart';
 import 'package:vocadb/blocs/tag_bloc.dart';
@@ -108,7 +109,7 @@ class _TagPageState extends State<TagPage> {
                         ),
                       ],
                     )
-                  : Text('Tags'),
+                  : Text(FlutterI18n.translate(context, 'label.tags')),
             );
           },
         ),

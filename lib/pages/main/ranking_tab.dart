@@ -51,10 +51,10 @@ class _RankingTabState extends State<RankingTab>
         appBar: TabBar(
           controller: _tabController,
           tabs: [
-            Tab(text: FlutterI18n.translate(context, 'daily')),
-            Tab(text: FlutterI18n.translate(context, 'weekly')),
-            Tab(text: FlutterI18n.translate(context, 'monthly')),
-            Tab(text: FlutterI18n.translate(context, 'overall'))
+            Tab(text: FlutterI18n.translate(context, 'ranking.daily')),
+            Tab(text: FlutterI18n.translate(context, 'ranking.weekly')),
+            Tab(text: FlutterI18n.translate(context, 'ranking.monthly')),
+            Tab(text: FlutterI18n.translate(context, 'ranking.overall'))
           ],
           labelColor: theme.textSelectionColor,
           unselectedLabelColor: theme.textTheme.title.color,
@@ -124,7 +124,7 @@ class _RankingTabState extends State<RankingTab>
 
             return FloatingActionButton(
               onPressed: () => YoutubePlaylistScreen.navigate(context, songs,
-                  title: FlutterI18n.translate(context, 'ranking')),
+                  title: FlutterI18n.translate(context, 'label.ranking')),
               child: Icon(Icons.play_arrow),
             );
           },

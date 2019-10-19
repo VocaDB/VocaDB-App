@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:provider/provider.dart';
 import 'package:vocadb/blocs/favorite_song_bloc.dart';
 import 'package:vocadb/models/song_model.dart';
@@ -23,7 +24,7 @@ class FavoriteSongPage extends StatelessWidget {
 
     return Scaffold(
         appBar: AppBar(
-          title: Text('Favorite songs'),
+          title: Text(FlutterI18n.translate(context, 'label.favoriteSongs')),
         ),
         body: StreamBuilder(
           stream: bloc.songs$,
@@ -37,7 +38,8 @@ class FavoriteSongPage extends StatelessWidget {
 
             if (songMap == null || songMap.isEmpty) {
               return CenterResult(
-                  result: Result(Icon(Icons.music_note), 'No song'));
+                  result: Result(Icon(Icons.music_note),
+                      FlutterI18n.translate(context, 'error.favoriteSongs')));
             }
             List<SongModel> songs = songMap.values.toList().reversed.toList();
 

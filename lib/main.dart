@@ -181,15 +181,15 @@ class _MyHomePageState extends State<MyHomePage> {
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
-            title: Text(FlutterI18n.translate(context, 'home')),
+            title: Text(FlutterI18n.translate(context, 'label.home')),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.trending_up),
-            title: Text(FlutterI18n.translate(context, 'ranking')),
+            title: Text(FlutterI18n.translate(context, 'label.ranking')),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.menu),
-            title: Text(FlutterI18n.translate(context, 'menu')),
+            title: Text(FlutterI18n.translate(context, 'label.menu')),
           ),
         ],
         currentIndex: _selectedIndex,

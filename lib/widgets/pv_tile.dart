@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:vocadb/models/pv_model.dart';
@@ -8,13 +9,6 @@ class PVTile extends StatelessWidget {
   final PVModel pv;
 
   const PVTile({Key key, this.pv}) : super(key: key);
-
-  final List<PopupMenuItem<String>> _popUpMenuItems = const [
-    PopupMenuItem<String>(
-      value: 'share',
-      child: Text('Share'),
-    ),
-  ];
 
   Widget buildLeading() {
     IconSite ic = IconSiteList.findIconAsset(pv.service);
@@ -50,7 +44,12 @@ class PVTile extends StatelessWidget {
             Share.share(pv.url);
           }
         },
-        itemBuilder: (BuildContext context) => _popUpMenuItems,
+        itemBuilder: (BuildContext context) => [
+          PopupMenuItem<String>(
+            value: 'share',
+            child: Text(FlutterI18n.translate(context, 'label.share')),
+          ),
+        ],
       ),
     );
   }

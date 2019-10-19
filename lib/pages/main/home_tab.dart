@@ -41,23 +41,23 @@ class _HomeTabState extends State<HomeTab> {
               runSpacing: 24.0,
               children: <Widget>[
                 ShortcutMenuButton(
-                    title: FlutterI18n.translate(context, 'songs'),
+                    title: FlutterI18n.translate(context, 'label.songs'),
                     iconData: Icons.music_note,
                     onPressed: () => SongScreen.navigate(context)),
                 ShortcutMenuButton(
-                    title: FlutterI18n.translate(context, 'artists'),
+                    title: FlutterI18n.translate(context, 'label.artists'),
                     iconData: Icons.person,
                     onPressed: () => ArtistScreen.navigate(context)),
                 ShortcutMenuButton(
-                    title: FlutterI18n.translate(context, 'albums'),
+                    title: FlutterI18n.translate(context, 'label.albums'),
                     iconData: Icons.album,
                     onPressed: () => AlbumScreen.navigate(context)),
                 ShortcutMenuButton(
-                    title: FlutterI18n.translate(context, 'tags'),
+                    title: FlutterI18n.translate(context, 'label.tags'),
                     iconData: Icons.label,
                     onPressed: () => TagScreen.navigate(context)),
                 ShortcutMenuButton(
-                    title: FlutterI18n.translate(context, 'events'),
+                    title: FlutterI18n.translate(context, 'label.events'),
                     iconData: Icons.event,
                     onPressed: () => ReleaseEventScreen.navigate(context)),
               ],
@@ -76,7 +76,7 @@ class _HomeTabState extends State<HomeTab> {
 
               List<ReleaseEventModel> releaseEvents = snapshot.data;
               return Section(
-                title: FlutterI18n.translate(context, 'upcomingEvent'),
+                title: FlutterI18n.translate(context, 'label.upcomingEvent'),
                 children: releaseEvents
                     .map((e) => EventTile.fromReleaseEvent(e,
                         tag: 'recent_event_${e.id}'))

@@ -18,14 +18,14 @@ class _LatestAlbumListState extends State<LatestAlbumList> {
             AlbumCard.album(album, tag: 'latest_album_list_${album.id}'))
         .toList();
     return Section(
-        title: FlutterI18n.translate(context, 'recentAlbums'),
+        title: FlutterI18n.translate(context, 'label.recentAlbums'),
         horizontal: true,
         children: albumCards);
   }
 
   buildDefault() {
     return Section(
-        title: FlutterI18n.translate(context, 'recentAlbums'),
+        title: FlutterI18n.translate(context, 'label.recentAlbums'),
         horizontal: true,
         children: [0, 1, 2].map((i) => AlbumCardPlaceholder()).toList());
   }
