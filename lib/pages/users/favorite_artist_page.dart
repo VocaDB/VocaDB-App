@@ -37,8 +37,10 @@ class FavoriteArtistPage extends StatelessWidget {
 
           if (artistMap == null || artistMap.isEmpty) {
             return CenterResult(
-                result: Result(Icon(Icons.people),
-                    FlutterI18n.translate(context, 'error.favoriteArtists')));
+                result: Result(
+                    Icon(Icons.people),
+                    FlutterI18n.translate(
+                        context, 'error.emptyFavoriteArtists')));
           }
           List<ArtistModel> artists =
               artistMap.values.toList().reversed.toList();

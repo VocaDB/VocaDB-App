@@ -38,8 +38,10 @@ class FavoriteSongPage extends StatelessWidget {
 
             if (songMap == null || songMap.isEmpty) {
               return CenterResult(
-                  result: Result(Icon(Icons.music_note),
-                      FlutterI18n.translate(context, 'error.favoriteSongs')));
+                  result: Result(
+                      Icon(Icons.music_note),
+                      FlutterI18n.translate(
+                          context, 'error.emptyFavoriteSongs')));
             }
             List<SongModel> songs = songMap.values.toList().reversed.toList();
 
