@@ -11,6 +11,7 @@ import 'package:vocadb/constants.dart';
 import 'package:vocadb/models/album_disc_model.dart';
 import 'package:vocadb/models/album_model.dart';
 import 'package:vocadb/models/track_model.dart';
+import 'package:vocadb/pages/youtube_playlist/youtube_playlist_page.dart';
 import 'package:vocadb/widgets/artist_section.dart';
 import 'package:vocadb/widgets/expandable_content.dart';
 import 'package:vocadb/widgets/like_button.dart';
@@ -20,6 +21,7 @@ import 'package:vocadb/widgets/tags.dart';
 import "package:collection/collection.dart";
 import 'package:vocadb/widgets/album_track.dart';
 import 'package:vocadb/widgets/text_info_section.dart';
+import 'package:vocadb/widgets/web_link_section.dart';
 
 class AlbumDetailScreenArguments {
   final int id;
@@ -53,18 +55,44 @@ class AlbumDetailPage extends StatelessWidget {
     final AlbumDetailScreenArguments args =
         ModalRoute.of(context).settings.arguments;
 
+    final bloc = Provider.of<AlbumDetailBloc>(context);
+
     return Scaffold(
-      body: CustomScrollView(
-        slivers: <Widget>[
-          SliverAppBar(
-            floating: true,
-            title: Text(args.name),
-          ),
-          HeroContent(args.name, args.thumbUrl, args.tag),
-          AlbumDetailContent(args.id)
-        ],
-      ),
-    );
+        body: CustomScrollView(
+          slivers: <Widget>[
+            SliverAppBar(
+              floating: true,
+              title: Text(args.name),
+            ),
+            HeroContent(args.name, args.thumbUrl, args.tag),
+            AlbumDetailContent(args.id)
+          ],
+        ),
+        floatingActionButton: StreamBuilder(
+          stream: bloc.album$,
+          builder: (context, snapshot) {
+            if (!snapshot.hasData) {
+              return Container();
+            }
+
+            AlbumModel album = snapshot.data;
+
+            if (album.isContainsYoutubeTrack) {
+              return FloatingActionButton(
+                onPressed: () => YoutubePlaylistScreen.navigate(
+                    context,
+                    album.tracks
+                        .where((t) => t.song != null)
+                        .map((t) => t.song)
+                        .toList(),
+                    title: album.name),
+                child: Icon(Icons.play_arrow),
+              );
+            }
+
+            return Container();
+          },
+        ));
   }
 }
 
@@ -264,6 +292,10 @@ class _AlbumDetailContentState extends State<AlbumDetailContent> {
         ),
       )),
       AlbumDiscs(album.discs()),
+      Divider(),
+      WebLinkSection(
+        webLinks: album.webLinks,
+      )
     ];
     return widgets;
   }

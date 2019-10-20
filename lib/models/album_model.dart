@@ -62,6 +62,11 @@ class AlbumModel extends EntryModel {
 
   String get releaseDateFormatted => releaseDate.formatted;
 
+  bool get isContainsYoutubeTrack =>
+      tracks.firstWhere((t) => t.song != null && t.song.youtubePV != null,
+          orElse: () => null) !=
+      null;
+
   List<TagModel> get tags =>
       (this.tagGroups != null) ? this.tagGroups.map((t) => t.tag).toList() : [];
 
