@@ -20,6 +20,7 @@ import 'package:vocadb/widgets/like_button.dart';
 import 'package:vocadb/widgets/pv_tile.dart';
 import 'package:vocadb/widgets/result.dart';
 import 'package:vocadb/widgets/section.dart';
+import 'package:vocadb/widgets/site_tile.dart';
 import 'package:vocadb/widgets/song_card.dart';
 import 'package:vocadb/widgets/song_tile.dart';
 import 'package:vocadb/widgets/space_divider.dart';
@@ -351,7 +352,12 @@ class _SongDetailPageState extends State<SongDetailPage> {
             .toList(),
       ),
       Divider(),
-      PVSection(pvs: song.pvs),
+      PVSection(
+        pvs: song.pvs,
+        query: (song.pvs.length > 0)
+            ? song.pvs[0].name
+            : '${song.artistString}+${song.defaultName}',
+      ),
       AlbumSection(
           albums: song.albums, tagPrefix: 'song_detail_album_${song.id}'),
       ContentSection(
@@ -502,9 +508,10 @@ class _SongDetailPageState extends State<SongDetailPage> {
 }
 
 class PVSection extends StatelessWidget {
+  final String query;
   final List<PVModel> pvs;
 
-  const PVSection({Key key, this.pvs}) : super(key: key);
+  const PVSection({Key key, this.pvs, this.query}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -544,6 +551,13 @@ class PVSection extends StatelessWidget {
       ));
 
       children.addAll(otherPVs);
+    }
+
+    if (!pvList.isContainsYoutube) {
+      children.add(SiteTile(
+        title: FlutterI18n.translate(context, 'label.searchYoutube'),
+        url: 'http://www.youtube.com/results?search_query=${query}',
+      ));
     }
 
     children.add(Divider());
