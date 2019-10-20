@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:vocadb/models/album_disc_model.dart';
 import 'package:vocadb/models/album_model.dart';
 import 'package:vocadb/models/entry_model.dart';
 
@@ -14,31 +15,31 @@ void main() {
           "urlThumb": "https://i.ytimg.com/vi/iMZeB_yU_4s/default.jpg"
         },
         "artists": [
-            {
-              "artist": {
-                "additionalNames": "OkameP, かるび太郎, Calvi Taro",
-                "artistType": "Producer",
-                "id": 87,
-                "name": "オカメP",
-              },
-              "categories": "Producer",
-              "effectiveRoles": "Default",
+          {
+            "artist": {
+              "additionalNames": "OkameP, かるび太郎, Calvi Taro",
+              "artistType": "Producer",
+              "id": 87,
               "name": "オカメP",
-              "roles": "Default"
             },
-            {
-              "artist": {
-                "additionalNames": "Hatsune Miku",
-                "artistType": "Vocaloid",
-                "id": 1,
-                "name": "初音ミク",
-                "status": "Locked",
-              },
-              "categories": "Vocalist",
-              "effectiveRoles": "Default",
+            "categories": "Producer",
+            "effectiveRoles": "Default",
+            "name": "オカメP",
+            "roles": "Default"
+          },
+          {
+            "artist": {
+              "additionalNames": "Hatsune Miku",
+              "artistType": "Vocaloid",
+              "id": 1,
               "name": "初音ミク",
-              "roles": "Default"
+              "status": "Locked",
             },
+            "categories": "Vocalist",
+            "effectiveRoles": "Default",
+            "name": "初音ミク",
+            "roles": "Default"
+          },
         ],
         "catalogNumber": "KRHS-90072",
         "tracks": [
@@ -53,7 +54,6 @@ void main() {
           "month": 9,
           "year": 2019
         }
-
       };
 
       AlbumModel result = AlbumModel.fromJson(mockJson);
@@ -100,6 +100,28 @@ void main() {
       expect(result, isNotNull);
       expect(result.tags, isNotNull);
       expect(result.tags.length, 3);
+    });
+
+    test('should get sorted discs', () {
+      const mockDiscs = {
+        "tracks": [
+          {"discNumber": 1, "trackNumber": 2, "name": "12"},
+          {"discNumber": 3, "trackNumber": 1, "name": "31"},
+          {"discNumber": 3, "trackNumber": 2, "name": "32"},
+          {"discNumber": 2, "trackNumber": 1, "name": "21"},
+          {"discNumber": 1, "trackNumber": 1, "name": "11"}
+        ],
+      };
+
+      AlbumModel result = AlbumModel.fromJson(mockDiscs);
+
+      List<AlbumDiscModel> discs = result.discs();
+
+      expect(discs, isNotNull);
+      expect(discs.length, 3);
+      expect(discs[0].discNumber, 1);
+      expect(discs[1].discNumber, 2);
+      expect(discs[2].discNumber, 3);
     });
   });
 }

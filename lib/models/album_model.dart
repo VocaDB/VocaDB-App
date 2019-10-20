@@ -1,10 +1,14 @@
+import 'dart:collection';
+
 import 'package:vocadb/constants.dart';
+import 'package:vocadb/models/album_disc_model.dart';
 import 'package:vocadb/models/artist_album_model.dart';
 import 'package:vocadb/models/entry_model.dart';
 import 'package:vocadb/models/release_date_model.dart';
 import 'package:vocadb/models/tag_model.dart';
 import 'package:vocadb/models/track_model.dart';
 import 'package:vocadb/utils/json_utils.dart';
+import "package:collection/collection.dart";
 
 class AlbumModel extends EntryModel {
   EntryType entryType = EntryType.Album;
@@ -60,4 +64,11 @@ class AlbumModel extends EntryModel {
 
   List<TagModel> get tags =>
       (this.tagGroups != null) ? this.tagGroups.map((t) => t.tag).toList() : [];
+
+  List<AlbumDiscModel> discs() {
+    return SplayTreeMap.of(groupBy(tracks, (t) => t.discNumber))
+        .values
+        .map((v) => AlbumDiscModel(v[0].discNumber, v))
+        .toList();
+  }
 }

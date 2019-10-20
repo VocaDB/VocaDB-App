@@ -8,6 +8,7 @@ import 'package:vocadb/blocs/album_detail_bloc.dart';
 import 'package:vocadb/blocs/config_bloc.dart';
 import 'package:vocadb/blocs/favorite_album_bloc.dart';
 import 'package:vocadb/constants.dart';
+import 'package:vocadb/models/album_disc_model.dart';
 import 'package:vocadb/models/album_model.dart';
 import 'package:vocadb/models/track_model.dart';
 import 'package:vocadb/widgets/artist_section.dart';
@@ -262,7 +263,7 @@ class _AlbumDetailContentState extends State<AlbumDetailContent> {
           ],
         ),
       )),
-      TrackList(album.tracks),
+      AlbumDiscs(album.discs()),
     ];
     return widgets;
   }
@@ -284,6 +285,41 @@ class _AlbumDetailContentState extends State<AlbumDetailContent> {
   }
 }
 
+class AlbumDiscs extends StatelessWidget {
+  final List<AlbumDiscModel> discs;
+
+  const AlbumDiscs(this.discs);
+
+  @override
+  Widget build(BuildContext context) {
+    if (discs == null) return Container();
+
+    if (discs.length == 1) {
+      return Container(
+        child: Column(
+          children: discs[0].tracks.map((t) => AlbumTrack(t)).toList(),
+        ),
+      );
+    }
+
+    return Container(
+      child: Column(
+        children: discs
+            .map((disc) => Column(
+                  children: <Widget>[
+                    Text(FlutterI18n.translate(context, 'label.discNo',
+                        {'disc': disc.discNumber.toString()})),
+                    Column(
+                      children: disc.tracks.map((t) => AlbumTrack(t)).toList(),
+                    )
+                  ],
+                ))
+            .toList(),
+      ),
+    );
+  }
+}
+
 class TrackList extends StatelessWidget {
   final List<TrackModel> tracks;
 
@@ -294,6 +330,8 @@ class TrackList extends StatelessWidget {
 
     var groupTracks = groupBy(tracks, (t) => t.discNumber);
 
+    print(groupTracks);
+
     if (groupTracks.length < 2) {
       var discTracks = tracks.map((t) => AlbumTrack(t)).toList();
 
@@ -301,8 +339,8 @@ class TrackList extends StatelessWidget {
       widgets.add(SpaceDivider());
     } else {
       groupTracks.forEach((disc, List<TrackModel> t) {
-        widgets.add(Text(
-            FlutterI18n.translate(context, 'label.discNo', {'disc': disc})));
+        widgets.add(Text(FlutterI18n.translate(
+            context, 'label.discNo', {'disc': disc.toString()})));
 
         var discTracks = tracks.map((t) => AlbumTrack(t)).toList();
 

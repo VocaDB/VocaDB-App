@@ -16,4 +16,13 @@ class TrackModel {
         trackNumber = json['trackNumber'],
         song =
             json.containsKey('song') ? SongModel.fromJson(json['song']) : null;
+
+  String toString() {
+    return {
+      "id": id,
+      "trackNumber": trackNumber,
+      "discNumber": discNumber,
+      "name": name
+    }.toString();
+  }
 }
