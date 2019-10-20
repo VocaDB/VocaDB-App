@@ -40,7 +40,7 @@ class ProfileBloc {
 
     String jsonEncoded = json.encode(profileModel.toJson());
 
-    file.writeAsString(jsonEncoded);
+    await file.writeAsString(jsonEncoded);
 
     Uint8List bytes = await file.readAsBytes();
 
