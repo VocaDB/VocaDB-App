@@ -8,6 +8,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:quick_actions/quick_actions.dart';
 import 'package:vocadb/app_theme.dart';
 import 'package:vocadb/blocs/config_bloc.dart';
 import 'package:vocadb/blocs/favorite_album_bloc.dart';
@@ -57,9 +58,30 @@ class VocaDBApp extends StatelessWidget {
   static FirebaseAnalyticsObserver observer =
       FirebaseAnalyticsObserver(analytics: analytics);
 
+  static final QuickActions quickActions = QuickActions();
+
   @override
   Widget build(BuildContext context) {
     ConfigBloc configBloc = ConfigBloc(GlobalVariables.pref);
+
+    quickActions.setShortcutItems(<ShortcutItem>[
+      const ShortcutItem(
+          type: 'action_quick_search',
+          localizedTitle: 'Quick search',
+          icon: 'ic_shortcut_quick_search'),
+      const ShortcutItem(
+          type: 'action_song_search',
+          localizedTitle: 'Find song',
+          icon: 'ic_shortcut_song_search'),
+      const ShortcutItem(
+          type: 'action_artist_search',
+          localizedTitle: 'Find artist',
+          icon: 'ic_shortcut_artist_search'),
+      const ShortcutItem(
+          type: 'action_album_search',
+          localizedTitle: 'Find album',
+          icon: 'ic_shortcut_album_search'),
+    ]);
 
     final favoriteSongBloc = FavoriteSongBloc();
     final favoriteArtistBloc = FavoriteArtistBloc();
@@ -72,6 +94,7 @@ class VocaDBApp extends StatelessWidget {
 
     return MultiProvider(
       providers: [
+        Provider<QuickActions>.value(value: quickActions),
         Provider<FirebaseAnalytics>.value(value: analytics),
         Provider<FirebaseAnalyticsObserver>.value(value: observer),
         Provider<ConfigBloc>.value(value: configBloc),
@@ -165,10 +188,29 @@ class _MyHomePageState extends State<MyHomePage> {
     AccountTab(),
   ];
 
+  void handleShortcut(String shortcutType) {
+    switch (shortcutType) {
+      case 'action_quick_search':
+        SearchScreen.navigate(context);
+        break;
+      case 'action_song_search':
+        SongScreen.navigate(context);
+        break;
+      case 'action_artist_search':
+        ArtistScreen.navigate(context);
+        break;
+      case 'action_album_search':
+        AlbumScreen.navigate(context);
+        break;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final homeBloc = Provider.of<HomeBloc>(context);
     final rankingBloc = Provider.of<RankingBloc>(context);
+    Provider.of<QuickActions>(context).initialize(handleShortcut);
+
     return Scaffold(
       appBar: AppBar(
         title: Text('VocaDB'),
