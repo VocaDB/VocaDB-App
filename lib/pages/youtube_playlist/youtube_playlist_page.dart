@@ -56,7 +56,7 @@ class _YoutubePlaylistPageState extends State<YoutubePlaylistPage> {
   playerControllerListen() {
     PlayerState currentState = _playerController.value.playerState;
 
-    if (currentState == PlayerState.ENDED) {
+    if (currentState == PlayerState.ended) {
       Provider.of<YoutubePlaylistBloc>(context).next();
     }
   }
