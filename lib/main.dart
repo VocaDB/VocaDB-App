@@ -17,6 +17,7 @@ import 'package:vocadb/blocs/favorite_song_bloc.dart';
 import 'package:vocadb/blocs/home_bloc.dart';
 import 'package:vocadb/blocs/profile_bloc.dart';
 import 'package:vocadb/blocs/ranking_bloc.dart';
+import 'package:vocadb/constants.dart';
 import 'package:vocadb/global_variables.dart';
 import 'package:vocadb/pages/album/album_page.dart';
 import 'package:vocadb/pages/album_detail/album_detail_page.dart';
@@ -120,7 +121,7 @@ class RootApp extends StatelessWidget {
       stream: config.uiConfigs$,
       builder: (context, snapshot) {
         return MaterialApp(
-          title: 'VocaDB',
+          title: APP_NAME,
           theme: config.getThemeData(Provider.of<ConfigBloc>(context).theme),
           darkTheme: AppTheme.darkTheme,
           initialRoute: '/',
@@ -213,7 +214,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('VocaDB'),
+        title: Text(APP_NAME),
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.search),
