@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:vocadb/models/web_link_model.dart';
 import 'package:vocadb/utils/icon_site.dart';
+import 'package:vocadb/widgets/site_tile.dart';
 
 class WebLinkTile extends StatelessWidget {
   final WebLinkModel webLink;
@@ -30,12 +31,9 @@ class WebLinkTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      onTap: () {
-        launch(webLink.url);
-      },
-      leading: buildLeading(),
-      title: Text(webLink.description),
+    return SiteTile(
+      title: webLink.description,
+      url: webLink.url,
     );
   }
 }
