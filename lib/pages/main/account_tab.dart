@@ -3,6 +3,7 @@ import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:package_info/package_info.dart';
 import 'package:provider/provider.dart';
 import 'package:vocadb/blocs/profile_bloc.dart';
+import 'package:vocadb/pages/contact_us/contact_us_page.dart';
 import 'package:vocadb/pages/setting/setting_page.dart';
 import 'package:vocadb/pages/users/favorite_album_page.dart';
 import 'package:vocadb/pages/users/favorite_artist_page.dart';
@@ -73,6 +74,14 @@ class GuestTab extends StatelessWidget {
           },
           leading: Icon(Icons.settings),
           title: Text(FlutterI18n.translate(context, 'label.settings')),
+        ),
+        ListTile(
+          onTap: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => ContactUsPage()));
+          },
+          leading: Icon(Icons.help),
+          title: Text(FlutterI18n.translate(context, 'label.contact')),
         ),
         FutureBuilder(
           future: PackageInfo.fromPlatform(),
