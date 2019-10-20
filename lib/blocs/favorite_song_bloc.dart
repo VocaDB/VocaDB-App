@@ -15,8 +15,8 @@ class FavoriteSongBloc {
 
   Box _personalBox;
 
-  FavoriteSongBloc() {
-    _personalBox = Hive.box('personal');
+  FavoriteSongBloc({Box personalBox}) {
+    _personalBox = personalBox ?? Hive.box('personal');
 
     initialLoad();
   }

@@ -1,14 +1,22 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:hive/hive.dart';
+import 'package:mockito/mockito.dart';
 import 'package:vocadb/blocs/favorite_song_bloc.dart';
 import 'package:vocadb/models/song_model.dart';
+
+class MockBox extends Mock implements Box {}
 
 main() {
   test('should add and remove song', () async {
     final song = SongModel.fromJson({'id': 1, 'name': 'A'});
+    final box = MockBox();
 
-    final bloc = FavoriteSongBloc();
+    when(box.put(any, any)).thenAnswer((_) => Future.value());
+    when(box.get(any)).thenReturn(null);
 
-    expect(bloc.songs, isNull);
+    final bloc = FavoriteSongBloc(personalBox: box);
+
+    expect(bloc.songs, isEmpty);
 
     bloc.add(song);
 

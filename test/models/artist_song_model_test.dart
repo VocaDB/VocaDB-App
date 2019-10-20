@@ -35,7 +35,7 @@ void main() {
       expect(result.artist, isNull);
     });
 
-    test('should return null when get aritst id and aritst field is missing',
+    test('should return zero when get aritst id and aritst field is missing',
         () {
       const mockJson = {
         "categories": "Vocalist",
@@ -45,7 +45,7 @@ void main() {
 
       ArtistSongModel result = ArtistSongModel.fromJson(mockJson);
       expect(result, isNotNull);
-      expect(result.artistId, isNull);
+      expect(result.artistId, 0);
     });
 
     test('should return default artist name when artist field is missing', () {
