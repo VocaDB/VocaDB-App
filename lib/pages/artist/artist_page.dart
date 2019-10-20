@@ -10,19 +10,33 @@ import 'package:vocadb/widgets/center_content.dart';
 import 'package:vocadb/widgets/result.dart';
 import 'package:vocadb/widgets/artist_tile.dart';
 
+class ArtistScreenArguments {
+  final bool openSearch;
+
+  ArtistScreenArguments({this.openSearch});
+}
+
 class ArtistScreen extends StatelessWidget {
   static const String routeName = '/artists';
 
-  static void navigate(BuildContext context) {
-    Navigator.pushNamed(context, ArtistScreen.routeName);
+  static void navigate(BuildContext context, {bool openSearch = false}) {
+    Navigator.pushNamed(context, ArtistScreen.routeName,
+        arguments: ArtistScreenArguments(openSearch: openSearch));
   }
 
   @override
   Widget build(BuildContext context) {
     final configBloc = Provider.of<ConfigBloc>(context);
+    final ArtistScreenArguments args =
+        ModalRoute.of(context).settings.arguments;
+    final artistBloc = ArtistBloc(configBloc: configBloc);
+
+    if (args.openSearch) {
+      artistBloc.openSearch();
+    }
 
     return Provider<ArtistBloc>(
-      builder: (context) => ArtistBloc(configBloc: configBloc),
+      builder: (context) => artistBloc,
       dispose: (context, bloc) => bloc.dispose(),
       child: ArtistPage(),
     );

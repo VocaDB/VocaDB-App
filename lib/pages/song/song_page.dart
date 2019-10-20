@@ -11,19 +11,32 @@ import 'package:vocadb/widgets/center_content.dart';
 import 'package:vocadb/widgets/result.dart';
 import 'package:vocadb/widgets/song_tile.dart';
 
+class SongScreenArguments {
+  final bool openSearch;
+
+  SongScreenArguments({this.openSearch});
+}
+
 class SongScreen extends StatelessWidget {
   static const String routeName = '/songs';
 
-  static void navigate(BuildContext context) {
-    Navigator.pushNamed(context, SongScreen.routeName);
+  static void navigate(BuildContext context, {bool openSearch = false}) {
+    Navigator.pushNamed(context, SongScreen.routeName,
+        arguments: SongScreenArguments(openSearch: openSearch));
   }
 
   @override
   Widget build(BuildContext context) {
+    final SongScreenArguments args = ModalRoute.of(context).settings.arguments;
     final configBloc = Provider.of<ConfigBloc>(context);
+    final songBloc = SongBloc(configBloc: configBloc);
+
+    if (args.openSearch) {
+      songBloc.openSearch();
+    }
 
     return Provider<SongBloc>(
-      builder: (context) => SongBloc(configBloc: configBloc),
+      builder: (context) => songBloc,
       dispose: (context, bloc) => bloc.dispose(),
       child: SongPage(),
     );

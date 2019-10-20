@@ -194,13 +194,13 @@ class _MyHomePageState extends State<MyHomePage> {
         SearchScreen.navigate(context);
         break;
       case 'action_song_search':
-        SongScreen.navigate(context);
+        SongScreen.navigate(context, openSearch: true);
         break;
       case 'action_artist_search':
-        ArtistScreen.navigate(context);
+        ArtistScreen.navigate(context, openSearch: true);
         break;
       case 'action_album_search':
-        AlbumScreen.navigate(context);
+        AlbumScreen.navigate(context, openSearch: true);
         break;
     }
   }

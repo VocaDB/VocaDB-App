@@ -10,19 +10,32 @@ import 'package:vocadb/widgets/center_content.dart';
 import 'package:vocadb/widgets/result.dart';
 import 'package:vocadb/widgets/album_tile.dart';
 
+class AlbumScreenArguments {
+  final bool openSearch;
+
+  AlbumScreenArguments({this.openSearch});
+}
+
 class AlbumScreen extends StatelessWidget {
   static const String routeName = '/albums';
 
-  static void navigate(BuildContext context) {
-    Navigator.pushNamed(context, AlbumScreen.routeName);
+  static void navigate(BuildContext context, {bool openSearch = false}) {
+    Navigator.pushNamed(context, AlbumScreen.routeName,
+        arguments: AlbumScreenArguments(openSearch: openSearch));
   }
 
   @override
   Widget build(BuildContext context) {
     final configBloc = Provider.of<ConfigBloc>(context);
+    final AlbumScreenArguments args = ModalRoute.of(context).settings.arguments;
+    final albumBloc = AlbumBloc(configBloc: configBloc);
+
+    if (args.openSearch) {
+      albumBloc.openSearch();
+    }
 
     return Provider<AlbumBloc>(
-      builder: (context) => AlbumBloc(configBloc: configBloc),
+      builder: (context) => albumBloc,
       dispose: (context, bloc) => bloc.dispose(),
       child: AlbumPage(),
     );
