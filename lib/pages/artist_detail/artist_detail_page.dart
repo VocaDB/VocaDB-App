@@ -72,13 +72,15 @@ class ArtistDetailPage extends StatelessWidget {
                   opacity: 0.7,
                   child: Hero(
                       tag: this.tag,
-                      child: CachedNetworkImage(
-                        imageUrl: this.imageUrl,
-                        placeholder: (context, url) =>
-                            Container(color: Colors.grey),
-                        errorWidget: (context, url, error) =>
-                            new Icon(Icons.error),
-                      )),
+                      child: (this.imageUrl == null)
+                          ? Icon(Icons.person)
+                          : CachedNetworkImage(
+                              imageUrl: this.imageUrl,
+                              placeholder: (context, url) =>
+                                  Container(color: Colors.grey),
+                              errorWidget: (context, url, error) =>
+                                  new Icon(Icons.error),
+                            )),
                 ),
               ),
             ),
@@ -127,9 +129,8 @@ class ArtistInfo extends StatelessWidget {
               (artist.additionalNames != null)
                   ? Text(artist.additionalNames)
                   : Container(),
-              Text(
-                artist.artistType,
-              ),
+              Text(FlutterI18n.translate(
+                  context, 'artistType.${artist.artistType}')),
             ],
           ),
         ),

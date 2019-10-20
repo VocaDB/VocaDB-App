@@ -80,6 +80,7 @@
     "favoriteAlbums": "コレクション",
     "favoriteArtists": "フォローしているアーティスト",
     "settings": "設定",
+    "contact": "Contact us",
     "uiLanguage": "インターフェース言語",
     "contentLanguage": "優先言語",
     "importProfile": "ロード",
@@ -197,6 +198,7 @@
     "Other": "その他"
   },
   "eventCategory": {
+    "Unspecified": "Not specified",
     "AlbumRelease": "アルバム発売記念",
     "Anniversary": "キャラクター発売記念日",
     "Club": "クラブ",

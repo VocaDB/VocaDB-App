@@ -64,7 +64,7 @@ class ArtistTile extends StatelessWidget {
         child: Hero(
             tag: this.tag,
             child: (this.imageUrl == null)
-                ? Placeholder()
+                ? Icon(Icons.person)
                 : CachedNetworkImage(
                     imageUrl: this.imageUrl,
                     placeholder: (context, url) =>
@@ -77,7 +77,7 @@ class ArtistTile extends StatelessWidget {
 
   Widget buildSingleLine(BuildContext context) {
     return ListTile(
-      enabled: (this.id != null),
+      enabled: (this.id != null && this.id != 0),
       onTap: () => navigateToDetail(context),
       leading: buildLeading(),
       title: Text(this.title, overflow: TextOverflow.ellipsis),
@@ -86,7 +86,7 @@ class ArtistTile extends StatelessWidget {
 
   Widget buildTwoLine(BuildContext context) {
     return ListTile(
-      enabled: (this.id != null),
+      enabled: (this.id != null && this.id != 0),
       onTap: () => navigateToDetail(context),
       leading: buildLeading(),
       title: Text(this.title, overflow: TextOverflow.ellipsis),

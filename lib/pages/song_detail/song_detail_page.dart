@@ -11,11 +11,10 @@ import 'package:vocadb/blocs/favorite_song_bloc.dart';
 import 'package:vocadb/blocs/lyric_content_bloc.dart';
 import 'package:vocadb/blocs/song_detail_bloc.dart';
 import 'package:vocadb/constants.dart';
-import 'package:vocadb/models/album_model.dart';
 import 'package:vocadb/models/pv_model.dart';
 import 'package:vocadb/models/song_model.dart';
 import 'package:vocadb/pages/song_detail/lyric_content.dart';
-import 'package:vocadb/widgets/album_card.dart';
+import 'package:vocadb/widgets/album_section.dart';
 import 'package:vocadb/widgets/artist_tile.dart';
 import 'package:vocadb/widgets/like_button.dart';
 import 'package:vocadb/widgets/pv_tile.dart';
@@ -498,33 +497,6 @@ class _SongDetailPageState extends State<SongDetailPage> {
 
         return buildDefault();
       },
-    );
-  }
-}
-
-class AlbumSection extends StatelessWidget {
-  final List<AlbumModel> albums;
-  final String tagPrefix;
-
-  const AlbumSection({Key key, this.albums, this.tagPrefix}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    if (albums.length == 0) {
-      return Container();
-    }
-
-    return Column(
-      children: <Widget>[
-        Section(
-          title: FlutterI18n.translate(context, 'label.albums'),
-          horizontal: true,
-          children: albums
-              .map((a) => AlbumCard.album(a, tag: '${this.tagPrefix}_${a.id}'))
-              .toList(),
-        ),
-        Divider(),
-      ],
     );
   }
 }

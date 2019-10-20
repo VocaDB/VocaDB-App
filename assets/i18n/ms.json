@@ -195,6 +195,7 @@
     "Other": "Lain-lain"
   },
   "eventCategory": {
+    "Unspecified": "Not specified",
     "AlbumRelease": "Tempat terbitan album",
     "Anniversary": "Ulang tahun watak",
     "Club": "Kelab",

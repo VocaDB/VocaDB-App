@@ -39,7 +39,7 @@ class SongTile extends StatelessWidget {
             placeholder: (context, url) => Container(color: Colors.grey),
             errorWidget: (context, url, error) => new Icon(Icons.error),
           )
-        : Placeholder();
+        : Icon(Icons.music_note);
 
     return Padding(
         padding: const EdgeInsets.all(8.0),

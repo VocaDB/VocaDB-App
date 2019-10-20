@@ -200,6 +200,7 @@
     "Other": "Other"
   },
   "eventCategory": {
+    "Unspecified": "Not specified",
     "AlbumRelease": "Album release fair",
     "Anniversary": "Character anniversary",
     "Club": "Club",

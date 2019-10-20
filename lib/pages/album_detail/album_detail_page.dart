@@ -146,7 +146,7 @@ class _AlbumDetailContentState extends State<AlbumDetailContent> {
                           style: Theme.of(context).textTheme.caption)
                     ],
                   ),
-            Text(album.discType),
+            Text(FlutterI18n.translate(context, 'discType.${album.discType}')),
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[

@@ -9,9 +9,12 @@ import 'package:vocadb/blocs/release_event_detail_bloc.dart';
 import 'package:vocadb/constants.dart';
 import 'package:vocadb/models/album_model.dart';
 import 'package:vocadb/models/release_event_model.dart';
+import 'package:vocadb/models/song_model.dart';
 import 'package:vocadb/pages/song_detail/song_detail_page.dart';
+import 'package:vocadb/widgets/album_section.dart';
 import 'package:vocadb/widgets/artist_section.dart';
 import 'package:vocadb/widgets/result.dart';
+import 'package:vocadb/widgets/song_list_section.dart';
 import 'package:vocadb/widgets/space_divider.dart';
 import 'package:vocadb/widgets/text_info_section.dart';
 import 'package:vocadb/widgets/web_link_section.dart';
@@ -126,6 +129,11 @@ class EventDetailPage extends StatelessWidget {
                     text: releaseEvent.name,
                   ),
                   TextInfoSection(
+                    title: FlutterI18n.translate(context, 'label.category'),
+                    text: FlutterI18n.translate(
+                        context, 'eventCategory.${releaseEvent.category}'),
+                  ),
+                  TextInfoSection(
                     title: FlutterI18n.translate(context, 'label.date'),
                     text: releaseEvent.dateFormatted,
                   ),
@@ -159,6 +167,23 @@ class EventDetailPage extends StatelessWidget {
                 return AlbumSection(
                   albums: albums,
                   tagPrefix: 'release_event_detail_${releaseEvent.id}',
+                );
+              },
+            ),
+            StreamBuilder(
+              stream: Provider.of<ReleaseEventDetailBloc>(context).songs$,
+              builder: (context, snapshot) {
+                if (!snapshot.hasData) return Container();
+
+                List<SongModel> songs = snapshot.data;
+
+                if (songs.length == 0) return Container();
+
+                return SongListSection(
+                  title: FlutterI18n.translate(context, 'label.songs'),
+                  songs: songs,
+                  horizontal: true,
+                  prefixTag: 'release_event_detail_songs_${releaseEvent.id}}',
                 );
               },
             ),

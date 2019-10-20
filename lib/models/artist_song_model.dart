@@ -18,7 +18,7 @@ class ArtistSongModel {
             ? ArtistModel.fromJson(json['artist'])
             : null;
 
-  int get artistId => (this.artist == null) ? id : this.artist.id;
+  int get artistId => (this.artist == null) ? 0 : this.artist.id;
 
   String get artistName => (this.artist == null) ? this.name : this.artist.name;
 

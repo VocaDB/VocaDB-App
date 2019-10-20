@@ -77,7 +77,7 @@
     "favoriteArtists": "ศิลปินคนโปรด",
     "settings": "ตั้งค่า",
     "about": "เกี่ยวกับ",
-    "contact": "ติดต่อเรา",
+    "contact": "ติดต่อ",
     "uiLanguage": "ภาษาแอป",
     "contentLanguage": "ภาษาเนื้อหาที่แสดง",
     "importProfile": "โหลดข้อมูล",
@@ -195,6 +195,7 @@
     "Other": "Other"
   },
   "eventCategory": {
+    "Unspecified": "ไม่ระบุ",
     "AlbumRelease": "จำหน่ายอัลบั้ม",
     "Anniversary": "ครบรอบ",
     "Club": "คลับ",
