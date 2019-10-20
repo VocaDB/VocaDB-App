@@ -13,6 +13,7 @@ environment:
   sdk: ">=2.0.0-dev.68.0 <3.0.0"
 
 dependencies:
+  firebase_crashlytics: ^0.1.0+3
   flutter_i18n: ^0.7.0
   esys_flutter_share: ^1.0.2
   file_picker: ^1.4.2

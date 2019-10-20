@@ -1,5 +1,6 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_i18n/flutter_i18n_delegate.dart';
@@ -45,6 +46,8 @@ void main() async {
 
   await GlobalVariables.init();
   await Hive.openBox('personal');
+
+  FlutterError.onError = Crashlytics.instance.recordFlutterError;
 
   runApp(VocaDBApp());
 }
