@@ -27,7 +27,7 @@ class ReleaseEventBloc {
     Observable.merge([
       query$,
       releaseEventFilterBloc.params$,
-    ]).debounceTime(Duration(milliseconds: 500)).distinct().listen(fetch);
+    ]).debounceTime(Duration(milliseconds: 500)).listen(fetch);
   }
 
   void openSearch() {
