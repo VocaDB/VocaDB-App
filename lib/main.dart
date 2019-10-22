@@ -17,6 +17,7 @@ import 'package:vocadb/blocs/favorite_song_bloc.dart';
 import 'package:vocadb/blocs/home_bloc.dart';
 import 'package:vocadb/blocs/profile_bloc.dart';
 import 'package:vocadb/blocs/ranking_bloc.dart';
+import 'package:vocadb/blocs/song_bloc.dart';
 import 'package:vocadb/constants.dart';
 import 'package:vocadb/global_variables.dart';
 import 'package:vocadb/pages/album/album_page.dart';
@@ -154,7 +155,11 @@ class RootApp extends StatelessWidget {
             FavoriteAlbumScreen.routeName: (context) => FavoriteAlbumScreen(),
             MoreSongScreen.routeName: (context) => MoreSongScreen(),
             MoreAlbumScreen.routeName: (context) => MoreAlbumScreen(),
-            SongScreen.routeName: (context) => SongScreen(),
+            SongScreen.routeName: (context) => Provider<SongBloc>(
+                  builder: (context) => SongBloc(configBloc: config),
+                  dispose: (context, bloc) => bloc.dispose(),
+                  child: SongPage(),
+                ),
             ArtistScreen.routeName: (context) => ArtistScreen(),
             AlbumScreen.routeName: (context) => AlbumScreen(),
             TagScreen.routeName: (context) => TagScreen(),

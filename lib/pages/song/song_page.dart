@@ -2,7 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:provider/provider.dart';
-import 'package:vocadb/blocs/config_bloc.dart';
 import 'package:vocadb/blocs/song_bloc.dart';
 import 'package:vocadb/models/song_model.dart';
 import 'package:vocadb/pages/search/search_song_filter_page.dart';
@@ -28,18 +27,11 @@ class SongScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final SongScreenArguments args = ModalRoute.of(context).settings.arguments;
-    final configBloc = Provider.of<ConfigBloc>(context);
-    final songBloc = SongBloc(configBloc: configBloc);
+    final songBloc = Provider.of<SongBloc>(context);
 
     if (args.openSearch) {
       songBloc.openSearch();
     }
-
-    return Provider<SongBloc>(
-      builder: (context) => songBloc,
-      dispose: (context, bloc) => bloc.dispose(),
-      child: SongPage(),
-    );
   }
 }
 

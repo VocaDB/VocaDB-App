@@ -27,7 +27,7 @@ class SongBloc {
     Observable.merge([
       query$,
       songFilterBloc.params$,
-    ]).debounceTime(Duration(milliseconds: 500)).distinct().listen(fetch);
+    ]).debounceTime(Duration(milliseconds: 500)).listen(fetch);
   }
 
   void openSearch() {
