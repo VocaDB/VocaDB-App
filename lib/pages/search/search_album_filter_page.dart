@@ -141,7 +141,7 @@ class ArtistFilters extends StatelessWidget {
     children.add(ListTile(
       onTap: this.onBrowseArtists,
       leading: Icon(Icons.add),
-      title: Text(FlutterI18n.translate(context, 'label.notSpecified')),
+      title: Text(FlutterI18n.translate(context, 'label.add')),
     ));
 
     return children;

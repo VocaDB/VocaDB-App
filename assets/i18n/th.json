@@ -5,9 +5,13 @@
     "playAll": "เล่นทั้งหมด",
     "theme": "ธีม",
     "songs": "เพลง",
+    "song": "เพลง",
+    "album": "อัลบั้ม",
     "albums": "อัลบั้ม",
     "artists": "ศิลปิน",
+    "artist": "ศิลปิน",
     "events": "กิจกรรม",
+    "event": "กิจกรรม",
     "releaseEvents": "กิจกรรม",
     "tags": "แท๊ก",
     "anything": "ทั้งหมด",
@@ -110,7 +114,8 @@
     "topSongs": "เพลงยอดนิยม",
     "topAlbums": "อัลบั้มยอดนิยม",
     "topArtists": "ศิลปินยอดนิยม",
-    "version": "เวอร์ชัน"
+    "version": "เวอร์ชัน",
+    "search": "ค้นหา"
   },
   "error": {
     "emptyFavoriteSongs": "ยังไม่มีเพลงที่ชอบ",

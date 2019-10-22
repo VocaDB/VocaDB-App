@@ -149,7 +149,8 @@ class _SearchPageState extends State<SearchPage> {
                 autofocus: true,
                 style: Theme.of(context).primaryTextTheme.title,
                 decoration: InputDecoration(
-                    border: InputBorder.none, hintText: "Search"),
+                    border: InputBorder.none,
+                    hintText: FlutterI18n.translate(context, 'label.search')),
               ),
             ),
             Container(

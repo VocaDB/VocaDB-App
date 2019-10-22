@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:vocadb/models/entry_model.dart';
 import 'package:vocadb/models/release_event_model.dart';
 import 'package:vocadb/pages/event_detail/event_detail_page.dart';
@@ -31,7 +32,7 @@ class EventTile extends StatelessWidget {
       : this.id = entry.id,
         this.imageUrl = entry.imageUrl,
         this.name = entry.name,
-        this.date = entry.activityDate,
+        this.date = entry.activityDateFormatted,
         this.category = entry.eventCategory;
 
   EventTile.fromReleaseEvent(ReleaseEventModel releaseEvent, {this.tag})
@@ -49,6 +50,8 @@ class EventTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String categoryName =
+        FlutterI18n.translate(context, 'eventCategory.$category');
     return ListTile(
       onTap: () => navigateToDetail(context),
       leading: SizedBox(
@@ -64,7 +67,7 @@ class EventTile extends StatelessWidget {
             )),
       ),
       title: Text(this.name, overflow: TextOverflow.ellipsis),
-      subtitle: Text('$category • $date'),
+      subtitle: Text('$categoryName • $date'),
     );
   }
 }

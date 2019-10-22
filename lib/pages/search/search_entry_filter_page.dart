@@ -20,7 +20,8 @@ class SearchEntryFilterPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text('Filter entry')),
+        appBar:
+            AppBar(title: Text(FlutterI18n.translate(context, 'label.filter'))),
         body: Container(
           padding: EdgeInsets.all(8.0),
           child: ListView(
@@ -126,8 +127,8 @@ class EntrySortDropDown extends StatelessWidget {
         items: sorts
             .map((st) => DropdownMenuItem<String>(
                   value: st['value'],
-                  child: Text(FlutterI18n.translate(
-                      context, 'sort.${st['name'].toLowerCase()}')),
+                  child: Text(
+                      FlutterI18n.translate(context, 'sort.${st['value']}')),
                 ))
             .toList(),
         onChanged: this.onChanged);

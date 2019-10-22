@@ -5,9 +5,13 @@
     "playAll": "Play all",
     "theme": "Theme",
     "songs": "Lagu",
+    "song": "Lagu",
+    "album": "Album",
     "albums": "Album",
     "artists": "Artis",
+    "artist": "Artis",
     "events": "Acara",
+    "event": "Acara",
     "releaseEvents": "Release events",
     "tags": "Tag",
     "anything": "Anything",
@@ -110,7 +114,8 @@
     "topSongs": "Top songs",
     "topAlbums": "Top albums",
     "topArtists": "Top artists",
-    "version": "Version"
+    "version": "Version",
+    "search": "Search"
   },
   "error": {
     "emptyFavoriteSongs": "No favorite songs",

@@ -5,9 +5,13 @@
     "playAll": "Play all",
     "theme": "Theme",
     "songs": "Songs",
+    "song": "Song",
+    "album": "Album",
     "albums": "Albums",
     "artists": "Artists",
+    "artist": "Artist",
     "events": "Events",
+    "event": "Event",
     "releaseEvents": "Release events",
     "tags": "Tags",
     "anything": "Anything",
@@ -115,7 +119,8 @@
     "topSongs": "Top songs",
     "topAlbums": "Top albums",
     "topArtists": "Top artists",
-    "version": "Version"
+    "version": "Version",
+    "search": "Search"
   },
   "error": {
     "emptyFavoriteSongs": "No favorite songs",

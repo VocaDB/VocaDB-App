@@ -125,7 +125,9 @@ class _AlbumPageState extends State<AlbumPage> {
                             style: Theme.of(context).primaryTextTheme.title,
                             autofocus: true,
                             decoration: InputDecoration(
-                                border: InputBorder.none, hintText: "Search"),
+                                border: InputBorder.none,
+                                hintText: FlutterI18n.translate(
+                                    context, 'label.search')),
                           ),
                         ),
                       ],
