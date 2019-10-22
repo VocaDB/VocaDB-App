@@ -176,18 +176,22 @@ class ArtistFilters extends StatelessWidget {
 class TagFilters extends StatelessWidget {
   final Function onBrowseTags;
   final List<TagModel> tags;
+  final Function onDeleteTag;
 
-  const TagFilters({Key key, this.onBrowseTags, this.tags}) : super(key: key);
+  const TagFilters({Key key, this.onBrowseTags, this.tags, this.onDeleteTag})
+      : super(key: key);
 
   List<Widget> buildChildren(BuildContext context) {
     List<Widget> children = [];
 
     if (tags != null && tags.length > 0) {
       children.addAll(tags
-          .map((t) => InputChip(
+          .map((t) => Chip(
                 label: Text(t.name),
-                selected: true,
-                onPressed: () {},
+                onDeleted: () {
+                  this.onDeleteTag(t);
+                },
+                deleteIcon: Icon(Icons.close),
               ))
           .toList());
     }
