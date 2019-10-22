@@ -109,7 +109,8 @@
     "originalVersion": "ต้นฉบับ",
     "topSongs": "เพลงยอดนิยม",
     "topAlbums": "อัลบั้มยอดนิยม",
-    "topArtists": "ศิลปินยอดนิยม"
+    "topArtists": "ศิลปินยอดนิยม",
+    "version": "เวอร์ชัน"
   },
   "error": {
     "emptyFavoriteSongs": "ยังไม่มีเพลงที่ชอบ",

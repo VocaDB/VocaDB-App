@@ -66,7 +66,7 @@ class _SettingPageState extends State<SettingPage> {
                   style: Theme.of(this.context).textTheme.title),
             ),
             ListTile(
-              title: const Text('Default'),
+              title: const Text('Original'),
               leading: Radio(
                 value: 'Default',
                 groupValue: value,
@@ -153,7 +153,7 @@ class _SettingPageState extends State<SettingPage> {
               ),
             ),
             ListTile(
-              title: const Text('Malay'),
+              title: const Text('Melayu (Malay)'),
               leading: Radio(
                 value: 'ms',
                 groupValue: value,

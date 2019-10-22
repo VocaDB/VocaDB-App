@@ -114,7 +114,8 @@
     "originalVersion": "Original version",
     "topSongs": "Top songs",
     "topAlbums": "Top albums",
-    "topArtists": "Top artists"
+    "topArtists": "Top artists",
+    "version": "Version"
   },
   "error": {
     "emptyFavoriteSongs": "No favorite songs",

@@ -2,7 +2,7 @@
   "label": {
     "menu": "メニュー",
     "home": "ホーム",
-    "playAll": "Play all",
+    "playAll": "すべて再生",
     "theme": "テーマ",
     "songs": "曲",
     "albums": "アルバム",
@@ -80,7 +80,7 @@
     "favoriteAlbums": "コレクション",
     "favoriteArtists": "フォローしているアーティスト",
     "settings": "設定",
-    "contact": "Contact us",
+    "contact": "サポート",
     "uiLanguage": "インターフェース言語",
     "contentLanguage": "優先言語",
     "importProfile": "ロード",
@@ -112,7 +112,8 @@
     "originalVersion": "オリジナルバージョン",
     "topSongs": "人気の曲",
     "topAlbums": "人気のアルバム",
-    "topArtists": "トップアーティスト"
+    "topArtists": "トップアーティスト",
+    "version": "バージョン"
   },
   "error": {
     "emptyFavoriteSongs": "何もないです(´･д･｀)…",

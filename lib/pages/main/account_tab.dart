@@ -34,7 +34,7 @@ class GuestTab extends StatelessWidget {
               print(e);
             });
           },
-          leading: Icon(Icons.import_export),
+          leading: Icon(Icons.file_download),
           title: Text(FlutterI18n.translate(context, 'label.importProfile')),
         ),
         ListTile(
@@ -46,7 +46,7 @@ class GuestTab extends StatelessWidget {
               print(e);
             });
           },
-          leading: Icon(Icons.import_export),
+          leading: Icon(Icons.file_upload),
           title: Text(FlutterI18n.translate(context, 'label.exportProfile')),
         ),
         ListTile(
@@ -93,7 +93,7 @@ class GuestTab extends StatelessWidget {
             }
             return ListTile(
               leading: Icon(Icons.info),
-              title: Text("Version"),
+              title: Text(FlutterI18n.translate(context, "label.version")),
               subtitle: Text(versionName),
             );
           },
