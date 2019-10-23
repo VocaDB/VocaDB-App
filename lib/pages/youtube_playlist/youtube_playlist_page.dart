@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:vocadb/blocs/youtube_playlist_bloc.dart';
 import 'package:vocadb/models/song_model.dart';
 import 'package:vocadb/pages/song_detail/song_detail_page.dart';
+import 'package:vocadb/widgets/video_player.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class YoutubePlaylistScreenArguments {
@@ -45,22 +46,6 @@ class YoutubePlaylistPage extends StatefulWidget {
 }
 
 class _YoutubePlaylistPageState extends State<YoutubePlaylistPage> {
-  YoutubePlayerController _playerController;
-
-  @override
-  void initState() {
-    super.initState();
-    _playerController = new YoutubePlayerController();
-  }
-
-  playerControllerListen() {
-    PlayerState currentState = _playerController.value.playerState;
-
-    if (currentState == PlayerState.ended) {
-      Provider.of<YoutubePlaylistBloc>(context).next();
-    }
-  }
-
   buildPlaylist() {
     final bloc = Provider.of<YoutubePlaylistBloc>(context);
     return StreamBuilder(
@@ -124,16 +109,10 @@ class _YoutubePlaylistPageState extends State<YoutubePlaylistPage> {
           );
         }
 
-        return YoutubePlayer(
-          context: context,
-          videoId: YoutubePlayer.convertUrlToId(song.youtubePV.url),
-          flags: YoutubePlayerFlags(
-            autoPlay: false,
-            showVideoProgressIndicator: true,
-          ),
-          onPlayerInitialized: (controller) {
-            _playerController = controller;
-            _playerController.addListener(playerControllerListen);
+        return VideoPlayer(
+          url: song.youtubePV.url,
+          onVideoEnded: () {
+            Provider.of<YoutubePlaylistBloc>(context).next();
           },
         );
       },
