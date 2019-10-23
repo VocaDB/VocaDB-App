@@ -7,6 +7,7 @@ import 'package:vocadb/models/song_model.dart';
 import 'package:vocadb/pages/search/search_song_filter_page.dart';
 import 'package:vocadb/pages/youtube_playlist/youtube_playlist_page.dart';
 import 'package:vocadb/widgets/center_content.dart';
+import 'package:vocadb/widgets/infinite_list_view.dart';
 import 'package:vocadb/widgets/result.dart';
 import 'package:vocadb/widgets/song_tile.dart';
 
@@ -53,10 +54,15 @@ class _SongPageState extends State<SongPage> {
       );
     }
 
-    return ListView.builder(
+    return InfiniteListView(
       itemCount: songs.length,
+      onReachLastItem: () {
+        Provider.of<SongBloc>(context).fetchMore();
+      },
+      showProgressIndicator: !Provider.of<SongBloc>(context).noMoreResult,
       itemBuilder: (context, index) {
         SongModel song = songs[index];
+
         return SongTile.fromSong(song);
       },
     );
