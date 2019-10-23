@@ -155,7 +155,7 @@ class RootApp extends StatelessWidget {
             FavoriteAlbumScreen.routeName: (context) => FavoriteAlbumScreen(),
             MoreSongScreen.routeName: (context) => MoreSongScreen(),
             MoreAlbumScreen.routeName: (context) => MoreAlbumScreen(),
-            SongScreen.routeName: (context) => Provider<SongBloc>(
+            SongPage.routeName: (context) => Provider<SongBloc>(
                   builder: (context) => SongBloc(configBloc: config),
                   dispose: (context, bloc) => bloc.dispose(),
                   child: SongPage(),
@@ -200,7 +200,7 @@ class _MyHomePageState extends State<MyHomePage> {
         SearchScreen.navigate(context);
         break;
       case 'action_song_search':
-        SongScreen.navigate(context, openSearch: true);
+        SongPage.navigate(context, openSearch: true);
         break;
       case 'action_artist_search':
         ArtistScreen.navigate(context, openSearch: true);

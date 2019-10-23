@@ -10,38 +10,38 @@ import 'package:vocadb/widgets/center_content.dart';
 import 'package:vocadb/widgets/result.dart';
 import 'package:vocadb/widgets/song_tile.dart';
 
-class SongScreenArguments {
+class SongPageArguments {
   final bool openSearch;
 
-  SongScreenArguments({this.openSearch});
-}
-
-class SongScreen extends StatelessWidget {
-  static const String routeName = '/songs';
-
-  static void navigate(BuildContext context, {bool openSearch = false}) {
-    Navigator.pushNamed(context, SongScreen.routeName,
-        arguments: SongScreenArguments(openSearch: openSearch));
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final SongScreenArguments args = ModalRoute.of(context).settings.arguments;
-    final songBloc = Provider.of<SongBloc>(context);
-
-    if (args.openSearch) {
-      songBloc.openSearch();
-    }
-  }
+  SongPageArguments({this.openSearch});
 }
 
 class SongPage extends StatefulWidget {
+  static const String routeName = '/songs';
+
+  static void navigate(BuildContext context, {bool openSearch = false}) {
+    Navigator.pushNamed(context, SongPage.routeName,
+        arguments: SongPageArguments(openSearch: openSearch));
+  }
+
   @override
   _SongPageState createState() => _SongPageState();
 }
 
 class _SongPageState extends State<SongPage> {
   final TextEditingController _controller = TextEditingController();
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    final SongPageArguments args = ModalRoute.of(context).settings.arguments;
+    final songBloc = Provider.of<SongBloc>(context);
+
+    if (args.openSearch) {
+      songBloc.openSearch();
+    }
+  }
 
   Widget buildData(List<SongModel> songs) {
     if (songs.length == 0) {

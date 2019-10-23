@@ -43,7 +43,7 @@ class _HomeTabState extends State<HomeTab> {
                 ShortcutMenuButton(
                     title: FlutterI18n.translate(context, 'label.songs'),
                     iconData: Icons.music_note,
-                    onPressed: () => SongScreen.navigate(context)),
+                    onPressed: () => SongPage.navigate(context)),
                 ShortcutMenuButton(
                     title: FlutterI18n.translate(context, 'label.artists'),
                     iconData: Icons.person,
