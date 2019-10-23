@@ -8,6 +8,7 @@ import 'package:vocadb/models/release_event_model.dart';
 import 'package:vocadb/pages/search/release_event_filter_page.dart';
 import 'package:vocadb/widgets/center_content.dart';
 import 'package:vocadb/widgets/event_tile.dart';
+import 'package:vocadb/widgets/infinite_list_view.dart';
 import 'package:vocadb/widgets/result.dart';
 
 class ReleaseEventScreen {
@@ -41,8 +42,13 @@ class _ReleaseEventPageState extends State<ReleaseEventPage> {
       );
     }
 
-    return ListView.builder(
+    return InfiniteListView(
       itemCount: releaseEvents.length,
+      onReachLastItem: () {
+        Provider.of<ReleaseEventBloc>(context).fetchMore();
+      },
+      showProgressIndicator:
+          !Provider.of<ReleaseEventBloc>(context).noMoreResult,
       itemBuilder: (context, index) {
         ReleaseEventModel e = releaseEvents[index];
         return EventTile.fromReleaseEvent(e, tag: 'release_event_${e.id}');

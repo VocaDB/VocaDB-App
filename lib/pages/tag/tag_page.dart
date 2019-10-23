@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:vocadb/blocs/tag_bloc.dart';
 import 'package:vocadb/models/tag_model.dart';
 import 'package:vocadb/pages/tag_detail/tag_detail_page.dart';
+import 'package:vocadb/widgets/infinite_list_view.dart';
 import 'package:vocadb/widgets/result.dart';
 
 class TagScreen {
@@ -29,8 +30,12 @@ class _TagPageState extends State<TagPage> {
   }
 
   Widget buildData(List<TagModel> tags) {
-    return ListView.builder(
+    return InfiniteListView(
       itemCount: tags.length,
+      onReachLastItem: () {
+        Provider.of<TagBloc>(context).fetchMore();
+      },
+      showProgressIndicator: !Provider.of<TagBloc>(context).noMoreResult,
       itemBuilder: (context, index) {
         TagModel tag = tags[index];
         return ListTile(

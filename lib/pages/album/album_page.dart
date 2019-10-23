@@ -7,6 +7,7 @@ import 'package:vocadb/blocs/config_bloc.dart';
 import 'package:vocadb/models/album_model.dart';
 import 'package:vocadb/pages/search/search_album_filter_page.dart';
 import 'package:vocadb/widgets/center_content.dart';
+import 'package:vocadb/widgets/infinite_list_view.dart';
 import 'package:vocadb/widgets/result.dart';
 import 'package:vocadb/widgets/album_tile.dart';
 
@@ -84,8 +85,12 @@ class _AlbumPageState extends State<AlbumPage> {
       );
     }
 
-    return ListView.builder(
+    return InfiniteListView(
       itemCount: albums.length,
+      onReachLastItem: () {
+        Provider.of<AlbumBloc>(context).fetchMore();
+      },
+      showProgressIndicator: !Provider.of<AlbumBloc>(context).noMoreResult,
       itemBuilder: (context, index) {
         AlbumModel album = albums[index];
         return AlbumTile.fromEntry(album, tag: 'album_${album.id}');

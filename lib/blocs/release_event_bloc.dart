@@ -8,12 +8,16 @@ class ReleaseEventBloc {
   final _query = BehaviorSubject<String>.seeded(null);
   final _results = BehaviorSubject<List<ReleaseEventModel>>.seeded(null);
   final _searching = BehaviorSubject<bool>.seeded(false);
+  final _noMoreResult = BehaviorSubject<bool>.seeded(false);
+  int lastIndex = 0;
 
   Observable get result$ => _results.stream;
   Observable get query$ => _query.stream;
   Observable get searching$ => _searching.stream;
+  Observable get noMoreResult$ => _noMoreResult.stream;
 
   String get query => _query.value;
+  bool get noMoreResult => _noMoreResult.value;
 
   ReleaseEventRestService releaseEventService = ReleaseEventRestService();
 
@@ -43,6 +47,12 @@ class ReleaseEventBloc {
   }
 
   void fetch(dynamic event) {
+    _noMoreResult.add(false);
+    lastIndex = 0;
+    releaseEventService.list(params: getCurrentParams()).then(updateResults);
+  }
+
+  Map<String, String> getCurrentParams() {
     Map<String, String> params = releaseEventFilterBloc.params();
 
     params['fields'] = 'MainPicture';
@@ -54,7 +64,30 @@ class ReleaseEventBloc {
       params['query'] = query;
     }
 
-    releaseEventService.list(params: params).then(updateResults);
+    return params;
+  }
+
+  void fetchMore() {
+    if (lastIndex == _results.value.length) {
+      return;
+    }
+
+    lastIndex = _results.value.length;
+    Map<String, String> params = getCurrentParams();
+    params['start'] = lastIndex.toString();
+
+    releaseEventService.list(params: params).then(appendResults);
+  }
+
+  void appendResults(List<ReleaseEventModel> moreResults) {
+    if (moreResults.length == 0) {
+      _noMoreResult.add(true);
+      return;
+    }
+
+    List<ReleaseEventModel> currentResults = _results.value;
+    currentResults.addAll(moreResults);
+    _results.add(currentResults);
   }
 
   void dispose() {

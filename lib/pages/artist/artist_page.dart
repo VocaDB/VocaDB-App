@@ -7,6 +7,7 @@ import 'package:vocadb/blocs/config_bloc.dart';
 import 'package:vocadb/models/artist_model.dart';
 import 'package:vocadb/pages/search/search_artist_filter_page.dart';
 import 'package:vocadb/widgets/center_content.dart';
+import 'package:vocadb/widgets/infinite_list_view.dart';
 import 'package:vocadb/widgets/result.dart';
 import 'package:vocadb/widgets/artist_tile.dart';
 
@@ -59,8 +60,12 @@ class _ArtistPageState extends State<ArtistPage> {
       );
     }
 
-    return ListView.builder(
+    return InfiniteListView(
       itemCount: artists.length,
+      onReachLastItem: () {
+        Provider.of<ArtistBloc>(context).fetchMore();
+      },
+      showProgressIndicator: !Provider.of<ArtistBloc>(context).noMoreResult,
       itemBuilder: (context, index) {
         ArtistModel artist = artists[index];
         return ArtistTile.fromEntry(artist, tag: 'artist_${artist.id}');
