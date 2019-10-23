@@ -43,12 +43,31 @@ class AlbumScreen extends StatelessWidget {
 }
 
 class AlbumPage extends StatefulWidget {
+  static const String routeName = '/albums';
+
+  static void navigate(BuildContext context, {bool openSearch = false}) {
+    Navigator.pushNamed(context, AlbumScreen.routeName,
+        arguments: AlbumScreenArguments(openSearch: openSearch));
+  }
+
   @override
   _AlbumPageState createState() => _AlbumPageState();
 }
 
 class _AlbumPageState extends State<AlbumPage> {
   final TextEditingController _controller = TextEditingController();
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    final AlbumScreenArguments args = ModalRoute.of(context).settings.arguments;
+    final albumBloc = Provider.of<AlbumBloc>(context);
+
+    if (args.openSearch) {
+      albumBloc.openSearch();
+    }
+  }
 
   void dispose() {
     _controller.dispose();

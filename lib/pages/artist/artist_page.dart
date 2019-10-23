@@ -16,40 +16,33 @@ class ArtistScreenArguments {
   ArtistScreenArguments({this.openSearch});
 }
 
-class ArtistScreen extends StatelessWidget {
+class ArtistPage extends StatefulWidget {
   static const String routeName = '/artists';
 
   static void navigate(BuildContext context, {bool openSearch = false}) {
-    Navigator.pushNamed(context, ArtistScreen.routeName,
+    Navigator.pushNamed(context, ArtistPage.routeName,
         arguments: ArtistScreenArguments(openSearch: openSearch));
   }
 
-  @override
-  Widget build(BuildContext context) {
-    final configBloc = Provider.of<ConfigBloc>(context);
-    final ArtistScreenArguments args =
-        ModalRoute.of(context).settings.arguments;
-    final artistBloc = ArtistBloc(configBloc: configBloc);
-
-    if (args.openSearch) {
-      artistBloc.openSearch();
-    }
-
-    return Provider<ArtistBloc>(
-      builder: (context) => artistBloc,
-      dispose: (context, bloc) => bloc.dispose(),
-      child: ArtistPage(),
-    );
-  }
-}
-
-class ArtistPage extends StatefulWidget {
   @override
   _ArtistPageState createState() => _ArtistPageState();
 }
 
 class _ArtistPageState extends State<ArtistPage> {
   final TextEditingController _controller = TextEditingController();
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    final ArtistScreenArguments args =
+        ModalRoute.of(context).settings.arguments;
+    final artistBloc = Provider.of<ArtistBloc>(context);
+
+    if (args.openSearch) {
+      artistBloc.openSearch();
+    }
+  }
 
   void dispose() {
     _controller.dispose();

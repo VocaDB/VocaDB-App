@@ -9,22 +9,11 @@ import 'package:vocadb/widgets/center_content.dart';
 import 'package:vocadb/widgets/entry_tile.dart';
 import 'package:vocadb/widgets/result.dart';
 
-class SearchScreen extends StatelessWidget {
+class SearchScreen {
   static const String routeName = '/search';
 
   static void navigate(BuildContext context) {
     Navigator.pushNamed(context, SearchScreen.routeName);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final configBloc = Provider.of<ConfigBloc>(context);
-
-    return Provider<SearchBloc>(
-      builder: (context) => SearchBloc(configBloc: configBloc),
-      dispose: (context, bloc) => bloc.dispose(),
-      child: SearchPage(),
-    );
   }
 }
 

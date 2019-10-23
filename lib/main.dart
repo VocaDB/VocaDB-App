@@ -10,6 +10,8 @@ import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:quick_actions/quick_actions.dart';
 import 'package:vocadb/app_theme.dart';
+import 'package:vocadb/blocs/album_bloc.dart';
+import 'package:vocadb/blocs/artist_bloc.dart';
 import 'package:vocadb/blocs/config_bloc.dart';
 import 'package:vocadb/blocs/favorite_album_bloc.dart';
 import 'package:vocadb/blocs/favorite_artist_bloc.dart';
@@ -17,7 +19,10 @@ import 'package:vocadb/blocs/favorite_song_bloc.dart';
 import 'package:vocadb/blocs/home_bloc.dart';
 import 'package:vocadb/blocs/profile_bloc.dart';
 import 'package:vocadb/blocs/ranking_bloc.dart';
+import 'package:vocadb/blocs/release_event_bloc.dart';
+import 'package:vocadb/blocs/search_bloc.dart';
 import 'package:vocadb/blocs/song_bloc.dart';
+import 'package:vocadb/blocs/tag_bloc.dart';
 import 'package:vocadb/constants.dart';
 import 'package:vocadb/global_variables.dart';
 import 'package:vocadb/pages/album/album_page.dart';
@@ -160,11 +165,32 @@ class RootApp extends StatelessWidget {
                   dispose: (context, bloc) => bloc.dispose(),
                   child: SongPage(),
                 ),
-            ArtistScreen.routeName: (context) => ArtistScreen(),
-            AlbumScreen.routeName: (context) => AlbumScreen(),
-            TagScreen.routeName: (context) => TagScreen(),
-            ReleaseEventScreen.routeName: (context) => ReleaseEventScreen(),
-            SearchScreen.routeName: (context) => SearchScreen(),
+            ArtistPage.routeName: (context) => Provider<ArtistBloc>(
+                  builder: (context) => ArtistBloc(configBloc: config),
+                  dispose: (context, bloc) => bloc.dispose(),
+                  child: ArtistPage(),
+                ),
+            AlbumScreen.routeName: (context) => Provider<AlbumBloc>(
+                  builder: (context) => AlbumBloc(configBloc: config),
+                  dispose: (context, bloc) => bloc.dispose(),
+                  child: AlbumPage(),
+                ),
+            TagScreen.routeName: (context) => Provider<TagBloc>(
+                  builder: (context) => TagBloc(configBloc: config),
+                  dispose: (context, bloc) => bloc.dispose(),
+                  child: TagPage(),
+                ),
+            ReleaseEventScreen.routeName: (context) =>
+                Provider<ReleaseEventBloc>(
+                  builder: (context) => ReleaseEventBloc(configBloc: config),
+                  dispose: (context, bloc) => bloc.dispose(),
+                  child: ReleaseEventPage(),
+                ),
+            SearchScreen.routeName: (context) => Provider<SearchBloc>(
+                  builder: (context) => SearchBloc(configBloc: config),
+                  dispose: (context, bloc) => bloc.dispose(),
+                  child: SearchPage(),
+                ),
             YoutubePlaylistScreen.routeName: (context) =>
                 YoutubePlaylistScreen(),
           },
@@ -203,7 +229,7 @@ class _MyHomePageState extends State<MyHomePage> {
         SongPage.navigate(context, openSearch: true);
         break;
       case 'action_artist_search':
-        ArtistScreen.navigate(context, openSearch: true);
+        ArtistPage.navigate(context, openSearch: true);
         break;
       case 'action_album_search':
         AlbumScreen.navigate(context, openSearch: true);

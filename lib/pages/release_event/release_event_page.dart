@@ -10,22 +10,11 @@ import 'package:vocadb/widgets/center_content.dart';
 import 'package:vocadb/widgets/event_tile.dart';
 import 'package:vocadb/widgets/result.dart';
 
-class ReleaseEventScreen extends StatelessWidget {
+class ReleaseEventScreen {
   static const String routeName = '/releaseEvents';
 
   static void navigate(BuildContext context) {
     Navigator.pushNamed(context, ReleaseEventScreen.routeName);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final configBloc = Provider.of<ConfigBloc>(context);
-
-    return Provider<ReleaseEventBloc>(
-      builder: (context) => ReleaseEventBloc(configBloc: configBloc),
-      dispose: (context, bloc) => bloc.dispose(),
-      child: ReleaseEventPage(),
-    );
   }
 }
 

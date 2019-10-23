@@ -31,11 +31,12 @@ class SearchBloc {
     this.entryService ??= EntryService();
     this.entryFilterBloc ??= SearchEntryFilterBloc();
 
+    print('initlal search bloc');
     Observable.merge([
       queryStream,
       entryTypeStream,
       entryFilterBloc.params$,
-    ]).debounceTime(Duration(milliseconds: 500)).distinct().listen(fetch);
+    ]).debounceTime(Duration(milliseconds: 500)).listen(fetch);
   }
 
   void updateResults(List<EntryModel> entries) {
