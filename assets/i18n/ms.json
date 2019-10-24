@@ -115,7 +115,8 @@
     "topAlbums": "Top albums",
     "topArtists": "Top artists",
     "version": "Version",
-    "search": "Search"
+    "search": "Search",
+    "parentTag": "Parent"
   },
   "error": {
     "emptyFavoriteSongs": "No favorite songs",

@@ -115,7 +115,8 @@
     "topAlbums": "อัลบั้มยอดนิยม",
     "topArtists": "ศิลปินยอดนิยม",
     "version": "เวอร์ชัน",
-    "search": "ค้นหา"
+    "search": "ค้นหา",
+    "parentTag": "Parent"
   },
   "error": {
     "emptyFavoriteSongs": "ยังไม่มีเพลงที่ชอบ",

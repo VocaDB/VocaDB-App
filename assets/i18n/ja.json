@@ -118,7 +118,8 @@
     "topAlbums": "人気のアルバム",
     "topArtists": "トップアーティスト",
     "version": "バージョン",
-    "search": "サーチ"
+    "search": "サーチ",
+    "parentTag": "Parent"
   },
   "error": {
     "emptyFavoriteSongs": "何もないです(´･д･｀)…",

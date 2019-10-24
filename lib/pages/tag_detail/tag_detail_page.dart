@@ -160,7 +160,7 @@ class TagDetailPage extends StatelessWidget {
                 if (!snapshot.hasData) return Container();
 
                 return SongListSection(
-                  title: FlutterI18n.translate(context, 'label.latestSongs'),
+                  title: FlutterI18n.translate(context, 'label.recentSongsPVs'),
                   songs: snapshot.data,
                   horizontal: true,
                   prefixTag: 'tag_latest_song_${tag.id}',
@@ -199,7 +199,7 @@ class TagDetailPage extends StatelessWidget {
                 if (!snapshot.hasData) return Container();
 
                 return ArtistSection(
-                  title: FlutterI18n.translate(context, 'label.artists'),
+                  title: FlutterI18n.translate(context, 'label.topArtists'),
                   artists: snapshot.data,
                   prefixTag: 'tag_top_artist_${tag.id}',
                 );
