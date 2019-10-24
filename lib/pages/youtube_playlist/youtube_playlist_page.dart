@@ -124,9 +124,15 @@ class _YoutubePlaylistPageState extends State<YoutubePlaylistPage> {
           );
         }
 
+        String videoId = YoutubePlayer.convertUrlToId(song.youtubePV.url);
+
+        if (_playerController != null) {
+          _playerController.load(videoId);
+        }
+
         return YoutubePlayer(
           context: context,
-          videoId: YoutubePlayer.convertUrlToId(song.youtubePV.url),
+          initialVideoId: videoId,
           flags: YoutubePlayerFlags(
             autoPlay: false,
             showVideoProgressIndicator: true,

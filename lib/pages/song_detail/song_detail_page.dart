@@ -80,7 +80,7 @@ class _SongDetailPageState extends State<SongDetailPage> {
   Widget buildPlayerWithContent(String url) {
     return YoutubePlayer(
       context: context,
-      videoId: YoutubePlayer.convertUrlToId(url),
+      initialVideoId: YoutubePlayer.convertUrlToId(url),
       flags: YoutubePlayerFlags(
         autoPlay: false,
         showVideoProgressIndicator: true,
@@ -106,7 +106,7 @@ class _SongDetailPageState extends State<SongDetailPage> {
         children: <Widget>[
           YoutubePlayer(
             context: context,
-            videoId: YoutubePlayer.convertUrlToId(song.youtubePV.url),
+            initialVideoId: YoutubePlayer.convertUrlToId(song.youtubePV.url),
             flags: YoutubePlayerFlags(
               autoPlay: false,
               showVideoProgressIndicator: true,
