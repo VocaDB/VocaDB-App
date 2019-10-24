@@ -25,7 +25,6 @@ import 'package:vocadb/widgets/song_card.dart';
 import 'package:vocadb/widgets/song_tile.dart';
 import 'package:vocadb/widgets/space_divider.dart';
 import 'package:vocadb/widgets/tags.dart';
-import 'package:vocadb/widgets/video_player.dart';
 import 'package:vocadb/widgets/web_link_section.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import 'package:share/share.dart';
@@ -76,9 +75,16 @@ class SongDetailPage extends StatefulWidget {
 }
 
 class _SongDetailPageState extends State<SongDetailPage> {
+  YoutubePlayerController _controller;
+
   Widget buildPlayerWithContent(String url) {
-    return VideoPlayer(
-      url: url,
+    return YoutubePlayer(
+      context: context,
+      videoId: YoutubePlayer.convertUrlToId(url),
+      flags: YoutubePlayerFlags(
+        autoPlay: false,
+        showVideoProgressIndicator: true,
+      ),
     );
   }
 
@@ -88,13 +94,26 @@ class _SongDetailPageState extends State<SongDetailPage> {
         : buildWithPlayer(song);
   }
 
+  Future dispose() async {
+    _controller?.dispose();
+    super.dispose();
+  }
+
   Widget buildWithPlayer(SongModel song) {
     return Scaffold(
       appBar: AppBar(title: Text(song.name)),
       body: Column(
         children: <Widget>[
-          VideoPlayer(
-            url: song.youtubePV.url,
+          YoutubePlayer(
+            context: context,
+            videoId: YoutubePlayer.convertUrlToId(song.youtubePV.url),
+            flags: YoutubePlayerFlags(
+              autoPlay: false,
+              showVideoProgressIndicator: true,
+            ),
+            onPlayerInitialized: (controller) {
+              _controller = controller;
+            },
           ),
           Expanded(
             child: StreamBuilder(
