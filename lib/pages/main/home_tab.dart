@@ -34,12 +34,6 @@ class _HomeTabState extends State<HomeTab> {
           SizedBox(
             height: 16,
           ),
-          FlatButton(
-            onPressed: () {
-              TestWebView.navigate(context);
-            },
-            child: Text('Test Webview'),
-          ),
           Center(
             child: Wrap(
               crossAxisAlignment: WrapCrossAlignment.center,
