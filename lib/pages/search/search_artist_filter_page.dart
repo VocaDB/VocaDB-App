@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:vocadb/blocs/search_artist_filter_bloc.dart';
+import 'package:vocadb/constants.dart';
 import 'package:vocadb/models/tag_model.dart';
 import 'package:vocadb/pages/search/search_tag_page.dart';
 import 'package:vocadb/widgets/space_divider.dart';
@@ -128,43 +129,40 @@ class TagFilters extends StatelessWidget {
 }
 
 class ArtistTypeDropDown extends StatelessWidget {
-  final songTypes = const [
-    {'name': 'Not specified', 'value': null},
-    {'name': 'Circle', 'value': 'Circle'},
-    {'name': 'Label', 'value': 'Label'},
-    {'name': 'Music producer', 'value': 'Producer'},
-    {'name': 'Animation producer', 'value': 'Animator'},
-    {'name': 'Illustrator', 'value': 'Illustrator'},
-    {'name': 'Lyricist', 'value': 'Lyricist'},
-    {'name': 'Vocaloid', 'value': 'Vocaloid'},
-    {'name': 'UTAU', 'value': 'UTAU'},
-    {'name': 'CeVIO', 'value': 'CeVIO'},
-    {'name': 'Other voice synthesizer', 'value': 'OtherVoiceSynthesizer'},
-    {'name': 'Other vocalist', 'value': 'OtherVocalist'},
-    {'name': 'Other group', 'value': 'OtherGroup'},
-    {'name': 'Other individual', 'value': 'OtherIndividual'},
-  ];
-
   final Function onChanged;
   final String value;
 
   const ArtistTypeDropDown({Key key, this.onChanged, this.value})
       : super(key: key);
 
+  List<DropdownMenuItem<String>> dropDownItems(BuildContext context) {
+    List<DropdownMenuItem<String>> items = [];
+    items.add(defaultItem(context));
+    items.addAll(constArtistTypes.map((v) => createItem(context, v)).toList());
+
+    return items;
+  }
+
+  DropdownMenuItem<String> defaultItem(BuildContext context) {
+    return DropdownMenuItem<String>(
+      value: null,
+      child: Text(FlutterI18n.translate(context, 'label.notSpecified')),
+    );
+  }
+
+  DropdownMenuItem<String> createItem(BuildContext context, String value) {
+    return DropdownMenuItem<String>(
+      value: value,
+      child: Text(FlutterI18n.translate(context, 'artistType.$value')),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return DropdownButton(
         value: this.value,
         underline: Container(),
-        items: songTypes
-            .map((st) => DropdownMenuItem<String>(
-                  value: st['value'],
-                  child: Text(st['value'] == null
-                      ? FlutterI18n.translate(context, 'label.notSpecified')
-                      : FlutterI18n.translate(
-                          context, 'artistType.${st['value']}')),
-                ))
-            .toList(),
+        items: dropDownItems(context),
         onChanged: this.onChanged);
   }
 }

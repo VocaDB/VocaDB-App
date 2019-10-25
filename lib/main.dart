@@ -252,7 +252,7 @@ class _MyHomePageState extends State<MyHomePage> {
             onPressed: () =>
                 Navigator.pushNamed(context, SearchScreen.routeName),
           ),
-          (_selectedIndex != 1)
+          (_selectedIndex != 1 || !constShowFilterRank)
               ? Container()
               : IconButton(
                   icon: Icon(Icons.filter_list),

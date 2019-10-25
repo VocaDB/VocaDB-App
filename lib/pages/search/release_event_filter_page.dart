@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:vocadb/blocs/release_event_filter_bloc.dart';
+import 'package:vocadb/constants.dart';
 import 'package:vocadb/models/artist_model.dart';
 import 'package:vocadb/models/tag_model.dart';
 import 'package:vocadb/pages/search/search_artist_page.dart';
@@ -220,37 +221,41 @@ class TagFilters extends StatelessWidget {
 }
 
 class ReleaseEventCategoryDropDown extends StatelessWidget {
-  final eventCategories = const [
-    {'name': 'Unspecified', 'value': null},
-    {'name': 'Album release fair', 'value': 'AlbumRelease'},
-    {'name': 'Character anniversary', 'value': 'Anniversary'},
-    {'name': 'Club', 'value': 'Club'},
-    {'name': 'Concert', 'value': 'Concert'},
-    {'name': 'Contest', 'value': 'Contest'},
-    {'name': 'Convention', 'value': 'Convention'},
-    {'name': 'Other', 'value': 'Other'},
-  ];
-
   final Function onChanged;
   final String value;
 
   const ReleaseEventCategoryDropDown({Key key, this.onChanged, this.value})
       : super(key: key);
 
+  List<DropdownMenuItem<String>> dropDownItems(BuildContext context) {
+    List<DropdownMenuItem<String>> items = [];
+    items.add(defaultItem(context));
+    items.addAll(
+        constEventCategories.map((v) => createItem(context, v)).toList());
+
+    return items;
+  }
+
+  DropdownMenuItem<String> defaultItem(BuildContext context) {
+    return DropdownMenuItem<String>(
+      value: null,
+      child: Text(FlutterI18n.translate(context, 'label.notSpecified')),
+    );
+  }
+
+  DropdownMenuItem<String> createItem(BuildContext context, String value) {
+    return DropdownMenuItem<String>(
+      value: value,
+      child: Text(FlutterI18n.translate(context, 'eventCategory.$value')),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return DropdownButton(
         value: this.value,
         underline: Container(),
-        items: eventCategories
-            .map((st) => DropdownMenuItem<String>(
-                  value: st['value'],
-                  child: Text(st['value'] == null
-                      ? FlutterI18n.translate(context, 'label.notSpecified')
-                      : FlutterI18n.translate(
-                          context, 'eventCategory.${st['value']}')),
-                ))
-            .toList(),
+        items: dropDownItems(context),
         onChanged: this.onChanged);
   }
 }

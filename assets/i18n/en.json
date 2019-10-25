@@ -130,7 +130,9 @@
     "searchResultNotMatched": "No result match"
   },
   "songType": {
+    "Unspecified": "Unspecified",
     "Original": "Original song",
+    "Arrangement": "Arrangement",
     "Remaster": "Remaster",
     "Remix": "Remix",
     "Cover": "Cover",
@@ -154,6 +156,7 @@
     "otherVocalist": "Other vocalists"
   },
   "sort": {
+    "Unspecified": "Unspecified",
     "Name": "Name",
     "PublishDate": "Publish date",
     "AdditionDate": "Addition date",
@@ -182,6 +185,7 @@
     "members": "Members"
   },
   "artistType": {
+    "Unspecified": "Unspecified",
     "Circle": "Circle",
     "Label": "Label",
     "Illustrator": "Illustrator",
@@ -189,6 +193,8 @@
     "Animator": "Animator",
     "Lyricist": "Lyricist",
     "Vocaloid": "Vocaloid",
+    "Vocalist": "Vocalist",
+    "Character": "Character",
     "UTAU": "UTAU",
     "CeVIO": "CeVIO",
     "OtherVoiceSynthesizer": "Other voice synthesizer",
@@ -197,6 +203,7 @@
     "OtherIndividual": "Other individual"
   },
   "discType": {
+    "Unspecified": "Unspecified",
     "Album": "Original album",
     "Single": "Single",
     "EP": "E.P.",
@@ -204,6 +211,8 @@
     "Compilation": "Compilation",
     "Video": "Video",
     "Artbook": "Artbook",
+    "Game": "Game",
+    "Fanmade": "Fanmade/doujin",
     "Other": "Other"
   },
   "eventCategory": {

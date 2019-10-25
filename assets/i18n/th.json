@@ -126,6 +126,7 @@
   },
   "songType": {
     "Original": "ต้นฉบับ",
+    "Arrangement": "Arrangement",
     "Remaster": "รีมาสเตอร์",
     "Remix": "รีมิกซ์",
     "Cover": "Cover",
@@ -184,6 +185,8 @@
     "Animator": "อนิเมเตอร์",
     "Lyricist": "Lyricist",
     "Vocaloid": "Vocaloid",
+    "Vocalist": "นักร้อง",
+    "Character": "ตัวละคร",
     "UTAU": "UTAU",
     "CeVIO": "CeVIO",
     "OtherVoiceSynthesizer": "เสียงสังเคราะห์",
@@ -192,14 +195,16 @@
     "OtherIndividual": "Other individual"
   },
   "discType": {
-    "Album": "Original album",
-    "Single": "Single",
+    "Album": "ออริจินัล",
+    "Single": "ซิงเกิล",
     "EP": "E.P.",
     "SplitAlbum": "Split album",
     "Compilation": "Compilation",
-    "Video": "Video",
-    "Artbook": "Artbook",
-    "Other": "Other"
+    "Video": "วิดิโอ",
+    "Artbook": "หนังสือ/อาร์ตบุ๊ค",
+    "Game": "เกม",
+    "Fanmade": "แฟนเมด/โดจิน",
+    "Other": "อื่นๆ"
   },
   "eventCategory": {
     "Unspecified": "ไม่ระบุ",
@@ -208,7 +213,7 @@
     "Club": "คลับ",
     "Concert": "คอนเสิร์ต",
     "Contest": "ประกวด",
-    "Convention": "Convention",
-    "Other": "Other"
+    "Convention": "มีตติ้ง/พูดคุย",
+    "Other": "อื่นๆ"
   }
 }

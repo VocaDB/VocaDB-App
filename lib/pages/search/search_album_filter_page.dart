@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:vocadb/blocs/search_album_filter_bloc.dart';
+import 'package:vocadb/constants.dart';
 import 'package:vocadb/models/artist_model.dart';
 import 'package:vocadb/models/tag_model.dart';
 import 'package:vocadb/pages/search/search_artist_page.dart';
@@ -223,38 +224,40 @@ class TagFilters extends StatelessWidget {
 }
 
 class AlbumTypeDropDown extends StatelessWidget {
-  final albumTypes = const [
-    {'name': 'Not specified', 'value': null},
-    {'name': 'Original album', 'value': 'Album'},
-    {'name': 'Single', 'value': 'Single'},
-    {'name': 'E.P.', 'value': 'EP'},
-    {'name': 'Split album', 'value': 'SplitAlbum'},
-    {'name': 'Compilation', 'value': 'Compilation'},
-    {'name': 'Video', 'value': 'Video'},
-    {'name': 'Artbook', 'value': 'Artbook'},
-    {'name': 'Other', 'value': 'Other'},
-  ];
-
   final Function onChanged;
   final String value;
 
   const AlbumTypeDropDown({Key key, this.onChanged, this.value})
       : super(key: key);
 
+  List<DropdownMenuItem<String>> dropDownItems(BuildContext context) {
+    List<DropdownMenuItem<String>> items = [];
+    items.add(defaultItem(context));
+    items.addAll(constAlbumTypes.map((v) => createItem(context, v)).toList());
+
+    return items;
+  }
+
+  DropdownMenuItem<String> defaultItem(BuildContext context) {
+    return DropdownMenuItem<String>(
+      value: null,
+      child: Text(FlutterI18n.translate(context, 'label.notSpecified')),
+    );
+  }
+
+  DropdownMenuItem<String> createItem(BuildContext context, String value) {
+    return DropdownMenuItem<String>(
+      value: value,
+      child: Text(FlutterI18n.translate(context, 'discType.$value')),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return DropdownButton(
         value: this.value,
         underline: Container(),
-        items: albumTypes
-            .map((st) => DropdownMenuItem<String>(
-                  value: st['value'],
-                  child: Text(st['value'] == null
-                      ? FlutterI18n.translate(context, 'label.notSpecified')
-                      : FlutterI18n.translate(
-                          context, 'discType.${st['value']}')),
-                ))
-            .toList(),
+        items: dropDownItems(context),
         onChanged: this.onChanged);
   }
 }

@@ -126,6 +126,7 @@
   },
   "songType": {
     "Original": "Lagu asal",
+    "Arrangement": "Arrangement",
     "Remaster": "Terbit semula",
     "Remix": "Olah semula",
     "Cover": "Cover",
@@ -184,6 +185,8 @@
     "Animator": "Animator",
     "Lyricist": "Lyricist",
     "Vocaloid": "Vocaloid",
+    "Vocalist": "Vocalist",
+    "Character": "Character",
     "UTAU": "UTAU",
     "CeVIO": "CeVIO",
     "OtherVoiceSynthesizer": "Other voice synthesizer",
@@ -199,6 +202,8 @@
     "Compilation": "Kompilasi",
     "Video": "Video",
     "Artbook": "Buku seni",
+    "Game": "Game",
+    "Fanmade": "Fanmade/doujin",
     "Other": "Lain-lain"
   },
   "eventCategory": {

@@ -129,6 +129,7 @@
   },
   "songType": {
     "Original": "オリジナル曲",
+    "Arrangement": "Arrangement",
     "Remaster": "リマスター",
     "Remix": "リミックス",
     "Cover": "カバー曲",
@@ -187,6 +188,8 @@
     "Animator": "動画のプロデューサー",
     "Lyricist": "作詞家",
     "Vocaloid": "Vocaloid",
+    "Vocalist": "ボーカリスト",
+    "Character": "キャラクター",
     "UTAU": "UTAU",
     "CeVIO": "CeVIO",
     "OtherVoiceSynthesizer": "その他のボーカル音源",
@@ -202,6 +205,8 @@
     "Compilation": "コンピレーションアルバム",
     "Video": "Video",
     "Artbook": "画集",
+    "Game": "ゲーム",
+    "Fanmade": "Fanmade/doujin",
     "Other": "その他"
   },
   "eventCategory": {
