@@ -11,7 +11,6 @@ import 'package:vocadb/pages/main/top_album_list.dart';
 import 'package:vocadb/pages/release_event/release_event_page.dart';
 import 'package:vocadb/pages/song/song_page.dart';
 import 'package:vocadb/pages/tag/tag_page.dart';
-import 'package:vocadb/pages/test_web_view.dart';
 import 'package:vocadb/widgets/event_tile.dart';
 import 'package:vocadb/widgets/section.dart';
 
