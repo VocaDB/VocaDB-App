@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:provider/provider.dart';
 import 'package:vocadb/blocs/artist_bloc.dart';
-import 'package:vocadb/blocs/config_bloc.dart';
 import 'package:vocadb/models/artist_model.dart';
 import 'package:vocadb/pages/search/search_artist_filter_page.dart';
 import 'package:vocadb/widgets/center_content.dart';

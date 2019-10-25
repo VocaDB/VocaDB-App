@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:provider/provider.dart';
-import 'package:vocadb/blocs/config_bloc.dart';
 import 'package:vocadb/blocs/search_bloc.dart';
 import 'package:vocadb/models/entry_model.dart';
 import 'package:vocadb/pages/search/search_entry_filter_page.dart';
