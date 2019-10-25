@@ -237,11 +237,13 @@ class _SongDetailPageState extends State<SongDetailPage> {
       crossAxisAlignment: CrossAxisAlignment.end,
       children: <Widget>[
         Text(FlutterI18n.translate(context, 'songType.${song.songType}')),
-        Text(' • '),
-        Text(
-            FlutterI18n.translate(context, 'label.publishedOn',
-                {'date': song.publishDateFormatted}),
-            style: Theme.of(context).textTheme.caption)
+        (song.publishDateFormatted == null) ? Container() : Text(' • '),
+        (song.publishDateFormatted == null)
+            ? Container()
+            : Text(
+                FlutterI18n.translate(context, 'label.publishedOn',
+                    {'date': song.publishDateFormatted}),
+                style: Theme.of(context).textTheme.caption)
       ],
     ));
 
