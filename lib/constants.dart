@@ -1,21 +1,18 @@
-const String APP_NAME = 'VocaDB';
-const String HOST = 'https://vocadb.net';
-const String AUTHORITY = 'vocadb.net';
+const String APP_NAME = 'TouhouDB';
+const String HOST = 'https://touhoudb.com';
+const String AUTHORITY = 'touhoudb.com';
 
 enum ContentLanguage { Default, Japanese, Romaji, English }
 
 const List<Map<String, String>> contactSites = [
-  {"title": "Website", "url": "https://vocadb.net"},
-  {"title": "Facebook", "url": "https://www.facebook.com/vocadb"},
-  {"title": "Twitter", "url": "https://twitter.com/VocaDB"},
-  {"title": "VK", "url": "https://vk.com/vocadb"},
-  {"title": "IRC #vocadb", "url": "https://vocadb.net/Home/Chat"},
+  {"title": "Website", "url": "https://touhoudb.com"},
+  {"title": "Twitter", "url": "https://twitter.com/touhoudb"},
 ];
 
 const List<Map<String, String>> contactDeveloperSites = [
   {
     "title": "Mail",
-    "url": "mailto:augsorn.chanklad@gmail.com?subject=VocaDB%20Feedback"
+    "url": "mailto:augsorn.chanklad@gmail.com?subject=TouhouDB%20Feedback"
   },
   {"title": "Facebook", "url": "https://facebook.com/augsorn"},
   {"title": "Twitter", "url": "https://twitter.com/up2codio"},
@@ -23,22 +20,17 @@ const List<Map<String, String>> contactDeveloperSites = [
   {"title": "Github", "url": "https://github.com/VocaDB/VocaDB-App"},
 ];
 
-const bool constShowFilterRank = true;
+const bool constShowFilterRank = false;
 
 const List<String> constRankings = [
-  'daily',
-  'weekly',
   'monthly',
   'overall',
 ];
 
 const List<String> constSongTypes = [
   'Original',
-  'Remaster',
-  'Remix',
-  'Cover',
+  'Arrangement',
   'Instrumental',
-  'Mashup',
   'MusicPV',
   'DramaPV',
   'Other',
@@ -46,12 +38,8 @@ const List<String> constSongTypes = [
 
 const List<String> constAlbumTypes = [
   'Album',
-  'Single',
-  'EP',
-  'SplitAlbum',
-  'Compilation',
-  'Video',
-  'Artbook',
+  'Game',
+  'Fanmade',
   'Other',
 ];
 
@@ -62,11 +50,8 @@ const List<String> constArtistTypes = [
   'Animator',
   'Illustrator',
   'Lyricist',
-  'Vocaloid',
-  'UTAU',
-  'CeVIO',
-  'OtherVoiceSynthesizer',
-  'OtherVocalist',
+  'Vocalist',
+  'Character',
   'OtherGroup',
   'OtherIndividual',
 ];
