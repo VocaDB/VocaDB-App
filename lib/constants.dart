@@ -22,3 +22,60 @@ const List<Map<String, String>> contactDeveloperSites = [
   {"title": "VocaDB", "url": "https://vocadb.net/Profile/up2up"},
   {"title": "Github", "url": "https://github.com/VocaDB/VocaDB-App"},
 ];
+
+const bool constShowFilterRank = true;
+
+const List<String> constRankings = [
+  'daily',
+  'weekly',
+  'monthly',
+  'overall',
+];
+
+const List<String> constSongTypes = [
+  'Original',
+  'Remaster',
+  'Remix',
+  'Cover',
+  'Instrumental',
+  'Mashup',
+  'MusicPV',
+  'DramaPV',
+  'Other',
+];
+
+const List<String> constAlbumTypes = [
+  'Album',
+  'Single',
+  'EP',
+  'SplitAlbum',
+  'Compilation',
+  'Video',
+  'Artbook',
+  'Other',
+];
+
+const List<String> constArtistTypes = [
+  'Circle',
+  'Label',
+  'Producer',
+  'Animator',
+  'Illustrator',
+  'Lyricist',
+  'Vocaloid',
+  'UTAU',
+  'CeVIO',
+  'OtherVoiceSynthesizer',
+  'OtherVocalist',
+  'OtherGroup',
+  'OtherIndividual',
+];
+
+const List<String> constEventCategories = [
+  'AlbumRelease',
+  'Anniversary',
+  'Club',
+  'Concert',
+  'Contest',
+  'Other',
+];
