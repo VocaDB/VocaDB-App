@@ -11,6 +11,7 @@ class SongTypeSymbol extends StatelessWidget {
     'Mashup': {'text': 'M', 'backgroundColor': Colors.grey},
     'MusicPV': {'text': 'M', 'backgroundColor': Colors.green},
     'DramaPV': {'text': 'M', 'backgroundColor': Colors.green},
+    'Arrangement': {'text': 'A', 'backgroundColor': Colors.grey},
   };
 
   const SongTypeSymbol({Key key, this.songType}) : super(key: key);
