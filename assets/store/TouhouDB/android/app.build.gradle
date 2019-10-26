@@ -22,7 +22,12 @@ if (flutterVersionName == null) {
 }
 
 def keystoreProperties = new Properties()
-def keystorePropertiesFile = rootProject.file('key.properties')
+
+
+//def keyFile = 'key.local.properties' // For local build
+def keyFile = 'key.bitrise.properties' // For bitrise build
+
+def keystorePropertiesFile = rootProject.file(keyFile)
 if (keystorePropertiesFile.exists()) {
     keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 }
