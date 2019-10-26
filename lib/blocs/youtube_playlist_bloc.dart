@@ -1,5 +1,6 @@
 import 'package:rxdart/rxdart.dart';
 import 'package:vocadb/models/song_model.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class YoutubePlaylistBloc {
   BehaviorSubject<List<SongModel>> _playlist = new BehaviorSubject.seeded([]);
@@ -7,12 +8,16 @@ class YoutubePlaylistBloc {
   BehaviorSubject<SongModel> _currentPVDetail = new BehaviorSubject();
   BehaviorSubject<bool> _displayDetail = new BehaviorSubject.seeded(false);
   BehaviorSubject<bool> _displayLyrics = new BehaviorSubject.seeded(false);
+  BehaviorSubject<PlayerState> _playerState = new BehaviorSubject();
+
+  YoutubePlayerController _youtubePlayerController;
 
   Observable get playlistStream => _playlist.stream;
   Observable get currentIndexStream => _currentIndex.stream;
   Observable get currentPVDetail$ => _currentPVDetail.stream;
   Observable get displayDetail$ => _displayDetail.stream;
   Observable get displayLyric$ => _displayLyrics.stream;
+  Observable get playerState$ => _playerState.stream;
 
   List<SongModel> get songs => _playlist.value;
 
@@ -25,6 +30,28 @@ class YoutubePlaylistBloc {
     if (songs != null && songs.isNotEmpty) {
       updatePlaylist(songs);
     }
+
+    playerState$.distinct().listen((e) {
+      print('update state to $e');
+      if (e != null &&
+          e == PlayerState.ended &&
+          _youtubePlayerController != null) {
+        this.next();
+        _youtubePlayerController
+            .load(YoutubePlayer.convertUrlToId(currentPV.youtubePV.url));
+      }
+    });
+  }
+
+  void setYoutubeController(YoutubePlayerController _youtubePlayerController) {
+    this._youtubePlayerController = _youtubePlayerController;
+    this._youtubePlayerController.addListener(() {
+      updateState(_youtubePlayerController.value.playerState);
+    });
+  }
+
+  void updateState(PlayerState playerState) {
+    _playerState.add(playerState);
   }
 
   void updatePlaylist(List<SongModel> songs) {

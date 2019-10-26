@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:vocadb/blocs/youtube_playlist_bloc.dart';
@@ -47,22 +49,17 @@ class YoutubePlaylistPage extends StatefulWidget {
 class _YoutubePlaylistPageState extends State<YoutubePlaylistPage> {
   YoutubePlayerController _playerController;
 
+  bool isEnded = false;
+
   @override
   void initState() {
     super.initState();
     _playerController = new YoutubePlayerController();
   }
 
-  playerControllerListen() {
-    PlayerState currentState = _playerController.value.playerState;
-
-    if (currentState == PlayerState.ended) {
-      Provider.of<YoutubePlaylistBloc>(context).next();
-    }
-  }
-
   buildPlaylist() {
     final bloc = Provider.of<YoutubePlaylistBloc>(context);
+
     return StreamBuilder(
       stream: Provider.of<YoutubePlaylistBloc>(context).currentIndexStream,
       builder: (context, snapshot) {
@@ -73,6 +70,8 @@ class _YoutubePlaylistPageState extends State<YoutubePlaylistPage> {
             return ListTile(
               onTap: () {
                 Provider.of<YoutubePlaylistBloc>(context).select(index);
+                _playerController
+                    .load(YoutubePlayer.convertUrlToId(song.youtubePV.url));
               },
               selected: snapshot.data == index,
               enabled: song.youtubePV != null,
@@ -102,46 +101,16 @@ class _YoutubePlaylistPageState extends State<YoutubePlaylistPage> {
 
   buildPlayer() {
     final bloc = Provider.of<YoutubePlaylistBloc>(context);
-    return StreamBuilder(
-      stream: Provider.of<YoutubePlaylistBloc>(context).currentIndexStream,
-      builder: (context, snapshot) {
-        if (!snapshot.hasData) {
-          return SizedBox(
-            height: 200,
-            child: Center(
-              child: CircularProgressIndicator(),
-            ),
-          );
-        }
-        SongModel song = bloc.songs[snapshot.data];
-
-        if (song.youtubePV == null) {
-          return SizedBox(
-            height: 200,
-            child: Center(
-              child: Text('Player not available for this song.'),
-            ),
-          );
-        }
-
-        String videoId = YoutubePlayer.convertUrlToId(song.youtubePV.url);
-
-        if (_playerController != null) {
-          _playerController.load(videoId);
-        }
-
-        return YoutubePlayer(
-          context: context,
-          initialVideoId: videoId,
-          flags: YoutubePlayerFlags(
-            autoPlay: false,
-            showVideoProgressIndicator: true,
-          ),
-          onPlayerInitialized: (controller) {
-            _playerController = controller;
-            _playerController.addListener(playerControllerListen);
-          },
-        );
+    return YoutubePlayer(
+      context: context,
+      initialVideoId: YoutubePlayer.convertUrlToId(
+          SongList(bloc.songs).getFirstWithYoutubePV().youtubePV.url),
+      flags: YoutubePlayerFlags(
+        autoPlay: false,
+        showVideoProgressIndicator: true,
+      ),
+      onPlayerInitialized: (controller) {
+        bloc.setYoutubeController(controller);
       },
     );
   }
