@@ -67,7 +67,7 @@ android {
             // For BITRISE CICD
             keyAlias "$System.env.BITRISEIO_ANDROID_KEYSTORE_ALIAS"
             keyPassword "$System.env.BITRISEIO_ANDROID_KEYSTORE_PASSWORD"
-            storeFile file("$System.env.BITRISEIO_ANDROID_KEYSTORE_PASSWORD")
+            storeFile file("$System.env.BITRISEIO_ANDROID_KEYSTORE_URL")
             storePassword "$System.env.BITRISEIO_ANDROID_KEYSTORE_PRIVATE_KEY_PASSWORD"
         }
     }
