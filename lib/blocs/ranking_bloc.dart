@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:rxdart/rxdart.dart';
 import 'package:vocadb/blocs/config_bloc.dart';
+import 'package:vocadb/constants.dart';
 import 'package:vocadb/models/song_model.dart';
 import 'package:vocadb/services/song_rest_service.dart';
 
@@ -20,14 +21,15 @@ class RankingBloc {
   Observable get currentIndex => _currentIndex.stream;
 
   List<SongModel> get currentSongs {
-    switch (_currentIndex.value) {
-      case 0:
+    String rank = constRankings[_currentIndex.value];
+    switch (rank) {
+      case 'daily':
         return _daily.value;
-      case 1:
+      case 'weekly':
         return _weekly.value;
-      case 2:
+      case 'monthly':
         return _monthly.value;
-      case 3:
+      case 'overall':
         return _overall.value;
       default:
         return [];
@@ -49,10 +51,21 @@ class RankingBloc {
   }
 
   void fetch() {
-    updateByDuration(RankDuration.DAILY).then(_daily.add);
-    updateByDuration(RankDuration.WEEKLY).then(_weekly.add);
-    updateByDuration(RankDuration.MONTHLY).then(_monthly.add);
-    updateByDuration(RankDuration.OVERALL).then(_overall.add);
+    if (constRankings.contains('daily')) {
+      updateByDuration(RankDuration.DAILY).then(_daily.add);
+    }
+
+    if (constRankings.contains('weekly')) {
+      updateByDuration(RankDuration.WEEKLY).then(_weekly.add);
+    }
+
+    if (constRankings.contains('monthly')) {
+      updateByDuration(RankDuration.MONTHLY).then(_monthly.add);
+    }
+
+    if (constRankings.contains('overall')) {
+      updateByDuration(RankDuration.OVERALL).then(_overall.add);
+    }
   }
 
   Future<List<SongModel>> updateByDuration(int durationHours) async {

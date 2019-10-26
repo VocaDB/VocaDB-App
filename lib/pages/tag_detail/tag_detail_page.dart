@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:provider/provider.dart';
 import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -92,7 +93,8 @@ class TagDetailPage extends StatelessWidget {
                             Icon(
                               Icons.share,
                             ),
-                            Text('Share', style: TextStyle(fontSize: 12))
+                            Text(FlutterI18n.translate(context, 'label.share'),
+                                style: TextStyle(fontSize: 12))
                           ],
                         )),
                   ),
@@ -107,7 +109,8 @@ class TagDetailPage extends StatelessWidget {
                             Icon(
                               Icons.info,
                             ),
-                            Text('More info', style: TextStyle(fontSize: 12))
+                            Text(FlutterI18n.translate(context, 'label.info'),
+                                style: TextStyle(fontSize: 12))
                           ],
                         )),
                   ),
@@ -120,15 +123,15 @@ class TagDetailPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   TextInfoSection(
-                    title: 'Name',
+                    title: FlutterI18n.translate(context, 'label.name'),
                     text: tag.additionalNames,
                   ),
                   TextInfoSection(
-                    title: 'Category',
+                    title: FlutterI18n.translate(context, 'label.category'),
                     text: tag.categoryName,
                   ),
                   InfoSection(
-                    title: 'Parent',
+                    title: FlutterI18n.translate(context, 'label.parentTag'),
                     visible: tag.parent != null,
                     child: Tag(
                         tag.parent, () => toTagDetailPage(context, tag.parent)),
@@ -143,7 +146,8 @@ class TagDetailPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     TextInfoSection(
-                      title: 'Description',
+                      title:
+                          FlutterI18n.translate(context, 'label.description'),
                       text: tag.description,
                     )
                   ],
@@ -156,7 +160,7 @@ class TagDetailPage extends StatelessWidget {
                 if (!snapshot.hasData) return Container();
 
                 return SongListSection(
-                  title: 'Latest songs',
+                  title: FlutterI18n.translate(context, 'label.recentSongsPVs'),
                   songs: snapshot.data,
                   horizontal: true,
                   prefixTag: 'tag_latest_song_${tag.id}',
@@ -169,7 +173,7 @@ class TagDetailPage extends StatelessWidget {
                 if (!snapshot.hasData) return Container();
 
                 return SongListSection(
-                  title: 'Top songs',
+                  title: FlutterI18n.translate(context, 'label.topSongs'),
                   songs: snapshot.data,
                   horizontal: true,
                   prefixTag: 'tag_top_song_${tag.id}',
@@ -182,7 +186,7 @@ class TagDetailPage extends StatelessWidget {
                 if (!snapshot.hasData) return Container();
 
                 return AlbumListSection(
-                  title: 'Top albums',
+                  title: FlutterI18n.translate(context, 'label.topAlbums'),
                   albums: snapshot.data,
                   horizontal: true,
                   prefixTag: 'tag_top_album_${tag.id}',
@@ -195,13 +199,15 @@ class TagDetailPage extends StatelessWidget {
                 if (!snapshot.hasData) return Container();
 
                 return ArtistSection(
-                  title: 'Top artists',
+                  title: FlutterI18n.translate(context, 'label.topArtists'),
                   artists: snapshot.data,
                   prefixTag: 'tag_top_artist_${tag.id}',
                 );
               },
             ),
-            WebLinkSection(webLinks: tag.webLinks, title: "References")
+            WebLinkSection(
+                webLinks: tag.webLinks,
+                title: FlutterI18n.translate(context, 'label.references'))
           ]),
         )
       ],

@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:vocadb/blocs/release_event_filter_bloc.dart';
+import 'package:vocadb/constants.dart';
 import 'package:vocadb/models/artist_model.dart';
 import 'package:vocadb/models/tag_model.dart';
 import 'package:vocadb/pages/search/search_artist_page.dart';
@@ -30,13 +32,14 @@ class ReleaseEventFilterPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text('Filter release events')),
+        appBar:
+            AppBar(title: Text(FlutterI18n.translate(context, 'label.filter'))),
         body: Container(
           padding: EdgeInsets.all(8.0),
           child: ListView(
             children: <Widget>[
               Title(
-                text: 'Tags',
+                text: FlutterI18n.translate(context, 'label.tags'),
               ),
               SpaceDivider(),
               StreamBuilder(
@@ -56,7 +59,7 @@ class ReleaseEventFilterPage extends StatelessWidget {
               ),
               SpaceDivider(),
               Title(
-                text: 'Category',
+                text: FlutterI18n.translate(context, 'label.category'),
               ),
               StreamBuilder(
                 stream: bloc.category$,
@@ -69,7 +72,7 @@ class ReleaseEventFilterPage extends StatelessWidget {
               ),
               SpaceDivider(),
               Title(
-                text: 'Sort',
+                text: FlutterI18n.translate(context, 'label.sort'),
               ),
               StreamBuilder(
                 stream: bloc.sort$,
@@ -82,7 +85,7 @@ class ReleaseEventFilterPage extends StatelessWidget {
               ),
               SpaceDivider(),
               Title(
-                text: 'Artists',
+                text: FlutterI18n.translate(context, 'label.artists'),
               ),
               SpaceDivider(),
               StreamBuilder(
@@ -139,7 +142,7 @@ class ArtistFilters extends StatelessWidget {
     children.add(ListTile(
       onTap: this.onBrowseArtists,
       leading: Icon(Icons.add),
-      title: Text('Add artist'),
+      title: Text(FlutterI18n.translate(context, 'label.add')),
     ));
 
     return children;
@@ -174,18 +177,22 @@ class ArtistFilters extends StatelessWidget {
 class TagFilters extends StatelessWidget {
   final Function onBrowseTags;
   final List<TagModel> tags;
+  final Function onDeleteTag;
 
-  const TagFilters({Key key, this.onBrowseTags, this.tags}) : super(key: key);
+  const TagFilters({Key key, this.onBrowseTags, this.tags, this.onDeleteTag})
+      : super(key: key);
 
   List<Widget> buildChildren(BuildContext context) {
     List<Widget> children = [];
 
     if (tags != null && tags.length > 0) {
       children.addAll(tags
-          .map((t) => InputChip(
+          .map((t) => Chip(
                 label: Text(t.name),
-                selected: true,
-                onPressed: () {},
+                onDeleted: () {
+                  this.onDeleteTag(t);
+                },
+                deleteIcon: Icon(Icons.close),
               ))
           .toList());
     }
@@ -193,7 +200,10 @@ class TagFilters extends StatelessWidget {
     children.add(InputChip(
       label: Wrap(
         crossAxisAlignment: WrapCrossAlignment.center,
-        children: <Widget>[Icon(Icons.add), Text('Add')],
+        children: <Widget>[
+          Icon(Icons.add),
+          Text(FlutterI18n.translate(context, 'label.add'))
+        ],
       ),
       onPressed: this.onBrowseTags,
     ));
@@ -211,34 +221,41 @@ class TagFilters extends StatelessWidget {
 }
 
 class ReleaseEventCategoryDropDown extends StatelessWidget {
-  final eventCategories = const [
-    {'name': 'Unspecified', 'value': null},
-    {'name': 'Album release fair', 'value': 'AlbumRelease'},
-    {'name': 'Character anniversary', 'value': 'Anniversary'},
-    {'name': 'Club', 'value': 'Club'},
-    {'name': 'Concert', 'value': 'Concert'},
-    {'name': 'Contest', 'value': 'Contest'},
-    {'name': 'Convention', 'value': 'Convention'},
-    {'name': 'Other', 'value': 'Other'},
-  ];
-
   final Function onChanged;
   final String value;
 
   const ReleaseEventCategoryDropDown({Key key, this.onChanged, this.value})
       : super(key: key);
 
+  List<DropdownMenuItem<String>> dropDownItems(BuildContext context) {
+    List<DropdownMenuItem<String>> items = [];
+    items.add(defaultItem(context));
+    items.addAll(
+        constEventCategories.map((v) => createItem(context, v)).toList());
+
+    return items;
+  }
+
+  DropdownMenuItem<String> defaultItem(BuildContext context) {
+    return DropdownMenuItem<String>(
+      value: null,
+      child: Text(FlutterI18n.translate(context, 'label.notSpecified')),
+    );
+  }
+
+  DropdownMenuItem<String> createItem(BuildContext context, String value) {
+    return DropdownMenuItem<String>(
+      value: value,
+      child: Text(FlutterI18n.translate(context, 'eventCategory.$value')),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return DropdownButton(
         value: this.value,
         underline: Container(),
-        items: eventCategories
-            .map((st) => DropdownMenuItem<String>(
-                  value: st['value'],
-                  child: Text(st['name']),
-                ))
-            .toList(),
+        items: dropDownItems(context),
         onChanged: this.onChanged);
   }
 }
@@ -264,7 +281,8 @@ class ReleaseEventSortDropDown extends StatelessWidget {
         items: sorts
             .map((st) => DropdownMenuItem<String>(
                   value: st['value'],
-                  child: Text(st['name']),
+                  child: Text(
+                      FlutterI18n.translate(context, 'sort.${st['value']}')),
                 ))
             .toList(),
         onChanged: this.onChanged);

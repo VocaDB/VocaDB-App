@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:provider/provider.dart';
 import 'package:vocadb/blocs/config_bloc.dart';
 
@@ -28,11 +29,11 @@ class _RankingFilterPageState extends State<RankingFilterPage> {
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text('Filter by',
+              child: Text(FlutterI18n.translate(context, 'label.filterBy'),
                   style: Theme.of(this.context).textTheme.title),
             ),
             ListTile(
-              title: const Text('Newly added'),
+              title: Text(FlutterI18n.translate(context, 'ranking.newlyAdded')),
               leading: Radio(
                 value: null,
                 groupValue: value,
@@ -40,7 +41,8 @@ class _RankingFilterPageState extends State<RankingFilterPage> {
               ),
             ),
             ListTile(
-              title: const Text('Newly published'),
+              title: Text(
+                  FlutterI18n.translate(context, 'ranking.newlyPublished')),
               leading: Radio(
                 value: 'PublishDate',
                 groupValue: value,
@@ -48,7 +50,7 @@ class _RankingFilterPageState extends State<RankingFilterPage> {
               ),
             ),
             ListTile(
-              title: const Text('Popularity'),
+              title: Text(FlutterI18n.translate(context, 'ranking.popularity')),
               leading: Radio(
                 value: 'Popularity',
                 groupValue: value,
@@ -71,11 +73,12 @@ class _RankingFilterPageState extends State<RankingFilterPage> {
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text('Vocalist',
+              child: Text(FlutterI18n.translate(context, 'label.vocalist'),
                   style: Theme.of(this.context).textTheme.title),
             ),
             ListTile(
-              title: const Text('All vocalists'),
+              title:
+                  Text(FlutterI18n.translate(context, 'ranking.allVocalists')),
               leading: Radio(
                 value: null,
                 groupValue: value,
@@ -83,7 +86,8 @@ class _RankingFilterPageState extends State<RankingFilterPage> {
               ),
             ),
             ListTile(
-              title: const Text('Only Vocaloid'),
+              title:
+                  Text(FlutterI18n.translate(context, 'ranking.onlyVocaloid')),
               leading: Radio(
                 value: 'Vocaloid',
                 groupValue: value,
@@ -91,7 +95,7 @@ class _RankingFilterPageState extends State<RankingFilterPage> {
               ),
             ),
             ListTile(
-              title: const Text('Only UTAU'),
+              title: Text(FlutterI18n.translate(context, 'ranking.onlyUTAU')),
               leading: Radio(
                 value: 'UTAU',
                 groupValue: value,
@@ -99,7 +103,8 @@ class _RankingFilterPageState extends State<RankingFilterPage> {
               ),
             ),
             ListTile(
-              title: const Text('Other vocalists'),
+              title:
+                  Text(FlutterI18n.translate(context, 'ranking.otherVocalist')),
               leading: Radio(
                 value: 'CeVIO',
                 groupValue: value,
@@ -117,7 +122,8 @@ class _RankingFilterPageState extends State<RankingFilterPage> {
     final ConfigBloc configBloc = Provider.of<ConfigBloc>(context);
 
     return Scaffold(
-      appBar: AppBar(title: Text('Ranking filter')),
+      appBar:
+          AppBar(title: Text(FlutterI18n.translate(context, 'label.filter'))),
       body: Column(
         children: <Widget>[
           buildFilterBy(configBloc),

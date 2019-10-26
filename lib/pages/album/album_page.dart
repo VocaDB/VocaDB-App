@@ -1,27 +1,42 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:provider/provider.dart';
 import 'package:vocadb/blocs/album_bloc.dart';
 import 'package:vocadb/blocs/config_bloc.dart';
 import 'package:vocadb/models/album_model.dart';
 import 'package:vocadb/pages/search/search_album_filter_page.dart';
 import 'package:vocadb/widgets/center_content.dart';
+import 'package:vocadb/widgets/infinite_list_view.dart';
 import 'package:vocadb/widgets/result.dart';
 import 'package:vocadb/widgets/album_tile.dart';
+
+class AlbumScreenArguments {
+  final bool openSearch;
+
+  AlbumScreenArguments({this.openSearch});
+}
 
 class AlbumScreen extends StatelessWidget {
   static const String routeName = '/albums';
 
-  static void navigate(BuildContext context) {
-    Navigator.pushNamed(context, AlbumScreen.routeName);
+  static void navigate(BuildContext context, {bool openSearch = false}) {
+    Navigator.pushNamed(context, AlbumScreen.routeName,
+        arguments: AlbumScreenArguments(openSearch: openSearch));
   }
 
   @override
   Widget build(BuildContext context) {
     final configBloc = Provider.of<ConfigBloc>(context);
+    final AlbumScreenArguments args = ModalRoute.of(context).settings.arguments;
+    final albumBloc = AlbumBloc(configBloc: configBloc);
+
+    if (args.openSearch) {
+      albumBloc.openSearch();
+    }
 
     return Provider<AlbumBloc>(
-      builder: (context) => AlbumBloc(configBloc: configBloc),
+      builder: (context) => albumBloc,
       dispose: (context, bloc) => bloc.dispose(),
       child: AlbumPage(),
     );
@@ -29,12 +44,31 @@ class AlbumScreen extends StatelessWidget {
 }
 
 class AlbumPage extends StatefulWidget {
+  static const String routeName = '/albums';
+
+  static void navigate(BuildContext context, {bool openSearch = false}) {
+    Navigator.pushNamed(context, AlbumScreen.routeName,
+        arguments: AlbumScreenArguments(openSearch: openSearch));
+  }
+
   @override
   _AlbumPageState createState() => _AlbumPageState();
 }
 
 class _AlbumPageState extends State<AlbumPage> {
   final TextEditingController _controller = TextEditingController();
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    final AlbumScreenArguments args = ModalRoute.of(context).settings.arguments;
+    final albumBloc = Provider.of<AlbumBloc>(context);
+
+    if (args.openSearch) {
+      albumBloc.openSearch();
+    }
+  }
 
   void dispose() {
     _controller.dispose();
@@ -46,13 +80,17 @@ class _AlbumPageState extends State<AlbumPage> {
       return CenterResult(
         result: Result(
           Icon(Icons.album),
-          'No result',
+          FlutterI18n.translate(context, 'error.searchResultNotMatched'),
         ),
       );
     }
 
-    return ListView.builder(
+    return InfiniteListView(
       itemCount: albums.length,
+      onReachLastItem: () {
+        Provider.of<AlbumBloc>(context).fetchMore();
+      },
+      showProgressIndicator: !Provider.of<AlbumBloc>(context).noMoreResult,
       itemBuilder: (context, index) {
         AlbumModel album = albums[index];
         return AlbumTile.fromEntry(album, tag: 'album_${album.id}');
@@ -111,12 +149,14 @@ class _AlbumPageState extends State<AlbumPage> {
                             style: Theme.of(context).primaryTextTheme.title,
                             autofocus: true,
                             decoration: InputDecoration(
-                                border: InputBorder.none, hintText: "Search"),
+                                border: InputBorder.none,
+                                hintText: FlutterI18n.translate(
+                                    context, 'label.search')),
                           ),
                         ),
                       ],
                     )
-                  : Text('Albums'),
+                  : Text(FlutterI18n.translate(context, 'label.albums')),
             );
           },
         ),

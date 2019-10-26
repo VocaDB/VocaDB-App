@@ -32,6 +32,11 @@ class PVList {
 
   PVList(this.pvs);
 
+  bool get isContainsYoutube =>
+      pvs.firstWhere((pv) => pv.service.toLowerCase() == "youtube",
+          orElse: () => null) !=
+      null;
+
   List<PVModel> get originalPVs =>
       pvs.where((pv) => pv.pvType == 'Original').toList();
 

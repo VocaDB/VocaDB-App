@@ -15,3 +15,5 @@ android/.gradle
 android/**/*.iml
 ios/Flutter/Generated.xconfig
 ios/Runner/GeneratedPluginRegistrant.*
+.flutter-plugins
+.dart_tool/*

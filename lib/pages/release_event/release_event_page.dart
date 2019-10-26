@@ -1,30 +1,20 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:provider/provider.dart';
-import 'package:vocadb/blocs/config_bloc.dart';
 import 'package:vocadb/blocs/release_event_bloc.dart';
 import 'package:vocadb/models/release_event_model.dart';
 import 'package:vocadb/pages/search/release_event_filter_page.dart';
 import 'package:vocadb/widgets/center_content.dart';
 import 'package:vocadb/widgets/event_tile.dart';
+import 'package:vocadb/widgets/infinite_list_view.dart';
 import 'package:vocadb/widgets/result.dart';
 
-class ReleaseEventScreen extends StatelessWidget {
+class ReleaseEventScreen {
   static const String routeName = '/releaseEvents';
 
   static void navigate(BuildContext context) {
     Navigator.pushNamed(context, ReleaseEventScreen.routeName);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final configBloc = Provider.of<ConfigBloc>(context);
-
-    return Provider<ReleaseEventBloc>(
-      builder: (context) => ReleaseEventBloc(configBloc: configBloc),
-      dispose: (context, bloc) => bloc.dispose(),
-      child: ReleaseEventPage(),
-    );
   }
 }
 
@@ -46,13 +36,18 @@ class _ReleaseEventPageState extends State<ReleaseEventPage> {
       return CenterResult(
         result: Result(
           Icon(Icons.event),
-          'No result',
+          FlutterI18n.translate(context, 'error.searchResultNotMatched'),
         ),
       );
     }
 
-    return ListView.builder(
+    return InfiniteListView(
       itemCount: releaseEvents.length,
+      onReachLastItem: () {
+        Provider.of<ReleaseEventBloc>(context).fetchMore();
+      },
+      showProgressIndicator:
+          !Provider.of<ReleaseEventBloc>(context).noMoreResult,
       itemBuilder: (context, index) {
         ReleaseEventModel e = releaseEvents[index];
         return EventTile.fromReleaseEvent(e, tag: 'release_event_${e.id}');
@@ -111,12 +106,14 @@ class _ReleaseEventPageState extends State<ReleaseEventPage> {
                             style: Theme.of(context).primaryTextTheme.title,
                             autofocus: true,
                             decoration: InputDecoration(
-                                border: InputBorder.none, hintText: "Search"),
+                                border: InputBorder.none,
+                                hintText: FlutterI18n.translate(
+                                    context, 'label.search')),
                           ),
                         ),
                       ],
                     )
-                  : Text('Release events'),
+                  : Text(FlutterI18n.translate(context, 'label.releaseEvents')),
             );
           },
         ),

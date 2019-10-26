@@ -1,40 +1,48 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:provider/provider.dart';
 import 'package:vocadb/blocs/artist_bloc.dart';
-import 'package:vocadb/blocs/config_bloc.dart';
 import 'package:vocadb/models/artist_model.dart';
 import 'package:vocadb/pages/search/search_artist_filter_page.dart';
 import 'package:vocadb/widgets/center_content.dart';
+import 'package:vocadb/widgets/infinite_list_view.dart';
 import 'package:vocadb/widgets/result.dart';
 import 'package:vocadb/widgets/artist_tile.dart';
 
-class ArtistScreen extends StatelessWidget {
-  static const String routeName = '/artists';
+class ArtistScreenArguments {
+  final bool openSearch;
 
-  static void navigate(BuildContext context) {
-    Navigator.pushNamed(context, ArtistScreen.routeName);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final configBloc = Provider.of<ConfigBloc>(context);
-
-    return Provider<ArtistBloc>(
-      builder: (context) => ArtistBloc(configBloc: configBloc),
-      dispose: (context, bloc) => bloc.dispose(),
-      child: ArtistPage(),
-    );
-  }
+  ArtistScreenArguments({this.openSearch});
 }
 
 class ArtistPage extends StatefulWidget {
+  static const String routeName = '/artists';
+
+  static void navigate(BuildContext context, {bool openSearch = false}) {
+    Navigator.pushNamed(context, ArtistPage.routeName,
+        arguments: ArtistScreenArguments(openSearch: openSearch));
+  }
+
   @override
   _ArtistPageState createState() => _ArtistPageState();
 }
 
 class _ArtistPageState extends State<ArtistPage> {
   final TextEditingController _controller = TextEditingController();
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    final ArtistScreenArguments args =
+        ModalRoute.of(context).settings.arguments;
+    final artistBloc = Provider.of<ArtistBloc>(context);
+
+    if (args.openSearch) {
+      artistBloc.openSearch();
+    }
+  }
 
   void dispose() {
     _controller.dispose();
@@ -46,13 +54,17 @@ class _ArtistPageState extends State<ArtistPage> {
       return CenterResult(
         result: Result(
           Icon(Icons.person),
-          'No result',
+          FlutterI18n.translate(context, 'error.searchResultNotMatched'),
         ),
       );
     }
 
-    return ListView.builder(
+    return InfiniteListView(
       itemCount: artists.length,
+      onReachLastItem: () {
+        Provider.of<ArtistBloc>(context).fetchMore();
+      },
+      showProgressIndicator: !Provider.of<ArtistBloc>(context).noMoreResult,
       itemBuilder: (context, index) {
         ArtistModel artist = artists[index];
         return ArtistTile.fromEntry(artist, tag: 'artist_${artist.id}');
@@ -111,12 +123,14 @@ class _ArtistPageState extends State<ArtistPage> {
                             style: Theme.of(context).primaryTextTheme.title,
                             autofocus: true,
                             decoration: InputDecoration(
-                                border: InputBorder.none, hintText: "Search"),
+                                border: InputBorder.none,
+                                hintText: FlutterI18n.translate(
+                                    context, 'label.search')),
                           ),
                         ),
                       ],
                     )
-                  : Text('Artists'),
+                  : Text(FlutterI18n.translate(context, 'label.artists')),
             );
           },
         ),

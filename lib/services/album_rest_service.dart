@@ -37,7 +37,9 @@ class AlbumRestService extends BaseRestService {
 
   Future<AlbumModel> byId(int id, {String lang = 'Default'}) {
     final Map<String, String> params = {
-      'fields': 'Tags,MainPicture,Tracks,AdditionalNames,Artists,Description,WebLinks,PVs',
+      'fields':
+          'Tags,MainPicture,Tracks,AdditionalNames,Artists,Description,WebLinks,PVs',
+      'songFields': 'MainPicture,PVs,ThumbUrl',
       'lang': lang,
     };
 
@@ -46,7 +48,8 @@ class AlbumRestService extends BaseRestService {
         .then((i) => AlbumModel.fromJson(i));
   }
 
-  Future<List<AlbumModel>> latestByArtistId(int artistId, {String lang = 'Default'}) async {
+  Future<List<AlbumModel>> latestByArtistId(int artistId,
+      {String lang = 'Default'}) async {
     final Map<String, String> params = {
       'artistId': artistId.toString(),
       'fields': 'MainPicture',
@@ -57,7 +60,8 @@ class AlbumRestService extends BaseRestService {
     return this.list(params: params);
   }
 
-  Future<List<AlbumModel>> latestByTagId(int tagId, {String lang = 'Default'}) async {
+  Future<List<AlbumModel>> latestByTagId(int tagId,
+      {String lang = 'Default'}) async {
     final Map<String, String> params = {
       'tagId': tagId.toString(),
       'fields': 'MainPicture',
@@ -68,7 +72,8 @@ class AlbumRestService extends BaseRestService {
     return this.list(params: params);
   }
 
-  Future<List<AlbumModel>> topByTagId(int tagId, {String lang = 'Default'}) async {
+  Future<List<AlbumModel>> topByTagId(int tagId,
+      {String lang = 'Default'}) async {
     final Map<String, String> params = {
       'tagId': tagId.toString(),
       'fields': 'MainPicture',

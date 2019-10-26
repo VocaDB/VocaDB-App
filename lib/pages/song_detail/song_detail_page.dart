@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:vocadb/blocs/config_bloc.dart';
@@ -10,16 +11,16 @@ import 'package:vocadb/blocs/favorite_song_bloc.dart';
 import 'package:vocadb/blocs/lyric_content_bloc.dart';
 import 'package:vocadb/blocs/song_detail_bloc.dart';
 import 'package:vocadb/constants.dart';
-import 'package:vocadb/models/album_model.dart';
 import 'package:vocadb/models/pv_model.dart';
 import 'package:vocadb/models/song_model.dart';
 import 'package:vocadb/pages/song_detail/lyric_content.dart';
-import 'package:vocadb/widgets/album_card.dart';
+import 'package:vocadb/widgets/album_section.dart';
 import 'package:vocadb/widgets/artist_tile.dart';
 import 'package:vocadb/widgets/like_button.dart';
 import 'package:vocadb/widgets/pv_tile.dart';
 import 'package:vocadb/widgets/result.dart';
 import 'package:vocadb/widgets/section.dart';
+import 'package:vocadb/widgets/site_tile.dart';
 import 'package:vocadb/widgets/song_card.dart';
 import 'package:vocadb/widgets/song_tile.dart';
 import 'package:vocadb/widgets/space_divider.dart';
@@ -79,7 +80,7 @@ class _SongDetailPageState extends State<SongDetailPage> {
   Widget buildPlayerWithContent(String url) {
     return YoutubePlayer(
       context: context,
-      videoId: YoutubePlayer.convertUrlToId(url),
+      initialVideoId: YoutubePlayer.convertUrlToId(url),
       flags: YoutubePlayerFlags(
         autoPlay: false,
         showVideoProgressIndicator: true,
@@ -105,7 +106,7 @@ class _SongDetailPageState extends State<SongDetailPage> {
         children: <Widget>[
           YoutubePlayer(
             context: context,
-            videoId: YoutubePlayer.convertUrlToId(song.youtubePV.url),
+            initialVideoId: YoutubePlayer.convertUrlToId(song.youtubePV.url),
             flags: YoutubePlayerFlags(
               autoPlay: false,
               showVideoProgressIndicator: true,
@@ -120,16 +121,12 @@ class _SongDetailPageState extends State<SongDetailPage> {
               initialData: false,
               builder: (context, snapshot) {
                 if (!snapshot.hasData) {
-                  print('dont have data');
                   return ListView(
                     children: buildDetailContent(song),
                   );
                 }
 
                 bool showLyric = snapshot.data;
-
-                print('stream updated');
-                print(showLyric);
 
                 return AnimatedSwitcher(
                   duration: Duration(milliseconds: 300),
@@ -189,7 +186,6 @@ class _SongDetailPageState extends State<SongDetailPage> {
           initialData: false,
           builder: (context, snapshot) {
             if (!snapshot.hasData) {
-              print('dont have data');
               return SliverList(
                 delegate:
                     SliverChildListDelegate.fixed(buildDetailContent(song)),
@@ -240,10 +236,14 @@ class _SongDetailPageState extends State<SongDetailPage> {
     headerContent.add(Row(
       crossAxisAlignment: CrossAxisAlignment.end,
       children: <Widget>[
-        Text(song.songType),
-        Text(' • '),
-        Text('Published on ${song.publishDateFormatted}',
-            style: Theme.of(context).textTheme.caption)
+        Text(FlutterI18n.translate(context, 'songType.${song.songType}')),
+        (song.publishDateFormatted == null) ? Container() : Text(' • '),
+        (song.publishDateFormatted == null)
+            ? Container()
+            : Text(
+                FlutterI18n.translate(context, 'label.publishedOn',
+                    {'date': song.publishDateFormatted}),
+                style: Theme.of(context).textTheme.caption)
       ],
     ));
 
@@ -285,7 +285,8 @@ class _SongDetailPageState extends State<SongDetailPage> {
                             Icon(
                               Icons.subtitles,
                             ),
-                            Text('Lyrics', style: TextStyle(fontSize: 12))
+                            Text(FlutterI18n.translate(context, 'label.lyrics'),
+                                style: TextStyle(fontSize: 12))
                           ],
                         )),
                   ),
@@ -297,7 +298,8 @@ class _SongDetailPageState extends State<SongDetailPage> {
                       Icon(
                         Icons.share,
                       ),
-                      Text('Share', style: TextStyle(fontSize: 12))
+                      Text(FlutterI18n.translate(context, 'label.share'),
+                          style: TextStyle(fontSize: 12))
                     ],
                   )),
             ),
@@ -311,7 +313,8 @@ class _SongDetailPageState extends State<SongDetailPage> {
                       Icon(
                         Icons.info,
                       ),
-                      Text('More info', style: TextStyle(fontSize: 12))
+                      Text(FlutterI18n.translate(context, 'label.info'),
+                          style: TextStyle(fontSize: 12))
                     ],
                   )),
             ),
@@ -327,7 +330,7 @@ class _SongDetailPageState extends State<SongDetailPage> {
       Tags(song.tags),
       Divider(),
       Section(
-        title: 'Producers',
+        title: FlutterI18n.translate(context, 'label.producers'),
         children: song.producers
             .map((a) => ArtistTile.artistSong(a,
                 tag: 'song_detail_producer_${song.id}_${a.artistId}'))
@@ -335,7 +338,7 @@ class _SongDetailPageState extends State<SongDetailPage> {
       ),
       SpaceDivider(),
       Section(
-        title: 'Vocalists',
+        title: FlutterI18n.translate(context, 'label.vocalists'),
         children: song.vocalists
             .map((a) => ArtistTile.artistSong(a,
                 tag: 'song_detail_vocalist_${song.id}_${a.artistId}'))
@@ -343,7 +346,7 @@ class _SongDetailPageState extends State<SongDetailPage> {
       ),
       SpaceDivider(),
       Section(
-        title: 'Other',
+        title: FlutterI18n.translate(context, 'label.other'),
         children: song.otherArtists
             .map((a) => ArtistTile.artistSong(a,
                 showRole: true,
@@ -351,11 +354,16 @@ class _SongDetailPageState extends State<SongDetailPage> {
             .toList(),
       ),
       Divider(),
-      PVSection(pvs: song.pvs),
+      PVSection(
+        pvs: song.pvs,
+        query: (song.pvs.length > 0)
+            ? song.pvs[0].name
+            : '${song.artistString}+${song.defaultName}',
+      ),
       AlbumSection(
           albums: song.albums, tagPrefix: 'song_detail_album_${song.id}'),
       ContentSection(
-        title: 'Original',
+        title: FlutterI18n.translate(context, 'label.originalVersion'),
         hide: !song.hasOriginalVersion,
         child: StreamBuilder(
           stream: Provider.of<SongDetailBloc>(context).originalVersion$,
@@ -379,7 +387,8 @@ class _SongDetailPageState extends State<SongDetailPage> {
             return Column(
               children: <Widget>[
                 Section(
-                  title: 'Alternate versions',
+                  title:
+                      FlutterI18n.translate(context, 'label.alternateVersion'),
                   horizontal: true,
                   children: alts
                       .map<Widget>((SongModel alt) => SongCard.song(alt,
@@ -407,7 +416,7 @@ class _SongDetailPageState extends State<SongDetailPage> {
             return Column(
               children: <Widget>[
                 Section(
-                  title: 'Related',
+                  title: FlutterI18n.translate(context, 'label.likeMatches'),
                   horizontal: true,
                   children: children,
                 ),
@@ -500,37 +509,11 @@ class _SongDetailPageState extends State<SongDetailPage> {
   }
 }
 
-class AlbumSection extends StatelessWidget {
-  final List<AlbumModel> albums;
-  final String tagPrefix;
-
-  const AlbumSection({Key key, this.albums, this.tagPrefix}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    if (albums.length == 0) {
-      return Container();
-    }
-
-    return Column(
-      children: <Widget>[
-        Section(
-          title: 'Albums',
-          horizontal: true,
-          children: albums
-              .map((a) => AlbumCard.album(a, tag: '${this.tagPrefix}_${a.id}'))
-              .toList(),
-        ),
-        Divider(),
-      ],
-    );
-  }
-}
-
 class PVSection extends StatelessWidget {
+  final String query;
   final List<PVModel> pvs;
 
-  const PVSection({Key key, this.pvs}) : super(key: key);
+  const PVSection({Key key, this.pvs, this.query}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -545,7 +528,7 @@ class PVSection extends StatelessWidget {
     children.add(Padding(
       padding: EdgeInsets.all(8.0),
       child: Text(
-        'Original media',
+        FlutterI18n.translate(context, 'label.originalMedia'),
         textDirection: TextDirection.ltr,
         style: Theme.of(context).textTheme.subhead,
       ),
@@ -563,13 +546,20 @@ class PVSection extends StatelessWidget {
       children.add(Padding(
         padding: EdgeInsets.all(8.0),
         child: Text(
-          'Other media',
+          FlutterI18n.translate(context, 'label.otherMedia'),
           textDirection: TextDirection.ltr,
           style: Theme.of(context).textTheme.subhead,
         ),
       ));
 
       children.addAll(otherPVs);
+    }
+
+    if (!pvList.isContainsYoutube) {
+      children.add(SiteTile(
+        title: FlutterI18n.translate(context, 'label.searchYoutube'),
+        url: 'http://www.youtube.com/results?search_query=${query}',
+      ));
     }
 
     children.add(Divider());
@@ -599,7 +589,7 @@ class ContentSection extends StatelessWidget {
         Padding(
           padding: EdgeInsets.all(8.0),
           child: Text(
-            'Original',
+            FlutterI18n.translate(context, 'label.original'),
             textDirection: TextDirection.ltr,
             style: Theme.of(context).textTheme.subhead,
           ),

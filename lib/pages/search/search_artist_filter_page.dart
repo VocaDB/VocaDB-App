@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:vocadb/blocs/search_artist_filter_bloc.dart';
+import 'package:vocadb/constants.dart';
 import 'package:vocadb/models/tag_model.dart';
 import 'package:vocadb/pages/search/search_tag_page.dart';
 import 'package:vocadb/widgets/space_divider.dart';
@@ -19,13 +21,14 @@ class SearchArtistFilterPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text('Filter artist')),
+        appBar:
+            AppBar(title: Text(FlutterI18n.translate(context, 'label.filter'))),
         body: Container(
           padding: EdgeInsets.all(8.0),
           child: ListView(
             children: <Widget>[
               Title(
-                text: 'Tags',
+                text: FlutterI18n.translate(context, 'label.tags'),
               ),
               SpaceDivider(),
               StreamBuilder(
@@ -40,12 +43,15 @@ class SearchArtistFilterPage extends StatelessWidget {
                     onBrowseTags: () {
                       browseTags(context);
                     },
+                    onDeleteTag: (TagModel t) {
+                      bloc.removeTag(t.id);
+                    },
                   );
                 },
               ),
               SpaceDivider(),
               Title(
-                text: 'Artist type',
+                text: FlutterI18n.translate(context, 'label.artistType'),
               ),
               StreamBuilder(
                 stream: bloc.artistType$,
@@ -58,7 +64,7 @@ class SearchArtistFilterPage extends StatelessWidget {
               ),
               SpaceDivider(),
               Title(
-                text: 'Sort',
+                text: FlutterI18n.translate(context, 'label.sort'),
               ),
               StreamBuilder(
                 stream: bloc.sort$,
@@ -79,18 +85,22 @@ class SearchArtistFilterPage extends StatelessWidget {
 class TagFilters extends StatelessWidget {
   final Function onBrowseTags;
   final List<TagModel> tags;
+  final Function onDeleteTag;
 
-  const TagFilters({Key key, this.onBrowseTags, this.tags}) : super(key: key);
+  const TagFilters({Key key, this.onBrowseTags, this.tags, this.onDeleteTag})
+      : super(key: key);
 
   List<Widget> buildChildren(BuildContext context) {
     List<Widget> children = [];
 
     if (tags != null && tags.length > 0) {
       children.addAll(tags
-          .map((t) => InputChip(
+          .map((t) => Chip(
                 label: Text(t.name),
-                selected: true,
-                onPressed: () {},
+                onDeleted: () {
+                  this.onDeleteTag(t);
+                },
+                deleteIcon: Icon(Icons.close),
               ))
           .toList());
     }
@@ -98,7 +108,10 @@ class TagFilters extends StatelessWidget {
     children.add(InputChip(
       label: Wrap(
         crossAxisAlignment: WrapCrossAlignment.center,
-        children: <Widget>[Icon(Icons.add), Text('Add')],
+        children: <Widget>[
+          Icon(Icons.add),
+          Text(FlutterI18n.translate(context, 'label.add'))
+        ],
       ),
       onPressed: this.onBrowseTags,
     ));
@@ -116,40 +129,40 @@ class TagFilters extends StatelessWidget {
 }
 
 class ArtistTypeDropDown extends StatelessWidget {
-  final songTypes = const [
-    {'name': 'Not specified', 'value': null},
-    {'name': 'Circle', 'value': 'Original'},
-    {'name': 'Label', 'value': 'Label'},
-    {'name': 'Music producer', 'value': 'Producer'},
-    {'name': 'Animation producer', 'value': 'Animator'},
-    {'name': 'Illustrator', 'value': 'Illustrator'},
-    {'name': 'Lyricist', 'value': 'Lyricist'},
-    {'name': 'Vocaloid', 'value': 'Vocaloid'},
-    {'name': 'UTAU', 'value': 'UTAU'},
-    {'name': 'CeVIO', 'value': 'CeVIO'},
-    {'name': 'Other voice synthesizer', 'value': 'OtherVoiceSynthesizer'},
-    {'name': 'Other vocalist', 'value': 'OtherVocalist'},
-    {'name': 'Other group', 'value': 'OtherGroup'},
-    {'name': 'Other individual', 'value': 'OtherIndividual'},
-  ];
-
   final Function onChanged;
   final String value;
 
   const ArtistTypeDropDown({Key key, this.onChanged, this.value})
       : super(key: key);
 
+  List<DropdownMenuItem<String>> dropDownItems(BuildContext context) {
+    List<DropdownMenuItem<String>> items = [];
+    items.add(defaultItem(context));
+    items.addAll(constArtistTypes.map((v) => createItem(context, v)).toList());
+
+    return items;
+  }
+
+  DropdownMenuItem<String> defaultItem(BuildContext context) {
+    return DropdownMenuItem<String>(
+      value: null,
+      child: Text(FlutterI18n.translate(context, 'label.notSpecified')),
+    );
+  }
+
+  DropdownMenuItem<String> createItem(BuildContext context, String value) {
+    return DropdownMenuItem<String>(
+      value: value,
+      child: Text(FlutterI18n.translate(context, 'artistType.$value')),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return DropdownButton(
         value: this.value,
         underline: Container(),
-        items: songTypes
-            .map((st) => DropdownMenuItem<String>(
-                  value: st['value'],
-                  child: Text(st['name']),
-                ))
-            .toList(),
+        items: dropDownItems(context),
         onChanged: this.onChanged);
   }
 }
@@ -177,7 +190,8 @@ class SongSortDropDown extends StatelessWidget {
         items: sorts
             .map((st) => DropdownMenuItem<String>(
                   value: st['value'],
-                  child: Text(st['name']),
+                  child: Text(
+                      FlutterI18n.translate(context, 'sort.${st['value']}')),
                 ))
             .toList(),
         onChanged: this.onChanged);

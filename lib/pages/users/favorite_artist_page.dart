@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:provider/provider.dart';
 import 'package:vocadb/blocs/favorite_artist_bloc.dart';
 import 'package:vocadb/models/artist_model.dart';
@@ -22,7 +23,7 @@ class FavoriteArtistPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Followed artists'),
+        title: Text(FlutterI18n.translate(context, 'label.favoriteArtists')),
       ),
       body: StreamBuilder(
         stream: bloc.artists$,
@@ -36,7 +37,10 @@ class FavoriteArtistPage extends StatelessWidget {
 
           if (artistMap == null || artistMap.isEmpty) {
             return CenterResult(
-                result: Result(Icon(Icons.people), 'No artist'));
+                result: Result(
+                    Icon(Icons.people),
+                    FlutterI18n.translate(
+                        context, 'error.emptyFavoriteArtists')));
           }
           List<ArtistModel> artists =
               artistMap.values.toList().reversed.toList();

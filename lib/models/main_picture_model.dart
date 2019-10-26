@@ -1,5 +1,3 @@
-import 'dart:collection';
-
 class MainPictureModel {
   String meme;
   String urlSmallThumb;

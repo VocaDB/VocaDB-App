@@ -41,10 +41,12 @@ class SearchSongFilterBloc {
     return Future.value();
   }
 
-  void removeArtist(int id) {
+  Future<void> removeArtist(int id) {
     Map<int, ArtistModel> a = artists;
     a.remove(id);
     _artists.add(a);
+
+    return Future.value();
   }
 
   Future<void> addTag(TagModel tag) {
@@ -55,10 +57,12 @@ class SearchSongFilterBloc {
     return Future.value();
   }
 
-  void removeTag(int id) {
+  Future<void> removeTag(int id) {
     Map<int, TagModel> a = tags;
     a.remove(id);
     _tags.add(a);
+
+    return Future.value();
   }
 
   Map<String, String> params() {

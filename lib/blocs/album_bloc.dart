@@ -8,12 +8,16 @@ class AlbumBloc {
   final _query = BehaviorSubject<String>.seeded(null);
   final _results = BehaviorSubject<List<AlbumModel>>.seeded(null);
   final _searching = BehaviorSubject<bool>.seeded(false);
+  final _noMoreResult = BehaviorSubject<bool>.seeded(false);
+  int lastIndex = 0;
 
   Observable get result$ => _results.stream;
   Observable get query$ => _query.stream;
   Observable get searching$ => _searching.stream;
+  Observable get noMoreResult$ => _noMoreResult.stream;
 
   String get query => _query.value;
+  bool get noMoreResult => _noMoreResult.value;
 
   AlbumRestService albumService = AlbumRestService();
 
@@ -27,7 +31,7 @@ class AlbumBloc {
     Observable.merge([
       query$,
       albumFilterBloc.params$,
-    ]).debounceTime(Duration(milliseconds: 500)).distinct().listen(fetch);
+    ]).debounceTime(Duration(milliseconds: 500)).listen(fetch);
   }
 
   void openSearch() {
@@ -43,6 +47,12 @@ class AlbumBloc {
   }
 
   void fetch(dynamic event) {
+    _noMoreResult.add(false);
+    lastIndex = 0;
+    albumService.list(params: getCurrentParams()).then(updateResults);
+  }
+
+  Map<String, String> getCurrentParams() {
     Map<String, String> params = albumFilterBloc.params();
 
     params['fields'] = 'MainPicture';
@@ -54,12 +64,36 @@ class AlbumBloc {
       params['query'] = query;
     }
 
-    albumService.list(params: params).then(updateResults);
+    return params;
+  }
+
+  void fetchMore() {
+    if (lastIndex == _results.value.length) {
+      return;
+    }
+
+    lastIndex = _results.value.length;
+    Map<String, String> params = getCurrentParams();
+    params['start'] = lastIndex.toString();
+
+    albumService.list(params: params).then(appendResults);
+  }
+
+  void appendResults(List<AlbumModel> moreResults) {
+    if (moreResults.length == 0) {
+      _noMoreResult.add(true);
+      return;
+    }
+
+    List<AlbumModel> currentResults = _results.value;
+    currentResults.addAll(moreResults);
+    _results.add(currentResults);
   }
 
   void dispose() {
     _query?.close();
     _results?.close();
     _searching?.close();
+    _noMoreResult?.close();
   }
 }

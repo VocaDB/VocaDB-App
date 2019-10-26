@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:provider/provider.dart';
 import 'package:vocadb/blocs/favorite_album_bloc.dart';
 import 'package:vocadb/models/album_model.dart';
@@ -22,7 +23,7 @@ class FavoriteAlbumPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Collections'),
+        title: Text(FlutterI18n.translate(context, 'label.favoriteAlbums')),
       ),
       body: StreamBuilder(
         stream: bloc.albums$,
@@ -35,7 +36,11 @@ class FavoriteAlbumPage extends StatelessWidget {
           Map<int, AlbumModel> albumMap = snapshot.data;
 
           if (albumMap == null || albumMap.isEmpty) {
-            return CenterResult(result: Result(Icon(Icons.album), 'No album'));
+            return CenterResult(
+                result: Result(
+                    Icon(Icons.album),
+                    FlutterI18n.translate(
+                        context, 'error.emptyFavoriteAlbums')));
           }
           List<AlbumModel> albums = albumMap.values.toList().reversed.toList();
 

@@ -1,8 +1,17 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/observer.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:flutter_i18n/flutter_i18n_delegate.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:quick_actions/quick_actions.dart';
 import 'package:vocadb/app_theme.dart';
+import 'package:vocadb/blocs/album_bloc.dart';
+import 'package:vocadb/blocs/artist_bloc.dart';
 import 'package:vocadb/blocs/config_bloc.dart';
 import 'package:vocadb/blocs/favorite_album_bloc.dart';
 import 'package:vocadb/blocs/favorite_artist_bloc.dart';
@@ -10,6 +19,11 @@ import 'package:vocadb/blocs/favorite_song_bloc.dart';
 import 'package:vocadb/blocs/home_bloc.dart';
 import 'package:vocadb/blocs/profile_bloc.dart';
 import 'package:vocadb/blocs/ranking_bloc.dart';
+import 'package:vocadb/blocs/release_event_bloc.dart';
+import 'package:vocadb/blocs/search_bloc.dart';
+import 'package:vocadb/blocs/song_bloc.dart';
+import 'package:vocadb/blocs/tag_bloc.dart';
+import 'package:vocadb/constants.dart';
 import 'package:vocadb/global_variables.dart';
 import 'package:vocadb/pages/album/album_page.dart';
 import 'package:vocadb/pages/album_detail/album_detail_page.dart';
@@ -41,13 +55,40 @@ void main() async {
   await GlobalVariables.init();
   await Hive.openBox('personal');
 
+  FlutterError.onError = Crashlytics.instance.recordFlutterError;
+
   runApp(VocaDBApp());
 }
 
 class VocaDBApp extends StatelessWidget {
+  static FirebaseAnalytics analytics = FirebaseAnalytics();
+  static FirebaseAnalyticsObserver observer =
+      FirebaseAnalyticsObserver(analytics: analytics);
+
+  static final QuickActions quickActions = QuickActions();
+
   @override
   Widget build(BuildContext context) {
     ConfigBloc configBloc = ConfigBloc(GlobalVariables.pref);
+
+    quickActions.setShortcutItems(<ShortcutItem>[
+      const ShortcutItem(
+          type: 'action_quick_search',
+          localizedTitle: 'Quick search',
+          icon: 'ic_shortcut_quick_search'),
+      const ShortcutItem(
+          type: 'action_song_search',
+          localizedTitle: 'Find song',
+          icon: 'ic_shortcut_song_search'),
+      const ShortcutItem(
+          type: 'action_artist_search',
+          localizedTitle: 'Find artist',
+          icon: 'ic_shortcut_artist_search'),
+      const ShortcutItem(
+          type: 'action_album_search',
+          localizedTitle: 'Find album',
+          icon: 'ic_shortcut_album_search'),
+    ]);
 
     final favoriteSongBloc = FavoriteSongBloc();
     final favoriteArtistBloc = FavoriteArtistBloc();
@@ -60,6 +101,9 @@ class VocaDBApp extends StatelessWidget {
 
     return MultiProvider(
       providers: [
+        Provider<QuickActions>.value(value: quickActions),
+        Provider<FirebaseAnalytics>.value(value: analytics),
+        Provider<FirebaseAnalyticsObserver>.value(value: observer),
         Provider<ConfigBloc>.value(value: configBloc),
         Provider<HomeBloc>.value(value: HomeBloc(configBloc)),
         Provider<RankingBloc>.value(value: RankingBloc(configBloc)),
@@ -77,16 +121,32 @@ class RootApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final config = Provider.of<ConfigBloc>(context);
+    final observer = Provider.of<FirebaseAnalyticsObserver>(context);
+
     return StreamBuilder(
-      stream: config.themeDataStream,
+      stream: config.uiConfigs$,
       builder: (context, snapshot) {
         return MaterialApp(
-          title: 'VocaDB',
-          theme: (snapshot.hasData)
-              ? config.getThemeData(snapshot.data)
-              : AppTheme.darkTheme,
+          title: APP_NAME,
+          theme: config.getThemeData(Provider.of<ConfigBloc>(context).theme),
           darkTheme: AppTheme.darkTheme,
           initialRoute: '/',
+          navigatorObservers: <NavigatorObserver>[observer],
+          localizationsDelegates: [
+            FlutterI18nDelegate(
+                useCountryCode: false,
+                fallbackFile: 'assets/i18n/en',
+                path: 'assets/i18n',
+                forcedLocale: Locale.fromSubtags(
+                    languageCode: Provider.of<ConfigBloc>(context).uiLang)),
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate
+          ],
+          supportedLocales: [
+            const Locale('en'), // English
+            const Locale('th'), // Hebrew
+            // ... other locales the app supports
+          ],
           routes: {
             '/': (context) => MyHomePage(title: 'VocaDB Demo Home Page'),
             SongDetailScreen.routeName: (context) => SongDetailScreen(),
@@ -100,12 +160,37 @@ class RootApp extends StatelessWidget {
             FavoriteAlbumScreen.routeName: (context) => FavoriteAlbumScreen(),
             MoreSongScreen.routeName: (context) => MoreSongScreen(),
             MoreAlbumScreen.routeName: (context) => MoreAlbumScreen(),
-            SongScreen.routeName: (context) => SongScreen(),
-            ArtistScreen.routeName: (context) => ArtistScreen(),
-            AlbumScreen.routeName: (context) => AlbumScreen(),
-            TagScreen.routeName: (context) => TagScreen(),
-            ReleaseEventScreen.routeName: (context) => ReleaseEventScreen(),
-            SearchScreen.routeName: (context) => SearchScreen(),
+            SongPage.routeName: (context) => Provider<SongBloc>(
+                  builder: (context) => SongBloc(configBloc: config),
+                  dispose: (context, bloc) => bloc.dispose(),
+                  child: SongPage(),
+                ),
+            ArtistPage.routeName: (context) => Provider<ArtistBloc>(
+                  builder: (context) => ArtistBloc(configBloc: config),
+                  dispose: (context, bloc) => bloc.dispose(),
+                  child: ArtistPage(),
+                ),
+            AlbumScreen.routeName: (context) => Provider<AlbumBloc>(
+                  builder: (context) => AlbumBloc(configBloc: config),
+                  dispose: (context, bloc) => bloc.dispose(),
+                  child: AlbumPage(),
+                ),
+            TagScreen.routeName: (context) => Provider<TagBloc>(
+                  builder: (context) => TagBloc(configBloc: config),
+                  dispose: (context, bloc) => bloc.dispose(),
+                  child: TagPage(),
+                ),
+            ReleaseEventScreen.routeName: (context) =>
+                Provider<ReleaseEventBloc>(
+                  builder: (context) => ReleaseEventBloc(configBloc: config),
+                  dispose: (context, bloc) => bloc.dispose(),
+                  child: ReleaseEventPage(),
+                ),
+            SearchScreen.routeName: (context) => Provider<SearchBloc>(
+                  builder: (context) => SearchBloc(configBloc: config),
+                  dispose: (context, bloc) => bloc.dispose(),
+                  child: SearchPage(),
+                ),
             YoutubePlaylistScreen.routeName: (context) =>
                 YoutubePlaylistScreen(),
           },
@@ -135,20 +220,39 @@ class _MyHomePageState extends State<MyHomePage> {
     AccountTab(),
   ];
 
+  void handleShortcut(String shortcutType) {
+    switch (shortcutType) {
+      case 'action_quick_search':
+        SearchScreen.navigate(context);
+        break;
+      case 'action_song_search':
+        SongPage.navigate(context, openSearch: true);
+        break;
+      case 'action_artist_search':
+        ArtistPage.navigate(context, openSearch: true);
+        break;
+      case 'action_album_search':
+        AlbumScreen.navigate(context, openSearch: true);
+        break;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final homeBloc = Provider.of<HomeBloc>(context);
     final rankingBloc = Provider.of<RankingBloc>(context);
+    Provider.of<QuickActions>(context).initialize(handleShortcut);
+
     return Scaffold(
       appBar: AppBar(
-        title: Text('VocaDB'),
+        title: Text(APP_NAME),
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.search),
             onPressed: () =>
                 Navigator.pushNamed(context, SearchScreen.routeName),
           ),
-          (_selectedIndex != 1)
+          (_selectedIndex != 1 || !constShowFilterRank)
               ? Container()
               : IconButton(
                   icon: Icon(Icons.filter_list),
@@ -162,18 +266,18 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
+        items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
-            title: Text('Home'),
+            title: Text(FlutterI18n.translate(context, 'label.home')),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.trending_up),
-            title: Text('Ranking'),
+            title: Text(FlutterI18n.translate(context, 'label.ranking')),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.menu),
-            title: Text('Menu'),
+            title: Text(FlutterI18n.translate(context, 'label.menu')),
           ),
         ],
         currentIndex: _selectedIndex,

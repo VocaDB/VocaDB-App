@@ -1,28 +1,18 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:provider/provider.dart';
-import 'package:vocadb/blocs/config_bloc.dart';
 import 'package:vocadb/blocs/tag_bloc.dart';
 import 'package:vocadb/models/tag_model.dart';
 import 'package:vocadb/pages/tag_detail/tag_detail_page.dart';
+import 'package:vocadb/widgets/infinite_list_view.dart';
 import 'package:vocadb/widgets/result.dart';
 
-class TagScreen extends StatelessWidget {
+class TagScreen {
   static const String routeName = '/tags';
 
   static void navigate(BuildContext context) {
     Navigator.pushNamed(context, TagScreen.routeName);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final configBloc = Provider.of<ConfigBloc>(context);
-
-    return Provider<TagBloc>(
-      builder: (context) => TagBloc(configBloc: configBloc),
-      dispose: (context, bloc) => bloc.dispose(),
-      child: TagPage(),
-    );
   }
 }
 
@@ -40,8 +30,12 @@ class _TagPageState extends State<TagPage> {
   }
 
   Widget buildData(List<TagModel> tags) {
-    return ListView.builder(
+    return InfiniteListView(
       itemCount: tags.length,
+      onReachLastItem: () {
+        Provider.of<TagBloc>(context).fetchMore();
+      },
+      showProgressIndicator: !Provider.of<TagBloc>(context).noMoreResult,
       itemBuilder: (context, index) {
         TagModel tag = tags[index];
         return ListTile(
@@ -103,12 +97,14 @@ class _TagPageState extends State<TagPage> {
                             style: Theme.of(context).primaryTextTheme.title,
                             autofocus: true,
                             decoration: InputDecoration(
-                                border: InputBorder.none, hintText: "Search"),
+                                border: InputBorder.none,
+                                hintText: FlutterI18n.translate(
+                                    context, 'label.search')),
                           ),
                         ),
                       ],
                     )
-                  : Text('Tags'),
+                  : Text(FlutterI18n.translate(context, 'label.tags')),
             );
           },
         ),

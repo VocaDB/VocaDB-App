@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:provider/provider.dart';
 import 'package:vocadb/blocs/home_bloc.dart';
 import 'package:vocadb/models/album_model.dart';
@@ -17,14 +18,14 @@ class _LatestAlbumListState extends State<LatestAlbumList> {
             AlbumCard.album(album, tag: 'latest_album_list_${album.id}'))
         .toList();
     return Section(
-        title: 'Recent or upcoming albums',
+        title: FlutterI18n.translate(context, 'label.recentAlbums'),
         horizontal: true,
         children: albumCards);
   }
 
   buildDefault() {
     return Section(
-        title: 'Recent or upcoming albums',
+        title: FlutterI18n.translate(context, 'label.recentAlbums'),
         horizontal: true,
         children: [0, 1, 2].map((i) => AlbumCardPlaceholder()).toList());
   }

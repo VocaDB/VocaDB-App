@@ -1,35 +1,30 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:provider/provider.dart';
-import 'package:vocadb/blocs/config_bloc.dart';
 import 'package:vocadb/blocs/song_bloc.dart';
 import 'package:vocadb/models/song_model.dart';
 import 'package:vocadb/pages/search/search_song_filter_page.dart';
 import 'package:vocadb/pages/youtube_playlist/youtube_playlist_page.dart';
 import 'package:vocadb/widgets/center_content.dart';
+import 'package:vocadb/widgets/infinite_list_view.dart';
 import 'package:vocadb/widgets/result.dart';
 import 'package:vocadb/widgets/song_tile.dart';
 
-class SongScreen extends StatelessWidget {
-  static const String routeName = '/songs';
+class SongPageArguments {
+  final bool openSearch;
 
-  static void navigate(BuildContext context) {
-    Navigator.pushNamed(context, SongScreen.routeName);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final configBloc = Provider.of<ConfigBloc>(context);
-
-    return Provider<SongBloc>(
-      builder: (context) => SongBloc(configBloc: configBloc),
-      dispose: (context, bloc) => bloc.dispose(),
-      child: SongPage(),
-    );
-  }
+  SongPageArguments({this.openSearch});
 }
 
 class SongPage extends StatefulWidget {
+  static const String routeName = '/songs';
+
+  static void navigate(BuildContext context, {bool openSearch = false}) {
+    Navigator.pushNamed(context, SongPage.routeName,
+        arguments: SongPageArguments(openSearch: openSearch));
+  }
+
   @override
   _SongPageState createState() => _SongPageState();
 }
@@ -37,20 +32,37 @@ class SongPage extends StatefulWidget {
 class _SongPageState extends State<SongPage> {
   final TextEditingController _controller = TextEditingController();
 
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    final SongPageArguments args = ModalRoute.of(context).settings.arguments;
+    final songBloc = Provider.of<SongBloc>(context);
+
+    if (args.openSearch) {
+      songBloc.openSearch();
+    }
+  }
+
   Widget buildData(List<SongModel> songs) {
     if (songs.length == 0) {
       return CenterResult(
         result: Result(
           Icon(Icons.search),
-          'No result',
+          FlutterI18n.translate(context, 'error.searchResultNotMatched'),
         ),
       );
     }
 
-    return ListView.builder(
+    return InfiniteListView(
       itemCount: songs.length,
+      onReachLastItem: () {
+        Provider.of<SongBloc>(context).fetchMore();
+      },
+      showProgressIndicator: !Provider.of<SongBloc>(context).noMoreResult,
       itemBuilder: (context, index) {
         SongModel song = songs[index];
+
         return SongTile.fromSong(song);
       },
     );
@@ -112,12 +124,14 @@ class _SongPageState extends State<SongPage> {
                               style: Theme.of(context).primaryTextTheme.title,
                               autofocus: true,
                               decoration: InputDecoration(
-                                  border: InputBorder.none, hintText: "Search"),
+                                  border: InputBorder.none,
+                                  hintText: FlutterI18n.translate(
+                                      context, 'label.search')),
                             ),
                           ),
                         ],
                       )
-                    : Text('Songs'),
+                    : Text(FlutterI18n.translate(context, 'label.songs')),
               );
             },
           ),

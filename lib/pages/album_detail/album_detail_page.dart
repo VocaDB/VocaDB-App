@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:provider/provider.dart';
 import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -7,8 +8,10 @@ import 'package:vocadb/blocs/album_detail_bloc.dart';
 import 'package:vocadb/blocs/config_bloc.dart';
 import 'package:vocadb/blocs/favorite_album_bloc.dart';
 import 'package:vocadb/constants.dart';
+import 'package:vocadb/models/album_disc_model.dart';
 import 'package:vocadb/models/album_model.dart';
 import 'package:vocadb/models/track_model.dart';
+import 'package:vocadb/pages/youtube_playlist/youtube_playlist_page.dart';
 import 'package:vocadb/widgets/artist_section.dart';
 import 'package:vocadb/widgets/expandable_content.dart';
 import 'package:vocadb/widgets/like_button.dart';
@@ -18,6 +21,7 @@ import 'package:vocadb/widgets/tags.dart';
 import "package:collection/collection.dart";
 import 'package:vocadb/widgets/album_track.dart';
 import 'package:vocadb/widgets/text_info_section.dart';
+import 'package:vocadb/widgets/web_link_section.dart';
 
 class AlbumDetailScreenArguments {
   final int id;
@@ -51,18 +55,44 @@ class AlbumDetailPage extends StatelessWidget {
     final AlbumDetailScreenArguments args =
         ModalRoute.of(context).settings.arguments;
 
+    final bloc = Provider.of<AlbumDetailBloc>(context);
+
     return Scaffold(
-      body: CustomScrollView(
-        slivers: <Widget>[
-          SliverAppBar(
-            floating: true,
-            title: Text(args.name),
-          ),
-          HeroContent(args.name, args.thumbUrl, args.tag),
-          AlbumDetailContent(args.id)
-        ],
-      ),
-    );
+        body: CustomScrollView(
+          slivers: <Widget>[
+            SliverAppBar(
+              floating: true,
+              title: Text(args.name),
+            ),
+            HeroContent(args.name, args.thumbUrl, args.tag),
+            AlbumDetailContent(args.id)
+          ],
+        ),
+        floatingActionButton: StreamBuilder(
+          stream: bloc.album$,
+          builder: (context, snapshot) {
+            if (!snapshot.hasData) {
+              return Container();
+            }
+
+            AlbumModel album = snapshot.data;
+
+            if (album.isContainsYoutubeTrack) {
+              return FloatingActionButton(
+                onPressed: () => YoutubePlaylistScreen.navigate(
+                    context,
+                    album.tracks
+                        .where((t) => t.song != null)
+                        .map((t) => t.song)
+                        .toList(),
+                    title: album.name),
+                child: Icon(Icons.play_arrow),
+              );
+            }
+
+            return Container();
+          },
+        ));
   }
 }
 
@@ -128,7 +158,8 @@ class _AlbumDetailContentState extends State<AlbumDetailContent> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             (album.ratingAverage == 0)
-                ? Text('No rating', style: Theme.of(context).textTheme.caption)
+                ? Text(FlutterI18n.translate(context, 'label.noRating'),
+                    style: Theme.of(context).textTheme.caption)
                 : Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
@@ -137,11 +168,13 @@ class _AlbumDetailContentState extends State<AlbumDetailContent> {
                       SizedBox(
                         height: 4,
                       ),
-                      Text('${album.ratingCount} rating',
+                      Text(
+                          FlutterI18n.translate(context, 'label.ratingCount',
+                              {'rating': '${album.ratingCount}'}),
                           style: Theme.of(context).textTheme.caption)
                     ],
                   ),
-            Text(album.discType),
+            Text(FlutterI18n.translate(context, 'discType.${album.discType}')),
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
@@ -149,7 +182,8 @@ class _AlbumDetailContentState extends State<AlbumDetailContent> {
                 SizedBox(
                   height: 4,
                 ),
-                Text('Released', style: Theme.of(context).textTheme.caption)
+                Text(FlutterI18n.translate(context, 'label.releasedDate'),
+                    style: Theme.of(context).textTheme.caption)
               ],
             ),
           ],
@@ -189,7 +223,8 @@ class _AlbumDetailContentState extends State<AlbumDetailContent> {
                       Icon(
                         Icons.share,
                       ),
-                      Text('Share', style: TextStyle(fontSize: 12))
+                      Text(FlutterI18n.translate(context, 'label.share'),
+                          style: TextStyle(fontSize: 12))
                     ],
                   )),
             ),
@@ -204,7 +239,8 @@ class _AlbumDetailContentState extends State<AlbumDetailContent> {
                       Icon(
                         Icons.info,
                       ),
-                      Text('More info', style: TextStyle(fontSize: 12))
+                      Text(FlutterI18n.translate(context, 'label.info'),
+                          style: TextStyle(fontSize: 12))
                     ],
                   )),
             ),
@@ -221,41 +257,45 @@ class _AlbumDetailContentState extends State<AlbumDetailContent> {
           children: <Widget>[
             SpaceDivider(),
             TextInfoSection(
-              title: 'Name',
+              title: FlutterI18n.translate(context, 'label.name'),
               text: album.name,
             ),
             (album.additionalNames == null)
                 ? Container()
                 : Text(album.additionalNames),
             TextInfoSection(
-              title: 'Description',
+              title: FlutterI18n.translate(context, 'label.description'),
               text: album.description,
             ),
             Divider(),
             ArtistForAlbumSection(
-              title: 'Producers',
+              title: FlutterI18n.translate(context, 'label.producers'),
               prefixTag: 'producer_${album.id}',
               artists: album.producers,
             ),
             ArtistForAlbumSection(
-              title: 'Vocalists',
+              title: FlutterI18n.translate(context, 'label.vocalists'),
               prefixTag: 'vocalist_${album.id}',
               artists: album.vocalists,
             ),
             ArtistForAlbumSection(
-              title: 'Labels',
+              title: FlutterI18n.translate(context, 'label.labels'),
               prefixTag: 'labels_${album.id}',
               artists: album.labels,
             ),
             ArtistForAlbumSection(
-              title: 'Other artists',
+              title: FlutterI18n.translate(context, 'label.other'),
               prefixTag: 'other_${album.id}',
               artists: album.otherArtists,
             ),
           ],
         ),
       )),
-      TrackList(album.tracks),
+      AlbumDiscs(album.discs()),
+      Divider(),
+      WebLinkSection(
+        webLinks: album.webLinks,
+      )
     ];
     return widgets;
   }
@@ -277,15 +317,52 @@ class _AlbumDetailContentState extends State<AlbumDetailContent> {
   }
 }
 
+class AlbumDiscs extends StatelessWidget {
+  final List<AlbumDiscModel> discs;
+
+  const AlbumDiscs(this.discs);
+
+  @override
+  Widget build(BuildContext context) {
+    if (discs == null) return Container();
+
+    if (discs.length == 1) {
+      return Container(
+        child: Column(
+          children: discs[0].tracks.map((t) => AlbumTrack(t)).toList(),
+        ),
+      );
+    }
+
+    return Container(
+      child: Column(
+        children: discs
+            .map((disc) => Column(
+                  children: <Widget>[
+                    Text(FlutterI18n.translate(context, 'label.discNo',
+                        {'disc': disc.discNumber.toString()})),
+                    Column(
+                      children: disc.tracks.map((t) => AlbumTrack(t)).toList(),
+                    )
+                  ],
+                ))
+            .toList(),
+      ),
+    );
+  }
+}
+
 class TrackList extends StatelessWidget {
   final List<TrackModel> tracks;
 
   const TrackList(this.tracks);
 
-  buildHasData(List<TrackModel> tracks) {
+  buildHasData(BuildContext context, List<TrackModel> tracks) {
     List<Widget> widgets = List();
 
     var groupTracks = groupBy(tracks, (t) => t.discNumber);
+
+    print(groupTracks);
 
     if (groupTracks.length < 2) {
       var discTracks = tracks.map((t) => AlbumTrack(t)).toList();
@@ -294,7 +371,8 @@ class TrackList extends StatelessWidget {
       widgets.add(SpaceDivider());
     } else {
       groupTracks.forEach((disc, List<TrackModel> t) {
-        widgets.add(Text("Disc $disc"));
+        widgets.add(Text(FlutterI18n.translate(
+            context, 'label.discNo', {'disc': disc.toString()})));
 
         var discTracks = tracks.map((t) => AlbumTrack(t)).toList();
 
@@ -322,7 +400,9 @@ class TrackList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return (this.tracks != null) ? buildHasData(tracks) : buildDefault();
+    return (this.tracks != null)
+        ? buildHasData(context, tracks)
+        : buildDefault();
   }
 }
 

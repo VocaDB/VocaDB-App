@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:vocadb/models/web_link_model.dart';
 import 'package:vocadb/widgets/web_link.dart';
 
@@ -43,7 +44,7 @@ class WebLinkSection extends StatelessWidget {
       children.add(Padding(
         padding: EdgeInsets.all(8.0),
         child: Text(
-          'Official links',
+          FlutterI18n.translate(context, 'label.officialLinks'),
           textDirection: TextDirection.ltr,
           style: Theme.of(context).textTheme.subhead,
         ),
@@ -59,7 +60,7 @@ class WebLinkSection extends StatelessWidget {
       children.add(Padding(
         padding: EdgeInsets.all(8.0),
         child: Text(
-          'Unofficial links',
+          FlutterI18n.translate(context, 'label.unofficialLinks'),
           textDirection: TextDirection.ltr,
           style: Theme.of(context).textTheme.subhead,
         ),

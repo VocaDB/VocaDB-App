@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:provider/provider.dart';
-import 'package:vocadb/blocs/config_bloc.dart';
 import 'package:vocadb/blocs/search_bloc.dart';
 import 'package:vocadb/models/entry_model.dart';
 import 'package:vocadb/pages/search/search_entry_filter_page.dart';
@@ -8,22 +8,11 @@ import 'package:vocadb/widgets/center_content.dart';
 import 'package:vocadb/widgets/entry_tile.dart';
 import 'package:vocadb/widgets/result.dart';
 
-class SearchScreen extends StatelessWidget {
+class SearchScreen {
   static const String routeName = '/search';
 
   static void navigate(BuildContext context) {
     Navigator.pushNamed(context, SearchScreen.routeName);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final configBloc = Provider.of<ConfigBloc>(context);
-
-    return Provider<SearchBloc>(
-      builder: (context) => SearchBloc(configBloc: configBloc),
-      dispose: (context, bloc) => bloc.dispose(),
-      child: SearchPage(),
-    );
   }
 }
 
@@ -58,7 +47,8 @@ class _SearchPageState extends State<SearchPage> {
                 ListTile(
                     leading: Icon(Icons.search),
                     selected: bloc.entryType == EntryType.Undefined,
-                    title: Text('Anything'),
+                    title:
+                        Text(FlutterI18n.translate(context, 'label.anything')),
                     onTap: () {
                       onChangeEntryType(EntryType.Undefined);
                       Navigator.pop(context);
@@ -66,7 +56,7 @@ class _SearchPageState extends State<SearchPage> {
                 ListTile(
                     leading: Icon(Icons.music_note),
                     selected: bloc.entryType == EntryType.Song,
-                    title: Text('Song'),
+                    title: Text(FlutterI18n.translate(context, 'label.song')),
                     onTap: () {
                       onChangeEntryType(EntryType.Song);
                       Navigator.pop(context);
@@ -74,7 +64,8 @@ class _SearchPageState extends State<SearchPage> {
                 ListTile(
                     leading: Icon(Icons.person),
                     selected: bloc.entryType == EntryType.Artist,
-                    title: Text('Artist'),
+                    title:
+                        Text(FlutterI18n.translate(context, 'label.artists')),
                     onTap: () {
                       onChangeEntryType(EntryType.Artist);
                       Navigator.pop(context);
@@ -82,7 +73,7 @@ class _SearchPageState extends State<SearchPage> {
                 ListTile(
                     leading: Icon(Icons.album),
                     selected: bloc.entryType == EntryType.Album,
-                    title: Text('Album'),
+                    title: Text(FlutterI18n.translate(context, 'label.album')),
                     onTap: () {
                       onChangeEntryType(EntryType.Album);
                       Navigator.pop(context);
@@ -90,7 +81,7 @@ class _SearchPageState extends State<SearchPage> {
                 ListTile(
                     leading: Icon(Icons.event),
                     selected: bloc.entryType == EntryType.ReleaseEvent,
-                    title: Text('Release events'),
+                    title: Text(FlutterI18n.translate(context, 'label.event')),
                     onTap: () {
                       onChangeEntryType(EntryType.ReleaseEvent);
                       Navigator.pop(context);
@@ -146,7 +137,8 @@ class _SearchPageState extends State<SearchPage> {
                 autofocus: true,
                 style: Theme.of(context).primaryTextTheme.title,
                 decoration: InputDecoration(
-                    border: InputBorder.none, hintText: "Search"),
+                    border: InputBorder.none,
+                    hintText: FlutterI18n.translate(context, 'label.search')),
               ),
             ),
             Container(
@@ -196,27 +188,32 @@ class SearchResult extends StatelessWidget {
 
   const SearchResult({Key key, this.entries}) : super(key: key);
 
-  Widget buildHasData(List<EntryModel> entries) {
-    if (entries.isEmpty) return buildEmpty();
+  Widget buildHasData(BuildContext context, List<EntryModel> entries) {
+    if (entries.isEmpty) return buildEmpty(context);
 
     List<Widget> contents = [];
 
     EntryList entryList = EntryList(entries);
 
     if (entryList.songs.length > 0) {
-      contents.add(buildSection('Songs', entryList.songs));
+      contents.add(buildSection(
+          FlutterI18n.translate(context, 'label.songs'), entryList.songs));
     }
 
     if (entryList.artists.length > 0) {
-      contents.add(buildSection('Artists', entryList.artists));
+      contents.add(buildSection(
+          FlutterI18n.translate(context, 'label.artists'), entryList.artists));
     }
 
     if (entryList.albums.length > 0) {
-      contents.add(buildSection('Albums', entryList.albums));
+      contents.add(buildSection(
+          FlutterI18n.translate(context, 'label.albums'), entryList.albums));
     }
 
     if (entryList.releaseEvents.length > 0) {
-      contents.add(buildSection('Release events', entryList.releaseEvents));
+      contents.add(buildSection(
+          FlutterI18n.translate(context, 'label.releaseEvents'),
+          entryList.releaseEvents));
     }
 
     return ListView.builder(
@@ -233,9 +230,10 @@ class SearchResult extends StatelessWidget {
     );
   }
 
-  Widget buildEmpty() {
+  Widget buildEmpty(BuildContext context) {
     return Center(
-      child: Result(Icon(Icons.search, size: 48), 'Not results found.'),
+      child: Result(Icon(Icons.search, size: 48),
+          FlutterI18n.translate(context, 'error.searchResultNotMatched')),
     );
   }
 
@@ -256,6 +254,6 @@ class SearchResult extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return buildHasData(this.entries);
+    return buildHasData(context, this.entries);
   }
 }

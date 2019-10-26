@@ -39,7 +39,7 @@ class SongTile extends StatelessWidget {
             placeholder: (context, url) => Container(color: Colors.grey),
             errorWidget: (context, url, error) => new Icon(Icons.error),
           )
-        : Placeholder();
+        : Icon(Icons.music_note);
 
     return Padding(
         padding: const EdgeInsets.all(8.0),
@@ -60,7 +60,7 @@ class SongTile extends StatelessWidget {
             Text(song.name, overflow: TextOverflow.ellipsis),
             Text(song.artistString,
                 overflow: TextOverflow.ellipsis,
-                maxLines: 2,
+                maxLines: 1,
                 style: Theme.of(context).textTheme.caption),
             SizedBox(
               height: 8.0,

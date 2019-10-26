@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:provider/provider.dart';
 import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -71,13 +72,15 @@ class ArtistDetailPage extends StatelessWidget {
                   opacity: 0.7,
                   child: Hero(
                       tag: this.tag,
-                      child: CachedNetworkImage(
-                        imageUrl: this.imageUrl,
-                        placeholder: (context, url) =>
-                            Container(color: Colors.grey),
-                        errorWidget: (context, url, error) =>
-                            new Icon(Icons.error),
-                      )),
+                      child: (this.imageUrl == null)
+                          ? Icon(Icons.person)
+                          : CachedNetworkImage(
+                              imageUrl: this.imageUrl,
+                              placeholder: (context, url) =>
+                                  Container(color: Colors.grey),
+                              errorWidget: (context, url, error) =>
+                                  new Icon(Icons.error),
+                            )),
                 ),
               ),
             ),
@@ -126,9 +129,8 @@ class ArtistInfo extends StatelessWidget {
               (artist.additionalNames != null)
                   ? Text(artist.additionalNames)
                   : Container(),
-              Text(
-                artist.artistType,
-              ),
+              Text(FlutterI18n.translate(
+                  context, 'artistType.${artist.artistType}')),
             ],
           ),
         ),
@@ -150,11 +152,13 @@ class ArtistInfo extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           TextInfoSection(
-                            title: 'Release date',
+                            title: FlutterI18n.translate(
+                                context, 'label.releasedDate'),
                             text: artist.releaseDateFormatted,
                           ),
                           TextInfoSection(
-                            title: 'Description',
+                            title: FlutterI18n.translate(
+                                context, 'label.description'),
                             text: artist.description,
                           ),
                         ],
@@ -167,7 +171,9 @@ class ArtistInfo extends StatelessWidget {
                             children: <Widget>[
                               Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 8.0),
-                                child: Text('Base voicebank',
+                                child: Text(
+                                    FlutterI18n.translate(
+                                        context, 'label.baseVoicebank'),
                                     style: Theme.of(context).textTheme.subhead),
                               ),
                               SpaceDivider(),
@@ -180,32 +186,38 @@ class ArtistInfo extends StatelessWidget {
                             ],
                           ),
                     ArtistSection(
-                      title: 'Illustrated by',
+                      title: FlutterI18n.translate(
+                          context, 'artistRoleType.illustratedBy'),
                       prefixTag: 'illustrated_${artist.id}',
                       artists: artist.illustrators,
                     ),
                     ArtistSection(
-                      title: 'Voice provider',
+                      title: FlutterI18n.translate(
+                          context, 'artistRoleType.voiceProvider'),
                       prefixTag: 'voice_provider_${artist.id}',
                       artists: artist.voiceProviders,
                     ),
                     ArtistSection(
-                      title: 'Groups and labels',
+                      title: FlutterI18n.translate(
+                          context, 'artistRoleType.groupAndLabels'),
                       prefixTag: 'labels_${artist.id}',
                       artists: artist.groups,
                     ),
                     ArtistSection(
-                      title: 'Illustrator of',
+                      title: FlutterI18n.translate(
+                          context, 'artistRoleType.illustratorOf'),
                       prefixTag: 'illustrator_of_${artist.id}',
                       artists: artist.illustratedList,
                     ),
                     ArtistSection(
-                      title: 'Voice provider of',
+                      title: FlutterI18n.translate(
+                          context, 'artistRoleType.voiceProviderOf'),
                       prefixTag: 'voice_provider_of_${artist.id}',
                       artists: artist.voiceProvidedList,
                     ),
                     ArtistSection(
-                      title: 'Members',
+                      title: FlutterI18n.translate(
+                          context, 'artistRoleType.members'),
                       prefixTag: 'members_${artist.id}',
                       artists: artist.members,
                     ),
@@ -267,7 +279,8 @@ class ArtistDetailContent extends StatelessWidget {
                         Icon(
                           Icons.share,
                         ),
-                        Text('Share', style: TextStyle(fontSize: 12))
+                        Text(FlutterI18n.translate(context, 'label.share'),
+                            style: TextStyle(fontSize: 12))
                       ],
                     )),
               ),
@@ -282,7 +295,8 @@ class ArtistDetailContent extends StatelessWidget {
                         Icon(
                           Icons.info,
                         ),
-                        Text('More info', style: TextStyle(fontSize: 12))
+                        Text(FlutterI18n.translate(context, 'label.info'),
+                            style: TextStyle(fontSize: 12))
                       ],
                     )),
               ),
@@ -294,7 +308,7 @@ class ArtistDetailContent extends StatelessWidget {
           artist: artist,
         ),
         SongListSection(
-          title: 'Recent Songs/PVs',
+          title: FlutterI18n.translate(context, 'label.recentSongsPVs'),
           songs: artist.relations.latestSongs,
           horizontal: true,
           prefixTag: 'artist_latest_song_${artist.id}}',
@@ -306,13 +320,13 @@ class ArtistDetailContent extends StatelessWidget {
             itemBuilder: (BuildContext context) => [
               PopupMenuItem<String>(
                 value: 'more',
-                child: Text('Show more'),
+                child: Text(FlutterI18n.translate(context, 'label.showMore')),
               ),
             ],
           ),
         ),
         SongListSection(
-          title: 'Popular songs',
+          title: FlutterI18n.translate(context, 'label.popularSongs'),
           songs: artist.relations.popularSongs,
           horizontal: true,
           prefixTag: 'artist_popular_song_${artist.id}}',
@@ -324,13 +338,13 @@ class ArtistDetailContent extends StatelessWidget {
             itemBuilder: (BuildContext context) => [
               PopupMenuItem<String>(
                 value: 'more',
-                child: Text('Show more'),
+                child: Text(FlutterI18n.translate(context, 'label.showMore')),
               ),
             ],
           ),
         ),
         AlbumListSection(
-          title: 'Recent or upcoming albums',
+          title: FlutterI18n.translate(context, 'label.recentAlbums'),
           albums: artist.relations.latestAlbums,
           horizontal: true,
           prefixTag: 'artist_latest_album_${artist.id}}',
@@ -342,13 +356,13 @@ class ArtistDetailContent extends StatelessWidget {
             itemBuilder: (BuildContext context) => [
               PopupMenuItem<String>(
                 value: 'more',
-                child: Text('Show more'),
+                child: Text(FlutterI18n.translate(context, 'label.showMore')),
               ),
             ],
           ),
         ),
         AlbumListSection(
-          title: 'Popular albums',
+          title: FlutterI18n.translate(context, 'label.popularAlbums'),
           albums: artist.relations.popularAlbums,
           horizontal: true,
           prefixTag: 'artist_latest_album_${artist.id}}',
@@ -360,7 +374,7 @@ class ArtistDetailContent extends StatelessWidget {
             itemBuilder: (BuildContext context) => [
               PopupMenuItem<String>(
                 value: 'more',
-                child: Text('Show more'),
+                child: Text(FlutterI18n.translate(context, 'label.showMore')),
               ),
             ],
           ),

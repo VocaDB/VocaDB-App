@@ -23,4 +23,44 @@ void main() {
       expect(result, isNotNull);
     });
   });
+
+  group('PV List', () {
+    test('should return true if PV list contains youtube', () {
+      final pvList = PVList([
+        PVModel.fromJson({
+          "id": 1,
+          "name": "A",
+          "service": "Any",
+          "url": "https://any.com",
+        }),
+        PVModel.fromJson({
+          "id": 2,
+          "name": "B",
+          "service": "Youtube",
+          "url": "https://youtube.com",
+        }),
+      ]);
+
+      expect(pvList.isContainsYoutube, isTrue);
+    });
+
+    test('should return false if PV list not contains youtube', () {
+      final pvList = PVList([
+        PVModel.fromJson({
+          "id": 1,
+          "name": "A",
+          "service": "Nico",
+          "url": "https://nico.fromJson"
+        }),
+        PVModel.fromJson({
+          "id": 2,
+          "name": "B",
+          "service": "soundcloud",
+          "url": "https://soundcloud.com",
+        }),
+      ]);
+
+      expect(pvList.isContainsYoutube, isFalse);
+    });
+  });
 }

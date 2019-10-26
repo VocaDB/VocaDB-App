@@ -55,29 +55,31 @@ class ArtistTile extends StatelessWidget {
   }
 
   Widget buildLeading() {
+    final Widget imageChild =
+        (this.id == null || this.id == 0 || this.imageUrl == null)
+            ? Icon(Icons.person)
+            : Hero(
+                tag: this.tag,
+                child: CachedNetworkImage(
+                  imageUrl: this.imageUrl,
+                  placeholder: (context, url) => Container(color: Colors.grey),
+                  errorWidget: (context, url, error) => new Icon(Icons.error),
+                ));
+
     return SizedBox(
       width: 50,
       height: 50,
       child: ClipOval(
           child: Container(
         color: Colors.white,
-        child: Hero(
-            tag: this.tag,
-            child: (this.imageUrl == null)
-                ? Placeholder()
-                : CachedNetworkImage(
-                    imageUrl: this.imageUrl,
-                    placeholder: (context, url) =>
-                        Container(color: Colors.grey),
-                    errorWidget: (context, url, error) => new Icon(Icons.error),
-                  )),
+        child: imageChild,
       )),
     );
   }
 
   Widget buildSingleLine(BuildContext context) {
     return ListTile(
-      enabled: (this.id != null),
+      enabled: (this.id != null && this.id != 0),
       onTap: () => navigateToDetail(context),
       leading: buildLeading(),
       title: Text(this.title, overflow: TextOverflow.ellipsis),
@@ -86,7 +88,7 @@ class ArtistTile extends StatelessWidget {
 
   Widget buildTwoLine(BuildContext context) {
     return ListTile(
-      enabled: (this.id != null),
+      enabled: (this.id != null && this.id != 0),
       onTap: () => navigateToDetail(context),
       leading: buildLeading(),
       title: Text(this.title, overflow: TextOverflow.ellipsis),

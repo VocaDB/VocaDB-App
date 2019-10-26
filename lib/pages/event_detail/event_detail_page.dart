@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:provider/provider.dart';
 import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -8,10 +9,11 @@ import 'package:vocadb/blocs/release_event_detail_bloc.dart';
 import 'package:vocadb/constants.dart';
 import 'package:vocadb/models/album_model.dart';
 import 'package:vocadb/models/release_event_model.dart';
-import 'package:vocadb/pages/song_detail/song_detail_page.dart';
+import 'package:vocadb/models/song_model.dart';
+import 'package:vocadb/widgets/album_section.dart';
 import 'package:vocadb/widgets/artist_section.dart';
-import 'package:vocadb/widgets/expandable_content.dart';
 import 'package:vocadb/widgets/result.dart';
+import 'package:vocadb/widgets/song_list_section.dart';
 import 'package:vocadb/widgets/space_divider.dart';
 import 'package:vocadb/widgets/text_info_section.dart';
 import 'package:vocadb/widgets/web_link_section.dart';
@@ -109,7 +111,8 @@ class EventDetailPage extends StatelessWidget {
                           Icon(
                             Icons.info,
                           ),
-                          Text('More info', style: TextStyle(fontSize: 12))
+                          Text(FlutterI18n.translate(context, 'label.showMore'),
+                              style: TextStyle(fontSize: 12))
                         ],
                       )),
                 ),
@@ -121,19 +124,24 @@ class EventDetailPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   TextInfoSection(
-                    title: 'Name',
+                    title: FlutterI18n.translate(context, 'label.name'),
                     text: releaseEvent.name,
                   ),
                   TextInfoSection(
-                    title: 'Date',
+                    title: FlutterI18n.translate(context, 'label.category'),
+                    text: FlutterI18n.translate(
+                        context, 'eventCategory.${releaseEvent.category}'),
+                  ),
+                  TextInfoSection(
+                    title: FlutterI18n.translate(context, 'label.date'),
                     text: releaseEvent.dateFormatted,
                   ),
                   TextInfoSection(
-                    title: 'Venue',
+                    title: FlutterI18n.translate(context, 'label.venue'),
                     text: releaseEvent.venueName,
                   ),
                   TextInfoSection(
-                    title: 'Description',
+                    title: FlutterI18n.translate(context, 'label.description'),
                     text: releaseEvent.description,
                   ),
                 ],
@@ -141,7 +149,8 @@ class EventDetailPage extends StatelessWidget {
             ),
             Divider(),
             ArtistForEventSection(
-              title: 'Participating artists',
+              title:
+                  FlutterI18n.translate(context, 'label.participatingArtists'),
               artists: releaseEvent.artists,
             ),
             (releaseEvent.artists.length == 0) ? Container() : Divider(),
@@ -160,7 +169,26 @@ class EventDetailPage extends StatelessWidget {
                 );
               },
             ),
-            WebLinkSection(webLinks: releaseEvent.webLinks, title: "References")
+            StreamBuilder(
+              stream: Provider.of<ReleaseEventDetailBloc>(context).songs$,
+              builder: (context, snapshot) {
+                if (!snapshot.hasData) return Container();
+
+                List<SongModel> songs = snapshot.data;
+
+                if (songs.length == 0) return Container();
+
+                return SongListSection(
+                  title: FlutterI18n.translate(context, 'label.songs'),
+                  songs: songs,
+                  horizontal: true,
+                  prefixTag: 'release_event_detail_songs_${releaseEvent.id}}',
+                );
+              },
+            ),
+            WebLinkSection(
+                webLinks: releaseEvent.webLinks,
+                title: FlutterI18n.translate(context, 'label.references'))
           ]),
         )
       ],
