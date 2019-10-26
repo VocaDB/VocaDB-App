@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:rxdart/rxdart.dart';
 import 'package:vocadb/blocs/config_bloc.dart';
+import 'package:vocadb/models/lyric_model.dart';
 import 'package:vocadb/models/song_model.dart';
 import 'package:vocadb/services/song_rest_service.dart';
 
@@ -36,7 +37,9 @@ class SongDetailBloc {
       return;
     }
 
-    if (song.originalVersionId != null && song.originalVersionId > 0) {
+    if (song.originalVersionId != null &&
+        song.originalVersionId > 0 &&
+        _originalVersion.value == null) {
       fetchOriginalVersion(song.originalVersionId);
     }
 
@@ -51,9 +54,13 @@ class SongDetailBloc {
   }
 
   Future<void> fetchOriginalVersion(int id) async {
-    songService
-        .byId(id, lang: configBloc.contentLang)
-        .then(_originalVersion.add);
+    songService.byId(id, lang: configBloc.contentLang).then((original) {
+      _originalVersion.add(original);
+
+      if (original.hasLyrics && !_song.value.hasLyrics) {
+        addOriginalLyrics(original.lyrics);
+      }
+    });
   }
 
   Future<void> fetchAlternateVersions(int id) async {
@@ -68,6 +75,14 @@ class SongDetailBloc {
         .related(id, lang: configBloc.contentLang)
         .then((songs) => songs.take(20).toList())
         .then(_relatedSongs.add);
+  }
+
+  void addOriginalLyrics(List<LyricModel> lyrics) {
+    SongModel currentSong = _song.value;
+
+    currentSong.lyrics = lyrics;
+
+    _song.add(currentSong);
   }
 
   void showLyric() {
