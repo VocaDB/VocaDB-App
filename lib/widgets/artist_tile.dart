@@ -55,22 +55,24 @@ class ArtistTile extends StatelessWidget {
   }
 
   Widget buildLeading() {
+    final Widget imageChild =
+        (this.id == null || this.id == 0 || this.imageUrl == null)
+            ? Icon(Icons.person)
+            : Hero(
+                tag: this.tag,
+                child: CachedNetworkImage(
+                  imageUrl: this.imageUrl,
+                  placeholder: (context, url) => Container(color: Colors.grey),
+                  errorWidget: (context, url, error) => new Icon(Icons.error),
+                ));
+
     return SizedBox(
       width: 50,
       height: 50,
       child: ClipOval(
           child: Container(
         color: Colors.white,
-        child: Hero(
-            tag: this.tag,
-            child: (this.imageUrl == null)
-                ? Icon(Icons.person)
-                : CachedNetworkImage(
-                    imageUrl: this.imageUrl,
-                    placeholder: (context, url) =>
-                        Container(color: Colors.grey),
-                    errorWidget: (context, url, error) => new Icon(Icons.error),
-                  )),
+        child: imageChild,
       )),
     );
   }
