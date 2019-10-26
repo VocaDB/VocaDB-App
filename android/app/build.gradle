@@ -22,12 +22,7 @@ if (flutterVersionName == null) {
 }
 
 def keystoreProperties = new Properties()
-
-
-//def keyFile = 'key.local.properties' // For local build
-def keyFile = 'key.bitrise.properties' // For bitrise build
-
-def keystorePropertiesFile = rootProject.file(keyFile)
+def keystorePropertiesFile = rootProject.file('key.properties')
 if (keystorePropertiesFile.exists()) {
     keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 }
@@ -52,28 +47,27 @@ android {
         applicationId "com.coolappz.Vocadb"
         minSdkVersion 20
         targetSdkVersion 29
-        versionCode flutterVersionCode.toInteger()
-        versionName "3.0.0-beta.1"
+        versionCode 102339
+        versionName "3.0.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     signingConfigs {
         release {
-//            keyAlias keystoreProperties['keyAlias']
-//            keyPassword keystoreProperties['keyPassword']
-//            storeFile file(keystoreProperties['storeFile'])
-//            storePassword keystoreProperties['storePassword']
-
-            // For BITRISE CICD
-            keyAlias "$System.env.BITRISEIO_ANDROID_KEYSTORE_ALIAS"
-            keyPassword "$System.env.BITRISEIO_ANDROID_KEYSTORE_PASSWORD"
-            storeFile file("$System.env.BITRISEIO_ANDROID_KEYSTORE_URL")
-            storePassword "$System.env.BITRISEIO_ANDROID_KEYSTORE_PRIVATE_KEY_PASSWORD"
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
+            storeFile file(keystoreProperties['storeFile'])
+            storePassword keystoreProperties['storePassword']
         }
     }
     buildTypes {
         release {
-            signingConfig signingConfigs.debug
+            signingConfig signingConfigs.release
+
+            minifyEnabled true
+            useProguard true
+
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
 }
