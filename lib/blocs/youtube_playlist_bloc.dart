@@ -101,6 +101,8 @@ class YoutubePlaylistBloc {
 
   void select(int index) {
     _currentIndex.add(index);
+    _youtubePlayerController
+        .load(YoutubePlayer.convertUrlToId(currentPV.youtubePV.url));
   }
 
   void showDetail() {
