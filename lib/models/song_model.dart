@@ -39,9 +39,14 @@ class SongModel extends EntryModel {
         : items.map((i) => SongModel.fromJson(i)).toList();
   }
 
-  PVModel get youtubePV =>
-      pvs?.firstWhere((pv) => pv.service.toLowerCase() == "youtube",
-          orElse: () => null);
+  PVModel get youtubePV {
+    return pvs?.firstWhere(
+        (pv) =>
+            pv.service.toLowerCase() == 'youtube' && pv.pvType == 'Original',
+        orElse: () => pvs?.firstWhere(
+            (pv) => pv.service.toLowerCase() == 'youtube',
+            orElse: () => null));
+  }
 
   List<TagModel> get tags =>
       (this.tagGroups != null) ? this.tagGroups.map((t) => t.tag).toList() : [];
