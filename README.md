@@ -1,5 +1,11 @@
+[![Download](https://img.shields.io/github/v/release/VocaDB/VocaDB-App)](https://github.com/VocaDB/VocaDB-App/releases)
+[![Download](https://img.shields.io/github/license/VocaDB/VocaDB-App)](https://github.com/VocaDB/VocaDB-App/LICENSE)
+
+
 # VocaDB App
 VocaDB mobile version with [Flutter framework](https://flutter.dev/). 
+
+![Screenshot](/assets/store/VocaDB/android/vocadb_demo.gif)
 
 ## Download
 
@@ -17,4 +23,4 @@ VocaDB mobile version with [Flutter framework](https://flutter.dev/).
 
 ## Translation
 
-Translation files in assets/i18n
+Translation files in _assets/i18n_. If anyone would like to update or add more language, You can add/edit and pull request to me.
