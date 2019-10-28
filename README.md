@@ -1,6 +1,5 @@
 [![Download](https://img.shields.io/github/v/release/VocaDB/VocaDB-App)](https://github.com/VocaDB/VocaDB-App/releases)
-[![Download](https://img.shields.io/github/license/VocaDB/VocaDB-App)](https://github.com/VocaDB/VocaDB-App/LICENSE)
-
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 # VocaDB App
 VocaDB mobile version with [Flutter framework](https://flutter.dev/). 
