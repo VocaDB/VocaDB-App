@@ -8,8 +8,7 @@ class AlbumTrack extends StatelessWidget {
   const AlbumTrack(this.track, {Key key}) : super(key: key);
 
   void navigateToSongDetail(BuildContext context) {
-    Navigator.pushNamed(context, SongDetailScreen.routeName,
-        arguments: SongDetailScreenArguments(track.song.id, track.name));
+    SongDetailScreen.navigate(context, track.song.id, name: track.name);
   }
 
   @override

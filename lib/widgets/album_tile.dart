@@ -24,9 +24,8 @@ class AlbumTile extends StatelessWidget {
         this.artist = entry.artistString;
 
   void navigateToDetail(BuildContext context) {
-    Navigator.pushNamed(context, AlbumDetailScreen.routeName,
-        arguments: AlbumDetailScreenArguments(this.id, this.name,
-            thumbUrl: this.imageUrl, tag: tag));
+    AlbumDetailScreen.navigate(context, id,
+        name: this.name, thumbUrl: this.imageUrl, tag: this.tag);
   }
 
   @override

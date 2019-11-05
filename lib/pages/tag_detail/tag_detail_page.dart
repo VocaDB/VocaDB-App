@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:provider/provider.dart';
@@ -9,6 +10,7 @@ import 'package:vocadb/blocs/tag_detail_bloc.dart';
 import 'package:vocadb/constants.dart';
 import 'package:vocadb/models/tag_model.dart';
 import 'package:vocadb/pages/search/search_page.dart';
+import 'package:vocadb/utils/analytic_constant.dart';
 import 'package:vocadb/widgets/album_list_section.dart';
 import 'package:vocadb/widgets/artist_section.dart';
 import 'package:vocadb/widgets/expandable_content.dart';
@@ -30,6 +32,10 @@ class TagDetailScreen extends StatelessWidget {
   static const String routeName = '/tagDetail';
 
   static void navigate(BuildContext context, int id, String name) {
+    final analytics = Provider.of<FirebaseAnalytics>(context);
+    analytics.logSelectContent(
+        contentType: AnalyticContentType.tag, itemId: id.toString());
+
     Navigator.pushNamed(context, TagDetailScreen.routeName,
         arguments: TagDetailScreenArguments(id, name));
   }
@@ -55,8 +61,7 @@ class TagDetailPage extends StatelessWidget {
   const TagDetailPage(this.id, this.name);
 
   toTagDetailPage(BuildContext context, TagModel tagModel) {
-    Navigator.pushNamed(context, TagDetailScreen.routeName,
-        arguments: TagDetailScreenArguments(tagModel.id, tagModel.name));
+    TagDetailScreen.navigate(context, tagModel.id, tagModel.name);
   }
 
   buildData(BuildContext context, TagModel tag) {

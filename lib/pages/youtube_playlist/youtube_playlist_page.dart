@@ -77,7 +77,8 @@ class _YoutubePlaylistPageState extends State<YoutubePlaylistPage> {
                   Text(song.artistString, overflow: TextOverflow.ellipsis),
               trailing: PopupMenuButton<String>(
                 onSelected: (String selectedValue) {
-                  SongDetailScreen.navigateToSongDetail(context, song);
+                  SongDetailScreen.navigate(context, song.id,
+                      name: song.name, thumbUrl: song.thumbUrl);
                 },
                 itemBuilder: (BuildContext context) => [
                   PopupMenuItem<String>(

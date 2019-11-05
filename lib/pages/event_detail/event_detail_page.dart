@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:provider/provider.dart';
@@ -11,6 +12,7 @@ import 'package:vocadb/models/album_model.dart';
 import 'package:vocadb/models/release_event_model.dart';
 import 'package:vocadb/models/song_model.dart';
 import 'package:vocadb/pages/search/search_page.dart';
+import 'package:vocadb/utils/analytic_constant.dart';
 import 'package:vocadb/widgets/album_section.dart';
 import 'package:vocadb/widgets/artist_section.dart';
 import 'package:vocadb/widgets/result.dart';
@@ -25,12 +27,23 @@ class ReleaseEventDetailScreenArguments {
   final String thumbUrl;
   final String tag;
 
-  ReleaseEventDetailScreenArguments(this.id, this.name,
-      {this.thumbUrl, this.tag});
+  ReleaseEventDetailScreenArguments(this.id,
+      {this.name, this.thumbUrl, this.tag});
 }
 
 class ReleaseEventDetailScreen extends StatelessWidget {
   static const String routeName = '/eventDetail';
+
+  static void navigate(BuildContext context, int id,
+      {String name, String thumbUrl, String tag}) {
+    final analytics = Provider.of<FirebaseAnalytics>(context);
+    analytics.logSelectContent(
+        contentType: AnalyticContentType.releaseEvent, itemId: id.toString());
+
+    Navigator.pushNamed(context, ReleaseEventDetailScreen.routeName,
+        arguments: ReleaseEventDetailScreenArguments(id,
+            name: name, thumbUrl: thumbUrl, tag: tag));
+  }
 
   @override
   Widget build(BuildContext context) {

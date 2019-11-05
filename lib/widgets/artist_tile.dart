@@ -49,9 +49,8 @@ class ArtistTile extends StatelessWidget {
         this.subtitle = entry.artistString;
 
   void navigateToDetail(BuildContext context) {
-    Navigator.pushNamed(context, ArtistDetailScreen.routeName,
-        arguments: ArtistDetailScreenArguments(this.id, this.title,
-            thumbUrl: this.imageUrl, tag: tag));
+    ArtistDetailScreen.navigate(context, id,
+        name: this.title, thumbUrl: this.imageUrl, tag: this.tag);
   }
 
   Widget buildLeading() {

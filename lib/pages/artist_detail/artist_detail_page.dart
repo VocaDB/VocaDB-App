@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:provider/provider.dart';
@@ -12,6 +13,7 @@ import 'package:vocadb/models/artist_model.dart';
 import 'package:vocadb/pages/search/more_album_page.dart';
 import 'package:vocadb/pages/search/more_song_page.dart';
 import 'package:vocadb/pages/search/search_page.dart';
+import 'package:vocadb/utils/analytic_constant.dart';
 import 'package:vocadb/widgets/album_list_section.dart';
 import 'package:vocadb/widgets/artist_section.dart';
 import 'package:vocadb/widgets/artist_tile.dart';
@@ -30,11 +32,22 @@ class ArtistDetailScreenArguments {
   final String thumbUrl;
   final String tag;
 
-  ArtistDetailScreenArguments(this.id, this.name, {this.thumbUrl, this.tag});
+  ArtistDetailScreenArguments(this.id, {this.name, this.thumbUrl, this.tag});
 }
 
 class ArtistDetailScreen extends StatelessWidget {
   static const String routeName = '/artistDetail';
+
+  static void navigate(BuildContext context, int id,
+      {String name, String thumbUrl, String tag}) {
+    final analytics = Provider.of<FirebaseAnalytics>(context);
+    analytics.logSelectContent(
+        contentType: AnalyticContentType.artist, itemId: id.toString());
+
+    Navigator.pushNamed(context, ArtistDetailScreen.routeName,
+        arguments: ArtistDetailScreenArguments(id,
+            name: name, thumbUrl: thumbUrl, tag: tag));
+  }
 
   @override
   Widget build(BuildContext context) {
