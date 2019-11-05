@@ -140,21 +140,23 @@ class TagDetailPage extends StatelessWidget {
                 ],
               ),
             ),
-            ExpandableContent(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    TextInfoSection(
-                      title:
-                          FlutterI18n.translate(context, 'label.description'),
-                      text: tag.description,
-                    )
-                  ],
-                ),
-              ),
-            ),
+            (tag.description.isEmpty)
+                ? Container()
+                : ExpandableContent(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          TextInfoSection(
+                            title: FlutterI18n.translate(
+                                context, 'label.description'),
+                            text: tag.description,
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
             StreamBuilder(
               stream: bloc.latestSongs$,
               builder: (context, snapshot) {
