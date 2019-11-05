@@ -39,7 +39,7 @@ class _TagPageState extends State<TagPage> {
       itemBuilder: (context, index) {
         TagModel tag = tags[index];
         return ListTile(
-          onTap: () => TagDetailScreen.navigate(context),
+          onTap: () => TagDetailScreen.navigate(context, tag.id, tag.name),
           title: Text(tag.name),
         );
       },

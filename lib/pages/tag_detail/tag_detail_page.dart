@@ -28,8 +28,9 @@ class TagDetailScreenArguments {
 class TagDetailScreen extends StatelessWidget {
   static const String routeName = '/tagDetail';
 
-  static void navigate(BuildContext context) {
-    Navigator.pushNamed(context, TagDetailScreen.routeName);
+  static void navigate(BuildContext context, int id, String name) {
+    Navigator.pushNamed(context, TagDetailScreen.routeName,
+        arguments: TagDetailScreenArguments(id, name));
   }
 
   @override
