@@ -11,6 +11,7 @@ import 'package:vocadb/constants.dart';
 import 'package:vocadb/models/album_disc_model.dart';
 import 'package:vocadb/models/album_model.dart';
 import 'package:vocadb/models/track_model.dart';
+import 'package:vocadb/pages/search/search_page.dart';
 import 'package:vocadb/pages/youtube_playlist/youtube_playlist_page.dart';
 import 'package:vocadb/widgets/artist_section.dart';
 import 'package:vocadb/widgets/expandable_content.dart';
@@ -63,6 +64,20 @@ class AlbumDetailPage extends StatelessWidget {
             SliverAppBar(
               floating: true,
               title: Text(args.name),
+              actions: [
+                IconButton(
+                  icon: Icon(Icons.search),
+                  onPressed: () {
+                    SearchScreen.navigate(context);
+                  },
+                ),
+                IconButton(
+                  icon: Icon(Icons.home),
+                  onPressed: () {
+                    Navigator.popUntil(context, (r) => r.settings.name == '/');
+                  },
+                )
+              ],
             ),
             HeroContent(args.name, args.thumbUrl, args.tag),
             AlbumDetailContent(args.id)

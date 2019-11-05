@@ -10,6 +10,7 @@ import 'package:vocadb/constants.dart';
 import 'package:vocadb/models/album_model.dart';
 import 'package:vocadb/models/release_event_model.dart';
 import 'package:vocadb/models/song_model.dart';
+import 'package:vocadb/pages/search/search_page.dart';
 import 'package:vocadb/widgets/album_section.dart';
 import 'package:vocadb/widgets/artist_section.dart';
 import 'package:vocadb/widgets/result.dart';
@@ -65,6 +66,20 @@ class EventDetailPage extends StatelessWidget {
         SliverAppBar(
           expandedHeight: 200.0,
           pinned: true,
+          actions: [
+            IconButton(
+              icon: Icon(Icons.search),
+              onPressed: () {
+                SearchScreen.navigate(context);
+              },
+            ),
+            IconButton(
+              icon: Icon(Icons.home),
+              onPressed: () {
+                Navigator.popUntil(context, (r) => r.settings.name == '/');
+              },
+            )
+          ],
           flexibleSpace: FlexibleSpaceBar(
             title: Text(releaseEvent.name),
             background: (releaseEvent.imageUrl == null)
@@ -195,12 +210,26 @@ class EventDetailPage extends StatelessWidget {
     );
   }
 
-  buildError(Object error) {
+  buildError(BuildContext context, Object error) {
     return CustomScrollView(
       slivers: <Widget>[
         SliverAppBar(
           expandedHeight: 200.0,
           pinned: true,
+          actions: [
+            IconButton(
+              icon: Icon(Icons.search),
+              onPressed: () {
+                SearchScreen.navigate(context);
+              },
+            ),
+            IconButton(
+              icon: Icon(Icons.home),
+              onPressed: () {
+                Navigator.popUntil(context, (r) => r.settings.name == '/');
+              },
+            )
+          ],
         ),
         SliverFillRemaining(
           child: Center(
@@ -217,6 +246,20 @@ class EventDetailPage extends StatelessWidget {
         SliverAppBar(
           expandedHeight: 200.0,
           pinned: true,
+          actions: [
+            IconButton(
+              icon: Icon(Icons.search),
+              onPressed: () {
+                SearchScreen.navigate(context);
+              },
+            ),
+            IconButton(
+              icon: Icon(Icons.home),
+              onPressed: () {
+                Navigator.popUntil(context, (r) => r.settings.name == '/');
+              },
+            )
+          ],
           flexibleSpace: FlexibleSpaceBar(
               title: Text(this.name),
               background: (this.imageUrl == null)
@@ -251,7 +294,7 @@ class EventDetailPage extends StatelessWidget {
           if (snapshot.hasData) {
             return buildData(context, snapshot.data);
           } else if (snapshot.hasError) {
-            return buildError(snapshot.error.toString());
+            return buildError(context, snapshot.error.toString());
           }
 
           return buildDefault(context);

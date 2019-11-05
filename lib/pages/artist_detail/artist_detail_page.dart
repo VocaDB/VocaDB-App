@@ -11,6 +11,7 @@ import 'package:vocadb/constants.dart';
 import 'package:vocadb/models/artist_model.dart';
 import 'package:vocadb/pages/search/more_album_page.dart';
 import 'package:vocadb/pages/search/more_song_page.dart';
+import 'package:vocadb/pages/search/search_page.dart';
 import 'package:vocadb/widgets/album_list_section.dart';
 import 'package:vocadb/widgets/artist_section.dart';
 import 'package:vocadb/widgets/artist_tile.dart';
@@ -65,6 +66,20 @@ class ArtistDetailPage extends StatelessWidget {
           SliverAppBar(
             expandedHeight: 200,
             pinned: true,
+            actions: [
+              IconButton(
+                icon: Icon(Icons.search),
+                onPressed: () {
+                  SearchScreen.navigate(context);
+                },
+              ),
+              IconButton(
+                icon: Icon(Icons.home),
+                onPressed: () {
+                  Navigator.popUntil(context, (r) => r.settings.name == '/');
+                },
+              )
+            ],
             flexibleSpace: FlexibleSpaceBar(
               title: Text(this.name),
               background: SafeArea(

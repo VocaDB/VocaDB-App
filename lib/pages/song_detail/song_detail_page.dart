@@ -13,6 +13,7 @@ import 'package:vocadb/blocs/song_detail_bloc.dart';
 import 'package:vocadb/constants.dart';
 import 'package:vocadb/models/pv_model.dart';
 import 'package:vocadb/models/song_model.dart';
+import 'package:vocadb/pages/search/search_page.dart';
 import 'package:vocadb/pages/song_detail/lyric_content.dart';
 import 'package:vocadb/widgets/album_section.dart';
 import 'package:vocadb/widgets/artist_tile.dart';
@@ -88,6 +89,23 @@ class _SongDetailPageState extends State<SongDetailPage> {
     super.dispose();
   }
 
+  List<Widget> actions() {
+    return [
+      IconButton(
+        icon: Icon(Icons.search),
+        onPressed: () {
+          SearchScreen.navigate(context);
+        },
+      ),
+      IconButton(
+        icon: Icon(Icons.home),
+        onPressed: () {
+          Navigator.popUntil(context, (r) => r.settings.name == '/');
+        },
+      )
+    ];
+  }
+
   Widget buildWithPlayer(SongModel song) {
     _controller = YoutubePlayerController(
       initialVideoId: YoutubePlayer.convertUrlToId(song.youtubePV.url),
@@ -97,7 +115,10 @@ class _SongDetailPageState extends State<SongDetailPage> {
     );
 
     return Scaffold(
-      appBar: AppBar(title: Text(song.name)),
+      appBar: AppBar(
+        title: Text(song.name),
+        actions: actions(),
+      ),
       body: Column(
         children: <Widget>[
           YoutubePlayer(
@@ -156,6 +177,7 @@ class _SongDetailPageState extends State<SongDetailPage> {
         SliverAppBar(
           expandedHeight: 200,
           title: Text(widget.name),
+          actions: actions(),
           flexibleSpace: FlexibleSpaceBar(
             background: Opacity(
               opacity: 0.7,
@@ -421,7 +443,10 @@ class _SongDetailPageState extends State<SongDetailPage> {
 
   Widget buildError(Object error) {
     return Scaffold(
-      appBar: AppBar(title: Text(widget.name)),
+      appBar: AppBar(
+        title: Text(widget.name),
+        actions: actions(),
+      ),
       body: Column(
         children: <Widget>[
           Container(
@@ -474,7 +499,7 @@ class _SongDetailPageState extends State<SongDetailPage> {
           );
 
     return Scaffold(
-      appBar: AppBar(title: Text(widget.name)),
+      appBar: AppBar(title: Text(widget.name), actions: actions()),
       body: defaultWidget,
     );
   }

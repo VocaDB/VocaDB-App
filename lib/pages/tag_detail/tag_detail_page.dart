@@ -8,6 +8,7 @@ import 'package:vocadb/blocs/config_bloc.dart';
 import 'package:vocadb/blocs/tag_detail_bloc.dart';
 import 'package:vocadb/constants.dart';
 import 'package:vocadb/models/tag_model.dart';
+import 'package:vocadb/pages/search/search_page.dart';
 import 'package:vocadb/widgets/album_list_section.dart';
 import 'package:vocadb/widgets/artist_section.dart';
 import 'package:vocadb/widgets/expandable_content.dart';
@@ -66,6 +67,20 @@ class TagDetailPage extends StatelessWidget {
         SliverAppBar(
           expandedHeight: 200.0,
           pinned: true,
+          actions: [
+            IconButton(
+              icon: Icon(Icons.search),
+              onPressed: () {
+                SearchScreen.navigate(context);
+              },
+            ),
+            IconButton(
+              icon: Icon(Icons.home),
+              onPressed: () {
+                Navigator.popUntil(context, (r) => r.settings.name == '/');
+              },
+            )
+          ],
           flexibleSpace: FlexibleSpaceBar(
             title: Text("#" + this.name),
             background: (tag.imageUrl == null)
@@ -217,12 +232,26 @@ class TagDetailPage extends StatelessWidget {
     );
   }
 
-  buildError(Object error) {
+  buildError(BuildContext context, Object error) {
     return CustomScrollView(
       slivers: <Widget>[
         SliverAppBar(
           expandedHeight: 200.0,
           pinned: true,
+          actions: [
+            IconButton(
+              icon: Icon(Icons.search),
+              onPressed: () {
+                SearchScreen.navigate(context);
+              },
+            ),
+            IconButton(
+              icon: Icon(Icons.home),
+              onPressed: () {
+                Navigator.popUntil(context, (r) => r.settings.name == '/');
+              },
+            )
+          ],
         ),
         SliverFillRemaining(
           child: Center(
@@ -233,12 +262,26 @@ class TagDetailPage extends StatelessWidget {
     );
   }
 
-  buildLoading() {
+  buildLoading(BuildContext context) {
     return CustomScrollView(
       slivers: <Widget>[
         SliverAppBar(
           expandedHeight: 200.0,
           pinned: true,
+          actions: [
+            IconButton(
+              icon: Icon(Icons.search),
+              onPressed: () {
+                SearchScreen.navigate(context);
+              },
+            ),
+            IconButton(
+              icon: Icon(Icons.home),
+              onPressed: () {
+                Navigator.popUntil(context, (r) => r.settings.name == '/');
+              },
+            )
+          ],
         ),
         SliverFillRemaining(
           child: Center(
@@ -258,10 +301,10 @@ class TagDetailPage extends StatelessWidget {
           if (snapshot.hasData) {
             return buildData(context, snapshot.data);
           } else if (snapshot.hasError) {
-            return buildError(snapshot.error.toString());
+            return buildError(context, snapshot.error.toString());
           }
 
-          return buildLoading();
+          return buildLoading(context);
         },
       ),
     );
