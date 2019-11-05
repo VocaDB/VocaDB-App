@@ -545,7 +545,7 @@ class PVSection extends StatelessWidget {
     if (!pvList.isContainsYoutube) {
       children.add(SiteTile(
         title: FlutterI18n.translate(context, 'label.searchYoutube'),
-        url: 'http://www.youtube.com/results?search_query=${query}',
+        url: 'https://www.youtube.com/results?search_query=$query',
       ));
     }
 
