@@ -1,9 +1,15 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/mockito.dart';
 import 'package:vocadb/blocs/youtube_playlist_bloc.dart';
 import 'package:vocadb/models/song_model.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
+
+class MockYoutubePlayerController extends Mock
+    implements YoutubePlayerController {}
 
 main() {
   YoutubePlaylistBloc bloc;
+  MockYoutubePlayerController mockYoutubePlayerController;
   SongModel song1;
   SongModel song2;
   SongModel song3;
@@ -11,12 +17,17 @@ main() {
   List<SongModel> mockSongs;
 
   setUp(() {
+    mockYoutubePlayerController = MockYoutubePlayerController();
     bloc = YoutubePlaylistBloc();
     song1 = SongModel.fromJson({
       "id": 1,
       "name": "A",
       "pvs": [
-        {"id": 1, "service": "Youtube"}
+        {
+          "id": 1,
+          "service": "Youtube",
+          "url": "https://www.youtube.com/watch?v=LhzHnfdN-zA"
+        }
       ]
     });
     song2 = SongModel.fromJson({
@@ -30,7 +41,11 @@ main() {
       "id": 3,
       "name": "C",
       "pvs": [
-        {"id": 3, "service": "Youtube"}
+        {
+          "id": 3,
+          "service": "Youtube",
+          "url": "https://www.youtube.com/watch?v=LhzHnfdN-zA"
+        }
       ]
     });
     song4 = SongModel.fromJson({
@@ -44,14 +59,14 @@ main() {
   });
 
   test('should emits playlist', () async {
-    bloc.updatePlaylist(mockSongs);
+    bloc.initialPlaylist(mockSongs, mockYoutubePlayerController);
 
     await expectLater(bloc.playlistStream, emits(mockSongs));
     expect(bloc.currentPV.id, 1);
   });
 
   test('should run next and skip unplayable PV', () async {
-    bloc.updatePlaylist(mockSongs);
+    bloc.initialPlaylist(mockSongs, mockYoutubePlayerController);
 
     await expectLater(bloc.playlistStream, emits(mockSongs));
     expect(bloc.currentPV.id, 1);
@@ -63,7 +78,7 @@ main() {
   });
 
   test('should run prev and skip unplayable PV', () async {
-    bloc.updatePlaylist(mockSongs);
+    bloc.initialPlaylist(mockSongs, mockYoutubePlayerController);
 
     await expectLater(bloc.playlistStream, emits(mockSongs));
     expect(bloc.currentPV.id, 1);
@@ -80,7 +95,7 @@ main() {
   });
 
   test('should run select PV', () async {
-    bloc.updatePlaylist(mockSongs);
+    bloc.initialPlaylist(mockSongs, mockYoutubePlayerController);
 
     await expectLater(bloc.playlistStream, emits(mockSongs));
     expect(bloc.currentPV.id, 1);
@@ -94,7 +109,7 @@ main() {
   test(
       'should emits first available pv when run next and no available pv not found',
       () async {
-    bloc.updatePlaylist(mockSongs);
+    bloc.initialPlaylist(mockSongs, mockYoutubePlayerController);
 
     await expectLater(bloc.playlistStream, emits(mockSongs));
     expect(bloc.currentPV.id, 1);
@@ -136,7 +151,7 @@ main() {
         ]
       }),
     ];
-    bloc.updatePlaylist(ms);
+    bloc.initialPlaylist(ms, mockYoutubePlayerController);
 
     await expectLater(bloc.currentIndexStream, emits(2));
     expect(bloc.currentPV.id, 3);

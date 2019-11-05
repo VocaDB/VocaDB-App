@@ -219,5 +219,60 @@ void main() {
       expect(jsonResult['pvs'], isNotNull);
       expect(jsonResult['mainPicture'], isNotNull);
     });
+
+    test('should return original pv', () {
+      const mockJson = {
+        "id": 1,
+        "name": "song1",
+        "pvs": [
+          {
+            "id": 1,
+            "name": "abc",
+            "service": "Youtube",
+            "url": "https://youtube.com/abc"
+          },
+          {
+            "id": 2,
+            "name": "def",
+            "service": "Youtube",
+            "pvType": "Original",
+            "url": "https://youtube.com/abc"
+          }
+        ],
+      };
+
+      SongModel result = SongModel.fromJson(mockJson);
+
+      expect(result, isNotNull);
+      expect(result.youtubePV, isNotNull);
+      expect(result.youtubePV.id, 2);
+    });
+
+    test('should return non-original pv', () {
+      const mockJson = {
+        "id": 1,
+        "name": "song1",
+        "pvs": [
+          {
+            "id": 1,
+            "name": "abc",
+            "service": "Youtube",
+            "url": "https://youtube.com/abc"
+          },
+          {
+            "id": 2,
+            "name": "def",
+            "service": "Youtube",
+            "url": "https://youtube.com/def"
+          }
+        ],
+      };
+
+      SongModel result = SongModel.fromJson(mockJson);
+
+      expect(result, isNotNull);
+      expect(result.youtubePV, isNotNull);
+      expect(result.youtubePV.id, 1);
+    });
   });
 }
