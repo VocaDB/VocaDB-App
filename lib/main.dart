@@ -245,7 +245,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(APP_NAME),
+        title: Text(APP_NAME, key: Key('app_name'),),
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.search),
@@ -269,15 +269,15 @@ class _MyHomePageState extends State<MyHomePage> {
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
-            title: Text(FlutterI18n.translate(context, 'label.home')),
+            title: Text(FlutterI18n.translate(context, 'label.home'), key: Key('tab_home')),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.trending_up),
-            title: Text(FlutterI18n.translate(context, 'label.ranking')),
+            title: Text(FlutterI18n.translate(context, 'label.ranking'), key: Key('tab_ranking')),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.menu),
-            title: Text(FlutterI18n.translate(context, 'label.menu')),
+            title: Text(FlutterI18n.translate(context, 'label.menu'), key: Key('tab_menu')),
           ),
         ],
         currentIndex: _selectedIndex,
