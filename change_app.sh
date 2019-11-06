@@ -1,7 +1,7 @@
 #!/bin/sh
 MANIFEST_FILE=./android/app/src/main/AndroidManifest.xml
 APP_NAME=TouhouDB
-APP_PACKAGE=com.tohoudb.app
+APP_PACKAGE=com.touhoudb.app
 APP_BUNDLE_ID=com.touhoudb.app
 
 echo "Rename android:label to $APP_NAME and package to $APP_PACKAGE in android/app/src/main/AndroidManifest.xml"
@@ -36,7 +36,7 @@ sed -i -e "s/vocadb/$APP_NAME/g" ./ios/Runner/Info.plist
 
 echo "Repalce google service file"
 # mv ./assets/store/$APP_NAME/android/google-service.json ./android/app/google-service.json
-mv ./assets/store/$APP_NAME/ios/GoogleService-Info.plist ./ios/Runner/GoogleService-Info.plist
+# mv ./assets/store/$APP_NAME/ios/GoogleService-Info.plist ./ios/Runner/GoogleService-Info.plist
 
 # Replace icon/launcher
 echo "Replace app icons"
