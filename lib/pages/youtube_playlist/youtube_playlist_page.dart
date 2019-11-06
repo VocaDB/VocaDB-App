@@ -48,11 +48,14 @@ class YoutubePlaylistPage extends StatefulWidget {
 }
 
 class _YoutubePlaylistPageState extends State<YoutubePlaylistPage> {
+  YoutubePlayerController _playerController;
+
   bool isEnded = false;
 
   @override
   void initState() {
     super.initState();
+    _playerController = new YoutubePlayerController();
   }
 
   buildPlaylist() {
@@ -68,6 +71,8 @@ class _YoutubePlaylistPageState extends State<YoutubePlaylistPage> {
             return ListTile(
               onTap: () {
                 Provider.of<YoutubePlaylistBloc>(context).select(index);
+                _playerController
+                    .load(YoutubePlayer.convertUrlToId(song.youtubePV.url));
               },
               selected: snapshot.data == index,
               enabled: song.youtubePV != null,
@@ -99,10 +104,15 @@ class _YoutubePlaylistPageState extends State<YoutubePlaylistPage> {
   buildPlayer() {
     final bloc = Provider.of<YoutubePlaylistBloc>(context);
     return YoutubePlayer(
-      controller: bloc.youtubePlayerController,
-      showVideoProgressIndicator: true,
-      onReady: () {
-        bloc.addYoutubeControllerListener();
+      context: context,
+      initialVideoId: YoutubePlayer.convertUrlToId(
+          SongList(bloc.songs).getFirstWithYoutubePV().youtubePV.url),
+      flags: YoutubePlayerFlags(
+        autoPlay: false,
+        showVideoProgressIndicator: true,
+      ),
+      onPlayerInitialized: (controller) {
+        bloc.setYoutubeController(controller);
       },
     );
   }
