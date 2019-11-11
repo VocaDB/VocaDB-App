@@ -43,9 +43,8 @@ class EventTile extends StatelessWidget {
         this.category = releaseEvent.category;
 
   void navigateToDetail(BuildContext context) {
-    Navigator.pushNamed(context, ReleaseEventDetailScreen.routeName,
-        arguments: ReleaseEventDetailScreenArguments(this.id, this.name,
-            thumbUrl: this.imageUrl, tag: tag));
+    ReleaseEventDetailScreen.navigate(context, id,
+        name: this.name, thumbUrl: this.imageUrl, tag: this.tag);
   }
 
   @override

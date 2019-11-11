@@ -17,6 +17,8 @@ class WebLinkSection extends StatelessWidget {
       return Container();
     }
 
+    webLinks.sort((a, b) => a.description.compareTo(b.description));
+
     if (this.title != null) {
       children.add(Padding(
         padding: EdgeInsets.all(8.0),

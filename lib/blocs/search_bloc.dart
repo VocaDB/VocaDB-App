@@ -17,6 +17,11 @@ class SearchBloc {
   Observable<EntryType> get entryTypeStream => _entryType.stream;
   Observable<List<EntryModel>> get resultStream => _results.stream;
   Observable<bool> get isSearching$ => _isSearching.stream;
+  Observable get filterParams$ => Observable.merge([
+      queryStream,
+      entryTypeStream,
+      entryFilterBloc.params$,
+    ]);
 
   String get query => _query.value;
   EntryType get entryType => _entryType.value ?? EntryType.Undefined;
@@ -31,12 +36,7 @@ class SearchBloc {
     this.entryService ??= EntryService();
     this.entryFilterBloc ??= SearchEntryFilterBloc();
 
-    print('initlal search bloc');
-    Observable.merge([
-      queryStream,
-      entryTypeStream,
-      entryFilterBloc.params$,
-    ]).debounceTime(Duration(milliseconds: 500)).listen(fetch);
+    filterParams$.debounceTime(Duration(milliseconds: 500)).listen(fetch);
   }
 
   void updateResults(List<EntryModel> entries) {
@@ -68,6 +68,8 @@ class SearchBloc {
   }
 
   void fetch(event) {
+
+    print('fetch $event');
     if (!isSearching) return;
 
     Map<String, String> params = entryFilterBloc.params();

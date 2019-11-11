@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:vocadb/blocs/youtube_playlist_bloc.dart';
 import 'package:vocadb/models/song_model.dart';
+import 'package:vocadb/pages/search/search_page.dart';
 import 'package:vocadb/pages/song_detail/song_detail_page.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
@@ -81,7 +82,8 @@ class _YoutubePlaylistPageState extends State<YoutubePlaylistPage> {
                   Text(song.artistString, overflow: TextOverflow.ellipsis),
               trailing: PopupMenuButton<String>(
                 onSelected: (String selectedValue) {
-                  SongDetailScreen.navigateToSongDetail(context, song);
+                  SongDetailScreen.navigate(context, song.id,
+                      name: song.name, thumbUrl: song.thumbUrl);
                 },
                 itemBuilder: (BuildContext context) => [
                   PopupMenuItem<String>(
@@ -119,7 +121,23 @@ class _YoutubePlaylistPageState extends State<YoutubePlaylistPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(title: Text(widget.title)),
+        appBar: AppBar(
+          title: Text(widget.title),
+          actions: [
+            IconButton(
+              icon: Icon(Icons.search),
+              onPressed: () {
+                SearchScreen.navigate(context);
+              },
+            ),
+            IconButton(
+              icon: Icon(Icons.home),
+              onPressed: () {
+                Navigator.popUntil(context, (r) => r.settings.name == '/');
+              },
+            )
+          ],
+        ),
         body: Column(
           children: <Widget>[
             buildPlayer(),
