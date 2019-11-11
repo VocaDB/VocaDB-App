@@ -12,9 +12,8 @@ class SongCard extends StatelessWidget {
   SongCard.song(this.song, {this.tag});
 
   void navigateToSongDetail(BuildContext context) {
-    Navigator.pushNamed(context, SongDetailScreen.routeName,
-        arguments: SongDetailScreenArguments(song.id, song.name,
-            thumbUrl: song.thumbUrl, tag: tag));
+    SongDetailScreen.navigate(context, song.id,
+        name: song.name, thumbUrl: song.thumbUrl, tag: tag);
   }
 
   @override

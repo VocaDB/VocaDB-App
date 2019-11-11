@@ -35,8 +35,7 @@ class _TagsState extends State<Tags> {
   }
 
   toTagDetailPage(TagModel tagModel) {
-    Navigator.pushNamed(context, TagDetailScreen.routeName,
-        arguments: TagDetailScreenArguments(tagModel.id, tagModel.name));
+    TagDetailScreen.navigate(context, tagModel.id, tagModel.name);
   }
 
   Widget mapTagWidget(TagModel tagModel) {

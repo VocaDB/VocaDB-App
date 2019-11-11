@@ -53,29 +53,26 @@ main() {
     await expectLater(bloc.queryStream, emits(''));
   });
 
-  test('should trigger fetch when song filter updated', () async {
+  test('should trigger fetch when song filter updated', () {
     final bloc = SearchBloc(entryService: mockEntryService);
 
-    await bloc.updateQuery('abc');
+    bloc.updateQuery('abc');
 
-    await Future.delayed(Duration(milliseconds: 500));
 
-    verify(mockEntryService.search('abc', EntryType.Undefined,
-        params: {'sort': 'Name'})).called(1);
-
-    await expectLater(bloc.isSearching$, emits(true));
+    expectLater(bloc.isSearching$, emits(true));
 
     bloc.updateQuery('de');
 
-    await expectLater(bloc.queryStream, emits('de'));
-
-    await Future.delayed(Duration(milliseconds: 500));
-
-    verify(mockEntryService
-        .search('de', EntryType.Undefined, params: {'sort': 'Name'})).called(1);
+    expectLater(bloc.queryStream, emits('de'));
 
     bloc.updateEntryType(EntryType.Song);
 
-    await expectLater(bloc.entryTypeStream, emits(EntryType.Song));
+    expectLater(bloc.entryTypeStream, emits(EntryType.Song));
+
+    expect(bloc.filterParams$, emitsAnyOf([
+      'abc',
+      'de',
+      EntryType.Song,
+    ]));
   });
 }

@@ -42,6 +42,18 @@ class SiteTile extends StatelessWidget {
     return iconWebsite['icon'];
   }
 
+  void openUrl(BuildContext context) async {
+    String encodedUrl = Uri.encodeFull(url);
+
+    if (await canLaunch(encodedUrl)) {
+      launch(encodedUrl);
+    } else {
+      Scaffold.of(context).showSnackBar(SnackBar(
+        content: Text('Unable to open url $encodedUrl'),
+      ));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     if (subtitle != null) {
@@ -49,14 +61,14 @@ class SiteTile extends StatelessWidget {
         leading: Icon(getIconFromUrl(url)),
         title: Text(title),
         subtitle: Text(subtitle),
-        onTap: () => launch(url),
+        onTap: () => openUrl(context),
       );
     }
 
     return ListTile(
       leading: Icon(getIconFromUrl(url)),
       title: Text(title),
-      onTap: () => launch(url),
+      onTap: () => openUrl(context),
     );
   }
 }

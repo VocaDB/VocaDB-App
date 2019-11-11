@@ -22,9 +22,8 @@ class AlbumCard extends StatelessWidget {
         thumbUrl = album.imageUrl;
 
   void navigateToDetail(BuildContext context) {
-    Navigator.pushNamed(context, AlbumDetailScreen.routeName,
-        arguments: AlbumDetailScreenArguments(this.id, this.name,
-            thumbUrl: this.thumbUrl, tag: tag));
+    AlbumDetailScreen.navigate(context, id,
+        name: this.name, thumbUrl: this.thumbUrl, tag: this.tag);
   }
 
   @override

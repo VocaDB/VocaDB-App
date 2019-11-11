@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:provider/provider.dart';
@@ -8,6 +9,8 @@ import 'package:vocadb/blocs/config_bloc.dart';
 import 'package:vocadb/blocs/tag_detail_bloc.dart';
 import 'package:vocadb/constants.dart';
 import 'package:vocadb/models/tag_model.dart';
+import 'package:vocadb/pages/search/search_page.dart';
+import 'package:vocadb/utils/analytic_constant.dart';
 import 'package:vocadb/widgets/album_list_section.dart';
 import 'package:vocadb/widgets/artist_section.dart';
 import 'package:vocadb/widgets/expandable_content.dart';
@@ -28,8 +31,13 @@ class TagDetailScreenArguments {
 class TagDetailScreen extends StatelessWidget {
   static const String routeName = '/tagDetail';
 
-  static void navigate(BuildContext context) {
-    Navigator.pushNamed(context, TagDetailScreen.routeName);
+  static void navigate(BuildContext context, int id, String name) {
+    final analytics = Provider.of<FirebaseAnalytics>(context);
+    analytics.logSelectContent(
+        contentType: AnalyticContentType.tag, itemId: id.toString());
+
+    Navigator.pushNamed(context, TagDetailScreen.routeName,
+        arguments: TagDetailScreenArguments(id, name));
   }
 
   @override
@@ -53,8 +61,7 @@ class TagDetailPage extends StatelessWidget {
   const TagDetailPage(this.id, this.name);
 
   toTagDetailPage(BuildContext context, TagModel tagModel) {
-    Navigator.pushNamed(context, TagDetailScreen.routeName,
-        arguments: TagDetailScreenArguments(tagModel.id, tagModel.name));
+    TagDetailScreen.navigate(context, tagModel.id, tagModel.name);
   }
 
   buildData(BuildContext context, TagModel tag) {
@@ -65,6 +72,20 @@ class TagDetailPage extends StatelessWidget {
         SliverAppBar(
           expandedHeight: 200.0,
           pinned: true,
+          actions: [
+            IconButton(
+              icon: Icon(Icons.search),
+              onPressed: () {
+                SearchScreen.navigate(context);
+              },
+            ),
+            IconButton(
+              icon: Icon(Icons.home),
+              onPressed: () {
+                Navigator.popUntil(context, (r) => r.settings.name == '/');
+              },
+            )
+          ],
           flexibleSpace: FlexibleSpaceBar(
             title: Text("#" + this.name),
             background: (tag.imageUrl == null)
@@ -139,21 +160,23 @@ class TagDetailPage extends StatelessWidget {
                 ],
               ),
             ),
-            ExpandableContent(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    TextInfoSection(
-                      title:
-                          FlutterI18n.translate(context, 'label.description'),
-                      text: tag.description,
-                    )
-                  ],
-                ),
-              ),
-            ),
+            (tag.description.isEmpty)
+                ? Container()
+                : ExpandableContent(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          TextInfoSection(
+                            title: FlutterI18n.translate(
+                                context, 'label.description'),
+                            text: tag.description,
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
             StreamBuilder(
               stream: bloc.latestSongs$,
               builder: (context, snapshot) {
@@ -214,12 +237,26 @@ class TagDetailPage extends StatelessWidget {
     );
   }
 
-  buildError(Object error) {
+  buildError(BuildContext context, Object error) {
     return CustomScrollView(
       slivers: <Widget>[
         SliverAppBar(
           expandedHeight: 200.0,
           pinned: true,
+          actions: [
+            IconButton(
+              icon: Icon(Icons.search),
+              onPressed: () {
+                SearchScreen.navigate(context);
+              },
+            ),
+            IconButton(
+              icon: Icon(Icons.home),
+              onPressed: () {
+                Navigator.popUntil(context, (r) => r.settings.name == '/');
+              },
+            )
+          ],
         ),
         SliverFillRemaining(
           child: Center(
@@ -230,12 +267,26 @@ class TagDetailPage extends StatelessWidget {
     );
   }
 
-  buildLoading() {
+  buildLoading(BuildContext context) {
     return CustomScrollView(
       slivers: <Widget>[
         SliverAppBar(
           expandedHeight: 200.0,
           pinned: true,
+          actions: [
+            IconButton(
+              icon: Icon(Icons.search),
+              onPressed: () {
+                SearchScreen.navigate(context);
+              },
+            ),
+            IconButton(
+              icon: Icon(Icons.home),
+              onPressed: () {
+                Navigator.popUntil(context, (r) => r.settings.name == '/');
+              },
+            )
+          ],
         ),
         SliverFillRemaining(
           child: Center(
@@ -255,10 +306,10 @@ class TagDetailPage extends StatelessWidget {
           if (snapshot.hasData) {
             return buildData(context, snapshot.data);
           } else if (snapshot.hasError) {
-            return buildError(snapshot.error.toString());
+            return buildError(context, snapshot.error.toString());
           }
 
-          return buildLoading();
+          return buildLoading(context);
         },
       ),
     );

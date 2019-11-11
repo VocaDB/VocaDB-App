@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:provider/provider.dart';
@@ -10,6 +11,8 @@ import 'package:vocadb/constants.dart';
 import 'package:vocadb/models/album_model.dart';
 import 'package:vocadb/models/release_event_model.dart';
 import 'package:vocadb/models/song_model.dart';
+import 'package:vocadb/pages/search/search_page.dart';
+import 'package:vocadb/utils/analytic_constant.dart';
 import 'package:vocadb/widgets/album_section.dart';
 import 'package:vocadb/widgets/artist_section.dart';
 import 'package:vocadb/widgets/result.dart';
@@ -24,12 +27,23 @@ class ReleaseEventDetailScreenArguments {
   final String thumbUrl;
   final String tag;
 
-  ReleaseEventDetailScreenArguments(this.id, this.name,
-      {this.thumbUrl, this.tag});
+  ReleaseEventDetailScreenArguments(this.id,
+      {this.name, this.thumbUrl, this.tag});
 }
 
 class ReleaseEventDetailScreen extends StatelessWidget {
   static const String routeName = '/eventDetail';
+
+  static void navigate(BuildContext context, int id,
+      {String name, String thumbUrl, String tag}) {
+    final analytics = Provider.of<FirebaseAnalytics>(context);
+    analytics.logSelectContent(
+        contentType: AnalyticContentType.releaseEvent, itemId: id.toString());
+
+    Navigator.pushNamed(context, ReleaseEventDetailScreen.routeName,
+        arguments: ReleaseEventDetailScreenArguments(id,
+            name: name, thumbUrl: thumbUrl, tag: tag));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -65,6 +79,20 @@ class EventDetailPage extends StatelessWidget {
         SliverAppBar(
           expandedHeight: 200.0,
           pinned: true,
+          actions: [
+            IconButton(
+              icon: Icon(Icons.search),
+              onPressed: () {
+                SearchScreen.navigate(context);
+              },
+            ),
+            IconButton(
+              icon: Icon(Icons.home),
+              onPressed: () {
+                Navigator.popUntil(context, (r) => r.settings.name == '/');
+              },
+            )
+          ],
           flexibleSpace: FlexibleSpaceBar(
             title: Text(releaseEvent.name),
             background: (releaseEvent.imageUrl == null)
@@ -195,12 +223,26 @@ class EventDetailPage extends StatelessWidget {
     );
   }
 
-  buildError(Object error) {
+  buildError(BuildContext context, Object error) {
     return CustomScrollView(
       slivers: <Widget>[
         SliverAppBar(
           expandedHeight: 200.0,
           pinned: true,
+          actions: [
+            IconButton(
+              icon: Icon(Icons.search),
+              onPressed: () {
+                SearchScreen.navigate(context);
+              },
+            ),
+            IconButton(
+              icon: Icon(Icons.home),
+              onPressed: () {
+                Navigator.popUntil(context, (r) => r.settings.name == '/');
+              },
+            )
+          ],
         ),
         SliverFillRemaining(
           child: Center(
@@ -217,6 +259,20 @@ class EventDetailPage extends StatelessWidget {
         SliverAppBar(
           expandedHeight: 200.0,
           pinned: true,
+          actions: [
+            IconButton(
+              icon: Icon(Icons.search),
+              onPressed: () {
+                SearchScreen.navigate(context);
+              },
+            ),
+            IconButton(
+              icon: Icon(Icons.home),
+              onPressed: () {
+                Navigator.popUntil(context, (r) => r.settings.name == '/');
+              },
+            )
+          ],
           flexibleSpace: FlexibleSpaceBar(
               title: Text(this.name),
               background: (this.imageUrl == null)
@@ -251,7 +307,7 @@ class EventDetailPage extends StatelessWidget {
           if (snapshot.hasData) {
             return buildData(context, snapshot.data);
           } else if (snapshot.hasError) {
-            return buildError(snapshot.error.toString());
+            return buildError(context, snapshot.error.toString());
           }
 
           return buildDefault(context);
