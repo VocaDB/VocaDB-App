@@ -17,6 +17,7 @@ import 'package:vocadb/models/song_model.dart';
 import 'package:vocadb/pages/search/search_page.dart';
 import 'package:vocadb/pages/song_detail/lyric_content.dart';
 import 'package:vocadb/utils/analytic_constant.dart';
+import 'package:vocadb/widgets/CustomYoutubePlayer.dart';
 import 'package:vocadb/widgets/album_section.dart';
 import 'package:vocadb/widgets/artist_tile.dart';
 import 'package:vocadb/widgets/like_button.dart';
@@ -81,17 +82,10 @@ class SongDetailPage extends StatefulWidget {
 }
 
 class _SongDetailPageState extends State<SongDetailPage> {
-  YoutubePlayerController _controller;
-
   Widget buildHasData(SongModel song) {
     return (song.youtubePV == null)
         ? buildWithoutPlayer(song)
         : buildWithPlayer(song);
-  }
-
-  Future dispose() async {
-    _controller?.dispose();
-    super.dispose();
   }
 
   List<Widget> actions() {
@@ -112,13 +106,6 @@ class _SongDetailPageState extends State<SongDetailPage> {
   }
 
   Widget buildWithPlayer(SongModel song) {
-    _controller = YoutubePlayerController(
-      initialVideoId: YoutubePlayer.convertUrlToId(song.youtubePV.url),
-      flags: YoutubePlayerFlags(
-        autoPlay: false,
-      ),
-    );
-
     return Scaffold(
       appBar: AppBar(
         title: Text(song.name),
@@ -126,8 +113,9 @@ class _SongDetailPageState extends State<SongDetailPage> {
       ),
       body: Column(
         children: <Widget>[
-          YoutubePlayer(
-              showVideoProgressIndicator: true, controller: _controller),
+          CustomYoutubePlayer(
+            url: song.youtubePV.url,
+          ),
           Expanded(
             child: StreamBuilder(
               stream: Provider.of<SongDetailBloc>(context).showHideLyric$,
