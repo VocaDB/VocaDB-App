@@ -83,17 +83,6 @@ class SongDetailPage extends StatefulWidget {
 class _SongDetailPageState extends State<SongDetailPage> {
   YoutubePlayerController _controller;
 
-  Widget buildPlayerWithContent(String url) {
-    return YoutubePlayer(
-      context: context,
-      initialVideoId: YoutubePlayer.convertUrlToId(url),
-      flags: YoutubePlayerFlags(
-        autoPlay: false,
-        showVideoProgressIndicator: true,
-      ),
-    );
-  }
-
   Widget buildHasData(SongModel song) {
     return (song.youtubePV == null)
         ? buildWithoutPlayer(song)
@@ -123,6 +112,13 @@ class _SongDetailPageState extends State<SongDetailPage> {
   }
 
   Widget buildWithPlayer(SongModel song) {
+    _controller = YoutubePlayerController(
+      initialVideoId: YoutubePlayer.convertUrlToId(song.youtubePV.url),
+      flags: YoutubePlayerFlags(
+        autoPlay: false,
+      ),
+    );
+
     return Scaffold(
       appBar: AppBar(
         title: Text(song.name),
@@ -131,16 +127,7 @@ class _SongDetailPageState extends State<SongDetailPage> {
       body: Column(
         children: <Widget>[
           YoutubePlayer(
-            context: context,
-            initialVideoId: YoutubePlayer.convertUrlToId(song.youtubePV.url),
-            flags: YoutubePlayerFlags(
-              autoPlay: false,
-              showVideoProgressIndicator: true,
-            ),
-            onPlayerInitialized: (controller) {
-              _controller = controller;
-            },
-          ),
+              showVideoProgressIndicator: true, controller: _controller),
           Expanded(
             child: StreamBuilder(
               stream: Provider.of<SongDetailBloc>(context).showHideLyric$,
