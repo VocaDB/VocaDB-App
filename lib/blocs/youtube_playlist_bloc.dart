@@ -32,19 +32,6 @@ class YoutubePlaylistBloc {
     if (songs != null && songs.isNotEmpty) {
       initialPlaylist(songs, youtubePlayerController);
     }
-
-    playerState$.distinct().listen((e) {
-      print('update state to $e');
-      if (e != null &&
-          e == PlayerState.stopped &&
-          this.youtubePlayerController != null) {
-        print('run next video');
-        this.next();
-        this
-            .youtubePlayerController
-            .load(YoutubePlayer.convertUrlToId(currentPV.youtubePV.url));
-      }
-    });
   }
 
   void initialPlaylist(
@@ -66,14 +53,15 @@ class YoutubePlaylistBloc {
         );
   }
 
-  void addYoutubeControllerListener() {
-    this.youtubePlayerController.addListener(() {
-      updateState(youtubePlayerController.value.playerState);
-    });
-  }
-
   void updateState(PlayerState playerState) {
     _playerState.add(playerState);
+  }
+
+  void onEnded() {
+    this.next();
+    this
+        .youtubePlayerController
+        .load(YoutubePlayer.convertUrlToId(currentPV.youtubePV.url));
   }
 
   void next() {

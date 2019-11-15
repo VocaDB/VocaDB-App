@@ -101,9 +101,7 @@ class _YoutubePlaylistPageState extends State<YoutubePlaylistPage> {
     return YoutubePlayer(
       controller: bloc.youtubePlayerController,
       showVideoProgressIndicator: true,
-      onReady: () {
-        bloc.addYoutubeControllerListener();
-      },
+      onEnded: (_) => bloc.onEnded(),
     );
   }
 
