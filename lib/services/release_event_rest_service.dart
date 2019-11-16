@@ -21,7 +21,7 @@ class ReleaseEventRestService extends BaseRestService {
 
   Future<List<ReleaseEventModel>> latest({String lang = 'Default'}) async {
     final Map<String, String> params = {
-      'fields': 'MainPicture',
+      'fields': 'MainPicture,Series',
       'sort': 'Date',
       'lang': lang
     };
@@ -31,7 +31,7 @@ class ReleaseEventRestService extends BaseRestService {
 
   Future<List<ReleaseEventModel>> recently({String lang = 'Default'}) async {
     final Map<String, String> params = {
-      'fields': 'MainPicture',
+      'fields': 'MainPicture,Series',
       'sort': 'Date',
       'lang': lang,
       'afterDate': DateTime.now().subtract(Duration(days: 3)).toString(),
@@ -43,7 +43,8 @@ class ReleaseEventRestService extends BaseRestService {
 
   Future<ReleaseEventModel> byId(int id, {String lang = 'Default'}) {
     final Map<String, String> params = {
-      'fields': 'Artists,MainPicture,AdditionalNames,Description,WebLinks',
+      'fields':
+          'Artists,MainPicture,AdditionalNames,Description,WebLinks,Series',
       'lang': lang,
     };
 

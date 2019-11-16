@@ -157,8 +157,8 @@ class EventDetailPage extends StatelessWidget {
                   ),
                   TextInfoSection(
                     title: FlutterI18n.translate(context, 'label.category'),
-                    text: FlutterI18n.translate(
-                        context, 'eventCategory.${releaseEvent.category}'),
+                    text: FlutterI18n.translate(context,
+                        'eventCategory.${releaseEvent.displayCategory}'),
                   ),
                   TextInfoSection(
                     title: FlutterI18n.translate(context, 'label.date'),

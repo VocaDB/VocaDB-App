@@ -40,7 +40,7 @@ class EventTile extends StatelessWidget {
         this.imageUrl = releaseEvent.imageUrl,
         this.name = releaseEvent.name,
         this.date = releaseEvent.dateFormatted,
-        this.category = releaseEvent.category;
+        this.category = releaseEvent.displayCategory;
 
   void navigateToDetail(BuildContext context) {
     ReleaseEventDetailScreen.navigate(context, id,
