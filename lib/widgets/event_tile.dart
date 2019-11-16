@@ -51,6 +51,9 @@ class EventTile extends StatelessWidget {
   Widget build(BuildContext context) {
     String categoryName =
         FlutterI18n.translate(context, 'eventCategory.$category');
+
+    String subtitle = (date == null) ? categoryName : '$categoryName • $date';
+
     return ListTile(
       onTap: () => navigateToDetail(context),
       leading: SizedBox(
@@ -66,7 +69,7 @@ class EventTile extends StatelessWidget {
             )),
       ),
       title: Text(this.name, overflow: TextOverflow.ellipsis),
-      subtitle: Text('$categoryName • $date'),
+      subtitle: Text(subtitle),
     );
   }
 }
