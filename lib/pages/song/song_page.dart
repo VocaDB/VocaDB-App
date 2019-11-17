@@ -59,7 +59,8 @@ class _SongPageState extends State<SongPage> {
       onReachLastItem: () {
         Provider.of<SongBloc>(context).fetchMore();
       },
-      showProgressIndicator: !Provider.of<SongBloc>(context).noMoreResult,
+      progressIndicator: InfiniteListView.streamShowProgressIndicator(
+          Provider.of<SongBloc>(context).noMoreResult$),
       itemBuilder: (context, index) {
         SongModel song = songs[index];
 

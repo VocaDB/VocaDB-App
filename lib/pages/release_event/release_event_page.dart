@@ -46,8 +46,8 @@ class _ReleaseEventPageState extends State<ReleaseEventPage> {
       onReachLastItem: () {
         Provider.of<ReleaseEventBloc>(context).fetchMore();
       },
-      showProgressIndicator:
-          !Provider.of<ReleaseEventBloc>(context).noMoreResult,
+      progressIndicator: InfiniteListView.streamShowProgressIndicator(
+          Provider.of<ReleaseEventBloc>(context).noMoreResult$),
       itemBuilder: (context, index) {
         ReleaseEventModel e = releaseEvents[index];
         return EventTile.fromReleaseEvent(e, tag: 'release_event_${e.id}');

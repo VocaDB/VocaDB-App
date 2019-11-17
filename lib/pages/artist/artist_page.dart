@@ -64,7 +64,8 @@ class _ArtistPageState extends State<ArtistPage> {
       onReachLastItem: () {
         Provider.of<ArtistBloc>(context).fetchMore();
       },
-      showProgressIndicator: !Provider.of<ArtistBloc>(context).noMoreResult,
+      progressIndicator: InfiniteListView.streamShowProgressIndicator(
+          Provider.of<ArtistBloc>(context).noMoreResult$),
       itemBuilder: (context, index) {
         ArtistModel artist = artists[index];
         return ArtistTile.fromEntry(artist, tag: 'artist_${artist.id}');

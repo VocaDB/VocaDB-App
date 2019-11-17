@@ -23,7 +23,8 @@ class _SearchTagPageState extends State<SearchTagPage> {
       onReachLastItem: () {
         bloc.fetchMore();
       },
-      showProgressIndicator: !bloc.noMoreResult,
+      progressIndicator:
+          InfiniteListView.streamShowProgressIndicator(bloc.noMoreResult$),
       itemBuilder: (context, index) {
         TagModel tag = tags[index];
         return ListTile(

@@ -5,15 +5,32 @@ class InfiniteListView extends StatelessWidget {
   final int itemCount;
   final IndexedWidgetBuilder itemBuilder;
   final Function onReachLastItem;
-  final bool showProgressIndicator;
+  final Widget progressIndicator;
 
   const InfiniteListView(
       {Key key,
       this.itemCount,
       this.itemBuilder,
       this.onReachLastItem,
-      this.showProgressIndicator = true})
+      this.progressIndicator})
       : super(key: key);
+
+  static Widget buildProgressIndicator() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[CircularProgressIndicator()],
+    );
+  }
+
+  static Widget streamShowProgressIndicator(Stream stream) {
+    return StreamBuilder(
+      stream: stream,
+      initialData: false,
+      builder: (context, snapshot) => (snapshot.hasData && snapshot.data)
+          ? Container()
+          : buildProgressIndicator(),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,14 +46,7 @@ class InfiniteListView extends StatelessWidget {
         if (index == itemCount) {
           this.onReachLastItem();
 
-          if (!this.showProgressIndicator) {
-            return Container();
-          }
-
-          return Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[CircularProgressIndicator()],
-          );
+          return (progressIndicator == null) ? Container() : progressIndicator;
         }
 
         return itemBuilder(context, index);

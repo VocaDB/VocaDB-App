@@ -69,7 +69,8 @@ class _TagCategoryPageState extends State<TagCategoryPage> {
       onReachLastItem: () {
         Provider.of<TagBloc>(context).fetchMore();
       },
-      showProgressIndicator: !Provider.of<TagBloc>(context).noMoreResult,
+      progressIndicator: InfiniteListView.streamShowProgressIndicator(
+          Provider.of<TagBloc>(context).noMoreResult$),
       itemBuilder: (context, index) {
         TagModel tag = tags[index];
         return ListTile(
