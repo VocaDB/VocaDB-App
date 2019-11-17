@@ -7,7 +7,8 @@ import 'package:vocadb/models/artist_model.dart';
 import 'package:vocadb/models/tag_model.dart';
 import 'package:vocadb/pages/search/search_artist_page.dart';
 import 'package:vocadb/pages/search/search_tag_page.dart';
-import 'package:vocadb/widgets/space_divider.dart';
+import 'package:vocadb/pages/setting/single_choice_page.dart';
+import 'package:vocadb/utils/date_utils.dart';
 
 class ReleaseEventFilterPage extends StatelessWidget {
   final ReleaseEventFilterBloc bloc;
@@ -29,6 +30,24 @@ class ReleaseEventFilterPage extends StatelessWidget {
                 SearchArtistPage(onSelected: bloc.addArtist)));
   }
 
+  void selectFromDate(BuildContext context) {
+    showDatePicker(
+            context: context,
+            initialDate: DateTime.now(),
+            firstDate: DateTime(2005),
+            lastDate: DateTime(2030))
+        .then(bloc.updateFromDate);
+  }
+
+  void selectToDate(BuildContext context) {
+    showDatePicker(
+            context: context,
+            initialDate: DateTime.now(),
+            firstDate: DateTime(2005),
+            lastDate: DateTime(2030))
+        .then(bloc.updateToDate);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,71 +57,98 @@ class ReleaseEventFilterPage extends StatelessWidget {
           padding: EdgeInsets.all(8.0),
           child: ListView(
             children: <Widget>[
-              Title(
-                text: FlutterI18n.translate(context, 'label.tags'),
+              TagStreamFilters(
+                tags$: bloc.tags$,
+                onDeleteTag: (TagModel tag) {
+                  bloc.removeTag(tag.id);
+                },
+                onBrowseTags: () => browseTags(context),
               ),
-              SpaceDivider(),
-              StreamBuilder(
-                stream: bloc.tags$,
-                builder: (context, snapshot) {
-                  List<TagModel> tags = (snapshot.hasData)
-                      ? (snapshot.data as Map<int, TagModel>).values.toList()
-                      : [];
+              Divider(),
+              Padding(
+                padding: EdgeInsets.fromLTRB(16, 16, 0, 0),
+                child: Text(
+                  'Date',
+                  style: Theme.of(context).textTheme.subhead,
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.fromLTRB(16, 16, 0, 16),
+                child: Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: RaisedButton(
+                        color: Theme.of(context).cardColor,
+                        padding: EdgeInsets.all(16.0),
+                        onPressed: () => selectFromDate(context),
+                        child: Row(
+                          children: <Widget>[
+                            Icon(Icons.calendar_today),
+                            Container(
+                              width: 8,
+                            ),
+                            StreamBuilder(
+                              stream: bloc.fromDate$,
+                              builder: (context, snapshot) {
+                                if (snapshot.hasData && snapshot.data != '') {
+                                  return Text(snapshot.data);
+                                }
 
-                  return TagFilters(
-                    tags: tags,
-                    onBrowseTags: () {
-                      browseTags(context);
-                    },
-                  );
-                },
-              ),
-              SpaceDivider(),
-              Title(
-                text: FlutterI18n.translate(context, 'label.category'),
-              ),
-              StreamBuilder(
-                stream: bloc.category$,
-                builder: (context, snapshot) {
-                  return ReleaseEventCategoryDropDown(
-                    value: snapshot.data,
-                    onChanged: bloc.updateCategory,
-                  );
-                },
-              ),
-              SpaceDivider(),
-              Title(
-                text: FlutterI18n.translate(context, 'label.sort'),
-              ),
-              StreamBuilder(
-                stream: bloc.sort$,
-                builder: (context, snapshot) {
-                  return ReleaseEventSortDropDown(
-                    value: snapshot.data ?? 'Name',
-                    onChanged: bloc.updateSort,
-                  );
-                },
-              ),
-              SpaceDivider(),
-              Title(
-                text: FlutterI18n.translate(context, 'label.artists'),
-              ),
-              SpaceDivider(),
-              StreamBuilder(
-                stream: bloc.artists$,
-                builder: (context, snapshot) {
-                  List<ArtistModel> artists = (snapshot.hasData)
-                      ? (snapshot.data as Map<int, ArtistModel>).values.toList()
-                      : [];
+                                return Text('From');
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 4.0),
+                      child: Text('-'),
+                    ),
+                    Expanded(
+                      child: RaisedButton(
+                        color: Theme.of(context).cardColor,
+                        padding: EdgeInsets.all(16.0),
+                        onPressed: () => selectToDate(context),
+                        child: Row(
+                          children: <Widget>[
+                            Icon(Icons.calendar_today),
+                            Container(
+                              width: 8,
+                            ),
+                            StreamBuilder(
+                              stream: bloc.toDate$,
+                              builder: (context, snapshot) {
+                                if (snapshot.hasData && snapshot.data != '') {
+                                  return Text(snapshot.data);
+                                }
 
-                  return ArtistFilters(
-                    artists: artists,
-                    onRemove: bloc.removeArtist,
-                    onBrowseArtists: () {
-                      browseArtists(context);
-                    },
-                  );
+                                return Text('To');
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Divider(),
+              ReleaseEventCategorySelector(
+                value: bloc.category,
+                onSelected: bloc.updateCategory,
+              ),
+              ReleaseEventSortSelector(
+                value: bloc.sort,
+                onSelected: bloc.updateSort,
+              ),
+              Divider(),
+              ArtistStreamFilters(
+                artists$: bloc.artists$,
+                onDeleteArtist: (ArtistModel artist) {
+                  bloc.removeArtist(artist.id);
                 },
+                onBrowseArtists: () => browseArtists(context),
               ),
             ],
           ),
@@ -110,43 +156,100 @@ class ReleaseEventFilterPage extends StatelessWidget {
   }
 }
 
-class ArtistFilters extends StatelessWidget {
-  final List<ArtistModel> artists;
-  final Function onBrowseArtists;
-  final Function onRemove;
+class ReleaseEventCategorySelector extends StatelessWidget {
+  final String value;
+  final Function onSelected;
 
-  const ArtistFilters(
-      {Key key, this.artists, this.onBrowseArtists, this.onRemove})
+  const ReleaseEventCategorySelector({Key key, this.value, this.onSelected})
       : super(key: key);
 
-  List<Widget> buildChildren(BuildContext context) {
-    List<Widget> children = [];
+  List<ChoiceOption> options(BuildContext context) {
+    List<ChoiceOption> options = [];
+    options.add(ChoiceOption(
+        FlutterI18n.translate(context, 'label.notSpecified'), null));
+    options.addAll(constEventCategories
+        .map((v) =>
+            ChoiceOption(FlutterI18n.translate(context, 'eventCategory.$v'), v))
+        .toList());
 
-    if (artists != null && artists.length > 0) {
-      children.addAll(artists
-          .map((t) => ListTile(
-                onTap: () {},
-                trailing: IconButton(
-                  icon: Icon(Icons.close),
-                  onPressed: () {
-                    this.onRemove(t.id);
-                  },
-                ),
-                leading: buildLeading(t.imageUrl),
-                title: Text(t.name),
-                subtitle: Text(t.artistType),
-              ))
-          .toList());
-    }
-
-    children.add(ListTile(
-      onTap: this.onBrowseArtists,
-      leading: Icon(Icons.add),
-      title: Text(FlutterI18n.translate(context, 'label.add')),
-    ));
-
-    return children;
+    return options;
   }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: <Widget>[
+        ListTile(
+          onTap: () {
+            SingleChoicePage.navigate(
+              context,
+              title: FlutterI18n.translate(context, 'label.category'),
+              options: options(context),
+              value: value,
+              onSelected: onSelected,
+            );
+          },
+          title: Text(FlutterI18n.translate(context, 'label.category')),
+          subtitle: Text((value == null)
+              ? FlutterI18n.translate(context, 'label.notSpecified')
+              : FlutterI18n.translate(context, 'eventCategory.$value')),
+        ),
+      ],
+    );
+  }
+}
+
+class ReleaseEventSortSelector extends StatelessWidget {
+  final String value;
+  final Function onSelected;
+  final values = const ['Name', 'Date', 'AdditionDate'];
+
+  const ReleaseEventSortSelector({Key key, this.value, this.onSelected})
+      : super(key: key);
+
+  List<ChoiceOption> options(BuildContext context) {
+    List<ChoiceOption> options = [];
+    options.add(ChoiceOption(
+        FlutterI18n.translate(context, 'label.notSpecified'), null));
+    options.addAll(values
+        .map((v) => ChoiceOption(FlutterI18n.translate(context, 'sort.$v'), v))
+        .toList());
+
+    return options;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: <Widget>[
+        ListTile(
+          onTap: () {
+            SingleChoicePage.navigate(
+              context,
+              title: FlutterI18n.translate(context, 'label.sort'),
+              options: options(context),
+              value: value,
+              onSelected: onSelected,
+            );
+          },
+          title: Text(FlutterI18n.translate(context, 'label.sort')),
+          subtitle: Text((value == null)
+              ? FlutterI18n.translate(context, 'label.notSpecified')
+              : FlutterI18n.translate(context, 'sort.$value')),
+        ),
+      ],
+    );
+  }
+}
+
+class ArtistStreamFilters extends StatelessWidget {
+  final Function onBrowseArtists;
+  final Stream artists$;
+  final Function onDeleteArtist;
+
+  const ArtistStreamFilters(
+      {Key key, this.onBrowseArtists, this.artists$, this.onDeleteArtist})
+      : super(key: key);
 
   Widget buildLeading(String imageUrl) {
     return SizedBox(
@@ -169,123 +272,102 @@ class ArtistFilters extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: buildChildren(context),
+      children: <Widget>[
+        ListTile(
+          title: Text(
+            FlutterI18n.translate(context, 'label.artists'),
+          ),
+        ),
+        StreamBuilder(
+          stream: artists$,
+          builder: (context, snapshot) {
+            List<ArtistModel> artists = (snapshot.hasData)
+                ? (snapshot.data as Map<int, ArtistModel>).values.toList()
+                : [];
+
+            if (artists.length == 0) return Container();
+
+            return Column(
+              children: artists
+                  .map((v) => ListTile(
+                        onTap: () {},
+                        trailing: IconButton(
+                          icon: Icon(Icons.close),
+                          onPressed: () {
+                            this.onDeleteArtist(v.id);
+                          },
+                        ),
+                        leading: buildLeading(v.imageUrl),
+                        title: Text(v.name),
+                        subtitle: Text(v.artistType),
+                      ))
+                  .toList(),
+            );
+          },
+        ),
+        ListTile(
+          onTap: () {
+            this.onBrowseArtists();
+          },
+          leading: Icon(Icons.add),
+          title: Text('ADD ARTIST'),
+        ),
+      ],
     );
   }
 }
 
-class TagFilters extends StatelessWidget {
+class TagStreamFilters extends StatelessWidget {
   final Function onBrowseTags;
-  final List<TagModel> tags;
+  final Stream tags$;
   final Function onDeleteTag;
 
-  const TagFilters({Key key, this.onBrowseTags, this.tags, this.onDeleteTag})
-      : super(key: key);
-
-  List<Widget> buildChildren(BuildContext context) {
-    List<Widget> children = [];
-
-    if (tags != null && tags.length > 0) {
-      children.addAll(tags
-          .map((t) => Chip(
-                label: Text(t.name),
-                onDeleted: () {
-                  this.onDeleteTag(t);
-                },
-                deleteIcon: Icon(Icons.close),
-              ))
-          .toList());
-    }
-
-    children.add(InputChip(
-      label: Wrap(
-        crossAxisAlignment: WrapCrossAlignment.center,
-        children: <Widget>[
-          Icon(Icons.add),
-          Text(FlutterI18n.translate(context, 'label.add'))
-        ],
-      ),
-      onPressed: this.onBrowseTags,
-    ));
-
-    return children;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Wrap(
-      spacing: 8.0,
-      children: buildChildren(context),
-    );
-  }
-}
-
-class ReleaseEventCategoryDropDown extends StatelessWidget {
-  final Function onChanged;
-  final String value;
-
-  const ReleaseEventCategoryDropDown({Key key, this.onChanged, this.value})
-      : super(key: key);
-
-  List<DropdownMenuItem<String>> dropDownItems(BuildContext context) {
-    List<DropdownMenuItem<String>> items = [];
-    items.add(defaultItem(context));
-    items.addAll(
-        constEventCategories.map((v) => createItem(context, v)).toList());
-
-    return items;
-  }
-
-  DropdownMenuItem<String> defaultItem(BuildContext context) {
-    return DropdownMenuItem<String>(
-      value: null,
-      child: Text(FlutterI18n.translate(context, 'label.notSpecified')),
-    );
-  }
-
-  DropdownMenuItem<String> createItem(BuildContext context, String value) {
-    return DropdownMenuItem<String>(
-      value: value,
-      child: Text(FlutterI18n.translate(context, 'eventCategory.$value')),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return DropdownButton(
-        value: this.value,
-        underline: Container(),
-        items: dropDownItems(context),
-        onChanged: this.onChanged);
-  }
-}
-
-class ReleaseEventSortDropDown extends StatelessWidget {
-  final sorts = const [
-    {'name': 'Name', 'value': 'Name'},
-    {'name': 'Date', 'value': 'Date'},
-    {'name': 'Addition date', 'value': 'AdditionDate'},
-  ];
-
-  final Function onChanged;
-  final String value;
-
-  const ReleaseEventSortDropDown({Key key, this.onChanged, this.value = 'Name'})
+  const TagStreamFilters(
+      {Key key, this.onBrowseTags, this.tags$, this.onDeleteTag})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return DropdownButton(
-        value: this.value,
-        underline: Container(),
-        items: sorts
-            .map((st) => DropdownMenuItem<String>(
-                  value: st['value'],
-                  child: Text(
-                      FlutterI18n.translate(context, 'sort.${st['value']}')),
-                ))
-            .toList(),
-        onChanged: this.onChanged);
+    return Column(
+      children: <Widget>[
+        ListTile(
+          title: Text(
+            FlutterI18n.translate(context, 'label.tags'),
+          ),
+        ),
+        StreamBuilder(
+          stream: tags$,
+          builder: (context, snapshot) {
+            List<TagModel> tags = (snapshot.hasData)
+                ? (snapshot.data as Map<int, TagModel>).values.toList()
+                : [];
+
+            if (tags.length == 0) return Container();
+
+            return Column(
+              children: tags
+                  .map((tag) => ListTile(
+                        leading: Icon(Icons.label),
+                        title: Text(tag.name),
+                        trailing: IconButton(
+                            icon: Icon(Icons.close),
+                            onPressed: () {
+                              onDeleteTag(tag);
+                            }),
+                      ))
+                  .toList(),
+            );
+          },
+        ),
+        ListTile(
+          onTap: () {
+            this.onBrowseTags();
+          },
+          leading: Icon(Icons.add),
+          title: Text('ADD TAG'),
+        ),
+      ],
+    );
   }
 }
 
