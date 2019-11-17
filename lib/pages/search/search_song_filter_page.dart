@@ -114,37 +114,6 @@ class SongTypeSelector extends StatelessWidget {
   }
 }
 
-class SongSortDropDown extends StatelessWidget {
-  final sorts = const [
-    {'name': 'Name', 'value': 'Name'},
-    {'name': 'Addition date', 'value': 'AdditionDate'},
-    {'name': 'Publish date', 'value': 'PublishDate'},
-    {'name': 'Time favorited', 'value': 'FavoritedTimes'},
-    {'name': 'Rating score', 'value': 'RatingScore'},
-  ];
-
-  final Function onChanged;
-  final String value;
-
-  const SongSortDropDown({Key key, this.onChanged, this.value = 'Name'})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return DropdownButton(
-        value: this.value,
-        underline: Container(),
-        items: sorts
-            .map((st) => DropdownMenuItem<String>(
-                  value: st['value'],
-                  child: Text(
-                      FlutterI18n.translate(context, 'sort.${st['value']}')),
-                ))
-            .toList(),
-        onChanged: this.onChanged);
-  }
-}
-
 class SongSortSelector extends StatelessWidget {
   final String value;
   final Function onSelected;
