@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:vocadb/blocs/search_tag_bloc.dart';
 import 'package:vocadb/models/tag_model.dart';
+import 'package:vocadb/pages/tag/tag_category_names.dart';
+import 'package:vocadb/widgets/infinite_list_view.dart';
 import 'package:vocadb/widgets/result.dart';
 
 class SearchTagPage extends StatefulWidget {
@@ -16,16 +18,20 @@ class _SearchTagPageState extends State<SearchTagPage> {
   final SearchTagBloc bloc = SearchTagBloc();
 
   Widget buildData(List<TagModel> tags) {
-    return ListView.builder(
+    return InfiniteListView(
       itemCount: tags.length,
+      onReachLastItem: () {
+        bloc.fetchMore();
+      },
+      showProgressIndicator: !bloc.noMoreResult,
       itemBuilder: (context, index) {
-        TagModel t = tags[index];
+        TagModel tag = tags[index];
         return ListTile(
           onTap: () {
-            widget.onSelected(t);
+            widget.onSelected(tag);
             Navigator.pop(context);
           },
-          title: Text(t.name),
+          title: Text(tag.name),
         );
       },
     );
@@ -40,6 +46,21 @@ class _SearchTagPageState extends State<SearchTagPage> {
   Widget buildDefault() {
     return Center(
       child: CircularProgressIndicator(),
+    );
+  }
+
+  Widget buildSearchResult() {
+    return StreamBuilder(
+      stream: bloc.result$,
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          return buildData(snapshot.data);
+        } else if (snapshot.hasError) {
+          return buildError(snapshot.error.toString());
+        }
+
+        return buildDefault();
+      },
     );
   }
 
@@ -61,15 +82,19 @@ class _SearchTagPageState extends State<SearchTagPage> {
         ),
       ),
       body: StreamBuilder(
-        stream: bloc.result$,
+        stream: bloc.query$,
         builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return buildData(snapshot.data);
+          if (snapshot.hasData && snapshot.data != '') {
+            return buildSearchResult();
           } else if (snapshot.hasError) {
             return buildError(snapshot.error.toString());
           }
 
-          return buildDefault();
+          return TagCategoryNames(onSelectTag: (tag) {
+            widget.onSelected(tag);
+            Navigator.pop(context);
+            Navigator.pop(context);
+          });
         },
       ),
     );

@@ -4,9 +4,8 @@ import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:provider/provider.dart';
 import 'package:vocadb/blocs/tag_bloc.dart';
 import 'package:vocadb/models/tag_model.dart';
-import 'package:vocadb/pages/tag/tag_category_page.dart';
+import 'package:vocadb/pages/tag/tag_category_names.dart';
 import 'package:vocadb/pages/tag_detail/tag_detail_page.dart';
-import 'package:vocadb/widgets/center_content.dart';
 import 'package:vocadb/widgets/infinite_list_view.dart';
 import 'package:vocadb/widgets/result.dart';
 
@@ -19,6 +18,10 @@ class TagScreen {
 }
 
 class TagPage extends StatefulWidget {
+  final Function onSelectTag;
+
+  const TagPage({Key key, this.onSelectTag}) : super(key: key);
+
   @override
   _TagPageState createState() => _TagPageState();
 }
@@ -41,7 +44,13 @@ class _TagPageState extends State<TagPage> {
       itemBuilder: (context, index) {
         TagModel tag = tags[index];
         return ListTile(
-          onTap: () => TagDetailScreen.navigate(context, tag.id, tag.name),
+          onTap: () {
+            if (widget.onSelectTag == null) {
+              TagDetailScreen.navigate(context, tag.id, tag.name);
+            } else {
+              widget.onSelectTag(tag);
+            }
+          },
           title: Text(tag.name),
         );
       },
@@ -155,59 +164,6 @@ class _TagPageState extends State<TagPage> {
           return TagCategoryNames();
         },
       ),
-    );
-  }
-}
-
-class TagCategoryNames extends StatelessWidget {
-  Widget buildData(BuildContext context, List names) {
-    return Column(
-      children: <Widget>[
-        Padding(
-          padding: EdgeInsets.all(16.0),
-          child: Text(
-            'Category',
-            style: Theme.of(context).textTheme.title,
-          ),
-        ),
-        Expanded(
-          child: GridView.count(
-              primary: true,
-              crossAxisCount: 2,
-              childAspectRatio: 3,
-              padding: EdgeInsets.all(8.0),
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 10,
-              children: List.generate(names.length, (index) {
-                return RaisedButton(
-                  color: Theme.of(context).backgroundColor,
-                  onPressed: () {
-                    TagCategoryScreen.navigate(context, names[index]);
-                  },
-                  child: Text(names[index]),
-                );
-              })),
-        )
-      ],
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final bloc = Provider.of<TagBloc>(context);
-    return StreamBuilder(
-      stream: bloc.categoryNames$,
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          return buildData(context, snapshot.data);
-        } else if (snapshot.hasError) {
-          return CenterResult.error(
-              title: 'Error try to get category names',
-              message: snapshot.error.toString());
-        }
-
-        return CenterLoading();
-      },
     );
   }
 }

@@ -11,16 +11,19 @@ import 'package:vocadb/widgets/result.dart';
 
 class TagCategoryScreenArguments {
   final String category;
+  final Function onSelectTag;
 
-  TagCategoryScreenArguments(this.category);
+  TagCategoryScreenArguments(this.category, {this.onSelectTag});
 }
 
 class TagCategoryScreen extends StatelessWidget {
   static const String routeName = '/tags/category';
 
-  static void navigate(BuildContext context, String category) {
+  static void navigate(BuildContext context, String category,
+      {Function onSelectTag}) {
     Navigator.pushNamed(context, TagCategoryScreen.routeName,
-        arguments: TagCategoryScreenArguments(category));
+        arguments:
+            TagCategoryScreenArguments(category, onSelectTag: onSelectTag));
   }
 
   @override
@@ -35,6 +38,7 @@ class TagCategoryScreen extends StatelessWidget {
       dispose: (context, bloc) => bloc.dispose(),
       child: TagCategoryPage(
         category: args.category,
+        onSelectTag: args.onSelectTag,
       ),
     );
   }
@@ -42,8 +46,10 @@ class TagCategoryScreen extends StatelessWidget {
 
 class TagCategoryPage extends StatefulWidget {
   final String category;
+  final Function onSelectTag;
 
-  const TagCategoryPage({Key key, this.category}) : super(key: key);
+  const TagCategoryPage({Key key, this.category, this.onSelectTag})
+      : super(key: key);
 
   @override
   _TagCategoryPageState createState() => _TagCategoryPageState();
@@ -67,7 +73,13 @@ class _TagCategoryPageState extends State<TagCategoryPage> {
       itemBuilder: (context, index) {
         TagModel tag = tags[index];
         return ListTile(
-          onTap: () => TagDetailScreen.navigate(context, tag.id, tag.name),
+          onTap: () {
+            if (widget.onSelectTag == null) {
+              TagDetailScreen.navigate(context, tag.id, tag.name);
+            } else {
+              widget.onSelectTag(tag);
+            }
+          },
           title: Text(tag.name),
         );
       },

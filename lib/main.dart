@@ -37,6 +37,7 @@ import 'package:vocadb/pages/search/more_song_page.dart';
 import 'package:vocadb/pages/search/search_page.dart';
 import 'package:vocadb/pages/song/song_page.dart';
 import 'package:vocadb/pages/song_detail/song_detail_page.dart';
+import 'package:vocadb/pages/tag/tag_category_page.dart';
 import 'package:vocadb/pages/tag/tag_page.dart';
 import 'package:vocadb/pages/tag_detail/tag_detail_page.dart';
 import 'package:vocadb/pages/users/favorite_album_page.dart';
@@ -193,6 +194,7 @@ class RootApp extends StatelessWidget {
                 ),
             YoutubePlaylistScreen.routeName: (context) =>
                 YoutubePlaylistScreen(),
+            TagCategoryScreen.routeName: (context) => TagCategoryScreen(),
           },
         );
       },
@@ -245,7 +247,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(APP_NAME, key: Key('app_name'),),
+        title: Text(
+          APP_NAME,
+          key: Key('app_name'),
+        ),
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.search),
@@ -269,15 +274,18 @@ class _MyHomePageState extends State<MyHomePage> {
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
-            title: Text(FlutterI18n.translate(context, 'label.home'), key: Key('tab_home')),
+            title: Text(FlutterI18n.translate(context, 'label.home'),
+                key: Key('tab_home')),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.trending_up),
-            title: Text(FlutterI18n.translate(context, 'label.ranking'), key: Key('tab_ranking')),
+            title: Text(FlutterI18n.translate(context, 'label.ranking'),
+                key: Key('tab_ranking')),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.menu),
-            title: Text(FlutterI18n.translate(context, 'label.menu'), key: Key('tab_menu')),
+            title: Text(FlutterI18n.translate(context, 'label.menu'),
+                key: Key('tab_menu')),
           ),
         ],
         currentIndex: _selectedIndex,
