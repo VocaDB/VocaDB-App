@@ -1,14 +1,14 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:vocadb/blocs/release_event_filter_bloc.dart';
 import 'package:vocadb/constants.dart';
 import 'package:vocadb/models/artist_model.dart';
 import 'package:vocadb/models/tag_model.dart';
+import 'package:vocadb/pages/search/artist_stream_filter.dart';
 import 'package:vocadb/pages/search/search_artist_page.dart';
 import 'package:vocadb/pages/search/search_tag_page.dart';
+import 'package:vocadb/pages/search/tag_stream_filter.dart';
 import 'package:vocadb/pages/setting/single_choice_page.dart';
-import 'package:vocadb/utils/date_utils.dart';
 
 class ReleaseEventFilterPage extends StatelessWidget {
   final ReleaseEventFilterBloc bloc;
@@ -73,7 +73,7 @@ class ReleaseEventFilterPage extends StatelessWidget {
                 ),
               ),
               Container(
-                padding: EdgeInsets.fromLTRB(16, 16, 0, 16),
+                padding: EdgeInsets.fromLTRB(16, 16, 16, 16),
                 child: Row(
                   children: <Widget>[
                     Expanded(
@@ -238,135 +238,6 @@ class ReleaseEventSortSelector extends StatelessWidget {
           subtitle: Text((value == null)
               ? FlutterI18n.translate(context, 'label.notSpecified')
               : FlutterI18n.translate(context, 'sort.$value')),
-        ),
-      ],
-    );
-  }
-}
-
-class ArtistStreamFilters extends StatelessWidget {
-  final Function onBrowseArtists;
-  final Stream artists$;
-  final Function onDeleteArtist;
-
-  const ArtistStreamFilters(
-      {Key key, this.onBrowseArtists, this.artists$, this.onDeleteArtist})
-      : super(key: key);
-
-  Widget buildLeading(String imageUrl) {
-    return SizedBox(
-      width: 50,
-      height: 50,
-      child: ClipOval(
-          child: Container(
-        color: Colors.white,
-        child: (imageUrl == null)
-            ? Placeholder()
-            : CachedNetworkImage(
-                imageUrl: imageUrl,
-                placeholder: (context, url) => Container(color: Colors.grey),
-                errorWidget: (context, url, error) => new Icon(Icons.error),
-              ),
-      )),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        ListTile(
-          title: Text(
-            FlutterI18n.translate(context, 'label.artists'),
-          ),
-        ),
-        StreamBuilder(
-          stream: artists$,
-          builder: (context, snapshot) {
-            List<ArtistModel> artists = (snapshot.hasData)
-                ? (snapshot.data as Map<int, ArtistModel>).values.toList()
-                : [];
-
-            if (artists.length == 0) return Container();
-
-            return Column(
-              children: artists
-                  .map((v) => ListTile(
-                        onTap: () {},
-                        trailing: IconButton(
-                          icon: Icon(Icons.close),
-                          onPressed: () {
-                            this.onDeleteArtist(v.id);
-                          },
-                        ),
-                        leading: buildLeading(v.imageUrl),
-                        title: Text(v.name),
-                        subtitle: Text(v.artistType),
-                      ))
-                  .toList(),
-            );
-          },
-        ),
-        ListTile(
-          onTap: () {
-            this.onBrowseArtists();
-          },
-          leading: Icon(Icons.add),
-          title: Text('ADD ARTIST'),
-        ),
-      ],
-    );
-  }
-}
-
-class TagStreamFilters extends StatelessWidget {
-  final Function onBrowseTags;
-  final Stream tags$;
-  final Function onDeleteTag;
-
-  const TagStreamFilters(
-      {Key key, this.onBrowseTags, this.tags$, this.onDeleteTag})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        ListTile(
-          title: Text(
-            FlutterI18n.translate(context, 'label.tags'),
-          ),
-        ),
-        StreamBuilder(
-          stream: tags$,
-          builder: (context, snapshot) {
-            List<TagModel> tags = (snapshot.hasData)
-                ? (snapshot.data as Map<int, TagModel>).values.toList()
-                : [];
-
-            if (tags.length == 0) return Container();
-
-            return Column(
-              children: tags
-                  .map((tag) => ListTile(
-                        leading: Icon(Icons.label),
-                        title: Text(tag.name),
-                        trailing: IconButton(
-                            icon: Icon(Icons.close),
-                            onPressed: () {
-                              onDeleteTag(tag);
-                            }),
-                      ))
-                  .toList(),
-            );
-          },
-        ),
-        ListTile(
-          onTap: () {
-            this.onBrowseTags();
-          },
-          leading: Icon(Icons.add),
-          title: Text('ADD TAG'),
         ),
       ],
     );
