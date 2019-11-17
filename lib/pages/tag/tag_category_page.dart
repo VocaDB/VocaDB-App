@@ -2,28 +2,54 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:provider/provider.dart';
+import 'package:vocadb/blocs/config_bloc.dart';
 import 'package:vocadb/blocs/tag_bloc.dart';
 import 'package:vocadb/models/tag_model.dart';
-import 'package:vocadb/pages/tag/tag_category_page.dart';
 import 'package:vocadb/pages/tag_detail/tag_detail_page.dart';
-import 'package:vocadb/widgets/center_content.dart';
 import 'package:vocadb/widgets/infinite_list_view.dart';
 import 'package:vocadb/widgets/result.dart';
 
-class TagScreen {
-  static const String routeName = '/tags';
+class TagCategoryScreenArguments {
+  final String category;
 
-  static void navigate(BuildContext context) {
-    Navigator.pushNamed(context, TagScreen.routeName);
+  TagCategoryScreenArguments(this.category);
+}
+
+class TagCategoryScreen extends StatelessWidget {
+  static const String routeName = '/tags/category';
+
+  static void navigate(BuildContext context, String category) {
+    Navigator.pushNamed(context, TagCategoryScreen.routeName,
+        arguments: TagCategoryScreenArguments(category));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final TagCategoryScreenArguments args =
+        ModalRoute.of(context).settings.arguments;
+    final configBloc = Provider.of<ConfigBloc>(context);
+
+    return Provider<TagBloc>(
+      builder: (context) =>
+          TagBloc(configBloc: configBloc, category: args.category),
+      dispose: (context, bloc) => bloc.dispose(),
+      child: TagCategoryPage(
+        category: args.category,
+      ),
+    );
   }
 }
 
-class TagPage extends StatefulWidget {
+class TagCategoryPage extends StatefulWidget {
+  final String category;
+
+  const TagCategoryPage({Key key, this.category}) : super(key: key);
+
   @override
-  _TagPageState createState() => _TagPageState();
+  _TagCategoryPageState createState() => _TagCategoryPageState();
 }
 
-class _TagPageState extends State<TagPage> {
+class _TagCategoryPageState extends State<TagCategoryPage> {
   final TextEditingController _controller = TextEditingController();
 
   void dispose() {
@@ -123,7 +149,7 @@ class _TagPageState extends State<TagPage> {
                         ),
                       ],
                     )
-                  : Text(FlutterI18n.translate(context, 'label.tags')),
+                  : Text(widget.category),
             );
           },
         ),
@@ -146,68 +172,7 @@ class _TagPageState extends State<TagPage> {
               }),
         ],
       ),
-      body: StreamBuilder(
-        stream: bloc.searching$,
-        builder: (context, snapshot) {
-          if (snapshot.hasData && snapshot.data) {
-            return buildSearchResult();
-          }
-          return TagCategoryNames();
-        },
-      ),
-    );
-  }
-}
-
-class TagCategoryNames extends StatelessWidget {
-  Widget buildData(BuildContext context, List names) {
-    return Column(
-      children: <Widget>[
-        Padding(
-          padding: EdgeInsets.all(16.0),
-          child: Text(
-            'Category',
-            style: Theme.of(context).textTheme.title,
-          ),
-        ),
-        Expanded(
-          child: GridView.count(
-              primary: true,
-              crossAxisCount: 2,
-              childAspectRatio: 3,
-              padding: EdgeInsets.all(8.0),
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 10,
-              children: List.generate(names.length, (index) {
-                return RaisedButton(
-                  color: Theme.of(context).backgroundColor,
-                  onPressed: () {
-                    TagCategoryScreen.navigate(context, names[index]);
-                  },
-                  child: Text(names[index]),
-                );
-              })),
-        )
-      ],
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final bloc = Provider.of<TagBloc>(context);
-    return StreamBuilder(
-      stream: bloc.categoryNames$,
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          return buildData(context, snapshot.data);
-        } else if (snapshot.hasError) {
-          return CenterResult.error(
-              title: 'Error try to get category names',
-              message: snapshot.error.toString());
-        }
-
-        return CenterLoading();
-      },
+      body: buildSearchResult(),
     );
   }
 }
