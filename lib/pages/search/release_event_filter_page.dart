@@ -68,7 +68,7 @@ class ReleaseEventFilterPage extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.fromLTRB(16, 16, 0, 0),
                 child: Text(
-                  'Date',
+                  FlutterI18n.translate(context, 'label.date'),
                   style: Theme.of(context).textTheme.subhead,
                 ),
               ),
@@ -94,7 +94,8 @@ class ReleaseEventFilterPage extends StatelessWidget {
                                   return Text(snapshot.data);
                                 }
 
-                                return Text('From');
+                                return Text(FlutterI18n.translate(
+                                    context, 'label.from'));
                               },
                             ),
                           ],
@@ -123,7 +124,8 @@ class ReleaseEventFilterPage extends StatelessWidget {
                                   return Text(snapshot.data);
                                 }
 
-                                return Text('To');
+                                return Text(
+                                    FlutterI18n.translate(context, 'label.to'));
                               },
                             ),
                           ],
