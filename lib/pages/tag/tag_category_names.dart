@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:vocadb/blocs/tag_bloc.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:vocadb/pages/tag/tag_category_page.dart';
-import 'package:vocadb/services/tag_rest_service.dart';
-import 'package:vocadb/widgets/center_content.dart';
+import 'package:vocadb/constants.dart';
 
 class TagCategoryNames extends StatelessWidget {
   final Function onSelectCategory;
@@ -18,7 +16,8 @@ class TagCategoryNames extends StatelessWidget {
         Padding(
           padding: EdgeInsets.all(16.0),
           child: Text(
-            'Category',
+            FlutterI18n.translate(
+                                    context, 'label.category'),
             style: Theme.of(context).textTheme.title,
           ),
         ),
@@ -48,19 +47,6 @@ class TagCategoryNames extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: TagRestService().categoryNames(),
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          return buildData(context, snapshot.data);
-        } else if (snapshot.hasError) {
-          return CenterResult.error(
-              title: 'Error try to get category names',
-              message: snapshot.error.toString());
-        }
-
-        return CenterLoading();
-      },
-    );
+    return buildData(context, constTagCategories);
   }
 }
