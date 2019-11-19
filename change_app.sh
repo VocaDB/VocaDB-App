@@ -5,7 +5,7 @@ echo "Replace file android/app/src/main/AndroidManifest.xml"
 cp ./assets/store/$APP_NAME/android/AndroidMAnifest.xml ./android/app/src/main/AndroidManifest.xml
 
 echo "Replace file app/build.gradle"
-cp ./assets/store/$APP_NAME/android/app.build.gradle ./android/app/src/build.gradle
+cp ./assets/store/$APP_NAME/android/app.build.gradle ./android/app/build.gradle
 
 echo "Replace android package structure"
 rm -r ./android/app/src/main/kotlin
