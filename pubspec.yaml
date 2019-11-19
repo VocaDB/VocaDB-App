@@ -19,7 +19,7 @@ dependencies:
   firebase_crashlytics: ^0.1.0+3
   flutter_i18n: ^0.7.0
   esys_flutter_share: ^1.0.2
-  file_picker: ^1.4.2
+  file_picker: 1.4.0
   package_info: ^0.4.0+6
   path_provider: ^1.3.0
   hive: ^1.0.0
