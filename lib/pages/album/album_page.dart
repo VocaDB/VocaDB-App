@@ -90,7 +90,8 @@ class _AlbumPageState extends State<AlbumPage> {
       onReachLastItem: () {
         Provider.of<AlbumBloc>(context).fetchMore();
       },
-      showProgressIndicator: !Provider.of<AlbumBloc>(context).noMoreResult,
+      progressIndicator: InfiniteListView.streamShowProgressIndicator(
+          Provider.of<AlbumBloc>(context).noMoreResult$),
       itemBuilder: (context, index) {
         AlbumModel album = albums[index];
         return AlbumTile.fromEntry(album, tag: 'album_${album.id}');

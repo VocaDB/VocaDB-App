@@ -42,4 +42,10 @@ class TagRestService extends BaseRestService {
         .getObject('/api/tags/$id', params)
         .then((i) => TagModel.fromJson(i));
   }
+
+  Future<List> categoryNames() async {
+    final String endpoint = '/api/tags/categoryNames';
+
+    return super.query(endpoint, {}).then((items) => items);
+  }
 }

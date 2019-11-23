@@ -55,7 +55,7 @@ class ReleaseEventBloc {
   Map<String, String> getCurrentParams() {
     Map<String, String> params = releaseEventFilterBloc.params();
 
-    params['fields'] = 'MainPicture';
+    params['fields'] = 'MainPicture,Series';
     params['nameMatchMode'] = 'Auto';
     params['maxResults'] = '50';
     params['lang'] = configBloc.contentLang;

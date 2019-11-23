@@ -8,12 +8,16 @@ class TagBloc {
   final _results = BehaviorSubject<List<TagModel>>.seeded(null);
   final _searching = BehaviorSubject<bool>.seeded(false);
   final _noMoreResult = BehaviorSubject<bool>.seeded(false);
+  final _selectedCategory = BehaviorSubject<String>();
+  final _categoryNames = BehaviorSubject<List>();
   int lastIndex = 0;
 
   Observable get result$ => _results.stream;
   Observable get query$ => _query.stream;
   Observable get searching$ => _searching.stream;
   Observable get noMoreResult$ => _noMoreResult.stream;
+  Observable get selectedCategory$ => _selectedCategory.stream;
+  Observable get categoryNames$ => _categoryNames.stream;
 
   String get query => _query.value;
   bool get noMoreResult => _noMoreResult.value;
@@ -22,9 +26,16 @@ class TagBloc {
 
   ConfigBloc configBloc;
 
-  TagBloc({this.configBloc}) {
+  TagBloc({this.configBloc, String category}) {
+    if (category == null || category.isEmpty) {
+      fetchCategoryNames();
+    } else {
+      _selectedCategory.add(category);
+    }
+
     Observable.merge([
       query$,
+      selectedCategory$,
     ]).debounceTime(Duration(milliseconds: 500)).distinct().listen(fetch);
   }
 
@@ -52,6 +63,10 @@ class TagBloc {
     params['nameMatchMode'] = 'Auto';
     params['maxResults'] = '50';
     params['lang'] = configBloc.contentLang;
+
+    if (_selectedCategory.value != null) {
+      params['categoryName'] = _selectedCategory.value;
+    }
 
     if (query != null && query.isNotEmpty) {
       params['query'] = query;
@@ -83,9 +98,15 @@ class TagBloc {
     _results.add(currentResults);
   }
 
+  void fetchCategoryNames() {
+    tagService.categoryNames().then(_categoryNames.add);
+  }
+
   void dispose() {
     _query?.close();
     _results?.close();
     _searching?.close();
+    _selectedCategory?.close();
+    _categoryNames?.close();
   }
 }

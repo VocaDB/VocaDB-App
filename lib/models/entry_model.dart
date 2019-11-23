@@ -139,4 +139,12 @@ class EntryList {
       entries.where((e) => e.entryType == EntryType.ReleaseEvent).toList();
 }
 
-enum EntryType { Undefined, Song, Artist, Album, ReleaseEvent, Tag }
+enum EntryType {
+  Undefined,
+  Song,
+  Artist,
+  Album,
+  ReleaseEvent,
+  Tag,
+  ReleaseEventSeries
+}

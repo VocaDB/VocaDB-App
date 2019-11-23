@@ -79,3 +79,22 @@ const List<String> constEventCategories = [
   'Contest',
   'Other',
 ];
+
+const List<String> constTagCategories = [
+  'Animation',
+  'Copyrights',
+  'Distribution',
+  'Editor notes',
+  'Event',
+  'Games',
+  'Genres',
+  'Instruments',
+  'Jobs',
+  'Languages',
+  'Lyrics',
+  'Media',
+  'Series',
+  'Sources',
+  'Themes',
+  'Vocalists',
+];

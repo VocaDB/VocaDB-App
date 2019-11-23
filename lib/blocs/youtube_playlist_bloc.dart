@@ -10,7 +10,7 @@ class YoutubePlaylistBloc {
   BehaviorSubject<bool> _displayLyrics = new BehaviorSubject.seeded(false);
   BehaviorSubject<PlayerState> _playerState = new BehaviorSubject();
 
-  YoutubePlayerController _youtubePlayerController;
+  YoutubePlayerController youtubePlayerController;
 
   Observable get playlistStream => _playlist.stream;
   Observable get currentIndexStream => _currentIndex.stream;
@@ -26,41 +26,42 @@ class YoutubePlaylistBloc {
       : _playlist.value[_currentIndex.value];
   int get currentIndex => _currentIndex.value;
 
-  YoutubePlaylistBloc({List<SongModel> songs}) {
+  YoutubePlaylistBloc(
+      {List<SongModel> songs,
+      YoutubePlayerController youtubePlayerController}) {
     if (songs != null && songs.isNotEmpty) {
-      updatePlaylist(songs);
+      initialPlaylist(songs, youtubePlayerController);
     }
-
-    playerState$.distinct().listen((e) {
-      print('update state to $e');
-      if (e != null &&
-          e == PlayerState.ended &&
-          _youtubePlayerController != null) {
-        this.next();
-        _youtubePlayerController
-            .load(YoutubePlayer.convertUrlToId(currentPV.youtubePV.url));
-      }
-    });
   }
 
-  void setYoutubeController(YoutubePlayerController _youtubePlayerController) {
-    this._youtubePlayerController = _youtubePlayerController;
-    this._youtubePlayerController.addListener(() {
-      updateState(_youtubePlayerController.value.playerState);
-    });
-  }
-
-  void updateState(PlayerState playerState) {
-    _playerState.add(playerState);
-  }
-
-  void updatePlaylist(List<SongModel> songs) {
+  void initialPlaylist(
+      List<SongModel> songs, YoutubePlayerController youtubePlayerController) {
     _playlist.add(songs);
 
     int nextPlayableIndex =
         SongList(_playlist.value).getFirstWithYoutubePVIndex(0);
 
     _currentIndex.add(nextPlayableIndex);
+
+    this.youtubePlayerController = youtubePlayerController ??
+        YoutubePlayerController(
+          initialVideoId: YoutubePlayer.convertUrlToId(
+              songs[nextPlayableIndex].youtubePV.url),
+          flags: YoutubePlayerFlags(
+            autoPlay: false,
+          ),
+        );
+  }
+
+  void updateState(PlayerState playerState) {
+    _playerState.add(playerState);
+  }
+
+  void onEnded() {
+    this.next();
+    this
+        .youtubePlayerController
+        .load(YoutubePlayer.convertUrlToId(currentPV.youtubePV.url));
   }
 
   void next() {
@@ -101,7 +102,7 @@ class YoutubePlaylistBloc {
 
   void select(int index) {
     _currentIndex.add(index);
-    _youtubePlayerController
+    youtubePlayerController
         .load(YoutubePlayer.convertUrlToId(currentPV.youtubePV.url));
   }
 
@@ -127,5 +128,6 @@ class YoutubePlaylistBloc {
     _currentPVDetail.close();
     _displayDetail.close();
     _displayLyrics.close();
+    youtubePlayerController?.dispose();
   }
 }

@@ -4,6 +4,7 @@ import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:provider/provider.dart';
 import 'package:vocadb/blocs/tag_bloc.dart';
 import 'package:vocadb/models/tag_model.dart';
+import 'package:vocadb/pages/tag/tag_category_names.dart';
 import 'package:vocadb/pages/tag_detail/tag_detail_page.dart';
 import 'package:vocadb/widgets/infinite_list_view.dart';
 import 'package:vocadb/widgets/result.dart';
@@ -17,6 +18,10 @@ class TagScreen {
 }
 
 class TagPage extends StatefulWidget {
+  final Function onSelectTag;
+
+  const TagPage({Key key, this.onSelectTag}) : super(key: key);
+
   @override
   _TagPageState createState() => _TagPageState();
 }
@@ -35,11 +40,18 @@ class _TagPageState extends State<TagPage> {
       onReachLastItem: () {
         Provider.of<TagBloc>(context).fetchMore();
       },
-      showProgressIndicator: !Provider.of<TagBloc>(context).noMoreResult,
+      progressIndicator: InfiniteListView.streamShowProgressIndicator(
+          Provider.of<TagBloc>(context).noMoreResult$),
       itemBuilder: (context, index) {
         TagModel tag = tags[index];
         return ListTile(
-          onTap: () => TagDetailScreen.navigate(context, tag.id, tag.name),
+          onTap: () {
+            if (widget.onSelectTag == null) {
+              TagDetailScreen.navigate(context, tag.id, tag.name);
+            } else {
+              widget.onSelectTag(tag);
+            }
+          },
           title: Text(tag.name),
         );
       },
@@ -73,6 +85,23 @@ class _TagPageState extends State<TagPage> {
   Widget buildDefault() {
     return Center(
       child: CircularProgressIndicator(),
+    );
+  }
+
+  Widget buildSearchResult() {
+    final bloc = Provider.of<TagBloc>(context);
+
+    return StreamBuilder(
+      stream: bloc.result$,
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          return buildData(snapshot.data);
+        } else if (snapshot.hasError) {
+          return buildError(snapshot.error.toString());
+        }
+
+        return buildDefault();
+      },
     );
   }
 
@@ -128,15 +157,12 @@ class _TagPageState extends State<TagPage> {
         ],
       ),
       body: StreamBuilder(
-        stream: bloc.result$,
+        stream: bloc.searching$,
         builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return buildData(snapshot.data);
-          } else if (snapshot.hasError) {
-            return buildError(snapshot.error.toString());
+          if (snapshot.hasData && snapshot.data) {
+            return buildSearchResult();
           }
-
-          return buildDefault();
+          return TagCategoryNames();
         },
       ),
     );
