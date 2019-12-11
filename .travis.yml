@@ -52,6 +52,8 @@ matrix:
           - extra-android-m2repository
           - extra-google-m2repository
           - extra-google-android-support
+      before_install:
+        - yes | sdkmanager "platforms;android-27"
       jdk: oraclejdk8
       sudo: false
       addons:
@@ -97,7 +99,7 @@ matrix:
         - flutter doctor -v
 
       script:
-        - flutter -v build ios --no-codesign
+        - flutter build ios --no-codesign
 
 cache:
   directories:
