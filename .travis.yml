@@ -68,7 +68,7 @@ matrix:
         - unzip -qq gradle-5.3.1-bin.zip
         - export GRADLE_HOME=$PWD/gradle-5.3.1
         - export PATH=$GRADLE_HOME/bin:$PATH
-        - git clone https://github.com/flutter/flutter.git
+        - git clone https://github.com/flutter/flutter.git -b stable --depth 1
         - export PATH=`pwd`/flutter/bin:`pwd`/flutter/bin/cache/dart-sdk/bin:$PATH
         - yes | flutter doctor --android-licenses # key row
 
@@ -92,7 +92,7 @@ matrix:
         - brew install --HEAD libimobiledevice
         - brew install ideviceinstaller
         - brew install ios-deploy
-        - git clone https://github.com/flutter/flutter.git
+        - git clone https://github.com/flutter/flutter.git -b stable --depth 1
         - export PATH=`pwd`/flutter/bin:`pwd`/flutter/bin/cache/dart-sdk/bin:$PATH
         - flutter doctor -v
 
