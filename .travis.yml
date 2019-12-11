@@ -81,7 +81,7 @@ matrix:
     - env: JOB=IPA
       os: osx
       language: generic
-      osx_image: xcode11.2
+      osx_image: xcode10.3
 
       before_script:
         - pip3 install six
