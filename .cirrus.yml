@@ -1,0 +1,8 @@
+osx_instance:
+  image: mojave-flutter
+
+task:
+  check_flutter_script:
+    - echo "Check flutter..."
+    - flutter doctor
+    - flutter test
