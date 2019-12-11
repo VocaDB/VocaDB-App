@@ -71,7 +71,6 @@ matrix:
         - export PATH=$GRADLE_HOME/bin:$PATH
         - git clone https://github.com/flutter/flutter.git
         - export PATH=`pwd`/flutter/bin:`pwd`/flutter/bin/cache/dart-sdk/bin:$PATH
-        - cd example
         - flutter doctor -v
 
       script:
@@ -95,7 +94,6 @@ matrix:
         - brew install ios-deploy
         - git clone https://github.com/flutter/flutter.git
         - export PATH=`pwd`/flutter/bin:`pwd`/flutter/bin/cache/dart-sdk/bin:$PATH
-        - cd example
         - flutter doctor -v
 
       script:
