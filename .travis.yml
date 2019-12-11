@@ -61,7 +61,8 @@ matrix:
             - libstdc++6
             - lib32stdc++6
             #- fonts-droid
-
+      before_install:
+        - yes | sdkmanager --update # key row
       before_script:
         - wget http://services.gradle.org/distributions/gradle-5.3.1-bin.zip
         - unzip -qq gradle-5.3.1-bin.zip
@@ -69,7 +70,7 @@ matrix:
         - export PATH=$GRADLE_HOME/bin:$PATH
         - git clone https://github.com/flutter/flutter.git
         - export PATH=`pwd`/flutter/bin:`pwd`/flutter/bin/cache/dart-sdk/bin:$PATH
-        - flutter doctor -v
+        - yes | flutter doctor --android-licenses # key row
 
       script:
         - flutter pub get
