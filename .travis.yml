@@ -98,4 +98,5 @@ matrix:
 
       script:
         - flutter --version
+        - flutter pub get
         - flutter build ios --no-codesign
