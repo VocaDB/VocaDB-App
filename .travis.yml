@@ -68,7 +68,7 @@ matrix:
         - unzip -qq gradle-5.3.1-bin.zip
         - export GRADLE_HOME=$PWD/gradle-5.3.1
         - export PATH=$GRADLE_HOME/bin:$PATH
-        - git clone https://github.com/flutter/flutter.git -b stable --depth 1
+        - git clone --branch v1.9.1+hotfix.4 https://github.com/flutter/flutter.git
         - export PATH=`pwd`/flutter/bin:`pwd`/flutter/bin/cache/dart-sdk/bin:$PATH
         - yes | flutter doctor --android-licenses # key row
 
@@ -97,5 +97,5 @@ matrix:
         - flutter doctor -v
 
       script:
-        - flutter pub get
+        - flutter --version
         - flutter build ios --no-codesign
