@@ -81,7 +81,7 @@ matrix:
     - env: JOB=IPA
       os: osx
       language: generic
-      osx_image: xcode10.3
+      osx_image: xcode10.1
 
       before_script:
         - pip3 install six
@@ -92,11 +92,11 @@ matrix:
         - brew install --HEAD libimobiledevice
         - brew install ideviceinstaller
         - brew install ios-deploy
+        - pod setup
         - git clone --branch v1.9.1+hotfix.4 https://github.com/flutter/flutter.git
         - export PATH=`pwd`/flutter/bin:`pwd`/flutter/bin/cache/dart-sdk/bin:$PATH
         - flutter doctor -v
 
       script:
-        - flutter --version
         - flutter pub get
         - flutter build ios --no-codesign
