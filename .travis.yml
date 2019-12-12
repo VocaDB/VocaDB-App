@@ -101,4 +101,5 @@ matrix:
 
       script:
         - flutter pub get
+        - pod setup
         - flutter build ios --no-codesign
