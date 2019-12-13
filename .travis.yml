@@ -102,3 +102,8 @@ matrix:
 
       script:
         - flutter build ios --no-codesign
+env:
+  global:
+  - secure: GX+DF5WhfSCSGMDn3AYX/TZnX/dmdbjJ0LEeEULvjN+s3/YJ6j/Lpu+1tJB1LZ5qk6XsrQY4DMFnWZeTFr/Vziyjv/CCqNOAMMNMxKGUQ2jA1VnPNGoDqQCvysBxu9rUgMGL5wUUUqWCesNXo6AgbO7kNTTpDTYqShWnrV8RsqI=
+  - secure: PGm5PSSutG8HcmUeCR1q5COVAiFd5cXWkSda3L0+yS+RM8HcqRooCndHcw0zK2aSvj0PrEGzAncBa06AdcVSqfG98MS9XFraJMYUzQHQCOGjq1EHCn83B8OU4XgXgpQ4GIvMkk8qHmZilcJhmVyfjLnnMLiWOP8AAnkjUZUa7HI=
+  - secure: X/N9ltt701N5CBZgaiYEQbHmqo09SBQ/fizPrgqusWVbD3ABBzDZR65tWUUI9chS3NeiinAUaxfk1bzkJyU2+YQ+7+T1MT9lSfORvUCx+LBHPbDJU8R5smezwfPwWCS4jzpDhyzJBjmtp+ABXZuf3SF9mF+7IJj6syc5fZDMJfk=
