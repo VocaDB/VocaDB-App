@@ -17,3 +17,5 @@ ios/Flutter/Generated.xconfig
 ios/Runner/GeneratedPluginRegistrant.*
 .flutter-plugins
 .dart_tool/*
+secrets.tar
+secrets
