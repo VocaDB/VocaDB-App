@@ -65,6 +65,8 @@ matrix:
         - openssl aes-256-cbc -K $encrypted_a3b1df92436b_key -iv $encrypted_a3b1df92436b_iv -in secrets.tar.enc -out ./secrets.tar -d
         - bash ./dec_secrets.sh
         - yes | sdkmanager --update # key row
+        - gem install fastlane
+        - gem install bundler
       before_script:
         - wget http://services.gradle.org/distributions/gradle-5.3.1-bin.zip
         - unzip -qq gradle-5.3.1-bin.zip
