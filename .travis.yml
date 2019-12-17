@@ -78,8 +78,8 @@ matrix:
 
       script:
         - flutter pub get
-        - flutter -v build appbundle --release
-        - cd android && fastlane beta
+        - flutter -v build apk --release
+        #- cd android && fastlane beta
 
 
     # Building an IPA.
