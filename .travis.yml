@@ -100,7 +100,7 @@ matrix:
         - brew install --HEAD libimobiledevice
         - brew install ideviceinstaller
         - brew install ios-deploy
-        - git clone https://github.com/flutter/flutter.git -b stable --depth 1
+        - git clone --branch v1.9.1+hotfix.4 https://github.com/flutter/flutter.git
         - export PATH=`pwd`/flutter/bin:`pwd`/flutter/bin/cache/dart-sdk/bin:$PATH
         - flutter doctor -v
 
