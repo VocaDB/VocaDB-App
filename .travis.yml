@@ -79,7 +79,8 @@ matrix:
       script:
         - flutter pub get
         - flutter -v build apk --release
-        - curl -H "Authorization: token $DEPLOY_GATE_API_KEY" -F "file=@./build/app/outputs/apk/release/app-release.apk" -F "message=first upload" "https://deploygate.com/api/users/up2up/apps"
+        - ls -l $TRAVIS_BUILD_DIR
+        - curl -H "Authorization: token $DEPLOY_GATE_API_KEY" -F "file=@$TRAVIS_BUILD_DIR/build/app/outputs/apk/release/app-release.apk" -F "message=first upload" "https://deploygate.com/api/users/up2up/apps"
         #- cd android && fastlane beta
 
 
