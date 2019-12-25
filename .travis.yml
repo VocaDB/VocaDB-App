@@ -103,6 +103,16 @@ matrix:
         - brew install ios-deploy
         - git clone --branch v1.9.1+hotfix.4 https://github.com/flutter/flutter.git
         - export PATH=`pwd`/flutter/bin:`pwd`/flutter/bin/cache/dart-sdk/bin:$PATH
+        - sudo gem list cocoapods
+        - sudo gem uninstall cocoapods
+        - sudo gem uninstall cocoapods-deintegrate
+        - sudo gem uninstall cocoapods-downloader
+        - rm -rf "${HOME}/Library/Caches/CocoaPods"
+        - rm -rf "`pwd`/Pods/"
+        - sudo gem install cocoapods -v 1.7.4
+        - pod _1.7.4_ setup
+        - sudo gem list cocoapods
+        - pod --version
         - flutter doctor -v
 
       script:
