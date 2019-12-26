@@ -7,6 +7,8 @@ matrix:
   allow_failures:
   - env: JOB=VOCADB_APK
   - env: JOB=VOCADB_IPA
+  - env: JOB=TOUHOUDB_APK
+  - env: JOB=TOUHOUDB_IPA
 
   include:
     - env: JOB=PR
@@ -22,7 +24,7 @@ matrix:
             #- fonts-droid
 
       before_script:
-        - git clone https://github.com/flutter/flutter.git -b beta --depth 1
+        - git clone --branch v1.9.1+hotfix.4 https://github.com/flutter/flutter.git
         - export PATH=`pwd`/flutter/bin:`pwd`/flutter/bin/cache/dart-sdk/bin:$PATH
 
       script:
@@ -32,7 +34,7 @@ matrix:
       #after_success:
         #- bash <(curl -s https://codecov.io/bash)
 
-    # Building an APK.
+    # Building VocaDB APK.
     - env: JOB=VOCADB_APK
       os: linux
       language: android
@@ -83,7 +85,7 @@ matrix:
         #- cd android && fastlane beta
 
 
-    # Building an IPA.
+    # Building VocaDB IPA.
     - env: JOB=VOCADB_IPA
       os: osx
       language: generic
@@ -116,6 +118,94 @@ matrix:
 
       script:
         - flutter build ios --no-codesign --build-name=3.0.3 --build-number=$((START_IOS_BUILD_NUMBER+TRAVIS_BUILD_NUMBER))
+    
+    
+    # Building TouhouDB APK.
+    - env: JOB=TOUHOUDB_APK
+      os: linux
+      language: android
+      licenses:
+        - 'android-sdk-preview-license-.+'
+        - 'android-sdk-license-.+'
+        - 'google-gdk-license-.+'
+      android:
+        components:
+          - tools
+          - platform-tools
+          - build-tools-29.0.2
+          - android-29
+          - sys-img-armeabi-v7a-google_apis-28
+          - extra-android-m2repository
+          - extra-google-m2repository
+          - extra-google-android-support
+      jdk: oraclejdk8
+      sudo: false
+      addons:
+        apt:
+          # Flutter depends on /usr/lib/x86_64-linux-gnu/libstdc++.so.6 version GLIBCXX_3.4.18
+          sources:
+            - ubuntu-toolchain-r-test # if we don't specify this, the libstdc++6 we get is the wrong version
+          packages:
+            - libstdc++6
+            - lib32stdc++6
+            #- fonts-droid
+      before_install:
+        - openssl aes-256-cbc -K $encrypted_a3b1df92436b_key -iv $encrypted_a3b1df92436b_iv -in secrets.tar.enc -out ./secrets.tar -d
+        - bash ./dec_secrets.sh touhoudb
+        - yes | sdkmanager --update # key row
+        - gem install fastlane
+        - gem install bundler
+      before_script:
+        - wget http://services.gradle.org/distributions/gradle-5.3.1-bin.zip
+        - unzip -qq gradle-5.3.1-bin.zip
+        - export GRADLE_HOME=$PWD/gradle-5.3.1
+        - export PATH=$GRADLE_HOME/bin:$PATH
+        - git clone --branch v1.9.1+hotfix.4 https://github.com/flutter/flutter.git
+        - export PATH=`pwd`/flutter/bin:`pwd`/flutter/bin/cache/dart-sdk/bin:$PATH
+        - yes | flutter doctor --android-licenses # key row
+
+      script:
+        - flutter pub get
+        - bash ./change_app.sh TouhouDB
+        - flutter -v build apk --release --build-name=3.0.3 --build-number=$((START_ANDROID_BUILD_NUMBER+TRAVIS_BUILD_NUMBER))
+        - "curl -H \"Authorization: token $DEPLOY_GATE_API_KEY\" -F \"file=@$TRAVIS_BUILD_DIR/build/app/outputs/apk/release/app-release.apk\" -F \"message=Upload from travis\" \"https://deploygate.com/api/users/up2up/apps\""
+        #- cd android && fastlane beta
+
+    # Building TouhouDB IPA.
+    - env: JOB=VOCADB_IPA
+      os: osx
+      language: generic
+      osx_image: xcode10.2
+      before_install:
+        - openssl aes-256-cbc -K $encrypted_a3b1df92436b_key -iv $encrypted_a3b1df92436b_iv -in secrets.tar.enc -out ./secrets.tar -d
+        - sh ./dec_secrets.sh touhoudb
+      before_script:
+        - pip3 install six
+        - brew update
+        - brew install --HEAD usbmuxd
+        - brew unlink usbmuxd
+        - brew link usbmuxd
+        - brew install --HEAD libimobiledevice
+        - brew install ideviceinstaller
+        - brew install ios-deploy
+        - git clone --branch v1.9.1+hotfix.4 https://github.com/flutter/flutter.git
+        - export PATH=`pwd`/flutter/bin:`pwd`/flutter/bin/cache/dart-sdk/bin:$PATH
+        - sudo gem list cocoapods
+        - sudo gem uninstall cocoapods
+        - sudo gem uninstall cocoapods-deintegrate
+        - sudo gem uninstall cocoapods-downloader
+        - rm -rf "${HOME}/Library/Caches/CocoaPods"
+        - rm -rf "`pwd`/Pods/"
+        - sudo gem install cocoapods -v 1.7.4
+        - pod _1.7.4_ setup
+        - sudo gem list cocoapods
+        - pod --version
+        - flutter doctor -v
+
+      script:
+        - bash ./change_app.sh TouhouDB
+        - flutter build ios --no-codesign --build-name=3.0.3 --build-number=$((START_IOS_BUILD_NUMBER+TRAVIS_BUILD_NUMBER))
+      
 env:
   global:
   - secure: GX+DF5WhfSCSGMDn3AYX/TZnX/dmdbjJ0LEeEULvjN+s3/YJ6j/Lpu+1tJB1LZ5qk6XsrQY4DMFnWZeTFr/Vziyjv/CCqNOAMMNMxKGUQ2jA1VnPNGoDqQCvysBxu9rUgMGL5wUUUqWCesNXo6AgbO7kNTTpDTYqShWnrV8RsqI=
