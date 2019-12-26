@@ -78,7 +78,7 @@ matrix:
 
       script:
         - flutter pub get
-        - flutter -v build apk --release
+        - flutter -v build apk --release --build-name=3.0.3 --build-number=$((START_ANDROID_BUILD_NUMBER+TRAVIS_BUILD_NUMBER))
         - ls -l /home/travis/build/VocaDB/VocaDB-App/build/app/outputs/apk/release
         - "curl -H \"Authorization: token $DEPLOY_GATE_API_KEY\" -F \"file=@$TRAVIS_BUILD_DIR/build/app/outputs/apk/release/app-release.apk\" -F \"message=Upload from travis\" \"https://deploygate.com/api/users/up2up/apps\""
         #- cd android && fastlane beta
@@ -116,7 +116,7 @@ matrix:
         - flutter doctor -v
 
       script:
-        - flutter build ios --no-codesign
+        - flutter build ios --no-codesign --build-name=3.0.3 --build-number=$((START_IOS_BUILD_NUMBER+TRAVIS_BUILD_NUMBER))
 env:
   global:
   - secure: GX+DF5WhfSCSGMDn3AYX/TZnX/dmdbjJ0LEeEULvjN+s3/YJ6j/Lpu+1tJB1LZ5qk6XsrQY4DMFnWZeTFr/Vziyjv/CCqNOAMMNMxKGUQ2jA1VnPNGoDqQCvysBxu9rUgMGL5wUUUqWCesNXo6AgbO7kNTTpDTYqShWnrV8RsqI=
