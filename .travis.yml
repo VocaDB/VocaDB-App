@@ -5,8 +5,8 @@ matrix:
 
   # Not waiting for APK build to finish.
   allow_failures:
-  - env: JOB=APK
-  - env: JOB=IPA
+  - env: JOB=VOCADB_APK
+  - env: JOB=VOCADB_IPA
 
   include:
     - env: JOB=PR
@@ -33,7 +33,7 @@ matrix:
         #- bash <(curl -s https://codecov.io/bash)
 
     # Building an APK.
-    - env: JOB=APK
+    - env: JOB=VOCADB_APK
       os: linux
       language: android
       licenses:
@@ -63,7 +63,7 @@ matrix:
             #- fonts-droid
       before_install:
         - openssl aes-256-cbc -K $encrypted_a3b1df92436b_key -iv $encrypted_a3b1df92436b_iv -in secrets.tar.enc -out ./secrets.tar -d
-        - bash ./dec_secrets.sh
+        - bash ./dec_secrets.sh vocadb
         - yes | sdkmanager --update # key row
         - gem install fastlane
         - gem install bundler
@@ -79,19 +79,18 @@ matrix:
       script:
         - flutter pub get
         - flutter -v build apk --release --build-name=3.0.3 --build-number=$((START_ANDROID_BUILD_NUMBER+TRAVIS_BUILD_NUMBER))
-        - ls -l /home/travis/build/VocaDB/VocaDB-App/build/app/outputs/apk/release
         - "curl -H \"Authorization: token $DEPLOY_GATE_API_KEY\" -F \"file=@$TRAVIS_BUILD_DIR/build/app/outputs/apk/release/app-release.apk\" -F \"message=Upload from travis\" \"https://deploygate.com/api/users/up2up/apps\""
         #- cd android && fastlane beta
 
 
     # Building an IPA.
-    - env: JOB=IPA
+    - env: JOB=VOCADB_IPA
       os: osx
       language: generic
       osx_image: xcode10.2
       before_install:
         - openssl aes-256-cbc -K $encrypted_a3b1df92436b_key -iv $encrypted_a3b1df92436b_iv -in secrets.tar.enc -out ./secrets.tar -d
-        - sh ./dec_secrets.sh
+        - sh ./dec_secrets.sh vocadb
       before_script:
         - pip3 install six
         - brew update
