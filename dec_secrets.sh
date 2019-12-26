@@ -1,4 +1,5 @@
 #!/bin/bash
+APP_NAME=$1
 
 # Clear old files
 rm -rf ./secrets
@@ -17,10 +18,10 @@ ANDROID_GOOGLE_PLAY_ACCOUNT_FILE=./android/google-play-service-account.json
 ANDROID_RELEASE_KEYSTORE_FILE=./android/app/release-key.keystore
 IOS_GOOGLE_SERVICE_FILE=./ios/Runner/GoogleService-Info.plist
 
-SECRET_ANDROID_GOOGLE_SERVICE_FILE=./secrets/android/google-services.json
-SECRET_ANDROID_GOOGLE_PLAY_ACCOUNT_FILE=./secrets/android/google-play-service-account.json
-SECRET_ANDROID_RELEASE_KEYSTORE_FILE=./secrets/android/release-key.keystore
-SECRET_IOS_GOOGLE_SERVICE_FILE=./secrets/ios/GoogleService-Info.plist
+SECRET_ANDROID_GOOGLE_SERVICE_FILE=./secrets/$APP_NAME/android/google-services.json
+SECRET_ANDROID_GOOGLE_PLAY_ACCOUNT_FILE=./secrets/$APP_NAME/android/google-play-service-account.json
+SECRET_ANDROID_RELEASE_KEYSTORE_FILE=./secrets/$APP_NAME/android/release-key.keystore
+SECRET_IOS_GOOGLE_SERVICE_FILE=./secrets/$APP_NAME/ios/GoogleService-Info.plist
 
 ANDROID_KEYS=($ANDROID_GOOGLE_SERVICE_FILE $ANDROID_RELEASE_KEYSTORE_FILE $ANDROID_GOOGLE_PLAY_ACCOUNT_FILE)
 
