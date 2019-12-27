@@ -41,7 +41,7 @@ echo "Replace Info.plist"
 cp ./assets/store/$APP_NAME/ios/Info.plist ./ios/Runner/Info.plist
 
 # Change app bundle name
-if [ "$APP_NAME" == "TouhouDB" ] then
+if [ "$APP_NAME" == "TouhouDB" ]; then
   echo "Change app bundle name"
   sed -i "s/com.coolappz.vocadb/com.touhoudb.app/g" ios/Runner.xcodeproj/project/.pbxproj
 fi
