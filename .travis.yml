@@ -212,6 +212,7 @@ matrix:
 
       script:
         - bash ./change_app.sh TouhouDB
+        - bash ./update_version.sh 3.0.3 $((START_ANDROID_BUILD_NUMBER+TRAVIS_BUILD_NUMBER))
         - flutter build ios --no-codesign --build-name=3.0.3 --build-number=$((START_IOS_BUILD_NUMBER+TRAVIS_BUILD_NUMBER))
       
 env:
