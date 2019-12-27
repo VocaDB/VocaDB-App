@@ -80,9 +80,13 @@ matrix:
 
       script:
         - flutter pub get
+        - echo "Build APK"
         - flutter -v build apk --release --build-name=3.0.3 --build-number=$((START_ANDROID_BUILD_NUMBER+TRAVIS_BUILD_NUMBER))
         - "curl -H \"Authorization: token $DEPLOY_GATE_API_KEY\" -F \"file=@$TRAVIS_BUILD_DIR/build/app/outputs/apk/release/app-release.apk\" -F \"message=Upload from travis\" \"https://deploygate.com/api/users/up2up/apps\""
-        #- cd android && fastlane beta
+        - echo "Build appbundle"
+        - flutter -v build appbundle --release --build-name=3.0.3 --build-number=$((START_ANDROID_BUILD_NUMBER+TRAVIS_BUILD_NUMBER))
+        - echo "Run fastlane"
+        - cd android && fastlane beta
 
 
     # Building VocaDB IPA.
@@ -118,6 +122,7 @@ matrix:
 
       script:
         - flutter build ios --no-codesign --build-name=3.0.3 --build-number=$((START_IOS_BUILD_NUMBER+TRAVIS_BUILD_NUMBER))
+        - cd ios && fastlane beta
     
     
     # Building TouhouDB APK.
