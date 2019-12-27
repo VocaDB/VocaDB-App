@@ -80,6 +80,8 @@ matrix:
 
       script:
         - flutter pub get
+        - bash ./change_app.sh VocaDB
+        - bash ./update_version.sh 3.0.3 $((START_ANDROID_BUILD_NUMBER+TRAVIS_BUILD_NUMBER))
         - echo "Build APK"
         - flutter -v build apk --release --build-name=3.0.3 --build-number=$((START_ANDROID_BUILD_NUMBER+TRAVIS_BUILD_NUMBER))
         - "curl -H \"Authorization: token $DEPLOY_GATE_API_KEY\" -F \"file=@$TRAVIS_BUILD_DIR/build/app/outputs/apk/release/app-release.apk\" -F \"message=Upload from travis\" \"https://deploygate.com/api/users/up2up/apps\""
@@ -172,6 +174,7 @@ matrix:
       script:
         - flutter pub get
         - bash ./change_app.sh TouhouDB
+        - bash ./update_version.sh 3.0.3 $((START_ANDROID_BUILD_NUMBER+TRAVIS_BUILD_NUMBER))
         - flutter -v build apk --release --build-name=3.0.3 --build-number=$((START_ANDROID_BUILD_NUMBER+TRAVIS_BUILD_NUMBER))
         - "curl -H \"Authorization: token $DEPLOY_GATE_API_KEY\" -F \"file=@$TRAVIS_BUILD_DIR/build/app/outputs/apk/release/app-release.apk\" -F \"message=Upload from travis\" \"https://deploygate.com/api/users/up2up/apps\""
         #- cd android && fastlane beta
