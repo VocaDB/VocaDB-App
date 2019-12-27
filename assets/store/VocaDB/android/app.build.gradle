@@ -52,8 +52,8 @@ android {
         applicationId "com.coolappz.Vocadb"
         minSdkVersion 20
         targetSdkVersion 29
-        versionCode flutterVersionCode.toInteger()
-        versionName "3.0.0-beta.1"
+        versionCode ##versionCode##
+        versionName ##versionName##
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 

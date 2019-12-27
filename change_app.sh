@@ -1,6 +1,8 @@
 #!/bin/sh
 APP_NAME=$1
 
+echo "Update app name to $APP_NAME"
+
 echo "Replace file android/app/src/main/AndroidManifest.xml"
 cp ./assets/store/$APP_NAME/android/AndroidManifest.xml ./android/app/src/main/AndroidManifest.xml
 
@@ -20,7 +22,7 @@ rm -r ./android/app/src/main/res/mipmap-xxhdpi
 rm -r ./android/app/src/main/res/mipmap-xxxhdpi
 
 cp -r ./assets/store/$APP_NAME/android/launchers/mipmap-hdpi ./android/app/src/main/res/mipmap-hdpi
-cp -r ./assets/store/$APP_NAME/android/launchers/mipmap-mdpi ./android/app/src/main/res/mipmap-mdpi
+cp -r ./assets/store/$APP_NAME/android/launchers/mipmap-mmdpi ./android/app/src/main/res/mipmap-mdpi
 cp -r ./assets/store/$APP_NAME/android/launchers/mipmap-xhdpi ./android/app/src/main/res/mipmap-xhdpi
 cp -r ./assets/store/$APP_NAME/android/launchers/mipmap-xxhdpi ./android/app/src/main/res/mipmap-xxhdpi
 cp -r ./assets/store/$APP_NAME/android/launchers/mipmap-xxxhdpi ./android/app/src/main/res/mipmap-xxxhdpi
@@ -29,7 +31,18 @@ cp -r ./assets/store/$APP_NAME/android/launchers/mipmap-xxxhdpi ./android/app/sr
 echo "Replace constants file"
 cp ./assets/store/$APP_NAME/constants ./lib/constants.dart
 
+# Replace AppIcon.appiconset
+echo "Replace AppIcon.appiconset"
+rm -r ./ios/Runner/Assets.xcassets/AppIcon.appiconset
+cp -r ./assets/store/$APP_NAME/ios/AppIcon.appiconset ./ios/Runner/Assets.xcassets/AppIcon.appiconset
 
+# Replace Info.plist
+echo "Replace Info.plist"
+cp ./assets/store/$APP_NAME/ios/Info.plist ./ios/Runner/Info.plist
 
-
+# Change app bundle name
+if [ "$APP_NAME" == "TouhouDB" ] then
+  echo "Change app bundle name"
+  sed -i '' "s/com.coolappz.vocadb/com.touhoudb.app/g" ios/Runner.xcodeproj/project/.pbxproj
+fi
 

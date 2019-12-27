@@ -47,8 +47,8 @@ android {
         applicationId "com.touhoudb.app"
         minSdkVersion 20
         targetSdkVersion 29
-        versionCode 102339
-        versionName "3.0.1"
+        versionCode ##versionCode##
+        versionName ##versionName##
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
