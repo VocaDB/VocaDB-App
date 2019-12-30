@@ -100,27 +100,7 @@ matrix:
         - openssl aes-256-cbc -K $encrypted_a3b1df92436b_key -iv $encrypted_a3b1df92436b_iv -in secrets.tar.enc -out ./secrets.tar -d
         - sh ./dec_secrets.sh vocadb
       before_script:
-        - pip3 install six
-        - brew update
-        - brew install --HEAD usbmuxd
-        - brew unlink usbmuxd
-        - brew link usbmuxd
         - brew install --HEAD libimobiledevice
-        - brew install ideviceinstaller
-        - brew install ios-deploy
-        - git clone --branch v1.9.1+hotfix.4 https://github.com/flutter/flutter.git
-        - export PATH=`pwd`/flutter/bin:`pwd`/flutter/bin/cache/dart-sdk/bin:$PATH
-        - sudo gem list cocoapods
-        - sudo gem uninstall cocoapods
-        - sudo gem uninstall cocoapods-deintegrate
-        - sudo gem uninstall cocoapods-downloader
-        - rm -rf "${HOME}/Library/Caches/CocoaPods"
-        - rm -rf "`pwd`/Pods/"
-        - sudo gem install cocoapods -v 1.7.4
-        - pod _1.7.4_ setup
-        - sudo gem list cocoapods
-        - pod --version
-        - flutter doctor -v
 
       script:
         - flutter build ios --no-codesign --build-name=3.0.3 --build-number=$((START_IOS_BUILD_NUMBER+TRAVIS_BUILD_NUMBER))
