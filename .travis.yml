@@ -100,7 +100,6 @@ matrix:
         - openssl aes-256-cbc -K $encrypted_a3b1df92436b_key -iv $encrypted_a3b1df92436b_iv -in secrets.tar.enc -out ./secrets.tar -d
         - sh ./dec_secrets.sh vocadb
       before_script:
-        - brew install python@2
         - brew install --HEAD libimobiledevice
 
       script:
