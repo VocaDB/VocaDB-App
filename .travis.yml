@@ -125,7 +125,7 @@ matrix:
 
       script:
         - flutter build ios --no-codesign --build-name=3.0.3 --build-number=$((START_IOS_BUILD_NUMBER+TRAVIS_BUILD_NUMBER))
-        - cd ios && sh ./update_appfile.sh com.coolappz.vocadb $APPLE_ID $TEAM_NAME $TEAM_ID
+        - cd ios && bash ./update_appfile.sh com.coolappz.vocadb $APPLE_ID $TEAM_NAME $TEAM_ID
         #- fastlane beta
     
     
