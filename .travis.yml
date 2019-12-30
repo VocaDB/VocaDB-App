@@ -105,7 +105,7 @@ matrix:
         - brew install --HEAD usbmuxd
         - brew unlink usbmuxd
         - brew link usbmuxd
-        - brew install automake autoconf libtool wget libimobiledevice
+        - brew install --HEAD libimobiledevice
         - brew install ideviceinstaller
         - brew install ios-deploy
         - git clone --branch v1.9.1+hotfix.4 https://github.com/flutter/flutter.git
