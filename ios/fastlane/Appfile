@@ -1,6 +1,6 @@
 # app_identifier("[[APP_IDENTIFIER]]") # The bundle identifier of your app
 # apple_id("[[APPLE_ID]]") # Your Apple email address
-app_identifier("##APP_IDENTIFIER##")
+app_identifier("com.up2up.vocadb")
 apple_id("##APPLE_ID##")
 team_name("##TEAM_NAME##")
 team_id("##TEAM_ID##")
