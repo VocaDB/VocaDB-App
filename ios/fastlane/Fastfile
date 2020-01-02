@@ -18,6 +18,7 @@ default_platform(:ios)
 platform :ios do
   desc "Build and submit app to testflight"
   lane :beta do
+    xcversion(version: "10.2.1")
     build_ios_app(export_method: "app-store")
     upload_to_testflight
     # add actions here: https://docs.fastlane.tools/actions
