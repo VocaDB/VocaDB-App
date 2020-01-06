@@ -19,10 +19,10 @@ platform :ios do
   desc "Build and submit app to testflight"
   lane :beta do
     # xcversion(version: "10.2.1")
-    get_certificates
-    get_provisioning_profile
+    #get_certificates
+    #get_provisioning_profile
     build_ios_app(export_method: "app-store")
-    upload_to_testflight
+    #upload_to_testflight
     # add actions here: https://docs.fastlane.tools/actions
   end
 end
