@@ -70,7 +70,7 @@ matrix:
         - gem install fastlane
         - gem install bundler
       before_script:
-        - wget http://services.gradle.org/distributions/gradle-5.3.1-bin.zip
+        - wget https://services.gradle.org/distributions/gradle-5.3.1-bin.zip
         - unzip -qq gradle-5.3.1-bin.zip
         - export GRADLE_HOME=$PWD/gradle-5.3.1
         - export PATH=$GRADLE_HOME/bin:$PATH
@@ -166,7 +166,7 @@ matrix:
         - gem install fastlane
         - gem install bundler
       before_script:
-        - wget http://services.gradle.org/distributions/gradle-5.3.1-bin.zip
+        - wget https://services.gradle.org/distributions/gradle-5.3.1-bin.zip
         - unzip -qq gradle-5.3.1-bin.zip
         - export GRADLE_HOME=$PWD/gradle-5.3.1
         - export PATH=$GRADLE_HOME/bin:$PATH
