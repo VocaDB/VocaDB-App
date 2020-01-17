@@ -122,6 +122,7 @@ matrix:
         - sudo gem list cocoapods
         - pod --version
         - flutter doctor -v
+        - cd ./secrets/ios_codesigning && sh ./install_cert.sh
 
       script:
         - flutter build ios --no-codesign --build-name=3.0.3 --build-number=$((START_IOS_BUILD_NUMBER+TRAVIS_BUILD_NUMBER))
