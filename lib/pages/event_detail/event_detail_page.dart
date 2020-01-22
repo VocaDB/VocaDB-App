@@ -73,6 +73,15 @@ class EventDetailPage extends StatelessWidget {
     return [Text('Expansion panel')];
   }
 
+  void navigateToPlace(String query) async {
+    String uri = Uri.encodeFull('geo:0,0?q=$query');
+    if (await canLaunch(uri)) {
+        await launch(uri);
+      } else {
+        await launch(Uri.encodeFull('https://maps.apple.com/?q=$query'));
+      }
+  }
+
   buildData(BuildContext context, ReleaseEventModel releaseEvent) {
     return CustomScrollView(
       slivers: <Widget>[
@@ -126,6 +135,21 @@ class EventDetailPage extends StatelessWidget {
                             Icons.share,
                           ),
                           Text('Share', style: TextStyle(fontSize: 12))
+                        ],
+                      )),
+                ),
+                (releaseEvent.venueName == null)? Container() : Expanded(
+                  child: FlatButton(
+                      onPressed: () {
+                        navigateToPlace(releaseEvent.venueName);
+                      },
+                      child: Column(
+                        children: <Widget>[
+                          Icon(
+                            Icons.place,
+                          ),
+                          Text("Place",
+                              style: TextStyle(fontSize: 12))
                         ],
                       )),
                 ),
