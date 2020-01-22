@@ -50,8 +50,12 @@ class HomeBloc {
     _albumService.top(lang: configBloc.contentLang).then(_topAlbums.add);
   }
 
+  
+
   Future<void> updateRecentEvents() async {
-    _releaseEventService.recently(lang: configBloc.contentLang).then(_recentEvents.add);
+    _releaseEventService.recently(lang: configBloc.contentLang)
+    .then((result) => result.reversed.toList())
+    .then(_recentEvents.add);
   }
 
   void dispose() {
