@@ -134,7 +134,7 @@ class EventDetailPage extends StatelessWidget {
                           Icon(
                             Icons.share,
                           ),
-                          Text('Share', style: TextStyle(fontSize: 12))
+                          Text(FlutterI18n.translate(context, 'label.share'), style: TextStyle(fontSize: 12))
                         ],
                       )),
                 ),
@@ -148,7 +148,7 @@ class EventDetailPage extends StatelessWidget {
                           Icon(
                             Icons.place,
                           ),
-                          Text("Place",
+                          Text(FlutterI18n.translate(context, 'label.map'),
                               style: TextStyle(fontSize: 12))
                         ],
                       )),
