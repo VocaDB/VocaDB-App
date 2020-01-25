@@ -50,6 +50,7 @@ import 'pages/main/home_tab.dart';
 import 'pages/main/ranking_tab.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   var dir = await getApplicationDocumentsDirectory();
   Hive.init(dir.path);
 
