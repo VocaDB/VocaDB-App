@@ -30,6 +30,7 @@ import 'package:vocadb/pages/album_detail/album_detail_page.dart';
 import 'package:vocadb/pages/artist/artist_page.dart';
 import 'package:vocadb/pages/artist_detail/artist_detail_page.dart';
 import 'package:vocadb/pages/event_detail/event_detail_page.dart';
+import 'package:vocadb/pages/event_seiries/event_series_page.dart';
 import 'package:vocadb/pages/main/ranking_filter_page.dart';
 import 'package:vocadb/pages/release_event/release_event_page.dart';
 import 'package:vocadb/pages/search/more_album_page.dart';
@@ -196,6 +197,7 @@ class RootApp extends StatelessWidget {
             YoutubePlaylistScreen.routeName: (context) =>
                 YoutubePlaylistScreen(),
             TagCategoryScreen.routeName: (context) => TagCategoryScreen(),
+            EventSeriesScreen.routeName: (context) => EventSeriesScreen(),
           },
         );
       },

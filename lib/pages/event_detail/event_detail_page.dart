@@ -11,11 +11,13 @@ import 'package:vocadb/constants.dart';
 import 'package:vocadb/models/album_model.dart';
 import 'package:vocadb/models/release_event_model.dart';
 import 'package:vocadb/models/song_model.dart';
+import 'package:vocadb/pages/event_seiries/event_series_page.dart';
 import 'package:vocadb/pages/search/search_page.dart';
 import 'package:vocadb/utils/analytic_constant.dart';
 import 'package:vocadb/widgets/album_section.dart';
 import 'package:vocadb/widgets/artist_section.dart';
 import 'package:vocadb/widgets/result.dart';
+import 'package:vocadb/widgets/section.dart';
 import 'package:vocadb/widgets/song_list_section.dart';
 import 'package:vocadb/widgets/space_divider.dart';
 import 'package:vocadb/widgets/text_info_section.dart';
@@ -237,6 +239,18 @@ class EventDetailPage extends StatelessWidget {
                   prefixTag: 'release_event_detail_songs_${releaseEvent.id}}',
                 );
               },
+            ),
+            Section(
+              title: FlutterI18n.translate(context, 'label.series'),
+              children: [
+                ListTile(
+                  leading: Icon(Icons.event_note),
+                  title: Text(releaseEvent.series.name),
+                  onTap: () {
+                    EventSeriesScreen.navigate(context, releaseEvent.series);
+                  },
+                )
+              ],
             ),
             WebLinkSection(
                 webLinks: releaseEvent.webLinks,
