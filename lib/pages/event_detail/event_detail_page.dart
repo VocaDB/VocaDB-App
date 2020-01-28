@@ -240,7 +240,7 @@ class EventDetailPage extends StatelessWidget {
                 );
               },
             ),
-            Section(
+            (releaseEvent.series == null)? Container() : Section(
               title: FlutterI18n.translate(context, 'label.series'),
               children: [
                 ListTile(

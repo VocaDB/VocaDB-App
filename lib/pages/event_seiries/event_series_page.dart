@@ -62,8 +62,7 @@ class EventSeriesPage extends StatelessWidget {
                     ),
                     TextInfoSection(
                       title: FlutterI18n.translate(context, 'label.description'),
-                      text: FlutterI18n.translate(context,
-                          'eventCategory.${eventSeriesModel.description}'),
+                      text: eventSeriesModel.description,
                     )
                   ],
                 ),
