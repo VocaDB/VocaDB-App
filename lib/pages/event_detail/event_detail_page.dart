@@ -111,8 +111,8 @@ class EventDetailPage extends StatelessWidget {
                 : Hero(
                     tag: this.tag,
                     child: CachedNetworkImage(
-                      imageUrl: this.imageUrl,
-                      fit: BoxFit.cover,
+                      imageUrl: releaseEvent.imageUrl,
+                      fit: BoxFit.contain,
                       placeholder: (context, url) =>
                           Container(color: Colors.grey),
                       errorWidget: (context, url, error) =>
@@ -319,7 +319,7 @@ class EventDetailPage extends StatelessWidget {
                       tag: this.tag,
                       child: CachedNetworkImage(
                         imageUrl: this.imageUrl,
-                        fit: BoxFit.cover,
+                        fit: BoxFit.contain,
                         placeholder: (context, url) =>
                             Container(color: Colors.grey),
                         errorWidget: (context, url, error) =>
