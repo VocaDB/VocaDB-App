@@ -18,6 +18,10 @@ class EventTile extends StatelessWidget {
 
   final String tag;
 
+  final bool showCategory;
+
+  final bool showImage;
+
   const EventTile(
       {Key key,
       this.id,
@@ -25,7 +29,9 @@ class EventTile extends StatelessWidget {
       this.date,
       this.category,
       this.imageUrl,
-      this.tag})
+      this.tag,
+      this.showCategory = true,
+      this.showImage = true})
       : super(key: key);
 
   EventTile.fromEntry(EntryModel entry, {this.tag})
@@ -33,9 +39,11 @@ class EventTile extends StatelessWidget {
         this.imageUrl = entry.imageUrl,
         this.name = entry.name,
         this.date = entry.activityDateFormatted,
-        this.category = entry.eventCategory;
+        this.category = entry.eventCategory,
+        this.showCategory = true,
+        this.showImage = true;
 
-  EventTile.fromReleaseEvent(ReleaseEventModel releaseEvent, {this.tag})
+  EventTile.fromReleaseEvent(ReleaseEventModel releaseEvent, {this.tag, this.showCategory = true, this.showImage = true})
       : this.id = releaseEvent.id,
         this.imageUrl = releaseEvent.imageUrl,
         this.name = releaseEvent.name,
@@ -53,6 +61,18 @@ class EventTile extends StatelessWidget {
         FlutterI18n.translate(context, 'eventCategory.$category');
 
     String subtitle = (date == null) ? categoryName : '$categoryName • $date';
+
+    if(!this.showCategory) {
+      subtitle = date;
+    }
+
+    if(!this.showImage) {
+      return ListTile(
+        onTap: () => navigateToDetail(context),
+        title: Text(this.name, overflow: TextOverflow.ellipsis),
+        subtitle: Text(subtitle),
+      );
+    }
 
     return ListTile(
       onTap: () => navigateToDetail(context),
