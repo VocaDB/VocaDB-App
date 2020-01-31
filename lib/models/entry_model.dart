@@ -55,7 +55,7 @@ class EntryModel extends BaseModel {
 
   String get imageUrl {
     if (mainPicture != null) {
-      return (entryType == EntryType.ReleaseEvent)
+      return (entryType == EntryType.ReleaseEvent || entryType == EntryType.ReleaseEventSeries)
           ? mainPicture.urlThumb.replaceAll('mainThumb', 'mainOrig')
           : mainPicture.urlThumb;
     }
