@@ -73,4 +73,16 @@ class ReleaseEventRestService extends BaseRestService {
         .query('/api/releaseEvents/$id/published-songs', params)
         .then((items) => SongModel.jsonToList(items));
   }
+
+  Future<List<ReleaseEventModel>> bySeriesId(int seriesId, {String lang = 'Default'}) async {
+    final Map<String, String> params = {
+      'fields': 'MainPicture,Series',
+      'maxResults': '50',
+      'sort': 'Date',
+      'seriesId': seriesId.toString(),
+      'lang': lang
+    };
+
+    return this.list(params: params);
+  }
 }

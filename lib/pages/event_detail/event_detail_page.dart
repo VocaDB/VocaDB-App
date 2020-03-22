@@ -11,11 +11,13 @@ import 'package:vocadb/constants.dart';
 import 'package:vocadb/models/album_model.dart';
 import 'package:vocadb/models/release_event_model.dart';
 import 'package:vocadb/models/song_model.dart';
+import 'package:vocadb/pages/event_seiries/event_series_page.dart';
 import 'package:vocadb/pages/search/search_page.dart';
 import 'package:vocadb/utils/analytic_constant.dart';
 import 'package:vocadb/widgets/album_section.dart';
 import 'package:vocadb/widgets/artist_section.dart';
 import 'package:vocadb/widgets/result.dart';
+import 'package:vocadb/widgets/section.dart';
 import 'package:vocadb/widgets/song_list_section.dart';
 import 'package:vocadb/widgets/space_divider.dart';
 import 'package:vocadb/widgets/text_info_section.dart';
@@ -73,6 +75,15 @@ class EventDetailPage extends StatelessWidget {
     return [Text('Expansion panel')];
   }
 
+  void navigateToPlace(String query) async {
+    String uri = Uri.encodeFull('geo:0,0?q=$query');
+    if (await canLaunch(uri)) {
+        await launch(uri);
+      } else {
+        await launch(Uri.encodeFull('https://maps.apple.com/?q=$query'));
+      }
+  }
+
   buildData(BuildContext context, ReleaseEventModel releaseEvent) {
     return CustomScrollView(
       slivers: <Widget>[
@@ -100,8 +111,8 @@ class EventDetailPage extends StatelessWidget {
                 : Hero(
                     tag: this.tag,
                     child: CachedNetworkImage(
-                      imageUrl: this.imageUrl,
-                      fit: BoxFit.cover,
+                      imageUrl: releaseEvent.imageUrl,
+                      fit: BoxFit.contain,
                       placeholder: (context, url) =>
                           Container(color: Colors.grey),
                       errorWidget: (context, url, error) =>
@@ -125,7 +136,22 @@ class EventDetailPage extends StatelessWidget {
                           Icon(
                             Icons.share,
                           ),
-                          Text('Share', style: TextStyle(fontSize: 12))
+                          Text(FlutterI18n.translate(context, 'label.share'), style: TextStyle(fontSize: 12))
+                        ],
+                      )),
+                ),
+                (releaseEvent.venueName == null)? Container() : Expanded(
+                  child: FlatButton(
+                      onPressed: () {
+                        navigateToPlace(releaseEvent.venueName);
+                      },
+                      child: Column(
+                        children: <Widget>[
+                          Icon(
+                            Icons.place,
+                          ),
+                          Text(FlutterI18n.translate(context, 'label.map'),
+                              style: TextStyle(fontSize: 12))
                         ],
                       )),
                 ),
@@ -214,6 +240,18 @@ class EventDetailPage extends StatelessWidget {
                 );
               },
             ),
+            (releaseEvent.series == null)? Container() : Section(
+              title: FlutterI18n.translate(context, 'label.series'),
+              children: [
+                ListTile(
+                  leading: Icon(Icons.event_note),
+                  title: Text(releaseEvent.series.name),
+                  onTap: () {
+                    EventSeriesScreen.navigate(context, releaseEvent.series);
+                  },
+                )
+              ],
+            ),
             WebLinkSection(
                 webLinks: releaseEvent.webLinks,
                 title: FlutterI18n.translate(context, 'label.references'))
@@ -281,7 +319,7 @@ class EventDetailPage extends StatelessWidget {
                       tag: this.tag,
                       child: CachedNetworkImage(
                         imageUrl: this.imageUrl,
-                        fit: BoxFit.cover,
+                        fit: BoxFit.contain,
                         placeholder: (context, url) =>
                             Container(color: Colors.grey),
                         errorWidget: (context, url, error) =>

@@ -23,6 +23,7 @@ main() {
     when(mockRestApi.get(any, any)).thenAnswer((_) => Future.value(mockResult));
 
     expect(service.latest(), completion(isA<List<ReleaseEventModel>>()));
+    expect(service.bySeriesId(12), completion(isA<List<ReleaseEventModel>>()));
   });
 
   test('should return list of recently release events', () {

@@ -11,6 +11,16 @@ void main() {
         "description": "abc event",
         "id": 36,
         "name": "abc",
+        "events": [
+          {
+            "id": 1937,
+            "name": "Miku Expo 2014 Los Angeles"
+          },
+          {
+            "id": 1938,
+            "name": "Miku Expo 2014 New York"
+          },
+        ]
       };
 
       ReleaseEventSeriesModel result =
@@ -20,6 +30,8 @@ void main() {
       expect(result.entryType, EntryType.ReleaseEventSeries);
       expect(result.category, "AlbumRelease");
       expect(result.additionalNames, "abc names");
+      expect(result.events, isNotNull);
+      expect(result.events.length, 2);
     });
 
     test('should not thrown exception when input empty json', () {

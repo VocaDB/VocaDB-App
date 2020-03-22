@@ -81,6 +81,6 @@ const List<String> constTagCategories = [
   'Series',
   'Sources',
   'Themes',
-  'Unsorted'
+  'Unsorted',
   'Vocalists',
 ];
