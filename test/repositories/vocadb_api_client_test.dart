@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:matcher/matcher.dart';
 import 'package:mockito/mockito.dart';
+import 'package:vocadb/exceptions/exceptions.dart';
 import 'package:vocadb/repositories/vocadb_api_client.dart';
 
 class MockDio extends Mock implements Dio {}
@@ -66,6 +68,48 @@ void main() {
           () async => await VocaDBApiClient(dio: mockDio)
               .post('https://vocadb.net/api/songs/1/rating', null),
           throwsA(isException));
+    });
+  });
+
+  group('login', () {
+    final mockDio = MockDio();
+
+    test('return cookie when login success', () async {
+      final mockCookies = ['ASP.NET_SessionId=abc;', '.ASPXFORMSAUTH=1234'];
+      final mockHeaders = Headers();
+      mockHeaders.map.putIfAbsent('set-cookie', () => mockCookies);
+      final mockResponse = Response(statusCode: 302, headers: mockHeaders);
+
+      when(mockDio.post(any, data: anyNamed('data'))).thenAnswer(
+          (_) async => Future.error(DioError(response: mockResponse)));
+
+      Response response =
+          await VocaDBApiClient(dio: mockDio).login('user', 'password');
+
+      expect(response.statusCode, 302);
+      expect(response.headers.map['set-cookie'], mockCookies);
+    });
+
+    test('return Exception when login failed', () async {
+      when(mockDio.post(any, data: anyNamed('data')))
+          .thenAnswer((_) async => Future.value(Response(statusCode: 200)));
+
+      expect(
+          () async => await VocaDBApiClient(dio: mockDio)
+              .login('user', 'wrong_password'),
+          throwsA(TypeMatcher<LoginFailedException>()));
+    });
+
+    test('return Exception when login error', () async {
+      final mockResponse = Response(statusCode: 500);
+
+      when(mockDio.post(any, data: anyNamed('data'))).thenAnswer(
+          (_) async => Future.error(DioError(response: mockResponse)));
+
+      expect(
+          () async =>
+              await VocaDBApiClient(dio: mockDio).login('user', 'password'),
+          throwsA(TypeMatcher<DioError>()));
     });
   });
 }

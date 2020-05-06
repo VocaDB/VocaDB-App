@@ -49,6 +49,7 @@ dependencies:
 
 dev_dependencies:
   mockito: ^3.0.0
+  matcher: ^0.12.6
   flutter_driver:
     sdk: flutter
   flutter_test:
