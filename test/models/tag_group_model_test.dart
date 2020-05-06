@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:vocadb/models/tag_group_model.dart';
+import 'package:vocadb/models/models.dart';
 
 void main() {
   group('Tag group model', () {

@@ -1,14 +1,14 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:vocadb/models/web_link_model.dart';
+import 'package:vocadb/models/models.dart';
 
 void main() {
   group('WebLink', () {
     test('should parse from json correctly', () {
       const mockJson = {
-      "category": "Reference",
-      "description": "MikuWiki",
-      "id": 971,
-      "url": "http://www5.atwiki.jp/hmiku/pages/4804.html"
+        "category": "Reference",
+        "description": "MikuWiki",
+        "id": 971,
+        "url": "http://www5.atwiki.jp/hmiku/pages/4804.html"
       };
 
       WebLinkModel result = WebLinkModel.fromJson(mockJson);

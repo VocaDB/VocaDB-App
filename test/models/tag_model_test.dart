@@ -1,6 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:vocadb/models/entry_model.dart';
-import 'package:vocadb/models/tag_model.dart';
+import 'package:vocadb/models/models.dart';
 
 void main() {
   group('Tag model', () {
@@ -11,22 +10,14 @@ void main() {
         "id": 2878,
         "name": "digital rock",
         "urlSlug": "digital-rock",
-        "parent": {
-          "id": 481,
-          "name": "rock",
-          "urlSlug": "rock"
-        },
+        "parent": {"id": 481, "name": "rock", "urlSlug": "rock"},
         "relatedTags": [
           {
             "id": 1655,
             "name": "progressive rock",
             "urlSlug": "progressive-rock"
           },
-          {
-            "id": 3251,
-            "name": "new wave",
-            "urlSlug": "new-wave"
-          }
+          {"id": 3251, "name": "new wave", "urlSlug": "new-wave"}
         ],
       };
 

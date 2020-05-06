@@ -1,6 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:vocadb/models/artist_model.dart';
-import 'package:vocadb/models/entry_model.dart';
+import 'package:vocadb/models/models.dart';
 
 void main() {
   group('Artist model', () {
