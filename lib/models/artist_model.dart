@@ -43,7 +43,7 @@ class ArtistModel extends EntryModel {
       ? null
       : DateFormat('yyyy-MM-dd').format(DateTime.parse(releaseDate));
 
-  String get imageUrl => '$HOST/Artist/Picture/$id';
+  String get imageUrl => '$baseUrl/Artist/Picture/$id';
 
   List<ArtistModel> get voiceProviders => this
       .artistLinks

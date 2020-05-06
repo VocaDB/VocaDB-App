@@ -55,16 +55,17 @@ class EntryModel extends BaseModel {
 
   String get imageUrl {
     if (mainPicture != null) {
-      return (entryType == EntryType.ReleaseEvent || entryType == EntryType.ReleaseEventSeries)
+      return (entryType == EntryType.ReleaseEvent ||
+              entryType == EntryType.ReleaseEventSeries)
           ? mainPicture.urlThumb.replaceAll('mainThumb', 'mainOrig')
           : mainPicture.urlThumb;
     }
 
     switch (entryType) {
       case EntryType.Artist:
-        return '$HOST/Artist/Picture/$id';
+        return '$baseUrl/Artist/Picture/$id';
       case EntryType.Album:
-        return '$HOST/Album/CoverPicture/$id';
+        return '$baseUrl/Album/CoverPicture/$id';
       default:
         return 'https://via.placeholder.com/150x150?text=no_image';
     }

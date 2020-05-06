@@ -58,7 +58,7 @@ class AlbumModel extends EntryModel {
 
   get imageUrl => (mainPicture != null && mainPicture.urlThumb != null)
       ? mainPicture.urlThumb
-      : '$HOST/Album/CoverPicture/$id';
+      : '$baseUrl/Album/CoverPicture/$id';
 
   String get releaseDateFormatted => releaseDate.formatted;
 

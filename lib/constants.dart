@@ -1,6 +1,6 @@
-const String APP_NAME = 'VocaDB';
-const String HOST = 'https://vocadb.net';
-const String AUTHORITY = 'vocadb.net';
+const String appName = 'VocaDB';
+const String baseUrl = 'https://vocadb.net';
+const String authority = 'vocadb.net';
 
 enum ContentLanguage { Default, Japanese, Romaji, English }
 
