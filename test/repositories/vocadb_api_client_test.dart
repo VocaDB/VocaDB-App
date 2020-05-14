@@ -3,6 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:matcher/matcher.dart';
 import 'package:mockito/mockito.dart';
 import 'package:vocadb/exceptions/exceptions.dart';
+import 'package:vocadb/models/user_cookie.dart';
 import 'package:vocadb/repositories/vocadb_api_client.dart';
 
 class MockDio extends Mock implements Dio {}
@@ -83,11 +84,23 @@ void main() {
       when(mockDio.post(any, data: anyNamed('data'))).thenAnswer(
           (_) async => Future.error(DioError(response: mockResponse)));
 
-      Response response =
+      UserCookie userCookie =
           await VocaDBApiClient(dio: mockDio).login('user', 'password');
 
-      expect(response.statusCode, 302);
-      expect(response.headers.map['set-cookie'], mockCookies);
+      expect(userCookie.cookies, mockCookies);
+    });
+
+    test('return exception when login success but no cookies', () async {
+      final mockHeaders = Headers();
+      final mockResponse = Response(statusCode: 302, headers: mockHeaders);
+
+      when(mockDio.post(any, data: anyNamed('data'))).thenAnswer(
+          (_) async => Future.error(DioError(response: mockResponse)));
+
+      expect(
+          () async => await VocaDBApiClient(dio: mockDio)
+              .login('user', 'wrong_password'),
+          throwsA(TypeMatcher<DioError>()));
     });
 
     test('return Exception when login failed', () async {

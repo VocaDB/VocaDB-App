@@ -3,6 +3,7 @@ import 'package:dio_http_cache/dio_http_cache.dart';
 import 'package:meta/meta.dart';
 import 'package:vocadb/constants.dart';
 import 'package:vocadb/exceptions/exceptions.dart';
+import 'package:vocadb/models/user_cookie.dart';
 
 class VocaDBApiClient {
   final Dio dio;
@@ -32,14 +33,19 @@ class VocaDBApiClient {
     throw HttpRequestErrorException();
   }
 
-  Future<dynamic> login(String username, String password) async {
+  Future<UserCookie> login(String username, String password) async {
     String url = Uri.https(authority, '/User/Login').toString();
     try {
-      await dio.post(url, data: {'UserName': username, 'Password': password});
+      Response response = await dio
+          .post(url, data: {'UserName': username, 'Password': password});
       throw LoginFailedException();
     } catch (e) {
       if (e is DioError && e.response.statusCode == 302) {
-        return e.response;
+        List<String> cookies = e.response.headers.map['set-cookie'];
+
+        if (cookies != null && !cookies.isEmpty) {
+          return UserCookie(cookies: cookies);
+        }
       }
 
       throw e;
