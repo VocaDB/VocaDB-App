@@ -14,8 +14,16 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   @override
   Stream<AuthState> mapEventToState(AuthEvent event) async* {
-    if (event is AppStarted) {
-      final UserModel userModel = await userRepository.getCurrent();
+
+
+    if (event is AuthInit) {
+
+      UserModel userModel;
+      try {
+        userModel = await userRepository.getCurrent();
+      } catch(_) {
+        yield AuthError();
+      }
 
       if (userModel != null) {
         yield AuthAuthenticated();
@@ -25,13 +33,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     }
 
     if (event is LoggedIn) {
-//      yield AuthLoading();
       yield AuthAuthenticated();
     }
 
     if (event is LoggedOut) {
-      yield AuthLoading();
-//      await userRepository.deleteToken();
       yield AuthUnauthenticated();
     }
   }

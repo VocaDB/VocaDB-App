@@ -42,7 +42,7 @@ class App extends StatelessWidget {
           BlocProvider<AuthBloc>(
               create: (context) =>
                   AuthBloc(userRepository: repository.userRepository)
-                    ..add(AppStarted())),
+                    ..add(AuthInit())),
         ],
         child: MaterialApp(
             title: 'VocaDB App',
