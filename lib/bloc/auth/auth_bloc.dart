@@ -14,9 +14,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   @override
   Stream<AuthState> mapEventToState(AuthEvent event) async* {
-
-
-    if (event is AuthInit) {
+    if (event is AuthInit || event is LoggedIn) {
 
       UserModel userModel;
       try {
@@ -26,14 +24,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       }
 
       if (userModel != null) {
-        yield AuthAuthenticated();
+        yield AuthAuthenticated(user: userModel);
       } else {
         yield AuthUnauthenticated();
       }
-    }
-
-    if (event is LoggedIn) {
-      yield AuthAuthenticated();
     }
 
     if (event is LoggedOut) {

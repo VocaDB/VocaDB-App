@@ -28,8 +28,10 @@ dependencies:
   provider: ^4.1.0
   rxdart: ^0.22.2
   shared_preferences: ^0.5.3+4
-  dio_http_cache: ^0.2.0
-  dio: ^3.0.0
+  dio_http_cache: ^0.2.6
+  cookie_jar: ^1.0.0
+  dio: ^3.0.9
+  dio_cookie_manager: ^1.0.0
   shimmer: ^1.0.1
   cached_network_image: ^2.0.0
   url_launcher: ^5.1.3

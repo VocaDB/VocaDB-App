@@ -5,7 +5,7 @@ import 'package:vocadb/models/user_model.dart';
 import 'package:vocadb/repositories/repositories.dart';
 
 class UserRepository {
-  final String endpoint = '/api/songs';
+  final String endpoint = '/api/users';
   final VocaDBApiClient apiClient;
 
   UserRepository({@required this.apiClient}) : assert(apiClient != null);

@@ -12,6 +12,7 @@ class VocaDBApiClient {
 
   Future<dynamic> get(String endpoint, Map<String, String> params) async {
     String url = Uri.https(authority, endpoint, params).toString();
+    print(url);
     final response =
         await dio.get(url, options: buildCacheOptions(Duration(minutes: 5)));
 

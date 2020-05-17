@@ -1,7 +1,14 @@
+import 'dart:io';
+
+import 'package:cookie_jar/cookie_jar.dart';
 import 'package:dio/dio.dart';
+import 'package:dio_cookie_manager/dio_cookie_manager.dart';
+import 'package:dio_http_cache/dio_http_cache.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:vocadb/bloc/bloc.dart';
+import 'package:vocadb/constants.dart';
 import 'package:vocadb/repositories/repositories.dart';
 import 'package:vocadb/views/loading_indicator.dart';
 import 'package:vocadb/views/views.dart';
@@ -15,17 +22,22 @@ class SimpleBlocDelegate extends BlocDelegate {
 }
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   BlocSupervisor.delegate = SimpleBlocDelegate();
+  Directory dir = await getApplicationDocumentsDirectory();
+  
+  Dio dio = Dio();
+  dio.interceptors.add(DioCacheManager(CacheConfig(baseUrl: baseUrl)).interceptor);
+  dio.interceptors.add(CookieManager(PersistCookieJar(dir:dir.path+"/.cookies/")));
 
   final VocaDBRepository repository = VocaDBRepository(
-    apiClient: VocaDBApiClient(dio: Dio()),
+    apiClient: VocaDBApiClient(dio: dio),
   );
 
   runApp(App(
     repository: repository,
   ));
 }
-
 class App extends StatelessWidget {
   final VocaDBRepository repository;
 
@@ -66,19 +78,5 @@ class App extends StatelessWidget {
               }
               return Container();
             })));
-
-    return BlocProvider(
-      create: (context) => AppBloc(repository: repository),
-      child: MaterialApp(
-        title: 'VocaDB App',
-        theme: ThemeData(brightness: Brightness.dark),
-        home: Scaffold(
-          appBar: AppBar(
-            title: Text('VocaDB'),
-          ),
-          body: BlocProvider(create: (context) => SongBloc()),
-        ),
-      ),
-    );
   }
 }

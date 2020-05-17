@@ -9,24 +9,11 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         title: Text('Home page'),
       ),
-      body: BlocBuilder<SongBloc, SongState>(
+      body: BlocBuilder<AuthBloc, AuthState>(
         builder: (context, state) {
-          if (state is SongEmpty) {
-            BlocProvider.of<SongBloc>(context).add(FetchSongs());
-          }
-          if (state is SongError) {
+          if (state is AuthAuthenticated) {
             return Center(
-              child: Text('failed to fetch songs'),
-            );
-          }
-          if (state is SongLoaded) {
-            return ListView.builder(
-              itemCount: state.songs.length,
-              itemBuilder: (context, index) {
-                return ListTile(
-                  title: Text(state.songs[index].name),
-                );
-              },
+              child: Text(state.user.name),
             );
           }
           return Center(

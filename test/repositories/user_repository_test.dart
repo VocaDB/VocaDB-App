@@ -23,7 +23,7 @@ void main() {
     final mockUserRepository = UserRepository(apiClient: mockApiClient);
 
     test('should return user cookie', () async {
-      final UserCookie mockUserCookie = UserCookie();
+      final UserCookie mockUserCookie = UserCookie(cookies: []);
 
       when(mockApiClient.login(any, any))
           .thenAnswer((_) => Future.value(mockUserCookie));

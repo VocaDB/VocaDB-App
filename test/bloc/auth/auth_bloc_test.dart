@@ -37,15 +37,16 @@ void main() {
   });
 
   group('Bloc test',() {
+    final mockUser = UserModel.fromJson({ 'id': 1, 'name': 'a' });
     blocTest(
       'emits [AuthAuthenticated] when AuthInit and get current user is not null',
       build: () async {
-        final mockUser = UserModel.fromJson({ 'id': 1, 'name': 'a' });
+        
         when(userRepository.getCurrent()).thenAnswer((_) => Future.value(mockUser));
         return authBloc;
       },
       act: (bloc) => bloc.add(AuthInit()),
-      expect: [AuthAuthenticated()]
+      expect: [AuthAuthenticated(user: mockUser)]
     );
     blocTest(
       'emits [AuthUnauthenticated] when AuthInit and get current user is null',
@@ -67,9 +68,12 @@ void main() {
     );
     blocTest(
       'emits [AuthAuthenticated] when LoggedIn',
-      build: () async => authBloc,
+      build: () async {
+        when(userRepository.getCurrent()).thenAnswer((_) => Future.value(mockUser));
+        return authBloc;
+      },
       act: (bloc) => bloc.add(LoggedIn(userCookie: UserCookie(cookies: ['A']))),
-      expect: [AuthAuthenticated()]
+      expect: [AuthAuthenticated(user: mockUser)]
     );
 
     blocTest(
