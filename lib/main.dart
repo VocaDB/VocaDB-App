@@ -10,6 +10,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:vocadb/bloc/bloc.dart';
 import 'package:vocadb/constants.dart';
 import 'package:vocadb/repositories/repositories.dart';
+import 'package:vocadb/utils/app_directory.dart';
 import 'package:vocadb/views/loading_indicator.dart';
 import 'package:vocadb/views/views.dart';
 
@@ -24,11 +25,14 @@ class SimpleBlocDelegate extends BlocDelegate {
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   BlocSupervisor.delegate = SimpleBlocDelegate();
-  Directory dir = await getApplicationDocumentsDirectory();
-  
+  AppDirectory appDirectory = AppDirectory(
+      applicationDocument: await getApplicationDocumentsDirectory());
+
   Dio dio = Dio();
-  dio.interceptors.add(DioCacheManager(CacheConfig(baseUrl: baseUrl)).interceptor);
-  dio.interceptors.add(CookieManager(PersistCookieJar(dir:dir.path+"/.cookies/")));
+  dio.interceptors
+      .add(DioCacheManager(CacheConfig(baseUrl: baseUrl)).interceptor);
+  dio.interceptors.add(
+      CookieManager(PersistCookieJar(dir: appDirectory.cookiesDirectory.path)));
 
   final VocaDBRepository repository = VocaDBRepository(
     apiClient: VocaDBApiClient(dio: dio),
@@ -36,13 +40,17 @@ void main() async {
 
   runApp(App(
     repository: repository,
+    appDirectory: appDirectory,
   ));
 }
+
 class App extends StatelessWidget {
   final VocaDBRepository repository;
+  final AppDirectory appDirectory;
 
-  App({Key key, @required this.repository})
+  App({Key key, @required this.repository, @required this.appDirectory})
       : assert(repository != null),
+        assert(appDirectory != null),
         super(key: key);
 
   @override
@@ -52,9 +60,13 @@ class App extends StatelessWidget {
           BlocProvider<AppBloc>(
               create: (context) => AppBloc(repository: repository)),
           BlocProvider<AuthBloc>(
+              create: (context) => AuthBloc(
+                    userRepository: repository.userRepository,
+                    appDirectory: appDirectory,
+                  )..add(AuthInit())),
+          BlocProvider<LoginBloc>(
               create: (context) =>
-                  AuthBloc(userRepository: repository.userRepository)
-                    ..add(AuthInit())),
+                  LoginBloc(userRepository: repository.userRepository)),
         ],
         child: MaterialApp(
             title: 'VocaDB App',

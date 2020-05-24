@@ -12,8 +12,16 @@ class HomePage extends StatelessWidget {
       body: BlocBuilder<AuthBloc, AuthState>(
         builder: (context, state) {
           if (state is AuthAuthenticated) {
-            return Center(
-              child: Text(state.user.name),
+            return Column(
+              children: <Widget>[
+                Image.network(state.user.imageUrl),
+                Text(state.user.name),
+                FlatButton(
+                    onPressed: () {
+                      BlocProvider.of<AuthBloc>(context).add(LoggedOut());
+                    },
+                    child: Text('Log out')),
+              ],
             );
           }
           return Center(
