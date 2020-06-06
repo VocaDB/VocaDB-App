@@ -12,7 +12,11 @@ class AppDirectory {
             Directory(applicationDocument.path + '/.cookies');
 
   void clearCookies() {
-    print('clear cookies');
-    this.cookiesDirectory.deleteSync(recursive: true);
+    if (this.cookiesDirectory.existsSync()) {
+      print('clear cookies');
+      this.cookiesDirectory.deleteSync(recursive: true);
+    } else {
+      print('cookies does not exists for clear');
+    }
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vocadb/bloc/bloc.dart';
+import 'package:vocadb/shared_widgets/shared_widgets.dart';
 
 class LoginForm extends StatefulWidget {
   @override
@@ -22,6 +23,10 @@ class _LoginFormState extends State<LoginForm> {
       );
     }
 
+    _onSkipButtonPressed() {
+      BlocProvider.of<LoginBloc>(context).add(SkipButtonPressed());
+    }
+
     return BlocListener<LoginBloc, LoginState>(
       listener: (context, state) {
         if (state is LoginFailure) {
@@ -35,30 +40,53 @@ class _LoginFormState extends State<LoginForm> {
       },
       child: BlocBuilder<LoginBloc, LoginState>(
         builder: (context, state) {
-          return Form(
-            child: Column(
-              children: [
-                TextFormField(
-                  decoration: InputDecoration(labelText: 'username'),
-                  controller: _usernameController,
+          return Column(
+            children: <Widget>[
+              Container(
+                  alignment: Alignment.center,
+                  padding: EdgeInsets.only(top: 72.0)),
+              Container(
+                padding: EdgeInsets.all(32.0),
+                child: Form(
+                  child: Column(
+                    children: [
+                      TextFormField(
+                        decoration: InputDecoration(labelText: 'Username'),
+                        controller: _usernameController,
+                      ),
+                      SpaceDivider.small(),
+                      TextFormField(
+                        decoration: InputDecoration(labelText: 'Password'),
+                        controller: _passwordController,
+                        obscureText: true,
+                      ),
+                      SpaceDivider.medium(),
+                      FullWidth(
+                        child: RaisedButton(
+                          onPressed: state is! LoginLoading
+                              ? _onLoginButtonPressed
+                              : null,
+                          child: Text('LOG IN'),
+                        ),
+                      ),
+                      FullWidth(
+                        child: FlatButton(
+                          onPressed: state is! LoginLoading
+                              ? _onSkipButtonPressed
+                              : null,
+                          child: Text('SKIP'),
+                        ),
+                      ),
+                      Container(
+                        child: state is LoginLoading
+                            ? CircularProgressIndicator()
+                            : null,
+                      ),
+                    ],
+                  ),
                 ),
-                TextFormField(
-                  decoration: InputDecoration(labelText: 'password'),
-                  controller: _passwordController,
-                  obscureText: true,
-                ),
-                RaisedButton(
-                  onPressed:
-                      state is! LoginLoading ? _onLoginButtonPressed : null,
-                  child: Text('Login'),
-                ),
-                Container(
-                  child: state is LoginLoading
-                      ? CircularProgressIndicator()
-                      : null,
-                ),
-              ],
-            ),
+              ),
+            ],
           );
         },
       ),
