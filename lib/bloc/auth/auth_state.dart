@@ -22,6 +22,11 @@ class AuthAuthenticated extends AuthState {
   String toString() => 'AuthAuthenticated { user: $user }';
 }
 
+class GuestAuthenticated extends AuthState {
+  @override
+  List<Object> get props => [];
+}
+
 class AuthUnauthenticated extends AuthState {}
 
 class AuthLoading extends AuthState {}

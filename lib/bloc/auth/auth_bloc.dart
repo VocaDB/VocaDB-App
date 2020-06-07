@@ -37,5 +37,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       appDirectory.clearCookies();
       yield AuthUnauthenticated();
     }
+
+    if (event is SkippedLogin) {
+      yield GuestAuthenticated();
+    }
   }
 }

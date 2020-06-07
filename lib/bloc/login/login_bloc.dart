@@ -36,5 +36,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         yield LoginFailure(error: error.toString());
       }
     }
+
+    if (event is SkipButtonPressed) {
+      authBloc.add(SkippedLogin());
+    }
   }
 }

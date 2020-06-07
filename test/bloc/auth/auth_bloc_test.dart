@@ -87,5 +87,12 @@ void main() {
         },
         act: (bloc) => bloc.add(LoggedOut()),
         expect: [AuthUnauthenticated()]);
+
+    blocTest('emits [GuestAuthenticated] when SkippedLogin',
+        build: () async {
+          return authBloc;
+        },
+        act: (bloc) => bloc.add(SkippedLogin()),
+        expect: [GuestAuthenticated()]);
   });
 }
