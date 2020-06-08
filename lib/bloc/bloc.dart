@@ -17,3 +17,8 @@ export 'login/login_state.dart';
 export 'song/song_bloc.dart';
 export 'song/song_event.dart';
 export 'song/song_state.dart';
+
+// Main
+export 'main/main_bloc.dart';
+export 'main/main_event.dart';
+export 'main/main_state.dart';

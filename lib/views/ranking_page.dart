@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
-class HomePage extends StatelessWidget {
+class RankingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('VocaDB'),
+        title: Text('Ranking'),
       ),
       body: Container(
-        child: Text('Home'),
+        child: Text('Ranking content'),
       ),
     );
   }

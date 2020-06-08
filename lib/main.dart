@@ -76,7 +76,10 @@ class App extends StatelessWidget {
                 return SplashPage();
               }
               if (state is AuthAuthenticated || state is GuestAuthenticated) {
-                return HomePage();
+                return BlocProvider<MainBloc>(
+                  create: (context) => MainBloc(),
+                  child: MainPage(),
+                );
               }
               if (state is AuthUnauthenticated) {
                 return LoginPage(userRepository: repository.userRepository);
