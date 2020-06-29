@@ -5,9 +5,9 @@ import 'package:vocadb/models/models.dart';
 import 'package:vocadb/repositories/repositories.dart';
 
 class SongBloc extends Bloc<SongEvent, SongState> {
-  final SongRepository repository;
+  final SongRepository songRepository;
 
-  SongBloc({@required this.repository}) : assert(repository != null);
+  SongBloc({@required this.songRepository}) : assert(songRepository != null);
 
   @override
   SongState get initialState => SongEmpty();
@@ -17,7 +17,18 @@ class SongBloc extends Bloc<SongEvent, SongState> {
     if (event is FetchSongs) {
       yield SongLoading();
       try {
-        final List<SongModel> songs = await repository.findAll();
+        final List<SongModel> songs = await songRepository.findAll();
+        yield SongLoaded(songs: songs);
+      } catch (_) {
+        yield SongError();
+      }
+    }
+
+    if (event is FetchHighlighted) {
+      yield SongLoading();
+      try {
+        final List<SongModel> songs =
+            await songRepository.highlighted(parameter: event.songParameter);
         yield SongLoaded(songs: songs);
       } catch (_) {
         yield SongError();

@@ -9,6 +9,12 @@ class SongRepository {
 
   SongRepository({@required this.apiClient}) : assert(apiClient != null);
 
+  Future<List<SongModel>> highlighted({SongParameter parameter}) async {
+    return await apiClient
+        .get('$endpoint/highlighted', parameter?.toMap())
+        .then((items) => SongModel.jsonToList(items));
+  }
+
   Future<List<SongModel>> findAll({SongParameter parameter}) async {
     return await apiClient
         .get(endpoint, parameter?.toMap())

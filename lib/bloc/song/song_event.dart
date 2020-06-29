@@ -13,3 +13,12 @@ class FetchSongs extends SongEvent {
   @override
   List<Object> get props => [songParameter];
 }
+
+class FetchHighlighted extends SongEvent {
+  final SongParameter songParameter;
+
+  const FetchHighlighted({this.songParameter});
+
+  @override
+  List<Object> get props => [songParameter];
+}

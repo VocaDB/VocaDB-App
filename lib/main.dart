@@ -68,26 +68,29 @@ class App extends StatelessWidget {
               create: (context) =>
                   LoginBloc(userRepository: repository.userRepository)),
         ],
-        child: MaterialApp(
-            title: 'VocaDB App',
-            theme: ThemeData(brightness: Brightness.dark),
-            home: BlocBuilder<AuthBloc, AuthState>(builder: (context, state) {
-              if (state is AuthUninitialized) {
-                return SplashPage();
-              }
-              if (state is AuthAuthenticated || state is GuestAuthenticated) {
-                return BlocProvider<MainBloc>(
-                  create: (context) => MainBloc(),
-                  child: MainPage(),
-                );
-              }
-              if (state is AuthUnauthenticated) {
-                return LoginPage(userRepository: repository.userRepository);
-              }
-              if (state is AuthLoading) {
-                return LoadingIndicator();
-              }
-              return Container();
-            })));
+        child: RepositoryProvider(
+          create: (context) => repository,
+          child: MaterialApp(
+              title: 'VocaDB App',
+              theme: ThemeData(brightness: Brightness.dark),
+              home: BlocBuilder<AuthBloc, AuthState>(builder: (context, state) {
+                if (state is AuthUninitialized) {
+                  return SplashPage();
+                }
+                if (state is AuthAuthenticated || state is GuestAuthenticated) {
+                  return BlocProvider<MainBloc>(
+                    create: (context) => MainBloc(),
+                    child: MainPage(),
+                  );
+                }
+                if (state is AuthUnauthenticated) {
+                  return LoginPage(userRepository: repository.userRepository);
+                }
+                if (state is AuthLoading) {
+                  return LoadingIndicator();
+                }
+                return Container();
+              })),
+        ));
   }
 }
