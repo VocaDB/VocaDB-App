@@ -217,12 +217,12 @@
     "Other": "Other"
   },
   "eventCategory": {
-    "Unspecified": "Not specified",
-    "AlbumRelease": "Album release fair",
-    "Anniversary": "Character anniversary",
-    "Club": "Club",
-    "Concert": "Concert",
-    "Contest": "Contest",
+    "Unspecified": "未注明",
+    "AlbumRelease": "专辑发行",
+    "Anniversary": "角色生日",
+    "Club": "俱乐部",
+    "Concert": "音乐会",
+    "Contest": "比赛",
     "Convention": "Convention",
     "Other": "Other"
   }
