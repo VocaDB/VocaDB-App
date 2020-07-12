@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vocadb/bloc/bloc.dart';
 import 'package:vocadb/models/models.dart';
-import 'package:vocadb/parameters/parameters.dart';
 import 'package:vocadb/shared_widgets/shared_widgets.dart';
 
 class SongDetailPageArguments {
@@ -34,10 +33,7 @@ class _SongDetailPageState extends State<SongDetailPage> {
     final SongDetailPageArguments args =
         ModalRoute.of(context).settings.arguments;
 
-    widget.songBloc.add(FetchSongDetail(args.song.id,
-        songParameter: SongParameter(
-            fields:
-                'MainPicture,PVs,ThumbUrl,Albums,Artists,Tags,WebLinks,AdditionalNames,WebLinks,Lyrics')));
+    widget.songBloc.add(FetchSongDetail(args.song.id));
 
     return BlocBuilder<SongBloc, SongState>(
       bloc: widget.songBloc,

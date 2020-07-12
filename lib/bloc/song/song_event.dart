@@ -1,33 +1,33 @@
 import 'package:equatable/equatable.dart';
-import 'package:vocadb/parameters/parameters.dart';
 
 abstract class SongEvent extends Equatable {
   const SongEvent();
 }
 
 class FetchSongs extends SongEvent {
-  final SongParameter songParameter;
+  final String query;
+  final String lang;
 
-  const FetchSongs({this.songParameter});
+  const FetchSongs({this.query, this.lang});
 
   @override
-  List<Object> get props => [songParameter];
+  List<Object> get props => [];
 }
 
 class FetchHighlighted extends SongEvent {
-  final SongParameter songParameter;
+  final String lang;
 
-  const FetchHighlighted({this.songParameter});
+  const FetchHighlighted({this.lang});
 
   @override
-  List<Object> get props => [songParameter];
+  List<Object> get props => [lang];
 }
 
 class FetchSongDetail extends SongEvent {
   final int id;
-  final SongParameter songParameter;
+  final String lang;
 
-  const FetchSongDetail(this.id, {this.songParameter});
+  const FetchSongDetail(this.id, {this.lang});
 
   @override
   List<Object> get props => [id];

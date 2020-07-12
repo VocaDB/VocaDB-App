@@ -28,7 +28,7 @@ class SongBloc extends Bloc<SongEvent, SongState> {
       yield SongLoading();
       try {
         final List<SongModel> songs =
-            await songRepository.highlighted(parameter: event.songParameter);
+            await songRepository.highlighted();
         yield SongLoaded(songs: songs);
       } catch (_) {
         yield SongError();
@@ -38,8 +38,7 @@ class SongBloc extends Bloc<SongEvent, SongState> {
     if (event is FetchSongDetail) {
       yield SongLoading();
       try {
-        final SongModel song = await songRepository.findById(event.id,
-            parameter: event.songParameter);
+        final SongModel song = await songRepository.findById(event.id);
         yield SongDetailLoaded(song: song);
       } catch (_) {
         yield SongError();

@@ -2,7 +2,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:matcher/matcher.dart';
 import 'package:mockito/mockito.dart';
 import 'package:vocadb/models/models.dart';
-import 'package:vocadb/parameters/parameters.dart';
 import 'package:vocadb/repositories/repositories.dart';
 
 class MockApiClient extends Mock implements VocaDBApiClient {}
@@ -48,8 +47,7 @@ void main() {
           .thenAnswer((_) => Future.value(mockResponseData));
 
       expect(
-          await mockSongRepository.findAll(
-              parameter: SongParameter(query: 'A')),
+          await mockSongRepository.findAll(query: 'miku'),
           isList);
     });
   });
@@ -74,8 +72,7 @@ void main() {
           .thenAnswer((_) => Future.value(mockResponseData));
 
       expect(
-          await mockSongRepository.findById(1,
-              parameter: SongParameter(lang: 'Default')),
+          await mockSongRepository.findById(1, lang: 'English'),
           isA<SongModel>());
     });
   });

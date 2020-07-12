@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:vocadb/bloc/bloc.dart';
-import 'package:vocadb/parameters/parameters.dart';
 import 'package:vocadb/shared_widgets/shared_widgets.dart';
 
 class HomePage extends StatelessWidget {
@@ -16,8 +15,7 @@ class HomePage extends StatelessWidget {
             SongApiListView(
               tag: 'highlighted',
               title: SectionHeadText('Highlighted'),
-              event: FetchHighlighted(
-                  songParameter: SongParameter(fields: 'MainPicture,thumbUrl')),
+              event: FetchHighlighted(),
             ),
           ],
         ),

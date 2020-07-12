@@ -11,6 +11,9 @@ class VocaDBApiClient {
   VocaDBApiClient({@required this.dio}) : assert(dio != null);
 
   Future<dynamic> get(String endpoint, Map<String, String> params) async {
+
+    params?.removeWhere((key, value) => value == null || value.isEmpty);
+
     String url = Uri.https(authority, endpoint, params).toString();
     print('$url | $params');
     final response =
@@ -24,6 +27,9 @@ class VocaDBApiClient {
   }
 
   Future<dynamic> post(String endpoint, Map<String, String> params) async {
+
+    params?.removeWhere((key, value) => value == null || value.isEmpty);
+
     String url = Uri.https(authority, endpoint, params).toString();
     final response = await dio.post(url, data: params);
 
