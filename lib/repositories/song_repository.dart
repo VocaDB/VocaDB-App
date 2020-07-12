@@ -24,7 +24,7 @@ class SongRepository {
 
   Future<SongModel> findById(int id, {SongParameter parameter}) async {
     return await apiClient
-        .get(endpoint, parameter?.toMap())
+        .get('$endpoint/$id', parameter?.toMap())
         .then((item) => SongModel.fromJson(item));
   }
 }

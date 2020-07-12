@@ -2,13 +2,15 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:vocadb/models/models.dart';
+import 'package:vocadb/views/views.dart';
 
 class SongListView extends StatelessWidget {
   SongListView(
       {Key key,
       this.songs,
       this.horizontal = false,
-      this.displayNumber = false})
+      this.displayNumber = false,
+      this.tag = 'songListView'})
       : assert(songs != null),
         super(key: key);
 
@@ -21,16 +23,23 @@ class SongListView extends StatelessWidget {
   /// Display number order. Used for ranking list. Default is false
   final bool displayNumber;
 
+  /// For Hero widget animation. Format '{$tag}_{$songId}'
+  /// Example
+  /// tag = 'top_songs
+  /// Inside song card widget tag will be 'top_songs_39'
+  final String tag;
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 180,
-      child: ListView.builder(
-          itemCount: this.songs.length,
-          scrollDirection: Axis.horizontal,
-          itemBuilder: (context, index) =>
-              SongCard.song(this.songs[index], tag: 'h')),
-    );
+        height: 180,
+        child: ListView.builder(
+            itemCount: this.songs.length,
+            scrollDirection: Axis.horizontal,
+            itemBuilder: (context, index) {
+              SongModel song = this.songs[index];
+              return SongCard.song(song, tag: tag + '_' + song.id.toString());
+            }));
   }
 }
 
@@ -40,7 +49,9 @@ class SongCard extends StatelessWidget {
 
   SongCard.song(this.song, {this.tag});
 
-  void navigateToSongDetail(BuildContext context) {}
+  void navigateToSongDetail(BuildContext context) {
+    SongDetailPage.navigate(context, song, tag: tag);
+  }
 
   @override
   Widget build(BuildContext context) {

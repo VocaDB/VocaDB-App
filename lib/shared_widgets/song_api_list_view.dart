@@ -11,7 +11,11 @@ class SongApiListView extends StatelessWidget {
   /// Type of event to do
   final SongEvent event;
 
-  const SongApiListView({@required this.event, this.title})
+  /// For Hero widget animation.
+  final String tag;
+
+  const SongApiListView(
+      {@required this.event, this.title, this.tag = 'songApiListView'})
       : assert(event != null);
 
   Widget buildHeader(context, state) {
@@ -40,6 +44,7 @@ class SongApiListView extends StatelessWidget {
     if (state is SongLoaded) {
       return SongListView(
         songs: state.songs,
+        tag: this.tag,
       );
     }
 

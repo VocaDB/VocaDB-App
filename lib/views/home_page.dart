@@ -14,6 +14,7 @@ class HomePage extends StatelessWidget {
         child: Column(
           children: <Widget>[
             SongApiListView(
+              tag: 'highlighted',
               title: SectionHeadText('Highlighted'),
               event: FetchHighlighted(
                   songParameter: SongParameter(fields: 'MainPicture,thumbUrl')),

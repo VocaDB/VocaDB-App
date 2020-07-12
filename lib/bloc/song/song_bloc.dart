@@ -34,5 +34,16 @@ class SongBloc extends Bloc<SongEvent, SongState> {
         yield SongError();
       }
     }
+
+    if (event is FetchSongDetail) {
+      yield SongLoading();
+      try {
+        final SongModel song = await songRepository.findById(event.id,
+            parameter: event.songParameter);
+        yield SongDetailLoaded(song: song);
+      } catch (_) {
+        yield SongError();
+      }
+    }
   }
 }

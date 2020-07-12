@@ -13,6 +13,7 @@ environment:
   sdk: ">=2.2.0 <3.0.0"
 
 dependencies:
+  youtube_player_flutter: ^7.0.0+6
   equatable: ^1.0.0
   meta: ^1.1.6
   quick_actions: ^0.4.0+1

@@ -11,7 +11,6 @@ import 'package:vocadb/bloc/bloc.dart';
 import 'package:vocadb/constants.dart';
 import 'package:vocadb/repositories/repositories.dart';
 import 'package:vocadb/utils/app_directory.dart';
-import 'package:vocadb/views/loading_indicator.dart';
 import 'package:vocadb/views/views.dart';
 
 class SimpleBlocDelegate extends BlocDelegate {
@@ -69,28 +68,24 @@ class App extends StatelessWidget {
                   LoginBloc(userRepository: repository.userRepository)),
         ],
         child: RepositoryProvider(
-          create: (context) => repository,
-          child: MaterialApp(
+            create: (context) => repository,
+            child: MaterialApp(
               title: 'VocaDB App',
               theme: ThemeData(brightness: Brightness.dark),
-              home: BlocBuilder<AuthBloc, AuthState>(builder: (context, state) {
-                if (state is AuthUninitialized) {
-                  return SplashPage();
-                }
-                if (state is AuthAuthenticated || state is GuestAuthenticated) {
-                  return BlocProvider<MainBloc>(
-                    create: (context) => MainBloc(),
-                    child: MainPage(),
-                  );
-                }
-                if (state is AuthUnauthenticated) {
-                  return LoginPage(userRepository: repository.userRepository);
-                }
-                if (state is AuthLoading) {
-                  return LoadingIndicator();
-                }
-                return Container();
-              })),
-        ));
+              initialRoute: '/',
+              routes: {
+                // Main page
+                '/': (context) => BlocProvider<MainBloc>(
+                      create: (context) => MainBloc(),
+                      child: MainPage(),
+                    ),
+
+                // Song detail page
+                SongDetailPage.routeName: (context) => SongDetailPage(
+                      songBloc:
+                          SongBloc(songRepository: repository.songRepository),
+                    ),
+              },
+            )));
   }
 }

@@ -30,7 +30,7 @@ class EntryModel extends BaseModel {
         discType = json['discType'],
         eventCategory = json['eventCategory'],
         activityDate = json['activityDate'],
-        additionalNames = json['additionalNames'],
+        additionalNames = json['additionalNames'] ?? '',
         defaultName = json['defaultName'],
         entryType = entryTypeToEnum(json['entryType']),
         artistString = json['artistString'],

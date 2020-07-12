@@ -22,4 +22,13 @@ class SongLoaded extends SongState {
   List<Object> get props => [songs];
 }
 
+class SongDetailLoaded extends SongState {
+  final SongModel song;
+
+  const SongDetailLoaded({@required this.song}) : assert(song != null);
+
+  @override
+  List<Object> get props => [song];
+}
+
 class SongError extends SongState {}
