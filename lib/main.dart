@@ -6,6 +6,8 @@ import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 import 'package:dio_http_cache/dio_http_cache.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_i18n/flutter_i18n_delegate.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:vocadb/bloc/bloc.dart';
 import 'package:vocadb/constants.dart';
@@ -70,6 +72,15 @@ class App extends StatelessWidget {
               title: 'VocaDB App',
               theme: ThemeData(brightness: Brightness.dark),
               initialRoute: '/',
+              localizationsDelegates: [
+                FlutterI18nDelegate(
+                    useCountryCode: false,
+                    fallbackFile: 'assets/i18n/en',
+                    path: 'assets/i18n',
+                    forcedLocale: Locale.fromSubtags(languageCode: 'en')),
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate
+              ],
               routes: {
                 // Main page
                 '/': (context) => BlocProvider<MainBloc>(
@@ -80,6 +91,12 @@ class App extends StatelessWidget {
                 // Login page
                 LoginPage.routeName: (context) =>
                     LoginPage(userRepository: repository.userRepository),
+
+                // Song detail page
+                SongPage.routeName: (context) => SongPage(
+                      songBloc:
+                          SongBloc(songRepository: repository.songRepository),
+                    ),
 
                 // Song detail page
                 SongDetailPage.routeName: (context) => SongDetailPage(
