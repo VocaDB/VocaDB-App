@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vocadb/bloc/bloc.dart';
-import 'package:vocadb/views/home_page.dart';
-import 'package:vocadb/views/ranking_page.dart';
+import 'package:vocadb/views/views.dart';
 
 class MainPage extends StatefulWidget {
+  static const String routeName = '/';
+
+  static void navigate(BuildContext context) {
+    Navigator.pushNamed(context, MainPage.routeName);
+  }
+
   @override
   _MainPageState createState() => _MainPageState();
 }
@@ -13,6 +18,7 @@ class _MainPageState extends State<MainPage> {
   List<Widget> _widgetOptions = <Widget>[
     HomePage(),
     RankingPage(),
+    MenuPage(),
   ];
 
   @override
@@ -35,6 +41,10 @@ class _MainPageState extends State<MainPage> {
                 BottomNavigationBarItem(
                   icon: Icon(Icons.trending_up),
                   title: Text('Ranking', key: Key('tab_ranking')),
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.menu),
+                  title: Text('Menu', key: Key('tab_menu')),
                 ),
               ],
               currentIndex: state.index,

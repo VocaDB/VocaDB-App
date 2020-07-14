@@ -21,3 +21,10 @@ class DisplayRankingTab extends MainState {
   @override
   List<Object> get props => [index];
 }
+
+class DisplayMenuTab extends MainState {
+  final index = 2;
+
+  @override
+  List<Object> get props => [index];
+}

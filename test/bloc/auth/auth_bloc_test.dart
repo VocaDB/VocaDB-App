@@ -28,7 +28,8 @@ void main() {
   });
 
   test('should assert if null', () {
-    expect(() => AuthBloc(userRepository: null), throwsA(isAssertionError));
+    expect(() => AuthBloc(userRepository: null, appDirectory: null),
+        throwsA(isAssertionError));
   });
   test('initial state is correct', () {
     expect(authBloc.initialState, AuthUninitialized());

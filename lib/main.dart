@@ -63,9 +63,6 @@ class App extends StatelessWidget {
                     userRepository: repository.userRepository,
                     appDirectory: appDirectory,
                   )..add(AuthInit())),
-          BlocProvider<LoginBloc>(
-              create: (context) =>
-                  LoginBloc(userRepository: repository.userRepository)),
         ],
         child: RepositoryProvider(
             create: (context) => repository,
@@ -79,6 +76,10 @@ class App extends StatelessWidget {
                       create: (context) => MainBloc(),
                       child: MainPage(),
                     ),
+
+                // Login page
+                LoginPage.routeName: (context) =>
+                    LoginPage(userRepository: repository.userRepository),
 
                 // Song detail page
                 SongDetailPage.routeName: (context) => SongDetailPage(

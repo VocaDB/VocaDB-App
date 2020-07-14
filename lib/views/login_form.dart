@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vocadb/bloc/bloc.dart';
 import 'package:vocadb/shared_widgets/shared_widgets.dart';
+import 'package:vocadb/views/views.dart';
 
 class LoginForm extends StatefulWidget {
   @override
@@ -25,6 +26,7 @@ class _LoginFormState extends State<LoginForm> {
 
     _onSkipButtonPressed() {
       BlocProvider.of<LoginBloc>(context).add(SkipButtonPressed());
+      MainPage.navigate(context);
     }
 
     return BlocListener<LoginBloc, LoginState>(

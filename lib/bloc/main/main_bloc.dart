@@ -13,6 +13,9 @@ class MainBloc extends Bloc<MainEvent, MainState> {
         case 1:
           yield DisplayRankingTab();
           break;
+        case 2:
+          yield DisplayMenuTab();
+          break;
         default:
           yield DisplayHomeTab();
       }

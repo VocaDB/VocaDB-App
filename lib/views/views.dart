@@ -7,3 +7,4 @@ export './song_filter_page.dart';
 export './song_page.dart';
 export './song_detail_page.dart';
 export './splash_page.dart';
+export './menu_page.dart';
