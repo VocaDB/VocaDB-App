@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vocadb/bloc/bloc.dart';
+import 'package:vocadb/models/models.dart';
+import 'package:vocadb/shared_widgets/shared_widgets.dart';
 
 class SongPage extends StatefulWidget {
   static const String routeName = '/songs';
@@ -39,8 +41,9 @@ class _SongPageState extends State<SongPage> {
             return ListView.builder(
               itemCount: state.songs.length,
               itemBuilder: (context, index) {
-                return ListTile(
-                  title: Text(state.songs[index].name),
+                return SongTile.fromSong(
+                  state.songs[index],
+                  tag: 'song_list_page',
                 );
               },
             );
