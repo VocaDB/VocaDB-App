@@ -94,8 +94,8 @@ class App extends StatelessWidget {
 
                 // Song detail page
                 SongPage.routeName: (context) => SongPage(
-                      songBloc:
-                          SongBloc(songRepository: repository.songRepository),
+                      songListBloc: SongListBloc(
+                          songRepository: repository.songRepository),
                     ),
 
                 // Song detail page

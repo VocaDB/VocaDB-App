@@ -18,6 +18,11 @@ export 'song/song_bloc.dart';
 export 'song/song_event.dart';
 export 'song/song_state.dart';
 
+// Song list
+export 'song_list/song_list_bloc.dart';
+export 'song_list/song_list_event.dart';
+export 'song_list/song_list_state.dart';
+
 // Main
 export 'main/main_bloc.dart';
 export 'main/main_event.dart';

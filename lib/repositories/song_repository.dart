@@ -9,19 +9,20 @@ class SongRepository {
   SongRepository({@required this.apiClient}) : assert(apiClient != null);
 
   Future<List<SongModel>> highlighted({String lang = 'Default'}) async {
-    return await apiClient
-        .get('$endpoint/highlighted', <String, String>{
-          'lang': lang,
-          'fields': 'MainPicture,PVs,ThumbUrl',
-        })
-        .then((items) => SongModel.jsonToList(items));
+    return await apiClient.get('$endpoint/highlighted', <String, String>{
+      'lang': lang,
+      'fields': 'MainPicture,PVs,ThumbUrl',
+    }).then((items) => SongModel.jsonToList(items));
   }
 
-  Future<List<SongModel>> findAll({String query, String lang = 'Default'}) async {
+  Future<List<SongModel>> findAll(
+      {String query, int start, String lang = 'Default'}) async {
     return await apiClient
         .get(endpoint, <String, String>{
           'query': query,
+          'start': start?.toString(),
           'fields': 'MainPicture,PVs,ThumbUrl',
+          'maxResults': '50',
           'lang': lang
         })
         .then((response) => response['items'])
@@ -29,11 +30,10 @@ class SongRepository {
   }
 
   Future<SongModel> findById(int id, {String lang = 'Default'}) async {
-    return await apiClient
-        .get('$endpoint/$id', <String, String>{
-          'fields': 'MainPicture,PVs,ThumbUrl,Albums,Artists,Tags,WebLinks,AdditionalNames,WebLinks,Lyrics',
-          'lang': lang
-        })
-        .then((item) => SongModel.fromJson(item));
+    return await apiClient.get('$endpoint/$id', <String, String>{
+      'fields':
+          'MainPicture,PVs,ThumbUrl,Albums,Artists,Tags,WebLinks,AdditionalNames,WebLinks,Lyrics',
+      'lang': lang
+    }).then((item) => SongModel.fromJson(item));
   }
 }
