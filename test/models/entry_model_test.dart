@@ -30,6 +30,7 @@ void main() {
       expect(result.mainPicture, isNotNull);
       expect(result.webLinks, isNotNull);
       expect(result.webLinks.length, 1);
+      expect(result.imageUrl, 'https://tn.smilevideo.jp');
     });
 
     test('should not thrown exception when input empty json', () {

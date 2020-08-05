@@ -6,6 +6,7 @@ import 'package:vocadb/models/lyric_model.dart';
 import 'package:vocadb/models/pv_model.dart';
 import 'package:vocadb/models/tag_model.dart';
 import 'package:vocadb/utils/json_utils.dart';
+import 'package:vocadb/utils/utils.dart';
 
 class SongModel extends EntryModel {
   EntryType entryType = EntryType.Song;
@@ -20,7 +21,7 @@ class SongModel extends EntryModel {
   SongModel();
 
   SongModel.fromJson(Map<String, dynamic> json)
-      : thumbUrl = json['thumbUrl'],
+      : thumbUrl = UrlUtils.toHttps(json['thumbUrl']),
         originalVersionId = json['originalVersionId'],
         publishDate = json['publishDate'],
         pvs = JSONUtils.mapJsonArray<PVModel>(
