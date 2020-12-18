@@ -2,8 +2,10 @@ const String appName = 'VocaDB';
 const String baseUrl = 'https://vocadb.net';
 const String authority = 'vocadb.net';
 
+/// Display language same as VocaDB website
 enum ContentLanguage { Default, Japanese, Romaji, English }
 
+/// Contact list of VocaDB
 const List<Map<String, String>> contactSites = [
   {"title": "Website", "url": "https://vocadb.net"},
   {"title": "Facebook", "url": "https://www.facebook.com/vocadb"},
@@ -12,6 +14,7 @@ const List<Map<String, String>> contactSites = [
   {"title": "IRC #vocadb", "url": "https://vocadb.net/Home/Chat"},
 ];
 
+/// Contact list of mobile app developer
 const List<Map<String, String>> contactDeveloperSites = [
   {
     "title": "Mail",
@@ -23,8 +26,10 @@ const List<Map<String, String>> contactDeveloperSites = [
   {"title": "Github", "url": "https://github.com/VocaDB/VocaDB-App"},
 ];
 
+/// Set to false for hide filter menu on ranking page
 const bool constShowFilterRank = true;
 
+/// Ranking category
 const List<String> constRankings = [
   'daily',
   'weekly',
@@ -32,6 +37,7 @@ const List<String> constRankings = [
   'overall',
 ];
 
+/// List of song types
 const List<String> constSongTypes = [
   'Original',
   'Remaster',
@@ -44,6 +50,7 @@ const List<String> constSongTypes = [
   'Other',
 ];
 
+/// List of album types
 const List<String> constAlbumTypes = [
   'Album',
   'Single',
@@ -55,6 +62,7 @@ const List<String> constAlbumTypes = [
   'Other',
 ];
 
+/// List of artist types
 const List<String> constArtistTypes = [
   'Circle',
   'Label',
@@ -71,6 +79,7 @@ const List<String> constArtistTypes = [
   'OtherIndividual',
 ];
 
+/// List of release event categories
 const List<String> constEventCategories = [
   'AlbumRelease',
   'Anniversary',
@@ -80,6 +89,7 @@ const List<String> constEventCategories = [
   'Other',
 ];
 
+/// List of tag categories
 const List<String> constTagCategories = [
   'Animation',
   'Copyrights',
