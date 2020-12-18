@@ -6,7 +6,6 @@ import 'package:vocadb_app/utils.dart';
 import "package:collection/collection.dart";
 
 class AlbumModel extends EntryModel {
-  EntryType entryType = EntryType.Album;
   List<TrackModel> tracks;
   List<ArtistAlbumModel> artists;
   String catalogNumber;
@@ -15,7 +14,12 @@ class AlbumModel extends EntryModel {
   int ratingCount;
   ReleaseDateModel releaseDate;
 
-  AlbumModel();
+  AlbumModel({int id, String name, String artistString})
+      : super(
+            id: id,
+            name: name,
+            artistString: artistString,
+            entryType: EntryType.Album);
 
   AlbumModel.fromJson(Map<String, dynamic> json)
       : catalogNumber = json['catalogNumber'],
@@ -31,7 +35,7 @@ class AlbumModel extends EntryModel {
         releaseDate = json.containsKey('releaseDate')
             ? ReleaseDateModel.fromJson(json['releaseDate'])
             : null,
-        super.fromJson(json);
+        super.fromJson(json, entryType: EntryType.Album);
 
   static List<AlbumModel> jsonToList(List items) {
     return items.map((i) => AlbumModel.fromJson(i)).toList();

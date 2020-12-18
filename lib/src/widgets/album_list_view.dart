@@ -3,12 +3,12 @@ import 'package:vocadb_app/models.dart';
 import 'package:vocadb_app/widgets.dart';
 
 /// A widget for display list of songs as vertical or horizontal
-class SongListView extends StatelessWidget {
-  SongListView({Key key, this.songs, this.scrollDirection = Axis.vertical})
+class AlbumListView extends StatelessWidget {
+  AlbumListView({Key key, this.albums, this.scrollDirection = Axis.vertical})
       : super(key: key);
 
   /// List of songs to display.
-  final List<SongModel> songs;
+  final List<AlbumModel> albums;
 
   /// Default is vertical
   final Axis scrollDirection;
@@ -18,17 +18,17 @@ class SongListView extends StatelessWidget {
 
   /// Return item for display in vertical list
   Widget _verticalItemBuilder(BuildContext context, int index) =>
-      SongTile.song(this.songs[index]);
+      AlbumTile.fromEntry(this.albums[index]);
 
   /// Return item for display in horizontal list
   Widget _horizontalItemBuilder(BuildContext context, int index) =>
-      SongCard.song(this.songs[index]);
+      AlbumCard.album(this.albums[index]);
 
   @override
   Widget build(BuildContext context) {
     if (this.scrollDirection == Axis.vertical) {
       return ListView.builder(
-          itemCount: this.songs.length,
+          itemCount: this.albums.length,
           scrollDirection: Axis.vertical,
           itemBuilder: _verticalItemBuilder);
     }
@@ -36,7 +36,7 @@ class SongListView extends StatelessWidget {
     return SizedBox(
         height: _rowHeight,
         child: ListView.builder(
-            itemCount: this.songs.length,
+            itemCount: this.albums.length,
             scrollDirection: Axis.horizontal,
             itemBuilder: _horizontalItemBuilder));
   }

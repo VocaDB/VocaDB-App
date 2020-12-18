@@ -27,7 +27,13 @@ class LoginPage extends StatelessWidget {
           SizedBox(
             width: double.infinity,
             child: RaisedButton(
-                onPressed: () => Get.to(MainPage()), child: Text('Log in')),
+                onPressed: () => Get.off(MainPage()), child: Text('Log in')),
+          ),
+          SpaceDivider.small(),
+          SizedBox(
+            width: double.infinity,
+            child: FlatButton(
+                onPressed: () => Get.off(MainPage()), child: Text('Skip')),
           )
         ],
       ),
