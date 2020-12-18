@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:vocadb_app/constants.dart';
 import 'package:vocadb_app/models.dart';
+import 'package:vocadb_app/pages.dart';
 import 'package:vocadb_app/widgets.dart';
 
 class RankingPage extends StatefulWidget {
@@ -119,7 +121,8 @@ class _RankingPageState extends State<RankingPage>
             children: _generateRankingContent(),
           ),
           floatingActionButton: FloatingActionButton(
-              onPressed: () => {}, child: Icon(Icons.play_arrow))),
+              onPressed: () => Get.to(PVPlaylistPage()),
+              child: Icon(Icons.play_arrow))),
     );
   }
 }
