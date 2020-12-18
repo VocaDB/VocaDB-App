@@ -18,6 +18,9 @@ class _MainPageState extends State<MainPage> {
     final MainPageController controller = Get.put(MainPageController());
 
     return Scaffold(
+      appBar: AppBar(
+        title: Text('VocaDB'),
+      ),
       body: Center(
         child: AnimatedSwitcher(
           duration: Duration(milliseconds: 100),

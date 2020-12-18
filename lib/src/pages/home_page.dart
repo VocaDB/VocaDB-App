@@ -80,9 +80,6 @@ class HomePage extends StatelessWidget {
     final List<Widget> children = _generateMockChildren();
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text('VocaDB'),
-      ),
       body: ListView.builder(
         itemCount: children.length,
         itemBuilder: (context, index) => children[index],
