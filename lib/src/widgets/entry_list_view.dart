@@ -19,12 +19,6 @@ class EntryListView extends StatelessWidget {
             artistName: 'Kirishima feat. Hatsune Miku',
             thumbUrl: 'https://i.ytimg.com/vi/6OAd30ljny8/default.jpg',
             songType: 'Original'),
-        SongTile(
-            name: '天誅',
-            artistName: 'Kashii Moimi feat. Kagamine Len',
-            thumbUrl:
-                'https://nicovideo.cdn.nimg.jp/thumbnails/37974374/37974374.34231370',
-            songType: 'Original'),
         ListTile(
           title: Text('Artists'),
         ),
@@ -41,21 +35,36 @@ class EntryListView extends StatelessWidget {
           imageUrl:
               'https://static.vocadb.net/img/album/mainThumb/23864.jpg?v=10',
         ),
-        AlbumTile(
-          name: '花束と水葬',
-          artist: 'ハチ feat. 初音ミク',
-          imageUrl:
-              'https://static.vocadb.net/img/album/mainThumb/204.jpg?v=14',
-        ),
         ListTile(
           title: Text('Tags'),
         ),
-        TagGroupView(onPressed: (t) => print(t), tags: [
+        TagGroupView(tags: [
           TagModel(name: 'rock'),
           TagModel(name: 'metal'),
           TagModel(name: 'jazz'),
           TagModel(name: 'ballad'),
-        ])
+        ]),
+        ListTile(
+          title: Text('Events'),
+        ),
+        ReleaseEventTile(
+          name: 'Magical mirai 2020',
+          venueName: 'Home',
+          imageUrl:
+              'https://static.vocadb.net/img/releaseevent/mainOrig/1426.jpg?v=19',
+          category: 'Contest',
+          startDate: DateTime.parse("2017-02-03 00:00:00Z"),
+          endDate: DateTime.parse("2017-04-03 00:00:00Z"),
+        ),
+        ReleaseEventTile(
+          name: 'Magical mirai 2020',
+          venueName: 'Home',
+          imageUrl:
+              'https://static.vocadb.net/img/releaseevent/mainOrig/1426.jpg?v=19',
+          category: 'Contest',
+          startDate: DateTime.parse("2017-02-03 00:00:00Z"),
+          endDate: DateTime.parse("2017-04-03 00:00:00Z"),
+        ),
       ],
     );
   }
