@@ -47,6 +47,15 @@ class EntryListView extends StatelessWidget {
           imageUrl:
               'https://static.vocadb.net/img/album/mainThumb/204.jpg?v=14',
         ),
+        ListTile(
+          title: Text('Tags'),
+        ),
+        TagGroupView(onPressed: (t) => print(t), tags: [
+          TagModel(name: 'rock'),
+          TagModel(name: 'metal'),
+          TagModel(name: 'jazz'),
+          TagModel(name: 'ballad'),
+        ])
       ],
     );
   }

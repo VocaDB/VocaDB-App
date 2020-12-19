@@ -2,13 +2,14 @@ import 'package:vocadb_app/models.dart';
 import 'package:vocadb_app/utils.dart';
 
 class TagModel extends EntryModel {
-  EntryType entryType = EntryType.Tag;
   String categoryName;
   String additionalNames;
   String description;
   String urlSlug;
   TagModel parent;
   List<TagModel> relatedTags;
+
+  TagModel({String name}) : super(name: name, entryType: EntryType.Tag);
 
   TagModel.fromJson(Map<String, dynamic> json)
       : parent = json.containsKey('parent')
@@ -20,7 +21,7 @@ class TagModel extends EntryModel {
         additionalNames = json['additionalNames'],
         relatedTags = JSONUtils.mapJsonArray<TagModel>(
             json['relatedTags'], (v) => TagModel.fromJson(v)),
-        super.fromJson(json);
+        super.fromJson(json, entryType: EntryType.Tag);
 
   static List<TagModel> jsonToList(List items) {
     return items.map((i) => TagModel.fromJson(i)).toList();
