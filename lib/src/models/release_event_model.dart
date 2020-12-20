@@ -7,8 +7,8 @@ class ReleaseEventModel extends EntryModel {
   String description;
   String category;
   String venueName;
-  String date;
-  String endDate;
+  DateTime date;
+  DateTime endDate;
   ReleaseEventSeriesModel series;
   List<ArtistEventModel> artists;
 
@@ -18,8 +18,10 @@ class ReleaseEventModel extends EntryModel {
       : description = json['description'],
         category = json['category'],
         venueName = json['venueName'],
-        date = json['date'],
-        endDate = json['endDate'],
+        date = json.containsKey('date') ? DateTime.parse(json['date']) : null,
+        endDate = json.containsKey('endDate')
+            ? DateTime.parse(json['endDate'])
+            : null,
         series = json.containsKey('series')
             ? ReleaseEventSeriesModel.fromJson(json['series'])
             : null,
@@ -35,7 +37,6 @@ class ReleaseEventModel extends EntryModel {
     return series?.category ?? category;
   }
 
-  String get dateFormatted => (date == null)
-      ? null
-      : DateFormat('yyyy-MM-dd').format(DateTime.parse(date));
+  String get dateFormatted =>
+      (date == null) ? null : DateFormat('yyyy-MM-dd').format(date);
 }
