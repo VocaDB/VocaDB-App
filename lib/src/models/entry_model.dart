@@ -151,6 +151,8 @@ class EntryList {
       entries.where((e) => e.entryType == EntryType.Album).toList();
   List<EntryModel> get releaseEvents =>
       entries.where((e) => e.entryType == EntryType.ReleaseEvent).toList();
+  List<EntryModel> get tags =>
+      entries.where((e) => e.entryType == EntryType.Tag).toList();
 }
 
 enum EntryType {

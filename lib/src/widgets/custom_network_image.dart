@@ -14,8 +14,12 @@ class CustomNetworkImage extends StatelessWidget {
 
   final BoxFit fit;
 
+  final double width;
+
+  final double height;
+
   const CustomNetworkImage(this.imageUrl,
-      {this.placeholder, this.errorWidget, this.fit});
+      {this.placeholder, this.errorWidget, this.fit, this.width, this.height});
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +30,8 @@ class CustomNetworkImage extends StatelessWidget {
     return CachedNetworkImage(
       fit: this.fit,
       imageUrl: this.imageUrl,
+      width: this.width,
+      height: this.height,
       placeholder: (this.placeholder != null)
           ? this.placeholder
           : (context, url) => Container(color: Colors.grey),

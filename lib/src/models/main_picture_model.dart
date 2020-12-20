@@ -4,7 +4,7 @@ class MainPictureModel {
   String urlThumb;
   String urlTinyThumb;
 
-  MainPictureModel();
+  MainPictureModel({this.urlThumb});
 
   MainPictureModel.fromJson(Map<String, dynamic> json)
       : meme = json['meme'],

@@ -11,6 +11,10 @@ class TagModel extends EntryModel {
 
   TagModel({String name}) : super(name: name, entryType: EntryType.Tag);
 
+  TagModel.fromEntry(EntryModel entryModel)
+      : super(
+            id: entryModel.id, name: entryModel.name, entryType: EntryType.Tag);
+
   TagModel.fromJson(Map<String, dynamic> json)
       : parent = json.containsKey('parent')
             ? TagModel.fromJson(json['parent'])

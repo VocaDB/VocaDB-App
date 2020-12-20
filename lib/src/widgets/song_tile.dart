@@ -49,6 +49,14 @@ class SongTile extends StatelessWidget {
         this.thumbUrl = song.thumbUrl,
         this.hasPV = song.youtubePV != null;
 
+  /// Create SongTile widget by EntryModel
+  SongTile.fromEntry(EntryModel entryModel, {this.onTap, this.leading})
+      : this.name = entryModel.name,
+        this.artistName = entryModel.artistString,
+        this.songType = entryModel.songType,
+        this.thumbUrl = entryModel.imageUrl,
+        this.hasPV = false;
+
   Widget _leadingBuilder() {
     if (this.leading == null) {
       return Container();
