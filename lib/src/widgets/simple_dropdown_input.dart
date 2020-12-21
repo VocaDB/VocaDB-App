@@ -17,8 +17,11 @@ class SimpleDropdownInput extends StatelessWidget {
         assert(label != null);
 
   /// An array input must be map that contains *name* and *value* as key
-  SimpleDropdownInput.fromJsonArray(List<Map<String, String>> json,
-      {this.onChanged, this.value, @required this.label})
+  SimpleDropdownInput.fromJsonArray(
+      {@required List<Map<String, String>> json,
+      this.onChanged,
+      this.value,
+      @required this.label})
       : this.items = json
             .map((e) => SimpleDropdownItem(name: e['name'], value: e['value']))
             .toList(),
@@ -26,25 +29,22 @@ class SimpleDropdownInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          this.label,
-          style: Theme.of(context).textTheme.caption,
-        ),
-        DropdownButton(
-            value: this.value,
-            underline: Container(),
-            items: this
-                .items
-                .map((e) => DropdownMenuItem<String>(
-                      value: e.value,
-                      child: Text(e.name),
-                    ))
-                .toList(),
-            onChanged: this.onChanged)
-      ],
+    return ListTile(
+      title: Text(this.label),
+      trailing: DropdownButton(
+        onChanged: this.onChanged,
+        value: this.value,
+        underline: Container(),
+        items: this
+            .items
+            .map((e) => DropdownMenuItem<String>(
+                  value: e.value,
+                  child: Text(
+                    e.name,
+                  ),
+                ))
+            .toList(),
+      ),
     );
   }
 }

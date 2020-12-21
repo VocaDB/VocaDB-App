@@ -15,7 +15,7 @@ class EntrySearchFilterPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SimpleDropdownInput.fromJsonArray(
-              [
+              json: [
                 {'name': 'Anything', 'value': 'Nothing'},
                 {'name': 'Artist', 'value': 'Artist'},
                 {'name': 'Album', 'value': 'Album'},
@@ -28,7 +28,7 @@ class EntrySearchFilterPage extends StatelessWidget {
               onChanged: (i) => {},
             ),
             SimpleDropdownInput.fromJsonArray(
-              [
+              json: [
                 {'name': 'Name', 'value': 'Name'},
                 {'name': 'Addition date', 'value': 'AdditionDate'}
               ],
@@ -36,6 +36,7 @@ class EntrySearchFilterPage extends StatelessWidget {
               value: 'Name',
               onChanged: (i) => {},
             ),
+            Divider(),
             TagInput(
               values: [TagModel(name: 'Jazz')],
               onAddPressed: () => {print('browse')},

@@ -20,38 +20,40 @@ class TagInput extends StatelessWidget {
       {this.label = 'Tags', this.values, this.onDeleted, this.onAddPressed});
 
   Widget _tagBuilder(TagModel tagModel) {
-    return Tag(
-      label: tagModel.name,
-      onDeleted: () => this.onDeleted(tagModel),
+    return ListTile(
+      leading: Icon(Icons.label),
+      title: Text(tagModel.name),
+      trailing: (this.onDeleted == null)
+          ? null
+          : IconButton(
+              icon: Icon(Icons.close),
+              onPressed: () => this.onDeleted(tagModel),
+            ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    final List<Widget> items =
-        (this.values != null) ? this.values.map(_tagBuilder).toList() : [];
+    final List<Widget> items = [];
+
+    items.add(ListTile(
+      title: Text('Tags'),
+    ));
+
+    if (this.values != null && this.values.isNotEmpty) {
+      items.addAll(this.values.map((e) => _tagBuilder(e)).toList());
+    }
 
     if (this.onAddPressed != null) {
-      items.add(Tag(
-        avatar: Icon(Icons.add),
-        label: 'Add',
-        onPressed: this.onAddPressed,
+      items.add(ListTile(
+        onTap: this.onAddPressed,
+        leading: Icon(Icons.add),
+        title: Text('ADD TAG'),
       ));
     }
 
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          this.label,
-          style: Theme.of(context).textTheme.caption,
-        ),
-        SpaceDivider(8.0),
-        Wrap(
-          children: items,
-        ),
-        SpaceDivider(8.0),
-      ],
+      children: items,
     );
   }
 }

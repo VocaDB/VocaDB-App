@@ -4,7 +4,6 @@ import 'package:vocadb_app/models.dart';
 import 'package:vocadb_app/utils.dart';
 
 class ArtistModel extends EntryModel {
-  EntryType entryType = EntryType.Artist;
   String additionalNames;
   String releaseDate;
   String description;
@@ -30,7 +29,14 @@ class ArtistModel extends EntryModel {
         artistLinksReverse = JSONUtils.mapJsonArray<ArtistLinkModel>(
             json['artistLinksReverse'],
             (v) => (v is int) ? null : ArtistLinkModel.fromJson(v)),
-        super.fromJson(json);
+        super.fromJson(json, entryType: EntryType.Artist);
+
+  ArtistModel({int id, String name, MainPictureModel mainPicture})
+      : super(
+            id: id,
+            name: name,
+            mainPicture: mainPicture,
+            entryType: EntryType.Artist);
 
   static List<ArtistModel> jsonToList(List items) {
     return items.map((i) => ArtistModel.fromJson(i)).toList();

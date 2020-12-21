@@ -6,6 +6,7 @@ export 'src/widgets/album_card_placeholder.dart';
 export 'src/widgets/album_list_view.dart';
 export 'src/widgets/album_placeholder_list_view.dart';
 export 'src/widgets/album_tile.dart';
+export 'src/widgets/artist_input.dart';
 export 'src/widgets/artist_tile.dart';
 export 'src/widgets/custom_network_image.dart';
 export 'src/widgets/entry_list_view.dart';
