@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:vocadb_app/models.dart';
+import 'package:vocadb_app/widgets.dart';
 
 class AlbumSearchFilterPage extends StatelessWidget {
   @override
@@ -6,7 +8,45 @@ class AlbumSearchFilterPage extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(title: Text('Filter')),
         body: Container(
-          child: Text('Album filter search page no implement'),
+          padding: EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SimpleDropdownInput.fromJsonArray(
+                json: [
+                  {'name': 'Not specified', 'value': 'Nothing'},
+                  {'name': 'Original album', 'value': 'Original'},
+                  {'name': 'Single', 'value': 'Single'},
+                ],
+                label: 'Album type',
+                value: 'Nothing',
+                onChanged: (i) => {},
+              ),
+              SimpleDropdownInput.fromJsonArray(
+                json: [
+                  {'name': 'Name', 'value': 'Name'},
+                  {'name': 'Addition date', 'value': 'AdditionDate'}
+                ],
+                label: 'Sort',
+                value: 'Name',
+                onChanged: (i) => {},
+              ),
+              Divider(),
+              ArtistInput(
+                values: [ArtistModel(id: 1, name: 'Miku')],
+                onAddPressed: () => {print('browse artist')},
+                onDeleted: (deletedArtist) =>
+                    {print('delete tag $deletedArtist')},
+              ),
+              Divider(),
+              TagInput(
+                values: [TagModel(name: 'Jazz')],
+                onAddPressed: () => {print('browse')},
+                onDeleted: (deletedTagModel) =>
+                    {print('delete ${deletedTagModel}')},
+              ),
+            ],
+          ),
         ));
   }
 }

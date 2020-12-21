@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:vocadb_app/models.dart';
 import 'package:vocadb_app/pages.dart';
+import 'package:vocadb_app/widgets.dart';
 
 class AlbumSearchPage extends StatelessWidget {
   @override
@@ -9,11 +11,24 @@ class AlbumSearchPage extends StatelessWidget {
         appBar: AppBar(title: Text('Albums'), actions: <Widget>[
           IconButton(icon: Icon(Icons.search), onPressed: () {}),
           IconButton(
-              icon: Icon(Icons.filter_list),
+              icon: Icon(Icons.tune),
               onPressed: () => Get.to(AlbumSearchFilterPage()))
         ]),
-        body: Container(
-          child: Text('Album search page no implement'),
+        body: AlbumListView(
+          albums: [
+            AlbumModel(
+                id: 9227,
+                name: 'THIS IS VOCAROCK',
+                artistString: '164, 203soundworks feat. various'),
+            AlbumModel(
+                id: 1590,
+                name: 'Michno-sequence',
+                artistString: 'かめりあ feat. 初音ミク, GUMI'),
+            AlbumModel(
+                id: 4986,
+                name: '東京テディベア',
+                artistString: 'Neru, おればななP feat. 鏡音リン Append (Sweet)'),
+          ],
         ));
   }
 }

@@ -34,17 +34,17 @@ class SongSearchFilterPage extends StatelessWidget {
               ],
             ),
             Divider(),
-            TagInput(
-              values: [TagModel(name: 'Rock'), TagModel(name: 'Jazz')],
-              onAddPressed: () => {print('browse tag')},
-              onDeleted: (deletedTag) => {print('delete tag $deletedTag')},
-            ),
-            Divider(),
             ArtistInput(
               values: [ArtistModel(id: 1, name: 'Miku')],
               onAddPressed: () => {print('browse artist')},
               onDeleted: (deletedArtist) =>
                   {print('delete tag $deletedArtist')},
+            ),
+            Divider(),
+            TagInput(
+              values: [TagModel(name: 'Rock'), TagModel(name: 'Jazz')],
+              onAddPressed: () => {print('browse tag')},
+              onDeleted: (deletedTag) => {print('delete tag $deletedTag')},
             ),
           ],
         ));
