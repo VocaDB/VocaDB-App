@@ -56,8 +56,8 @@ class ReleaseEventTile extends StatelessWidget {
     final String dateRange = (this.startDate == null)
         ? null
         : (this.endDate == null)
-            ? DateTiemUtils.toSimpleFormat(this.startDate)
-            : '${DateTiemUtils.toSimpleFormat(this.startDate)} - ${DateTiemUtils.toSimpleFormat(this.endDate)}';
+            ? DateTimeUtils.toSimpleFormat(this.startDate)
+            : '${DateTimeUtils.toSimpleFormat(this.startDate)} - ${DateTimeUtils.toSimpleFormat(this.endDate)}';
 
     return Container(
       margin: EdgeInsets.only(bottom: 16.0),

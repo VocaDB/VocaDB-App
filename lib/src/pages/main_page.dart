@@ -22,7 +22,8 @@ class _MainPageState extends State<MainPage> {
         title: Text(appName),
         actions: <Widget>[
           IconButton(
-              icon: Icon(Icons.search), onPressed: () => Get.to(SearchPage())),
+              icon: Icon(Icons.search),
+              onPressed: () => Get.to(EntrySearchPage())),
           Obx(() => (controller.tabIndex.toInt() != 1)
               ? Container()
               : IconButton(

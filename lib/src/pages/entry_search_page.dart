@@ -1,13 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:vocadb_app/models.dart';
+import 'package:vocadb_app/src/pages/entry_search_filter_page.dart';
 import 'package:vocadb_app/widgets.dart';
 
-class SearchPage extends StatelessWidget {
+class EntrySearchPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           title: Text('Search'),
+          actions: [
+            IconButton(icon: Icon(Icons.search), onPressed: () => {}),
+            IconButton(
+                icon: Icon(Icons.tune),
+                onPressed: () => Get.to(EntrySearchFilterPage()))
+          ],
         ),
         body: EntryListView(
           entries: [

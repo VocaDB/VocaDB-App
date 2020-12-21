@@ -17,6 +17,7 @@ export 'src/models/pv_model.dart';
 export 'src/models/release_date_model.dart';
 export 'src/models/release_event_model.dart';
 export 'src/models/release_event_series_model.dart';
+export 'src/models/simple_dropdown_item.dart';
 export 'src/models/song_model.dart';
 export 'src/models/tag_group_model.dart';
 export 'src/models/tag_model.dart';
