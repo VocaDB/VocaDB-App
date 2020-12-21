@@ -14,11 +14,18 @@ class EntrySearchFilterPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            TagInput(
-              values: [TagModel(name: 'Jazz')],
-              onAddPressed: () => {print('browse')},
-              onDeleted: (deletedTagModel) =>
-                  {print('delete ${deletedTagModel}')},
+            SimpleDropdownInput.fromJsonArray(
+              [
+                {'name': 'Anything', 'value': 'Nothing'},
+                {'name': 'Artist', 'value': 'Artist'},
+                {'name': 'Album', 'value': 'Album'},
+                {'name': 'Song', 'value': 'Song'},
+                {'name': 'Tag', 'value': 'Tag'},
+                {'name': 'Event', 'value': 'Event'}
+              ],
+              label: 'Type',
+              value: 'Nothing',
+              onChanged: (i) => {},
             ),
             SimpleDropdownInput.fromJsonArray(
               [
@@ -28,6 +35,12 @@ class EntrySearchFilterPage extends StatelessWidget {
               label: 'Sort',
               value: 'Name',
               onChanged: (i) => {},
+            ),
+            TagInput(
+              values: [TagModel(name: 'Jazz')],
+              onAddPressed: () => {print('browse')},
+              onDeleted: (deletedTagModel) =>
+                  {print('delete ${deletedTagModel}')},
             ),
           ],
         ),
