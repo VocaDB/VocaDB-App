@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:vocadb_app/models.dart';
+import 'package:vocadb_app/widgets.dart';
 
 class ArtistSearchFilterPage extends StatelessWidget {
   @override
@@ -6,7 +8,38 @@ class ArtistSearchFilterPage extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(title: Text('Filter')),
         body: Container(
-          child: Text('Artist filter search page no implement'),
+          padding: EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SimpleDropdownInput.fromJsonArray(
+                json: [
+                  {'name': 'Not specified', 'value': 'Nothing'},
+                  {'name': 'Circle', 'value': 'Circle'},
+                  {'name': 'Vocaloid', 'value': 'Vocaloid'},
+                ],
+                label: 'Artist type',
+                value: 'Nothing',
+                onChanged: (i) => {},
+              ),
+              SimpleDropdownInput.fromJsonArray(
+                json: [
+                  {'name': 'Name', 'value': 'Name'},
+                  {'name': 'Addition date', 'value': 'AdditionDate'}
+                ],
+                label: 'Sort',
+                value: 'Name',
+                onChanged: (i) => {},
+              ),
+              Divider(),
+              TagInput(
+                values: [TagModel(name: 'Jazz')],
+                onAddPressed: () => {print('browse')},
+                onDeleted: (deletedTagModel) =>
+                    {print('delete ${deletedTagModel}')},
+              ),
+            ],
+          ),
         ));
   }
 }
