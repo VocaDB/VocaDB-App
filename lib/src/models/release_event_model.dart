@@ -12,7 +12,15 @@ class ReleaseEventModel extends EntryModel {
   ReleaseEventSeriesModel series;
   List<ArtistEventModel> artists;
 
-  ReleaseEventModel();
+  ReleaseEventModel({
+    String name,
+    String eventCategory,
+    MainPictureModel mainPicture,
+  }) : super(
+            name: name,
+            eventCategory: eventCategory,
+            mainPicture: mainPicture,
+            entryType: EntryType.ReleaseEvent);
 
   ReleaseEventModel.fromJson(Map<String, dynamic> json)
       : description = json['description'],
