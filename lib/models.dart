@@ -14,6 +14,7 @@ export 'src/models/lyric_model.dart';
 export 'src/models/main_picture_model.dart';
 export 'src/models/profile_model.dart';
 export 'src/models/pv_model.dart';
+export 'src/models/radio_button_item.dart';
 export 'src/models/release_date_model.dart';
 export 'src/models/release_event_model.dart';
 export 'src/models/release_event_series_model.dart';
