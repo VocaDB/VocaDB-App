@@ -10,6 +10,7 @@ export 'src/widgets/artist_input.dart';
 export 'src/widgets/artist_list_view.dart';
 export 'src/widgets/artist_tile.dart';
 export 'src/widgets/custom_network_image.dart';
+export 'src/widgets/date_range_input.dart';
 export 'src/widgets/entry_list_view.dart';
 export 'src/widgets/info_message_view.dart';
 export 'src/widgets/release_event_list_view.dart';
