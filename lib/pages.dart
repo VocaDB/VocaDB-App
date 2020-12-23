@@ -30,5 +30,6 @@ export 'src/pages/settings_page.dart';
 export 'src/pages/song_detail_page.dart';
 export 'src/pages/song_search_filter_page.dart';
 export 'src/pages/song_search_page.dart';
+export 'src/pages/tag_category_page.dart';
 export 'src/pages/tag_detail_page.dart';
 export 'src/pages/tag_search_page.dart';

@@ -25,5 +25,6 @@ export 'src/widgets/song_tile.dart';
 export 'src/widgets/song_type_symbol.dart';
 export 'src/widgets/space_divider.dart';
 export 'src/widgets/tag.dart';
+export 'src/widgets/tag_category_list_view.dart';
 export 'src/widgets/tag_group_view.dart';
 export 'src/widgets/tag_input.dart';

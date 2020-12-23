@@ -31,7 +31,7 @@ class HomePage extends StatelessWidget {
             _ShortcutMenuButton(
                 title: 'Tags',
                 iconData: Icons.label,
-                onPressed: () => Get.to(TagSearchPage())),
+                onPressed: () => Get.to(TagCategoryPage())),
             _ShortcutMenuButton(
                 title: 'Events',
                 iconData: Icons.event,
