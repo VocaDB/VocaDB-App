@@ -8,8 +8,7 @@ class SongSearchFilterPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(title: Text('Filter')),
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        body: ListView(
           children: [
             SimpleDropdownInput.fromJsonArray(
               label: 'Song type',
