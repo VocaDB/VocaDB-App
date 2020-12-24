@@ -35,6 +35,8 @@ class _SongDetailPageState extends State<SongDetailPage> {
 
   void _onTapInfoButton() {}
 
+  void _onSelectSong(SongModel song) {}
+
   void _onTapArtist(ArtistRoleModel artistRoleModel) {
     Get.to(ArtistDetailPage());
   }
@@ -134,6 +136,129 @@ class _SongDetailPageState extends State<SongDetailPage> {
                 ],
               ),
               Divider(),
+              PVGroupList(pvs: [
+                PVModel(
+                    name: '初音ミク　オリジナル曲　「ローリンガール」',
+                    url: 'https://www.nicovideo.jp/watch/sm9714351',
+                    pvType: 'Original',
+                    service: 'NicoNicoDouga'),
+                PVModel(
+                    name:
+                        "wowaka 『ローリンガール』feat. 初音ミク / wowaka - Rollin Girl (Official Video) ft. Hatsune Miku",
+                    url: 'https://youtu.be/vnw8zURAxkU',
+                    pvType: 'Original',
+                    service: 'Youtube'),
+                PVModel(
+                    name: "Hatsune miku - rolling girl",
+                    url:
+                        'http://soundcloud.com/hatsune_uke/hatsune-miku-rolling-girl',
+                    pvType: 'Reprint',
+                    service: 'SoundCloud'),
+                PVModel(
+                    name: "VOCALOID2 Hatsune Miku - ローリンガール (HD and Lyrics)",
+                    url: 'https://youtu.be/XLfBdgT_esQ',
+                    pvType: 'Reprint',
+                    service: 'Youtube')
+              ]),
+              Divider(),
+              Section(
+                title: 'Albums',
+                child: AlbumListView(
+                  scrollDirection: Axis.horizontal,
+                  albums: [
+                    AlbumModel(
+                        id: 9227,
+                        name: 'THIS IS VOCAROCK',
+                        artistString: '164, 203soundworks feat. various'),
+                    AlbumModel(
+                        id: 1590,
+                        name: 'Michno-sequence',
+                        artistString: 'かめりあ feat. 初音ミク, GUMI'),
+                    AlbumModel(
+                        id: 4986,
+                        name: '東京テディベア',
+                        artistString: 'Neru, おればななP feat. 鏡音リン Append (Sweet)'),
+                  ],
+                ),
+              ),
+              Divider(),
+              Section(
+                title: 'Alternate version',
+                child: SongListView(
+                  scrollDirection: Axis.horizontal,
+                  onSelect: this._onSelectSong,
+                  songs: [
+                    SongModel(
+                        id: 307335,
+                        name: 'spirit photo',
+                        artistString: 'Kirishima feat. Hatsune Miku',
+                        thumbUrl:
+                            'https://i.ytimg.com/vi/6OAd30ljny8/default.jpg',
+                        songType: 'Original'),
+                    SongModel(
+                        id: 307325,
+                        name: '天誅',
+                        artistString: 'Kashii Moimi feat. Kagamine Len',
+                        thumbUrl:
+                            'https://nicovideo.cdn.nimg.jp/thumbnails/37974374/37974374.34231370',
+                        songType: 'Original'),
+                    SongModel(
+                        id: 307179,
+                        name: 'Running-stitch-Heartbeat',
+                        artistString: 'RuupaaP feat. Hatsune Miku',
+                        thumbUrl:
+                            'https://nicovideo.cdn.nimg.jp/thumbnails/37971183/37971183.65149070',
+                        songType: 'Original'),
+                  ],
+                ),
+              ),
+              Divider(),
+              Section(
+                title: 'User who liked this also liked',
+                child: SongListView(
+                  scrollDirection: Axis.horizontal,
+                  onSelect: this._onSelectSong,
+                  songs: [
+                    SongModel(
+                        id: 307335,
+                        name: 'spirit photo',
+                        artistString: 'Kirishima feat. Hatsune Miku',
+                        thumbUrl:
+                            'https://i.ytimg.com/vi/6OAd30ljny8/default.jpg',
+                        songType: 'Original'),
+                    SongModel(
+                        id: 307325,
+                        name: '天誅',
+                        artistString: 'Kashii Moimi feat. Kagamine Len',
+                        thumbUrl:
+                            'https://nicovideo.cdn.nimg.jp/thumbnails/37974374/37974374.34231370',
+                        songType: 'Original'),
+                    SongModel(
+                        id: 307179,
+                        name: 'Running-stitch-Heartbeat',
+                        artistString: 'RuupaaP feat. Hatsune Miku',
+                        thumbUrl:
+                            'https://nicovideo.cdn.nimg.jp/thumbnails/37971183/37971183.65149070',
+                        songType: 'Original'),
+                  ],
+                ),
+              ),
+              Divider(),
+              WebLinkGroupList(webLinks: [
+                WebLinkModel(
+                    description: 'NicoNicoPedia',
+                    category: 'Reference',
+                    url: 'https://dic.nicovideo.jp/v/sm9714351'),
+                WebLinkModel(
+                    category: 'Reference',
+                    description: 'UtaiteDB',
+                    url: 'http://utaitedb.net/S/2860'),
+                WebLinkModel(
+                    category: 'Official',
+                    description: 'Pixiv (Illustration)',
+                    url:
+                        'https://www.pixiv.net/member_illust.php?mode=medium&illust_id=10324371')
+              ])
             ],
           ),
         ));

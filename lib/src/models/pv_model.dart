@@ -5,6 +5,8 @@ class PVModel {
   String url;
   String pvType;
 
+  PVModel({this.id, this.name, this.service, this.url, this.pvType});
+
   PVModel.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         name = json['name'],

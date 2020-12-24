@@ -6,6 +6,8 @@ class WebLinkModel extends BaseModel {
   String category;
   String url;
 
+  WebLinkModel({this.id, this.description, this.category, this.url});
+
   WebLinkModel.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         description = json['description'],
