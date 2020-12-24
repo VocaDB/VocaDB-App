@@ -22,7 +22,7 @@ class Section extends StatelessWidget {
 
   Widget _headerBuilder(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(left: 8.0, right: 8.0),
+      padding: EdgeInsets.symmetric(horizontal: 8.0),
       height: _headerHeight,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vocadb_app/models.dart';
 import 'package:vocadb_app/pages.dart';
+import 'package:vocadb_app/src/widgets/release_event_column_view.dart';
 import 'package:vocadb_app/widgets.dart';
 
 /// Home page is same as VocaDB  website. Home page display list of highlighted songs, Recently added albums, Random popular albums and upcoming events
@@ -105,7 +106,28 @@ class HomePage extends StatelessWidget {
                 artistString: 'Various artists'),
           ],
         ),
-      )
+      ),
+      Section(
+        title: 'Upcoming events',
+        child: ReleaseEventColumnView(
+          events: [
+            ReleaseEventModel(
+              name: 'Magical mirai 2020',
+              eventCategory: 'Contest',
+              mainPicture: MainPictureModel(
+                  urlThumb:
+                      'https://static.vocadb.net/img/releaseevent/mainOrig/1426.jpg?v=19'),
+            ),
+            ReleaseEventModel(
+              name: 'MAIKAs Birthday 2020',
+              eventCategory: 'Anniversary',
+              mainPicture: MainPictureModel(
+                  urlThumb:
+                      'https://static.vocadb.net/img/releaseeventseries/mainOrig/206.jpg?v=4'),
+            ),
+          ],
+        ),
+      ),
     ];
   }
 
