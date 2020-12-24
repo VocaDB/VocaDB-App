@@ -21,6 +21,8 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
+  url_launcher: ^5.7.10
+  font_awesome_flutter: ^8.11.0
   get: ^3.23.1
   shimmer: ^1.1.2
   intl: ^0.16.1
