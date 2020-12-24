@@ -31,11 +31,13 @@ class ArtistModel extends EntryModel {
             (v) => (v is int) ? null : ArtistLinkModel.fromJson(v)),
         super.fromJson(json, entryType: EntryType.Artist);
 
-  ArtistModel({int id, String name, MainPictureModel mainPicture})
+  ArtistModel(
+      {int id, String name, String artistType, MainPictureModel mainPicture})
       : super(
             id: id,
             name: name,
             mainPicture: mainPicture,
+            artistType: artistType,
             entryType: EntryType.Artist);
 
   static List<ArtistModel> jsonToList(List items) {

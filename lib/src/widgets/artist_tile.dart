@@ -7,6 +7,9 @@ class ArtistTile extends StatelessWidget {
   /// Name of artist that will display as title in card
   final String name;
 
+  /// A string value display below name if not null
+  final String subtitle;
+
   /// An artist image url to display in widget
   final String imageUrl;
 
@@ -16,10 +19,11 @@ class ArtistTile extends StatelessWidget {
   /// Callback when tap
   final GestureTapCallback onTap;
 
-  const ArtistTile({Key key, this.name, this.imageUrl, this.onTap})
+  const ArtistTile(
+      {Key key, this.name, this.imageUrl, this.onTap, this.subtitle})
       : super(key: key);
 
-  ArtistTile.fromEntry(EntryModel entry, {this.onTap})
+  ArtistTile.fromEntry(EntryModel entry, {this.onTap, this.subtitle})
       : this.name = entry.name,
         this.imageUrl = entry.imageUrl;
 
@@ -45,6 +49,7 @@ class ArtistTile extends StatelessWidget {
       onTap: this.onTap,
       leading: _leading(),
       title: Text(this.name, overflow: TextOverflow.ellipsis),
+      subtitle: (subtitle == null) ? null : Text(subtitle),
     );
   }
 }

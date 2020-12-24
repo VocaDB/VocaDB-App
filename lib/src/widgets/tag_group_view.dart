@@ -10,12 +10,16 @@ class TagGroupView extends StatelessWidget {
   /// Callback when pressed.
   final Function(TagModel) onPressed;
 
-  const TagGroupView({this.tags, this.onPressed}) : assert(tags != null);
+  /// A horizontal margin size. Default is 16.0
+  final double margin;
+
+  const TagGroupView({this.tags, this.onPressed, this.margin = 16.0})
+      : assert(tags != null);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 16.0),
+      margin: EdgeInsets.symmetric(horizontal: this.margin),
       child: Wrap(
         children: tags
             .map((e) => Tag(

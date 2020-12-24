@@ -8,6 +8,14 @@ class ArtistSongModel {
   String categories;
   ArtistModel artist;
 
+  ArtistSongModel(
+      {this.id,
+      this.name,
+      this.roles,
+      this.effectiveRoles,
+      this.categories,
+      this.artist});
+
   ArtistSongModel.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         name = json['name'],

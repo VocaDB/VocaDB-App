@@ -7,6 +7,7 @@ export 'src/models/artist_event_model.dart';
 export 'src/models/artist_link_model.dart';
 export 'src/models/artist_model.dart';
 export 'src/models/artist_relations_model.dart';
+export 'src/models/artist_role_model.dart';
 export 'src/models/artist_song_model.dart';
 export 'src/models/base_model.dart';
 export 'src/models/entry_model.dart';

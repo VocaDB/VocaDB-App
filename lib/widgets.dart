@@ -9,6 +9,7 @@ export 'src/widgets/album_tile.dart';
 export 'src/widgets/artist_input.dart';
 export 'src/widgets/artist_list_view.dart';
 export 'src/widgets/artist_tile.dart';
+export 'src/widgets/artist_group_by_role_list.dart';
 export 'src/widgets/custom_network_image.dart';
 export 'src/widgets/date_range_input.dart';
 export 'src/widgets/entry_list_view.dart';
