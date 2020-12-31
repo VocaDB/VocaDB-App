@@ -17,6 +17,7 @@ export 'src/widgets/date_range_input.dart';
 export 'src/widgets/entry_list_view.dart';
 export 'src/widgets/expandable_content.dart';
 export 'src/widgets/info_message_view.dart';
+export 'src/widgets/info_section.dart';
 export 'src/widgets/lyric_content.dart';
 export 'src/widgets/pv_group_list.dart';
 export 'src/widgets/pv_tile.dart';

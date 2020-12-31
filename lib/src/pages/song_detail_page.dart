@@ -28,7 +28,7 @@ class _SongDetailPageState extends State<SongDetailPage> {
     );
   }
 
-  void _onSelectTag(TagModel tag) {}
+  void _onSelectTag(TagModel tag) => Get.to(TagDetailPage());
 
   void _onTapLikeButton() {}
 
