@@ -13,13 +13,16 @@ class AlbumTile extends StatelessWidget {
   /// Album image url to display in widget
   final String imageUrl;
 
+  /// Callback when tap
+  final GestureTapCallback onTap;
+
   /// Album image size both width and height
   static const double imageSize = 50;
 
-  const AlbumTile({Key key, this.name, this.artist, this.imageUrl})
+  const AlbumTile({Key key, this.name, this.artist, this.imageUrl, this.onTap})
       : super(key: key);
 
-  AlbumTile.fromEntry(EntryModel entry)
+  AlbumTile.fromEntry(EntryModel entry, {this.onTap})
       : this.name = entry.name,
         this.imageUrl = entry.imageUrl,
         this.artist = entry.artistString;
@@ -27,7 +30,7 @@ class AlbumTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      onTap: () => {},
+      onTap: this.onTap,
       leading: SizedBox(
         width: imageSize,
         height: imageSize,

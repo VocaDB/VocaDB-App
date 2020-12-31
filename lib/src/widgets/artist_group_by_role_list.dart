@@ -20,6 +20,16 @@ class ArtistGroupByRoleList extends StatelessWidget {
                 role: e.artistRole))
             .toList();
 
+  ArtistGroupByRoleList.fromArtistAlbumModel(
+      {@required List<ArtistAlbumModel> artistAlbums, this.onTap})
+      : artistRoles = artistAlbums
+            .map((e) => ArtistRoleModel(
+                id: e.artistId,
+                name: e.name,
+                imageUrl: e.artistImageUrl,
+                role: e.artistRole))
+            .toList();
+
   List<Widget> _generateItems() {
     List<Widget> items = [];
     List<ArtistRoleModel> producers = [];

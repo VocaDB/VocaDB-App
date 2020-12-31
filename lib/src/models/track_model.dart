@@ -1,4 +1,5 @@
 import 'package:vocadb_app/models.dart';
+import "package:collection/collection.dart";
 
 class TrackModel {
   int id;
@@ -7,7 +8,8 @@ class TrackModel {
   SongModel song;
   int trackNumber;
 
-  TrackModel();
+  TrackModel(
+      {this.id, this.trackNumber, this.discNumber, this.name, this.song});
 
   TrackModel.fromJson(Map<String, dynamic> json)
       : id = json['id'],
@@ -25,4 +27,14 @@ class TrackModel {
       "name": name
     }.toString();
   }
+}
+
+class TrackList {
+  final List<TrackModel> tracks;
+
+  const TrackList(this.tracks);
+
+  Map<String, dynamic> get groupByDisc => groupBy(tracks, (TrackModel l) {
+        return l.discNumber.toString();
+      });
 }

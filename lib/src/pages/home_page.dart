@@ -7,8 +7,12 @@ import 'package:vocadb_app/widgets.dart';
 
 /// Home page is same as VocaDB  website. Home page display list of highlighted songs, Recently added albums, Random popular albums and upcoming events
 class HomePage extends StatelessWidget {
-  void _onSelectSong(SongModel songModel) {
+  void _onTapSong(SongModel songModel) {
     Get.to(SongDetailPage());
+  }
+
+  void _onTapAlbum(AlbumModel albumModel) {
+    Get.to(AlbumDetailPage());
   }
 
   List<Widget> _generateMockChildren() {
@@ -49,7 +53,7 @@ class HomePage extends StatelessWidget {
         title: 'Highlight PVs',
         child: SongListView(
           scrollDirection: Axis.horizontal,
-          onSelect: this._onSelectSong,
+          onSelect: this._onTapSong,
           songs: [
             SongModel(
                 id: 307335,
@@ -78,6 +82,7 @@ class HomePage extends StatelessWidget {
         title: 'Recent or upcoming albums',
         child: AlbumListView(
           scrollDirection: Axis.horizontal,
+          onSelect: this._onTapAlbum,
           albums: [
             AlbumModel(
                 id: 9227,
@@ -98,6 +103,7 @@ class HomePage extends StatelessWidget {
         title: 'Random popular albums',
         child: AlbumListView(
           scrollDirection: Axis.horizontal,
+          onSelect: this._onTapAlbum,
           albums: [
             AlbumModel(
                 id: 29432,
