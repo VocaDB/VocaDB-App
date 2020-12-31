@@ -1,8 +1,11 @@
 import 'package:vocadb_app/models.dart';
+import "package:collection/collection.dart";
 
 class ArtistLinkModel {
   String linkType;
   ArtistModel artist;
+
+  ArtistLinkModel({this.linkType, this.artist});
 
   ArtistLinkModel.fromJson(Map<String, dynamic> json)
       : linkType = json['linkType'],
@@ -14,4 +17,15 @@ class ArtistLinkModel {
 
   String get artistImageUrl =>
       (this.artist == null) ? null : this.artist.imageUrl;
+}
+
+class ArtistLinkList {
+  final List<ArtistLinkModel> artistLinks;
+
+  const ArtistLinkList(this.artistLinks);
+
+  Map<String, dynamic> get groupByLinkType =>
+      groupBy(artistLinks, (ArtistLinkModel l) {
+        return l.linkType;
+      });
 }
