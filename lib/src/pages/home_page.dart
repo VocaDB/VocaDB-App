@@ -15,6 +15,10 @@ class HomePage extends StatelessWidget {
     Get.to(AlbumDetailPage());
   }
 
+  void _onTapReleaseEvent(ReleaseEventModel releaseEventModel) {
+    Get.to(ReleaseEventDetailPage());
+  }
+
   List<Widget> _generateMockChildren() {
     return [
       SpaceDivider.small(),
@@ -121,6 +125,7 @@ class HomePage extends StatelessWidget {
       Section(
         title: 'Upcoming events',
         child: ReleaseEventColumnView(
+          onSelect: this._onTapReleaseEvent,
           events: [
             ReleaseEventModel(
               name: 'Magical mirai 2020',

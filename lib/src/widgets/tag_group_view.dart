@@ -48,7 +48,9 @@ class _TagGroupViewState extends State<TagGroupView> {
   Widget build(BuildContext context) {
     List<Widget> items = [];
 
-    if (widget.minimumDisplayCount > 0 && !displayAll) {
+    if (widget.minimumDisplayCount > 0 &&
+        !displayAll &&
+        widget.tags.length > widget.minimumDisplayCount) {
       items = widget.tags
           .take(this.widget.minimumDisplayCount)
           .map(this._mapTagWidget)
