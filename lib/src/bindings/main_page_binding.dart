@@ -2,8 +2,6 @@ import 'package:get/get.dart';
 import 'package:vocadb_app/controllers.dart';
 import 'package:vocadb_app/repositories.dart';
 import 'package:vocadb_app/services.dart';
-import 'package:vocadb_app/src/controllers/login_page_controller.dart';
-import 'package:vocadb_app/src/repositories/auth_repository.dart';
 
 class MainPageBinding implements Bindings {
   @override
@@ -19,5 +17,8 @@ class MainPageBinding implements Bindings {
         albumRepository: AlbumRepository(httpService: httpService),
         releaseEventRepository:
             ReleaseEventRepository(httpService: httpService)));
+
+    Get.lazyPut<RankingController>(() => RankingController(
+        songRepository: SongRepository(httpService: httpService)));
   }
 }

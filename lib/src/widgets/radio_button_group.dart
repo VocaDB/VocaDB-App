@@ -13,7 +13,7 @@ class RadioButtonGroup extends StatelessWidget {
   final List<RadioButtonItem> items;
 
   /// A callback on value changed
-  final ValueChanged onChanged;
+  final Function(String) onChanged;
 
   const RadioButtonGroup({this.label, this.value, this.items, this.onChanged});
 

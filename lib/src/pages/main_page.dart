@@ -22,7 +22,7 @@ class MainPage extends GetView<MainPageController> {
           Obx(() => (controller.tabIndex.toInt() != 1)
               ? Container()
               : IconButton(
-                  icon: Icon(Icons.filter_list),
+                  icon: Icon(Icons.tune),
                   onPressed: () => Get.to(RankingFilterPage())))
         ],
       ),

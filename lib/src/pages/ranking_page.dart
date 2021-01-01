@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vocadb_app/constants.dart';
-import 'package:vocadb_app/models.dart';
+import 'package:vocadb_app/controllers.dart';
 import 'package:vocadb_app/pages.dart';
 import 'package:vocadb_app/widgets.dart';
 
@@ -13,10 +13,12 @@ class RankingPage extends StatefulWidget {
 class _RankingPageState extends State<RankingPage>
     with SingleTickerProviderStateMixin {
   TabController _tabController;
+  RankingController _rankingController;
 
   @override
   void initState() {
     super.initState();
+    _rankingController = Get.find<RankingController>();
     _tabController = TabController(
         vsync: this, length: constRankings.length, initialIndex: 1);
     _tabController.addListener(onTabChanged);
@@ -56,56 +58,33 @@ class _RankingPageState extends State<RankingPage>
   }
 
   List<Widget> _generateRankingContent() {
-    return [
-      SongListView(
-        songs: [
-          SongModel(
-              name: 'spirit photo',
-              artistString: 'Kirishima feat. Hatsune Miku',
-              songType: 'Original',
-              thumbUrl: 'https://i.ytimg.com/vi/6OAd30ljny8/default.jpg'),
-          SongModel(
-              name: '冥路',
-              artistString: '猶。 feat. 蝶尾チイ',
-              songType: 'Original',
-              thumbUrl:
-                  'https://nicovideo.cdn.nimg.jp/thumbnails/37100042/37100042.48402854'),
-          SongModel(
-              name: 'ナガレボシ',
-              artistString: 'Linmu feat. Hatsune Miku',
-              songType: 'Original',
-              thumbUrl:
-                  'https://nicovideo.cdn.nimg.jp/thumbnails/37958478/37958478.81870418')
-        ],
-      ),
-      SongListView(
-        songs: [
-          SongModel(
-              name: 'spirit photo',
-              artistString: 'Linmu feat. Hatsune Miku',
-              songType: 'Original',
-              thumbUrl: 'https://i.ytimg.com/vi/6OAd30ljny8/default.jpg')
-        ],
-      ),
-      SongListView(
-        songs: [
-          SongModel(
-              name: 'spirit photo',
-              artistString: 'Kirishima feat. Hatsune Miku',
-              songType: 'Original',
-              thumbUrl: 'https://i.ytimg.com/vi/6OAd30ljny8/default.jpg')
-        ],
-      ),
-      SongListView(
-        songs: [
-          SongModel(
-              name: 'spirit photo',
-              artistString: 'Kirishima feat. Hatsune Miku',
-              songType: 'Original',
-              thumbUrl: 'https://i.ytimg.com/vi/6OAd30ljny8/default.jpg')
-        ],
-      ),
-    ];
+    List<Widget> contents = [];
+
+    if (constRankings.contains('daily')) {
+      contents.add(Obx(() => SongListView(
+            songs: _rankingController.daily.toList(),
+          )));
+    }
+
+    if (constRankings.contains('weekly')) {
+      contents.add(Obx(() => SongListView(
+            songs: _rankingController.weekly.toList(),
+          )));
+    }
+
+    if (constRankings.contains('monthly')) {
+      contents.add(Obx(() => SongListView(
+            songs: _rankingController.monthly.toList(),
+          )));
+    }
+
+    if (constRankings.contains('overall')) {
+      contents.add(Obx(() => SongListView(
+            songs: _rankingController.overall.toList(),
+          )));
+    }
+
+    return contents;
   }
 
   @override
