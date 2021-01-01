@@ -64,65 +64,28 @@ class HomePage extends GetView<HomePageController> {
       ),
       Section(
         title: 'Recent or upcoming albums',
-        child: AlbumListView(
-          scrollDirection: Axis.horizontal,
-          onSelect: this._onTapAlbum,
-          albums: [
-            AlbumModel(
-                id: 9227,
-                name: 'THIS IS VOCAROCK',
-                artistString: '164, 203soundworks feat. various'),
-            AlbumModel(
-                id: 1590,
-                name: 'Michno-sequence',
-                artistString: 'かめりあ feat. 初音ミク, GUMI'),
-            AlbumModel(
-                id: 4986,
-                name: '東京テディベア',
-                artistString: 'Neru, おればななP feat. 鏡音リン Append (Sweet)'),
-          ],
-        ),
+        child: Obx(() => AlbumListView(
+              displayPlaceholder: controller.recentAlbums.isEmpty,
+              scrollDirection: Axis.horizontal,
+              onSelect: this._onTapAlbum,
+              albums: controller.recentAlbums.toList(),
+            )),
       ),
       Section(
         title: 'Random popular albums',
-        child: AlbumListView(
-          scrollDirection: Axis.horizontal,
-          onSelect: this._onTapAlbum,
-          albums: [
-            AlbumModel(
-                id: 29432,
-                name: 'Regret',
-                artistString: 'Mwk, Wakuwaku Miwaku feat. 初音ミク'),
-            AlbumModel(
-                id: 29433, name: '#B.E.R5th', artistString: 'Various artists'),
-            AlbumModel(
-                id: 29412,
-                name: 'NX FUTURE CORE',
-                artistString: 'Various artists'),
-          ],
-        ),
+        child: Obx(() => AlbumListView(
+              displayPlaceholder: controller.randomAlbums.isEmpty,
+              scrollDirection: Axis.horizontal,
+              onSelect: this._onTapAlbum,
+              albums: controller.randomAlbums.toList(),
+            )),
       ),
       Section(
         title: 'Upcoming events',
-        child: ReleaseEventColumnView(
-          onSelect: this._onTapReleaseEvent,
-          events: [
-            ReleaseEventModel(
-              name: 'Magical mirai 2020',
-              eventCategory: 'Contest',
-              mainPicture: MainPictureModel(
-                  urlThumb:
-                      'https://static.vocadb.net/img/releaseevent/mainOrig/1426.jpg?v=19'),
-            ),
-            ReleaseEventModel(
-              name: 'MAIKAs Birthday 2020',
-              eventCategory: 'Anniversary',
-              mainPicture: MainPictureModel(
-                  urlThumb:
-                      'https://static.vocadb.net/img/releaseeventseries/mainOrig/206.jpg?v=4'),
-            ),
-          ],
-        ),
+        child: Obx(() => ReleaseEventColumnView(
+              onSelect: this._onTapReleaseEvent,
+              events: controller.recentReleaseEvents.toList(),
+            )),
       ),
     ];
   }

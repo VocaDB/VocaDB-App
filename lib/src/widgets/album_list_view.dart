@@ -8,7 +8,8 @@ class AlbumListView extends StatelessWidget {
       {Key key,
       this.albums,
       this.scrollDirection = Axis.vertical,
-      this.onSelect})
+      this.onSelect,
+      this.displayPlaceholder})
       : super(key: key);
 
   /// List of songs to display.
@@ -16,6 +17,9 @@ class AlbumListView extends StatelessWidget {
 
   /// Default is vertical
   final Axis scrollDirection;
+
+  /// Set to True for display list of placeholders.
+  final bool displayPlaceholder;
 
   /// A callback function that called when user tap any item
   final void Function(AlbumModel) onSelect;
@@ -42,6 +46,10 @@ class AlbumListView extends StatelessWidget {
           itemCount: this.albums.length,
           scrollDirection: Axis.vertical,
           itemBuilder: _verticalItemBuilder);
+    }
+
+    if (this.displayPlaceholder) {
+      return AlbumPlaceholderListView();
     }
 
     return SizedBox(

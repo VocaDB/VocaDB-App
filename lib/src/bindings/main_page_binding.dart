@@ -15,6 +15,9 @@ class MainPageBinding implements Bindings {
         permanent: true);
     Get.lazyPut<MainPageController>(() => MainPageController());
     Get.lazyPut<HomePageController>(() => HomePageController(
-        songRepository: SongRepository(httpService: httpService)));
+        songRepository: SongRepository(httpService: httpService),
+        albumRepository: AlbumRepository(httpService: httpService),
+        releaseEventRepository:
+            ReleaseEventRepository(httpService: httpService)));
   }
 }
