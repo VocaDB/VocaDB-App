@@ -8,5 +8,9 @@ class AppPages {
     GetPage(name: Routes.INITIAL, page: () => LoginPage()),
     GetPage(
         name: Routes.MAIN, page: () => MainPage(), binding: MainPageBinding()),
+    GetPage(
+        name: Routes.SONGS,
+        page: () => SongSearchPage(),
+        binding: SongSearchBinding())
   ];
 }

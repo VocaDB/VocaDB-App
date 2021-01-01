@@ -5,6 +5,23 @@ import 'package:vocadb_app/src/repositories/base_repository.dart';
 class SongRepository extends RestApiRepository {
   SongRepository({HttpService httpService}) : super(httpService: httpService);
 
+  /// Find songs.
+  Future<List<SongModel>> findSongs({
+    String lang = 'Default',
+    String query,
+    String songType,
+  }) async {
+    final String endpoint = '/api/songs';
+    final Map<String, String> params = Map();
+    params['query'] = query;
+    params['fields'] = 'ThumbUrl,PVs';
+    params['songType'] = songType;
+    params['languagePreference'] = lang;
+    return super
+        .getList(endpoint, params)
+        .then((items) => SongModel.jsonToList(items));
+  }
+
   /// Gets list of highlighted songs, same as front page.
   Future<List<SongModel>> getHighlighted({String lang = 'Default'}) async {
     final String endpoint = '/api/songs/highlighted';

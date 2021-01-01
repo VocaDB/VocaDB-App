@@ -3,11 +3,16 @@ import 'package:get/get.dart';
 import 'package:vocadb_app/constants.dart';
 import 'package:vocadb_app/controllers.dart';
 import 'package:vocadb_app/pages.dart';
+import 'package:vocadb_app/routes.dart';
 import 'package:vocadb_app/src/pages/menu_page.dart';
 import 'package:vocadb_app/src/pages/ranking_page.dart';
 
 /// First page with tab bottom navigation
 class MainPage extends GetView<MainPageController> {
+  _onTapEntrySearch() {
+    Get.toNamed(Routes.SONGS);
+  }
+
   @override
   Widget build(BuildContext context) {
     final List<Widget> _pages = <Widget>[HomePage(), RankingPage(), MenuPage()];
@@ -16,9 +21,7 @@ class MainPage extends GetView<MainPageController> {
       appBar: AppBar(
         title: Text(appName),
         actions: <Widget>[
-          IconButton(
-              icon: Icon(Icons.search),
-              onPressed: () => Get.to(EntrySearchPage())),
+          IconButton(icon: Icon(Icons.search), onPressed: _onTapEntrySearch),
           Obx(() => (controller.tabIndex.toInt() != 1)
               ? Container()
               : IconButton(

@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:vocadb_app/controllers.dart';
 import 'package:vocadb_app/models.dart';
 import 'package:vocadb_app/pages.dart';
+import 'package:vocadb_app/routes.dart';
 import 'package:vocadb_app/widgets.dart';
 
 /// Home page is same as VocaDB  website. Home page display list of highlighted songs, Recently added albums, Random popular albums and upcoming events
@@ -32,7 +33,7 @@ class HomePage extends GetView<HomePageController> {
             _ShortcutMenuButton(
                 title: 'Songs',
                 iconData: Icons.music_note,
-                onPressed: () => Get.to(SongSearchPage())),
+                onPressed: () => Get.toNamed(Routes.SONGS)),
             _ShortcutMenuButton(
                 title: 'Artists',
                 iconData: Icons.person,
