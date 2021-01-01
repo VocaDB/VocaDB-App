@@ -8,7 +8,8 @@ class SongListView extends StatelessWidget {
       {Key key,
       this.songs,
       this.scrollDirection = Axis.vertical,
-      this.onSelect})
+      this.onSelect,
+      this.displayPlaceholder})
       : super(key: key);
 
   /// List of songs to display.
@@ -19,6 +20,9 @@ class SongListView extends StatelessWidget {
 
   /// A callback function that called when user tap any item
   final void Function(SongModel) onSelect;
+
+  /// Set to True for display list of placeholders.
+  final bool displayPlaceholder;
 
   /// Height of list content widget if set as horizontal.
   static const double _rowHeight = 180;
@@ -41,6 +45,10 @@ class SongListView extends StatelessWidget {
           itemCount: this.songs.length,
           scrollDirection: Axis.vertical,
           itemBuilder: _verticalItemBuilder);
+    }
+
+    if (this.displayPlaceholder) {
+      return SongPlaceholderListView();
     }
 
     return SizedBox(

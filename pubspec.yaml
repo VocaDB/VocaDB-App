@@ -21,6 +21,11 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
+  path_provider: ^1.6.24
+  cookie_jar: ^1.0.1
+  dio_http_cache: ^0.2.11
+  dio: ^3.0.10
+  dio_cookie_manager: ^1.0.0
   share: ^0.6.5+4
   youtube_player_flutter: ^7.0.0+7
   url_launcher: ^5.7.10

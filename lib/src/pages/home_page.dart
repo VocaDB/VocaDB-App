@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:vocadb_app/controllers.dart';
 import 'package:vocadb_app/models.dart';
 import 'package:vocadb_app/pages.dart';
-import 'package:vocadb_app/src/widgets/release_event_column_view.dart';
 import 'package:vocadb_app/widgets.dart';
 
 /// Home page is same as VocaDB  website. Home page display list of highlighted songs, Recently added albums, Random popular albums and upcoming events
-class HomePage extends StatelessWidget {
+class HomePage extends GetView<HomePageController> {
   void _onTapSong(SongModel songModel) {
     Get.to(SongDetailPage());
   }
@@ -19,7 +19,7 @@ class HomePage extends StatelessWidget {
     Get.to(ReleaseEventDetailPage());
   }
 
-  List<Widget> _generateMockChildren() {
+  List<Widget> _generateChildren() {
     return [
       SpaceDivider.small(),
       Center(
@@ -54,33 +54,13 @@ class HomePage extends StatelessWidget {
       ),
       SpaceDivider.small(),
       Section(
-        title: 'Highlight PVs',
-        child: SongListView(
-          scrollDirection: Axis.horizontal,
-          onSelect: this._onTapSong,
-          songs: [
-            SongModel(
-                id: 307335,
-                name: 'spirit photo',
-                artistString: 'Kirishima feat. Hatsune Miku',
-                thumbUrl: 'https://i.ytimg.com/vi/6OAd30ljny8/default.jpg',
-                songType: 'Original'),
-            SongModel(
-                id: 307325,
-                name: '天誅',
-                artistString: 'Kashii Moimi feat. Kagamine Len',
-                thumbUrl:
-                    'https://nicovideo.cdn.nimg.jp/thumbnails/37974374/37974374.34231370',
-                songType: 'Original'),
-            SongModel(
-                id: 307179,
-                name: 'Running-stitch-Heartbeat',
-                artistString: 'RuupaaP feat. Hatsune Miku',
-                thumbUrl:
-                    'https://nicovideo.cdn.nimg.jp/thumbnails/37971183/37971183.65149070',
-                songType: 'Original'),
-          ],
-        ),
+        title: 'Highlighted',
+        child: Obx(() => SongListView(
+              displayPlaceholder: controller.highlighted.isEmpty,
+              scrollDirection: Axis.horizontal,
+              onSelect: this._onTapSong,
+              songs: controller.highlighted.toList(),
+            )),
       ),
       Section(
         title: 'Recent or upcoming albums',
@@ -149,7 +129,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<Widget> children = _generateMockChildren();
+    final List<Widget> children = _generateChildren();
 
     return Scaffold(
       body: ListView.builder(

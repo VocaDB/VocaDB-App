@@ -1,20 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vocadb_app/constants.dart';
+import 'package:vocadb_app/controllers.dart';
 import 'package:vocadb_app/pages.dart';
 import 'package:vocadb_app/src/pages/menu_page.dart';
 import 'package:vocadb_app/src/pages/ranking_page.dart';
 
 /// First page with tab bottom navigation
-class MainPage extends StatefulWidget {
-  @override
-  _MainPageState createState() => _MainPageState();
-}
-
-class _MainPageState extends State<MainPage> {
+class MainPage extends GetView<MainPageController> {
   @override
   Widget build(BuildContext context) {
-    final MainPageController controller = Get.put(MainPageController());
     final List<Widget> _pages = <Widget>[HomePage(), RankingPage(), MenuPage()];
 
     return Scaffold(
@@ -48,9 +43,4 @@ class _MainPageState extends State<MainPage> {
               ])),
     );
   }
-}
-
-class MainPageController extends GetxController {
-  var tabIndex = 0.obs;
-  onBottomNavTap(index) => tabIndex.value = index;
 }
