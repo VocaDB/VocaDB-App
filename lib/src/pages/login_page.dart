@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vocadb_app/pages.dart';
+import 'package:vocadb_app/src/controllers/login_page_controller.dart';
 import 'package:vocadb_app/src/widgets/space_divider.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends GetView<LoginPageController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,11 +15,13 @@ class LoginPage extends StatelessWidget {
           Text('Demo Login'),
           SpaceDivider.medium(),
           TextField(
+            onChanged: controller.username,
             decoration: InputDecoration(
                 border: OutlineInputBorder(), labelText: 'Username'),
           ),
           SpaceDivider.medium(),
           TextField(
+            onChanged: controller.password,
             obscureText: true,
             decoration: InputDecoration(
                 border: OutlineInputBorder(), labelText: 'Password'),
@@ -27,7 +30,10 @@ class LoginPage extends StatelessWidget {
           SizedBox(
             width: double.infinity,
             child: RaisedButton(
-                onPressed: () => Get.off(MainPage()), child: Text('Log in')),
+                onPressed: () {
+                  controller.login();
+                },
+                child: Text('Log in')),
           ),
           SpaceDivider.small(),
           SizedBox(

@@ -6,6 +6,8 @@ class UserModel extends Equatable {
   String name;
   MainPictureModel mainPicture;
 
+  UserModel();
+
   UserModel.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         name = json['name'],

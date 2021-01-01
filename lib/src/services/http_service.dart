@@ -5,10 +5,14 @@ import 'package:dio_http_cache/dio_http_cache.dart';
 import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:vocadb_app/constants.dart';
+import 'package:vocadb_app/exceptions.dart';
+import 'package:vocadb_app/models.dart';
 import 'package:vocadb_app/utils.dart';
 
 class HttpService extends GetxService {
   Dio _dio;
+
+  HttpService({Dio dio}) : this._dio = dio;
 
   Future<HttpService> init() async {
     AppDirectory appDirectory = AppDirectory(
@@ -33,6 +37,37 @@ class HttpService extends GetxService {
       return response.data;
     }
 
-    throw Error();
+    throw HttpRequestErrorException();
+  }
+
+  Future<dynamic> post(String endpoint, Map<String, String> params) async {
+    params?.removeWhere((key, value) => value == null || value.isEmpty);
+
+    String url = Uri.https(authority, endpoint, params).toString();
+    final response = await _dio.post(url, data: params);
+
+    if (response.statusCode == 204) {
+      return 'done';
+    }
+
+    throw HttpRequestErrorException();
+  }
+
+  Future<UserCookie> login(String username, String password) async {
+    String url = Uri.https(authority, '/User/Login').toString();
+    try {
+      await _dio.post(url, data: {'UserName': username, 'Password': password});
+      throw LoginFailedException();
+    } catch (e) {
+      if (e is DioError && e.response.statusCode == 302) {
+        List<String> cookies = e.response.headers.map['set-cookie'];
+
+        if (cookies != null && !cookies.isEmpty) {
+          return UserCookie(cookies: cookies);
+        }
+      }
+
+      throw e;
+    }
   }
 }

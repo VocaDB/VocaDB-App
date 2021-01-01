@@ -44,6 +44,8 @@ dependencies:
   cupertino_icons: ^1.0.0
 
 dev_dependencies:
+  mockito: ^4.1.3
+  matcher: ^0.12.9
   flutter_test:
     sdk: flutter
 

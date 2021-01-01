@@ -13,7 +13,8 @@ Future<void> main() async {
 
 void initServices() async {
   print('starting services ...');
-  await Get.putAsync(() => HttpService().init());
+  await Get.putAsync(() => HttpService().init()).then((value) =>
+      Get.put(() => AuthService(httpService: value)..checkCurrenUser()));
   print('All services started...');
 }
 
@@ -21,17 +22,16 @@ class VocaDBApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        brightness: Brightness.dark,
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      defaultTransition: Transition.fade,
-      initialBinding: MainPageBinding(),
-      initialRoute: Routes.INITIAL,
-      home: LoginPage(),
-      getPages: AppPages.pages,
-    );
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          brightness: Brightness.dark,
+          primarySwatch: Colors.blue,
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+        ),
+        defaultTransition: Transition.fade,
+        initialBinding: MainPageBinding(),
+        initialRoute: Routes.INITIAL,
+        home: LoginPage(),
+        getPages: AppPages.pages);
   }
 }
