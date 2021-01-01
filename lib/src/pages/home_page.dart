@@ -20,6 +20,16 @@ class HomePage extends GetView<HomePageController> {
     Get.to(ReleaseEventDetailPage());
   }
 
+  void _onTapSongSearchIcon() => Get.toNamed(Routes.SONGS);
+
+  void _onTapArtistSearchIcon() => Get.toNamed(Routes.ARTISTS);
+
+  void _onTapAlbumSearchIcon() => {};
+
+  void _onTapTagSearchIcon() => {};
+
+  void _onTapEventSearchIcon() => {};
+
   List<Widget> _generateChildren() {
     return [
       SpaceDivider.small(),
@@ -33,23 +43,23 @@ class HomePage extends GetView<HomePageController> {
             _ShortcutMenuButton(
                 title: 'Songs',
                 iconData: Icons.music_note,
-                onPressed: () => Get.toNamed(Routes.SONGS)),
+                onPressed: this._onTapSongSearchIcon),
             _ShortcutMenuButton(
                 title: 'Artists',
                 iconData: Icons.person,
-                onPressed: () => Get.to(ArtistSearchPage())),
+                onPressed: this._onTapArtistSearchIcon),
             _ShortcutMenuButton(
                 title: 'Albums',
                 iconData: Icons.album,
-                onPressed: () => Get.to(AlbumSearchPage())),
+                onPressed: this._onTapAlbumSearchIcon),
             _ShortcutMenuButton(
                 title: 'Tags',
                 iconData: Icons.label,
-                onPressed: () => Get.to(TagCategoryPage())),
+                onPressed: this._onTapTagSearchIcon),
             _ShortcutMenuButton(
                 title: 'Events',
                 iconData: Icons.event,
-                onPressed: () => Get.to(ReleaseEventSearchPage())),
+                onPressed: this._onTapEventSearchIcon),
           ],
         ),
       ),

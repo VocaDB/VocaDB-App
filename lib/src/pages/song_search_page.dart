@@ -22,27 +22,35 @@ class SongSearchPage extends GetView<SongSearchController> {
     );
   }
 
+  Widget _buildTitle(BuildContext context) {
+    return AnimatedSwitcher(
+      duration: Duration(milliseconds: 100),
+      child: Obx(() => (controller.openQuery.value)
+          ? _buildTextInput(context)
+          : Text('Songs')),
+    );
+  }
+
+  Widget _buildSearchAction(BuildContext context) {
+    return Obx(
+      () => (controller.openQuery.value)
+          ? IconButton(
+              icon: Icon(Icons.clear), onPressed: () => controller.clearQuery())
+          : IconButton(
+              icon: Icon(Icons.search),
+              onPressed: () => controller.openQuery(true)),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-            title: Obx(() => (controller.openQuery.value)
-                ? _buildTextInput(context)
-                : Text('Songs')),
-            actions: <Widget>[
-              Obx(
-                () => (controller.openQuery.value)
-                    ? IconButton(
-                        icon: Icon(Icons.clear),
-                        onPressed: () => controller.clearQuery())
-                    : IconButton(
-                        icon: Icon(Icons.search),
-                        onPressed: () => controller.openQuery(true)),
-              ),
-              IconButton(
-                  icon: Icon(Icons.tune),
-                  onPressed: () => Get.to(SongSearchFilterPage()))
-            ]),
+        appBar: AppBar(title: _buildTitle(context), actions: <Widget>[
+          _buildSearchAction(context),
+          IconButton(
+              icon: Icon(Icons.tune),
+              onPressed: () => Get.to(SongSearchFilterPage()))
+        ]),
         body: Obx(
           () => SongListView(
             songs: controller.results.toList(),

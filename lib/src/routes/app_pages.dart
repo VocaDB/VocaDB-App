@@ -11,6 +11,10 @@ class AppPages {
     GetPage(
         name: Routes.SONGS,
         page: () => SongSearchPage(),
-        binding: SongSearchBinding())
+        binding: SongSearchBinding()),
+    GetPage(
+        name: Routes.ARTISTS,
+        page: () => ArtistSearchPage(),
+        binding: ArtistSearchBinding())
   ];
 }
