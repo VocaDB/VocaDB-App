@@ -38,7 +38,7 @@ class ReleaseEventSearchFilterPage extends StatelessWidget {
             Divider(),
             ArtistInput(
               values: [ArtistModel(id: 1, name: 'Miku')],
-              onAddPressed: () => {print('browse artist')},
+              onSelect: (artistModel) => {print('browse artist')},
               onDeleted: (deletedArtist) =>
                   {print('delete tag $deletedArtist')},
             ),

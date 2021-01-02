@@ -15,6 +15,13 @@ class AppPages {
     GetPage(
         name: Routes.ARTISTS,
         page: () => ArtistSearchPage(),
+        binding: ArtistSearchBinding()),
+    GetPage(
+        name: Routes.ARTISTS_SELECTOR,
+        page: () => ArtistSearchPage(
+              enableFilter: false,
+              selectionMode: true,
+            ),
         binding: ArtistSearchBinding())
   ];
 }

@@ -6,16 +6,21 @@ class SongRepository extends RestApiRepository {
   SongRepository({HttpService httpService}) : super(httpService: httpService);
 
   /// Find songs.
-  Future<List<SongModel>> findSongs({
-    String lang = 'Default',
-    String query,
-    String songType,
-  }) async {
+  Future<List<SongModel>> findSongs(
+      {String lang = 'Default',
+      String query,
+      String songType,
+      String sort,
+      String artistIds,
+      String tagIds}) async {
     final String endpoint = '/api/songs';
     final Map<String, String> params = Map();
     params['query'] = query;
     params['fields'] = 'ThumbUrl,PVs';
     params['songType'] = songType;
+    params['sort'] = sort;
+    params['artistId'] = artistIds;
+    params['tagId'] = tagIds;
     params['languagePreference'] = lang;
     return super
         .getList(endpoint, params)

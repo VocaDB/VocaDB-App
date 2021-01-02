@@ -13,6 +13,18 @@ class SongSearchController extends GetxController {
   /// Set to True when user tap search icon.
   final openQuery = false.obs;
 
+  /// Filter parameter
+  final songType = 'Nothing'.obs;
+
+  /// Filter parameter
+  final sort = 'Nothing'.obs;
+
+  /// Filter parameter
+  final artists = <ArtistModel>[].obs;
+
+  /// Filter parameter
+  final tags = <TagModel>[].obs;
+
   final SongRepository songRepository;
 
   TextEditingController textSearchController;
@@ -22,12 +34,21 @@ class SongSearchController extends GetxController {
   @override
   void onInit() {
     fetchApi();
+    [songType, sort, artists, tags]
+        .forEach((element) => ever(element, (_) => fetchApi()));
     debounce(query, (_) => fetchApi(), time: Duration(seconds: 1));
     textSearchController = TextEditingController();
     super.onInit();
   }
 
-  fetchApi() => songRepository.findSongs(query: query.string).then(results);
+  fetchApi() => songRepository
+      .findSongs(
+          query: query.string,
+          songType: songType.string,
+          sort: sort.string,
+          artistIds: artists.toList().map((e) => e.id).join(','),
+          tagIds: tags.toList().map((e) => e.id).join(','))
+      .then(results);
 
   clearQuery() {
     query('');

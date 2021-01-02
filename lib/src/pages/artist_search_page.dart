@@ -1,10 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vocadb_app/controllers.dart';
+import 'package:vocadb_app/models.dart';
 import 'package:vocadb_app/pages.dart';
 import 'package:vocadb_app/widgets.dart';
 
 class ArtistSearchPage extends GetView<ArtistSearchController> {
+  final bool selectionMode;
+
+  final bool enableFilter;
+
+  ArtistSearchPage({this.selectionMode = false, this.enableFilter = true});
+
+  void _onSelectArtist(ArtistModel artistModel) {
+    if (selectionMode) {
+      Get.back(result: artistModel);
+    } else {
+      Get.to(ArtistDetailPage());
+    }
+  }
+
   Widget _buildTextInput(BuildContext context) {
     return Row(
       children: <Widget>[
@@ -47,13 +62,16 @@ class ArtistSearchPage extends GetView<ArtistSearchController> {
     return Scaffold(
         appBar: AppBar(title: _buildTitle(context), actions: <Widget>[
           _buildSearchAction(context),
-          IconButton(
-              icon: Icon(Icons.tune),
-              onPressed: () => Get.to(ArtistSearchFilterPage()))
+          (this.enableFilter)
+              ? IconButton(
+                  icon: Icon(Icons.tune),
+                  onPressed: () => Get.to(ArtistSearchFilterPage()))
+              : Container()
         ]),
         body: Obx(
           () => ArtistListView(
             artists: controller.results.toList(),
+            onSelect: this._onSelectArtist,
           ),
         ));
   }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:vocadb_app/models.dart';
+import 'package:vocadb_app/routes.dart';
 import 'package:vocadb_app/widgets.dart';
 
 /// A widget for display artist browsing input
@@ -13,8 +15,8 @@ class ArtistInput extends StatelessWidget {
   /// Called when the user taps the deleteIcon.
   final Function(ArtistModel) onDeleted;
 
-  /// Called when the user taps the add tag.
-  final VoidCallback onAddPressed;
+  /// Called when select artist
+  final Function(ArtistModel) onSelect;
 
   final double imageSize;
 
@@ -22,7 +24,7 @@ class ArtistInput extends StatelessWidget {
       {this.label = 'Artists',
       this.values,
       this.onDeleted,
-      this.onAddPressed,
+      this.onSelect,
       this.imageSize = 50});
 
   Widget _buildLeading(String imageUrl) {
@@ -51,6 +53,14 @@ class ArtistInput extends StatelessWidget {
     );
   }
 
+  void _onBrowseArtists() {
+    Get.toNamed(Routes.ARTISTS_SELECTOR).then((value) {
+      if (value != null) {
+        this.onSelect(value);
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final List<Widget> items = [];
@@ -63,13 +73,11 @@ class ArtistInput extends StatelessWidget {
       items.addAll(this.values.map((e) => _artistBuilder(e)).toList());
     }
 
-    if (this.onAddPressed != null) {
-      items.add(ListTile(
-        onTap: this.onAddPressed,
-        leading: Icon(Icons.add),
-        title: Text('ADD ARTIST'),
-      ));
-    }
+    items.add(ListTile(
+      onTap: this._onBrowseArtists,
+      leading: Icon(Icons.add),
+      title: Text('ADD ARTIST'),
+    ));
 
     return Column(
       children: items,
