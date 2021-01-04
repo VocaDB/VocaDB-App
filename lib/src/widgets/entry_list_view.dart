@@ -7,7 +7,9 @@ import 'package:vocadb_app/widgets.dart';
 class EntryListView extends StatelessWidget {
   final List<EntryModel> entries;
 
-  const EntryListView({this.entries});
+  final Function(EntryModel) onSelect;
+
+  const EntryListView({this.entries, this.onSelect});
 
   List<Widget> _generateItems() {
     List<Widget> items = [];
@@ -19,15 +21,17 @@ class EntryListView extends StatelessWidget {
         title: Text('Songs'),
       ));
 
-      items.addAll(entryList.songs.map((e) => SongTile.fromEntry(e)));
+      items.addAll(entryList.songs.map((e) => SongTile.fromEntry(
+            e,
+            onTap: () => this.onSelect(e),
+          )));
     }
 
     if (entryList.artists != null && entryList.artists.isNotEmpty) {
-      items.add(ListTile(
-        title: Text('Artists'),
-      ));
+      items.add(ListTile(title: Text('Artists')));
 
-      items.addAll(entryList.artists.map((e) => ArtistTile.fromEntry(e)));
+      items.addAll(entryList.artists
+          .map((e) => ArtistTile.fromEntry(e, onTap: () => this.onSelect(e))));
     }
 
     if (entryList.albums != null && entryList.albums.isNotEmpty) {
@@ -35,7 +39,8 @@ class EntryListView extends StatelessWidget {
         title: Text('Albums'),
       ));
 
-      items.addAll(entryList.albums.map((e) => AlbumTile.fromEntry(e)));
+      items.addAll(entryList.albums
+          .map((e) => AlbumTile.fromEntry(e, onTap: () => this.onSelect(e))));
     }
 
     if (entryList.tags != null && entryList.tags.isNotEmpty) {
@@ -48,7 +53,10 @@ class EntryListView extends StatelessWidget {
       List<TagModel> tagModelList =
           es.map((e) => TagModel.fromEntry(e)).toList();
 
-      items.add(TagGroupView(tags: tagModelList));
+      items.add(TagGroupView(
+        tags: tagModelList,
+        onPressed: (tag) => this.onSelect(tag),
+      ));
     }
 
     if (entryList.releaseEvents != null && entryList.releaseEvents.isNotEmpty) {
@@ -56,8 +64,8 @@ class EntryListView extends StatelessWidget {
         title: Text('Events'),
       ));
 
-      items.addAll(
-          entryList.releaseEvents.map((e) => ReleaseEventTile.fromEntry(e)));
+      items.addAll(entryList.releaseEvents.map(
+          (e) => ReleaseEventTile.fromEntry(e, onTap: () => this.onSelect(e))));
     }
 
     return items;

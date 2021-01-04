@@ -36,5 +36,9 @@ class AppPages {
         page: () => TagSearchPage(),
         binding: TagSearchBinding()),
     GetPage(name: Routes.TAG_CATEGORIES, page: () => TagCategoryPage()),
+    GetPage(
+        name: Routes.ENTRIES,
+        page: () => EntrySearchPage(),
+        binding: EntrySearchBinding()),
   ];
 }

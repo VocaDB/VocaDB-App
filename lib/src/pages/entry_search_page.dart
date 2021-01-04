@@ -1,62 +1,74 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:vocadb_app/controllers.dart';
 import 'package:vocadb_app/models.dart';
 import 'package:vocadb_app/src/pages/entry_search_filter_page.dart';
 import 'package:vocadb_app/widgets.dart';
 
-class EntrySearchPage extends StatelessWidget {
+class EntrySearchPage extends GetView<EntrySearchController> {
+  final bool selectionMode;
+
+  final bool enableFilter;
+
+  EntrySearchPage({this.selectionMode = false, this.enableFilter = true});
+
+  void _onSelect(EntryModel entryModel) {
+    print(entryModel);
+  }
+
+  Widget _buildTextInput(BuildContext context) {
+    return Row(
+      children: <Widget>[
+        Expanded(
+          child: TextField(
+            controller: controller.textSearchController,
+            onChanged: controller.query,
+            style: Theme.of(context).primaryTextTheme.headline6,
+            autofocus: true,
+            decoration:
+                InputDecoration(border: InputBorder.none, hintText: 'Search'),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildTitle(BuildContext context) {
+    return AnimatedSwitcher(
+      duration: Duration(milliseconds: 100),
+      child: Obx(() => (controller.openQuery.value)
+          ? _buildTextInput(context)
+          : Text('Search anything')),
+    );
+  }
+
+  Widget _buildSearchAction(BuildContext context) {
+    return Obx(
+      () => (controller.openQuery.value)
+          ? IconButton(
+              icon: Icon(Icons.clear), onPressed: () => controller.clearQuery())
+          : IconButton(
+              icon: Icon(Icons.search),
+              onPressed: () => controller.openQuery(true)),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Search'),
-          actions: [
-            IconButton(icon: Icon(Icons.search), onPressed: () => {}),
-            IconButton(
-                icon: Icon(Icons.tune),
-                onPressed: () => Get.to(EntrySearchFilterPage()))
-          ],
-        ),
-        body: EntryListView(
-          entries: [
-            EntryModel(
-                name: 'spirit photo',
-                artistString: 'Kirishima feat. Hatsune Miku',
-                mainPicture: MainPictureModel(
-                    urlThumb: 'https://i.ytimg.com/vi/6OAd30ljny8/default.jpg'),
-                songType: 'Original',
-                entryType: EntryType.Song),
-            EntryModel(
-                name: '初音ミク',
-                mainPicture: MainPictureModel(
-                    urlThumb:
-                        'https://static.vocadb.net/img/artist/mainThumb/1.png?v=23'),
-                entryType: EntryType.Artist),
-            EntryModel(
-                name: 'Deep Reflection',
-                artistString: 'Clean Tears, S.C.X feat. 初音ミク',
-                mainPicture: MainPictureModel(
-                    urlThumb:
-                        'https://static.vocadb.net/img/album/mainThumb/23864.jpg?v=10'),
-                entryType: EntryType.Album),
-            EntryModel(name: 'Rock', entryType: EntryType.Tag),
-            EntryModel(
-              name: 'Magical mirai 2020',
-              eventCategory: 'Contest',
-              mainPicture: MainPictureModel(
-                  urlThumb:
-                      'https://static.vocadb.net/img/releaseevent/mainOrig/1426.jpg?v=19'),
-              entryType: EntryType.ReleaseEvent,
-            ),
-            EntryModel(
-              name: 'MAIKAs Birthday 2020',
-              eventCategory: 'Anniversary',
-              mainPicture: MainPictureModel(
-                  urlThumb:
-                      'https://static.vocadb.net/img/releaseeventseries/mainOrig/206.jpg?v=4'),
-              entryType: EntryType.ReleaseEvent,
-            )
-          ],
+        appBar: AppBar(title: _buildTitle(context), actions: <Widget>[
+          _buildSearchAction(context),
+          (this.enableFilter)
+              ? IconButton(
+                  icon: Icon(Icons.tune),
+                  onPressed: () => Get.to(EntrySearchFilterPage()))
+              : Container()
+        ]),
+        body: Obx(
+          () => EntryListView(
+            entries: controller.results.toList(),
+            onSelect: this._onSelect,
+          ),
         ));
   }
 }

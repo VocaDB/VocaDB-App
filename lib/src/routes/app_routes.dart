@@ -9,4 +9,5 @@ class Routes {
   static const TAGS_DETAIL = '/tags/detail';
   static const ALBUMS = '/albums';
   static const RELEASE_EVENTS = '/release-events';
+  static const ENTRIES = '/entries';
 }

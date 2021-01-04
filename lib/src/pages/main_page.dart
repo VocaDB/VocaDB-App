@@ -10,7 +10,7 @@ import 'package:vocadb_app/src/pages/ranking_page.dart';
 /// First page with tab bottom navigation
 class MainPage extends GetView<MainPageController> {
   _onTapEntrySearch() {
-    Get.toNamed(Routes.SONGS);
+    Get.toNamed(Routes.ENTRIES);
   }
 
   @override
