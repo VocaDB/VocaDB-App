@@ -9,7 +9,7 @@ class SongListView extends StatelessWidget {
       this.songs,
       this.scrollDirection = Axis.vertical,
       this.onSelect,
-      this.displayPlaceholder})
+      this.displayPlaceholder = false})
       : super(key: key);
 
   /// List of songs to display.

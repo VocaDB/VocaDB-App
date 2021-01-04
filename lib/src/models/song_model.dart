@@ -1,4 +1,5 @@
 import 'package:intl/intl.dart';
+import 'package:vocadb_app/constants.dart';
 import 'package:vocadb_app/models.dart';
 import 'package:vocadb_app/utils.dart';
 
@@ -29,13 +30,13 @@ class SongModel extends EntryModel {
         originalVersionId = json['originalVersionId'],
         publishDate = json['publishDate'],
         pvs = JSONUtils.mapJsonArray<PVModel>(
-            json['pvs'], (v) => (v is int) ? null : PVModel.fromJson(v)),
+            json['pvs'], (v) => (v is int) ? [] : PVModel.fromJson(v)),
         artists = JSONUtils.mapJsonArray<ArtistSongModel>(json['artists'],
-            (v) => (v is int) ? null : ArtistSongModel.fromJson(v)),
+            (v) => (v is int) ? [] : ArtistSongModel.fromJson(v)),
         albums = JSONUtils.mapJsonArray<AlbumModel>(
-            json['albums'], (v) => (v is int) ? null : AlbumModel.fromJson(v)),
+            json['albums'], (v) => (v is int) ? [] : AlbumModel.fromJson(v)),
         lyrics = JSONUtils.mapJsonArray<LyricModel>(
-            json['lyrics'], (v) => (v is int) ? null : LyricModel.fromJson(v)),
+            json['lyrics'], (v) => (v is int) ? [] : LyricModel.fromJson(v)),
         super.fromJson(json, entryType: EntryType.Song);
 
   static List<SongModel> jsonToList(List items) {
@@ -72,7 +73,12 @@ class SongModel extends EntryModel {
       ? null
       : DateFormat('yyyy-MM-dd').format(DateTime.parse(publishDate));
 
+  DateTime get publishDateAsDateTime =>
+      (publishDate == null) ? null : DateTime.parse(publishDate);
+
   bool get hasLyrics => lyrics != null && lyrics.length > 0;
+
+  String get originUrl => '$baseUrl/S/${this.id}';
 
   @override
   Map<String, dynamic> toJson() {

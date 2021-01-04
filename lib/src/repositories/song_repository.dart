@@ -76,4 +76,36 @@ class SongRepository extends RestApiRepository {
     return this.getTopRated(
         lang: lang, durationHours: 720, filterBy: filterBy, vocalist: vocalist);
   }
+
+  /// Gets a song by Id.
+  Future<SongModel> getById(int id, {String lang = 'Default'}) {
+    final Map<String, String> params = {
+      'fields':
+          'MainPicture,PVs,ThumbUrl,Albums,Artists,Tags,WebLinks,AdditionalNames,WebLinks,Lyrics',
+      'lang': lang,
+    };
+    return super
+        .getObject('/api/songs/$id', params)
+        .then((i) => SongModel.fromJson(i));
+  }
+
+  Future<List<SongModel>> getDerived(int id, {String lang = 'Default'}) async {
+    final String endpoint = '/api/songs/$id/derived';
+    final Map<String, String> params = Map();
+    params['fields'] = 'ThumbUrl,PVs';
+    params['lang'] = lang;
+    return super
+        .getList(endpoint, params)
+        .then((items) => SongModel.jsonToList(items));
+  }
+
+  Future<List<SongModel>> getRelated(int id, {String lang = 'Default'}) async {
+    final String endpoint = '/api/songs/$id/related';
+    final Map<String, String> params = Map();
+    params['fields'] = 'ThumbUrl,PVs';
+    params['lang'] = lang;
+    return super
+        .getList(endpoint, params)
+        .then((related) => SongModel.jsonToList(related['likeMatches']));
+  }
 }

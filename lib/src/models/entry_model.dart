@@ -55,12 +55,12 @@ class EntryModel extends BaseModel {
             ? (json['tags'] as List)
                 ?.map((d) => TagGroupModel.fromJson(d))
                 ?.toList()
-            : null,
+            : [],
         webLinks = (json.containsKey('webLinks'))
             ? (json['webLinks'] as List)
                 ?.map((d) => WebLinkModel.fromJson(d))
                 ?.toList()
-            : null;
+            : [];
 
   static List<EntryModel> jsonToList(List items) {
     return items.map((i) => EntryModel.fromJson(i)).toList();

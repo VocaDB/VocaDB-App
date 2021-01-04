@@ -13,6 +13,10 @@ class AppPages {
         page: () => SongSearchPage(),
         binding: SongSearchBinding()),
     GetPage(
+        name: Routes.SONGS_DETAIL,
+        page: () => SongDetailPage(),
+        binding: SongDetailBinding()),
+    GetPage(
         name: Routes.ARTISTS,
         page: () => ArtistSearchPage(),
         binding: ArtistSearchBinding()),

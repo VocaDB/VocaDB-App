@@ -51,20 +51,24 @@ class _LyricContentState extends State<LyricContent> {
           ),
           Padding(
             padding: EdgeInsets.only(right: 8.0, left: 8.0),
-            child: Row(
-                children: widget.lyrics
-                    .map((lyric) => Container(
-                          margin: EdgeInsets.only(right: 4.0),
-                          child: InputChip(
-                            backgroundColor: (lyric.translationType ==
-                                    selectedLyric.translationType)
-                                ? Theme.of(context).chipTheme.selectedColor
-                                : Theme.of(context).chipTheme.backgroundColor,
-                            onPressed: () => this._changeTranslation(lyric),
-                            label: Text(_translationLabel(lyric)),
-                          ),
-                        ))
-                    .toList()),
+            child: Container(
+              height: 76,
+              child: ListView(
+                  scrollDirection: Axis.horizontal,
+                  children: widget.lyrics
+                      .map((lyric) => Container(
+                            margin: EdgeInsets.only(right: 4.0),
+                            child: InputChip(
+                              backgroundColor: (lyric.translationType ==
+                                      selectedLyric.translationType)
+                                  ? Theme.of(context).chipTheme.selectedColor
+                                  : Theme.of(context).chipTheme.backgroundColor,
+                              onPressed: () => this._changeTranslation(lyric),
+                              label: Text(_translationLabel(lyric)),
+                            ),
+                          ))
+                      .toList()),
+            ),
           ),
           Expanded(
             child: SingleChildScrollView(

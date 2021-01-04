@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:vocadb_app/arguments.dart';
 import 'package:vocadb_app/constants.dart';
 import 'package:vocadb_app/controllers.dart';
+import 'package:vocadb_app/models.dart';
 import 'package:vocadb_app/pages.dart';
+import 'package:vocadb_app/routes.dart';
 import 'package:vocadb_app/widgets.dart';
 
 class RankingPage extends StatefulWidget {
@@ -22,6 +25,11 @@ class _RankingPageState extends State<RankingPage>
     _tabController = TabController(
         vsync: this, length: constRankings.length, initialIndex: 1);
     _tabController.addListener(onTabChanged);
+  }
+
+  void _onTabSong(SongModel song) {
+    Get.toNamed(Routes.SONGS_DETAIL,
+        arguments: SongDetailArgs(id: song.id, song: song));
   }
 
   void onTabChanged() {
@@ -63,24 +71,28 @@ class _RankingPageState extends State<RankingPage>
     if (constRankings.contains('daily')) {
       contents.add(Obx(() => SongListView(
             songs: _rankingController.daily.toList(),
+            onSelect: this._onTabSong,
           )));
     }
 
     if (constRankings.contains('weekly')) {
       contents.add(Obx(() => SongListView(
             songs: _rankingController.weekly.toList(),
+            onSelect: this._onTabSong,
           )));
     }
 
     if (constRankings.contains('monthly')) {
       contents.add(Obx(() => SongListView(
             songs: _rankingController.monthly.toList(),
+            onSelect: this._onTabSong,
           )));
     }
 
     if (constRankings.contains('overall')) {
       contents.add(Obx(() => SongListView(
             songs: _rankingController.overall.toList(),
+            onSelect: this._onTabSong,
           )));
     }
 
