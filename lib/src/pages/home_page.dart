@@ -26,7 +26,7 @@ class HomePage extends GetView<HomePageController> {
 
   void _onTapAlbumSearchIcon() => {};
 
-  void _onTapTagSearchIcon() => {};
+  void _onTapTagSearchIcon() => Get.toNamed(Routes.TAG_CATEGORIES);
 
   void _onTapEventSearchIcon() => {};
 

@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:vocadb_app/arguments.dart';
+import 'package:vocadb_app/routes.dart';
 import 'package:vocadb_app/widgets.dart';
 
 class TagCategoryPage extends StatelessWidget {
+  void _onSelectCategory(String category) {
+    Get.toNamed(Routes.TAGS, arguments: TagSearchArgs(category: category));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -9,7 +16,7 @@ class TagCategoryPage extends StatelessWidget {
           IconButton(icon: Icon(Icons.search), onPressed: () {}),
         ]),
         body: TagCategoryList(
-          onSelectCategory: () => {},
+          onSelectCategory: this._onSelectCategory,
         ));
   }
 }

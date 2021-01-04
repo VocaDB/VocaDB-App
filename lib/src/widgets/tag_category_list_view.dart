@@ -3,7 +3,7 @@ import 'package:vocadb_app/constants.dart';
 
 /// A widget displays list of tag categories with fixed values from [constTagCategories]
 class TagCategoryList extends StatelessWidget {
-  final Function onSelectCategory;
+  final Function(String) onSelectCategory;
 
   const TagCategoryList({Key key, this.onSelectCategory}) : super(key: key);
 
@@ -30,7 +30,7 @@ class TagCategoryList extends StatelessWidget {
                 String name = constTagCategories[index];
                 return RaisedButton(
                   color: Theme.of(context).cardColor,
-                  onPressed: this.onSelectCategory,
+                  onPressed: () => this.onSelectCategory(name),
                   child: Text(name),
                 );
               })),

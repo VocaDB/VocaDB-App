@@ -22,6 +22,11 @@ class AppPages {
               enableFilter: false,
               selectionMode: true,
             ),
-        binding: ArtistSearchBinding())
+        binding: ArtistSearchBinding()),
+    GetPage(
+        name: Routes.TAGS,
+        page: () => TagSearchPage(),
+        binding: TagSearchBinding()),
+    GetPage(name: Routes.TAG_CATEGORIES, page: () => TagCategoryPage()),
   ];
 }
