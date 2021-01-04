@@ -24,6 +24,10 @@ class AppPages {
             ),
         binding: ArtistSearchBinding()),
     GetPage(
+        name: Routes.ALBUMS,
+        page: () => AlbumSearchPage(),
+        binding: AlbumSearchBinding()),
+    GetPage(
         name: Routes.TAGS,
         page: () => TagSearchPage(),
         binding: TagSearchBinding()),

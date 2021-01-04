@@ -24,11 +24,11 @@ class HomePage extends GetView<HomePageController> {
 
   void _onTapArtistSearchIcon() => Get.toNamed(Routes.ARTISTS);
 
-  void _onTapAlbumSearchIcon() => {};
+  void _onTapAlbumSearchIcon() => Get.toNamed(Routes.ALBUMS);
 
   void _onTapTagSearchIcon() => Get.toNamed(Routes.TAG_CATEGORIES);
 
-  void _onTapEventSearchIcon() => {};
+  void _onTapEventSearchIcon() => Get.toNamed(Routes.RELEASE_EVENTS);
 
   List<Widget> _generateChildren() {
     return [
