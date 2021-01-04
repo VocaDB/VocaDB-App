@@ -40,7 +40,7 @@ class FavoriteAlbumFilterPage extends StatelessWidget {
               Divider(),
               TagInput(
                 values: [TagModel(name: 'Jazz')],
-                onAddPressed: () => {print('browse')},
+                onSelect: (value) => {},
                 onDeleted: (deletedTagModel) =>
                     {print('delete ${deletedTagModel}')},
               ),

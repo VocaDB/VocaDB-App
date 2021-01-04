@@ -4,14 +4,15 @@ import 'package:vocadb_app/models.dart';
 class TagListView extends StatelessWidget {
   final List<TagModel> tags;
 
-  const TagListView({this.tags});
+  final Function(TagModel) onSelect;
+
+  const TagListView({this.tags, this.onSelect});
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
         itemCount: tags.length,
         itemBuilder: (context, index) => ListTile(
-              title: Text(tags[index].name),
-            ));
+            title: Text(tags[index].name), onTap: () => onSelect(tags[index])));
   }
 }

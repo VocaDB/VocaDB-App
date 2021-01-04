@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:vocadb_app/arguments.dart';
 import 'package:vocadb_app/models.dart';
-import 'package:vocadb_app/widgets.dart';
+import 'package:vocadb_app/routes.dart';
 
 /// An tag input widget for filter page
 class TagInput extends StatelessWidget {
@@ -13,11 +15,11 @@ class TagInput extends StatelessWidget {
   /// Called when the user taps the deleteIcon.
   final Function(TagModel) onDeleted;
 
-  /// Called when the user taps the add tag.
-  final VoidCallback onAddPressed;
+  /// Called when the user select tag.
+  final Function(TagModel) onSelect;
 
   const TagInput(
-      {this.label = 'Tags', this.values, this.onDeleted, this.onAddPressed});
+      {this.label = 'Tags', this.values, this.onDeleted, this.onSelect});
 
   Widget _tagBuilder(TagModel tagModel) {
     return ListTile(
@@ -32,6 +34,17 @@ class TagInput extends StatelessWidget {
     );
   }
 
+  void _onBrowse() {
+    Get.toNamed(Routes.TAGS, arguments: TagSearchArgs(selectionMode: true))
+        .then(_postBrowse);
+  }
+
+  void _postBrowse(value) {
+    if (value != null) {
+      this.onSelect(value);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final List<Widget> items = [];
@@ -44,13 +57,11 @@ class TagInput extends StatelessWidget {
       items.addAll(this.values.map((e) => _tagBuilder(e)).toList());
     }
 
-    if (this.onAddPressed != null) {
-      items.add(ListTile(
-        onTap: this.onAddPressed,
-        leading: Icon(Icons.add),
-        title: Text('ADD TAG'),
-      ));
-    }
+    items.add(ListTile(
+      onTap: this._onBrowse,
+      leading: Icon(Icons.add),
+      title: Text('ADD TAG'),
+    ));
 
     return Column(
       children: items,

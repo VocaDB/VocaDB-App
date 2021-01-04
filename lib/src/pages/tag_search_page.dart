@@ -1,10 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:vocadb_app/arguments.dart';
 import 'package:vocadb_app/controllers.dart';
+import 'package:vocadb_app/models.dart';
+import 'package:vocadb_app/routes.dart';
 import 'package:vocadb_app/widgets.dart';
 
 class TagSearchPage extends GetView<TagSearchController> {
   const TagSearchPage();
+
+  void _onSelectTag(TagModel tag) {
+    TagSearchArgs args = Get.arguments;
+
+    if (args.selectionMode) {
+      Get.back(result: tag);
+    } else {
+      Get.toNamed(Routes.TAGS_DETAIL);
+    }
+  }
 
   Widget _buildTextInput(BuildContext context) {
     return Row(
@@ -28,7 +41,9 @@ class TagSearchPage extends GetView<TagSearchController> {
       duration: Duration(milliseconds: 100),
       child: Obx(() => (controller.openQuery.value)
           ? _buildTextInput(context)
-          : Text(controller.category.string ?? 'Tags')),
+          : Text((controller.category.string == '')
+              ? 'Tags'
+              : controller.category.string)),
     );
   }
 
@@ -52,6 +67,7 @@ class TagSearchPage extends GetView<TagSearchController> {
         body: Obx(
           () => TagListView(
             tags: controller.results.toList(),
+            onSelect: this._onSelectTag,
           ),
         ));
   }

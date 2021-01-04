@@ -49,7 +49,7 @@ class SongSearchFilterPage extends GetView<SongSearchController> {
             Obx(
               () => TagInput(
                 values: controller.tags.toList(),
-                onAddPressed: () => {print('browse tag')},
+                onSelect: controller.tags.add,
                 onDeleted: controller.tags.remove,
               ),
             ),

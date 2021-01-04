@@ -41,7 +41,7 @@ class FavoriteSongFilterPage extends StatelessWidget {
             Divider(),
             TagInput(
               values: [TagModel(name: 'Rock'), TagModel(name: 'Jazz')],
-              onAddPressed: () => {print('browse tag')},
+              onSelect: (value) => {},
               onDeleted: (deletedTag) => {print('delete tag $deletedTag')},
             ),
           ],
