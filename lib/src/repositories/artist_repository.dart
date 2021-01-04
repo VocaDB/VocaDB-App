@@ -7,12 +7,19 @@ class ArtistRepository extends RestApiRepository {
 
   /// Find artists
   Future<List<ArtistModel>> findArtists(
-      {String lang = 'Default', String query}) async {
+      {String lang = 'Default',
+      String query,
+      String artistType,
+      String sort,
+      String tagIds}) async {
     final String endpoint = '/api/artists';
     final Map<String, String> params = Map();
     params['query'] = query;
+    params['artistTypes'] = artistType;
     params['fields'] = 'MainPicture';
     params['languagePreference'] = lang;
+    params['tagId'] = tagIds;
+    params['sort'] = sort;
     return super
         .getList(endpoint, params)
         .then((items) => ArtistModel.jsonToList(items));

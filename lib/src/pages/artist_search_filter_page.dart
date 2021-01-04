@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:vocadb_app/models.dart';
+import 'package:get/get.dart';
+import 'package:vocadb_app/controllers.dart';
 import 'package:vocadb_app/widgets.dart';
 
-class ArtistSearchFilterPage extends StatelessWidget {
+class ArtistSearchFilterPage extends GetView<ArtistSearchController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -12,31 +13,36 @@ class ArtistSearchFilterPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SimpleDropdownInput.fromJsonArray(
-                json: [
-                  {'name': 'Not specified', 'value': 'Nothing'},
-                  {'name': 'Circle', 'value': 'Circle'},
-                  {'name': 'Vocaloid', 'value': 'Vocaloid'},
-                ],
-                label: 'Artist type',
-                value: 'Nothing',
-                onChanged: (i) => {},
+              Obx(
+                () => SimpleDropdownInput.fromJsonArray(
+                  json: [
+                    {'name': 'Not specified', 'value': 'Nothing'},
+                    {'name': 'Circle', 'value': 'Circle'},
+                    {'name': 'Vocaloid', 'value': 'Vocaloid'},
+                  ],
+                  label: 'Artist type',
+                  value: controller.artistType.string,
+                  onChanged: controller.artistType,
+                ),
               ),
-              SimpleDropdownInput.fromJsonArray(
-                json: [
-                  {'name': 'Name', 'value': 'Name'},
-                  {'name': 'Addition date', 'value': 'AdditionDate'}
-                ],
-                label: 'Sort',
-                value: 'Name',
-                onChanged: (i) => {},
+              Obx(
+                () => SimpleDropdownInput.fromJsonArray(
+                  json: [
+                    {'name': 'Name', 'value': 'Name'},
+                    {'name': 'Addition date', 'value': 'AdditionDate'}
+                  ],
+                  label: 'Sort',
+                  value: controller.sort.string,
+                  onChanged: controller.sort,
+                ),
               ),
               Divider(),
-              TagInput(
-                values: [TagModel(name: 'Jazz')],
-                onSelect: (value) => {},
-                onDeleted: (deletedTagModel) =>
-                    {print('delete ${deletedTagModel}')},
+              Obx(
+                () => TagInput(
+                  values: controller.tags.toList(),
+                  onSelect: controller.tags.add,
+                  onDeleted: controller.tags.remove,
+                ),
               ),
             ],
           ),
