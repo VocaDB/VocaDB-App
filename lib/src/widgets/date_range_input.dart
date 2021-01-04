@@ -4,12 +4,19 @@ import 'package:vocadb_app/utils.dart';
 
 /// A full-width widget for user select date range. Used on filter page such as [ReleaseEventSearchFilterPage].
 class DateRangeInput extends StatefulWidget {
+  final DateTime fromDateValue;
+
+  final DateTime toDateValue;
+
   final ValueChanged onFromDateChanged;
 
   final ValueChanged onToDateChanged;
 
   const DateRangeInput(
-      {@required this.onFromDateChanged, @required this.onToDateChanged})
+      {@required this.onFromDateChanged,
+      @required this.onToDateChanged,
+      this.fromDateValue,
+      this.toDateValue})
       : assert(onFromDateChanged != null),
         assert(onToDateChanged != null);
 
@@ -21,6 +28,14 @@ class _DateRangeInputState extends State<DateRangeInput> {
   DateTime fromDate;
 
   DateTime toDate;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    fromDate = widget.fromDateValue;
+    toDate = widget.toDateValue;
+    super.initState();
+  }
 
   void _updateFromDate(DateTime value) {
     setState(() => this.fromDate = value);
@@ -80,7 +95,9 @@ class _DateRangeInputState extends State<DateRangeInput> {
                   child: RaisedButton.icon(
                       color: Theme.of(context).cardColor,
                       icon: Icon(Icons.calendar_today),
-                      label: Text('To'),
+                      label: Text((toDate == null)
+                          ? 'To'
+                          : DateTimeUtils.toSimpleFormat(toDate)),
                       onPressed: _onPressToDate),
                 ),
               ],

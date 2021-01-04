@@ -8,18 +8,26 @@ class ReleaseEventRepository extends RestApiRepository {
 
   Future<List<ReleaseEventModel>> findReleaseEvents(
       {String lang = 'Default',
+      String query,
       String sort,
+      String category,
       String afterDate,
-      String beforeDate}) async {
+      String beforeDate,
+      String artistIds,
+      String tagIds}) async {
     final String endpoint = '/api/releaseEvents';
-    final Map<String, String> allParams = Map();
-    allParams['fields'] = ' MainPicture,Series';
-    allParams['languagePreference'] = lang;
-    allParams['sort'] = sort;
-    allParams['afterDate'] = afterDate;
-    allParams['beforeDate'] = beforeDate;
+    final Map<String, String> params = Map();
+    params['fields'] = ' MainPicture,Series';
+    params['languagePreference'] = lang;
+    params['query'] = query;
+    params['sort'] = sort;
+    params['category'] = category;
+    params['tagId'] = tagIds;
+    params['artistId'] = artistIds;
+    params['afterDate'] = afterDate;
+    params['beforeDate'] = beforeDate;
     return super
-        .getList(endpoint, allParams)
+        .getList(endpoint, params)
         .then((items) => ReleaseEventModel.jsonToList(items));
   }
 

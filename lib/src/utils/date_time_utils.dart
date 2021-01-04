@@ -7,4 +7,10 @@ class DateTimeUtils {
     final DateFormat formatter = DateFormat('yyyy-MM-dd');
     return formatter.format(value);
   }
+
+  static String toUtcDateString(DateTime dateTime) {
+    if (dateTime == null) return null;
+
+    return '${dateTime.year}-${dateTime.month}-${dateTime.day}';
+  }
 }

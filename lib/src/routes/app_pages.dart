@@ -17,6 +17,10 @@ class AppPages {
         page: () => ArtistSearchPage(),
         binding: ArtistSearchBinding()),
     GetPage(
+        name: Routes.RELEASE_EVENTS,
+        page: () => ReleaseEventSearchPage(),
+        binding: ReleaseEventSearchBinding()),
+    GetPage(
         name: Routes.ARTISTS_SELECTOR,
         page: () => ArtistSearchPage(
               enableFilter: false,
