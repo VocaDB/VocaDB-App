@@ -22,8 +22,10 @@ class SongDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final SongDetailController controller = initController();
+    final String id = Get.parameters['id'];
 
     return PageBuilder<SongDetailController>(
+      tag: "s_$id",
       controller: controller,
       builder: (c) => SongDetailPageView(
         controller: c,
