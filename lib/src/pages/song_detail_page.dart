@@ -6,12 +6,37 @@ import 'package:vocadb_app/arguments.dart';
 import 'package:vocadb_app/controllers.dart';
 import 'package:vocadb_app/models.dart';
 import 'package:vocadb_app/pages.dart';
+import 'package:vocadb_app/repositories.dart';
 import 'package:vocadb_app/routes.dart';
+import 'package:vocadb_app/services.dart';
 import 'package:vocadb_app/utils.dart';
 import 'package:vocadb_app/widgets.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
-class SongDetailPage extends GetView<SongDetailController> {
+class SongDetailPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final httpService = Get.find<HttpService>();
+
+    return GetBuilder<SongDetailController>(
+      tag: Get.parameters['id'],
+      global: false,
+      init: SongDetailController(
+          songRepository: SongRepository(
+              httpService:
+                  httpService)), // use it only first time on each controller
+      builder: (_) => SongDetailPageView(
+        controller: _,
+      ),
+    );
+  }
+}
+
+class SongDetailPageView extends StatelessWidget {
+  final SongDetailController controller;
+
+  const SongDetailPageView({this.controller});
+
   void _onSelectTag(TagModel tag) => Get.to(TagDetailPage());
 
   void _onTapLikeButton() {}
@@ -22,7 +47,7 @@ class SongDetailPage extends GetView<SongDetailController> {
 
   void _onTapInfoButton() => launch(controller.song().originUrl);
 
-  void _onSelectSong(SongModel song) {}
+  void _onSelectSong(SongModel song) => AppPages.toSongDetailPage(song);
 
   void _onTapArtist(ArtistRoleModel artistRoleModel) =>
       Get.to(ArtistDetailPage());
@@ -114,7 +139,9 @@ class SongDetailPage extends GetView<SongDetailController> {
           _buildSongImage(),
           _SongDetailButtonBar(
             onTapLikeButton: this._onTapLikeButton,
-            onTapLyricButton: this._onTapLyricButton,
+            onTapLyricButton: (controller.song().lyrics.isEmpty)
+                ? null
+                : this._onTapLyricButton,
             onTapShareButton: this._onTapShareButton,
             onTapInfoButton: this._onTapInfoButton,
           ),
@@ -265,11 +292,14 @@ class _SongDetailButtonBar extends StatelessWidget {
               ),
             ),
           ),
-          Expanded(
-            child: FlatButton(
-              onPressed: this.onTapLyricButton,
-              child: Column(
-                children: [Icon(Icons.subtitles), Text('Lyric')],
+          Visibility(
+            visible: this.onTapLyricButton != null,
+            child: Expanded(
+              child: FlatButton(
+                onPressed: this.onTapLyricButton,
+                child: Column(
+                  children: [Icon(Icons.subtitles), Text('Lyric')],
+                ),
               ),
             ),
           ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:vocadb_app/arguments.dart';
 import 'package:vocadb_app/controllers.dart';
 import 'package:vocadb_app/models.dart';
 import 'package:vocadb_app/pages.dart';
@@ -8,9 +9,7 @@ import 'package:vocadb_app/widgets.dart';
 
 /// Home page is same as VocaDB  website. Home page display list of highlighted songs, Recently added albums, Random popular albums and upcoming events
 class HomePage extends GetView<HomePageController> {
-  void _onTapSong(SongModel songModel) {
-    Get.to(SongDetailPage());
-  }
+  void _onTapSong(SongModel song) => AppPages.toSongDetailPage(song);
 
   void _onTapAlbum(AlbumModel albumModel) {
     Get.to(AlbumDetailPage());

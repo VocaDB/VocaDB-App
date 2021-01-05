@@ -27,10 +27,7 @@ class _RankingPageState extends State<RankingPage>
     _tabController.addListener(onTabChanged);
   }
 
-  void _onTabSong(SongModel song) {
-    Get.toNamed(Routes.SONGS_DETAIL,
-        arguments: SongDetailArgs(id: song.id, song: song));
-  }
+  void _onTabSong(SongModel song) => AppPages.toSongDetailPage(song);
 
   void onTabChanged() {
     int currentIndex = _tabController.index;

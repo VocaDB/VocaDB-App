@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
+import 'package:vocadb_app/arguments.dart';
 import 'package:vocadb_app/bindings.dart';
+import 'package:vocadb_app/models.dart';
 import 'package:vocadb_app/pages.dart';
 import 'package:vocadb_app/routes.dart';
 
@@ -12,10 +14,7 @@ class AppPages {
         name: Routes.SONGS,
         page: () => SongSearchPage(),
         binding: SongSearchBinding()),
-    GetPage(
-        name: Routes.SONGS_DETAIL,
-        page: () => SongDetailPage(),
-        binding: SongDetailBinding()),
+    GetPage(name: Routes.SONGS_DETAIL, page: () => SongDetailPage()),
     GetPage(
         name: Routes.ARTISTS,
         page: () => ArtistSearchPage(),
@@ -45,4 +44,9 @@ class AppPages {
         page: () => EntrySearchPage(),
         binding: EntrySearchBinding()),
   ];
+
+  static toSongDetailPage(SongModel song) {
+    Get.toNamed('/songs/${song.id}',
+        arguments: SongDetailArgs(id: song.id, song: song));
+  }
 }

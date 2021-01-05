@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vocadb_app/controllers.dart';
+import 'package:vocadb_app/models.dart';
 import 'package:vocadb_app/pages.dart';
+import 'package:vocadb_app/routes.dart';
 import 'package:vocadb_app/widgets.dart';
 
 class SongSearchPage extends GetView<SongSearchController> {
+  void _onSelect(SongModel song) => AppPages.toSongDetailPage(song);
+
   Widget _buildTextInput(BuildContext context) {
     return Row(
       children: <Widget>[
@@ -54,6 +58,7 @@ class SongSearchPage extends GetView<SongSearchController> {
         body: Obx(
           () => SongListView(
             songs: controller.results.toList(),
+            onSelect: this._onSelect,
           ),
         ));
   }
