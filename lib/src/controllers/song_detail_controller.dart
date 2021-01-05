@@ -27,6 +27,14 @@ class SongDetailController extends GetxController {
     super.onInit();
   }
 
+  @override
+  void onClose() {
+    if (youtubeController != null) {
+      youtubeController.dispose();
+    }
+    super.onClose();
+  }
+
   initYoutubeController() {
     PVModel pv = song().youtubePV;
 

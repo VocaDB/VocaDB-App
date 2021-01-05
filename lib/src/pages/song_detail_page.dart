@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:vocadb_app/arguments.dart';
 import 'package:vocadb_app/controllers.dart';
 import 'package:vocadb_app/models.dart';
 import 'package:vocadb_app/pages.dart';
@@ -14,19 +13,20 @@ import 'package:vocadb_app/widgets.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class SongDetailPage extends StatelessWidget {
+  initController() {
+    final httpService = Get.find<HttpService>();
+    return SongDetailController(
+        songRepository: SongRepository(httpService: httpService));
+  }
+
   @override
   Widget build(BuildContext context) {
-    final httpService = Get.find<HttpService>();
+    final SongDetailController controller = initController();
 
-    return GetBuilder<SongDetailController>(
-      tag: Get.parameters['id'],
-      global: false,
-      init: SongDetailController(
-          songRepository: SongRepository(
-              httpService:
-                  httpService)), // use it only first time on each controller
-      builder: (_) => SongDetailPageView(
-        controller: _,
+    return PageBuilder<SongDetailController>(
+      controller: controller,
+      builder: (c) => SongDetailPageView(
+        controller: c,
       ),
     );
   }
