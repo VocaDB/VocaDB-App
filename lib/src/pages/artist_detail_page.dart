@@ -1,22 +1,55 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:share/share.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:vocadb_app/controllers.dart';
 import 'package:vocadb_app/models.dart';
 import 'package:vocadb_app/pages.dart';
+import 'package:vocadb_app/repositories.dart';
+import 'package:vocadb_app/routes.dart';
+import 'package:vocadb_app/services.dart';
 import 'package:vocadb_app/widgets.dart';
 
 class ArtistDetailPage extends StatelessWidget {
+  initController() {
+    final httpService = Get.find<HttpService>();
+    return ArtistDetailController(
+        artistRepository: ArtistRepository(httpService: httpService));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final ArtistDetailController controller = initController();
+    final String id = Get.parameters['id'];
+
+    return PageBuilder<ArtistDetailController>(
+      tag: "a_$id",
+      controller: controller,
+      builder: (c) => ArtistDetailPageView(
+        controller: c,
+      ),
+    );
+  }
+}
+
+class ArtistDetailPageView extends StatelessWidget {
+  final ArtistDetailController controller;
+
+  const ArtistDetailPageView({this.controller});
+
   void _onSelectTag(TagModel tag) {}
 
   void _onTapLikeButton() {}
 
-  void _onTapShareButton() {}
+  void _onTapShareButton() => Share.share(controller.artist().originUrl);
 
-  void _onTapInfoButton() {}
+  void _onTapInfoButton() => launch(controller.artist().originUrl);
 
-  void _onTapSong(SongModel song) {}
+  void _onTapSong(SongModel song) => AppPages.toSongDetailPage(song);
 
-  void _onTapArtist(ArtistRoleModel artistRoleModel) =>
-      Get.to(ArtistDetailPage());
+  void _onTapArtist(ArtistModel artist) => AppPages.toArtistDetailPage(artist);
+
+  void _onTapAlbum(AlbumModel album) {}
 
   void _onTapHome() => Get.offAll(MainPage());
 
@@ -41,208 +74,176 @@ class ArtistDetailPage extends StatelessWidget {
               )
             ],
             flexibleSpace: FlexibleSpaceBar(
-              title: Text('Miku'),
+              title: Text(controller.artist().name),
               background: SafeArea(
                 child: Opacity(
                   opacity: 0.7,
-                  child: CustomNetworkImage(
-                      'https://vocadb.net/Artist/Picture/1?v=23'),
+                  child: CustomNetworkImage(controller.artist().imageUrl),
                 ),
               ),
             )),
         SliverList(
             delegate: SliverChildListDelegate([
-          _ArtistDetailButtonBar(),
+          _ArtistDetailButtonBar(
+            onTapInfoButton: this._onTapInfoButton,
+            onTapShareButton: this._onTapShareButton,
+          ),
           Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Hatsune Miku',
-                      style: Theme.of(context).textTheme.headline6,
-                    ),
-                    Text('初音ミク'),
-                    Text('Vocaloid'),
-                  ],
+              Obx(
+                () => Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        controller.artist().name,
+                        style: Theme.of(context).textTheme.headline6,
+                      ),
+                      Visibility(
+                          visible: controller.artist().additionalNames != null,
+                          child:
+                              Text(controller.artist().additionalNames ?? '')),
+                      Text(controller.artist().artistType ?? ''),
+                    ],
+                  ),
                 ),
               ),
               SpaceDivider.small(),
-              TagGroupView(
-                onPressed: (tag) => {},
-                tags: [
-                  TagModel(name: 'green onion'),
-                  TagModel(name: 'Vocaloid2'),
-                  TagModel(name: 'Japanese'),
-                  TagModel(name: 'feminine voicebank'),
-                  TagModel(name: 'green hair'),
-                  TagModel(name: 'blue hair'),
-                  TagModel(name: 'absolute territory'),
-                  TagModel(name: 'celebrity')
-                ],
+              Obx(
+                () => TagGroupView(
+                  onPressed: this._onSelectTag,
+                  tags: controller.artist().tags,
+                ),
               ),
               SpaceDivider.small(),
-              ExpandableContent(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                      child: TextInfoSection(
-                        title: 'Released',
-                        text: '2007-08-31',
+              Obx(
+                () => ExpandableContent(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                        child: TextInfoSection(
+                          title: 'Released',
+                          text: '2007-08-31',
+                        ),
                       ),
-                    ),
-                    SpaceDivider.small(),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                      child: TextInfoSection(
-                        title: 'Description',
-                        text: 'Miku',
+                      SpaceDivider.small(),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                        child: TextInfoSection(
+                          title: 'Description',
+                          text: controller.artist().description,
+                        ),
                       ),
-                    ),
-                    SpaceDivider.small(),
-                    ArtistLinkListView(
-                      artistLinks: [
-                        ArtistLinkModel(
-                            linkType: 'Group',
-                            artist: ArtistModel(
-                                id: 25, name: 'Crypton Future Media')),
-                        ArtistLinkModel(
-                            linkType: 'Illustrator',
-                            artist: ArtistModel(id: 9213, name: 'KEI')),
-                        ArtistLinkModel(
-                            linkType: 'VoiceProvider',
-                            artist: ArtistModel(id: 49761, name: '藤田咲'))
-                      ],
-                    )
-                  ],
+                      SpaceDivider.small(),
+                      Visibility(
+                        visible: controller.artist().artistLinks != null &&
+                            controller.artist().artistLinks.isNotEmpty,
+                        child: ArtistLinkListView(
+                          artistLinks: controller.artist().artistLinks,
+                          onSelect: (artistLinkModel) =>
+                              this._onTapArtist(artistLinkModel.artist),
+                        ),
+                      ),
+                      Visibility(
+                        visible: controller.artist().artistLinksReverse !=
+                                null &&
+                            controller.artist().artistLinksReverse.isNotEmpty,
+                        child: ArtistLinkListView(
+                          artistLinks: controller.artist().artistLinksReverse,
+                          onSelect: (artistLinkModel) =>
+                              this._onTapArtist(artistLinkModel.artist),
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ),
               Divider(),
-              Section(
-                title: 'Recent Songs / PVs',
-                child: SongListView(
-                  scrollDirection: Axis.horizontal,
-                  onSelect: (s) => {},
-                  songs: [
-                    SongModel(
-                        id: 307335,
-                        name: 'spirit photo',
-                        artistString: 'Kirishima feat. Hatsune Miku',
-                        thumbUrl:
-                            'https://i.ytimg.com/vi/6OAd30ljny8/default.jpg',
-                        songType: 'Original'),
-                    SongModel(
-                        id: 307325,
-                        name: '天誅',
-                        artistString: 'Kashii Moimi feat. Kagamine Len',
-                        thumbUrl:
-                            'https://nicovideo.cdn.nimg.jp/thumbnails/37974374/37974374.34231370',
-                        songType: 'Original'),
-                    SongModel(
-                        id: 307179,
-                        name: 'Running-stitch-Heartbeat',
-                        artistString: 'RuupaaP feat. Hatsune Miku',
-                        thumbUrl:
-                            'https://nicovideo.cdn.nimg.jp/thumbnails/37971183/37971183.65149070',
-                        songType: 'Original'),
-                  ],
+              Obx(
+                () => Visibility(
+                  visible: controller.artist().relations != null &&
+                      controller.artist().relations.latestSongs.isNotEmpty,
+                  child: Column(
+                    children: [
+                      Section(
+                        title: 'Recent Songs / PVs',
+                        child: SongListView(
+                          scrollDirection: Axis.horizontal,
+                          onSelect: this._onTapSong,
+                          songs: controller.artist().relations?.latestSongs,
+                        ),
+                      ),
+                      Divider(),
+                    ],
+                  ),
                 ),
               ),
-              Divider(),
-              Section(
-                title: 'Popular songs',
-                child: SongListView(
-                  scrollDirection: Axis.horizontal,
-                  onSelect: (s) => {},
-                  songs: [
-                    SongModel(
-                        id: 307335,
-                        name: 'spirit photo',
-                        artistString: 'Kirishima feat. Hatsune Miku',
-                        thumbUrl:
-                            'https://i.ytimg.com/vi/6OAd30ljny8/default.jpg',
-                        songType: 'Original'),
-                    SongModel(
-                        id: 307325,
-                        name: '天誅',
-                        artistString: 'Kashii Moimi feat. Kagamine Len',
-                        thumbUrl:
-                            'https://nicovideo.cdn.nimg.jp/thumbnails/37974374/37974374.34231370',
-                        songType: 'Original'),
-                    SongModel(
-                        id: 307179,
-                        name: 'Running-stitch-Heartbeat',
-                        artistString: 'RuupaaP feat. Hatsune Miku',
-                        thumbUrl:
-                            'https://nicovideo.cdn.nimg.jp/thumbnails/37971183/37971183.65149070',
-                        songType: 'Original'),
-                  ],
+              Obx(
+                () => Visibility(
+                  visible: controller.artist().relations != null &&
+                      controller.artist().relations.popularSongs.isNotEmpty,
+                  child: Column(
+                    children: [
+                      Section(
+                        title: 'Popular songs',
+                        child: SongListView(
+                          scrollDirection: Axis.horizontal,
+                          onSelect: this._onTapSong,
+                          songs: controller.artist().relations?.popularSongs,
+                        ),
+                      ),
+                      Divider(),
+                    ],
+                  ),
                 ),
               ),
-              Divider(),
-              Section(
-                title: 'Recent or upcoming albums',
-                child: AlbumListView(
-                  scrollDirection: Axis.horizontal,
-                  albums: [
-                    AlbumModel(
-                        id: 9227,
-                        name: 'THIS IS VOCAROCK',
-                        artistString: '164, 203soundworks feat. various'),
-                    AlbumModel(
-                        id: 1590,
-                        name: 'Michno-sequence',
-                        artistString: 'かめりあ feat. 初音ミク, GUMI'),
-                    AlbumModel(
-                        id: 4986,
-                        name: '東京テディベア',
-                        artistString: 'Neru, おればななP feat. 鏡音リン Append (Sweet)'),
-                  ],
+              Obx(
+                () => Visibility(
+                  visible: controller.artist().relations != null &&
+                      controller.artist().relations.latestAlbums.isNotEmpty,
+                  child: Column(
+                    children: [
+                      Section(
+                        title: 'Recent or upcoming albums',
+                        child: AlbumListView(
+                          scrollDirection: Axis.horizontal,
+                          albums: controller.artist().relations?.latestAlbums,
+                          onSelect: this._onTapAlbum,
+                        ),
+                      ),
+                      Divider(),
+                    ],
+                  ),
                 ),
               ),
-              Divider(),
-              Section(
-                title: 'Popular albums',
-                child: AlbumListView(
-                  scrollDirection: Axis.horizontal,
-                  albums: [
-                    AlbumModel(
-                        id: 9227,
-                        name: 'THIS IS VOCAROCK',
-                        artistString: '164, 203soundworks feat. various'),
-                    AlbumModel(
-                        id: 1590,
-                        name: 'Michno-sequence',
-                        artistString: 'かめりあ feat. 初音ミク, GUMI'),
-                    AlbumModel(
-                        id: 4986,
-                        name: '東京テディベア',
-                        artistString: 'Neru, おればななP feat. 鏡音リン Append (Sweet)'),
-                  ],
+              Obx(
+                () => Visibility(
+                  visible: controller.artist().relations != null &&
+                      controller.artist().relations.popularAlbums.isNotEmpty,
+                  child: Column(
+                    children: [
+                      Section(
+                        title: 'Popular albums',
+                        child: AlbumListView(
+                          scrollDirection: Axis.horizontal,
+                          albums: controller.artist().relations?.popularAlbums,
+                        ),
+                      ),
+                      Divider(),
+                    ],
+                  ),
                 ),
               ),
-              Divider(),
-              WebLinkGroupList(webLinks: [
-                WebLinkModel(
-                    description: 'NicoNicoPedia',
-                    category: 'Reference',
-                    url: 'https://dic.nicovideo.jp/v/sm9714351'),
-                WebLinkModel(
-                    category: 'Reference',
-                    description: 'UtaiteDB',
-                    url: 'http://utaitedb.net/S/2860'),
-                WebLinkModel(
-                    category: 'Official',
-                    description: 'Pixiv (Illustration)',
-                    url:
-                        'https://www.pixiv.net/member_illust.php?mode=medium&illust_id=10324371')
-              ])
+              Visibility(
+                  visible: controller.artist().webLinks != null &&
+                      controller.artist().webLinks.isNotEmpty,
+                  child: WebLinkGroupList(
+                      webLinks: controller.artist().webLinks ?? []))
             ],
           )
         ]))

@@ -5,6 +5,7 @@ class Routes {
   static const SONGS_DETAIL = '/songs/:id';
   static const ARTISTS = '/artists';
   static const ARTISTS_SELECTOR = '/artists/selector';
+  static const ARTISTS_DETAIL = '/artists/:id';
   static const TAGS = '/tags';
   static const TAG_CATEGORIES = '/tag-categories';
   static const TAGS_DETAIL = '/tags/detail';

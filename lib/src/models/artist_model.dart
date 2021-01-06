@@ -40,6 +40,8 @@ class ArtistModel extends EntryModel {
             artistType: artistType,
             entryType: EntryType.Artist);
 
+  String get originUrl => '$baseUrl/Ar/${this.id}';
+
   static List<ArtistModel> jsonToList(List items) {
     return items.map((i) => ArtistModel.fromJson(i)).toList();
   }

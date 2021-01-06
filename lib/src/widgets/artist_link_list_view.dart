@@ -6,9 +6,9 @@ import 'package:vocadb_app/widgets.dart';
 class ArtistLinkListView extends StatelessWidget {
   final List<ArtistLinkModel> artistLinks;
 
-  final Function(ArtistLinkModel) onTap;
+  final Function(ArtistLinkModel) onSelect;
 
-  const ArtistLinkListView({@required this.artistLinks, this.onTap});
+  const ArtistLinkListView({@required this.artistLinks, this.onSelect});
 
   List<Widget> _generateItems() {
     List<Widget> items = [];
@@ -33,7 +33,7 @@ class ArtistLinkListView extends StatelessWidget {
     return ArtistTile(
       name: model.artist.name,
       imageUrl: model.artist.imageUrl,
-      onTap: () => this.onTap(model),
+      onTap: () => this.onSelect(model),
     );
   }
 

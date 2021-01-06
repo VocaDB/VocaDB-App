@@ -24,4 +24,17 @@ class ArtistRepository extends RestApiRepository {
         .getList(endpoint, params)
         .then((items) => ArtistModel.jsonToList(items));
   }
+
+  /// Gets a artist by Id.
+  Future<ArtistModel> getById(int id, {String lang = 'Default'}) {
+    final Map<String, String> params = {
+      'fields':
+          'Tags,MainPicture,WebLinks,BaseVoicebank,Description,ArtistLinks,ArtistLinksReverse,AdditionalNames',
+      'relations': 'All',
+      'lang': lang,
+    };
+    return super
+        .getObject('/api/artists/$id', params)
+        .then((i) => ArtistModel.fromJson(i));
+  }
 }

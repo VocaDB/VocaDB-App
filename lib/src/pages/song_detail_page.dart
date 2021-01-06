@@ -51,8 +51,11 @@ class SongDetailPageView extends StatelessWidget {
 
   void _onSelectSong(SongModel song) => AppPages.toSongDetailPage(song);
 
-  void _onTapArtist(ArtistRoleModel artistRoleModel) =>
-      Get.to(ArtistDetailPage());
+  void _onTapArtist(ArtistRoleModel a) =>
+      AppPages.toArtistDetailPage(ArtistModel(
+          id: a.id,
+          name: a.name,
+          mainPicture: MainPictureModel(urlThumb: a.imageUrl)));
 
   void _onTapCloseLyricContent() => controller.showLyric(false);
 

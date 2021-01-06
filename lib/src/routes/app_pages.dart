@@ -19,6 +19,7 @@ class AppPages {
         name: Routes.ARTISTS,
         page: () => ArtistSearchPage(),
         binding: ArtistSearchBinding()),
+    GetPage(name: Routes.ARTISTS_DETAIL, page: () => ArtistDetailPage()),
     GetPage(
         name: Routes.RELEASE_EVENTS,
         page: () => ReleaseEventSearchPage(),
@@ -48,5 +49,10 @@ class AppPages {
   static toSongDetailPage(SongModel song) {
     Get.toNamed('/songs/${song.id}',
         arguments: SongDetailArgs(id: song.id, song: song));
+  }
+
+  static toArtistDetailPage(ArtistModel artist) {
+    Get.toNamed('/artists/${artist.id}',
+        arguments: ArtistDetailArgs(id: artist.id, artist: artist));
   }
 }
