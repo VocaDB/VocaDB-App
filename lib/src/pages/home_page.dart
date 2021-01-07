@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:vocadb_app/arguments.dart';
 import 'package:vocadb_app/controllers.dart';
 import 'package:vocadb_app/models.dart';
 import 'package:vocadb_app/pages.dart';
@@ -9,7 +8,8 @@ import 'package:vocadb_app/widgets.dart';
 
 /// Home page is same as VocaDB  website. Home page display list of highlighted songs, Recently added albums, Random popular albums and upcoming events
 class HomePage extends GetView<HomePageController> {
-  void _onTapSong(SongModel song) => AppPages.toSongDetailPage(song);
+  void _onTapSong(SongModel song, String prefixHeroTag) =>
+      AppPages.toSongDetailPage(song, prefixHeroTag: prefixHeroTag);
 
   void _onTapAlbum(AlbumModel albumModel) {
     Get.to(AlbumDetailPage());
@@ -66,11 +66,11 @@ class HomePage extends GetView<HomePageController> {
       Section(
         title: 'Highlighted',
         child: Obx(() => SongListView(
-              displayPlaceholder: controller.highlighted.isEmpty,
-              scrollDirection: Axis.horizontal,
-              onSelect: this._onTapSong,
-              songs: controller.highlighted.toList(),
-            )),
+            displayPlaceholder: controller.highlighted.isEmpty,
+            scrollDirection: Axis.horizontal,
+            onSelect: (song) => this._onTapSong(song, 'highlighted'),
+            songs: controller.highlighted.toList(),
+            prefixHeroTag: 'highlighted')),
       ),
       Section(
         title: 'Recent or upcoming albums',

@@ -80,6 +80,8 @@ class SongModel extends EntryModel {
 
   String get originUrl => '$baseUrl/S/${this.id}';
 
+  String get imageUrl => this.thumbUrl ?? super.imageUrl;
+
   @override
   Map<String, dynamic> toJson() {
     Map<String, dynamic> json = super.toJson();

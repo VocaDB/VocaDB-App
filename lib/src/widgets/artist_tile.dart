@@ -13,6 +13,12 @@ class ArtistTile extends StatelessWidget {
   /// An artist image url to display in widget
   final String imageUrl;
 
+  /// A string value to give unique tag on hero widget. Hero widget will be used if value is not empty.
+  final String prefixHeroTag;
+
+  /// A string unique value give to hero widget. Use [imageUrl] instead if is Null.
+  final String heroTag;
+
   /// An artist image size both width and height
   static const double imageSize = 50;
 
@@ -20,17 +26,28 @@ class ArtistTile extends StatelessWidget {
   final GestureTapCallback onTap;
 
   const ArtistTile(
-      {Key key, this.name, this.imageUrl, this.onTap, this.subtitle})
+      {Key key,
+      this.name,
+      this.imageUrl,
+      this.onTap,
+      this.subtitle,
+      this.prefixHeroTag = '',
+      this.heroTag})
       : super(key: key);
 
-  ArtistTile.fromEntry(EntryModel entry, {this.onTap, this.subtitle})
+  ArtistTile.fromEntry(EntryModel entry,
+      {this.onTap, this.subtitle, this.prefixHeroTag = '', this.heroTag})
       : this.name = entry.name,
         this.imageUrl = entry.imageUrl;
 
   Widget _leading() {
     final Widget imageChild = (this.imageUrl == null)
         ? Icon(Icons.person)
-        : CustomNetworkImage(this.imageUrl);
+        : CustomNetworkImage(
+            this.imageUrl,
+            prefixHeroTag: this.prefixHeroTag,
+            heroTag: this.heroTag,
+          );
 
     return SizedBox(
       width: imageSize,

@@ -8,10 +8,15 @@ class ArtistGroupByRoleList extends StatelessWidget {
 
   final Function(ArtistRoleModel) onTap;
 
-  const ArtistGroupByRoleList({@required this.artistRoles, this.onTap});
+  final String prefixHeroTag;
+
+  const ArtistGroupByRoleList(
+      {@required this.artistRoles, this.onTap, this.prefixHeroTag});
 
   ArtistGroupByRoleList.fromArtistSongModel(
-      {@required List<ArtistSongModel> artistSongs, this.onTap})
+      {@required List<ArtistSongModel> artistSongs,
+      this.onTap,
+      this.prefixHeroTag})
       : artistRoles = artistSongs
             .map((e) => ArtistRoleModel(
                 id: e.artistId,
@@ -21,7 +26,9 @@ class ArtistGroupByRoleList extends StatelessWidget {
             .toList();
 
   ArtistGroupByRoleList.fromArtistAlbumModel(
-      {@required List<ArtistAlbumModel> artistAlbums, this.onTap})
+      {@required List<ArtistAlbumModel> artistAlbums,
+      this.onTap,
+      this.prefixHeroTag})
       : artistRoles = artistAlbums
             .map((e) => ArtistRoleModel(
                 id: e.artistId,
@@ -71,6 +78,7 @@ class ArtistGroupByRoleList extends StatelessWidget {
       name: model.name,
       imageUrl: model.imageUrl,
       onTap: () => this.onTap(model),
+      prefixHeroTag: this.prefixHeroTag,
     );
   }
 
@@ -80,6 +88,7 @@ class ArtistGroupByRoleList extends StatelessWidget {
       subtitle: model.role,
       imageUrl: model.imageUrl,
       onTap: () => this.onTap(model),
+      prefixHeroTag: this.prefixHeroTag,
     );
   }
 

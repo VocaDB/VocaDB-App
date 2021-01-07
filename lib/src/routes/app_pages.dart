@@ -46,13 +46,15 @@ class AppPages {
         binding: EntrySearchBinding()),
   ];
 
-  static toSongDetailPage(SongModel song) {
+  static toSongDetailPage(SongModel song, {String prefixHeroTag}) {
     Get.toNamed('/songs/${song.id}',
-        arguments: SongDetailArgs(id: song.id, song: song));
+        arguments: SongDetailArgs(
+            id: song.id, song: song, prefixHeroTag: prefixHeroTag));
   }
 
-  static toArtistDetailPage(ArtistModel artist) {
+  static toArtistDetailPage(ArtistModel artist, {String prefixHeroTag}) {
     Get.toNamed('/artists/${artist.id}',
-        arguments: ArtistDetailArgs(id: artist.id, artist: artist));
+        arguments: ArtistDetailArgs(
+            id: artist.id, artist: artist, prefixHeroTag: prefixHeroTag));
   }
 }

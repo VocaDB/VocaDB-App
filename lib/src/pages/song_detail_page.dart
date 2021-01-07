@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:vocadb_app/arguments.dart';
 import 'package:vocadb_app/controllers.dart';
 import 'package:vocadb_app/models.dart';
 import 'package:vocadb_app/pages.dart';
@@ -22,14 +23,13 @@ class SongDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final SongDetailController controller = initController();
+    final SongDetailArgs args = Get.arguments;
     final String id = Get.parameters['id'];
 
     return PageBuilder<SongDetailController>(
       tag: "s_$id",
       controller: controller,
-      builder: (c) => SongDetailPageView(
-        controller: c,
-      ),
+      builder: (c) => SongDetailPageView(controller: c, args: args),
     );
   }
 }
@@ -37,7 +37,9 @@ class SongDetailPage extends StatelessWidget {
 class SongDetailPageView extends StatelessWidget {
   final SongDetailController controller;
 
-  const SongDetailPageView({this.controller});
+  final SongDetailArgs args;
+
+  const SongDetailPageView({this.controller, this.args});
 
   void _onSelectTag(TagModel tag) => Get.to(TagDetailPage());
 
@@ -51,11 +53,13 @@ class SongDetailPageView extends StatelessWidget {
 
   void _onSelectSong(SongModel song) => AppPages.toSongDetailPage(song);
 
-  void _onTapArtist(ArtistRoleModel a) =>
-      AppPages.toArtistDetailPage(ArtistModel(
-          id: a.id,
-          name: a.name,
-          mainPicture: MainPictureModel(urlThumb: a.imageUrl)));
+  void _onTapArtist(ArtistRoleModel a, String prefixHeroTag) =>
+      AppPages.toArtistDetailPage(
+          ArtistModel(
+              id: a.id,
+              name: a.name,
+              mainPicture: MainPictureModel(urlThumb: a.imageUrl)),
+          prefixHeroTag: prefixHeroTag);
 
   void _onTapCloseLyricContent() => controller.showLyric(false);
 
@@ -88,15 +92,20 @@ class SongDetailPageView extends StatelessWidget {
               child: SizedBox(
                 width: double.infinity,
                 height: double.infinity,
-                child: CustomNetworkImage(controller.song().imageUrl,
-                    fit: BoxFit.cover),
+                child: CustomNetworkImage(
+                  controller.song().imageUrl,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
             SizedBox(
               width: double.infinity,
               height: double.infinity,
-              child: CustomNetworkImage(controller.song().imageUrl,
-                  fit: BoxFit.contain),
+              child: CustomNetworkImage(
+                controller.song().imageUrl,
+                fit: BoxFit.contain,
+                prefixHeroTag: args.prefixHeroTag,
+              ),
             ),
           ],
         ));
@@ -163,9 +172,9 @@ class SongDetailPageView extends StatelessWidget {
           ),
           Divider(),
           ArtistGroupByRoleList.fromArtistSongModel(
-            onTap: this._onTapArtist,
-            artistSongs: controller.song().artists,
-          ),
+              onTap: (a) => this._onTapArtist(a, 'song_detail_${args.id}'),
+              artistSongs: controller.song().artists,
+              prefixHeroTag: 'song_detail_${args.id}'),
           Divider(),
           Visibility(
               visible: controller.song().pvs.isNotEmpty,

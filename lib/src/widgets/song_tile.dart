@@ -26,6 +26,12 @@ class SongTile extends StatelessWidget {
   /// A widget that display on leftmost side
   final Widget leading;
 
+  /// A string value to give unique tag on hero widget. Hero widget will be used if value is not empty.
+  final String prefixHeroTag;
+
+  /// A string unique value give to hero widget. Use [imageUrl] instead if is Null.
+  final String heroTag;
+
   /// The height of widget
   static const double height = 100;
 
@@ -39,18 +45,22 @@ class SongTile extends StatelessWidget {
       this.thumbUrl,
       this.hasPV = false,
       this.leading,
-      this.onTap});
+      this.onTap,
+      this.prefixHeroTag = '',
+      this.heroTag});
 
   /// Create SongTile widget by SongModel
-  SongTile.song(SongModel song, {this.onTap, this.leading})
+  SongTile.song(SongModel song,
+      {this.onTap, this.leading, this.prefixHeroTag = '', this.heroTag})
       : this.name = song.name,
         this.artistName = song.artistString,
         this.songType = song.songType,
-        this.thumbUrl = song.thumbUrl,
+        this.thumbUrl = song.imageUrl,
         this.hasPV = song.youtubePV != null;
 
   /// Create SongTile widget by EntryModel
-  SongTile.fromEntry(EntryModel entryModel, {this.onTap, this.leading})
+  SongTile.fromEntry(EntryModel entryModel,
+      {this.onTap, this.leading, this.prefixHeroTag = '', this.heroTag})
       : this.name = entryModel.name,
         this.artistName = entryModel.artistString,
         this.songType = entryModel.songType,
@@ -70,7 +80,12 @@ class SongTile extends StatelessWidget {
 
   Widget _thumbnailBuilder() {
     Widget thumbnail = (this.thumbUrl != null && this.thumbUrl.isNotEmpty)
-        ? CustomNetworkImage(this.thumbUrl, fit: BoxFit.cover)
+        ? CustomNetworkImage(
+            this.thumbUrl,
+            fit: BoxFit.cover,
+            prefixHeroTag: this.prefixHeroTag,
+            heroTag: this.heroTag,
+          )
         : Icon(Icons.music_note);
 
     return Padding(

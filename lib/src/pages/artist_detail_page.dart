@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:vocadb_app/arguments.dart';
 import 'package:vocadb_app/controllers.dart';
 import 'package:vocadb_app/models.dart';
 import 'package:vocadb_app/pages.dart';
@@ -20,14 +21,13 @@ class ArtistDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ArtistDetailController controller = initController();
+    final ArtistDetailArgs args = Get.arguments;
     final String id = Get.parameters['id'];
 
     return PageBuilder<ArtistDetailController>(
       tag: "a_$id",
       controller: controller,
-      builder: (c) => ArtistDetailPageView(
-        controller: c,
-      ),
+      builder: (c) => ArtistDetailPageView(controller: c, args: args),
     );
   }
 }
@@ -35,7 +35,9 @@ class ArtistDetailPage extends StatelessWidget {
 class ArtistDetailPageView extends StatelessWidget {
   final ArtistDetailController controller;
 
-  const ArtistDetailPageView({this.controller});
+  final ArtistDetailArgs args;
+
+  const ArtistDetailPageView({this.controller, this.args});
 
   void _onSelectTag(TagModel tag) {}
 
@@ -78,7 +80,10 @@ class ArtistDetailPageView extends StatelessWidget {
               background: SafeArea(
                 child: Opacity(
                   opacity: 0.7,
-                  child: CustomNetworkImage(controller.artist().imageUrl),
+                  child: CustomNetworkImage(
+                    controller.artist().imageUrl,
+                    prefixHeroTag: args.prefixHeroTag,
+                  ),
                 ),
               ),
             )),
@@ -124,19 +129,25 @@ class ArtistDetailPageView extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                        child: TextInfoSection(
-                          title: 'Released',
-                          text: '2007-08-31',
+                      Visibility(
+                        visible: controller.artist().releaseDate != null,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                          child: TextInfoSection(
+                            title: 'Release date',
+                            text: controller.artist().releaseDateFormatted,
+                          ),
                         ),
                       ),
                       SpaceDivider.small(),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                        child: TextInfoSection(
-                          title: 'Description',
-                          text: controller.artist().description,
+                      Visibility(
+                        visible: controller.artist().description != null,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                          child: TextInfoSection(
+                            title: 'Description',
+                            text: controller.artist().description,
+                          ),
                         ),
                       ),
                       SpaceDivider.small(),
