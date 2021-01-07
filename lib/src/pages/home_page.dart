@@ -8,12 +8,9 @@ import 'package:vocadb_app/widgets.dart';
 
 /// Home page is same as VocaDB  website. Home page display list of highlighted songs, Recently added albums, Random popular albums and upcoming events
 class HomePage extends GetView<HomePageController> {
-  void _onTapSong(SongModel song, String prefixHeroTag) =>
-      AppPages.toSongDetailPage(song, prefixHeroTag: prefixHeroTag);
+  void _onTapSong(SongModel song) => AppPages.toSongDetailPage(song);
 
-  void _onTapAlbum(AlbumModel albumModel) {
-    Get.to(AlbumDetailPage());
-  }
+  void _onTapAlbum(AlbumModel album) => AppPages.toAlbumDetailPage(album);
 
   void _onTapReleaseEvent(ReleaseEventModel releaseEventModel) {
     Get.to(ReleaseEventDetailPage());
@@ -68,27 +65,25 @@ class HomePage extends GetView<HomePageController> {
         child: Obx(() => SongListView(
             displayPlaceholder: controller.highlighted.isEmpty,
             scrollDirection: Axis.horizontal,
-            onSelect: (song) => this._onTapSong(song, 'highlighted'),
-            songs: controller.highlighted.toList(),
-            prefixHeroTag: 'highlighted')),
+            onSelect: (song) => this._onTapSong(song),
+            songs: controller.highlighted.toList())),
       ),
       Section(
         title: 'Recent or upcoming albums',
         child: Obx(() => AlbumListView(
               displayPlaceholder: controller.recentAlbums.isEmpty,
               scrollDirection: Axis.horizontal,
-              onSelect: this._onTapAlbum,
+              onSelect: (a) => this._onTapAlbum(a),
               albums: controller.recentAlbums.toList(),
             )),
       ),
       Section(
         title: 'Random popular albums',
         child: Obx(() => AlbumListView(
-              displayPlaceholder: controller.randomAlbums.isEmpty,
-              scrollDirection: Axis.horizontal,
-              onSelect: this._onTapAlbum,
-              albums: controller.randomAlbums.toList(),
-            )),
+            displayPlaceholder: controller.randomAlbums.isEmpty,
+            scrollDirection: Axis.horizontal,
+            onSelect: (a) => this._onTapAlbum(a),
+            albums: controller.randomAlbums.toList())),
       ),
       Section(
         title: 'Upcoming events',

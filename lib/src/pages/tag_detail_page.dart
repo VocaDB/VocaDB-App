@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vocadb_app/models.dart';
 import 'package:vocadb_app/pages.dart';
+import 'package:vocadb_app/routes.dart';
 import 'package:vocadb_app/widgets.dart';
 
 class TagDetailPage extends StatelessWidget {
@@ -11,11 +12,11 @@ class TagDetailPage extends StatelessWidget {
 
   void _onTapInfoButton() {}
 
-  void _onTapSong(SongModel song) => Get.to(SongDetailPage());
+  void _onTapSong(SongModel song) => AppPages.toSongDetailPage(song);
 
-  void _onTapArtist(ArtistModel artistModel) => Get.to(ArtistDetailPage());
+  void _onTapArtist(ArtistModel artist) => AppPages.toArtistDetailPage(artist);
 
-  void _onTapAlbum(AlbumModel album) => Get.to(AlbumDetailPage());
+  void _onTapAlbum(AlbumModel album) => AppPages.toAlbumDetailPage(album);
 
   void _onTapHome() => Get.offAll(MainPage());
 

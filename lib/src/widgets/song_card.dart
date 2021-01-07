@@ -22,12 +22,6 @@ class SongCard extends StatelessWidget {
   /// Callback when tap
   final GestureTapCallback onTap;
 
-  /// A string value to give unique tag on hero widget. Hero widget will be used if value is not empty.
-  final String prefixHeroTag;
-
-  /// A string unique value give to hero widget. Use [imageUrl] instead if is Null.
-  final String heroTag;
-
   /// The width of card
   static const double cardWidth = 130;
 
@@ -40,18 +34,16 @@ class SongCard extends StatelessWidget {
       this.songType,
       this.thumbUrl,
       this.hasPV = false,
-      this.onTap,
-      this.prefixHeroTag = '',
-      this.heroTag});
+      this.onTap});
 
   /// Create SongCard widget by SongModel
-  SongCard.song(SongModel song,
-      {this.onTap, this.prefixHeroTag = '', this.heroTag})
+  SongCard.song(SongModel song, {Key key, this.onTap})
       : this.name = song.name,
         this.artistName = song.artistString,
         this.songType = song.songType,
         this.thumbUrl = song.imageUrl,
-        this.hasPV = song.youtubePV != null;
+        this.hasPV = song.youtubePV != null,
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -71,8 +63,6 @@ class SongCard extends StatelessWidget {
                   fit: BoxFit.fitWidth,
                   child: CustomNetworkImage(
                     this.thumbUrl,
-                    prefixHeroTag: this.prefixHeroTag,
-                    heroTag: this.heroTag,
                   ),
                 ),
               ),

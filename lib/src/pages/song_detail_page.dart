@@ -53,13 +53,13 @@ class SongDetailPageView extends StatelessWidget {
 
   void _onSelectSong(SongModel song) => AppPages.toSongDetailPage(song);
 
-  void _onTapArtist(ArtistRoleModel a, String prefixHeroTag) =>
-      AppPages.toArtistDetailPage(
-          ArtistModel(
-              id: a.id,
-              name: a.name,
-              mainPicture: MainPictureModel(urlThumb: a.imageUrl)),
-          prefixHeroTag: prefixHeroTag);
+  void _onTapArtist(ArtistRoleModel a) =>
+      AppPages.toArtistDetailPage(ArtistModel(
+          id: a.id,
+          name: a.name,
+          mainPicture: MainPictureModel(urlThumb: a.imageUrl)));
+
+  void _onTapAlbum(AlbumModel album) => AppPages.toAlbumDetailPage(album);
 
   void _onTapCloseLyricContent() => controller.showLyric(false);
 
@@ -104,7 +104,6 @@ class SongDetailPageView extends StatelessWidget {
               child: CustomNetworkImage(
                 controller.song().imageUrl,
                 fit: BoxFit.contain,
-                prefixHeroTag: args.prefixHeroTag,
               ),
             ),
           ],
@@ -172,9 +171,9 @@ class SongDetailPageView extends StatelessWidget {
           ),
           Divider(),
           ArtistGroupByRoleList.fromArtistSongModel(
-              onTap: (a) => this._onTapArtist(a, 'song_detail_${args.id}'),
-              artistSongs: controller.song().artists,
-              prefixHeroTag: 'song_detail_${args.id}'),
+            onTap: (a) => this._onTapArtist(a),
+            artistSongs: controller.song().artists,
+          ),
           Divider(),
           Visibility(
               visible: controller.song().pvs.isNotEmpty,
@@ -193,6 +192,7 @@ class SongDetailPageView extends StatelessWidget {
                   child: AlbumListView(
                     scrollDirection: Axis.horizontal,
                     albums: controller.song().albums,
+                    onSelect: (a) => this._onTapAlbum(a),
                   ),
                 ),
                 Divider()
@@ -207,7 +207,7 @@ class SongDetailPageView extends StatelessWidget {
                       title: 'Alternate version',
                       child: SongListView(
                         scrollDirection: Axis.horizontal,
-                        onSelect: this._onSelectSong,
+                        onSelect: (s) => this._onSelectSong(s),
                         songs: controller.altSongs.toList(),
                       ),
                     ),
@@ -223,7 +223,7 @@ class SongDetailPageView extends StatelessWidget {
                       title: 'User who liked this also liked',
                       child: SongListView(
                         scrollDirection: Axis.horizontal,
-                        onSelect: this._onSelectSong,
+                        onSelect: (s) => this._onSelectSong(s),
                         songs: controller.relatedSongs.toList(),
                       ),
                     ),

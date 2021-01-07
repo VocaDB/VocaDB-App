@@ -51,7 +51,7 @@ class ArtistDetailPageView extends StatelessWidget {
 
   void _onTapArtist(ArtistModel artist) => AppPages.toArtistDetailPage(artist);
 
-  void _onTapAlbum(AlbumModel album) {}
+  void _onTapAlbum(AlbumModel album) => AppPages.toAlbumDetailPage(album);
 
   void _onTapHome() => Get.offAll(MainPage());
 
@@ -82,7 +82,6 @@ class ArtistDetailPageView extends StatelessWidget {
                   opacity: 0.7,
                   child: CustomNetworkImage(
                     controller.artist().imageUrl,
-                    prefixHeroTag: args.prefixHeroTag,
                   ),
                 ),
               ),
@@ -155,20 +154,18 @@ class ArtistDetailPageView extends StatelessWidget {
                         visible: controller.artist().artistLinks != null &&
                             controller.artist().artistLinks.isNotEmpty,
                         child: ArtistLinkListView(
-                          artistLinks: controller.artist().artistLinks,
-                          onSelect: (artistLinkModel) =>
-                              this._onTapArtist(artistLinkModel.artist),
-                        ),
+                            artistLinks: controller.artist().artistLinks,
+                            onSelect: (artistLinkModel) =>
+                                this._onTapArtist(artistLinkModel.artist)),
                       ),
                       Visibility(
                         visible: controller.artist().artistLinksReverse !=
                                 null &&
                             controller.artist().artistLinksReverse.isNotEmpty,
                         child: ArtistLinkListView(
-                          artistLinks: controller.artist().artistLinksReverse,
-                          onSelect: (artistLinkModel) =>
-                              this._onTapArtist(artistLinkModel.artist),
-                        ),
+                            artistLinks: controller.artist().artistLinksReverse,
+                            onSelect: (artistLinkModel) =>
+                                this._onTapArtist(artistLinkModel.artist)),
                       )
                     ],
                   ),
@@ -185,8 +182,8 @@ class ArtistDetailPageView extends StatelessWidget {
                         title: 'Recent Songs / PVs',
                         child: SongListView(
                           scrollDirection: Axis.horizontal,
-                          onSelect: this._onTapSong,
                           songs: controller.artist().relations?.latestSongs,
+                          onSelect: (s) => this._onTapSong(s),
                         ),
                       ),
                       Divider(),
@@ -204,7 +201,7 @@ class ArtistDetailPageView extends StatelessWidget {
                         title: 'Popular songs',
                         child: SongListView(
                           scrollDirection: Axis.horizontal,
-                          onSelect: this._onTapSong,
+                          onSelect: (s) => this._onTapSong(s),
                           songs: controller.artist().relations?.popularSongs,
                         ),
                       ),
@@ -224,7 +221,7 @@ class ArtistDetailPageView extends StatelessWidget {
                         child: AlbumListView(
                           scrollDirection: Axis.horizontal,
                           albums: controller.artist().relations?.latestAlbums,
-                          onSelect: this._onTapAlbum,
+                          onSelect: (al) => this._onTapAlbum(al),
                         ),
                       ),
                       Divider(),
@@ -243,6 +240,7 @@ class ArtistDetailPageView extends StatelessWidget {
                         child: AlbumListView(
                           scrollDirection: Axis.horizontal,
                           albums: controller.artist().relations?.popularAlbums,
+                          onSelect: (al) => this._onTapAlbum(al),
                         ),
                       ),
                       Divider(),

@@ -18,20 +18,8 @@ class CustomNetworkImage extends StatelessWidget {
 
   final double height;
 
-  /// A string value to give unique tag on hero widget. Hero widget will be used if value is not empty.
-  final String prefixHeroTag;
-
-  /// A string unique value give to hero widget. Use [imageUrl] instead if is Null.
-  final String heroTag;
-
   const CustomNetworkImage(this.imageUrl,
-      {this.placeholder,
-      this.errorWidget,
-      this.fit,
-      this.width,
-      this.height,
-      this.prefixHeroTag = '',
-      this.heroTag});
+      {this.placeholder, this.errorWidget, this.fit, this.width, this.height});
 
   Widget _buildImage() {
     return CachedNetworkImage(
@@ -54,13 +42,6 @@ class CustomNetworkImage extends StatelessWidget {
       return Placeholder();
     }
 
-    if (prefixHeroTag.isNotEmpty) {
-      return Hero(
-        tag: '${this.prefixHeroTag}_${this.heroTag ?? this.imageUrl}',
-        child: this._buildImage(),
-      );
-    } else {
-      return this._buildImage();
-    }
+    return this._buildImage();
   }
 }

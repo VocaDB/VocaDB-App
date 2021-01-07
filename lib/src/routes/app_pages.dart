@@ -35,6 +35,7 @@ class AppPages {
         name: Routes.ALBUMS,
         page: () => AlbumSearchPage(),
         binding: AlbumSearchBinding()),
+    GetPage(name: Routes.ALBUMS_DETAIL, page: () => AlbumDetailPage()),
     GetPage(
         name: Routes.TAGS,
         page: () => TagSearchPage(),
@@ -46,15 +47,18 @@ class AppPages {
         binding: EntrySearchBinding()),
   ];
 
-  static toSongDetailPage(SongModel song, {String prefixHeroTag}) {
+  static toSongDetailPage(SongModel song) {
     Get.toNamed('/songs/${song.id}',
-        arguments: SongDetailArgs(
-            id: song.id, song: song, prefixHeroTag: prefixHeroTag));
+        arguments: SongDetailArgs(id: song.id, song: song));
   }
 
-  static toArtistDetailPage(ArtistModel artist, {String prefixHeroTag}) {
+  static toArtistDetailPage(ArtistModel artist) {
     Get.toNamed('/artists/${artist.id}',
-        arguments: ArtistDetailArgs(
-            id: artist.id, artist: artist, prefixHeroTag: prefixHeroTag));
+        arguments: ArtistDetailArgs(id: artist.id, artist: artist));
+  }
+
+  static toAlbumDetailPage(AlbumModel album) {
+    Get.toNamed('/albums/${album.id}',
+        arguments: AlbumDetailArgs(id: album.id, album: album));
   }
 }

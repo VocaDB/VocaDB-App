@@ -24,9 +24,11 @@ class AlbumCard extends StatelessWidget {
 
   const AlbumCard({this.name, this.artistName, this.imageUrl, this.onTap});
 
-  /// Create SongCard widget by SongModel
-  AlbumCard.album(AlbumModel album, {this.onTap})
-      : this.name = album.name,
+  /// Create AlbumCard widget by AlbumModel
+  AlbumCard.album(
+    AlbumModel album, {
+    this.onTap,
+  })  : this.name = album.name,
         this.artistName = album.artistString,
         this.imageUrl = album.imageUrl;
 
@@ -46,7 +48,9 @@ class AlbumCard extends StatelessWidget {
                 color: Colors.black,
                 child: FittedBox(
                     fit: BoxFit.fitWidth,
-                    child: CustomNetworkImage(this.imageUrl)),
+                    child: CustomNetworkImage(
+                      this.imageUrl,
+                    )),
               ),
               SpaceDivider.micro(),
               Container(

@@ -27,6 +27,18 @@ class AlbumRepository extends RestApiRepository {
         .then((items) => AlbumModel.jsonToList(items));
   }
 
+  /// Gets a album by Id.
+  Future<AlbumModel> getById(int id, {String lang = 'Default'}) {
+    final Map<String, String> params = Map();
+    params['fields'] =
+        'Tags,MainPicture,Tracks,AdditionalNames,Artists,Description,WebLinks,PVs';
+    params['songFields'] = 'MainPicture,PVs,ThumbUrl';
+    params['lang'] = lang;
+    return super
+        .getObject('/api/albums/$id', params)
+        .then((i) => AlbumModel.fromJson(i));
+  }
+
   /// Gets list of upcoming or recent albums, same as front page.
   Future<List<AlbumModel>> getNew({String lang = 'Default'}) async {
     final String endpoint = '/api/albums/new';

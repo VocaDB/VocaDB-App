@@ -1,10 +1,50 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:share/share.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:vocadb_app/arguments.dart';
+import 'package:vocadb_app/controllers.dart';
 import 'package:vocadb_app/models.dart';
 import 'package:vocadb_app/pages.dart';
+import 'package:vocadb_app/repositories.dart';
+import 'package:vocadb_app/routes.dart';
+import 'package:vocadb_app/services.dart';
 import 'package:vocadb_app/widgets.dart';
 
 class AlbumDetailPage extends StatelessWidget {
+  initController() {
+    final httpService = Get.find<HttpService>();
+    return AlbumDetailController(
+        albumRepository: AlbumRepository(httpService: httpService));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final AlbumDetailController controller = initController();
+    final AlbumDetailArgs args = Get.arguments;
+    final String id = Get.parameters['id'];
+
+    return PageBuilder<AlbumDetailController>(
+      tag: "al_$id",
+      controller: controller,
+      builder: (c) => AlbumDetailPageView(controller: c, args: args),
+    );
+  }
+}
+
+class AlbumDetailPageView extends StatelessWidget {
+  final AlbumDetailController controller;
+
+  final AlbumDetailArgs args;
+
+  const AlbumDetailPageView({this.controller, this.args});
+
+  void _onTapTrack(TrackModel track) => AppPages.toSongDetailPage(track.song);
+
+  void _onTapShareButton() => Share.share(controller.album().originUrl);
+
+  void _onTapInfoButton() => launch(controller.album().originUrl);
+
   void _onTapHome() => Get.offAll(MainPage());
 
   void _onTapEntrySearch() => Get.to(EntrySearchPage());
@@ -19,7 +59,7 @@ class AlbumDetailPage extends StatelessWidget {
       slivers: [
         SliverAppBar(
           floating: true,
-          title: Text('Album detail'),
+          title: Text(controller.album().name),
           actions: [
             IconButton(
               icon: Icon(Icons.search),
@@ -31,132 +71,91 @@ class AlbumDetailPage extends StatelessWidget {
             )
           ],
         ),
-        SliverList(
-            delegate: SliverChildListDelegate([
-          SizedBox(
-            width: 160,
-            height: 160,
-            child: CustomNetworkImage(
-                'https://vocadb.net/Album/CoverPicture/79?v=22'),
-          ),
-          SpaceDivider.small(),
-          Column(
-            children: [
-              Text('4.8 ★ (26)'),
-              SpaceDivider.small(),
-              Text(
-                'アンハッピーリフレイン',
-                style: Theme.of(context).textTheme.headline6,
+        Obx(
+          () => SliverList(
+              delegate: SliverChildListDelegate([
+            SizedBox(
+              width: 160,
+              height: 160,
+              child: CustomNetworkImage(
+                controller.album().imageUrl,
               ),
-              Text('wowaka feat. various'),
-              SpaceDivider.micro(),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Original album • Released at 2020-01-01',
-                    style: Theme.of(context).textTheme.caption,
-                  ),
-                ],
-              )
-            ],
-          ),
-          SpaceDivider.micro(),
-          _AlbumDetailButtonBar(),
-          TagGroupView(
-            onPressed: (tag) => {},
-            tags: [
-              TagModel(name: 'alternative rock'),
-              TagModel(name: 'sad'),
-              TagModel(name: 'rock'),
-              TagModel(name: 'remaster'),
-              TagModel(name: 'electric guitar'),
-              TagModel(name: 'J-rock'),
-              TagModel(name: 'inner conflict'),
-              TagModel(name: 'YouTube Premium')
-            ],
-          ),
-          ExpandableContent(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            ),
+            SpaceDivider.small(),
+            Column(
               children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: TextInfoSection(
-                    title: 'Name',
-                    text: 'ABC',
-                  ),
+                Visibility(
+                  visible: controller.album().ratingCount > 0,
+                  child: Text(
+                      '${controller.album().ratingAverage} ★ (${controller.album().ratingCount})'),
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: TextInfoSection(
-                    title: 'Description',
-                    text: 'ABC description',
-                  ),
+                SpaceDivider.small(),
+                Text(
+                  controller.album().name,
+                  style: Theme.of(context).textTheme.headline6,
+                  maxLines: 2,
+                  textAlign: TextAlign.center,
                 ),
-                Divider(),
-                ArtistGroupByRoleList.fromArtistAlbumModel(
-                  onTap: this._onTapArtist,
-                  artistAlbums: [
-                    ArtistAlbumModel(
-                        id: 661,
-                        categories: 'Producer',
-                        roles: 'Default',
-                        name: 'wowaka',
-                        artist: ArtistModel(id: 53, artistType: 'Producer')),
-                    ArtistAlbumModel(
-                        id: 662,
-                        categories: 'Vocalist',
-                        effectiveRoles: 'Default',
-                        roles: 'Default',
-                        name: '初音ミク',
-                        artist: ArtistModel(id: 1, artistType: 'Vocaloid'))
+                SpaceDivider.small(),
+                Text(controller.album().artistString),
+                SpaceDivider.micro(),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      '${controller.album().discType} • Released at ${controller.album().releaseDateFormatted}',
+                      style: Theme.of(context).textTheme.caption,
+                    ),
                   ],
-                ),
+                )
               ],
             ),
-          ),
-          Divider(),
-          TrackListView(
-            tracks: [
-              TrackModel(
-                discNumber: 1,
-                trackNumber: 1,
-                name: 'アンハッピーリフレイン',
-                song: SongModel(artistString: 'wowaka feat. 初音ミク'),
+            SpaceDivider.micro(),
+            _AlbumDetailButtonBar(
+              onTapInfoButton: this._onTapInfoButton,
+              onTapShareButton: this._onTapShareButton,
+            ),
+            TagGroupView(
+              onPressed: (tag) => {},
+              tags: controller.album().tags,
+            ),
+            ExpandableContent(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: TextInfoSection(
+                      title: 'Name',
+                      text: controller.album().name,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: TextInfoSection(
+                      title: 'Description',
+                      text: controller.album().description,
+                    ),
+                  ),
+                  Divider(),
+                  ArtistGroupByRoleList.fromArtistAlbumModel(
+                    onTap: this._onTapArtist,
+                    artistAlbums: controller.album().artists,
+                    // prefixHeroTag: 'album_detail_${args.id}',
+                  ),
+                ],
               ),
-              TrackModel(
-                discNumber: 1,
-                trackNumber: 2,
-                name: 'ローリンガール',
-                song: SongModel(artistString: 'wowaka feat. 初音ミク'),
-              ),
-              TrackModel(
-                discNumber: 2,
-                trackNumber: 1,
-                name: '裏表ラバーズ remix by キャプテンミライ',
-                song: SongModel(artistString: 'キャプテンミライ feat. 初音ミク'),
-              )
-            ],
-          ),
-          Divider(),
-          WebLinkGroupList(webLinks: [
-            WebLinkModel(
-                description: 'NicoNicoPedia',
-                category: 'Reference',
-                url: 'https://dic.nicovideo.jp/v/sm9714351'),
-            WebLinkModel(
-                category: 'Reference',
-                description: 'UtaiteDB',
-                url: 'http://utaitedb.net/S/2860'),
-            WebLinkModel(
-                category: 'Official',
-                description: 'Pixiv (Illustration)',
-                url:
-                    'https://www.pixiv.net/member_illust.php?mode=medium&illust_id=10324371')
-          ]),
-          SpaceDivider.medium()
-        ]))
+            ),
+            Divider(),
+            TrackListView(
+              tracks: controller.album().tracks,
+              onSelect: this._onTapTrack,
+            ),
+            Divider(),
+            WebLinkGroupList(webLinks: controller.album().webLinks),
+            SpaceDivider.medium()
+          ])),
+        )
       ],
     ));
   }

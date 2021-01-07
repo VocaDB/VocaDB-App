@@ -34,7 +34,10 @@ class AlbumTile extends StatelessWidget {
       leading: SizedBox(
         width: imageSize,
         height: imageSize,
-        child: CustomNetworkImage(this.imageUrl, fit: BoxFit.fill),
+        child: CustomNetworkImage(
+          this.imageUrl,
+          fit: BoxFit.fill,
+        ),
       ),
       title: Text(this.name, overflow: TextOverflow.ellipsis),
       subtitle: Text(this.artist, overflow: TextOverflow.ellipsis),

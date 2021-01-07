@@ -9,7 +9,6 @@ class SongListView extends StatelessWidget {
       this.songs,
       this.scrollDirection = Axis.vertical,
       this.onSelect,
-      this.prefixHeroTag = '',
       this.displayPlaceholder = false})
       : super(key: key);
 
@@ -25,9 +24,6 @@ class SongListView extends StatelessWidget {
   /// Set to True for display list of placeholders.
   final bool displayPlaceholder;
 
-  /// A string value to give unique tag on hero widget. Hero widget will be used if value is not empty.
-  final String prefixHeroTag;
-
   /// Height of list content widget if set as horizontal.
   static const double _rowHeight = 180;
 
@@ -35,13 +31,11 @@ class SongListView extends StatelessWidget {
   Widget _verticalItemBuilder(BuildContext context, int index) => SongTile.song(
         this.songs[index],
         onTap: () => this.onSelect(this.songs[index]),
-        prefixHeroTag: this.prefixHeroTag,
       );
 
   /// Return item for display in horizontal list
   Widget _horizontalItemBuilder(BuildContext context, int index) =>
       SongCard.song(this.songs[index],
-          prefixHeroTag: this.prefixHeroTag,
           onTap: () => this.onSelect(this.songs[index]));
 
   @override

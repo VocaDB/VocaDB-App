@@ -26,9 +26,6 @@ class SongTile extends StatelessWidget {
   /// A widget that display on leftmost side
   final Widget leading;
 
-  /// A string value to give unique tag on hero widget. Hero widget will be used if value is not empty.
-  final String prefixHeroTag;
-
   /// A string unique value give to hero widget. Use [imageUrl] instead if is Null.
   final String heroTag;
 
@@ -46,12 +43,10 @@ class SongTile extends StatelessWidget {
       this.hasPV = false,
       this.leading,
       this.onTap,
-      this.prefixHeroTag = '',
       this.heroTag});
 
   /// Create SongTile widget by SongModel
-  SongTile.song(SongModel song,
-      {this.onTap, this.leading, this.prefixHeroTag = '', this.heroTag})
+  SongTile.song(SongModel song, {this.onTap, this.leading, this.heroTag})
       : this.name = song.name,
         this.artistName = song.artistString,
         this.songType = song.songType,
@@ -60,7 +55,7 @@ class SongTile extends StatelessWidget {
 
   /// Create SongTile widget by EntryModel
   SongTile.fromEntry(EntryModel entryModel,
-      {this.onTap, this.leading, this.prefixHeroTag = '', this.heroTag})
+      {this.onTap, this.leading, this.heroTag})
       : this.name = entryModel.name,
         this.artistName = entryModel.artistString,
         this.songType = entryModel.songType,
@@ -83,8 +78,6 @@ class SongTile extends StatelessWidget {
         ? CustomNetworkImage(
             this.thumbUrl,
             fit: BoxFit.cover,
-            prefixHeroTag: this.prefixHeroTag,
-            heroTag: this.heroTag,
           )
         : Icon(Icons.music_note);
 

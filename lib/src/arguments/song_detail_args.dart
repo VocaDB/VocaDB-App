@@ -7,8 +7,5 @@ class SongDetailArgs {
   /// Optional song data for pre-display before fetch.
   final SongModel song;
 
-  /// A prefix hero tag string value from previous page for hero image.
-  final String prefixHeroTag;
-
-  const SongDetailArgs({this.id, this.song, this.prefixHeroTag});
+  const SongDetailArgs({this.id, this.song});
 }

@@ -12,6 +12,10 @@ class TrackListView extends StatelessWidget {
   const TrackListView({this.tracks, this.onSelect});
 
   Widget _mapTrackModel(TrackModel t) {
+    if (t.song == null) {
+      return TrackTile.fromTrackModel(t);
+    }
+
     return TrackTile.fromTrackModel(
       t,
       onTap: () => this.onSelect(t),

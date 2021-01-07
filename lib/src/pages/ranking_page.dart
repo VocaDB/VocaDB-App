@@ -27,8 +27,7 @@ class _RankingPageState extends State<RankingPage>
     _tabController.addListener(onTabChanged);
   }
 
-  void _onTabSong(SongModel song, String prefixHeroTag) =>
-      AppPages.toSongDetailPage(song, prefixHeroTag: prefixHeroTag);
+  void _onTabSong(SongModel song) => AppPages.toSongDetailPage(song);
 
   void onTabChanged() {
     int currentIndex = _tabController.index;
@@ -69,32 +68,28 @@ class _RankingPageState extends State<RankingPage>
     if (constRankings.contains('daily')) {
       contents.add(Obx(() => SongListView(
             songs: _rankingController.daily.toList(),
-            onSelect: (s) => this._onTabSong(s, 'daily'),
-            prefixHeroTag: 'daily',
+            onSelect: (s) => this._onTabSong(s),
           )));
     }
 
     if (constRankings.contains('weekly')) {
       contents.add(Obx(() => SongListView(
             songs: _rankingController.weekly.toList(),
-            onSelect: (s) => this._onTabSong(s, 'weekly'),
-            prefixHeroTag: 'weekly',
+            onSelect: (s) => this._onTabSong(s),
           )));
     }
 
     if (constRankings.contains('monthly')) {
       contents.add(Obx(() => SongListView(
             songs: _rankingController.monthly.toList(),
-            onSelect: (s) => this._onTabSong(s, 'monthly'),
-            prefixHeroTag: 'monthly',
+            onSelect: (s) => this._onTabSong(s),
           )));
     }
 
     if (constRankings.contains('overall')) {
       contents.add(Obx(() => SongListView(
             songs: _rankingController.overall.toList(),
-            onSelect: (s) => this._onTabSong(s, 'overall'),
-            prefixHeroTag: 'overall',
+            onSelect: (s) => this._onTabSong(s),
           )));
     }
 

@@ -59,6 +59,8 @@ class AlbumModel extends EntryModel {
       ? mainPicture.urlThumb
       : '$baseUrl/Album/CoverPicture/$id';
 
+  String get originUrl => '$baseUrl/Al/${this.id}';
+
   String get releaseDateFormatted => releaseDate.formatted;
 
   bool get isContainsYoutubeTrack =>
