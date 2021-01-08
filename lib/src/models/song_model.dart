@@ -17,6 +17,7 @@ class SongModel extends EntryModel {
       String name,
       String songType,
       String artistString,
+      this.pvs,
       this.thumbUrl})
       : super(
             id: id,

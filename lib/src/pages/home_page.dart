@@ -61,6 +61,17 @@ class HomePage extends GetView<HomePageController> {
       SpaceDivider.small(),
       Section(
         title: 'Highlighted',
+        actions: [
+          PopupMenuButton<String>(
+            icon: Icon(Icons.more_horiz),
+            onSelected: (String selectedValue) => AppPages.openPVPlayListPage(
+                controller.highlighted(),
+                title: 'Highlighted'),
+            itemBuilder: (BuildContext context) => [
+              PopupMenuItem<String>(value: 'playall', child: Text('Play all')),
+            ],
+          )
+        ],
         child: Obx(() => SongListView(
             displayPlaceholder: controller.highlighted.isEmpty,
             scrollDirection: Axis.horizontal,

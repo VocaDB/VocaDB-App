@@ -4,14 +4,17 @@ class PVModel {
   String service;
   String url;
   String pvType;
+  int length;
 
-  PVModel({this.id, this.name, this.service, this.url, this.pvType});
+  PVModel(
+      {this.id, this.name, this.service, this.url, this.pvType, this.length});
 
   PVModel.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         name = json['name'],
         service = json['service'],
         pvType = json['pvType'],
+        length = json['length'],
         url = json['url'];
 
   Map<String, dynamic> toJson() {
@@ -20,6 +23,7 @@ class PVModel {
       'name': name,
       'service': service,
       'url': url,
+      'length': length,
       'pvType': pvType,
     };
   }

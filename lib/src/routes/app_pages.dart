@@ -75,4 +75,10 @@ class AppPages {
     Get.toNamed('/release-events/${event.id}',
         arguments: ReleaseEventDetailArgs(id: event.id, event: event));
   }
+
+  static openPVPlayListPage(List<SongModel> songs,
+      {String title = 'Playlist'}) {
+    Get.to(PVPlaylistPage(),
+        arguments: PVPlayListArgs(songs: songs, title: title));
+  }
 }

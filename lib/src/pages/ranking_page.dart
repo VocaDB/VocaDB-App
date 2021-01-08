@@ -96,6 +96,37 @@ class _RankingPageState extends State<RankingPage>
     return contents;
   }
 
+  _onTapPlaylist() {
+    int currentIndex = _tabController.index;
+
+    String selected = constRankings[currentIndex];
+
+    List<SongModel> songs = [];
+    String title = ' Playlist';
+    switch (selected) {
+      case 'daily':
+        title = 'Daily';
+        songs = _rankingController.daily();
+        break;
+      case 'weekly':
+        title = 'Weekly';
+        songs = _rankingController.weekly();
+        break;
+      case 'monthly':
+        title = 'Monthly';
+        songs = _rankingController.monthly();
+        break;
+      case 'overall':
+        title = 'Overall';
+        songs = _rankingController.overall();
+        break;
+    }
+
+    if (songs.isNotEmpty) {
+      AppPages.openPVPlayListPage(songs, title: title);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -109,7 +140,7 @@ class _RankingPageState extends State<RankingPage>
             children: _generateRankingContent(),
           ),
           floatingActionButton: FloatingActionButton(
-              onPressed: () => Get.to(PVPlaylistPage()),
+              onPressed: () => this._onTapPlaylist(),
               child: Icon(Icons.play_arrow))),
     );
   }
