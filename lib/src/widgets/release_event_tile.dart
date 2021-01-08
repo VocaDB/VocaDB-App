@@ -38,8 +38,7 @@ class ReleaseEventTile extends StatelessWidget {
       : this.name = releaseEventModel.name,
         this.venueName = releaseEventModel.venueName,
         this.imageUrl = releaseEventModel.imageUrl,
-        this.category =
-            releaseEventModel.category ?? releaseEventModel.eventCategory,
+        this.category = releaseEventModel.displayCategory,
         this.startDate = DateTime.now(),
         this.endDate = null;
 

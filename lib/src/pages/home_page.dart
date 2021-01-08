@@ -12,9 +12,8 @@ class HomePage extends GetView<HomePageController> {
 
   void _onTapAlbum(AlbumModel album) => AppPages.toAlbumDetailPage(album);
 
-  void _onTapReleaseEvent(ReleaseEventModel releaseEventModel) {
-    Get.to(ReleaseEventDetailPage());
-  }
+  void _onTapReleaseEvent(ReleaseEventModel releaseEventModel) =>
+      AppPages.toReleaseEventDetailPage(releaseEventModel);
 
   void _onTapSongSearchIcon() => Get.toNamed(Routes.SONGS);
 

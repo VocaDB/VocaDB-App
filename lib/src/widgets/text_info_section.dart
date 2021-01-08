@@ -4,12 +4,19 @@ import 'package:flutter/material.dart';
 class TextInfoSection extends StatelessWidget {
   final String title;
 
+  /// A string value to display. Return empty container if [text] value is null or empty.
   final String text;
 
   final double horizontalPadding;
 
+  final Widget divider;
+
   const TextInfoSection(
-      {Key key, this.title, this.text, this.horizontalPadding = 16.0})
+      {Key key,
+      this.title,
+      this.text,
+      this.horizontalPadding = 16.0,
+      this.divider})
       : super(key: key);
 
   @override
@@ -28,6 +35,7 @@ class TextInfoSection extends StatelessWidget {
             style: Theme.of(context).textTheme.caption,
           ),
           Text(text),
+          divider ?? Container()
         ],
       ),
     );

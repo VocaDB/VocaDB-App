@@ -25,6 +25,9 @@ class AppPages {
         page: () => ReleaseEventSearchPage(),
         binding: ReleaseEventSearchBinding()),
     GetPage(
+        name: Routes.RELEASE_EVENTS_DETAIL,
+        page: () => ReleaseEventDetailPage()),
+    GetPage(
         name: Routes.ARTISTS_SELECTOR,
         page: () => ArtistSearchPage(
               enableFilter: false,
@@ -66,5 +69,10 @@ class AppPages {
   static toTagDetailPage(TagModel tag) {
     Get.toNamed('/tags/${tag.id}',
         arguments: TagDetailArgs(id: tag.id, tag: tag));
+  }
+
+  static toReleaseEventDetailPage(ReleaseEventModel event) {
+    Get.toNamed('/release-events/${event.id}',
+        arguments: ReleaseEventDetailArgs(id: event.id, event: event));
   }
 }

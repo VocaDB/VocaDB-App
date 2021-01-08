@@ -50,8 +50,6 @@ class Section extends StatelessWidget {
   Widget build(BuildContext context) {
     if (visible == null || !visible) return Container();
 
-    print('$title - $visible');
-
     List<Widget> children = [_headerBuilder(context), child];
 
     if (divider != null) {

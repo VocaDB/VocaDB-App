@@ -12,5 +12,6 @@ class Routes {
   static const ALBUMS = '/albums';
   static const ALBUMS_DETAIL = '/albums/:id';
   static const RELEASE_EVENTS = '/release-events';
+  static const RELEASE_EVENTS_DETAIL = '/release-events/:id';
   static const ENTRIES = '/entries';
 }

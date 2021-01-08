@@ -21,6 +21,7 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
+  flutter_markdown: ^0.5.2
   path_provider: ^1.6.24
   cookie_jar: ^1.0.1
   dio_http_cache: ^0.2.11

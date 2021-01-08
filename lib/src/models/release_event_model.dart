@@ -1,4 +1,5 @@
 import 'package:intl/intl.dart';
+import 'package:vocadb_app/constants.dart';
 import 'package:vocadb_app/models.dart';
 import 'package:vocadb_app/utils.dart';
 
@@ -13,10 +14,12 @@ class ReleaseEventModel extends EntryModel {
   List<ArtistEventModel> artists;
 
   ReleaseEventModel({
+    int id,
     String name,
     String eventCategory,
     MainPictureModel mainPicture,
   }) : super(
+            id: id,
             name: name,
             eventCategory: eventCategory,
             mainPicture: mainPicture,
@@ -47,4 +50,6 @@ class ReleaseEventModel extends EntryModel {
 
   String get dateFormatted =>
       (date == null) ? null : DateFormat('yyyy-MM-dd').format(date);
+
+  String get originUrl => '$baseUrl/E/${this.id}';
 }

@@ -7,12 +7,22 @@ class InfoSection extends StatelessWidget {
 
   final double horizontalPadding;
 
+  final bool visible;
+
   const InfoSection(
-      {Key key, this.title, this.child, this.horizontalPadding = 16.0})
+      {Key key,
+      this.title,
+      this.child,
+      this.horizontalPadding = 16.0,
+      this.visible = true})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    if (this.visible == null || !this.visible) return Container();
+
+    print('$title - $visible');
+
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: this.horizontalPadding),
       child: Column(

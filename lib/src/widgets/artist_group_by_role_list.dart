@@ -7,10 +7,16 @@ class ArtistGroupByRoleList extends StatelessWidget {
   final List<ArtistRoleModel> artistRoles;
 
   final Function(ArtistRoleModel) onTap;
-  const ArtistGroupByRoleList({@required this.artistRoles, this.onTap});
+
+  final bool displayRole;
+
+  const ArtistGroupByRoleList(
+      {@required this.artistRoles, this.onTap, this.displayRole = true});
 
   ArtistGroupByRoleList.fromArtistSongModel(
-      {@required List<ArtistSongModel> artistSongs, this.onTap})
+      {@required List<ArtistSongModel> artistSongs,
+      this.onTap,
+      this.displayRole = true})
       : artistRoles = artistSongs
             .map((e) => ArtistRoleModel(
                 id: e.artistId,
@@ -20,11 +26,25 @@ class ArtistGroupByRoleList extends StatelessWidget {
             .toList();
 
   ArtistGroupByRoleList.fromArtistAlbumModel(
-      {@required List<ArtistAlbumModel> artistAlbums, this.onTap})
+      {@required List<ArtistAlbumModel> artistAlbums,
+      this.onTap,
+      this.displayRole = true})
       : artistRoles = artistAlbums
             .map((e) => ArtistRoleModel(
                 id: e.artistId,
                 name: e.name,
+                imageUrl: e.artistImageUrl,
+                role: e.artistRole))
+            .toList();
+
+  ArtistGroupByRoleList.fromArtistEventModel(
+      {@required List<ArtistEventModel> artistEvents,
+      this.onTap,
+      this.displayRole = true})
+      : artistRoles = artistEvents
+            .map((e) => ArtistRoleModel(
+                id: e.artistId,
+                name: e.artistName,
                 imageUrl: e.artistImageUrl,
                 role: e.artistRole))
             .toList();
@@ -42,23 +62,26 @@ class ArtistGroupByRoleList extends StatelessWidget {
     });
 
     if (producers.isNotEmpty) {
-      items.add(ListTile(
-        title: Text('Producers'),
-      ));
+      if (displayRole)
+        items.add(ListTile(
+          title: Text('Producers'),
+        ));
       items.addAll(producers.map(_mapArtistTile));
     }
 
     if (vocalists.isNotEmpty) {
-      items.add(ListTile(
-        title: Text('Vocalists'),
-      ));
+      if (displayRole)
+        items.add(ListTile(
+          title: Text('Vocalists'),
+        ));
       items.addAll(vocalists.map(_mapArtistTile));
     }
 
     if (others.isNotEmpty) {
-      items.add(ListTile(
-        title: Text('Others'),
-      ));
+      if (displayRole)
+        items.add(ListTile(
+          title: Text('Others'),
+        ));
       items.addAll(others.map(_mapOtherArtistTile));
     }
 

@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vocadb_app/controllers.dart';
+import 'package:vocadb_app/models.dart';
 import 'package:vocadb_app/pages.dart';
+import 'package:vocadb_app/routes.dart';
 import 'package:vocadb_app/widgets.dart';
 
 class ReleaseEventSearchPage extends GetView<ReleaseEventSearchController> {
+  void _onTapReleaseEvent(ReleaseEventModel releaseEventModel) =>
+      AppPages.toReleaseEventDetailPage(releaseEventModel);
+
   Widget _buildTextInput(BuildContext context) {
     return Row(
       children: <Widget>[
@@ -54,6 +59,7 @@ class ReleaseEventSearchPage extends GetView<ReleaseEventSearchController> {
         body: Obx(
           () => ReleaseEventListView(
             events: controller.results.toList(),
+            onSelect: this._onTapReleaseEvent,
           ),
         ));
   }

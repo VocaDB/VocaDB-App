@@ -10,6 +10,8 @@ class ReleaseEventSeriesTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (this.name == null || this.name.isEmpty) return Container();
+
     return ListTile(
         onTap: this.onTap,
         leading: Icon(Icons.calendar_today),
