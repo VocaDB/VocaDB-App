@@ -4,6 +4,7 @@ import 'package:vocadb_app/bindings.dart';
 import 'package:vocadb_app/pages.dart';
 import 'package:vocadb_app/services.dart';
 import 'package:vocadb_app/routes.dart';
+import 'package:vocadb_app/utils.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -13,8 +14,14 @@ Future<void> main() async {
 
 void initServices() async {
   print('starting services ...');
-  await Get.putAsync(() => HttpService().init()).then((value) =>
-      Get.put(() => AuthService(httpService: value)..checkCurrenUser()));
+  final appDirectory = AppDirectory();
+  final httpService = HttpService(appDirectory: appDirectory);
+
+  await Get.putAsync(() => appDirectory.init());
+  await Get.putAsync(() => httpService.init());
+  await Get.putAsync(() =>
+      AuthService(httpService: httpService, appDirectory: appDirectory)
+          .checkCurrentUser());
   print('All services started...');
 }
 

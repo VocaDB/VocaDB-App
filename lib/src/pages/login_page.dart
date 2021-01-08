@@ -12,7 +12,7 @@ class LoginPage extends GetView<LoginPageController> {
       padding: EdgeInsets.fromLTRB(8.0, 32.0, 8.0, 32.0),
       child: Column(
         children: [
-          Text('Demo Login'),
+          Text('VocaDB 3.1 Demo'),
           SpaceDivider.medium(),
           TextField(
             onChanged: controller.username,

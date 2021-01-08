@@ -1,13 +1,17 @@
 import 'package:dio/dio.dart';
+import 'package:get/get.dart';
 import 'package:vocadb_app/models.dart';
 import 'package:vocadb_app/services.dart';
+import 'package:vocadb_app/utils.dart';
 
-class AuthService {
+class AuthService extends GetxService {
   final HttpService httpService;
 
-  UserModel currentUser;
+  final AppDirectory appDirectory;
 
-  AuthService({this.httpService});
+  final currentUser = UserModel().obs;
+
+  AuthService({this.httpService, this.appDirectory});
 
   Future<UserCookie> login({
     String username,
@@ -16,18 +20,17 @@ class AuthService {
     return await httpService.login(username, password);
   }
 
-  Future<void> checkCurrenUser() async {
+  Future<AuthService> checkCurrentUser() async {
     print('check current user');
-    this.getCurrent().then(updateCurrentUser).catchError(print);
+    this.getCurrent().then(currentUser).catchError(print);
+    return this;
   }
-
-  void updateCurrentUser(UserModel user) => currentUser = user;
 
   Future<UserModel> getCurrent() async {
     try {
       UserModel us = await httpService.get('/api/users/current',
           {'fields': 'MainPicture'}).then((item) => UserModel.fromJson(item));
-
+      print('current user : $us');
       return us;
     } catch (e) {
       if (e is DioError && e.response.statusCode == 404) {
@@ -35,7 +38,14 @@ class AuthService {
         return null;
       }
 
+      print('Unknown error from get current user $e');
+
       throw e;
     }
+  }
+
+  Future<void> logout() async {
+    appDirectory.clearCookies();
+    currentUser(new UserModel());
   }
 }

@@ -11,17 +11,20 @@ import 'package:vocadb_app/utils.dart';
 
 class HttpService extends GetxService {
   Dio _dio;
+  AppDirectory _appDirectory;
 
-  HttpService({Dio dio}) : this._dio = dio;
+  HttpService({Dio dio, AppDirectory appDirectory})
+      : this._dio = dio,
+        this._appDirectory = appDirectory;
 
   Future<HttpService> init() async {
-    AppDirectory appDirectory = AppDirectory(
-        applicationDocument: await getApplicationDocumentsDirectory());
+    // AppDirectory appDirectory = AppDirectory(
+    //     applicationDocument: await getApplicationDocumentsDirectory());
     _dio = Dio();
     _dio.interceptors
         .add(DioCacheManager(CacheConfig(baseUrl: baseUrl)).interceptor);
     _dio.interceptors.add(CookieManager(
-        PersistCookieJar(dir: appDirectory.cookiesDirectory.path)));
+        PersistCookieJar(dir: _appDirectory.cookiesDirectory.path)));
     return this;
   }
 

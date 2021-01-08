@@ -1,25 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vocadb_app/pages.dart';
+import 'package:vocadb_app/services.dart';
 
 class MenuPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final AuthService authService = Get.find();
     return Scaffold(
       body: ListView(
         children: [
-          ListTile(
-            leading: CircleAvatar(
-              backgroundImage: NetworkImage(
-                  'https://www.gravatar.com/avatar/4ec0368f4caddce464a7c513c0b73f80?s=120'),
-            ),
-            title: Text('up2up'),
+          Obx(
+            () => Visibility(
+                visible: authService.currentUser().id != null,
+                child: ListTile(
+                  leading: CircleAvatar(
+                    backgroundImage: NetworkImage(authService
+                            .currentUser()
+                            .imageUrl ??
+                        'https://via.placeholder.com/150x150?text=no_image'),
+                  ),
+                  title: Text(authService.currentUser().name ?? 'Unknown'),
+                )),
           ),
-          ListTile(
-            leading: Icon(Icons.login),
-            title: Text('Log in'),
-            onTap: () => Get.off(LoginPage()),
-          ),
+          Obx(() => Visibility(
+                visible: authService.currentUser().id == null,
+                child: ListTile(
+                  leading: Icon(Icons.login),
+                  title: Text('Log in'),
+                  onTap: () => Get.off(LoginPage()),
+                ),
+              )),
           ListTile(
             leading: Icon(Icons.library_music),
             title: Text('Favorite songs'),
@@ -50,11 +61,17 @@ class MenuPage extends StatelessWidget {
             title: Text('Version'),
             subtitle: Text('3.1'),
           ),
-          ListTile(
-            leading: Icon(Icons.logout),
-            title: Text('Log out'),
-            onTap: () => Get.off(LoginPage()),
-          ),
+          Obx(() => Visibility(
+                visible: authService.currentUser().id != null,
+                child: ListTile(
+                  leading: Icon(Icons.logout),
+                  title: Text('Log out'),
+                  onTap: () {
+                    authService.logout();
+                    Get.off(LoginPage());
+                  },
+                ),
+              )),
         ],
       ),
     );
