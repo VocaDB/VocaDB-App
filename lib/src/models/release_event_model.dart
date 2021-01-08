@@ -40,6 +40,18 @@ class ReleaseEventModel extends EntryModel {
             json['artists'], (v) => ArtistEventModel.fromJson(v)),
         super.fromJson(json);
 
+  ReleaseEventModel.fromEntry(EntryModel entry)
+      : super(
+            id: entry.id,
+            name: entry.name,
+            artistString: entry.artistString,
+            songType: entry.songType,
+            mainPicture: entry.mainPicture,
+            discType: entry.discType,
+            eventCategory: entry.eventCategory,
+            artistType: entry.artistType,
+            entryType: EntryType.ReleaseEvent);
+
   static List<ReleaseEventModel> jsonToList(List items) {
     return items.map((i) => ReleaseEventModel.fromJson(i)).toList();
   }

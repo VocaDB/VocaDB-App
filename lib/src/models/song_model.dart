@@ -25,6 +25,18 @@ class SongModel extends EntryModel {
             songType: songType,
             entryType: EntryType.Song);
 
+  SongModel.fromEntry(EntryModel entry)
+      : super(
+            id: entry.id,
+            name: entry.name,
+            artistString: entry.artistString,
+            songType: entry.songType,
+            mainPicture: entry.mainPicture,
+            discType: entry.discType,
+            eventCategory: entry.eventCategory,
+            artistType: entry.artistType,
+            entryType: EntryType.Song);
+
   SongModel.fromJson(Map<String, dynamic> json)
       : thumbUrl = UrlUtils.toHttps(json['thumbUrl']),
         originalVersionId = json['originalVersionId'],

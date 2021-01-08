@@ -156,7 +156,7 @@ class ReleaseEventDetailPageView extends StatelessWidget {
                 Divider(),
                 Section(
                   title: 'Participating artists',
-                  visible: controller.event().artists.isNotEmpty,
+                  visible: controller.event().artists?.isNotEmpty,
                   child: ArtistGroupByRoleList.fromArtistEventModel(
                     artistEvents: controller.event().artists,
                     onTap: this._onTapArtist,

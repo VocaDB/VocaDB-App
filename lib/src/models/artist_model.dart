@@ -31,6 +31,18 @@ class ArtistModel extends EntryModel {
             (v) => (v is int) ? null : ArtistLinkModel.fromJson(v)),
         super.fromJson(json, entryType: EntryType.Artist);
 
+  ArtistModel.fromEntry(EntryModel entry)
+      : super(
+            id: entry.id,
+            name: entry.name,
+            artistString: entry.artistString,
+            songType: entry.songType,
+            mainPicture: entry.mainPicture,
+            discType: entry.discType,
+            eventCategory: entry.eventCategory,
+            artistType: entry.artistType,
+            entryType: EntryType.Artist);
+
   ArtistModel(
       {int id, String name, String artistType, MainPictureModel mainPicture})
       : super(

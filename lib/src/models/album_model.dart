@@ -37,6 +37,18 @@ class AlbumModel extends EntryModel {
             : null,
         super.fromJson(json, entryType: EntryType.Album);
 
+  AlbumModel.fromEntry(EntryModel entry)
+      : super(
+            id: entry.id,
+            name: entry.name,
+            artistString: entry.artistString,
+            songType: entry.songType,
+            mainPicture: entry.mainPicture,
+            discType: entry.discType,
+            eventCategory: entry.eventCategory,
+            artistType: entry.artistType,
+            entryType: EntryType.Album);
+
   static List<AlbumModel> jsonToList(List items) {
     return items.map((i) => AlbumModel.fromJson(i)).toList();
   }

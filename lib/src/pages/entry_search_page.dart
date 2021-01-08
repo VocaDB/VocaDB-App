@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vocadb_app/controllers.dart';
 import 'package:vocadb_app/models.dart';
+import 'package:vocadb_app/routes.dart';
 import 'package:vocadb_app/src/pages/entry_search_filter_page.dart';
 import 'package:vocadb_app/widgets.dart';
 
@@ -13,7 +14,28 @@ class EntrySearchPage extends GetView<EntrySearchController> {
   EntrySearchPage({this.selectionMode = false, this.enableFilter = true});
 
   void _onSelect(EntryModel entryModel) {
-    print(entryModel);
+    switch (entryModel.entryType) {
+      case EntryType.Song:
+        AppPages.toSongDetailPage(SongModel.fromEntry(entryModel));
+        break;
+
+      case EntryType.Artist:
+        AppPages.toArtistDetailPage(ArtistModel.fromEntry(entryModel));
+        break;
+
+      case EntryType.Album:
+        AppPages.toAlbumDetailPage(AlbumModel.fromEntry(entryModel));
+        break;
+
+      case EntryType.Tag:
+        AppPages.toTagDetailPage(TagModel.fromEntry(entryModel));
+        break;
+
+      case EntryType.ReleaseEvent:
+        AppPages.toReleaseEventDetailPage(
+            ReleaseEventModel.fromEntry(entryModel));
+        break;
+    }
   }
 
   Widget _buildTextInput(BuildContext context) {

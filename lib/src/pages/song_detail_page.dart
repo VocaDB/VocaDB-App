@@ -152,7 +152,8 @@ class SongDetailPageView extends StatelessWidget {
           _buildSongImage(),
           _SongDetailButtonBar(
             onTapLikeButton: this._onTapLikeButton,
-            onTapLyricButton: (controller.song().lyrics.isEmpty)
+            onTapLyricButton: (controller.song().lyrics == null ||
+                    controller.song().lyrics.isEmpty)
                 ? null
                 : this._onTapLyricButton,
             onTapShareButton: this._onTapShareButton,
