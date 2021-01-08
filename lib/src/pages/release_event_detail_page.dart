@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vocadb_app/models.dart';
 import 'package:vocadb_app/pages.dart';
+import 'package:vocadb_app/routes.dart';
 import 'package:vocadb_app/widgets.dart';
 
 class ReleaseEventDetailPage extends StatelessWidget {
-  void _onSelectTag(TagModel tag) {}
+  void _onSelectTag(TagModel tag) => AppPages.toTagDetailPage(tag);
 
   void _onTapLikeButton() {}
 
@@ -13,10 +14,13 @@ class ReleaseEventDetailPage extends StatelessWidget {
 
   void _onTapInfoButton() {}
 
-  void _onTapSong(SongModel song) {}
+  void _onTapSong(SongModel song) => AppPages.toSongDetailPage(song);
 
-  void _onTapArtist(ArtistRoleModel artistRoleModel) =>
-      Get.to(ArtistDetailPage());
+  void _onTapArtist(ArtistRoleModel a) =>
+      AppPages.toArtistDetailPage(ArtistModel(
+          id: a.id,
+          name: a.name,
+          mainPicture: MainPictureModel(urlThumb: a.imageUrl)));
 
   void _onTapHome() => Get.offAll(MainPage());
 

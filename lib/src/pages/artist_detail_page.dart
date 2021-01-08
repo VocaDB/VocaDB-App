@@ -39,7 +39,7 @@ class ArtistDetailPageView extends StatelessWidget {
 
   const ArtistDetailPageView({this.controller, this.args});
 
-  void _onSelectTag(TagModel tag) {}
+  void _onSelectTag(TagModel tag) => AppPages.toTagDetailPage(tag);
 
   void _onTapLikeButton() {}
 

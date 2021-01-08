@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vocadb_app/controllers.dart';
+import 'package:vocadb_app/models.dart';
 import 'package:vocadb_app/pages.dart';
+import 'package:vocadb_app/routes.dart';
 import 'package:vocadb_app/widgets.dart';
 
 class AlbumSearchPage extends GetView<AlbumSearchController> {
+  void _onTapAlbum(AlbumModel album) => AppPages.toAlbumDetailPage(album);
+
   Widget _buildTextInput(BuildContext context) {
     return Row(
       children: <Widget>[
@@ -54,6 +58,7 @@ class AlbumSearchPage extends GetView<AlbumSearchController> {
         body: Obx(
           () => AlbumListView(
             albums: controller.results.toList(),
+            onSelect: this._onTapAlbum,
           ),
         ));
   }

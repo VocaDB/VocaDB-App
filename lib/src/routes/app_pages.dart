@@ -41,6 +41,7 @@ class AppPages {
         page: () => TagSearchPage(),
         binding: TagSearchBinding()),
     GetPage(name: Routes.TAG_CATEGORIES, page: () => TagCategoryPage()),
+    GetPage(name: Routes.TAGS_DETAIL, page: () => TagDetailPage()),
     GetPage(
         name: Routes.ENTRIES,
         page: () => EntrySearchPage(),
@@ -60,5 +61,10 @@ class AppPages {
   static toAlbumDetailPage(AlbumModel album) {
     Get.toNamed('/albums/${album.id}',
         arguments: AlbumDetailArgs(id: album.id, album: album));
+  }
+
+  static toTagDetailPage(TagModel tag) {
+    Get.toNamed('/tags/${tag.id}',
+        arguments: TagDetailArgs(id: tag.id, tag: tag));
   }
 }

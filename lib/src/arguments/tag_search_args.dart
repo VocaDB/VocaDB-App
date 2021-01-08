@@ -3,5 +3,5 @@ class TagSearchArgs {
 
   final bool selectionMode;
 
-  const TagSearchArgs({this.category, this.selectionMode});
+  const TagSearchArgs({this.category, this.selectionMode = false});
 }

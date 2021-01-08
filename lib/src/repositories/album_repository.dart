@@ -60,4 +60,10 @@ class AlbumRepository extends RestApiRepository {
         .getList(endpoint, params)
         .then((items) => AlbumModel.jsonToList(items));
   }
+
+  Future<List<AlbumModel>> getTopAlbumsByTagId(int tagId,
+      {String lang = 'Default'}) async {
+    return this
+        .findAlbums(lang: lang, tagIds: tagId.toString(), sort: 'RatingScore');
+  }
 }

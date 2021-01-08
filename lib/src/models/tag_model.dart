@@ -1,3 +1,4 @@
+import 'package:vocadb_app/constants.dart';
 import 'package:vocadb_app/models.dart';
 import 'package:vocadb_app/utils.dart';
 
@@ -9,7 +10,8 @@ class TagModel extends EntryModel {
   TagModel parent;
   List<TagModel> relatedTags;
 
-  TagModel({String name}) : super(name: name, entryType: EntryType.Tag);
+  TagModel({int id, String name})
+      : super(id: id, name: name, entryType: EntryType.Tag);
 
   TagModel.fromEntry(EntryModel entryModel)
       : super(
@@ -34,4 +36,6 @@ class TagModel extends EntryModel {
   get imageUrl => (mainPicture != null && mainPicture.urlThumb != null)
       ? mainPicture.urlThumb.replaceAll('-t.', '.')
       : null;
+
+  String get originUrl => '$baseUrl/T/${this.id}';
 }

@@ -37,4 +37,10 @@ class ArtistRepository extends RestApiRepository {
         .getObject('/api/artists/$id', params)
         .then((i) => ArtistModel.fromJson(i));
   }
+
+  Future<List<ArtistModel>> getTopArtistsByTagId(int tagId,
+      {String lang = 'Default'}) async {
+    return this
+        .findArtists(lang: lang, tagIds: tagId.toString(), sort: 'RatingScore');
+  }
 }

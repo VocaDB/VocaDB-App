@@ -11,11 +11,21 @@ class Section extends StatelessWidget {
   /// The child contained by the section.
   final Widget child;
 
+  /// A widget that will appended into the end of section.
+  final Widget divider;
+
+  final bool visible;
+
   /// Default header height
   static const double _headerHeight = 48;
 
   const Section(
-      {Key key, @required this.title, this.actions, @required this.child})
+      {Key key,
+      @required this.title,
+      this.actions,
+      @required this.child,
+      this.divider,
+      this.visible = true})
       : assert(title != null),
         assert(child != null),
         super(key: key);
@@ -38,8 +48,18 @@ class Section extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (visible == null || !visible) return Container();
+
+    print('$title - $visible');
+
+    List<Widget> children = [_headerBuilder(context), child];
+
+    if (divider != null) {
+      children.add(divider);
+    }
+
     return Column(
-      children: [_headerBuilder(context), child],
+      children: children,
     );
   }
 }

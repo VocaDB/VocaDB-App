@@ -8,8 +8,7 @@ class WebLinkGroupList extends StatelessWidget {
 
   final Function(WebLinkModel) onTap;
 
-  const WebLinkGroupList({@required this.webLinks, this.onTap})
-      : assert(webLinks != null);
+  const WebLinkGroupList({@required this.webLinks, this.onTap});
 
   List<Widget> _generateItems() {
     List<Widget> items = [];
@@ -45,6 +44,8 @@ class WebLinkGroupList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (this.webLinks == null || this.webLinks.isEmpty) return Container();
+
     return Column(
       children: _generateItems(),
     );

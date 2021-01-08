@@ -16,7 +16,7 @@ class SongRepository extends RestApiRepository {
     final String endpoint = '/api/songs';
     final Map<String, String> params = Map();
     params['query'] = query;
-    params['fields'] = 'ThumbUrl,PVs';
+    params['fields'] = 'ThumbUrl,PVs,MainPicture';
     params['songType'] = songType;
     params['sort'] = sort;
     params['artistId'] = artistIds;
@@ -107,5 +107,17 @@ class SongRepository extends RestApiRepository {
     return super
         .getList(endpoint, params)
         .then((related) => SongModel.jsonToList(related['likeMatches']));
+  }
+
+  Future<List<SongModel>> getLatestSongsByTagId(int tagId,
+      {String lang = 'Default'}) async {
+    return this
+        .findSongs(lang: lang, tagIds: tagId.toString(), sort: 'AdditionDate');
+  }
+
+  Future<List<SongModel>> getTopSongsByTagId(int tagId,
+      {String lang = 'Default'}) async {
+    return this
+        .findSongs(lang: lang, tagIds: tagId.toString(), sort: 'RatingScore');
   }
 }

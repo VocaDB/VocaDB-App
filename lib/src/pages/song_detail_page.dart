@@ -41,7 +41,7 @@ class SongDetailPageView extends StatelessWidget {
 
   const SongDetailPageView({this.controller, this.args});
 
-  void _onSelectTag(TagModel tag) => Get.to(TagDetailPage());
+  void _onSelectTag(TagModel tag) => AppPages.toTagDetailPage(tag);
 
   void _onTapLikeButton() {}
 

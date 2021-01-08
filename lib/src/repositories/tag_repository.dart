@@ -18,4 +18,15 @@ class TagRepository extends RestApiRepository {
         .getList(endpoint, params)
         .then((items) => TagModel.jsonToList(items));
   }
+
+  /// Gets a tag by Id.
+  Future<TagModel> getById(int id, {String lang = 'Default'}) {
+    final Map<String, String> params = Map();
+    params['fields'] =
+        'MainPicture,AdditionalNames,Description,Parent,RelatedTags,WebLinks';
+    params['lang'] = lang;
+    return super
+        .getObject('/api/tags/$id', params)
+        .then((i) => TagModel.fromJson(i));
+  }
 }

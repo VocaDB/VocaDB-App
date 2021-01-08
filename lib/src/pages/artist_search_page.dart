@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:vocadb_app/controllers.dart';
 import 'package:vocadb_app/models.dart';
 import 'package:vocadb_app/pages.dart';
+import 'package:vocadb_app/routes.dart';
 import 'package:vocadb_app/widgets.dart';
 
 class ArtistSearchPage extends GetView<ArtistSearchController> {
@@ -16,7 +17,7 @@ class ArtistSearchPage extends GetView<ArtistSearchController> {
     if (selectionMode) {
       Get.back(result: artistModel);
     } else {
-      Get.to(ArtistDetailPage());
+      AppPages.toArtistDetailPage(artistModel);
     }
   }
 

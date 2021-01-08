@@ -8,7 +8,7 @@ class Routes {
   static const ARTISTS_DETAIL = '/artists/:id';
   static const TAGS = '/tags';
   static const TAG_CATEGORIES = '/tag-categories';
-  static const TAGS_DETAIL = '/tags/detail';
+  static const TAGS_DETAIL = '/tags/:id';
   static const ALBUMS = '/albums';
   static const ALBUMS_DETAIL = '/albums/:id';
   static const RELEASE_EVENTS = '/release-events';

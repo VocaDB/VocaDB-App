@@ -10,12 +10,16 @@ class TagSearchPage extends GetView<TagSearchController> {
   const TagSearchPage();
 
   void _onSelectTag(TagModel tag) {
+    if (!(Get.arguments is TagSearchArgs)) {
+      return AppPages.toTagDetailPage(tag);
+    }
+
     TagSearchArgs args = Get.arguments;
 
     if (args.selectionMode) {
       Get.back(result: tag);
     } else {
-      Get.toNamed(Routes.TAGS_DETAIL);
+      AppPages.toTagDetailPage(tag);
     }
   }
 

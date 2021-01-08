@@ -52,6 +52,8 @@ class AlbumDetailPageView extends StatelessWidget {
   void _onTapArtist(ArtistRoleModel artistRoleModel) =>
       Get.to(ArtistDetailPage());
 
+  void _onSelectTag(TagModel tag) => AppPages.toTagDetailPage(tag);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -116,7 +118,7 @@ class AlbumDetailPageView extends StatelessWidget {
               onTapShareButton: this._onTapShareButton,
             ),
             TagGroupView(
-              onPressed: (tag) => {},
+              onPressed: this._onSelectTag,
               tags: controller.album().tags,
             ),
             ExpandableContent(
