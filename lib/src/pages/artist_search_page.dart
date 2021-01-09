@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:vocadb_app/arguments.dart';
 import 'package:vocadb_app/controllers.dart';
 import 'package:vocadb_app/models.dart';
 import 'package:vocadb_app/pages.dart';
@@ -13,11 +14,17 @@ class ArtistSearchPage extends GetView<ArtistSearchController> {
 
   ArtistSearchPage({this.selectionMode = false, this.enableFilter = true});
 
-  void _onSelectArtist(ArtistModel artistModel) {
-    if (selectionMode) {
-      Get.back(result: artistModel);
+  void _onSelectArtist(ArtistModel artist) {
+    if (!(Get.arguments is ArtistSearchArgs)) {
+      return AppPages.toArtistDetailPage(artist);
+    }
+
+    ArtistSearchArgs args = Get.arguments;
+
+    if (args.selectionMode) {
+      Get.back(result: artist);
     } else {
-      AppPages.toArtistDetailPage(artistModel);
+      AppPages.toArtistDetailPage(artist);
     }
   }
 

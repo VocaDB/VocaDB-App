@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:vocadb_app/arguments.dart';
 import 'package:vocadb_app/models.dart';
 import 'package:vocadb_app/routes.dart';
 import 'package:vocadb_app/widgets.dart';
@@ -53,12 +54,16 @@ class ArtistInput extends StatelessWidget {
     );
   }
 
-  void _onBrowseArtists() {
-    Get.toNamed(Routes.ARTISTS_SELECTOR).then((value) {
-      if (value != null) {
-        this.onSelect(value);
-      }
-    });
+  void _onBrowse() {
+    Get.toNamed(Routes.ARTISTS,
+            arguments: ArtistSearchArgs(selectionMode: true))
+        .then(_postBrowse);
+  }
+
+  void _postBrowse(value) {
+    if (value != null) {
+      this.onSelect(value);
+    }
   }
 
   @override
@@ -74,7 +79,7 @@ class ArtistInput extends StatelessWidget {
     }
 
     items.add(ListTile(
-      onTap: this._onBrowseArtists,
+      onTap: this._onBrowse,
       leading: Icon(Icons.add),
       title: Text('ADD ARTIST'),
     ));
