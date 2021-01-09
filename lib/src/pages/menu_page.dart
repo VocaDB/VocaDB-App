@@ -45,7 +45,7 @@ class MenuPage extends StatelessWidget {
                 child: ListTile(
                   leading: Icon(Icons.people),
                   title: Text('Followed artists'),
-                  onTap: () => Get.to(FavoriteArtistPage()),
+                  onTap: () => Get.toNamed(Routes.FAVORITE_ARTISTS),
                 ),
               )),
           Obx(() => Visibility(

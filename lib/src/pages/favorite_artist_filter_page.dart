@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:vocadb_app/controllers.dart';
 import 'package:vocadb_app/models.dart';
 import 'package:vocadb_app/widgets.dart';
 
-class FavoriteArtistFilterPage extends StatelessWidget {
+class FavoriteArtistFilterPage extends GetView<FavoriteArtistController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -11,31 +13,25 @@ class FavoriteArtistFilterPage extends StatelessWidget {
           padding: EdgeInsets.all(16.0),
           child: ListView(
             children: [
-              SimpleDropdownInput.fromJsonArray(
-                json: [
-                  {'name': 'Not specified', 'value': 'Nothing'},
-                  {'name': 'Circle', 'value': 'Circle'},
-                  {'name': 'Vocaloid', 'value': 'Vocaloid'},
-                ],
-                label: 'Artist type',
-                value: 'Nothing',
-                onChanged: (i) => {},
-              ),
-              SimpleDropdownInput.fromJsonArray(
-                json: [
-                  {'name': 'Name', 'value': 'Name'},
-                  {'name': 'Addition date', 'value': 'AdditionDate'}
-                ],
-                label: 'Sort',
-                value: 'Name',
-                onChanged: (i) => {},
+              Obx(
+                () => SimpleDropdownInput.fromJsonArray(
+                  json: [
+                    {'name': 'Not specified', 'value': 'Nothing'},
+                    {'name': 'Circle', 'value': 'Circle'},
+                    {'name': 'Vocaloid', 'value': 'Vocaloid'},
+                  ],
+                  label: 'Artist type',
+                  value: controller.artistType.string,
+                  onChanged: controller.artistType,
+                ),
               ),
               Divider(),
-              TagInput(
-                values: [TagModel(name: 'Jazz')],
-                onSelect: (value) => {},
-                onDeleted: (deletedTagModel) =>
-                    {print('delete ${deletedTagModel}')},
+              Obx(
+                () => TagInput(
+                  values: controller.tags(),
+                  onSelect: controller.tags.add,
+                  onDeleted: controller.tags.remove,
+                ),
               ),
             ],
           ),

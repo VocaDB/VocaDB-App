@@ -1,24 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:vocadb_app/controllers.dart';
 import 'package:vocadb_app/models.dart';
 import 'package:vocadb_app/pages.dart';
+import 'package:vocadb_app/routes.dart';
 import 'package:vocadb_app/widgets.dart';
 
-class FavoriteArtistPage extends StatelessWidget {
+class FavoriteArtistPage extends GetView<FavoriteArtistController> {
+  void _onTapArtist(ArtistModel artist) => AppPages.toArtistDetailPage(artist);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text('Favorite artists'), actions: <Widget>[
-          IconButton(icon: Icon(Icons.search), onPressed: () {}),
+        appBar: AppBar(title: Text('Followed artists'), actions: <Widget>[
           IconButton(
               icon: Icon(Icons.tune),
               onPressed: () => Get.to(FavoriteArtistFilterPage()))
         ]),
-        body: ArtistListView(
-          artists: [
-            ArtistModel(id: 1, name: 'Miku'),
-            ArtistModel(id: 2, name: 'Luka')
-          ],
+        body: Obx(
+          () => ArtistListView(
+            artists: controller.results().map((e) => e.artist).toList(),
+            onSelect: this._onTapArtist,
+          ),
         ));
   }
 }

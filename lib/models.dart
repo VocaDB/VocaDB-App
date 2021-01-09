@@ -11,6 +11,7 @@ export 'src/models/artist_role_model.dart';
 export 'src/models/artist_song_model.dart';
 export 'src/models/base_model.dart';
 export 'src/models/entry_model.dart';
+export 'src/models/followed_artist_model.dart';
 export 'src/models/lyric_model.dart';
 export 'src/models/main_picture_model.dart';
 export 'src/models/profile_model.dart';

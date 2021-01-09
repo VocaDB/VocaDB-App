@@ -33,4 +33,18 @@ class UserRepository extends RestApiRepository {
         .getList(endpoint, params)
         .then((items) => RatedSongModel.jsonToList(items));
   }
+
+  /// Gets a list of artists followed by a user
+  Future<List<FollowedArtistModel>> getFollowedArtists(int userId,
+      {String lang = 'Default', String artistType, String tagIds}) async {
+    final String endpoint = '/api/users/$userId/followedArtists';
+    final Map<String, String> params = Map();
+    params['artistType'] = artistType;
+    params['fields'] = 'MainPicture';
+    params['lang'] = lang;
+    params['tagId'] = tagIds;
+    return super
+        .getList(endpoint, params)
+        .then((items) => FollowedArtistModel.jsonToList(items));
+  }
 }
