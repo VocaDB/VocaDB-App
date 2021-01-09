@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vocadb_app/pages.dart';
+import 'package:vocadb_app/routes.dart';
 import 'package:vocadb_app/services.dart';
 
 class MenuPage extends StatelessWidget {
@@ -31,21 +32,30 @@ class MenuPage extends StatelessWidget {
                   onTap: () => Get.off(LoginPage()),
                 ),
               )),
-          ListTile(
-            leading: Icon(Icons.library_music),
-            title: Text('Favorite songs'),
-            onTap: () => Get.to(FavoriteSongPage()),
-          ),
-          ListTile(
-            leading: Icon(Icons.people),
-            title: Text('Followed artists'),
-            onTap: () => Get.to(FavoriteArtistPage()),
-          ),
-          ListTile(
-            leading: Icon(Icons.album),
-            title: Text('Collections'),
-            onTap: () => Get.to(FavoriteAlbumPage()),
-          ),
+          Obx(() => Visibility(
+                visible: authService.currentUser().id != null,
+                child: ListTile(
+                  leading: Icon(Icons.library_music),
+                  title: Text('Favorite songs'),
+                  onTap: () => Get.toNamed(Routes.FAVORITE_SONGS),
+                ),
+              )),
+          Obx(() => Visibility(
+                visible: authService.currentUser().id != null,
+                child: ListTile(
+                  leading: Icon(Icons.people),
+                  title: Text('Followed artists'),
+                  onTap: () => Get.to(FavoriteArtistPage()),
+                ),
+              )),
+          Obx(() => Visibility(
+                visible: authService.currentUser().id != null,
+                child: ListTile(
+                  leading: Icon(Icons.album),
+                  title: Text('Collections'),
+                  onTap: () => Get.to(FavoriteAlbumPage()),
+                ),
+              )),
           ListTile(
             leading: Icon(Icons.settings),
             title: Text('Settings'),

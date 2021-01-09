@@ -49,6 +49,10 @@ class AppPages {
         name: Routes.ENTRIES,
         page: () => EntrySearchPage(),
         binding: EntrySearchBinding()),
+    GetPage(
+        name: Routes.FAVORITE_SONGS,
+        page: () => FavoriteSongPage(),
+        binding: FavoriteSongBinding()),
   ];
 
   static toSongDetailPage(SongModel song) {

@@ -1,49 +1,56 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:vocadb_app/controllers.dart';
 import 'package:vocadb_app/models.dart';
 import 'package:vocadb_app/widgets.dart';
 
-class FavoriteSongFilterPage extends StatelessWidget {
+class FavoriteSongFilterPage extends GetView<FavoriteSongController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text('Favorite songs filter')),
+        appBar: AppBar(title: Text('Filter')),
         body: ListView(
           children: [
-            SimpleDropdownInput.fromJsonArray(
-              label: 'Song type',
-              value: 'Nothing',
-              onChanged: (i) => {},
-              json: [
-                {'name': 'Not specified', 'value': 'Nothing'},
-                {'name': 'Original song', 'value': 'Original'},
-                {'name': 'Remaster', 'value': 'Remaster'},
-                {'name': 'Cover', 'value': 'Cover'},
-              ],
+            Obx(
+              () => SimpleDropdownInput.fromJsonArray(
+                label: 'Rating',
+                value: controller.rating.string,
+                onChanged: controller.rating,
+                json: [
+                  {'name': 'Anything', 'value': ''},
+                  {'name': 'Like', 'value': 'Like'},
+                  {'name': 'Favorite', 'value': 'Favorite'},
+                ],
+              ),
             ),
-            SimpleDropdownInput.fromJsonArray(
-              label: 'Sort',
-              value: 'Name',
-              onChanged: (i) => {},
-              json: [
-                {'name': 'Not specified', 'value': 'Nothing'},
-                {'name': 'Name', 'value': 'Name'},
-                {'name': 'Addition date', 'value': 'AdditionDate'},
-                {'name': 'Rating score', 'value': 'RAting'},
-              ],
-            ),
+            Obx(() => SimpleDropdownInput.fromJsonArray(
+                  label: 'Sort',
+                  value: controller.sort.string,
+                  onChanged: controller.sort,
+                  json: [
+                    {'name': 'Not specified', 'value': 'Nothing'},
+                    {'name': 'Name', 'value': 'Name'},
+                    {'name': 'Addition date', 'value': 'AdditionDate'},
+                    {'name': 'Rating date', 'value': 'RatingDate'},
+                  ],
+                )),
+            Obx(() => SwitchListTile(
+                  title: const Text('Group by rating'),
+                  value: controller.groupByRating.value,
+                  onChanged: controller.groupByRating,
+                )),
             Divider(),
-            ArtistInput(
-              values: [ArtistModel(id: 1, name: 'Miku')],
-              onSelect: (artistModel) => {print('browse artist')},
-              onDeleted: (deletedArtist) =>
-                  {print('delete tag $deletedArtist')},
-            ),
+            Obx(() => ArtistInput(
+                  values: controller.artists(),
+                  onSelect: controller.artists.add,
+                  onDeleted: controller.artists.remove,
+                )),
             Divider(),
-            TagInput(
-              values: [TagModel(name: 'Rock'), TagModel(name: 'Jazz')],
-              onSelect: (value) => {},
-              onDeleted: (deletedTag) => {print('delete tag $deletedTag')},
-            ),
+            Obx(() => TagInput(
+                  values: controller.tags(),
+                  onSelect: controller.tags.add,
+                  onDeleted: controller.tags.remove,
+                )),
           ],
         ));
   }

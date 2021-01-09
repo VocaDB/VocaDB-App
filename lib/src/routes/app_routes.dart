@@ -14,4 +14,5 @@ class Routes {
   static const RELEASE_EVENTS = '/release-events';
   static const RELEASE_EVENTS_DETAIL = '/release-events/:id';
   static const ENTRIES = '/entries';
+  static const FAVORITE_SONGS = '/profile/songs';
 }

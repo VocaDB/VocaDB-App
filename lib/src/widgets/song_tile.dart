@@ -97,8 +97,8 @@ class SongTile extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            Text(this.name, overflow: TextOverflow.ellipsis),
-            Text(this.artistName,
+            Text(this.name ?? '<Unknown>', overflow: TextOverflow.ellipsis),
+            Text(this.artistName ?? '<Unknown>',
                 overflow: TextOverflow.ellipsis,
                 maxLines: 1,
                 style: Theme.of(context).textTheme.caption),
