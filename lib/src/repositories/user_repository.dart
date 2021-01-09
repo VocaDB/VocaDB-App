@@ -47,4 +47,28 @@ class UserRepository extends RestApiRepository {
         .getList(endpoint, params)
         .then((items) => FollowedArtistModel.jsonToList(items));
   }
+
+  /// Gets a list of albums in a user's collection.
+  Future<List<AlbumUserModel>> getAlbums(int userId,
+      {String lang = 'Default',
+      String query,
+      String discType,
+      String sort,
+      String purchaseStatuses,
+      String artistIds,
+      String tagIds}) async {
+    final String endpoint = '/api/users/$userId/albums';
+    final Map<String, String> params = Map();
+    params['query'] = query;
+    params['albumTypes'] = discType;
+    params['purchaseStatuses'] = purchaseStatuses;
+    params['fields'] = 'MainPicture';
+    params['lang'] = lang;
+    params['tagId'] = tagIds;
+    params['artistId'] = artistIds;
+    params['sort'] = sort;
+    return super
+        .getList(endpoint, params)
+        .then((items) => AlbumUserModel.jsonToList(items));
+  }
 }

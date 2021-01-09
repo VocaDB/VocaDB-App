@@ -2,6 +2,7 @@ library models;
 
 export 'src/models/album_disc_model.dart';
 export 'src/models/album_model.dart';
+export 'src/models/album_user_model.dart';
 export 'src/models/artist_album_model.dart';
 export 'src/models/artist_event_model.dart';
 export 'src/models/artist_link_model.dart';

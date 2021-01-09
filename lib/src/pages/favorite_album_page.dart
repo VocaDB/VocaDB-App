@@ -1,34 +1,65 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:vocadb_app/controllers.dart';
 import 'package:vocadb_app/models.dart';
 import 'package:vocadb_app/pages.dart';
+import 'package:vocadb_app/routes.dart';
 import 'package:vocadb_app/widgets.dart';
 
-class FavoriteAlbumPage extends StatelessWidget {
+class FavoriteAlbumPage extends GetView<FavoriteAlbumController> {
+  void _onTapAlbum(AlbumModel album) => AppPages.toAlbumDetailPage(album);
+
+  Widget _buildTextInput(BuildContext context) {
+    return Row(
+      children: <Widget>[
+        Expanded(
+          child: TextField(
+            controller: controller.textSearchController,
+            onChanged: controller.query,
+            style: Theme.of(context).primaryTextTheme.headline6,
+            autofocus: true,
+            decoration:
+                InputDecoration(border: InputBorder.none, hintText: 'Search'),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildTitle(BuildContext context) {
+    return AnimatedSwitcher(
+      duration: Duration(milliseconds: 100),
+      child: Obx(() => (controller.openQuery.value)
+          ? _buildTextInput(context)
+          : Text('My albums')),
+    );
+  }
+
+  Widget _buildSearchAction(BuildContext context) {
+    return Obx(
+      () => (controller.openQuery.value)
+          ? IconButton(
+              icon: Icon(Icons.clear), onPressed: () => controller.clearQuery())
+          : IconButton(
+              icon: Icon(Icons.search),
+              onPressed: () => controller.openQuery(true)),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text('Collections'), actions: <Widget>[
-          IconButton(icon: Icon(Icons.search), onPressed: () {}),
+        appBar: AppBar(title: _buildTitle(context), actions: <Widget>[
+          _buildSearchAction(context),
           IconButton(
               icon: Icon(Icons.tune),
               onPressed: () => Get.to(FavoriteAlbumFilterPage()))
         ]),
-        body: AlbumListView(
-          albums: [
-            AlbumModel(
-                id: 9227,
-                name: 'THIS IS VOCAROCK',
-                artistString: '164, 203soundworks feat. various'),
-            AlbumModel(
-                id: 1590,
-                name: 'Michno-sequence',
-                artistString: 'かめりあ feat. 初音ミク, GUMI'),
-            AlbumModel(
-                id: 4986,
-                name: '東京テディベア',
-                artistString: 'Neru, おればななP feat. 鏡音リン Append (Sweet)'),
-          ],
+        body: Obx(
+          () => AlbumListView(
+            albums: controller.results().map((e) => e.album).toList(),
+            onSelect: this._onTapAlbum,
+          ),
         ));
   }
 }

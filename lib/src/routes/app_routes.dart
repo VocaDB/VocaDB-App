@@ -16,4 +16,5 @@ class Routes {
   static const ENTRIES = '/entries';
   static const FAVORITE_SONGS = '/profile/songs';
   static const FAVORITE_ARTISTS = '/profile/artists';
+  static const FAVORITE_ALBUMS = '/profile/albums';
 }

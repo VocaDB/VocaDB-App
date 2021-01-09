@@ -57,6 +57,10 @@ class AppPages {
         name: Routes.FAVORITE_ARTISTS,
         page: () => FavoriteArtistPage(),
         binding: FavoriteArtistBinding()),
+    GetPage(
+        name: Routes.FAVORITE_ALBUMS,
+        page: () => FavoriteAlbumPage(),
+        binding: FavoriteAlbumBinding()),
   ];
 
   static toSongDetailPage(SongModel song) {

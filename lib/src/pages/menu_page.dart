@@ -53,7 +53,7 @@ class MenuPage extends StatelessWidget {
                 child: ListTile(
                   leading: Icon(Icons.album),
                   title: Text('Collections'),
-                  onTap: () => Get.to(FavoriteAlbumPage()),
+                  onTap: () => Get.toNamed(Routes.FAVORITE_ALBUMS),
                 ),
               )),
           ListTile(
