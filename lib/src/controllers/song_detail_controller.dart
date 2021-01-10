@@ -2,9 +2,12 @@ import 'package:get/get.dart';
 import 'package:vocadb_app/arguments.dart';
 import 'package:vocadb_app/models.dart';
 import 'package:vocadb_app/repositories.dart';
+import 'package:vocadb_app/services.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class SongDetailController extends GetxController {
+  final initialLoading = true.obs;
+
   final song = SongModel().obs;
 
   final altSongs = <SongModel>[].obs;
@@ -13,15 +16,23 @@ class SongDetailController extends GetxController {
 
   final showLyric = false.obs;
 
+  final liked = false.obs;
+
   final SongRepository songRepository;
+
+  final UserRepository userRepository;
+
+  final AuthService authService;
 
   YoutubePlayerController youtubeController;
 
-  SongDetailController({this.songRepository});
+  SongDetailController(
+      {this.songRepository, this.userRepository, this.authService});
 
   @override
   void onInit() {
     initArgs();
+    checkUserSongRating();
     fetchApis();
     initYoutubeController();
     super.onInit();
@@ -59,7 +70,7 @@ class SongDetailController extends GetxController {
   }
 
   fetchApis() {
-    songRepository.getById(song().id).then(song);
+    songRepository.getById(song().id).then(song).then(initialLoadingDone);
 
     songRepository
         .getDerived(song().id)
@@ -71,4 +82,23 @@ class SongDetailController extends GetxController {
         .then((songs) => songs.take(20).toList())
         .then(relatedSongs);
   }
+
+  checkUserSongRating() {
+    int userId = authService.currentUser().id;
+
+    if (userId == null) {
+      return;
+    }
+
+    userRepository
+        .getRatedSongBySongId(userId, song().id)
+        .then((value) => (value == 'Nothing') ? liked(false) : liked(true))
+        .then((value) =>
+            debounce(liked, (_) => updateRating(), time: Duration(seconds: 1)));
+  }
+
+  updateRating() =>
+      songRepository.rating(song().id, (liked.value) ? 'Like' : 'Nothing');
+
+  initialLoadingDone(_) => initialLoading(false);
 }

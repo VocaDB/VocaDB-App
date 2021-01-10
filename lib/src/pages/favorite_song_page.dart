@@ -56,10 +56,12 @@ class FavoriteSongPage extends GetView<FavoriteSongController> {
               onPressed: () => Get.to(FavoriteSongFilterPage()))
         ]),
         body: Obx(
-          () => SongListView(
-            songs: controller.results().map((e) => e.song).toList(),
-            onSelect: this._onTapSong,
-          ),
+          () => (controller.initialLoading.value)
+              ? CenterLoading()
+              : SongListView(
+                  songs: controller.results().map((e) => e.song).toList(),
+                  onSelect: this._onTapSong,
+                ),
         ));
   }
 }

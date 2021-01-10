@@ -120,4 +120,8 @@ class SongRepository extends RestApiRepository {
     return this
         .findSongs(lang: lang, tagIds: tagId.toString(), sort: 'RatingScore');
   }
+
+  Future<dynamic> rating(int songId, String rating) {
+    return httpService.post('/api/songs/$songId/ratings', {'rating': rating});
+  }
 }

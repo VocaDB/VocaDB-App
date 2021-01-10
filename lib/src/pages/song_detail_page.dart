@@ -16,8 +16,11 @@ import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 class SongDetailPage extends StatelessWidget {
   initController() {
     final httpService = Get.find<HttpService>();
+    final authService = Get.find<AuthService>();
     return SongDetailController(
-        songRepository: SongRepository(httpService: httpService));
+        songRepository: SongRepository(httpService: httpService),
+        userRepository: UserRepository(httpService: httpService),
+        authService: authService);
   }
 
   @override
@@ -43,7 +46,7 @@ class SongDetailPageView extends StatelessWidget {
 
   void _onSelectTag(TagModel tag) => AppPages.toTagDetailPage(tag);
 
-  void _onTapLikeButton() {}
+  void _onTapLikeButton() => controller.liked.toggle();
 
   void _onTapLyricButton() => controller.showLyric(true);
 
@@ -146,18 +149,44 @@ class SongDetailPageView extends StatelessWidget {
   }
 
   Widget _buildSongDetailContent() {
+    if (controller.initialLoading.value) {
+      return CenterLoading();
+    }
+
     return Expanded(
       child: ListView(
         children: [
           _buildSongImage(),
-          _SongDetailButtonBar(
-            onTapLikeButton: this._onTapLikeButton,
-            onTapLyricButton: (controller.song().lyrics == null ||
-                    controller.song().lyrics.isEmpty)
-                ? null
-                : this._onTapLyricButton,
-            onTapShareButton: this._onTapShareButton,
-            onTapInfoButton: this._onTapInfoButton,
+          ButtonBar(
+            alignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              Obx(
+                () => ActiveFlatButton(
+                  icon: Icon(Icons.favorite),
+                  label: 'Like',
+                  active: controller.liked.value,
+                  onPressed: this._onTapLikeButton,
+                ),
+              ),
+              FlatButton(
+                onPressed: this._onTapLyricButton,
+                child: Column(
+                  children: [Icon(Icons.subtitles), Text('Lyric')],
+                ),
+              ),
+              FlatButton(
+                onPressed: this._onTapShareButton,
+                child: Column(
+                  children: [Icon(Icons.share), Text('Share')],
+                ),
+              ),
+              FlatButton(
+                onPressed: this._onTapInfoButton,
+                child: Column(
+                  children: [Icon(Icons.info), Text('Info')],
+                ),
+              )
+            ],
           ),
           _SongDetailInfo(
             name: controller.song().name,
@@ -277,64 +306,25 @@ class _SongDetailInfo extends StatelessWidget {
   }
 }
 
-class _SongDetailButtonBar extends StatelessWidget {
-  final VoidCallback onTapLikeButton;
+class ActiveFlatButton extends StatelessWidget {
+  final Icon icon;
 
-  final VoidCallback onTapLyricButton;
+  final String label;
 
-  final VoidCallback onTapShareButton;
+  final Function onPressed;
 
-  final VoidCallback onTapInfoButton;
+  final bool active;
 
-  const _SongDetailButtonBar(
-      {this.onTapLikeButton,
-      this.onTapLyricButton,
-      this.onTapShareButton,
-      this.onTapInfoButton});
+  const ActiveFlatButton(
+      {this.icon, @required this.label, this.onPressed, this.active = false});
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Expanded(
-            child: FlatButton(
-              onPressed: this.onTapLikeButton,
-              child: Column(
-                children: [Icon(Icons.favorite), Text('Like')],
-              ),
-            ),
-          ),
-          Visibility(
-            visible: this.onTapLyricButton != null,
-            child: Expanded(
-              child: FlatButton(
-                onPressed: this.onTapLyricButton,
-                child: Column(
-                  children: [Icon(Icons.subtitles), Text('Lyric')],
-                ),
-              ),
-            ),
-          ),
-          Expanded(
-            child: FlatButton(
-              onPressed: this.onTapShareButton,
-              child: Column(
-                children: [Icon(Icons.share), Text('Share')],
-              ),
-            ),
-          ),
-          Expanded(
-            child: FlatButton(
-              onPressed: this.onTapInfoButton,
-              child: Column(
-                children: [Icon(Icons.info), Text('Info')],
-              ),
-            ),
-          ),
-        ],
+    return FlatButton(
+      onPressed: this.onPressed,
+      textColor: (this.active) ? Theme.of(context).accentColor : null,
+      child: Column(
+        children: [this.icon, Text(this.label)],
       ),
     );
   }

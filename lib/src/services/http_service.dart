@@ -18,11 +18,9 @@ class HttpService extends GetxService {
         this._appDirectory = appDirectory;
 
   Future<HttpService> init() async {
-    // AppDirectory appDirectory = AppDirectory(
-    //     applicationDocument: await getApplicationDocumentsDirectory());
     _dio = Dio();
-    _dio.interceptors
-        .add(DioCacheManager(CacheConfig(baseUrl: baseUrl)).interceptor);
+    // _dio.interceptors
+    //     .add(DioCacheManager(CacheConfig(baseUrl: baseUrl)).interceptor);
     _dio.interceptors.add(CookieManager(
         PersistCookieJar(dir: _appDirectory.cookiesDirectory.path)));
     return this;
@@ -32,7 +30,7 @@ class HttpService extends GetxService {
     params?.removeWhere((key, value) => value == null || value.isEmpty);
 
     String url = Uri.https(authority, endpoint, params).toString();
-    print('$url | $params');
+    print('GET $url | $params');
     final response =
         await _dio.get(url, options: buildCacheOptions(Duration(minutes: 5)));
 
@@ -45,12 +43,19 @@ class HttpService extends GetxService {
 
   Future<dynamic> post(String endpoint, Map<String, String> params) async {
     params?.removeWhere((key, value) => value == null || value.isEmpty);
+    String url = Uri.https(authority, endpoint).toString();
 
-    String url = Uri.https(authority, endpoint, params).toString();
-    final response = await _dio.post(url, data: params);
+    print('POST $url | $params');
+
+    final response = await _dio.post(
+      url,
+      data: params,
+    );
 
     if (response.statusCode == 204) {
       return 'done';
+    } else {
+      print(response.statusMessage);
     }
 
     throw HttpRequestErrorException();

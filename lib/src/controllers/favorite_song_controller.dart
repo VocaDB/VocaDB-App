@@ -5,6 +5,8 @@ import 'package:vocadb_app/repositories.dart';
 import 'package:vocadb_app/services.dart';
 
 class FavoriteSongController extends GetxController {
+  final initialLoading = true.obs;
+
   /// List of results from search
   final results = <RatedSongModel>[].obs;
 
@@ -59,10 +61,13 @@ class FavoriteSongController extends GetxController {
           sort: sort.string,
           artistIds: artists.toList().map((e) => e.id).join(','),
           tagIds: tags.toList().map((e) => e.id).join(','))
-      .then(results);
+      .then(results)
+      .then(initialLoadingDone);
 
   clearQuery() {
     query('');
     textSearchController.clear();
   }
+
+  initialLoadingDone(_) => initialLoading(false);
 }
