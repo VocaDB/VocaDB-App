@@ -92,7 +92,7 @@ class SongDetailController extends GetxController {
     }
 
     userRepository
-        .getRatedSongBySongId(userId, song().id)
+        .getCurrentUserRatedSong(song().id)
         .then((value) => (value == 'Nothing') ? liked(false) : liked(true))
         .then((value) =>
             debounce(liked, (_) => updateRating(), time: Duration(seconds: 1)));

@@ -69,9 +69,10 @@ class UserRepository extends RestApiRepository {
         .then((items) => AlbumUserModel.jsonToList(items));
   }
 
-  Future<String> getRatedSongBySongId(int userId, int songId) {
+  /// Gets currently logged in user's rating for a song
+  Future<String> getCurrentUserRatedSong(int songId) {
     return httpService
-        .get('/api/users/$userId/ratedSongs/$songId', null)
+        .get('/api/users/current/ratedSongs/$songId', null)
         .then((v) => v as String);
   }
 }
