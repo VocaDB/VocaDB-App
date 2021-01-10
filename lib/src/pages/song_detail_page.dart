@@ -150,7 +150,7 @@ class SongDetailPageView extends StatelessWidget {
 
   Widget _buildSongDetailContent() {
     if (controller.initialLoading.value) {
-      return CenterLoading();
+      return Expanded(child: CenterLoading());
     }
 
     return Expanded(
