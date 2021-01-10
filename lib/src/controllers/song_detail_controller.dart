@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:vocadb_app/arguments.dart';
+import 'package:vocadb_app/controllers.dart';
 import 'package:vocadb_app/models.dart';
 import 'package:vocadb_app/repositories.dart';
 import 'package:vocadb_app/services.dart';
@@ -97,8 +98,12 @@ class SongDetailController extends GetxController {
             debounce(liked, (_) => updateRating(), time: Duration(seconds: 1)));
   }
 
-  updateRating() =>
-      songRepository.rating(song().id, (liked.value) ? 'Like' : 'Nothing');
+  updateRating() => songRepository
+      .rating(song().id, (liked.value) ? 'Like' : 'Nothing')
+      .then((value) => Get.find<FavoriteSongController>())
+      .then((c) => c.fetchApi())
+      .catchError((err) => print(
+          'favorite song controller not found. ignore fetch to refresh favorite songs'));
 
   initialLoadingDone(_) => initialLoading(false);
 }
