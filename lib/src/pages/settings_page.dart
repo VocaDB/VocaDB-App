@@ -13,13 +13,16 @@ class SettingsPage extends StatelessWidget {
         appBar: AppBar(title: Text('settings'.tr)),
         body: ListView(
           children: [
-            RadioButtonGroup(
-              label: 'theme'.tr,
-              value: 'dark',
-              items: [
-                RadioButtonItem(label: 'Dark', value: 'dark'),
-                RadioButtonItem(label: 'Light', value: 'light')
-              ],
+            Obx(
+              () => RadioButtonGroup(
+                label: 'theme'.tr,
+                value: pref.theme.string,
+                onChanged: pref.updateTheme,
+                items: [
+                  RadioButtonItem(label: 'Dark', value: 'dark'),
+                  RadioButtonItem(label: 'Light', value: 'light')
+                ],
+              ),
             ),
             Divider(),
             Obx(

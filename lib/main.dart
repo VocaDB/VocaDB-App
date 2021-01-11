@@ -43,11 +43,7 @@ class VocaDBApp extends StatelessWidget {
         translations: AppTranslation(),
         locale: Get.locale,
         fallbackLocale: AppTranslation.fallbackLocale,
-        theme: ThemeData(
-          brightness: Brightness.dark,
-          primarySwatch: Colors.blue,
-          visualDensity: VisualDensity.adaptivePlatformDensity,
-        ),
+        theme: Get.theme,
         defaultTransition: Transition.fade,
         initialBinding: MainPageBinding(),
         initialRoute: Routes.INITIAL,

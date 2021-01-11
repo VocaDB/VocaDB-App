@@ -3,6 +3,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:vocadb_app/config.dart';
 import 'package:vocadb_app/controllers.dart';
 import 'package:vocadb_app/src/config/app_translations.dart';
+import 'package:vocadb_app/themes.dart';
 
 class SharedPreferenceService extends GetxService {
   static final String container = 'pref';
@@ -13,6 +14,8 @@ class SharedPreferenceService extends GetxService {
 
   final contentLang = 'Default'.obs;
 
+  final theme = 'dark'.obs;
+
   SharedPreferenceService({this.box});
 
   static get lang => Get.find<SharedPreferenceService>().contentLang.string;
@@ -20,6 +23,7 @@ class SharedPreferenceService extends GetxService {
   void init() {
     initUILang();
     initContentLang();
+    initTheme();
   }
 
   void initUILang() {
@@ -35,9 +39,7 @@ class SharedPreferenceService extends GetxService {
     print('current locale $Get.locale');
   }
 
-  void initContentLang() {
-    contentLang(box.read('contentLang'));
-  }
+  void initContentLang() => contentLang(box.read('contentLang'));
 
   updateContentLang(String value) {
     print('before update content lang : ${contentLang.val}');
@@ -46,5 +48,17 @@ class SharedPreferenceService extends GetxService {
     print('after update content lang : ${contentLang.val}');
     Get.find<HomePageController>().fetchApi();
     Get.find<RankingController>().fetchApi();
+  }
+
+  void initTheme() {
+    print('init theme ${theme.string}');
+    theme(box.read('theme'));
+    Themes.changeTheme(theme.string);
+  }
+
+  updateTheme(String value) {
+    box.write('theme', value);
+    theme(value);
+    Themes.changeTheme(value);
   }
 }
