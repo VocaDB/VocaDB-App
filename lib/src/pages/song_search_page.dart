@@ -59,6 +59,7 @@ class SongSearchPage extends GetView<SongSearchController> {
           () => SongListView(
             songs: controller.results.toList(),
             onSelect: this._onSelect,
+            onReachLastItem: controller.onReachLastItem,
           ),
         ));
   }

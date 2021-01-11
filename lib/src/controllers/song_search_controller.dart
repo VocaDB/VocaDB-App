@@ -25,6 +25,9 @@ class SongSearchController extends GetxController {
   /// Filter parameter
   final tags = <TagModel>[].obs;
 
+  /// If set to [True], no fetch more data from server. Default is [False].
+  final noFetchMore = false.obs;
+
   final SongRepository songRepository;
 
   TextEditingController textSearchController;
@@ -33,7 +36,7 @@ class SongSearchController extends GetxController {
 
   @override
   void onInit() {
-    fetchApi();
+    fetchApi().then(results.addAll);
     [songType, sort, artists, tags]
         .forEach((element) => ever(element, (_) => fetchApi()));
     debounce(query, (_) => fetchApi(), time: Duration(seconds: 1));
@@ -41,17 +44,27 @@ class SongSearchController extends GetxController {
     super.onInit();
   }
 
-  fetchApi() => songRepository
-      .findSongs(
-          query: query.string,
-          songType: songType.string,
-          sort: sort.string,
-          artistIds: artists.toList().map((e) => e.id).join(','),
-          tagIds: tags.toList().map((e) => e.id).join(','))
-      .then(results);
+  fetchApi() => songRepository.findSongs(
+      start: (results.length == 0) ? results.length : results.length + 1,
+      query: query.string,
+      songType: songType.string,
+      sort: sort.string,
+      artistIds: artists.toList().map((e) => e.id).join(','),
+      tagIds: tags.toList().map((e) => e.id).join(','));
 
   clearQuery() {
     query('');
     textSearchController.clear();
+  }
+
+  verifyShouldFetchMore(List<SongModel> items) {
+    if (items == null || items.isEmpty) noFetchMore(true);
+    return items;
+  }
+
+  onReachLastItem() {
+    if (noFetchMore.value) return;
+
+    fetchApi().then(verifyShouldFetchMore).then(results.addAll);
   }
 }

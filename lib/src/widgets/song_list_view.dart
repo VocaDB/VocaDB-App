@@ -9,6 +9,7 @@ class SongListView extends StatelessWidget {
       this.songs,
       this.scrollDirection = Axis.vertical,
       this.onSelect,
+      this.onReachLastItem,
       this.displayPlaceholder = false})
       : super(key: key);
 
@@ -20,6 +21,9 @@ class SongListView extends StatelessWidget {
 
   /// A callback function that called when user tap any item
   final void Function(SongModel) onSelect;
+
+  /// A callback function when user react to last item. Only worked on list view with vertical direction.
+  final Function onReachLastItem;
 
   /// Set to True for display list of placeholders.
   final bool displayPlaceholder;
@@ -41,10 +45,11 @@ class SongListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (this.scrollDirection == Axis.vertical) {
-      return ListView.builder(
-          itemCount: this.songs.length,
-          scrollDirection: Axis.vertical,
-          itemBuilder: _verticalItemBuilder);
+      return InfiniteListView(
+        itemCount: this.songs.length,
+        itemBuilder: _verticalItemBuilder,
+        onReachLastItem: this.onReachLastItem,
+      );
     }
 
     if (this.displayPlaceholder) {
