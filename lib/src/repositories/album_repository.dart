@@ -12,16 +12,22 @@ class AlbumRepository extends RestApiRepository {
       String discType,
       String sort,
       String artistIds,
-      String tagIds}) async {
+      String tagIds,
+      int start = 0,
+      int maxResults = 50,
+      String nameMatchMode = 'Auto'}) async {
     final String endpoint = '/api/albums';
     final Map<String, String> params = Map();
     params['query'] = query;
     params['discTypes'] = discType;
     params['fields'] = 'MainPicture';
-    params['languagePreference'] = lang;
+    params['lang'] = lang;
     params['tagId'] = tagIds;
     params['artistId'] = artistIds;
     params['sort'] = sort;
+    params['start'] = start.toString();
+    params['maxResults'] = maxResults.toString();
+    params['nameMatchMode'] = nameMatchMode;
     return super
         .getList(endpoint, params)
         .then((items) => AlbumModel.jsonToList(items));

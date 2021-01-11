@@ -56,10 +56,13 @@ class AlbumSearchPage extends GetView<AlbumSearchController> {
               onPressed: () => Get.to(AlbumSearchFilterPage()))
         ]),
         body: Obx(
-          () => AlbumListView(
-            albums: controller.results.toList(),
-            onSelect: this._onTapAlbum,
-          ),
+          () => (controller.initialLoading.value)
+              ? CenterLoading()
+              : AlbumListView(
+                  albums: controller.results.toList(),
+                  onSelect: this._onTapAlbum,
+                  onReachLastItem: controller.onReachLastItem,
+                ),
         ));
   }
 }
