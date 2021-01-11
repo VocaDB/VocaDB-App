@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vocadb_app/arguments.dart';
-import 'package:vocadb_app/controllers.dart';
 import 'package:vocadb_app/models.dart';
 import 'package:vocadb_app/pages.dart';
 import 'package:vocadb_app/routes.dart';
@@ -156,7 +155,7 @@ class _PVPlayerItem extends StatelessWidget {
       trailing: PopupMenuButton<String>(
         onSelected: (String selectedValue) => this.onPressViewDetail(),
         itemBuilder: (BuildContext context) => [
-          PopupMenuItem<String>(value: 'detail', child: Text('View detail')),
+          PopupMenuItem<String>(value: 'detail', child: Text('viewDetail'.tr)),
         ],
       ),
       onTap: this.onTap,

@@ -1,4 +1,4 @@
-const Map<String, String> enUS = {
+const Map<String, String> en = {
   "menu": "Menu",
   "home": "Home",
   "playAll": "Play all",
@@ -126,6 +126,17 @@ const Map<String, String> enUS = {
   "emptyFavoriteAlbums": "No favorite albums ",
   "emptyFavoriteArtists": "Nothing yet",
   "searchResultNotMatched": "No result match",
+  "discOnSaleDate": "Released at %s",
+  "collectionStatus": "Collection status",
+  "collectionStatus.Wishlisted": "Wishlisted",
+  "collectionStatus.Ordered": "Ordered",
+  "collectionStatus.Owned": "Owned",
+  "username": "Username",
+  "password": "Password",
+  "skip": "Skip",
+  "registerAccount": "Register",
+  "login": "Login",
+  "logout": "Logout",
 
   // SongType
   "songType.Unspecified": "Unspecified",
@@ -170,16 +181,17 @@ const Map<String, String> enUS = {
   "sort.RatingTotal": "Total score",
   "sort.CollectionCount": "Collection count",
   "sort.Date": "Date",
+  "sort.Rating": "Rating date",
 
   // Artist role
-  "artistRole.groupAndLabels": "Groups and labels",
-  "artistRole.illustratedBy": "Illustrated by",
-  "artistRole.voiceProvider": "Voice provider",
-  "artistRole.characterDesigner": "Character designer",
-  "artistRole.illustratorOf": "Illustrator of",
-  "artistRole.voiceProviderOf": "Voice provider of",
-  "designerOf": "Designer of",
-  "artistRole.members": "Members",
+  "artistRole.Group": "Groups and labels",
+  "artistRole.Illustrator": "Illustrated by",
+  "artistRole.VoiceProvider": "Voice provider",
+  "artistRole.CharacterDesigner": "Character designer",
+  "artistReverseRole.Group": "Members",
+  "artistReverseRole.Illustrator": "Illustrator of",
+  "artistReverseRole.VoiceProvider": "Voice provider of",
+  "artistReverseRole.CharacterDesigner": "Designer of",
 
   // Artist type
   "artistType.Unspecified": "Unspecified",

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vocadb_app/constants.dart';
 import 'package:vocadb_app/widgets.dart';
+import 'package:get/get.dart';
 
 class ContactUsPage extends StatelessWidget {
   static const String routeName = '/contactUs';
@@ -13,7 +14,7 @@ class ContactUsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Contact us'),
+        title: Text('contact'.tr),
       ),
       body: ListView(
         children: <Widget>[
@@ -30,7 +31,7 @@ class ContactUsPage extends StatelessWidget {
           ),
           Divider(),
           ListTile(
-            title: Text('Developer contacts'),
+            title: Text('developerContact'.tr),
           ),
           Column(
             children: contactDeveloperSites

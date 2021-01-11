@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vocadb_app/pages.dart';
 import 'package:vocadb_app/utils.dart';
+import 'package:get/get.dart';
 
 /// A full-width widget for user select date range. Used on filter page such as [ReleaseEventSearchFilterPage].
 class DateRangeInput extends StatefulWidget {
@@ -31,7 +32,6 @@ class _DateRangeInputState extends State<DateRangeInput> {
 
   @override
   void initState() {
-    // TODO: implement initState
     fromDate = widget.fromDateValue;
     toDate = widget.toDateValue;
     super.initState();
@@ -71,7 +71,7 @@ class _DateRangeInputState extends State<DateRangeInput> {
       child: Column(
         children: [
           ListTile(
-            title: Text('Date'),
+            title: Text('date'.tr),
           ),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.0),
@@ -83,7 +83,7 @@ class _DateRangeInputState extends State<DateRangeInput> {
                       color: Theme.of(context).cardColor,
                       icon: Icon(Icons.calendar_today),
                       label: Text((fromDate == null)
-                          ? 'From'
+                          ? 'from'.tr
                           : DateTimeUtils.toSimpleFormat(fromDate)),
                       onPressed: _onPressFromDate),
                 ),
@@ -96,7 +96,7 @@ class _DateRangeInputState extends State<DateRangeInput> {
                       color: Theme.of(context).cardColor,
                       icon: Icon(Icons.calendar_today),
                       label: Text((toDate == null)
-                          ? 'To'
+                          ? 'to'.tr
                           : DateTimeUtils.toSimpleFormat(toDate)),
                       onPressed: _onPressToDate),
                 ),

@@ -28,7 +28,7 @@ class MenuPage extends StatelessWidget {
                 visible: authService.currentUser().id == null,
                 child: ListTile(
                   leading: Icon(Icons.login),
-                  title: Text('Log in'),
+                  title: Text('login'.tr),
                   onTap: () => Get.off(LoginPage()),
                 ),
               )),
@@ -36,7 +36,7 @@ class MenuPage extends StatelessWidget {
                 visible: authService.currentUser().id != null,
                 child: ListTile(
                   leading: Icon(Icons.library_music),
-                  title: Text('Favorite songs'),
+                  title: Text('favoriteSongs'.tr),
                   onTap: () => Get.toNamed(Routes.FAVORITE_SONGS),
                 ),
               )),
@@ -44,7 +44,7 @@ class MenuPage extends StatelessWidget {
                 visible: authService.currentUser().id != null,
                 child: ListTile(
                   leading: Icon(Icons.people),
-                  title: Text('Followed artists'),
+                  title: Text('favoriteArtists'.tr),
                   onTap: () => Get.toNamed(Routes.FAVORITE_ARTISTS),
                 ),
               )),
@@ -52,30 +52,30 @@ class MenuPage extends StatelessWidget {
                 visible: authService.currentUser().id != null,
                 child: ListTile(
                   leading: Icon(Icons.album),
-                  title: Text('Collections'),
+                  title: Text('favoriteAlbums'.tr),
                   onTap: () => Get.toNamed(Routes.FAVORITE_ALBUMS),
                 ),
               )),
           ListTile(
             leading: Icon(Icons.settings),
-            title: Text('Settings'),
+            title: Text('settings'.tr),
             onTap: () => Get.to(SettingsPage()),
           ),
           ListTile(
             leading: Icon(Icons.help),
-            title: Text('Contact us'),
+            title: Text('contact'.tr),
             onTap: () => Get.to(ContactUsPage()),
           ),
           ListTile(
             leading: Icon(Icons.info),
-            title: Text('Version'),
+            title: Text('version'.tr),
             subtitle: Text('3.1'),
           ),
           Obx(() => Visibility(
                 visible: authService.currentUser().id != null,
                 child: ListTile(
                   leading: Icon(Icons.logout),
-                  title: Text('Log out'),
+                  title: Text('logout'.tr),
                   onTap: () {
                     authService.logout();
                     Get.off(LoginPage());

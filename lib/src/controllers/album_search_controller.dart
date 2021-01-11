@@ -18,7 +18,7 @@ class AlbumSearchController extends GetxController {
   final openQuery = false.obs;
 
   /// Filter parameter
-  final discType = 'Nothing'.obs;
+  final discType = ''.obs;
 
   final sort = 'Name'.obs;
 

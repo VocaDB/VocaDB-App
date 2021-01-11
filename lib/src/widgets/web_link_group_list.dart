@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vocadb_app/models.dart';
 import 'package:vocadb_app/widgets.dart';
+import 'package:get/get.dart';
 
 /// A widget display list of pvs grouping by category
 class WebLinkGroupList extends StatelessWidget {
@@ -20,14 +21,14 @@ class WebLinkGroupList extends StatelessWidget {
 
     if (officialLinks.isNotEmpty) {
       items.add(ListTile(
-        title: Text('Official links'),
+        title: Text('officialLinks'.tr),
       ));
       items.addAll(officialLinks.map(_mapWebLinkTile));
     }
 
     if (unofficialLinks.isNotEmpty) {
       items.add(ListTile(
-        title: Text('Unofficial links'),
+        title: Text('unofficialLinks'.tr),
       ));
       items.addAll(unofficialLinks.map(_mapWebLinkTile));
     }

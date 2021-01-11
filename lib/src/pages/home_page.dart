@@ -36,23 +36,23 @@ class HomePage extends GetView<HomePageController> {
           runSpacing: 24.0,
           children: <Widget>[
             _ShortcutMenuButton(
-                title: 'Songs',
+                title: 'songs'.tr,
                 iconData: Icons.music_note,
                 onPressed: this._onTapSongSearchIcon),
             _ShortcutMenuButton(
-                title: 'Artists',
+                title: 'artists'.tr,
                 iconData: Icons.person,
                 onPressed: this._onTapArtistSearchIcon),
             _ShortcutMenuButton(
-                title: 'Albums',
+                title: 'albums'.tr,
                 iconData: Icons.album,
                 onPressed: this._onTapAlbumSearchIcon),
             _ShortcutMenuButton(
-                title: 'Tags',
+                title: 'tags'.tr,
                 iconData: Icons.label,
                 onPressed: this._onTapTagSearchIcon),
             _ShortcutMenuButton(
-                title: 'Events',
+                title: 'events'.tr,
                 iconData: Icons.event,
                 onPressed: this._onTapEventSearchIcon),
           ],
@@ -66,9 +66,10 @@ class HomePage extends GetView<HomePageController> {
             icon: Icon(Icons.more_horiz),
             onSelected: (String selectedValue) => AppPages.openPVPlayListPage(
                 controller.highlighted(),
-                title: 'Highlighted'),
+                title: 'highlighted'.tr),
             itemBuilder: (BuildContext context) => [
-              PopupMenuItem<String>(value: 'playall', child: Text('Play all')),
+              PopupMenuItem<String>(
+                  value: 'playall', child: Text('playAll'.tr)),
             ],
           )
         ],
@@ -79,7 +80,7 @@ class HomePage extends GetView<HomePageController> {
             songs: controller.highlighted.toList())),
       ),
       Section(
-        title: 'Recent or upcoming albums',
+        title: 'recentAlbums'.tr,
         child: Obx(() => AlbumListView(
               displayPlaceholder: controller.recentAlbums.isEmpty,
               scrollDirection: Axis.horizontal,
@@ -88,7 +89,7 @@ class HomePage extends GetView<HomePageController> {
             )),
       ),
       Section(
-        title: 'Random popular albums',
+        title: 'randomPopularAlbums'.tr,
         child: Obx(() => AlbumListView(
             displayPlaceholder: controller.randomAlbums.isEmpty,
             scrollDirection: Axis.horizontal,
@@ -96,7 +97,7 @@ class HomePage extends GetView<HomePageController> {
             albums: controller.randomAlbums.toList())),
       ),
       Section(
-        title: 'Upcoming events',
+        title: 'upcomingEvent'.tr,
         child: Obx(() => ReleaseEventColumnView(
               onSelect: this._onTapReleaseEvent,
               events: controller.recentReleaseEvents.toList(),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vocadb_app/models.dart';
 import 'package:vocadb_app/widgets.dart';
+import 'package:get/get.dart';
 
 /// A widget display list of artists and grouping by role
 class ArtistGroupByRoleList extends StatelessWidget {
@@ -64,7 +65,7 @@ class ArtistGroupByRoleList extends StatelessWidget {
     if (producers.isNotEmpty) {
       if (displayRole)
         items.add(ListTile(
-          title: Text('Producers'),
+          title: Text('producers'.tr),
         ));
       items.addAll(producers.map(_mapArtistTile));
     }
@@ -72,7 +73,7 @@ class ArtistGroupByRoleList extends StatelessWidget {
     if (vocalists.isNotEmpty) {
       if (displayRole)
         items.add(ListTile(
-          title: Text('Vocalists'),
+          title: Text('vocalists'.tr),
         ));
       items.addAll(vocalists.map(_mapArtistTile));
     }
@@ -80,7 +81,7 @@ class ArtistGroupByRoleList extends StatelessWidget {
     if (others.isNotEmpty) {
       if (displayRole)
         items.add(ListTile(
-          title: Text('Others'),
+          title: Text('other'.tr),
         ));
       items.addAll(others.map(_mapOtherArtistTile));
     }

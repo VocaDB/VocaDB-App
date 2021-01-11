@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vocadb_app/models.dart';
 import 'package:vocadb_app/widgets.dart';
-import "package:collection/collection.dart";
+import 'package:get/get.dart';
 
 /// A widget display list of tracks
 class TrackListView extends StatelessWidget {
@@ -30,7 +30,7 @@ class TrackListView extends StatelessWidget {
     if (tracksByDisc.length > 1) {
       tracksByDisc.forEach((key, value) {
         widgets.add(ListTile(
-          title: Text('Disc ' + key),
+          title: Text('disc'.tr + ' $key'),
         ));
 
         widgets.addAll(value.map<Widget>(_mapTrackModel).toList());

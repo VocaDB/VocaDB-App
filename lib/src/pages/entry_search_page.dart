@@ -47,8 +47,8 @@ class EntrySearchPage extends GetView<EntrySearchController> {
             onChanged: controller.query,
             style: Theme.of(context).primaryTextTheme.headline6,
             autofocus: true,
-            decoration:
-                InputDecoration(border: InputBorder.none, hintText: 'Search'),
+            decoration: InputDecoration(
+                border: InputBorder.none, hintText: 'search'.tr),
           ),
         ),
       ],
@@ -60,7 +60,7 @@ class EntrySearchPage extends GetView<EntrySearchController> {
       duration: Duration(milliseconds: 100),
       child: Obx(() => (controller.openQuery.value)
           ? _buildTextInput(context)
-          : Text('Search anything')),
+          : Text('search'.tr)),
     );
   }
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:vocadb_app/constants.dart';
 import 'package:vocadb_app/controllers.dart';
 import 'package:vocadb_app/widgets.dart';
 
@@ -7,7 +8,7 @@ class AlbumSearchFilterPage extends GetView<AlbumSearchController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text('Filter')),
+        appBar: AppBar(title: Text('filter'.tr)),
         body: Container(
           padding: EdgeInsets.all(16.0),
           child: Column(
@@ -15,23 +16,25 @@ class AlbumSearchFilterPage extends GetView<AlbumSearchController> {
             children: [
               Obx(
                 () => SimpleDropdownInput.fromJsonArray(
-                  json: [
-                    {'name': 'Not specified', 'value': 'Nothing'},
-                    {'name': 'Original album', 'value': 'Original'},
-                    {'name': 'Single', 'value': 'Single'},
-                  ],
-                  label: 'Album type',
+                  json: SimpleDropdownInput.buildDropdownItems(constAlbumTypes,
+                      trPrefix: 'discType',
+                      emptyItem: {'name': 'notSpecified'.tr, 'value': ''}),
+                  label: 'discType'.tr,
                   value: controller.discType.string,
                   onChanged: controller.discType,
                 ),
               ),
               Obx(
                 () => SimpleDropdownInput.fromJsonArray(
-                  json: [
-                    {'name': 'Name', 'value': 'Name'},
-                    {'name': 'Addition date', 'value': 'AdditionDate'}
-                  ],
-                  label: 'Sort',
+                  json: SimpleDropdownInput.buildDropdownItems([
+                    'Name',
+                    'AdditionDate',
+                    'ReleaseDate',
+                    'RatingAverage',
+                    'RatingTotal',
+                    'CollectionCount'
+                  ], trPrefix: 'sort'),
+                  label: 'sort'.tr,
                   value: controller.sort.string,
                   onChanged: controller.sort,
                 ),

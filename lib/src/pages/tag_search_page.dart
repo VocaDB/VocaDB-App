@@ -32,8 +32,8 @@ class TagSearchPage extends GetView<TagSearchController> {
             onChanged: controller.query,
             style: Theme.of(context).primaryTextTheme.headline6,
             autofocus: true,
-            decoration:
-                InputDecoration(border: InputBorder.none, hintText: 'Search'),
+            decoration: InputDecoration(
+                border: InputBorder.none, hintText: 'search'.tr),
           ),
         ),
       ],
@@ -46,7 +46,7 @@ class TagSearchPage extends GetView<TagSearchController> {
       child: Obx(() => (controller.openQuery.value)
           ? _buildTextInput(context)
           : Text((controller.category.string == '')
-              ? 'Tags'
+              ? 'tags'.tr
               : controller.category.string)),
     );
   }

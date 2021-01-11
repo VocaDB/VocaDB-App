@@ -12,7 +12,7 @@ class FavoriteArtistPage extends GetView<FavoriteArtistController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text('Followed artists'), actions: <Widget>[
+        appBar: AppBar(title: Text('favoriteArtists'.tr), actions: <Widget>[
           IconButton(
               icon: Icon(Icons.tune),
               onPressed: () => Get.to(FavoriteArtistFilterPage()))

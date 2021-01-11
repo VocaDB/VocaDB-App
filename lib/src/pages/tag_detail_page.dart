@@ -107,29 +107,29 @@ class TagDetailPageView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 TextInfoSection(
-                  title: 'Name',
+                  title: 'name'.tr,
                   text: controller.tag().name,
                 ),
                 SpaceDivider.small(),
                 TextInfoSection(
-                  title: 'Category',
+                  title: 'category'.tr,
                   text: controller.tag().categoryName,
                 ),
                 SpaceDivider.small(),
                 InfoSection(
-                    title: 'Parent',
+                    title: 'parent'.tr,
                     child: Tag(
                       label: controller.tag().parent?.name,
                       onPressed: () => this._onSelectTag(controller.tag()),
                     )),
                 SpaceDivider.small(),
                 TextInfoSection(
-                  title: 'Description',
+                  title: 'description'.tr,
                   text: controller.tag().description,
                 ),
                 Divider(),
                 Section(
-                  title: 'Latest songs',
+                  title: 'recentSongsPVs'.tr,
                   visible: controller.latestSongs().length > 0,
                   child: SongListView(
                     displayPlaceholder: controller.latestSongs.isEmpty,
@@ -140,7 +140,7 @@ class TagDetailPageView extends StatelessWidget {
                   divider: Divider(),
                 ),
                 Section(
-                  title: 'Top artists',
+                  title: 'topArtists'.tr,
                   visible: controller.topArtists().length > 0,
                   child: ArtistColumnView(
                     onSelect: this._onTapArtist,
@@ -149,7 +149,7 @@ class TagDetailPageView extends StatelessWidget {
                   divider: Divider(),
                 ),
                 Section(
-                  title: 'Top songs',
+                  title: 'topSongs'.tr,
                   visible: controller.topSongs().length > 0,
                   child: SongListView(
                     scrollDirection: Axis.horizontal,
@@ -159,7 +159,7 @@ class TagDetailPageView extends StatelessWidget {
                   divider: Divider(),
                 ),
                 Section(
-                  title: 'Top albums',
+                  title: 'topAlbums'.tr,
                   visible: controller.topAlbums().length > 0,
                   child: AlbumListView(
                     onSelect: this._onTapAlbum,
@@ -196,7 +196,7 @@ class _TagDetailButtonBar extends StatelessWidget {
             child: FlatButton(
               onPressed: this.onTapShareButton,
               child: Column(
-                children: [Icon(Icons.share), Text('Share')],
+                children: [Icon(Icons.share), Text('share'.tr)],
               ),
             ),
           ),
@@ -204,7 +204,7 @@ class _TagDetailButtonBar extends StatelessWidget {
             child: FlatButton(
               onPressed: this.onTapInfoButton,
               child: Column(
-                children: [Icon(Icons.info), Text('Info')],
+                children: [Icon(Icons.info), Text('info'.tr)],
               ),
             ),
           ),

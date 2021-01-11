@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:vocadb_app/constants.dart';
 import 'package:vocadb_app/controllers.dart';
 import 'package:vocadb_app/widgets.dart';
 
@@ -8,32 +9,30 @@ class ReleaseEventSearchFilterPage
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text('Filter')),
+        appBar: AppBar(title: Text('filter'.tr)),
         body: ListView(
           children: [
             Obx(
               () => SimpleDropdownInput.fromJsonArray(
-                label: 'Category',
+                json: SimpleDropdownInput.buildDropdownItems(
+                    constEventCategories,
+                    trPrefix: 'eventCategory',
+                    emptyItem: {'name': 'notSpecified'.tr, 'value': ''}),
+                label: 'category'.tr,
                 value: controller.category.string,
                 onChanged: controller.category,
-                json: [
-                  {'name': 'Not specified', 'value': 'Nothing'},
-                  {'name': 'Album release fair', 'value': 'AlbumReleaseFair'},
-                  {'name': 'Club', 'value': 'Club'},
-                  {'name': 'Contest', 'value': 'Contest'},
-                ],
               ),
             ),
             Obx(
               () => SimpleDropdownInput.fromJsonArray(
-                label: 'Sort',
+                json: SimpleDropdownInput.buildDropdownItems([
+                  'Name',
+                  'Date',
+                  'AdditionDate',
+                ], trPrefix: 'sort'),
+                label: 'sort'.tr,
                 value: controller.sort.string,
                 onChanged: controller.sort,
-                json: [
-                  {'name': 'Not specified', 'value': 'Nothing'},
-                  {'name': 'Name', 'value': 'Name'},
-                  {'name': 'Date', 'value': 'Date'},
-                ],
               ),
             ),
             Divider(),

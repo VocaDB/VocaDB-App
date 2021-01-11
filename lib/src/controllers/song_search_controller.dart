@@ -18,10 +18,10 @@ class SongSearchController extends GetxController {
   final openQuery = false.obs;
 
   /// Filter parameter
-  final songType = 'Nothing'.obs;
+  final songType = ''.obs;
 
   /// Filter parameter
-  final sort = 'Nothing'.obs;
+  final sort = 'Name'.obs;
 
   /// Filter parameter
   final artists = <ArtistModel>[].obs;

@@ -18,7 +18,7 @@ class ArtistSearchController extends GetxController {
   final openQuery = false.obs;
 
   /// Filter parameter
-  final artistType = 'Nothing'.obs;
+  final artistType = ''.obs;
 
   final sort = 'Name'.obs;
 

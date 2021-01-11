@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:vocadb_app/arguments.dart';
 import 'package:vocadb_app/constants.dart';
 import 'package:vocadb_app/controllers.dart';
 import 'package:vocadb_app/models.dart';
-import 'package:vocadb_app/pages.dart';
 import 'package:vocadb_app/routes.dart';
 import 'package:vocadb_app/widgets.dart';
 
@@ -44,19 +42,19 @@ class _RankingPageState extends State<RankingPage>
     List<Tab> tabs = [];
 
     if (constRankings.contains('daily')) {
-      tabs.add(Tab(text: 'Daily'));
+      tabs.add(Tab(text: 'ranking.daily'.tr));
     }
 
     if (constRankings.contains('weekly')) {
-      tabs.add(Tab(text: 'Weekly'));
+      tabs.add(Tab(text: 'ranking.weekly'.tr));
     }
 
     if (constRankings.contains('monthly')) {
-      tabs.add(Tab(text: 'Monthly'));
+      tabs.add(Tab(text: 'ranking.monthly'.tr));
     }
 
     if (constRankings.contains('overall')) {
-      tabs.add(Tab(text: 'Overall'));
+      tabs.add(Tab(text: 'ranking.overall'.tr));
     }
 
     return tabs;
@@ -105,19 +103,19 @@ class _RankingPageState extends State<RankingPage>
     String title = ' Playlist';
     switch (selected) {
       case 'daily':
-        title = 'Daily';
+        title = 'ranking.daily'.tr;
         songs = _rankingController.daily();
         break;
       case 'weekly':
-        title = 'Weekly';
+        title = 'ranking.weekly'.tr;
         songs = _rankingController.weekly();
         break;
       case 'monthly':
-        title = 'Monthly';
+        title = 'ranking.monthly'.tr;
         songs = _rankingController.monthly();
         break;
       case 'overall':
-        title = 'Overall';
+        title = 'ranking.overall'.tr;
         songs = _rankingController.overall();
         break;
     }

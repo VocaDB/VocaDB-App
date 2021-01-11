@@ -10,11 +10,11 @@ class SettingsPage extends StatelessWidget {
     final SharedPreferenceService pref = Get.find();
 
     return Scaffold(
-        appBar: AppBar(title: Text('Settings')),
+        appBar: AppBar(title: Text('settings'.tr)),
         body: ListView(
           children: [
             RadioButtonGroup(
-              label: 'Theme',
+              label: 'theme'.tr,
               value: 'dark',
               items: [
                 RadioButtonItem(label: 'Dark', value: 'dark'),
@@ -23,7 +23,7 @@ class SettingsPage extends StatelessWidget {
             ),
             Divider(),
             RadioButtonGroup(
-              label: 'Preferred display language',
+              label: 'contentLanguage'.tr,
               value: 'English',
               items: [
                 RadioButtonItem(label: 'Original', value: 'Original'),
@@ -38,10 +38,11 @@ class SettingsPage extends StatelessWidget {
               value: pref.uiLang.val,
               onChanged: pref.updateUiLang,
               items: [
-                RadioButtonItem(label: 'English', value: 'en_US'),
-                RadioButtonItem(label: '日本語 (Japanese)', value: 'ja_JP'),
-                RadioButtonItem(label: 'ไทย (Thai)', value: 'th_TH'),
-                RadioButtonItem(label: 'Melayu (Malay)', value: 'ms_MY')
+                RadioButtonItem(label: 'English', value: 'en'),
+                RadioButtonItem(label: '日本語 (Japanese)', value: 'ja'),
+                RadioButtonItem(label: 'ไทย (Thai)', value: 'th'),
+                RadioButtonItem(label: 'Melayu (Malay)', value: 'ms'),
+                RadioButtonItem(label: '中文 (Chinese)', value: 'zh')
               ],
             )
           ],

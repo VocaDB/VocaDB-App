@@ -19,8 +19,8 @@ class ReleaseEventSearchPage extends GetView<ReleaseEventSearchController> {
             onChanged: controller.query,
             style: Theme.of(context).primaryTextTheme.headline6,
             autofocus: true,
-            decoration:
-                InputDecoration(border: InputBorder.none, hintText: 'Search'),
+            decoration: InputDecoration(
+                border: InputBorder.none, hintText: 'search'.tr),
           ),
         ),
       ],
@@ -32,7 +32,7 @@ class ReleaseEventSearchPage extends GetView<ReleaseEventSearchController> {
       duration: Duration(milliseconds: 100),
       child: Obx(() => (controller.openQuery.value)
           ? _buildTextInput(context)
-          : Text('Events')),
+          : Text('events'.tr)),
     );
   }
 

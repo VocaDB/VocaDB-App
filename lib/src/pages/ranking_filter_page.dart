@@ -8,32 +8,38 @@ class RankingFilterPage extends GetView<RankingController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text('Settings')),
+        appBar: AppBar(title: Text('filter'.tr)),
         body: ListView(
           children: [
             Obx(
               () => RadioButtonGroup(
-                label: 'Filter by',
+                label: 'filterBy'.tr,
                 value: controller.filterBy.string,
                 onChanged: controller.filterBy,
                 items: [
-                  RadioButtonItem(label: 'Newly added', value: 'CreateDate'),
                   RadioButtonItem(
-                      label: 'Newly published', value: 'PublishDate'),
-                  RadioButtonItem(label: 'Popularity', value: 'Popularity')
+                      label: 'ranking.newlyAdded'.tr, value: 'CreateDate'),
+                  RadioButtonItem(
+                      label: 'ranking.newlyPublished'.tr, value: 'PublishDate'),
+                  RadioButtonItem(
+                      label: 'ranking.popularity'.tr, value: 'Popularity')
                 ],
               ),
             ),
             Divider(),
             Obx(() => RadioButtonGroup(
-                  label: 'Vocalist',
+                  label: 'vocalist'.tr,
                   value: controller.vocalist.string,
                   onChanged: controller.vocalist,
                   items: [
-                    RadioButtonItem(label: 'All vocalists', value: 'Nothing'),
-                    RadioButtonItem(label: 'Only Vocaloid', value: 'Vocaloid'),
-                    RadioButtonItem(label: 'Only UTAU', value: 'UTAU'),
-                    RadioButtonItem(label: 'Other vocalist', value: 'Other')
+                    RadioButtonItem(
+                        label: 'ranking.allVocalists'.tr, value: 'Nothing'),
+                    RadioButtonItem(
+                        label: 'ranking.onlyVocaloid'.tr, value: 'Vocaloid'),
+                    RadioButtonItem(
+                        label: 'ranking.onlyUTAU'.tr, value: 'UTAU'),
+                    RadioButtonItem(
+                        label: 'ranking.otherVocalist'.tr, value: 'Other')
                   ],
                 )),
           ],

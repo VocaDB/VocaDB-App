@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vocadb_app/models.dart';
 import 'package:vocadb_app/repositories.dart';
@@ -9,7 +8,7 @@ class FavoriteArtistController extends GetxController {
   final results = <FollowedArtistModel>[].obs;
 
   /// Filter parameter
-  final artistType = 'Nothing'.obs;
+  final artistType = ''.obs;
 
   /// Filter parameter
   final tags = <TagModel>[].obs;

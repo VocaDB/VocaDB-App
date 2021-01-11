@@ -50,7 +50,7 @@ class TagInput extends StatelessWidget {
     final List<Widget> items = [];
 
     items.add(ListTile(
-      title: Text('Tags'),
+      title: Text('tags'.tr),
     ));
 
     if (this.values != null && this.values.isNotEmpty) {
@@ -60,7 +60,7 @@ class TagInput extends StatelessWidget {
     items.add(ListTile(
       onTap: this._onBrowse,
       leading: Icon(Icons.add),
-      title: Text('ADD TAG'),
+      title: Text('add'.tr),
     ));
 
     return Column(

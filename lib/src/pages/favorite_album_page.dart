@@ -18,8 +18,8 @@ class FavoriteAlbumPage extends GetView<FavoriteAlbumController> {
             onChanged: controller.query,
             style: Theme.of(context).primaryTextTheme.headline6,
             autofocus: true,
-            decoration:
-                InputDecoration(border: InputBorder.none, hintText: 'Search'),
+            decoration: InputDecoration(
+                border: InputBorder.none, hintText: 'search'.tr),
           ),
         ),
       ],
@@ -31,7 +31,7 @@ class FavoriteAlbumPage extends GetView<FavoriteAlbumController> {
       duration: Duration(milliseconds: 100),
       child: Obx(() => (controller.openQuery.value)
           ? _buildTextInput(context)
-          : Text('My albums')),
+          : Text('favoriteAlbums'.tr)),
     );
   }
 

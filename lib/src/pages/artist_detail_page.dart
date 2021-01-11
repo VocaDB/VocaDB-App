@@ -110,7 +110,8 @@ class ArtistDetailPageView extends StatelessWidget {
                           visible: controller.artist().additionalNames != null,
                           child:
                               Text(controller.artist().additionalNames ?? '')),
-                      Text(controller.artist().artistType ?? ''),
+                      Text('artistType.${controller.artist().artistType}'.tr ??
+                          ''),
                     ],
                   ),
                 ),
@@ -133,7 +134,7 @@ class ArtistDetailPageView extends StatelessWidget {
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 16.0),
                           child: TextInfoSection(
-                            title: 'Release date',
+                            title: 'releasedDate'.tr,
                             text: controller.artist().releaseDateFormatted,
                           ),
                         ),
@@ -144,7 +145,7 @@ class ArtistDetailPageView extends StatelessWidget {
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 16.0),
                           child: TextInfoSection(
-                            title: 'Description',
+                            title: 'description'.tr,
                             text: controller.artist().description,
                           ),
                         ),
@@ -163,6 +164,7 @@ class ArtistDetailPageView extends StatelessWidget {
                                 null &&
                             controller.artist().artistLinksReverse.isNotEmpty,
                         child: ArtistLinkListView(
+                            reverse: true,
                             artistLinks: controller.artist().artistLinksReverse,
                             onSelect: (artistLinkModel) =>
                                 this._onTapArtist(artistLinkModel.artist)),
@@ -179,7 +181,7 @@ class ArtistDetailPageView extends StatelessWidget {
                   child: Column(
                     children: [
                       Section(
-                        title: 'Recent Songs / PVs',
+                        title: 'recentSongsPVs'.tr,
                         child: SongListView(
                           scrollDirection: Axis.horizontal,
                           songs: controller.artist().relations?.latestSongs,
@@ -198,7 +200,7 @@ class ArtistDetailPageView extends StatelessWidget {
                   child: Column(
                     children: [
                       Section(
-                        title: 'Popular songs',
+                        title: 'popularSongs'.tr,
                         child: SongListView(
                           scrollDirection: Axis.horizontal,
                           onSelect: (s) => this._onTapSong(s),
@@ -217,7 +219,7 @@ class ArtistDetailPageView extends StatelessWidget {
                   child: Column(
                     children: [
                       Section(
-                        title: 'Recent or upcoming albums',
+                        title: 'recentAlbums'.tr,
                         child: AlbumListView(
                           scrollDirection: Axis.horizontal,
                           albums: controller.artist().relations?.latestAlbums,
@@ -236,7 +238,7 @@ class ArtistDetailPageView extends StatelessWidget {
                   child: Column(
                     children: [
                       Section(
-                        title: 'Popular albums',
+                        title: 'popularAlbums'.tr,
                         child: AlbumListView(
                           scrollDirection: Axis.horizontal,
                           albums: controller.artist().relations?.popularAlbums,

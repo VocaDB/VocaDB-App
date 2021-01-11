@@ -19,7 +19,7 @@ class ReleaseEventSearchController extends GetxController {
   final openQuery = false.obs;
 
   /// Filter parameter
-  final category = 'Nothing'.obs;
+  final category = ''.obs;
 
   final sort = 'Name'.obs;
 

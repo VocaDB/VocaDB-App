@@ -125,28 +125,29 @@ class ReleaseEventDetailPageView extends StatelessWidget {
                 ),
                 SpaceDivider.small(),
                 TextInfoSection(
-                  title: 'Name',
+                  title: 'name'.tr,
                   text: controller.event().name,
                   divider: SpaceDivider.small(),
                 ),
                 TextInfoSection(
-                  title: 'Category',
-                  text: controller.event().displayCategory,
+                  title: 'category'.tr,
+                  text:
+                      'eventCategory.${controller.event().displayCategory}'.tr,
                   divider: SpaceDivider.small(),
                 ),
                 TextInfoSection(
-                  title: 'Date',
+                  title: 'date'.tr,
                   text: controller.event().dateFormatted,
                   divider: SpaceDivider.small(),
                 ),
                 TextInfoSection(
-                  title: 'Venue',
+                  title: 'venue'.tr,
                   text: controller.event().venueName,
                   divider: SpaceDivider.small(),
                 ),
                 if (controller.event().description != null)
                   InfoSection(
-                    title: 'Description',
+                    title: 'description'.tr,
                     visible: !controller.event().description.isNullOrBlank,
                     child: MarkdownBody(
                       data: controller.event().description,
@@ -155,7 +156,7 @@ class ReleaseEventDetailPageView extends StatelessWidget {
                   ),
                 Divider(),
                 Section(
-                  title: 'Participating artists',
+                  title: 'participatingArtists'.tr,
                   visible: controller.event().artists?.isNotEmpty,
                   child: ArtistGroupByRoleList.fromArtistEventModel(
                     artistEvents: controller.event().artists,
@@ -165,7 +166,7 @@ class ReleaseEventDetailPageView extends StatelessWidget {
                   divider: Divider(),
                 ),
                 Section(
-                  title: 'Songs',
+                  title: 'songs'.tr,
                   visible: controller.songs().length > 0,
                   child: SongListView(
                     scrollDirection: Axis.horizontal,
@@ -175,7 +176,7 @@ class ReleaseEventDetailPageView extends StatelessWidget {
                   divider: Divider(),
                 ),
                 Section(
-                  title: 'Albums',
+                  title: 'albums'.tr,
                   visible: controller.albums().length > 0,
                   child: AlbumListView(
                     scrollDirection: Axis.horizontal,
@@ -184,7 +185,7 @@ class ReleaseEventDetailPageView extends StatelessWidget {
                   divider: Divider(),
                 ),
                 Section(
-                  title: 'Series',
+                  title: 'series'.tr,
                   visible: controller.event().series != null,
                   child: ReleaseEventSeriesTile(
                     name: controller.event()?.series?.name,
@@ -222,7 +223,7 @@ class _ReleaseEventDetailButtonBar extends StatelessWidget {
             child: FlatButton(
               onPressed: this.onTapShareButton,
               child: Column(
-                children: [Icon(Icons.share), Text('Share')],
+                children: [Icon(Icons.share), Text('share'.tr)],
               ),
             ),
           ),
@@ -230,7 +231,7 @@ class _ReleaseEventDetailButtonBar extends StatelessWidget {
             child: FlatButton(
               onPressed: this.onTapMapButton,
               child: Column(
-                children: [Icon(Icons.place), Text('Map')],
+                children: [Icon(Icons.place), Text('map'.tr)],
               ),
             ),
           ),
@@ -238,7 +239,7 @@ class _ReleaseEventDetailButtonBar extends StatelessWidget {
             child: FlatButton(
               onPressed: this.onTapInfoButton,
               child: Column(
-                children: [Icon(Icons.info), Text('Info')],
+                children: [Icon(Icons.info), Text('info'.tr)],
               ),
             ),
           ),

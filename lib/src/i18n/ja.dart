@@ -1,4 +1,4 @@
-const Map<String, String> jaJP = {
+const Map<String, String> ja = {
   "menu": "メニュー",
   "home": "ホーム",
   "playAll": "すべて再生",
@@ -124,6 +124,19 @@ const Map<String, String> jaJP = {
   "emptyFavoriteAlbums": "何もないです(´･д･｀)…",
   "emptyFavoriteArtists": "何もないです(´･д･｀)…",
   "searchResultNotMatched": "何もないです(´･д･｀)…",
+  "discOnSaleDate": "Released at %s",
+  "collectionStatus": "Collection status",
+  "collectionStatus.Wishlisted": "Wishlisted",
+  "collectionStatus.Ordered": "Ordered",
+  "collectionStatus.Owned": "Owned",
+  "groupByRating": "Group by rating",
+  "viewDetail": "View detail",
+  "username": "Username",
+  "password": "Password",
+  "skip": "Skip",
+  "registerAccount": "Register",
+  "login": "Login",
+  "logout": "Logout",
 
   // Song type
   "songType.Original": "オリジナル曲",
@@ -166,16 +179,18 @@ const Map<String, String> jaJP = {
   "sort.RatingTotal": "総スコア",
   "sort.CollectionCount": "ユーザーコレクション数",
   "sort.Date": "日時",
+  "sort.Rating": "Rating date",
 
   // Artist role
-  "artistRole.groupAndLabels": "Groups and labels",
-  "artistRole.illustratedBy": "イラストレーター",
-  "artistRole.voiceProvider": "声優",
-  "artistRole.characterDesigner": "Character designer",
-  "artistRole.illustratorOf": "イラスト提供",
-  "artistRole.voiceProviderOf": "音声提供",
-  "artistRole.designerOf": "Designer of",
-  "artistRole.members": "メンバー",
+  "artistRole.Group": "Groups and labels",
+  "artistRole.Illustrator": "イラストレーター",
+  "artistRole.VoiceProvider": "声優",
+  "artistRole.CharacterDesigner": "Character designer",
+
+  "artistReverseRole.Group": "メンバー",
+  "artistReverseRole.Illustrator": "イラスト提供",
+  "artistReverseRole.VoiceProvider": "音声提供",
+  "artistReverseRole.CharacterDesigner": "Designer of",
 
   // Artist type
   "artistType.Circle": "サークル",

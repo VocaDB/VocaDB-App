@@ -8,7 +8,7 @@ class EntrySearchFilterPage extends GetView<EntrySearchController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Filter'),
+        title: Text('filter'.tr),
       ),
       body: Container(
         padding: EdgeInsets.all(16.0),
@@ -18,14 +18,14 @@ class EntrySearchFilterPage extends GetView<EntrySearchController> {
             Obx(
               () => SimpleDropdownInput.fromJsonArray(
                 json: [
-                  {'name': 'Anything', 'value': ''},
-                  {'name': 'Artist', 'value': 'Artist'},
-                  {'name': 'Album', 'value': 'Album'},
-                  {'name': 'Song', 'value': 'Song'},
-                  {'name': 'Tag', 'value': 'Tag'},
-                  {'name': 'Event', 'value': 'Event'}
+                  {'name': 'anything'.tr, 'value': ''},
+                  {'name': 'artist'.tr, 'value': 'Artist'},
+                  {'name': 'album'.tr, 'value': 'Album'},
+                  {'name': 'song'.tr, 'value': 'Song'},
+                  {'name': 'tag'.tr, 'value': 'Tag'},
+                  {'name': 'event'.tr, 'value': 'Event'}
                 ],
-                label: 'Type',
+                label: 'type'.tr,
                 value: controller.entryType.string,
                 onChanged: controller.entryType,
               ),
@@ -33,10 +33,10 @@ class EntrySearchFilterPage extends GetView<EntrySearchController> {
             Obx(
               () => SimpleDropdownInput.fromJsonArray(
                 json: [
-                  {'name': 'Name', 'value': 'Name'},
-                  {'name': 'Addition date', 'value': 'AdditionDate'}
+                  {'name': 'sort.Name'.tr, 'value': 'Name'},
+                  {'name': 'sort.AdditionDate'.tr, 'value': 'AdditionDate'}
                 ],
-                label: 'Sort',
+                label: 'sort'.tr,
                 value: controller.sort.value,
                 onChanged: controller.sort,
               ),

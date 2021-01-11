@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vocadb_app/constants.dart';
+import 'package:get/get.dart';
 
 /// A widget displays list of tag categories with fixed values from [constTagCategories]
 class TagCategoryList extends StatelessWidget {
@@ -14,7 +15,7 @@ class TagCategoryList extends StatelessWidget {
         Padding(
           padding: EdgeInsets.all(16.0),
           child: Text(
-            'Category',
+            'category'.tr,
             style: Theme.of(context).textTheme.headline6,
           ),
         ),

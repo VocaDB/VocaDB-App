@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:vocadb_app/constants.dart';
 import 'package:vocadb_app/controllers.dart';
 import 'package:vocadb_app/widgets.dart';
 
@@ -15,23 +16,26 @@ class ArtistSearchFilterPage extends GetView<ArtistSearchController> {
             children: [
               Obx(
                 () => SimpleDropdownInput.fromJsonArray(
-                  json: [
-                    {'name': 'Not specified', 'value': 'Nothing'},
-                    {'name': 'Circle', 'value': 'Circle'},
-                    {'name': 'Vocaloid', 'value': 'Vocaloid'},
-                  ],
-                  label: 'Artist type',
+                  json: SimpleDropdownInput.buildDropdownItems(constArtistTypes,
+                      trPrefix: 'artistType',
+                      emptyItem: {'name': 'notSpecified'.tr, 'value': ''}),
+                  label: 'artistType'.tr,
                   value: controller.artistType.string,
                   onChanged: controller.artistType,
                 ),
               ),
               Obx(
                 () => SimpleDropdownInput.fromJsonArray(
-                  json: [
-                    {'name': 'Name', 'value': 'Name'},
-                    {'name': 'Addition date', 'value': 'AdditionDate'}
-                  ],
-                  label: 'Sort',
+                  json: SimpleDropdownInput.buildDropdownItems([
+                    'Name',
+                    'AdditionDate',
+                    'AdditionDateAsc',
+                    'ReleaseDate',
+                    'SongCount',
+                    'SongRating',
+                    'FollowerCount',
+                  ], trPrefix: 'sort'),
+                  label: 'sort'.tr,
                   value: controller.sort.string,
                   onChanged: controller.sort,
                 ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vocadb_app/models.dart';
 import 'package:vocadb_app/widgets.dart';
+import 'package:get/get.dart';
 
 /// A widget display list of pvs grouping by category
 class PVGroupList extends StatelessWidget {
@@ -20,14 +21,14 @@ class PVGroupList extends StatelessWidget {
 
     if (originalPVs.isNotEmpty) {
       items.add(ListTile(
-        title: Text('Original media'),
+        title: Text('originalMedia'.tr),
       ));
       items.addAll(originalPVs.map(_mapPVTile));
     }
 
     if (otherPVs.isNotEmpty) {
       items.add(ListTile(
-        title: Text('Other media'),
+        title: Text('otherMedia'.tr),
       ));
       items.addAll(otherPVs.map(_mapPVTile));
     }

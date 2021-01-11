@@ -17,14 +17,14 @@ class LoginPage extends GetView<LoginPageController> {
           TextField(
             onChanged: controller.username,
             decoration: InputDecoration(
-                border: OutlineInputBorder(), labelText: 'Username'),
+                border: OutlineInputBorder(), labelText: 'username'.tr),
           ),
           SpaceDivider.medium(),
           TextField(
             onChanged: controller.password,
             obscureText: true,
             decoration: InputDecoration(
-                border: OutlineInputBorder(), labelText: 'Password'),
+                border: OutlineInputBorder(), labelText: 'password'.tr),
           ),
           SpaceDivider.medium(),
           SizedBox(
@@ -33,13 +33,13 @@ class LoginPage extends GetView<LoginPageController> {
                 onPressed: () {
                   controller.login();
                 },
-                child: Text('Log in')),
+                child: Text('login'.tr)),
           ),
           SpaceDivider.small(),
           SizedBox(
             width: double.infinity,
             child: FlatButton(
-                onPressed: () => Get.off(MainPage()), child: Text('Skip')),
+                onPressed: () => Get.off(MainPage()), child: Text('skip'.tr)),
           )
         ],
       ),

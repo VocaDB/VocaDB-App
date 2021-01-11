@@ -39,10 +39,12 @@ class MainPage extends GetView<MainPageController> {
               currentIndex: controller.tabIndex.toInt(),
               onTap: controller.onBottomNavTap,
               items: <BottomNavigationBarItem>[
-                BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
                 BottomNavigationBarItem(
-                    icon: Icon(Icons.trending_up), label: 'Ranking'),
-                BottomNavigationBarItem(icon: Icon(Icons.menu), label: 'Menu'),
+                    icon: Icon(Icons.home), label: 'home'.tr),
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.trending_up), label: 'ranking'.tr),
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.menu), label: 'menu'.tr),
               ])),
     );
   }

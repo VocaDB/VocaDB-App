@@ -163,7 +163,7 @@ class SongDetailPageView extends StatelessWidget {
               Obx(
                 () => ActiveFlatButton(
                   icon: Icon(Icons.favorite),
-                  label: 'Like',
+                  label: 'like'.tr,
                   active: controller.liked.value,
                   onPressed: this._onTapLikeButton,
                 ),
@@ -171,19 +171,19 @@ class SongDetailPageView extends StatelessWidget {
               FlatButton(
                 onPressed: this._onTapLyricButton,
                 child: Column(
-                  children: [Icon(Icons.subtitles), Text('Lyric')],
+                  children: [Icon(Icons.subtitles), Text('lyrics'.tr)],
                 ),
               ),
               FlatButton(
                 onPressed: this._onTapShareButton,
                 child: Column(
-                  children: [Icon(Icons.share), Text('Share')],
+                  children: [Icon(Icons.share), Text('share'.tr)],
                 ),
               ),
               FlatButton(
                 onPressed: this._onTapInfoButton,
                 child: Column(
-                  children: [Icon(Icons.info), Text('Info')],
+                  children: [Icon(Icons.info), Text('info'.tr)],
                 ),
               )
             ],
@@ -191,7 +191,7 @@ class SongDetailPageView extends StatelessWidget {
           _SongDetailInfo(
             name: controller.song().name,
             additionalNames: controller.song().additionalNames,
-            songType: controller.song().songType,
+            songType: 'songType.${controller.song().songType}'.tr,
             publishedDate: controller.song().publishDateAsDateTime,
           ),
           SpaceDivider.small(),
@@ -218,7 +218,7 @@ class SongDetailPageView extends StatelessWidget {
             child: Column(
               children: [
                 Section(
-                  title: 'Albums',
+                  title: 'albums'.tr,
                   child: AlbumListView(
                     scrollDirection: Axis.horizontal,
                     albums: controller.song().albums,
@@ -234,7 +234,7 @@ class SongDetailPageView extends StatelessWidget {
                 child: Column(
                   children: [
                     Section(
-                      title: 'Alternate version',
+                      title: 'alternateVersion'.tr,
                       child: SongListView(
                         scrollDirection: Axis.horizontal,
                         onSelect: (s) => this._onSelectSong(s),
@@ -250,7 +250,7 @@ class SongDetailPageView extends StatelessWidget {
                 child: Column(
                   children: [
                     Section(
-                      title: 'User who liked this also liked',
+                      title: 'likeMatches'.tr,
                       child: SongListView(
                         scrollDirection: Axis.horizontal,
                         onSelect: (s) => this._onSelectSong(s),
@@ -286,7 +286,9 @@ class _SongDetailInfo extends StatelessWidget {
   String _stringPublishedDate() {
     return (this.publishedDate == null)
         ? ''
-        : ' • Published on ${DateTimeUtils.toSimpleFormat(this.publishedDate)}';
+        : ' • ${'publishedOn'.trArgs([
+            DateTimeUtils.toSimpleFormat(this.publishedDate)
+          ])}';
   }
 
   @override

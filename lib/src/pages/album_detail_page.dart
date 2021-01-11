@@ -105,7 +105,9 @@ class AlbumDetailPageView extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      '${controller.album().discType} • Released at ${controller.album().releaseDateFormatted}',
+                      '${('discType.' + controller.album().discType).tr} • ${'discOnSaleDate'.trArgs([
+                        controller.album().releaseDateFormatted
+                      ])}',
                       style: Theme.of(context).textTheme.caption,
                     ),
                   ],
@@ -128,14 +130,14 @@ class AlbumDetailPageView extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
                     child: TextInfoSection(
-                      title: 'Name',
+                      title: 'name'.tr,
                       text: controller.album().name,
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
                     child: TextInfoSection(
-                      title: 'Description',
+                      title: 'description'.tr,
                       text: controller.album().description,
                     ),
                   ),
@@ -184,7 +186,7 @@ class _AlbumDetailButtonBar extends StatelessWidget {
             child: FlatButton(
               onPressed: this.onTapLikeButton,
               child: Column(
-                children: [Icon(Icons.favorite), Text('Like')],
+                children: [Icon(Icons.favorite), Text('like'.tr)],
               ),
             ),
           ),
@@ -192,7 +194,7 @@ class _AlbumDetailButtonBar extends StatelessWidget {
             child: FlatButton(
               onPressed: this.onTapShareButton,
               child: Column(
-                children: [Icon(Icons.share), Text('Share')],
+                children: [Icon(Icons.share), Text('share'.tr)],
               ),
             ),
           ),
@@ -200,7 +202,7 @@ class _AlbumDetailButtonBar extends StatelessWidget {
             child: FlatButton(
               onPressed: this.onTapInfoButton,
               child: Column(
-                children: [Icon(Icons.info), Text('Info')],
+                children: [Icon(Icons.info), Text('info'.tr)],
               ),
             ),
           ),

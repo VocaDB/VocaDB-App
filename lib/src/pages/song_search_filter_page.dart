@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:vocadb_app/constants.dart';
 import 'package:vocadb_app/controllers.dart';
 import 'package:vocadb_app/src/widgets/tag_input.dart';
 import 'package:vocadb_app/widgets.dart';
@@ -8,33 +9,31 @@ class SongSearchFilterPage extends GetView<SongSearchController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text('Filter')),
+        appBar: AppBar(title: Text('filter'.tr)),
         body: ListView(
           children: [
             Obx(
               () => SimpleDropdownInput.fromJsonArray(
-                label: 'Song type',
+                label: 'songType'.tr,
                 value: controller.songType.string,
                 onChanged: controller.songType,
-                json: [
-                  {'name': 'Not specified', 'value': 'Nothing'},
-                  {'name': 'Original song', 'value': 'Original'},
-                  {'name': 'Remaster', 'value': 'Remaster'},
-                  {'name': 'Cover', 'value': 'Cover'},
-                ],
+                json: SimpleDropdownInput.buildDropdownItems(constSongTypes,
+                    trPrefix: 'songType',
+                    emptyItem: {'name': 'notSpecified'.tr, 'value': ''}),
               ),
             ),
             Obx(
               () => SimpleDropdownInput.fromJsonArray(
-                label: 'Sort',
+                label: 'sort'.tr,
                 value: controller.sort.string,
                 onChanged: controller.sort,
-                json: [
-                  {'name': 'Not specified', 'value': 'Nothing'},
-                  {'name': 'Name', 'value': 'Name'},
-                  {'name': 'Addition date', 'value': 'AdditionDate'},
-                  {'name': 'Rating score', 'value': 'Rating'},
-                ],
+                json: SimpleDropdownInput.buildDropdownItems([
+                  'Name',
+                  'AdditionDate',
+                  'PublishDate',
+                  'FavoritedTimes',
+                  'RatingScore'
+                ], trPrefix: 'sort'),
               ),
             ),
             Divider(),

@@ -71,7 +71,7 @@ class ArtistInput extends StatelessWidget {
     final List<Widget> items = [];
 
     items.add(ListTile(
-      title: Text('Artists'),
+      title: Text('artists'.tr),
     ));
 
     if (this.values != null && this.values.isNotEmpty) {
@@ -81,7 +81,7 @@ class ArtistInput extends StatelessWidget {
     items.add(ListTile(
       onTap: this._onBrowse,
       leading: Icon(Icons.add),
-      title: Text('ADD ARTIST'),
+      title: Text('add'.tr),
     ));
 
     return Column(
