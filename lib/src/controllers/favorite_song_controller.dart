@@ -50,25 +50,31 @@ class FavoriteSongController extends GetxController {
       print('Error user not login yet.');
     }
 
-    fetchApi()
-        .then(verifyShouldFetchMore)
-        .then(results.addAll)
-        .then(initialLoadingDone);
+    initialFetch();
     [rating, groupByRating, sort, artists, tags]
-        .forEach((element) => ever(element, (_) => fetchApi()));
-    debounce(query, (_) => fetchApi(), time: Duration(seconds: 1));
+        .forEach((element) => ever(element, (_) => initialFetch()));
+    debounce(query, (_) => initialFetch(), time: Duration(seconds: 1));
     textSearchController = TextEditingController();
     super.onInit();
   }
 
-  fetchApi() => userRepository.getRatedSongs(authService.currentUser().id,
-      start: (results.length == 0) ? results.length : results.length + 1,
-      query: query.string,
-      rating: rating.string,
-      groupByRating: groupByRating.value,
-      sort: sort.string,
-      artistIds: artists.toList().map((e) => e.id).join(','),
-      tagIds: tags.toList().map((e) => e.id).join(','));
+  void initialFetch() {
+    Future.value(noFetchMore(false))
+        .then((_) => fetchApi())
+        .then(verifyShouldFetchMore)
+        .then(results)
+        .then(initialLoadingDone);
+  }
+
+  Future<List<RatedSongModel>> fetchApi({int start}) =>
+      userRepository.getRatedSongs(authService.currentUser().id,
+          start: (start == null) ? 0 : start,
+          query: query.string,
+          rating: rating.string,
+          groupByRating: groupByRating.value,
+          sort: sort.string,
+          artistIds: artists.toList().map((e) => e.id).join(','),
+          tagIds: tags.toList().map((e) => e.id).join(','));
 
   clearQuery() {
     query('');
@@ -77,7 +83,7 @@ class FavoriteSongController extends GetxController {
 
   initialLoadingDone(_) => initialLoading(false);
 
-  verifyShouldFetchMore(List<RatedSongModel> items) {
+  List<RatedSongModel> verifyShouldFetchMore(List<RatedSongModel> items) {
     if (items == null || items.isEmpty || items.length < maxResults)
       noFetchMore(true);
     return items;
@@ -85,6 +91,8 @@ class FavoriteSongController extends GetxController {
 
   onReachLastItem() {
     if (noFetchMore.value) return;
-    fetchApi().then(verifyShouldFetchMore).then(results.addAll);
+    fetchApi(start: results.length + 1)
+        .then(verifyShouldFetchMore)
+        .then(results.addAll);
   }
 }
