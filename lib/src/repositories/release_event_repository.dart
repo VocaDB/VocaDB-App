@@ -14,7 +14,10 @@ class ReleaseEventRepository extends RestApiRepository {
       String afterDate,
       String beforeDate,
       String artistIds,
-      String tagIds}) async {
+      String tagIds,
+      int start = 0,
+      int maxResults = 50,
+      String nameMatchMode = 'Auto'}) async {
     final String endpoint = '/api/releaseEvents';
     final Map<String, String> params = Map();
     params['fields'] = ' MainPicture,Series';
@@ -26,6 +29,9 @@ class ReleaseEventRepository extends RestApiRepository {
     params['artistId'] = artistIds;
     params['afterDate'] = afterDate;
     params['beforeDate'] = beforeDate;
+    params['start'] = start.toString();
+    params['maxResults'] = maxResults.toString();
+    params['nameMatchMode'] = nameMatchMode;
     return super
         .getList(endpoint, params)
         .then((items) => ReleaseEventModel.jsonToList(items));

@@ -5,6 +5,10 @@ import 'package:vocadb_app/repositories.dart';
 import 'package:vocadb_app/utils.dart';
 
 class ReleaseEventSearchController extends GetxController {
+  final int maxResults = 50;
+
+  final initialLoading = true.obs;
+
   /// List of results from search
   final results = <ReleaseEventModel>[].obs;
 
@@ -27,6 +31,9 @@ class ReleaseEventSearchController extends GetxController {
 
   final tags = <TagModel>[].obs;
 
+  /// If set to [True], no fetch more data from server. Default is [False].
+  final noFetchMore = false.obs;
+
   final ReleaseEventRepository releaseEventRepository;
 
   TextEditingController textSearchController;
@@ -35,16 +42,26 @@ class ReleaseEventSearchController extends GetxController {
 
   @override
   void onInit() {
-    fetchApi();
+    initialFetch();
     [category, sort, artists, tags, fromDate, toDate]
-        .forEach((element) => ever(element, (_) => fetchApi()));
-    debounce(query, (_) => fetchApi(), time: Duration(seconds: 1));
+        .forEach((element) => ever(element, (_) => initialFetch()));
+    debounce(query, (_) => initialFetch(), time: Duration(seconds: 1));
     textSearchController = TextEditingController();
     super.onInit();
   }
 
-  fetchApi() => releaseEventRepository
-      .findReleaseEvents(
+  void initialFetch() {
+    Future.value(noFetchMore(false))
+        .then((_) => fetchApi())
+        .then(verifyShouldFetchMore)
+        .then(results)
+        .then(initialLoadingDone);
+  }
+
+  Future<List<ReleaseEventModel>> fetchApi({int start}) =>
+      releaseEventRepository.findReleaseEvents(
+        start: (start == null) ? 0 : start,
+        maxResults: maxResults,
         query: query.string,
         category: category.string,
         sort: sort.string,
@@ -52,11 +69,25 @@ class ReleaseEventSearchController extends GetxController {
         tagIds: tags.toList().map((e) => e.id).join(','),
         beforeDate: DateTimeUtils.toUtcDateString(toDate.value),
         afterDate: DateTimeUtils.toUtcDateString(fromDate.value),
-      )
-      .then(results);
+      );
 
   clearQuery() {
     query('');
     textSearchController.clear();
+  }
+
+  initialLoadingDone(_) => initialLoading(false);
+
+  List<ReleaseEventModel> verifyShouldFetchMore(List<ReleaseEventModel> items) {
+    if (items == null || items.isEmpty || items.length < maxResults)
+      noFetchMore(true);
+    return items;
+  }
+
+  onReachLastItem() {
+    if (noFetchMore.value) return;
+    fetchApi(start: results.length + 1)
+        .then(verifyShouldFetchMore)
+        .then(results.addAll);
   }
 }
