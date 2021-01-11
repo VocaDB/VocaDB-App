@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:vocadb_app/models.dart';
+import 'package:vocadb_app/services.dart';
 import 'package:vocadb_app/widgets.dart';
 
 class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final SharedPreferenceService pref = Get.find();
+
     return Scaffold(
         appBar: AppBar(title: Text('Settings')),
         body: ListView(
@@ -30,13 +34,14 @@ class SettingsPage extends StatelessWidget {
             ),
             Divider(),
             RadioButtonGroup(
-              label: 'Interface language',
-              value: 'Thai',
+              label: 'uiLanguage'.tr,
+              value: pref.uiLang.val,
+              onChanged: pref.updateUiLang,
               items: [
-                RadioButtonItem(label: 'English', value: 'English'),
-                RadioButtonItem(label: '日本語 (Japanese)', value: 'Japanese'),
-                RadioButtonItem(label: 'ไทย (Thai)', value: 'Thai'),
-                RadioButtonItem(label: 'Melayu (Malay)', value: 'Malay')
+                RadioButtonItem(label: 'English', value: 'en_US'),
+                RadioButtonItem(label: '日本語 (Japanese)', value: 'ja_JP'),
+                RadioButtonItem(label: 'ไทย (Thai)', value: 'th_TH'),
+                RadioButtonItem(label: 'Melayu (Malay)', value: 'ms_MY')
               ],
             )
           ],

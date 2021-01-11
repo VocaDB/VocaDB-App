@@ -60,7 +60,7 @@ class HomePage extends GetView<HomePageController> {
       ),
       SpaceDivider.small(),
       Section(
-        title: 'Highlighted',
+        title: 'highlighted'.tr,
         actions: [
           PopupMenuButton<String>(
             icon: Icon(Icons.more_horiz),

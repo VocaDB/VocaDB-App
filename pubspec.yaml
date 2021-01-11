@@ -32,6 +32,7 @@ dependencies:
   url_launcher: ^5.7.10
   font_awesome_flutter: ^8.11.0
   get: ^3.23.1
+  get_storage: ^1.4.0
   shimmer: ^1.1.2
   intl: ^0.16.1
   equatable: ^1.0.0
