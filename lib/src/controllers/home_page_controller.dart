@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:vocadb_app/models.dart';
 import 'package:vocadb_app/repositories.dart';
+import 'package:vocadb_app/services.dart';
 
 class HomePageController extends GetxController {
   final highlighted = <SongModel>[].obs;
@@ -22,9 +23,10 @@ class HomePageController extends GetxController {
   }
 
   fetchApi() {
-    songRepository.getHighlighted().then(highlighted);
-    albumRepository.getTop().then(randomAlbums);
-    albumRepository.getNew().then(recentAlbums);
-    releaseEventRepository.getRecently().then(recentReleaseEvents);
+    String lang = SharedPreferenceService.lang;
+    songRepository.getHighlighted(lang: lang).then(highlighted);
+    albumRepository.getTop(lang: lang).then(randomAlbums);
+    albumRepository.getNew(lang: lang).then(recentAlbums);
+    releaseEventRepository.getRecently(lang: lang).then(recentReleaseEvents);
   }
 }

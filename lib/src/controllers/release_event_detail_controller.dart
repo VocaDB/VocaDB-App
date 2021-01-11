@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:vocadb_app/arguments.dart';
 import 'package:vocadb_app/models.dart';
 import 'package:vocadb_app/repositories.dart';
+import 'package:vocadb_app/services.dart';
 
 class ReleaseEventDetailController extends GetxController {
   final event = ReleaseEventModel().obs;
@@ -32,8 +33,9 @@ class ReleaseEventDetailController extends GetxController {
   }
 
   fetchApis() {
-    eventRepository.getById(event().id).then(event);
-    eventRepository.getAlbums(event().id).then(albums);
-    eventRepository.getPublishedSongs(event().id).then(songs);
+    String lang = SharedPreferenceService.lang;
+    eventRepository.getById(event().id, lang: lang).then(event);
+    eventRepository.getAlbums(event().id, lang: lang).then(albums);
+    eventRepository.getPublishedSongs(event().id, lang: lang).then(songs);
   }
 }

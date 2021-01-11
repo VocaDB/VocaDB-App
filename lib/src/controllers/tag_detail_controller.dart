@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:vocadb_app/arguments.dart';
 import 'package:vocadb_app/models.dart';
 import 'package:vocadb_app/repositories.dart';
+import 'package:vocadb_app/services.dart';
 
 class TagDetailController extends GetxController {
   final tag = TagModel().obs;
@@ -39,10 +40,15 @@ class TagDetailController extends GetxController {
   }
 
   fetchApis() {
-    tagRepository.getById(tag().id).then(tag);
-    songRepository.getTopSongsByTagId(tag().id).then(topSongs);
-    songRepository.getLatestSongsByTagId(tag().id).then(latestSongs);
-    artistRepository.getTopArtistsByTagId(tag().id).then(topArtists);
-    albumRepository.getTopAlbumsByTagId(tag().id).then(topAlbums);
+    String lang = SharedPreferenceService.lang;
+    tagRepository.getById(tag().id, lang: lang).then(tag);
+    songRepository.getTopSongsByTagId(tag().id, lang: lang).then(topSongs);
+    songRepository
+        .getLatestSongsByTagId(tag().id, lang: lang)
+        .then(latestSongs);
+    artistRepository
+        .getTopArtistsByTagId(tag().id, lang: lang)
+        .then(topArtists);
+    albumRepository.getTopAlbumsByTagId(tag().id, lang: lang).then(topAlbums);
   }
 }

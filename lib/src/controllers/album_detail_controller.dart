@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:vocadb_app/arguments.dart';
 import 'package:vocadb_app/models.dart';
 import 'package:vocadb_app/repositories.dart';
+import 'package:vocadb_app/services.dart';
 
 class AlbumDetailController extends GetxController {
   final album = AlbumModel().obs;
@@ -27,5 +28,7 @@ class AlbumDetailController extends GetxController {
     }
   }
 
-  fetchApis() => albumRepository.getById(album().id).then(album);
+  fetchApis() => albumRepository
+      .getById(album().id, lang: SharedPreferenceService.lang)
+      .then(album);
 }

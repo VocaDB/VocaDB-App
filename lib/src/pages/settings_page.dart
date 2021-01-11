@@ -22,15 +22,18 @@ class SettingsPage extends StatelessWidget {
               ],
             ),
             Divider(),
-            RadioButtonGroup(
-              label: 'contentLanguage'.tr,
-              value: 'English',
-              items: [
-                RadioButtonItem(label: 'Original', value: 'Original'),
-                RadioButtonItem(label: 'English', value: 'English'),
-                RadioButtonItem(label: 'Romaji', value: 'Romaji'),
-                RadioButtonItem(label: 'Japanese', value: 'Japanese')
-              ],
+            Obx(
+              () => RadioButtonGroup(
+                label: 'contentLanguage'.tr,
+                value: pref.contentLang.string,
+                onChanged: pref.updateContentLang,
+                items: [
+                  RadioButtonItem(label: 'Original', value: 'Default'),
+                  RadioButtonItem(label: 'English', value: 'English'),
+                  RadioButtonItem(label: 'Romaji', value: 'Romaji'),
+                  RadioButtonItem(label: 'Japanese', value: 'Japanese')
+                ],
+              ),
             ),
             Divider(),
             RadioButtonGroup(

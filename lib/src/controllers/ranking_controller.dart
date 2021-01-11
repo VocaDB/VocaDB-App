@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:vocadb_app/models.dart';
 import 'package:vocadb_app/repositories.dart';
+import 'package:vocadb_app/services.dart';
 
 class RankingController extends GetxController {
   /// List of top rated songs in 24 hours.
@@ -34,18 +35,22 @@ class RankingController extends GetxController {
   }
 
   fetchApi() {
+    String lang = SharedPreferenceService.lang;
     songRepository
-        .getTopRatedDaily(filterBy: filterBy.string, vocalist: vocalist.string)
+        .getTopRatedDaily(
+            filterBy: filterBy.string, vocalist: vocalist.string, lang: lang)
         .then(daily);
     songRepository
-        .getTopRatedWeekly(filterBy: filterBy.string, vocalist: vocalist.string)
+        .getTopRatedWeekly(
+            filterBy: filterBy.string, vocalist: vocalist.string, lang: lang)
         .then(weekly);
     songRepository
         .getTopRatedMonthly(
-            filterBy: filterBy.string, vocalist: vocalist.string)
+            filterBy: filterBy.string, vocalist: vocalist.string, lang: lang)
         .then(monthly);
     songRepository
-        .getTopRated(filterBy: filterBy.string, vocalist: vocalist.string)
+        .getTopRated(
+            filterBy: filterBy.string, vocalist: vocalist.string, lang: lang)
         .then(overall);
   }
 }

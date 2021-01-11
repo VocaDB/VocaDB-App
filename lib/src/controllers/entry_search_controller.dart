@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vocadb_app/models.dart';
 import 'package:vocadb_app/repositories.dart';
+import 'package:vocadb_app/services.dart';
 
 class EntrySearchController extends GetxController {
   /// List of results from search
@@ -41,6 +42,7 @@ class EntrySearchController extends GetxController {
       .findEntries(
           query: query.string,
           entryType: entryType.string,
+          lang: SharedPreferenceService.lang,
           sort: sort.string,
           tagIds: tags.toList().map((e) => e.id).join(','))
       .then(results);

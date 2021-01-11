@@ -71,15 +71,19 @@ class SongDetailController extends GetxController {
   }
 
   fetchApis() {
-    songRepository.getById(song().id).then(song).then(initialLoadingDone);
+    String lang = SharedPreferenceService.lang;
+    songRepository
+        .getById(song().id, lang: lang)
+        .then(song)
+        .then(initialLoadingDone);
 
     songRepository
-        .getDerived(song().id)
+        .getDerived(song().id, lang: lang)
         .then((songs) => songs.take(20).toList())
         .then(altSongs);
 
     songRepository
-        .getRelated(song().id)
+        .getRelated(song().id, lang: lang)
         .then((songs) => songs.take(20).toList())
         .then(relatedSongs);
   }

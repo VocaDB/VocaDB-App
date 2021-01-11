@@ -21,7 +21,7 @@ class ReleaseEventRepository extends RestApiRepository {
     final String endpoint = '/api/releaseEvents';
     final Map<String, String> params = Map();
     params['fields'] = ' MainPicture,Series';
-    params['languagePreference'] = lang;
+    params['lang'] = lang;
     params['query'] = query;
     params['sort'] = sort;
     params['category'] = category;

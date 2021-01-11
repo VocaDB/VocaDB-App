@@ -55,6 +55,7 @@ class FavoriteAlbumController extends GetxController {
           discType: discType.string,
           purchaseStatuses: purchaseStatuses.string,
           sort: sort.string,
+          lang: SharedPreferenceService.lang,
           artistIds: artists.toList().map((e) => e.id).join(','),
           tagIds: tags.toList().map((e) => e.id).join(','))
       .then(results);

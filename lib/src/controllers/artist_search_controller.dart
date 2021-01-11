@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vocadb_app/models.dart';
 import 'package:vocadb_app/repositories.dart';
+import 'package:vocadb_app/services.dart';
 
 class ArtistSearchController extends GetxController {
   final int maxResults = 50;
@@ -54,6 +55,7 @@ class ArtistSearchController extends GetxController {
   Future<List<ArtistModel>> fetchApi({int start}) =>
       artistRepository.findArtists(
         start: (start == null) ? 0 : start,
+        lang: SharedPreferenceService.lang,
         maxResults: maxResults,
         query: query.string,
         artistType: artistType.string,

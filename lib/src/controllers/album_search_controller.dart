@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vocadb_app/models.dart';
 import 'package:vocadb_app/repositories.dart';
+import 'package:vocadb_app/services.dart';
 
 class AlbumSearchController extends GetxController {
   final int maxResults = 50;
@@ -55,6 +56,7 @@ class AlbumSearchController extends GetxController {
 
   Future<List<AlbumModel>> fetchApi({int start}) => albumRepository.findAlbums(
         start: (start == null) ? 0 : start,
+        lang: SharedPreferenceService.lang,
         maxResults: maxResults,
         query: query.string,
         discType: discType.string,

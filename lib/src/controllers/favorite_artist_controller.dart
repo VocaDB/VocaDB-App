@@ -31,6 +31,7 @@ class FavoriteArtistController extends GetxController {
 
   fetchApi() => userRepository
       .getFollowedArtists(authService.currentUser().id,
+          lang: SharedPreferenceService.lang,
           artistType: artistType.string,
           tagIds: tags.toList().map((e) => e.id).join(','))
       .then(results);

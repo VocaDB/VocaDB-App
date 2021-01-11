@@ -27,7 +27,7 @@ class UserRepository extends RestApiRepository {
     params['artistId'] = artistIds;
     params['tagId'] = tagIds;
     params['nameMatchMode'] = nameMatchMode;
-    params['languagePreference'] = lang;
+    params['lang'] = lang;
     params['start'] = start.toString();
     params['maxResults'] = maxResults.toString();
     return super

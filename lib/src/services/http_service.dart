@@ -19,8 +19,8 @@ class HttpService extends GetxService {
 
   Future<HttpService> init() async {
     _dio = Dio();
-    // _dio.interceptors
-    //     .add(DioCacheManager(CacheConfig(baseUrl: baseUrl)).interceptor);
+    _dio.interceptors
+        .add(DioCacheManager(CacheConfig(baseUrl: baseUrl)).interceptor);
     _dio.interceptors.add(CookieManager(
         PersistCookieJar(dir: _appDirectory.cookiesDirectory.path)));
     return this;

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vocadb_app/models.dart';
 import 'package:vocadb_app/repositories.dart';
+import 'package:vocadb_app/services.dart';
 import 'package:vocadb_app/utils.dart';
 
 class ReleaseEventSearchController extends GetxController {
@@ -61,6 +62,7 @@ class ReleaseEventSearchController extends GetxController {
   Future<List<ReleaseEventModel>> fetchApi({int start}) =>
       releaseEventRepository.findReleaseEvents(
         start: (start == null) ? 0 : start,
+        lang: SharedPreferenceService.lang,
         maxResults: maxResults,
         query: query.string,
         category: category.string,

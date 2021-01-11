@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:vocadb_app/arguments.dart';
 import 'package:vocadb_app/models.dart';
 import 'package:vocadb_app/repositories.dart';
+import 'package:vocadb_app/services.dart';
 
 class TagSearchController extends GetxController {
   final int maxResults = 50;
@@ -54,6 +55,7 @@ class TagSearchController extends GetxController {
 
   Future<List<TagModel>> fetchApi({int start}) => tagRepository.findTags(
       start: (start == null) ? 0 : start,
+      lang: SharedPreferenceService.lang,
       maxResults: maxResults,
       query: query.string,
       categoryName: category.string);
