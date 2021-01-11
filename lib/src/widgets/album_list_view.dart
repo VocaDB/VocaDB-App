@@ -7,8 +7,9 @@ class AlbumListView extends StatelessWidget {
   AlbumListView(
       {Key key,
       this.albums,
-      this.scrollDirection = Axis.vertical,
       this.onSelect,
+      this.onReachLastItem,
+      this.scrollDirection = Axis.vertical,
       this.displayPlaceholder = false})
       : super(key: key);
 
@@ -17,6 +18,9 @@ class AlbumListView extends StatelessWidget {
 
   /// Default is vertical
   final Axis scrollDirection;
+
+  /// A callback function when user react to last item. Only worked on list view with vertical direction.
+  final Function onReachLastItem;
 
   /// Set to True for display list of placeholders.
   final bool displayPlaceholder;
@@ -42,10 +46,11 @@ class AlbumListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (this.scrollDirection == Axis.vertical) {
-      return ListView.builder(
-          itemCount: this.albums.length,
-          scrollDirection: Axis.vertical,
-          itemBuilder: _verticalItemBuilder);
+      return InfiniteListView(
+        itemCount: this.albums.length,
+        itemBuilder: _verticalItemBuilder,
+        onReachLastItem: this.onReachLastItem,
+      );
     }
 
     if (this.displayPlaceholder) {
