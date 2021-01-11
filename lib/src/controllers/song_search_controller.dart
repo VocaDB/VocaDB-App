@@ -4,6 +4,10 @@ import 'package:vocadb_app/models.dart';
 import 'package:vocadb_app/repositories.dart';
 
 class SongSearchController extends GetxController {
+  final int maxResults = 50;
+
+  final initialLoading = true.obs;
+
   /// List of results from search
   final results = <SongModel>[].obs;
 
@@ -36,16 +40,24 @@ class SongSearchController extends GetxController {
 
   @override
   void onInit() {
-    fetchApi().then(results.addAll);
+    initialFetch();
     [songType, sort, artists, tags]
-        .forEach((element) => ever(element, (_) => fetchApi()));
-    debounce(query, (_) => fetchApi(), time: Duration(seconds: 1));
+        .forEach((element) => ever(element, (_) => initialFetch()));
+    debounce(query, (_) => initialFetch(), time: Duration(seconds: 1));
     textSearchController = TextEditingController();
     super.onInit();
   }
 
-  fetchApi() => songRepository.findSongs(
-      start: (results.length == 0) ? results.length : results.length + 1,
+  void initialFetch() {
+    Future.value(noFetchMore(false))
+        .then((_) => fetchApi())
+        .then(verifyShouldFetchMore)
+        .then(results)
+        .then(initialLoadingDone);
+  }
+
+  Future<List<SongModel>> fetchApi({int start}) => songRepository.findSongs(
+      start: (start == null) ? 0 : start,
       query: query.string,
       songType: songType.string,
       sort: sort.string,
@@ -57,14 +69,18 @@ class SongSearchController extends GetxController {
     textSearchController.clear();
   }
 
-  verifyShouldFetchMore(List<SongModel> items) {
-    if (items == null || items.isEmpty) noFetchMore(true);
+  initialLoadingDone(_) => initialLoading(false);
+
+  List<SongModel> verifyShouldFetchMore(List<SongModel> items) {
+    if (items == null || items.isEmpty || items.length < maxResults)
+      noFetchMore(true);
     return items;
   }
 
   onReachLastItem() {
     if (noFetchMore.value) return;
-
-    fetchApi().then(verifyShouldFetchMore).then(results.addAll);
+    fetchApi(start: results.length + 1)
+        .then(verifyShouldFetchMore)
+        .then(results.addAll);
   }
 }

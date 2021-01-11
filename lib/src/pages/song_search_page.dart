@@ -56,11 +56,13 @@ class SongSearchPage extends GetView<SongSearchController> {
               onPressed: () => Get.to(SongSearchFilterPage()))
         ]),
         body: Obx(
-          () => SongListView(
-            songs: controller.results.toList(),
-            onSelect: this._onSelect,
-            onReachLastItem: controller.onReachLastItem,
-          ),
+          () => (controller.initialLoading.value)
+              ? CenterLoading()
+              : SongListView(
+                  songs: controller.results.toList(),
+                  onSelect: this._onSelect,
+                  onReachLastItem: controller.onReachLastItem,
+                ),
         ));
   }
 }
