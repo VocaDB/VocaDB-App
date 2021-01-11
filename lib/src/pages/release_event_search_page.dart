@@ -57,10 +57,13 @@ class ReleaseEventSearchPage extends GetView<ReleaseEventSearchController> {
               onPressed: () => Get.to(ReleaseEventSearchFilterPage()))
         ]),
         body: Obx(
-          () => ReleaseEventListView(
-            events: controller.results.toList(),
-            onSelect: this._onTapReleaseEvent,
-          ),
+          () => (controller.initialLoading.value)
+              ? CenterLoading()
+              : ReleaseEventListView(
+                  events: controller.results.toList(),
+                  onSelect: this._onTapReleaseEvent,
+                  onReachLastItem: controller.onReachLastItem,
+                ),
         ));
   }
 }

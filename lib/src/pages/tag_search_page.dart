@@ -69,10 +69,13 @@ class TagSearchPage extends GetView<TagSearchController> {
           _buildSearchAction(context),
         ]),
         body: Obx(
-          () => TagListView(
-            tags: controller.results.toList(),
-            onSelect: this._onSelectTag,
-          ),
+          () => (controller.initialLoading.value)
+              ? CenterLoading()
+              : TagListView(
+                  tags: controller.results.toList(),
+                  onSelect: this._onSelectTag,
+                  onReachLastItem: controller.onReachLastItem,
+                ),
         ));
   }
 }

@@ -5,6 +5,10 @@ import 'package:vocadb_app/models.dart';
 import 'package:vocadb_app/repositories.dart';
 
 class TagSearchController extends GetxController {
+  final int maxResults = 50;
+
+  final initialLoading = true.obs;
+
   /// List of results from search
   final results = <TagModel>[].obs;
 
@@ -16,6 +20,9 @@ class TagSearchController extends GetxController {
   /// Set to True when user tap search icon.
   final openQuery = false.obs;
 
+  /// If set to [True], no fetch more data from server. Default is [False].
+  final noFetchMore = false.obs;
+
   final TagRepository tagRepository;
 
   TextEditingController textSearchController;
@@ -25,10 +32,18 @@ class TagSearchController extends GetxController {
   @override
   void onInit() {
     initArgs();
-    fetchApi();
-    debounce(query, (_) => fetchApi(), time: Duration(seconds: 1));
+    initialFetch();
+    debounce(query, (_) => initialFetch(), time: Duration(seconds: 1));
     textSearchController = TextEditingController();
     super.onInit();
+  }
+
+  void initialFetch() {
+    Future.value(noFetchMore(false))
+        .then((_) => fetchApi())
+        .then(verifyShouldFetchMore)
+        .then(results)
+        .then(initialLoadingDone);
   }
 
   initArgs() {
@@ -37,12 +52,29 @@ class TagSearchController extends GetxController {
     print(args);
   }
 
-  fetchApi() => tagRepository
-      .findTags(query: query.string, categoryName: category.string)
-      .then(results);
+  Future<List<TagModel>> fetchApi({int start}) => tagRepository.findTags(
+      start: (start == null) ? 0 : start,
+      maxResults: maxResults,
+      query: query.string,
+      categoryName: category.string);
 
   clearQuery() {
     query('');
     textSearchController.clear();
+  }
+
+  initialLoadingDone(_) => initialLoading(false);
+
+  List<TagModel> verifyShouldFetchMore(List<TagModel> items) {
+    if (items == null || items.isEmpty || items.length < maxResults)
+      noFetchMore(true);
+    return items;
+  }
+
+  onReachLastItem() {
+    if (noFetchMore.value) return;
+    fetchApi(start: results.length + 1)
+        .then(verifyShouldFetchMore)
+        .then(results.addAll);
   }
 }

@@ -7,13 +7,21 @@ class TagRepository extends RestApiRepository {
 
   /// Find tags
   Future<List<TagModel>> findTags(
-      {String lang = 'Default', String query, String categoryName}) async {
+      {String lang = 'Default',
+      String query,
+      String categoryName,
+      int start = 0,
+      int maxResults = 50,
+      String nameMatchMode = 'Auto'}) async {
     final String endpoint = '/api/tags';
     final Map<String, String> params = Map();
     params['query'] = query;
     params['fields'] = 'MainPicture';
     params['categoryName'] = categoryName;
-    params['languagePreference'] = lang;
+    params['lang'] = lang;
+    params['start'] = start.toString();
+    params['maxResults'] = maxResults.toString();
+    params['nameMatchMode'] = nameMatchMode;
     return super
         .getList(endpoint, params)
         .then((items) => TagModel.jsonToList(items));

@@ -13,7 +13,8 @@ class TagCategoryPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(title: Text('Tags'), actions: <Widget>[
-          IconButton(icon: Icon(Icons.search), onPressed: () {}),
+          IconButton(
+              icon: Icon(Icons.search), onPressed: () => _onSelectCategory('')),
         ]),
         body: TagCategoryList(
           onSelectCategory: this._onSelectCategory,
