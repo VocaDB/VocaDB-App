@@ -14,7 +14,9 @@ class UserRepository extends RestApiRepository {
       String artistIds,
       String tagIds,
       bool groupByRating = false,
-      String nameMatchMode = 'Auto'}) async {
+      String nameMatchMode = 'Auto',
+      int start = 0,
+      int maxResults = 50}) async {
     final String endpoint = '/api/users/$userId/ratedSongs';
     final Map<String, String> params = Map();
     params['query'] = query;
@@ -26,6 +28,8 @@ class UserRepository extends RestApiRepository {
     params['tagId'] = tagIds;
     params['nameMatchMode'] = nameMatchMode;
     params['languagePreference'] = lang;
+    params['start'] = start.toString();
+    params['maxResults'] = maxResults.toString();
     return super
         .getList(endpoint, params)
         .then((items) => RatedSongModel.jsonToList(items));

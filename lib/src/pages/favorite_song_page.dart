@@ -61,6 +61,7 @@ class FavoriteSongPage extends GetView<FavoriteSongController> {
               : SongListView(
                   songs: controller.results().map((e) => e.song).toList(),
                   onSelect: this._onTapSong,
+                  onReachLastItem: controller.onReachLastItem,
                 ),
         ));
   }
