@@ -77,10 +77,13 @@ class ArtistSearchPage extends GetView<ArtistSearchController> {
               : Container()
         ]),
         body: Obx(
-          () => ArtistListView(
-            artists: controller.results.toList(),
-            onSelect: this._onSelectArtist,
-          ),
+          () => (controller.initialLoading.value)
+              ? CenterLoading()
+              : ArtistListView(
+                  artists: controller.results.toList(),
+                  onSelect: this._onSelectArtist,
+                  onReachLastItem: controller.onReachLastItem,
+                ),
         ));
   }
 }

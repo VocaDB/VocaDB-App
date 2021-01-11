@@ -11,7 +11,10 @@ class ArtistRepository extends RestApiRepository {
       String query,
       String artistType,
       String sort,
-      String tagIds}) async {
+      String tagIds,
+      int start = 0,
+      int maxResults = 50,
+      String nameMatchMode = 'Auto'}) async {
     final String endpoint = '/api/artists';
     final Map<String, String> params = Map();
     params['query'] = query;
@@ -20,6 +23,9 @@ class ArtistRepository extends RestApiRepository {
     params['languagePreference'] = lang;
     params['tagId'] = tagIds;
     params['sort'] = sort;
+    params['start'] = start.toString();
+    params['maxResults'] = maxResults.toString();
+    params['nameMatchMode'] = nameMatchMode;
     return super
         .getList(endpoint, params)
         .then((items) => ArtistModel.jsonToList(items));
