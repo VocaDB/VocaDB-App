@@ -47,7 +47,7 @@ class VocaDBApp extends StatelessWidget {
         defaultTransition: Transition.fade,
         initialBinding: MainPageBinding(),
         initialRoute: Routes.INITIAL,
-        home: LoginPage(),
+        home: MainPage(),
         getPages: AppPages.pages);
   }
 }
