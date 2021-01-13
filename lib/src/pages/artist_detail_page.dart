@@ -294,11 +294,13 @@ class ArtistDetailPageView extends StatelessWidget {
                   ),
                 ),
               ),
-              Visibility(
-                  visible: controller.artist().webLinks != null &&
-                      controller.artist().webLinks.isNotEmpty,
-                  child: WebLinkGroupList(
-                      webLinks: controller.artist().webLinks ?? []))
+              Obx(
+                () => Visibility(
+                    visible: controller.artist().webLinks != null &&
+                        controller.artist().webLinks.isNotEmpty,
+                    child: WebLinkGroupList(
+                        webLinks: controller.artist().webLinks ?? [])),
+              )
             ],
           )
         ]))
