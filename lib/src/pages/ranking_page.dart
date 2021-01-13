@@ -64,28 +64,28 @@ class _RankingPageState extends State<RankingPage>
     List<Widget> contents = [];
 
     if (constRankings.contains('daily')) {
-      contents.add(Obx(() => SongListView(
+      contents.add(Obx(() => RankingSongsContent(
             songs: _rankingController.daily.toList(),
             onSelect: (s) => this._onTabSong(s),
           )));
     }
 
     if (constRankings.contains('weekly')) {
-      contents.add(Obx(() => SongListView(
+      contents.add(Obx(() => RankingSongsContent(
             songs: _rankingController.weekly.toList(),
             onSelect: (s) => this._onTabSong(s),
           )));
     }
 
     if (constRankings.contains('monthly')) {
-      contents.add(Obx(() => SongListView(
+      contents.add(Obx(() => RankingSongsContent(
             songs: _rankingController.monthly.toList(),
             onSelect: (s) => this._onTabSong(s),
           )));
     }
 
     if (constRankings.contains('overall')) {
-      contents.add(Obx(() => SongListView(
+      contents.add(Obx(() => RankingSongsContent(
             songs: _rankingController.overall.toList(),
             onSelect: (s) => this._onTabSong(s),
           )));
@@ -143,6 +143,26 @@ class _RankingPageState extends State<RankingPage>
           floatingActionButton: FloatingActionButton(
               onPressed: () => this._onTapPlaylist(),
               child: Icon(Icons.play_arrow))),
+    );
+  }
+}
+
+class RankingSongsContent extends StatelessWidget {
+  final List<SongModel> songs;
+
+  final Function(SongModel) onSelect;
+
+  const RankingSongsContent({Key key, this.songs, this.onSelect})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      itemCount: songs.length,
+      itemBuilder: (context, index) {
+        return SongTile.song(songs[index],
+            leading: Text((index + 1).toString()));
+      },
     );
   }
 }
