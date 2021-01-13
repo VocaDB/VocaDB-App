@@ -73,7 +73,7 @@ class AlbumModel extends EntryModel {
 
   String get originUrl => '$baseUrl/Al/${this.id}';
 
-  String get releaseDateFormatted => releaseDate.formatted;
+  String get releaseDateFormatted => releaseDate?.formatted;
 
   bool get isContainsYoutubeTrack =>
       tracks.firstWhere((t) => t.song != null && t.song.youtubePV != null,

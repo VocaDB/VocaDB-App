@@ -10,7 +10,7 @@ class SharedPreferenceService extends GetxService {
 
   final GetStorage box;
 
-  final uiLang = ReadWriteValue('uiLang', 'en_US');
+  final uiLang = ReadWriteValue('uiLang', 'en');
 
   final contentLang = 'Default'.obs;
 
@@ -29,23 +29,21 @@ class SharedPreferenceService extends GetxService {
   void initUILang() {
     uiLang.val = box.read('uiLang');
     AppTranslation().changeLocale(uiLang.val);
-    print('current locale $Get.locale');
+    print('current locale ${Get.locale}');
   }
 
   updateUiLang(String value) {
     box.write('uiLang', value);
     uiLang.val = value;
     AppTranslation().changeLocale(value);
-    print('current locale $Get.locale');
+    print('current locale ${Get.locale}');
   }
 
   void initContentLang() => contentLang(box.read('contentLang'));
 
   updateContentLang(String value) {
-    print('before update content lang : ${contentLang.val}');
     box.write('contentLang', value);
     contentLang(value);
-    print('after update content lang : ${contentLang.val}');
     Get.find<HomePageController>().fetchApi();
     Get.find<RankingController>().fetchApi();
   }

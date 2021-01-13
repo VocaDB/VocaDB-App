@@ -11,6 +11,7 @@ const List<Map<String, String>> contactSites = [
   {"title": "Facebook", "url": "https://www.facebook.com/vocadb"},
   {"title": "Twitter", "url": "https://twitter.com/VocaDB"},
   {"title": "VK", "url": "https://vk.com/vocadb"},
+  {"title": "Discord", "url": "https://discord.gg/3bwXQNXKCz"},
   {"title": "IRC #vocadb", "url": "https://vocadb.net/Home/Chat"},
 ];
 

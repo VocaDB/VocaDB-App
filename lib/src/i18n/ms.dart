@@ -92,7 +92,7 @@ const Map<String, String> ms = {
   "moreSongs": "More songs",
   "moreAlbums": "More albums",
   "moreArtists": "More artists",
-  "publishedOn": "Published on {date}",
+  "publishedOn": "Published on %s",
   "otherMedia": "Other media",
   "original": "Original",
   "vocalists": "Penyanyi",
@@ -134,6 +134,8 @@ const Map<String, String> ms = {
   "registerAccount": "Register",
   "login": "Login",
   "logout": "Logout",
+  "invalidUsernameOrPassword": "Invalid username or password",
+  "collect": "Collect",
 
   // Song type
   "songType.Original": "Lagu asal",

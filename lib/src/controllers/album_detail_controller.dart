@@ -5,11 +5,17 @@ import 'package:vocadb_app/repositories.dart';
 import 'package:vocadb_app/services.dart';
 
 class AlbumDetailController extends GetxController {
+  final collected = false.obs;
+
+  final initialLoading = true.obs;
+
   final album = AlbumModel().obs;
 
   final AlbumRepository albumRepository;
 
-  AlbumDetailController({this.albumRepository});
+  final AuthService authService;
+
+  AlbumDetailController({this.albumRepository, this.authService});
 
   @override
   void onInit() {
@@ -30,5 +36,21 @@ class AlbumDetailController extends GetxController {
 
   fetchApis() => albumRepository
       .getById(album().id, lang: SharedPreferenceService.lang)
-      .then(album);
+      .then(album)
+      .then(initialLoadingDone);
+
+  checkAlbumCollectionStatus() {
+    int userId = authService.currentUser().id;
+
+    if (userId == null) {
+      return;
+    }
+    //TODO: Wait for API backend implementation
+  }
+
+  updateAlbumCollection() {
+    //TODO: Wait for API backend implementation
+  }
+
+  initialLoadingDone(_) => initialLoading(false);
 }

@@ -22,7 +22,6 @@ class EntrySearchFilterPage extends GetView<EntrySearchController> {
                   {'name': 'artist'.tr, 'value': 'Artist'},
                   {'name': 'album'.tr, 'value': 'Album'},
                   {'name': 'song'.tr, 'value': 'Song'},
-                  {'name': 'tag'.tr, 'value': 'Tag'},
                   {'name': 'event'.tr, 'value': 'Event'}
                 ],
                 label: 'type'.tr,

@@ -43,7 +43,7 @@ class InfiniteListView extends StatelessWidget {
       itemCount: itemCount + 1,
       itemBuilder: (context, index) {
         if (index == itemCount) {
-          this.onReachLastItem();
+          if (this.onReachLastItem != null) this.onReachLastItem();
 
           return (progressIndicator == null) ? Container() : progressIndicator;
         }

@@ -4,6 +4,8 @@ import 'package:vocadb_app/repositories.dart';
 import 'package:vocadb_app/services.dart';
 
 class RankingController extends GetxController {
+  final initialLoading = true.obs;
+
   /// List of top rated songs in 24 hours.
   final daily = <SongModel>[].obs;
 

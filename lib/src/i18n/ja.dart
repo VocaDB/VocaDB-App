@@ -95,7 +95,7 @@ const Map<String, String> ja = {
   "moreSongs": "More songs",
   "moreAlbums": "More albums",
   "moreArtists": "More artists",
-  "publishedOn": "Published on {date}",
+  "publishedOn": "Published on %s",
   "otherMedia": "他のメディア",
   "original": "オリジナル",
   "vocalists": "ボーカリスト",
@@ -137,6 +137,8 @@ const Map<String, String> ja = {
   "registerAccount": "Register",
   "login": "Login",
   "logout": "Logout",
+  "invalidUsernameOrPassword": "Invalid username or password",
+  "collect": "Collect",
 
   // Song type
   "songType.Original": "オリジナル曲",

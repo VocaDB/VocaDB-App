@@ -113,6 +113,49 @@ class SongDetailPageView extends StatelessWidget {
         ));
   }
 
+  Widget _buttonBarBuilder() {
+    final authService = Get.find<AuthService>();
+
+    List<Widget> buttons = [];
+
+    buttons.add(ActiveFlatButton(
+      icon: Icon(Icons.favorite),
+      label: 'like'.tr,
+      active: controller.liked.value,
+      onPressed:
+          (authService.currentUser().id == null) ? null : this._onTapLikeButton,
+    ));
+
+    if (controller.song().lyrics != null &&
+        controller.song().lyrics.length > 0) {
+      buttons.add(FlatButton(
+        onPressed: this._onTapLyricButton,
+        child: Column(
+          children: [Icon(Icons.subtitles), Text('lyrics'.tr)],
+        ),
+      ));
+    }
+
+    buttons.add(FlatButton(
+      onPressed: this._onTapShareButton,
+      child: Column(
+        children: [Icon(Icons.share), Text('share'.tr)],
+      ),
+    ));
+
+    buttons.add(FlatButton(
+      onPressed: this._onTapInfoButton,
+      child: Column(
+        children: [Icon(Icons.info), Text('info'.tr)],
+      ),
+    ));
+
+    return ButtonBar(
+      alignment: MainAxisAlignment.spaceEvenly,
+      children: buttons,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -157,36 +200,8 @@ class SongDetailPageView extends StatelessWidget {
       child: ListView(
         children: [
           _buildSongImage(),
-          ButtonBar(
-            alignment: MainAxisAlignment.spaceAround,
-            children: <Widget>[
-              Obx(
-                () => ActiveFlatButton(
-                  icon: Icon(Icons.favorite),
-                  label: 'like'.tr,
-                  active: controller.liked.value,
-                  onPressed: this._onTapLikeButton,
-                ),
-              ),
-              FlatButton(
-                onPressed: this._onTapLyricButton,
-                child: Column(
-                  children: [Icon(Icons.subtitles), Text('lyrics'.tr)],
-                ),
-              ),
-              FlatButton(
-                onPressed: this._onTapShareButton,
-                child: Column(
-                  children: [Icon(Icons.share), Text('share'.tr)],
-                ),
-              ),
-              FlatButton(
-                onPressed: this._onTapInfoButton,
-                child: Column(
-                  children: [Icon(Icons.info), Text('info'.tr)],
-                ),
-              )
-            ],
+          Obx(
+            () => _buttonBarBuilder(),
           ),
           _SongDetailInfo(
             name: controller.song().name,

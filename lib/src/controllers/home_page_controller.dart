@@ -24,9 +24,20 @@ class HomePageController extends GetxController {
 
   fetchApi() {
     String lang = SharedPreferenceService.lang;
-    songRepository.getHighlighted(lang: lang).then(highlighted);
-    albumRepository.getTop(lang: lang).then(randomAlbums);
-    albumRepository.getNew(lang: lang).then(recentAlbums);
-    releaseEventRepository.getRecently(lang: lang).then(recentReleaseEvents);
+    songRepository
+        .getHighlighted(lang: lang)
+        .then(highlighted)
+        .catchError(onError);
+    albumRepository.getTop(lang: lang).then(randomAlbums).catchError(onError);
+    albumRepository.getNew(lang: lang).then(recentAlbums).catchError(onError);
+    releaseEventRepository
+        .getRecently(lang: lang)
+        .then(recentReleaseEvents)
+        .catchError(onError);
+  }
+
+  onError(err) {
+    print(err);
+    Get.snackbar('error', err.toString());
   }
 }

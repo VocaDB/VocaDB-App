@@ -97,7 +97,7 @@ const Map<String, String> zh = {
   "moreSongs": "更多歌曲",
   "moreAlbums": "更多专辑",
   "moreArtists": "更多艺术家",
-  "publishedOn": "发布于 {date}",
+  "publishedOn": "发布于 %s",
   "otherMedia": "转载投稿",
   "original": "本家",
   "vocalists": "歌手",
@@ -139,6 +139,8 @@ const Map<String, String> zh = {
   "registerAccount": "Register",
   "login": "Login",
   "logout": "Logout",
+  "invalidUsernameOrPassword": "Invalid username or password",
+  "collect": "Collect",
 
   // Song type
   "songType.Unspecified": "不指定",

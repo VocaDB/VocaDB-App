@@ -97,7 +97,7 @@ const Map<String, String> en = {
   "moreSongs": "More songs",
   "moreAlbums": "More albums",
   "moreArtists": "More artists",
-  "publishedOn": "Published on {date}",
+  "publishedOn": "Published on %s",
   "otherMedia": "Other media",
   "original": "Original",
   "vocalists": "Vocalists",
@@ -137,6 +137,8 @@ const Map<String, String> en = {
   "registerAccount": "Register",
   "login": "Login",
   "logout": "Logout",
+  "invalidUsernameOrPassword": "Invalid username or password",
+  "collect": "Collect",
 
   // SongType
   "songType.Unspecified": "Unspecified",

@@ -134,6 +134,8 @@ const Map<String, String> th = {
   "registerAccount": "สมัครสมาชิก",
   "login": "เข้าสู่ระบบ",
   "logout": "ออกจากระบบ",
+  "invalidUsernameOrPassword": "Invalid username or password",
+  "collect": "Collect",
 
   // Song type
   "songType.Original": "ต้นฉบับ",

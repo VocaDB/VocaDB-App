@@ -4,6 +4,10 @@ import 'package:vocadb_app/services.dart';
 import 'package:vocadb_app/src/repositories/auth_repository.dart';
 
 class LoginPageController extends GetxController {
+  final processing = false.obs;
+
+  final message = ''.obs;
+
   final AuthRepository authRepository;
 
   final AuthService authService;
@@ -14,8 +18,7 @@ class LoginPageController extends GetxController {
   LoginPageController({this.authRepository, this.authService});
 
   login() {
-    print(username.string);
-    print(password.string);
+    processing(true);
     authRepository
         .login(username: this.username.string, password: this.password.string)
         .then((_) => authService.getCurrent())
@@ -24,6 +27,7 @@ class LoginPageController extends GetxController {
   }
 
   void postLoginSuccess(user) {
+    processing(false);
     print('login success $user');
     authService.currentUser(user);
     Get.off(MainPage());
@@ -37,7 +41,8 @@ class LoginPageController extends GetxController {
   void onPasswordChanged(value) => password(value);
 
   void error(err) {
+    processing(false);
     print('Error occurs...$err');
-    Get.snackbar("Error", "Failed to login");
+    message('invalidUsernameOrPassword');
   }
 }

@@ -33,6 +33,7 @@ class SiteTile extends StatelessWidget {
       {"pattern": "amazon", "icon": FontAwesomeIcons.amazon},
       {"pattern": "itunes", "icon": FontAwesomeIcons.itunes},
       {"pattern": "play.google", "icon": FontAwesomeIcons.googlePlay},
+      {"pattern": "discord", "icon": FontAwesomeIcons.discord},
     ];
 
     Map<String, dynamic> iconWebsite = siteIcons

@@ -54,6 +54,42 @@ class AlbumDetailPageView extends StatelessWidget {
 
   void _onSelectTag(TagModel tag) => AppPages.toTagDetailPage(tag);
 
+  void _onTapCollectButton() {}
+
+  Widget _buttonBarBuilder() {
+    final authService = Get.find<AuthService>();
+
+    List<Widget> buttons = [];
+
+    buttons.add(ActiveFlatButton(
+      icon: Icon(Icons.favorite),
+      label: 'collect'.tr,
+      active: controller.collected.value,
+      onPressed: (authService.currentUser().id == null)
+          ? null
+          : this._onTapCollectButton,
+    ));
+
+    buttons.add(FlatButton(
+      onPressed: this._onTapShareButton,
+      child: Column(
+        children: [Icon(Icons.share), Text('share'.tr)],
+      ),
+    ));
+
+    buttons.add(FlatButton(
+      onPressed: this._onTapInfoButton,
+      child: Column(
+        children: [Icon(Icons.info), Text('info'.tr)],
+      ),
+    ));
+
+    return ButtonBar(
+      alignment: MainAxisAlignment.spaceEvenly,
+      children: buttons,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -87,7 +123,8 @@ class AlbumDetailPageView extends StatelessWidget {
             Column(
               children: [
                 Visibility(
-                  visible: controller.album().ratingCount > 0,
+                  visible: controller.album().ratingCount != null &&
+                      controller.album().ratingCount > 0,
                   child: Text(
                       '${controller.album().ratingAverage} ★ (${controller.album().ratingCount})'),
                 ),
@@ -115,13 +152,10 @@ class AlbumDetailPageView extends StatelessWidget {
               ],
             ),
             SpaceDivider.micro(),
-            _AlbumDetailButtonBar(
-              onTapInfoButton: this._onTapInfoButton,
-              onTapShareButton: this._onTapShareButton,
-            ),
+            _buttonBarBuilder(),
             TagGroupView(
               onPressed: this._onSelectTag,
-              tags: controller.album().tags,
+              tags: controller.album().tags ?? [],
             ),
             ExpandableContent(
               child: Column(
@@ -144,7 +178,7 @@ class AlbumDetailPageView extends StatelessWidget {
                   Divider(),
                   ArtistGroupByRoleList.fromArtistAlbumModel(
                     onTap: this._onTapArtist,
-                    artistAlbums: controller.album().artists,
+                    artistAlbums: controller.album().artists ?? [],
                     // prefixHeroTag: 'album_detail_${args.id}',
                   ),
                 ],
@@ -156,58 +190,11 @@ class AlbumDetailPageView extends StatelessWidget {
               onSelect: this._onTapTrack,
             ),
             Divider(),
-            WebLinkGroupList(webLinks: controller.album().webLinks),
+            WebLinkGroupList(webLinks: controller.album().webLinks ?? []),
             SpaceDivider.medium()
           ])),
         )
       ],
     ));
-  }
-}
-
-class _AlbumDetailButtonBar extends StatelessWidget {
-  final VoidCallback onTapLikeButton;
-
-  final VoidCallback onTapShareButton;
-
-  final VoidCallback onTapInfoButton;
-
-  const _AlbumDetailButtonBar(
-      {this.onTapLikeButton, this.onTapShareButton, this.onTapInfoButton});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Expanded(
-            child: FlatButton(
-              onPressed: this.onTapLikeButton,
-              child: Column(
-                children: [Icon(Icons.favorite), Text('like'.tr)],
-              ),
-            ),
-          ),
-          Expanded(
-            child: FlatButton(
-              onPressed: this.onTapShareButton,
-              child: Column(
-                children: [Icon(Icons.share), Text('share'.tr)],
-              ),
-            ),
-          ),
-          Expanded(
-            child: FlatButton(
-              onPressed: this.onTapInfoButton,
-              child: Column(
-                children: [Icon(Icons.info), Text('info'.tr)],
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
   }
 }

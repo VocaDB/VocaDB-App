@@ -57,6 +57,39 @@ class ArtistDetailPageView extends StatelessWidget {
 
   void _onTapEntrySearch() => Get.to(EntrySearchPage());
 
+  Widget _buttonBarBuilder() {
+    final authService = Get.find<AuthService>();
+
+    List<Widget> buttons = [];
+
+    buttons.add(ActiveFlatButton(
+      icon: Icon(Icons.favorite),
+      label: 'like'.tr,
+      active: controller.liked.value,
+      onPressed:
+          (authService.currentUser().id == null) ? null : this._onTapLikeButton,
+    ));
+
+    buttons.add(FlatButton(
+      onPressed: this._onTapShareButton,
+      child: Column(
+        children: [Icon(Icons.share), Text('share'.tr)],
+      ),
+    ));
+
+    buttons.add(FlatButton(
+      onPressed: this._onTapInfoButton,
+      child: Column(
+        children: [Icon(Icons.info), Text('info'.tr)],
+      ),
+    ));
+
+    return ButtonBar(
+      alignment: MainAxisAlignment.spaceEvenly,
+      children: buttons,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -88,10 +121,7 @@ class ArtistDetailPageView extends StatelessWidget {
             )),
         SliverList(
             delegate: SliverChildListDelegate([
-          _ArtistDetailButtonBar(
-            onTapInfoButton: this._onTapInfoButton,
-            onTapShareButton: this._onTapShareButton,
-          ),
+          _buttonBarBuilder(),
           Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -260,52 +290,5 @@ class ArtistDetailPageView extends StatelessWidget {
         ]))
       ],
     ));
-  }
-}
-
-class _ArtistDetailButtonBar extends StatelessWidget {
-  final VoidCallback onTapLikeButton;
-
-  final VoidCallback onTapShareButton;
-
-  final VoidCallback onTapInfoButton;
-
-  const _ArtistDetailButtonBar(
-      {this.onTapLikeButton, this.onTapShareButton, this.onTapInfoButton});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Expanded(
-            child: FlatButton(
-              onPressed: this.onTapLikeButton,
-              child: Column(
-                children: [Icon(Icons.favorite), Text('Like')],
-              ),
-            ),
-          ),
-          Expanded(
-            child: FlatButton(
-              onPressed: this.onTapShareButton,
-              child: Column(
-                children: [Icon(Icons.share), Text('Share')],
-              ),
-            ),
-          ),
-          Expanded(
-            child: FlatButton(
-              onPressed: this.onTapInfoButton,
-              child: Column(
-                children: [Icon(Icons.info), Text('Info')],
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
   }
 }

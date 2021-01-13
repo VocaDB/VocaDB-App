@@ -62,7 +62,45 @@ class ReleaseEventDetailPageView extends StatelessWidget {
 
   void _onTapEntrySearch() => Get.to(EntrySearchPage());
 
-  void _onTapMapButton() {}
+  void _onTapMapButton() {
+    String q = controller.event().venueName;
+    String uri = Uri.encodeFull('geo:0,0?q=$q');
+    canLaunch(uri).then((can) => (can)
+        ? launch(uri)
+        : launch(Uri.encodeFull('https://maps.apple.com/?q=$q')));
+  }
+
+  Widget _buttonBarBuilder() {
+    List<Widget> buttons = [];
+
+    buttons.add(FlatButton(
+      onPressed: this._onTapShareButton,
+      child: Column(
+        children: [Icon(Icons.share), Text('share'.tr)],
+      ),
+    ));
+
+    if (controller.event().venueName != null) {
+      buttons.add(FlatButton(
+        onPressed: this._onTapMapButton,
+        child: Column(
+          children: [Icon(Icons.place), Text('map'.tr)],
+        ),
+      ));
+    }
+
+    buttons.add(FlatButton(
+      onPressed: this._onTapInfoButton,
+      child: Column(
+        children: [Icon(Icons.info), Text('info'.tr)],
+      ),
+    ));
+
+    return ButtonBar(
+      alignment: MainAxisAlignment.spaceEvenly,
+      children: buttons,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -104,11 +142,7 @@ class ReleaseEventDetailPageView extends StatelessWidget {
         Obx(
           () => SliverList(
               delegate: SliverChildListDelegate([
-            _ReleaseEventDetailButtonBar(
-              onTapInfoButton: this._onTapInfoButton,
-              onTapMapButton: this._onTapMapButton,
-              onTapShareButton: this._onTapShareButton,
-            ),
+            _buttonBarBuilder(),
             Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -159,7 +193,7 @@ class ReleaseEventDetailPageView extends StatelessWidget {
                   title: 'participatingArtists'.tr,
                   visible: controller.event().artists?.isNotEmpty,
                   child: ArtistGroupByRoleList.fromArtistEventModel(
-                    artistEvents: controller.event().artists,
+                    artistEvents: controller.event().artists ?? [],
                     onTap: this._onTapArtist,
                     displayRole: false,
                   ),

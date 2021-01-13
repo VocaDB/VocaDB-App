@@ -157,11 +157,16 @@ class RankingSongsContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (songs.length == 0) return CenterLoading();
+
     return ListView.builder(
       itemCount: songs.length,
       itemBuilder: (context, index) {
-        return SongTile.song(songs[index],
-            leading: Text((index + 1).toString()));
+        return SongTile.song(
+          songs[index],
+          leading: Text((index + 1).toString()),
+          onTap: () => this.onSelect(songs[index]),
+        );
       },
     );
   }
