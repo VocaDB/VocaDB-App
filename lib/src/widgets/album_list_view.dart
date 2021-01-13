@@ -9,6 +9,7 @@ class AlbumListView extends StatelessWidget {
       this.albums,
       this.onSelect,
       this.onReachLastItem,
+      this.emptyWidget,
       this.scrollDirection = Axis.vertical,
       this.displayPlaceholder = false})
       : super(key: key);
@@ -31,6 +32,9 @@ class AlbumListView extends StatelessWidget {
   /// Height of list content widget if set as horizontal.
   static const double _rowHeight = 180;
 
+  /// A widget that display when songs is empty
+  final Widget emptyWidget;
+
   /// Return item for display in vertical list
   Widget _verticalItemBuilder(BuildContext context, int index) =>
       AlbumTile.fromEntry(
@@ -45,6 +49,10 @@ class AlbumListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (this.albums.isEmpty && this.emptyWidget != null) {
+      return emptyWidget;
+    }
+
     if (this.scrollDirection == Axis.vertical) {
       return InfiniteListView(
         itemCount: this.albums.length,
