@@ -83,7 +83,7 @@ class EntrySearchPage extends GetView<EntrySearchController> {
         ]),
         body: Obx(
           () => (controller.query.string.isEmpty)
-              ? CenterText('Find anything here')
+              ? CenterText('findAnything'.tr)
               : (controller.errorMessage.string.isNotEmpty)
                   ? CenterText(controller.errorMessage.string)
                   : EntryListView(

@@ -187,7 +187,7 @@ const Map<String, String> zh = {
   "sort.RatingTotal": "总评分",
   "sort.CollectionCount": "收藏数",
   "sort.Date": "日期",
-  "sort.Rating": "Rating date",
+  "sort.RatingDate": "Rating date",
 
   // Artist role
   "artistRole.Group": "所属",

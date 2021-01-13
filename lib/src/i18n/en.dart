@@ -131,6 +131,7 @@ const Map<String, String> en = {
   "collectionStatus.Wishlisted": "Wishlisted",
   "collectionStatus.Ordered": "Ordered",
   "collectionStatus.Owned": "Owned",
+  "groupByRating": "Group by rating",
   "username": "Username",
   "password": "Password",
   "skip": "Skip",
@@ -185,7 +186,7 @@ const Map<String, String> en = {
   "sort.RatingTotal": "Total score",
   "sort.CollectionCount": "Collection count",
   "sort.Date": "Date",
-  "sort.Rating": "Rating date",
+  "sort.RatingDate": "Rating date",
 
   // Artist role
   "artistRole.Group": "Groups and labels",

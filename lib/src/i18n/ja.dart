@@ -183,7 +183,7 @@ const Map<String, String> ja = {
   "sort.RatingTotal": "総スコア",
   "sort.CollectionCount": "ユーザーコレクション数",
   "sort.Date": "日時",
-  "sort.Rating": "Rating date",
+  "sort.RatingDate": "Rating date",
 
   // Artist role
   "artistRole.Group": "Groups and labels",

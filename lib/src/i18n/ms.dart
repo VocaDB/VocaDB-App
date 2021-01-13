@@ -180,7 +180,7 @@ const Map<String, String> ms = {
   "sort.RatingTotal": "Total score",
   "sort.CollectionCount": "Collection count",
   "sort.Date": "Date",
-  "sort.Rating": "Rating date",
+  "sort.RatingDate": "Rating date",
 
   // Artist role
   "artistRole.Group": "Kumpulan dan label",

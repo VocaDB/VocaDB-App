@@ -180,7 +180,7 @@ const Map<String, String> th = {
   "sort.RatingTotal": "จำนวนคะแนนทั้งหมด",
   "sort.CollectionCount": "จำนวนคอลเลคชั่น",
   "sort.Date": "วันที่",
-  "sort.Rating": "วันที่กดชื่นชอบ",
+  "sort.RatingDate": "วันที่กดชื่นชอบ",
 
   // Artist role
   "artistRole.Group": "กลุ่ม/ค่าย",
