@@ -26,8 +26,10 @@ class WebLinkList {
   WebLinkList(this.webLinks);
 
   List<WebLinkModel> get officialLinks =>
-      webLinks.where((link) => link.category != 'Reference').toList();
+      webLinks.where((link) => link.category != 'Reference').toList()
+        ..sort((a, b) => a.description.compareTo(b.description));
 
   List<WebLinkModel> get unofficialLinks =>
-      webLinks.where((link) => link.category == 'Reference').toList();
+      webLinks.where((link) => link.category == 'Reference').toList()
+        ..sort((a, b) => a.description.compareTo(b.description));
 }
