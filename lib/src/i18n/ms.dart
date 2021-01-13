@@ -137,6 +137,7 @@ const Map<String, String> ms = {
   "invalidUsernameOrPassword": "Invalid username or password",
   "collect": "Collect",
   "autoPlay": "Auto play video",
+  "register": "Register",
 
   // Song type
   "songType.Original": "Lagu asal",

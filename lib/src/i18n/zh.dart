@@ -142,6 +142,7 @@ const Map<String, String> zh = {
   "invalidUsernameOrPassword": "Invalid username or password",
   "collect": "Collect",
   "autoPlay": "Auto play video",
+  "register": "Register",
 
   // Song type
   "songType.Unspecified": "不指定",

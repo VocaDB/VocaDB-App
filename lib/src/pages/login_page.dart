@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:vocadb_app/constants.dart';
 import 'package:vocadb_app/pages.dart';
 import 'package:vocadb_app/src/controllers/login_page_controller.dart';
 import 'package:vocadb_app/src/widgets/space_divider.dart';
 
 class LoginPage extends GetView<LoginPageController> {
+  void _onTapRegister() => launch("$baseUrl/User/Create");
+
+  void _onTapLogin() => controller.login();
+
+  void _onTapSkip() => Get.off(MainPage());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,7 +50,9 @@ class LoginPage extends GetView<LoginPageController> {
             SpaceDivider.medium(),
             Visibility(
                 visible: controller.processing.value,
-                child: CircularProgressIndicator()),
+                child: Center(
+                  child: CircularProgressIndicator(),
+                )),
             Visibility(
                 visible: controller.processing.value == false,
                 child: Column(
@@ -50,17 +60,19 @@ class LoginPage extends GetView<LoginPageController> {
                     SizedBox(
                       width: double.infinity,
                       child: RaisedButton(
-                          onPressed: () {
-                            controller.login();
-                          },
-                          child: Text('login'.tr)),
+                          onPressed: this._onTapLogin, child: Text('login'.tr)),
+                    ),
+                    SizedBox(
+                      width: double.infinity,
+                      child: RaisedButton(
+                          onPressed: this._onTapRegister,
+                          child: Text('register'.tr)),
                     ),
                     SpaceDivider.small(),
                     SizedBox(
                       width: double.infinity,
                       child: FlatButton(
-                          onPressed: () => Get.off(MainPage()),
-                          child: Text('skip'.tr)),
+                          onPressed: this._onTapSkip, child: Text('skip'.tr)),
                     )
                   ],
                 )),

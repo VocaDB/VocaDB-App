@@ -134,9 +134,10 @@ const Map<String, String> th = {
   "registerAccount": "สมัครสมาชิก",
   "login": "เข้าสู่ระบบ",
   "logout": "ออกจากระบบ",
-  "invalidUsernameOrPassword": "Invalid username or password",
+  "invalidUsernameOrPassword": "ชื่อผู้ใช้หรือรหัสผ่านผิด ลองใหม่อีกครั้งนะ",
   "collect": "Collect",
-  "autoPlay": "Auto play video",
+  "autoPlay": "เล่นวิดิโออัตโนมัติ",
+  "register": "สมัครสมาชิก",
 
   // Song type
   "songType.Original": "ต้นฉบับ",
@@ -154,7 +155,7 @@ const Map<String, String> th = {
   "ranking.daily": "รายวัน",
   "ranking.weekly": "สัปดาห์",
   "ranking.monthly": "เดือน",
-  "ranking.overall": "ตลอดกาล",
+  "ranking.overall": "ทั้งหมด",
   "ranking.newlyPublished": "เผยแพร่ล่าสุด",
   "ranking.newlyAdded": "เพิ่มล่าสุด",
   "ranking.popularity": "ความนิยม",
