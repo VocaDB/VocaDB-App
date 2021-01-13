@@ -79,11 +79,13 @@ class ArtistSearchPage extends GetView<ArtistSearchController> {
         body: Obx(
           () => (controller.initialLoading.value)
               ? CenterLoading()
-              : ArtistListView(
-                  artists: controller.results.toList(),
-                  onSelect: this._onSelectArtist,
-                  onReachLastItem: controller.onReachLastItem,
-                ),
+              : (controller.errorMessage.string.isNotEmpty)
+                  ? CenterText(controller.errorMessage.string)
+                  : ArtistListView(
+                      artists: controller.results.toList(),
+                      onSelect: this._onSelectArtist,
+                      onReachLastItem: controller.onReachLastItem,
+                      emptyWidget: CenterText('searchResultNotMatched'.tr)),
         ));
   }
 }

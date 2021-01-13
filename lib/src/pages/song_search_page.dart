@@ -58,11 +58,14 @@ class SongSearchPage extends GetView<SongSearchController> {
       body: Obx(
         () => (controller.initialLoading.value)
             ? CenterLoading()
-            : SongListView(
-                songs: controller.results.toList(),
-                onSelect: this._onSelect,
-                onReachLastItem: controller.onReachLastItem,
-              ),
+            : (controller.errorMessage.string.isNotEmpty)
+                ? CenterText(controller.errorMessage.string)
+                : SongListView(
+                    songs: controller.results(),
+                    onSelect: this._onSelect,
+                    onReachLastItem: controller.onReachLastItem,
+                    emptyWidget: CenterText('searchResultNotMatched'.tr),
+                  ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => AppPages.openPVPlayListPage(controller.results(),

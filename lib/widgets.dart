@@ -12,6 +12,7 @@ export 'src/widgets/artist_link_list_view.dart';
 export 'src/widgets/artist_list_view.dart';
 export 'src/widgets/artist_tile.dart';
 export 'src/widgets/center_loading.dart';
+export 'src/widgets/center_text.dart';
 export 'src/widgets/artist_group_by_role_list.dart';
 export 'src/widgets/custom_network_image.dart';
 export 'src/widgets/date_range_input.dart';

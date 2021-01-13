@@ -10,6 +10,7 @@ class SongListView extends StatelessWidget {
       this.scrollDirection = Axis.vertical,
       this.onSelect,
       this.onReachLastItem,
+      this.emptyWidget,
       this.displayPlaceholder = false})
       : super(key: key);
 
@@ -28,6 +29,9 @@ class SongListView extends StatelessWidget {
   /// Set to True for display list of placeholders.
   final bool displayPlaceholder;
 
+  /// A widget that display when songs is empty
+  final Widget emptyWidget;
+
   /// Height of list content widget if set as horizontal.
   static const double _rowHeight = 180;
 
@@ -44,6 +48,10 @@ class SongListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (this.songs.isEmpty && this.emptyWidget != null) {
+      return emptyWidget;
+    }
+
     if (this.scrollDirection == Axis.vertical) {
       return InfiniteListView(
         itemCount: this.songs.length,
