@@ -13,9 +13,12 @@ class AlbumDetailController extends GetxController {
 
   final AlbumRepository albumRepository;
 
+  final UserRepository userRepository;
+
   final AuthService authService;
 
-  AlbumDetailController({this.albumRepository, this.authService});
+  AlbumDetailController(
+      {this.albumRepository, this.authService, this.userRepository});
 
   @override
   void onInit() {

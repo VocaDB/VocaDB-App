@@ -56,7 +56,7 @@ class AlbumCard extends StatelessWidget {
               Container(
                   alignment: Alignment.centerLeft,
                   child: Text(this.name,
-                      style: Theme.of(context).textTheme.body1,
+                      style: Theme.of(context).textTheme.bodyText2,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis)),
               SpaceDivider.micro(),

@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:get/get.dart';
-import 'package:meta/meta.dart';
 import 'package:path_provider/path_provider.dart';
 
 class AppDirectory extends GetxService {

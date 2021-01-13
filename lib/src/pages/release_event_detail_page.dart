@@ -42,8 +42,6 @@ class ReleaseEventDetailPageView extends StatelessWidget {
 
   void _onSelectTag(TagModel tag) => AppPages.toTagDetailPage(tag);
 
-  void _onTapLikeButton() {}
-
   void _onTapShareButton() => Share.share(controller.event().originUrl);
 
   void _onTapInfoButton() => launch(controller.event().originUrl);
@@ -204,7 +202,7 @@ class ReleaseEventDetailPageView extends StatelessWidget {
                   visible: controller.songs().length > 0,
                   child: SongListView(
                     scrollDirection: Axis.horizontal,
-                    onSelect: (s) => {},
+                    onSelect: this._onTapSong,
                     songs: controller.songs(),
                   ),
                   divider: Divider(),
@@ -215,6 +213,7 @@ class ReleaseEventDetailPageView extends StatelessWidget {
                   child: AlbumListView(
                     scrollDirection: Axis.horizontal,
                     albums: controller.albums(),
+                    onSelect: this._onTapAlbum,
                   ),
                   divider: Divider(),
                 ),
@@ -233,52 +232,5 @@ class ReleaseEventDetailPageView extends StatelessWidget {
         )
       ],
     ));
-  }
-}
-
-class _ReleaseEventDetailButtonBar extends StatelessWidget {
-  final VoidCallback onTapShareButton;
-
-  final VoidCallback onTapMapButton;
-
-  final VoidCallback onTapInfoButton;
-
-  const _ReleaseEventDetailButtonBar(
-      {this.onTapShareButton, this.onTapMapButton, this.onTapInfoButton});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Expanded(
-            child: FlatButton(
-              onPressed: this.onTapShareButton,
-              child: Column(
-                children: [Icon(Icons.share), Text('share'.tr)],
-              ),
-            ),
-          ),
-          Expanded(
-            child: FlatButton(
-              onPressed: this.onTapMapButton,
-              child: Column(
-                children: [Icon(Icons.place), Text('map'.tr)],
-              ),
-            ),
-          ),
-          Expanded(
-            child: FlatButton(
-              onPressed: this.onTapInfoButton,
-              child: Column(
-                children: [Icon(Icons.info), Text('info'.tr)],
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
   }
 }

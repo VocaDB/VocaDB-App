@@ -14,8 +14,11 @@ import 'package:vocadb_app/widgets.dart';
 class AlbumDetailPage extends StatelessWidget {
   initController() {
     final httpService = Get.find<HttpService>();
+    final authService = Get.find<AuthService>();
     return AlbumDetailController(
-        albumRepository: AlbumRepository(httpService: httpService));
+        albumRepository: AlbumRepository(httpService: httpService),
+        userRepository: UserRepository(httpService: httpService),
+        authService: authService);
   }
 
   @override

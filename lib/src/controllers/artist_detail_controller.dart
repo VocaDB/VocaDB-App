@@ -13,9 +13,12 @@ class ArtistDetailController extends GetxController {
 
   final ArtistRepository artistRepository;
 
+  final UserRepository userRepository;
+
   final AuthService authService;
 
-  ArtistDetailController({this.artistRepository, this.authService});
+  ArtistDetailController(
+      {this.artistRepository, this.authService, this.userRepository});
 
   @override
   void onInit() {

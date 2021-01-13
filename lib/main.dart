@@ -14,7 +14,7 @@ Future<void> main() async {
   runApp(VocaDBApp());
 }
 
-void initServices() async {
+Future<void> initServices() async {
   print('starting services ...');
   final appDirectory = AppDirectory();
   final httpService = HttpService(appDirectory: appDirectory);

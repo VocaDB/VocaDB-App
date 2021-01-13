@@ -35,6 +35,9 @@ class EntrySearchPage extends GetView<EntrySearchController> {
         AppPages.toReleaseEventDetailPage(
             ReleaseEventModel.fromEntry(entryModel));
         break;
+
+      default:
+        print('Unsupported entry $entryModel');
     }
   }
 

@@ -3,7 +3,6 @@ import 'package:dio/dio.dart';
 import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 import 'package:dio_http_cache/dio_http_cache.dart';
 import 'package:get/get.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:vocadb_app/constants.dart';
 import 'package:vocadb_app/exceptions.dart';
 import 'package:vocadb_app/models.dart';
@@ -70,7 +69,7 @@ class HttpService extends GetxService {
       if (e is DioError && e.response.statusCode == 302) {
         List<String> cookies = e.response.headers.map['set-cookie'];
 
-        if (cookies != null && !cookies.isEmpty) {
+        if (cookies != null) {
           return UserCookie(cookies: cookies);
         }
       }

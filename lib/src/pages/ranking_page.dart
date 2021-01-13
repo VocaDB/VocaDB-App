@@ -22,15 +22,9 @@ class _RankingPageState extends State<RankingPage>
     _rankingController = Get.find<RankingController>();
     _tabController = TabController(
         vsync: this, length: constRankings.length, initialIndex: 1);
-    _tabController.addListener(onTabChanged);
   }
 
   void _onTabSong(SongModel song) => AppPages.toSongDetailPage(song);
-
-  void onTabChanged() {
-    int currentIndex = _tabController.index;
-    // Provider.of<RankingBloc>(context).updateIndex(currentIndex);
-  }
 
   @override
   void dispose() {

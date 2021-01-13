@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vocadb_app/controllers.dart';
 import 'package:vocadb_app/models.dart';
-import 'package:vocadb_app/pages.dart';
 import 'package:vocadb_app/routes.dart';
 import 'package:vocadb_app/widgets.dart';
 
