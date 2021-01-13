@@ -4,6 +4,7 @@ import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:vocadb_app/arguments.dart';
 import 'package:vocadb_app/controllers.dart';
+import 'package:vocadb_app/loggers.dart';
 import 'package:vocadb_app/models.dart';
 import 'package:vocadb_app/pages.dart';
 import 'package:vocadb_app/repositories.dart';
@@ -12,7 +13,7 @@ import 'package:vocadb_app/services.dart';
 import 'package:vocadb_app/widgets.dart';
 
 class ArtistDetailPage extends StatelessWidget {
-  initController() {
+  ArtistDetailController initController() {
     final httpService = Get.find<HttpService>();
     final authService = Get.find<AuthService>();
     return ArtistDetailController(
@@ -26,6 +27,7 @@ class ArtistDetailPage extends StatelessWidget {
     final ArtistDetailController controller = initController();
     final ArtistDetailArgs args = Get.arguments;
     final String id = Get.parameters['id'];
+    Get.find<AnalyticLog>().logViewArtistDetail(args.id);
 
     return PageBuilder<ArtistDetailController>(
       tag: "a_$id",

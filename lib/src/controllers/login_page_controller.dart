@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:vocadb_app/loggers.dart';
 import 'package:vocadb_app/pages.dart';
 import 'package:vocadb_app/services.dart';
 import 'package:vocadb_app/src/repositories/auth_repository.dart';
@@ -30,6 +31,7 @@ class LoginPageController extends GetxController {
     processing(false);
     print('login success $user');
     authService.currentUser(user);
+    Get.find<AnalyticLog>().logLogin();
     Get.off(MainPage());
   }
 

@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:vocadb_app/arguments.dart';
+import 'package:vocadb_app/loggers.dart';
 import 'package:vocadb_app/models.dart';
 import 'package:vocadb_app/pages.dart';
 import 'package:vocadb_app/repositories.dart';
@@ -26,6 +27,7 @@ class TagDetailPage extends StatelessWidget {
     final TagDetailController controller = initController();
     final TagDetailArgs args = Get.arguments;
     final String id = Get.parameters['id'];
+    Get.find<AnalyticLog>().logViewTagDetail(args.id);
 
     return PageBuilder<TagDetailController>(
       tag: "t_$id",

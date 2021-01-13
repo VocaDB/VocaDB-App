@@ -5,6 +5,7 @@ import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:vocadb_app/arguments.dart';
 import 'package:vocadb_app/controllers.dart';
+import 'package:vocadb_app/loggers.dart';
 import 'package:vocadb_app/models.dart';
 import 'package:vocadb_app/pages.dart';
 import 'package:vocadb_app/repositories.dart';
@@ -24,6 +25,7 @@ class ReleaseEventDetailPage extends StatelessWidget {
     final ReleaseEventDetailController controller = initController();
     final ReleaseEventDetailArgs args = Get.arguments;
     final String id = Get.parameters['id'];
+    Get.find<AnalyticLog>().logViewReleaseEventDetail(args.id);
 
     return PageBuilder<ReleaseEventDetailController>(
       tag: "event_$id",
