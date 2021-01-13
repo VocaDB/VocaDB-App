@@ -160,51 +160,60 @@ class ArtistDetailPageView extends StatelessWidget {
               ),
               SpaceDivider.small(),
               Obx(
-                () => ExpandableContent(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Visibility(
-                        visible: controller.artist().releaseDate != null,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                          child: TextInfoSection(
-                            title: 'releasedDate'.tr,
-                            text: controller.artist().releaseDateFormatted,
+                () => Visibility(
+                  visible: (controller.artist().releaseDate != null &&
+                      controller.artist().description != null &&
+                      controller.artist().artistLinks != null &&
+                      controller.artist().artistLinksReverse != null),
+                  child: ExpandableContent(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Visibility(
+                          visible: controller.artist().releaseDate != null,
+                          child: Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 16.0),
+                            child: TextInfoSection(
+                              title: 'releasedDate'.tr,
+                              text: controller.artist().releaseDateFormatted,
+                            ),
                           ),
                         ),
-                      ),
-                      SpaceDivider.small(),
-                      Visibility(
-                        visible: controller.artist().description != null,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                          child: TextInfoSection(
-                            title: 'description'.tr,
-                            text: controller.artist().description,
+                        SpaceDivider.small(),
+                        Visibility(
+                          visible: controller.artist().description != null,
+                          child: Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 16.0),
+                            child: TextInfoSection(
+                              title: 'description'.tr,
+                              text: controller.artist().description,
+                            ),
                           ),
                         ),
-                      ),
-                      SpaceDivider.small(),
-                      Visibility(
-                        visible: controller.artist().artistLinks != null &&
-                            controller.artist().artistLinks.isNotEmpty,
-                        child: ArtistLinkListView(
-                            artistLinks: controller.artist().artistLinks,
-                            onSelect: (artistLinkModel) =>
-                                this._onTapArtist(artistLinkModel.artist)),
-                      ),
-                      Visibility(
-                        visible: controller.artist().artistLinksReverse !=
-                                null &&
-                            controller.artist().artistLinksReverse.isNotEmpty,
-                        child: ArtistLinkListView(
-                            reverse: true,
-                            artistLinks: controller.artist().artistLinksReverse,
-                            onSelect: (artistLinkModel) =>
-                                this._onTapArtist(artistLinkModel.artist)),
-                      )
-                    ],
+                        SpaceDivider.small(),
+                        Visibility(
+                          visible: controller.artist().artistLinks != null &&
+                              controller.artist().artistLinks.isNotEmpty,
+                          child: ArtistLinkListView(
+                              artistLinks: controller.artist().artistLinks,
+                              onSelect: (artistLinkModel) =>
+                                  this._onTapArtist(artistLinkModel.artist)),
+                        ),
+                        Visibility(
+                          visible: controller.artist().artistLinksReverse !=
+                                  null &&
+                              controller.artist().artistLinksReverse.isNotEmpty,
+                          child: ArtistLinkListView(
+                              reverse: true,
+                              artistLinks:
+                                  controller.artist().artistLinksReverse,
+                              onSelect: (artistLinkModel) =>
+                                  this._onTapArtist(artistLinkModel.artist)),
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),
