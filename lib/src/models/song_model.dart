@@ -95,6 +95,10 @@ class SongModel extends EntryModel {
 
   String get imageUrl => this.thumbUrl ?? super.imageUrl;
 
+  String get pvSearchQuery => (this.pvs.isNotEmpty)
+      ? this.pvs[0].name
+      : '${this.artistString}+${this.defaultName}';
+
   @override
   Map<String, dynamic> toJson() {
     Map<String, dynamic> json = super.toJson();

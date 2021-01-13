@@ -7,9 +7,13 @@ import 'package:get/get.dart';
 class PVGroupList extends StatelessWidget {
   final List<PVModel> pvs;
 
+  /// For pv list that not contains any Youtube pv.
+  final searchQuery;
+
   final Function(PVModel) onTap;
 
-  const PVGroupList({@required this.pvs, this.onTap}) : assert(pvs != null);
+  const PVGroupList({@required this.pvs, this.onTap, this.searchQuery})
+      : assert(pvs != null);
 
   List<Widget> _generateItems() {
     List<Widget> items = [];
@@ -31,6 +35,19 @@ class PVGroupList extends StatelessWidget {
         title: Text('otherMedia'.tr),
       ));
       items.addAll(otherPVs.map(_mapPVTile));
+    }
+
+    if (!pvList.isContainsYoutube) {
+      if (otherPVs.isEmpty) {
+        items.add(ListTile(
+          title: Text('otherMedia'.tr),
+        ));
+      }
+
+      items.add(SiteTile(
+        title: 'searchYoutube'.tr,
+        url: 'https://www.youtube.com/results?search_query=$searchQuery',
+      ));
     }
 
     return items;

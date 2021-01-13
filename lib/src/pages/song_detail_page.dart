@@ -220,14 +220,11 @@ class SongDetailPageView extends StatelessWidget {
             artistSongs: controller.song().artists,
           ),
           Divider(),
-          Visibility(
-              visible: controller.song().pvs.isNotEmpty,
-              child: Column(
-                children: [
-                  PVGroupList(pvs: controller.song().pvs),
-                  Divider(),
-                ],
-              )),
+          PVGroupList(
+            pvs: controller.song().pvs,
+            searchQuery: controller.song().pvSearchQuery,
+          ),
+          Divider(),
           Visibility(
             visible: controller.song().albums.isNotEmpty,
             child: Column(
