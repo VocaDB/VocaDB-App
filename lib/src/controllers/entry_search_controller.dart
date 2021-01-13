@@ -28,10 +28,12 @@ class EntrySearchController extends SearchPageController<EntryModel> {
   }
 
   @override
-  Future<List<EntryModel>> fetchApi({int start}) => entryRepository.findEntries(
-      query: query.string,
-      entryType: entryType.string,
-      lang: SharedPreferenceService.lang,
-      sort: sort.string,
-      tagIds: tags.toList().map((e) => e.id).join(','));
+  Future<List<EntryModel>> fetchApi({int start}) => entryRepository
+      .findEntries(
+          query: query.string,
+          entryType: entryType.string,
+          lang: SharedPreferenceService.lang,
+          sort: sort.string,
+          tagIds: tags.toList().map((e) => e.id).join(','))
+      .catchError(super.onError);
 }

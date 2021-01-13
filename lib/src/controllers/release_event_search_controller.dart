@@ -35,16 +35,18 @@ class ReleaseEventSearchController
   }
 
   Future<List<ReleaseEventModel>> fetchApi({int start}) =>
-      releaseEventRepository.findReleaseEvents(
-        start: (start == null) ? 0 : start,
-        lang: SharedPreferenceService.lang,
-        maxResults: maxResults,
-        query: query.string,
-        category: category.string,
-        sort: sort.string,
-        artistIds: artists.toList().map((e) => e.id).join(','),
-        tagIds: tags.toList().map((e) => e.id).join(','),
-        beforeDate: DateTimeUtils.toUtcDateString(toDate.value),
-        afterDate: DateTimeUtils.toUtcDateString(fromDate.value),
-      );
+      releaseEventRepository
+          .findReleaseEvents(
+            start: (start == null) ? 0 : start,
+            lang: SharedPreferenceService.lang,
+            maxResults: maxResults,
+            query: query.string,
+            category: category.string,
+            sort: sort.string,
+            artistIds: artists.toList().map((e) => e.id).join(','),
+            tagIds: tags.toList().map((e) => e.id).join(','),
+            beforeDate: DateTimeUtils.toUtcDateString(toDate.value),
+            afterDate: DateTimeUtils.toUtcDateString(fromDate.value),
+          )
+          .catchError(super.onError);
 }

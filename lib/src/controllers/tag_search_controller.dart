@@ -23,10 +23,12 @@ class TagSearchController extends SearchPageController<TagModel> {
     category(args.category);
   }
 
-  Future<List<TagModel>> fetchApi({int start}) => tagRepository.findTags(
-      start: (start == null) ? 0 : start,
-      lang: SharedPreferenceService.lang,
-      maxResults: maxResults,
-      query: query.string,
-      categoryName: category.string);
+  Future<List<TagModel>> fetchApi({int start}) => tagRepository
+      .findTags(
+          start: (start == null) ? 0 : start,
+          lang: SharedPreferenceService.lang,
+          maxResults: maxResults,
+          query: query.string,
+          categoryName: category.string)
+      .catchError(super.onError);
 }
