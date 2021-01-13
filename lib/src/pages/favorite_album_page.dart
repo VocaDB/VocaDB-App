@@ -58,11 +58,14 @@ class FavoriteAlbumPage extends GetView<FavoriteAlbumController> {
         body: Obx(
           () => (controller.initialLoading.value)
               ? CenterLoading()
-              : AlbumListView(
-                  albums: controller.results().map((e) => e.album).toList(),
-                  onSelect: this._onTapAlbum,
-                  onReachLastItem: controller.onReachLastItem,
-                ),
+              : (controller.errorMessage.string.isNotEmpty)
+                  ? CenterText(controller.errorMessage.string)
+                  : AlbumListView(
+                      albums: controller.results().map((e) => e.album).toList(),
+                      onSelect: this._onTapAlbum,
+                      onReachLastItem: controller.onReachLastItem,
+                      emptyWidget: CenterText('searchResultNotMatched'.tr),
+                    ),
         ));
   }
 }

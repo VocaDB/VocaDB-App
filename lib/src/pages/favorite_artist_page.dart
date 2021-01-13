@@ -58,11 +58,14 @@ class FavoriteArtistPage extends GetView<FavoriteArtistController> {
         body: Obx(
           () => (controller.initialLoading.value)
               ? CenterLoading()
-              : ArtistListView(
-                  artists: controller.results().map((e) => e.artist).toList(),
-                  onSelect: this._onTapArtist,
-                  onReachLastItem: controller.onReachLastItem,
-                ),
+              : (controller.errorMessage.string.isNotEmpty)
+                  ? CenterText(controller.errorMessage.string)
+                  : ArtistListView(
+                      artists:
+                          controller.results().map((e) => e.artist).toList(),
+                      onSelect: this._onTapArtist,
+                      onReachLastItem: controller.onReachLastItem,
+                      emptyWidget: CenterText('searchResultNotMatched'.tr)),
         ));
   }
 }

@@ -19,7 +19,7 @@ class FavoriteAlbumFilterPage extends GetView<FavoriteAlbumController> {
                   value: controller.purchaseStatuses.string,
                   onChanged: controller.purchaseStatuses,
                   json: [
-                    {'name': 'Anything', 'value': ''},
+                    {'name': 'anything'.tr, 'value': ''},
                     {
                       'name': 'collectionStatus.Wishlisted'.tr,
                       'value': 'Wishlisted'
@@ -41,8 +41,8 @@ class FavoriteAlbumFilterPage extends GetView<FavoriteAlbumController> {
               ),
               Obx(() => SimpleDropdownInput.fromJsonArray(
                     json: [
-                      {'name': 'Name'.tr, 'value': 'Name'},
-                      {'name': 'AdditionDate'.tr, 'value': 'AdditionDate'}
+                      {'name': 'name'.tr, 'value': 'Name'},
+                      {'name': 'additionDate'.tr, 'value': 'AdditionDate'}
                     ],
                     label: 'sort'.tr,
                     value: controller.sort.string,

@@ -68,6 +68,7 @@ class UserRepository extends RestApiRepository {
       String purchaseStatuses,
       String artistIds,
       String tagIds,
+      String nameMatchMode = 'Auto',
       int start = 0,
       int maxResults = 50}) async {
     final String endpoint = '/api/users/$userId/albums';
@@ -82,6 +83,7 @@ class UserRepository extends RestApiRepository {
     params['sort'] = sort;
     params['start'] = start.toString();
     params['maxResults'] = maxResults.toString();
+    params['nameMatchMode'] = nameMatchMode;
     return super
         .getList(endpoint, params)
         .then((items) => AlbumUserModel.jsonToList(items));
