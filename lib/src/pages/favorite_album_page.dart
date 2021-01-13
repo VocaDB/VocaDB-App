@@ -56,10 +56,13 @@ class FavoriteAlbumPage extends GetView<FavoriteAlbumController> {
               onPressed: () => Get.to(FavoriteAlbumFilterPage()))
         ]),
         body: Obx(
-          () => AlbumListView(
-            albums: controller.results().map((e) => e.album).toList(),
-            onSelect: this._onTapAlbum,
-          ),
+          () => (controller.initialLoading.value)
+              ? CenterLoading()
+              : AlbumListView(
+                  albums: controller.results().map((e) => e.album).toList(),
+                  onSelect: this._onTapAlbum,
+                  onReachLastItem: controller.onReachLastItem,
+                ),
         ));
   }
 }

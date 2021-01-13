@@ -37,13 +37,19 @@ class UserRepository extends RestApiRepository {
 
   /// Gets a list of artists followed by a user
   Future<List<FollowedArtistModel>> getFollowedArtists(int userId,
-      {String lang = 'Default', String artistType, String tagIds}) async {
+      {String lang = 'Default',
+      String artistType,
+      String tagIds,
+      int start = 0,
+      int maxResults = 50}) async {
     final String endpoint = '/api/users/$userId/followedArtists';
     final Map<String, String> params = Map();
     params['artistType'] = artistType;
     params['fields'] = 'MainPicture';
     params['lang'] = lang;
     params['tagId'] = tagIds;
+    params['start'] = start.toString();
+    params['maxResults'] = maxResults.toString();
     return super
         .getList(endpoint, params)
         .then((items) => FollowedArtistModel.jsonToList(items));
@@ -57,7 +63,9 @@ class UserRepository extends RestApiRepository {
       String sort,
       String purchaseStatuses,
       String artistIds,
-      String tagIds}) async {
+      String tagIds,
+      int start = 0,
+      int maxResults = 50}) async {
     final String endpoint = '/api/users/$userId/albums';
     final Map<String, String> params = Map();
     params['query'] = query;
@@ -68,6 +76,8 @@ class UserRepository extends RestApiRepository {
     params['tagId'] = tagIds;
     params['artistId'] = artistIds;
     params['sort'] = sort;
+    params['start'] = start.toString();
+    params['maxResults'] = maxResults.toString();
     return super
         .getList(endpoint, params)
         .then((items) => AlbumUserModel.jsonToList(items));

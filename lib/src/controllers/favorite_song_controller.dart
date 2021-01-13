@@ -69,6 +69,7 @@ class FavoriteSongController extends GetxController {
   Future<List<RatedSongModel>> fetchApi({int start}) =>
       userRepository.getRatedSongs(authService.currentUser().id,
           start: (start == null) ? 0 : start,
+          maxResults: maxResults,
           lang: SharedPreferenceService.lang,
           query: query.string,
           rating: rating.string,

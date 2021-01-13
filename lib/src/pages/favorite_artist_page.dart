@@ -18,10 +18,13 @@ class FavoriteArtistPage extends GetView<FavoriteArtistController> {
               onPressed: () => Get.to(FavoriteArtistFilterPage()))
         ]),
         body: Obx(
-          () => ArtistListView(
-            artists: controller.results().map((e) => e.artist).toList(),
-            onSelect: this._onTapArtist,
-          ),
+          () => (controller.initialLoading.value)
+              ? CenterLoading()
+              : ArtistListView(
+                  artists: controller.results().map((e) => e.artist).toList(),
+                  onSelect: this._onTapArtist,
+                  onReachLastItem: controller.onReachLastItem,
+                ),
         ));
   }
 }
