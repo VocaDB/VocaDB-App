@@ -25,6 +25,12 @@ class SettingsPage extends StatelessWidget {
               ),
             ),
             Divider(),
+            Obx(() => SwitchListTile(
+                  title: Text('autoPlay'.tr),
+                  value: pref.autoPlay.value,
+                  onChanged: pref.updateAutoPlay,
+                )),
+            Divider(),
             Obx(
               () => RadioButtonGroup(
                 label: 'contentLanguage'.tr,

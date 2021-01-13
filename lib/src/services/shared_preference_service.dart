@@ -16,14 +16,21 @@ class SharedPreferenceService extends GetxService {
 
   final theme = 'dark'.obs;
 
+  final autoPlay = true.obs;
+
   SharedPreferenceService({this.box});
 
-  static get lang => Get.find<SharedPreferenceService>().contentLang.string;
+  static String get lang =>
+      Get.find<SharedPreferenceService>().contentLang.string;
+
+  static bool get autoPlayValue =>
+      Get.find<SharedPreferenceService>().autoPlay.value;
 
   void init() {
     initUILang();
     initContentLang();
     initTheme();
+    initAutoPlay();
   }
 
   void initUILang() {
@@ -58,5 +65,14 @@ class SharedPreferenceService extends GetxService {
     box.write('theme', value);
     theme(value);
     Themes.changeTheme(value);
+  }
+
+  void initAutoPlay() {
+    autoPlay(box.read<bool>('autoPlay'));
+  }
+
+  updateAutoPlay(bool value) {
+    box.write('autoPlay', value);
+    autoPlay(value);
   }
 }

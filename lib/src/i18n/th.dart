@@ -136,6 +136,7 @@ const Map<String, String> th = {
   "logout": "ออกจากระบบ",
   "invalidUsernameOrPassword": "Invalid username or password",
   "collect": "Collect",
+  "autoPlay": "Auto play video",
 
   // Song type
   "songType.Original": "ต้นฉบับ",

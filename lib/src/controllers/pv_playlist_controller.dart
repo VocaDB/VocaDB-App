@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:vocadb_app/arguments.dart';
 import 'package:vocadb_app/models.dart';
+import 'package:vocadb_app/services.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class PVPlayListController extends GetxController {
@@ -34,7 +35,7 @@ class PVPlayListController extends GetxController {
       initialVideoId: YoutubePlayer.convertUrlToId(
           songs()[currentIndex.toInt()].youtubePV.url),
       flags: YoutubePlayerFlags(
-        autoPlay: false,
+        autoPlay: SharedPreferenceService.autoPlayValue,
       ),
     );
   }

@@ -55,7 +55,7 @@ class SongDetailController extends GetxController {
     youtubeController = YoutubePlayerController(
       initialVideoId: YoutubePlayer.convertUrlToId(pv.url),
       flags: YoutubePlayerFlags(
-        autoPlay: false,
+        autoPlay: SharedPreferenceService.autoPlayValue,
       ),
     );
   }

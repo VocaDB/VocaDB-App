@@ -139,6 +139,7 @@ const Map<String, String> en = {
   "logout": "Logout",
   "invalidUsernameOrPassword": "Invalid username or password",
   "collect": "Collect",
+  "autoPlay": "Auto play video",
 
   // SongType
   "songType.Unspecified": "Unspecified",
