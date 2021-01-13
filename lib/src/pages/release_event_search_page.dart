@@ -59,11 +59,13 @@ class ReleaseEventSearchPage extends GetView<ReleaseEventSearchController> {
         body: Obx(
           () => (controller.initialLoading.value)
               ? CenterLoading()
-              : ReleaseEventListView(
-                  events: controller.results.toList(),
-                  onSelect: this._onTapReleaseEvent,
-                  onReachLastItem: controller.onReachLastItem,
-                ),
+              : (controller.errorMessage.string.isNotEmpty)
+                  ? CenterText(controller.errorMessage.string)
+                  : ReleaseEventListView(
+                      events: controller.results.toList(),
+                      onSelect: this._onTapReleaseEvent,
+                      onReachLastItem: controller.onReachLastItem,
+                      emptyWidget: CenterText('searchResultNotMatched'.tr)),
         ));
   }
 }
