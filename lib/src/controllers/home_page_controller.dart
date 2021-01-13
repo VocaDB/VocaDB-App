@@ -32,6 +32,7 @@ class HomePageController extends GetxController {
     albumRepository.getNew(lang: lang).then(recentAlbums).catchError(onError);
     releaseEventRepository
         .getRecently(lang: lang)
+        .then((result) => result.reversed.toList())
         .then(recentReleaseEvents)
         .catchError(onError);
   }
