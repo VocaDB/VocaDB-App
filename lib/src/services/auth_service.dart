@@ -11,7 +11,9 @@ class AuthService extends GetxService {
 
   final currentUser = UserModel().obs;
 
-  AuthService({this.httpService, this.appDirectory});
+  AuthService({this.httpService, this.appDirectory})
+      : assert(httpService != null),
+        assert(appDirectory != null);
 
   Future<UserCookie> login({
     String username,

@@ -4,8 +4,11 @@ import 'package:matcher/matcher.dart';
 import 'package:mockito/mockito.dart';
 import 'package:vocadb_app/models.dart';
 import 'package:vocadb_app/services.dart';
+import 'package:vocadb_app/utils.dart';
 
 class MockHttpService extends Mock implements HttpService {}
+
+class MockAppDirectory extends Mock implements AppDirectory {}
 
 void main() {
   group('assertion', () {
@@ -19,7 +22,9 @@ void main() {
 
   group('login', () {
     final mockHttpService = MockHttpService();
-    final mockAuthService = AuthService(httpService: mockHttpService);
+    final mockAppDirectory = MockAppDirectory();
+    final mockAuthService = AuthService(
+        httpService: mockHttpService, appDirectory: mockAppDirectory);
 
     test('should return user cookie', () async {
       final UserCookie mockUserCookie = UserCookie(cookies: []);
@@ -34,7 +39,9 @@ void main() {
 
   group('getCurrent', () {
     final mockHttpService = MockHttpService();
-    final mockAuthService = AuthService(httpService: mockHttpService);
+    final mockAppDirectory = MockAppDirectory();
+    final mockAuthService = AuthService(
+        httpService: mockHttpService, appDirectory: mockAppDirectory);
 
     test('should return current user', () async {
       UserModel mockUser = UserModel.fromJson({"id": 1, "name": "up2up"});
