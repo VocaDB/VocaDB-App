@@ -60,7 +60,7 @@ class ArtistDetailPageView extends StatelessWidget {
 
   void _onTapHome() => Get.offAll(MainPage());
 
-  void _onTapEntrySearch() => Get.to(EntrySearchPage());
+  void _onTapEntrySearch() => Get.toNamed(Routes.ENTRIES);
 
   Widget _buttonBarBuilder() {
     final authService = Get.find<AuthService>();

@@ -35,7 +35,7 @@ class PVPlaylistPageView extends StatelessWidget {
 
   void _onTapHome() => Get.offAll(MainPage());
 
-  void _onTapEntrySearch() => Get.to(EntrySearchPage());
+  void _onTapEntrySearch() => Get.toNamed(Routes.ENTRIES);
 
   Widget _buildVideoContent() {
     if (controller.youtubeController == null) {

@@ -58,6 +58,8 @@ class SongDetailPageView extends StatelessWidget {
 
   void _onSelectSong(SongModel song) => AppPages.toSongDetailPage(song);
 
+  void _onTapEntrySearch() => Get.toNamed(Routes.ENTRIES);
+
   void _onTapArtist(ArtistRoleModel a) =>
       AppPages.toArtistDetailPage(ArtistModel(
           id: a.id,
@@ -166,7 +168,7 @@ class SongDetailPageView extends StatelessWidget {
           actions: [
             IconButton(
                 icon: Icon(Icons.search),
-                onPressed: () => Get.to(EntrySearchPage())),
+                onPressed: () => this._onTapEntrySearch()),
             IconButton(
                 icon: Icon(Icons.home), onPressed: () => Get.offAll(MainPage()))
           ],

@@ -60,7 +60,7 @@ class ReleaseEventDetailPageView extends StatelessWidget {
 
   void _onTapHome() => Get.offAll(MainPage());
 
-  void _onTapEntrySearch() => Get.to(EntrySearchPage());
+  void _onTapEntrySearch() => Get.toNamed(Routes.ENTRIES);
 
   void _onTapMapButton() {
     String q = controller.event().venueName;
