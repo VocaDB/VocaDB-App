@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:package_info/package_info.dart';
 import 'package:vocadb_app/pages.dart';
 import 'package:vocadb_app/routes.dart';
 import 'package:vocadb_app/services.dart';
@@ -66,10 +67,21 @@ class MenuPage extends StatelessWidget {
             title: Text('contact'.tr),
             onTap: () => Get.to(ContactUsPage()),
           ),
-          ListTile(
-            leading: Icon(Icons.info),
-            title: Text('version'.tr),
-            subtitle: Text('3.1'),
+          FutureBuilder(
+            future: PackageInfo.fromPlatform(),
+            builder: (context, snapshot) {
+              String versionName = 'Unknown';
+              if (snapshot.connectionState == ConnectionState.done) {
+                PackageInfo packageInfo = snapshot.data;
+                versionName =
+                    '${packageInfo.version}-${packageInfo.buildNumber}';
+              }
+              return ListTile(
+                leading: Icon(Icons.info),
+                title: Text("version".tr),
+                subtitle: Text(versionName),
+              );
+            },
           ),
           Obx(() => Visibility(
                 visible: authService.currentUser().id != null,
