@@ -49,20 +49,26 @@ class SongSearchPage extends GetView<SongSearchController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: _buildTitle(context), actions: <Widget>[
-          _buildSearchAction(context),
-          IconButton(
-              icon: Icon(Icons.tune),
-              onPressed: () => Get.to(SongSearchFilterPage()))
-        ]),
-        body: Obx(
-          () => (controller.initialLoading.value)
-              ? CenterLoading()
-              : SongListView(
-                  songs: controller.results.toList(),
-                  onSelect: this._onSelect,
-                  onReachLastItem: controller.onReachLastItem,
-                ),
-        ));
+      appBar: AppBar(title: _buildTitle(context), actions: <Widget>[
+        _buildSearchAction(context),
+        IconButton(
+            icon: Icon(Icons.tune),
+            onPressed: () => Get.to(SongSearchFilterPage()))
+      ]),
+      body: Obx(
+        () => (controller.initialLoading.value)
+            ? CenterLoading()
+            : SongListView(
+                songs: controller.results.toList(),
+                onSelect: this._onSelect,
+                onReachLastItem: controller.onReachLastItem,
+              ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => AppPages.openPVPlayListPage(controller.results(),
+            title: 'songs'.tr),
+        child: Icon(Icons.play_arrow),
+      ),
+    );
   }
 }

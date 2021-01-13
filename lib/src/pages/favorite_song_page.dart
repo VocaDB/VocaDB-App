@@ -49,20 +49,27 @@ class FavoriteSongPage extends GetView<FavoriteSongController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: _buildTitle(context), actions: <Widget>[
-          _buildSearchAction(context),
-          IconButton(
-              icon: Icon(Icons.tune),
-              onPressed: () => Get.to(FavoriteSongFilterPage()))
-        ]),
-        body: Obx(
-          () => (controller.initialLoading.value)
-              ? CenterLoading()
-              : SongListView(
-                  songs: controller.results().map((e) => e.song).toList(),
-                  onSelect: this._onTapSong,
-                  onReachLastItem: controller.onReachLastItem,
-                ),
-        ));
+      appBar: AppBar(title: _buildTitle(context), actions: <Widget>[
+        _buildSearchAction(context),
+        IconButton(
+            icon: Icon(Icons.tune),
+            onPressed: () => Get.to(FavoriteSongFilterPage()))
+      ]),
+      body: Obx(
+        () => (controller.initialLoading.value)
+            ? CenterLoading()
+            : SongListView(
+                songs: controller.results().map((e) => e.song).toList(),
+                onSelect: this._onTapSong,
+                onReachLastItem: controller.onReachLastItem,
+              ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => AppPages.openPVPlayListPage(
+            controller.results().map((e) => e.song).toList(),
+            title: 'favoriteSongs'.tr),
+        child: Icon(Icons.play_arrow),
+      ),
+    );
   }
 }

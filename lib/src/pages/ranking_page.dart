@@ -124,19 +124,21 @@ class _RankingPageState extends State<RankingPage>
     final theme = Theme.of(context);
     return SafeArea(
       child: Scaffold(
-          appBar: TabBar(
-            controller: _tabController,
-            tabs: _generateTabs(),
-            labelColor: theme.textSelectionColor,
-            unselectedLabelColor: theme.textTheme.headline6.color,
-          ),
-          body: TabBarView(
-            controller: _tabController,
-            children: _generateRankingContent(),
-          ),
-          floatingActionButton: FloatingActionButton(
-              onPressed: () => this._onTapPlaylist(),
-              child: Icon(Icons.play_arrow))),
+        appBar: TabBar(
+          controller: _tabController,
+          tabs: _generateTabs(),
+          labelColor: theme.textSelectionColor,
+          unselectedLabelColor: theme.textTheme.headline6.color,
+        ),
+        body: TabBarView(
+          controller: _tabController,
+          children: _generateRankingContent(),
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () => this._onTapPlaylist(),
+          child: Icon(Icons.play_arrow),
+        ),
+      ),
     );
   }
 }
