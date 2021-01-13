@@ -13,6 +13,7 @@ class Routes {
   static const ALBUMS_DETAIL = '/albums/:id';
   static const RELEASE_EVENTS = '/release-events';
   static const RELEASE_EVENTS_DETAIL = '/release-events/:id';
+  static const RELEASE_EVENT_SERIES_DETAIL = '/release-event-series/:id';
   static const ENTRIES = '/entries';
   static const FAVORITE_SONGS = '/profile/songs';
   static const FAVORITE_ARTISTS = '/profile/artists';

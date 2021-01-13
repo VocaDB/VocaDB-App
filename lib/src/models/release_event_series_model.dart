@@ -1,3 +1,4 @@
+import 'package:vocadb_app/constants.dart';
 import 'package:vocadb_app/models.dart';
 import 'package:vocadb_app/utils.dart';
 
@@ -8,7 +9,7 @@ class ReleaseEventSeriesModel extends EntryModel {
   String pictureMime;
   List<ReleaseEventModel> events;
 
-  ReleaseEventSeriesModel();
+  ReleaseEventSeriesModel({int id}) : super(id: id);
 
   ReleaseEventSeriesModel.fromJson(Map<String, dynamic> json)
       : description = json['description'],
@@ -20,4 +21,6 @@ class ReleaseEventSeriesModel extends EntryModel {
   static List<ReleaseEventSeriesModel> jsonToList(List items) {
     return items.map((i) => ReleaseEventSeriesModel.fromJson(i)).toList();
   }
+
+  String get originUrl => '$baseUrl/Es/${this.id}';
 }

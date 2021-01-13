@@ -25,6 +25,7 @@ export 'src/pages/ranking_page.dart';
 export 'src/pages/release_event_detail_page.dart';
 export 'src/pages/release_event_search_filter_page.dart';
 export 'src/pages/release_event_search_page.dart';
+export 'src/pages/release_event_series_detail_page.dart';
 export 'src/pages/entry_search_page.dart';
 export 'src/pages/settings_page.dart';
 export 'src/pages/song_detail_page.dart';

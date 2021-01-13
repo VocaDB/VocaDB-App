@@ -6,6 +6,7 @@ export 'src/repositories/auth_repository.dart';
 export 'src/repositories/base_repository.dart';
 export 'src/repositories/entry_repository.dart';
 export 'src/repositories/release_event_repository.dart';
+export 'src/repositories/release_event_series_repository.dart';
 export 'src/repositories/song_repository.dart';
 export 'src/repositories/tag_repository.dart';
 export 'src/repositories/user_repository.dart';

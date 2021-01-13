@@ -70,6 +70,9 @@ class ReleaseEventDetailPageView extends StatelessWidget {
         : launch(Uri.encodeFull('https://maps.apple.com/?q=$q')));
   }
 
+  void _onTapEventSeries() =>
+      AppPages.toReleaseEventSeriesDetailPage(controller.event().series);
+
   Widget _buttonBarBuilder() {
     List<Widget> buttons = [];
 
@@ -224,6 +227,7 @@ class ReleaseEventDetailPageView extends StatelessWidget {
                   visible: controller.event().series != null,
                   child: ReleaseEventSeriesTile(
                     name: controller.event()?.series?.name,
+                    onTap: this._onTapEventSeries,
                   ),
                   divider: Divider(),
                 ),

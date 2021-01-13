@@ -28,6 +28,9 @@ class AppPages {
         name: Routes.RELEASE_EVENTS_DETAIL,
         page: () => ReleaseEventDetailPage()),
     GetPage(
+        name: Routes.RELEASE_EVENT_SERIES_DETAIL,
+        page: () => ReleaseEventSeriesDetailPage()),
+    GetPage(
         name: Routes.ARTISTS_SELECTOR,
         page: () => ArtistSearchPage(
               enableFilter: false,
@@ -86,6 +89,12 @@ class AppPages {
   static toReleaseEventDetailPage(ReleaseEventModel event) {
     Get.toNamed('/release-events/${event.id}',
         arguments: ReleaseEventDetailArgs(id: event.id, event: event));
+  }
+
+  static toReleaseEventSeriesDetailPage(ReleaseEventSeriesModel event) {
+    Get.toNamed('/release-event-series/${event.id}',
+        arguments:
+            ReleaseEventSeriesDetailArgs(id: event.id, eventSeries: event));
   }
 
   static openPVPlayListPage(List<SongModel> songs,
