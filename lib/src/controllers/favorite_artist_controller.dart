@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vocadb_app/models.dart';
 import 'package:vocadb_app/repositories.dart';
@@ -10,6 +11,12 @@ class FavoriteArtistController extends GetxController {
 
   /// List of results from search
   final results = <FollowedArtistModel>[].obs;
+
+  /// Query input string
+  final query = ''.obs;
+
+  /// Set to True when user tap search icon.
+  final openQuery = false.obs;
 
   /// Filter parameter
   final artistType = ''.obs;
@@ -24,6 +31,8 @@ class FavoriteArtistController extends GetxController {
 
   final AuthService authService;
 
+  TextEditingController textSearchController;
+
   FavoriteArtistController({this.userRepository, this.authService});
 
   @override
@@ -34,6 +43,8 @@ class FavoriteArtistController extends GetxController {
     initialFetch();
     [artistType, tags]
         .forEach((element) => ever(element, (_) => initialFetch()));
+    debounce(query, (_) => initialFetch(), time: Duration(seconds: 1));
+    textSearchController = TextEditingController();
     super.onInit();
   }
 
@@ -47,11 +58,23 @@ class FavoriteArtistController extends GetxController {
 
   Future<List<FollowedArtistModel>> fetchApi({int start}) =>
       userRepository.getFollowedArtists(authService.currentUser().id,
+          query: query.string,
           start: (start == null) ? 0 : start,
           maxResults: maxResults,
           lang: SharedPreferenceService.lang,
           artistType: artistType.string,
           tagIds: tags.toList().map((e) => e.id).join(','));
+
+  clearQuery() {
+    query('');
+    textSearchController.clear();
+  }
+
+  @override
+  void onClose() {
+    textSearchController.dispose();
+    super.onClose();
+  }
 
   initialLoadingDone(_) => initialLoading(false);
 

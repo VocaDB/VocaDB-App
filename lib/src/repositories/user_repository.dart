@@ -38,18 +38,22 @@ class UserRepository extends RestApiRepository {
   /// Gets a list of artists followed by a user
   Future<List<FollowedArtistModel>> getFollowedArtists(int userId,
       {String lang = 'Default',
+      String query,
       String artistType,
       String tagIds,
+      String nameMatchMode = 'Auto',
       int start = 0,
       int maxResults = 50}) async {
     final String endpoint = '/api/users/$userId/followedArtists';
     final Map<String, String> params = Map();
+    params['query'] = query;
     params['artistType'] = artistType;
     params['fields'] = 'MainPicture';
     params['lang'] = lang;
     params['tagId'] = tagIds;
     params['start'] = start.toString();
     params['maxResults'] = maxResults.toString();
+    params['nameMatchMode'] = nameMatchMode;
     return super
         .getList(endpoint, params)
         .then((items) => FollowedArtistModel.jsonToList(items));
