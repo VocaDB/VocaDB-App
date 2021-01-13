@@ -7,12 +7,6 @@ import 'package:vocadb_app/src/pages/entry_search_filter_page.dart';
 import 'package:vocadb_app/widgets.dart';
 
 class EntrySearchPage extends GetView<EntrySearchController> {
-  final bool selectionMode;
-
-  final bool enableFilter;
-
-  EntrySearchPage({this.selectionMode = false, this.enableFilter = true});
-
   void _onSelect(EntryModel entryModel) {
     switch (entryModel.entryType) {
       case EntryType.Song:
@@ -83,17 +77,19 @@ class EntrySearchPage extends GetView<EntrySearchController> {
     return Scaffold(
         appBar: AppBar(title: _buildTitle(context), actions: <Widget>[
           _buildSearchAction(context),
-          (this.enableFilter)
-              ? IconButton(
-                  icon: Icon(Icons.tune),
-                  onPressed: () => Get.to(EntrySearchFilterPage()))
-              : Container()
+          IconButton(
+              icon: Icon(Icons.tune),
+              onPressed: () => Get.to(EntrySearchFilterPage())),
         ]),
         body: Obx(
-          () => EntryListView(
-            entries: controller.results.toList(),
-            onSelect: this._onSelect,
-          ),
+          () => (controller.query.string.isEmpty)
+              ? CenterText('Find anything here')
+              : (controller.errorMessage.string.isNotEmpty)
+                  ? CenterText(controller.errorMessage.string)
+                  : EntryListView(
+                      entries: controller.results.toList(),
+                      onSelect: this._onSelect,
+                      emptyWidget: CenterText('searchResultNotMatched'.tr)),
         ));
   }
 }

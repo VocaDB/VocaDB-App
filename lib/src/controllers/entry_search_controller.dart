@@ -1,19 +1,10 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:vocadb_app/controllers.dart';
 import 'package:vocadb_app/models.dart';
 import 'package:vocadb_app/repositories.dart';
 import 'package:vocadb_app/services.dart';
 
-class EntrySearchController extends GetxController {
-  /// List of results from search
-  final results = <EntryModel>[].obs;
-
-  /// Query input string
-  final query = ''.obs;
-
-  /// Set to True when user tap search icon.
-  final openQuery = true.obs;
-
+class EntrySearchController extends SearchPageController<EntryModel> {
   /// Filter parameter
   final entryType = ''.obs;
 
@@ -25,7 +16,7 @@ class EntrySearchController extends GetxController {
 
   final EntryRepository entryRepository;
 
-  TextEditingController textSearchController;
+  final enableInitial = false;
 
   EntrySearchController({this.entryRepository});
 
@@ -33,22 +24,14 @@ class EntrySearchController extends GetxController {
   void onInit() {
     [entryType, sort, tags]
         .forEach((element) => ever(element, (_) => fetchApi()));
-    debounce(query, (_) => fetchApi(), time: Duration(seconds: 1));
-    textSearchController = TextEditingController();
     super.onInit();
   }
 
-  fetchApi() => entryRepository
-      .findEntries(
-          query: query.string,
-          entryType: entryType.string,
-          lang: SharedPreferenceService.lang,
-          sort: sort.string,
-          tagIds: tags.toList().map((e) => e.id).join(','))
-      .then(results);
-
-  clearQuery() {
-    query('');
-    textSearchController.clear();
-  }
+  @override
+  Future<List<EntryModel>> fetchApi({int start}) => entryRepository.findEntries(
+      query: query.string,
+      entryType: entryType.string,
+      lang: SharedPreferenceService.lang,
+      sort: sort.string,
+      tagIds: tags.toList().map((e) => e.id).join(','));
 }

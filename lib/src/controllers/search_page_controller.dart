@@ -17,11 +17,17 @@ abstract class SearchPageController<T> extends AppPageController {
   /// If set to [True], no fetch more data from server. Default is [False].
   final noFetchMore = false.obs;
 
+  /// Fetch api when controller init if set to [True]
+  final enableInitial = true;
+
   TextEditingController textSearchController;
 
   @override
   void onInit() {
-    initialFetch();
+    if (enableInitial) {
+      initialFetch();
+    }
+
     debounce(query, (_) => initialFetch(), time: Duration(seconds: 1));
     textSearchController = TextEditingController();
     super.onInit();

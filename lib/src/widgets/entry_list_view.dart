@@ -9,7 +9,10 @@ class EntryListView extends StatelessWidget {
 
   final Function(EntryModel) onSelect;
 
-  const EntryListView({this.entries, this.onSelect});
+  /// A widget that display when songs is empty
+  final Widget emptyWidget;
+
+  const EntryListView({this.entries, this.onSelect, this.emptyWidget});
 
   List<Widget> _generateItems() {
     List<Widget> items = [];
@@ -73,6 +76,10 @@ class EntryListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (entries.isEmpty && this.emptyWidget != null) {
+      return this.emptyWidget;
+    }
+
     final List<Widget> items = _generateItems();
     return ListView.builder(
         itemCount: items.length, itemBuilder: (context, index) => items[index]);
