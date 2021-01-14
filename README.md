@@ -39,6 +39,8 @@ $ dartdoc
 
 Document generated result to {current_dir}/doc/api and can open index.html to view it in browser.
 
-## Translation
+## UI Translation
 
-Translation files in _assets/i18n_. If anyone would like to update or add more language, You can add/edit and pull request to me.
+Translation files in _lib/src/i18n_. File should be named with `{language code}.dart` or `{language_code}_{country_code}.dart`.
+
+If anyone would like to update or add more language, You can add/edit and pull request to me.
