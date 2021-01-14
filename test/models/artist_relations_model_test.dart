@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:vocadb/models/artist_relations_model.dart';
+import 'package:vocadb_app/models.dart';
 
 void main() {
   group('Artist relations model', () {

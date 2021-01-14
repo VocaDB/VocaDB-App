@@ -1,6 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:vocadb/models/entry_model.dart';
-import 'package:vocadb/models/release_event_series_model.dart';
+import 'package:vocadb_app/models.dart';
 
 void main() {
   group('Release event series model', () {
@@ -12,14 +11,8 @@ void main() {
         "id": 36,
         "name": "abc",
         "events": [
-          {
-            "id": 1937,
-            "name": "Miku Expo 2014 Los Angeles"
-          },
-          {
-            "id": 1938,
-            "name": "Miku Expo 2014 New York"
-          },
+          {"id": 1937, "name": "Miku Expo 2014 Los Angeles"},
+          {"id": 1938, "name": "Miku Expo 2014 New York"},
         ]
       };
 

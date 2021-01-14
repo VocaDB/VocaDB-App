@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:vocadb/models/lyric_model.dart';
+import 'package:vocadb_app/models.dart';
 
 void main() {
   group('Lyric', () {

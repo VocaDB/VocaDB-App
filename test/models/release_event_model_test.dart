@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:vocadb/models/release_event_model.dart';
+import 'package:vocadb_app/models.dart';
 
 void main() {
   group('ReleaseEvent', () {
@@ -25,8 +25,8 @@ void main() {
       expect(result.name, "「マジカルミライ」楽曲コンテスト 2019");
       expect(result.description, "A song contest for Magical Mirai 2019.");
       expect(result.category, "Unspecified");
-      expect(result.date, "2019-02-01T00:00:00Z");
-      expect(result.endDate, "2019-03-15T00:00:00Z");
+      expect(result.date, DateTime.parse("2019-02-01T00:00:00Z"));
+      expect(result.endDate, DateTime.parse("2019-03-15T00:00:00Z"));
       expect(result.series, isNotNull);
       expect(result.displayCategory, 'AlbumRelease');
     });
