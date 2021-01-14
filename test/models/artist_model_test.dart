@@ -1,6 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:vocadb/models/artist_model.dart';
-import 'package:vocadb/models/entry_model.dart';
+import 'package:vocadb_app/models.dart';
 
 void main() {
   group('Artist model', () {
@@ -62,6 +61,29 @@ void main() {
     test('should not thrown exception when input empty json', () {
       ArtistModel result = ArtistModel.fromJson({});
       expect(result, isNotNull);
+    });
+
+    test('should return group of artist by link type', () {
+      ArtistLinkList artistLinkList = ArtistLinkList([
+        ArtistLinkModel(linkType: 'Group', artist: ArtistModel(name: 'GroupA')),
+        ArtistLinkModel(linkType: 'Group', artist: ArtistModel(name: 'GroupB')),
+        ArtistLinkModel(
+            linkType: 'Illustrator', artist: ArtistModel(name: 'IllustratorA')),
+        ArtistLinkModel(
+            linkType: 'VoiceProvider',
+            artist: ArtistModel(name: 'VoiceProviderA'))
+      ]);
+
+      Map<String, List<ArtistLinkModel>> artistLinkGroup =
+          artistLinkList.groupByLinkType;
+
+      expect(artistLinkGroup.keys.contains('Group'), isTrue);
+      expect(artistLinkGroup['Group'][0].artist.name, 'GroupA');
+      expect(artistLinkGroup['Group'][1].artist.name, 'GroupB');
+      expect(artistLinkGroup.keys.contains('Illustrator'), isTrue);
+      expect(artistLinkGroup['Illustrator'][0].artist.name, 'IllustratorA');
+      expect(artistLinkGroup.keys.contains('VoiceProvider'), isTrue);
+      expect(artistLinkGroup['VoiceProvider'][0].artist.name, 'VoiceProviderA');
     });
   });
 }

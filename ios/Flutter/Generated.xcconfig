@@ -1,9 +1,0 @@
-// This is a generated file; do not edit or check into version control.
-FLUTTER_ROOT=/Users/up2up/flutter
-FLUTTER_APPLICATION_PATH=/Users/up2up/Lab/VocaDB-App
-FLUTTER_TARGET=/Users/up2up/Lab/VocaDB-App/lib/main.dart
-FLUTTER_BUILD_DIR=build
-SYMROOT=${SOURCE_ROOT}/../build/ios
-FLUTTER_FRAMEWORK_DIR=/Users/up2up/flutter/bin/cache/artifacts/engine/ios
-FLUTTER_BUILD_NAME=3.0.0
-FLUTTER_BUILD_NUMBER=1

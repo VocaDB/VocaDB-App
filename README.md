@@ -24,6 +24,26 @@ VocaDB mobile version with [Flutter framework](https://flutter.dev/). Also this 
 - [Android Studio](https://developer.android.com/studio)
 - [IntelliJ](https://www.jetbrains.com/idea/download/)
 
-## Translation
+## API Documentation
+Use [dartdoc](https://dart.dev/tools/dartdoc) for generate documentation.
 
-Translation files in _assets/i18n_. If anyone would like to update or add more language, You can add/edit and pull request to me.
+
+### Installing dartdoc
+
+Run `pub global activate dartdoc` to install the latest version of dartdoc compatible with your SDK.
+```
+$ pub global activate dartdoc
+```
+Then run `dartdoc` command to generate document.
+
+```
+$ dartdoc
+```
+
+Document generated result to {current_dir}/doc/api and can open index.html to view it in browser.
+
+## UI Translation
+
+Translation files in _lib/src/i18n_. File should be named with `{language code}.dart` or `{language_code}_{country_code}.dart`.
+
+If anyone would like to update or add more language, You can add/edit and pull request to me.
