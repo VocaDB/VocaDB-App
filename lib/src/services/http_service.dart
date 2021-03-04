@@ -2,7 +2,7 @@ import 'package:cookie_jar/cookie_jar.dart';
 import 'package:dio/dio.dart';
 import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 import 'package:dio_http_cache/dio_http_cache.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide FormData;
 import 'package:vocadb_app/constants.dart';
 import 'package:vocadb_app/exceptions.dart';
 import 'package:vocadb_app/models.dart';
@@ -26,8 +26,7 @@ class HttpService extends GetxService {
   }
 
   Future<dynamic> get(String endpoint, Map<String, String> params) async {
-    params?.removeWhere((key, value) => value == null || value.isEmpty);
-
+    params?.removeWhere((key, value) => value == null || value == '');
     String url = Uri.https(authority, endpoint, params).toString();
     print('GET $url | $params');
     final response =
@@ -62,13 +61,16 @@ class HttpService extends GetxService {
 
   Future<UserCookie> login(String username, String password) async {
     String url = Uri.https(authority, '/User/Login').toString();
+    Map<String, dynamic> data = {
+      'UserName': username,
+      'Password': password,
+    };
     try {
-      await _dio.post(url, data: {'UserName': username, 'Password': password});
+      await _dio.post(url, data: FormData.fromMap(data));
       throw LoginFailedException();
     } catch (e) {
       if (e is DioError && e.response.statusCode == 302) {
         List<String> cookies = e.response.headers.map['set-cookie'];
-
         if (cookies != null) {
           return UserCookie(cookies: cookies);
         }

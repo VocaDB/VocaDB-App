@@ -29,9 +29,11 @@ class AuthService extends GetxService {
   }
 
   Future<UserModel> getCurrent() async {
+    Map<String, String> data = {'fields': 'MainPicture'};
     try {
-      UserModel us = await httpService.get('/api/users/current',
-          {'fields': 'MainPicture'}).then((item) => UserModel.fromJson(item));
+      UserModel us = await httpService
+          .get('/api/users/current', data)
+          .then((item) => UserModel.fromJson(item));
       print('current user : $us');
       return us;
     } catch (e) {
