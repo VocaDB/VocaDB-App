@@ -67,12 +67,15 @@ class ArtistDetailPageView extends StatelessWidget {
 
     List<Widget> buttons = [];
 
-    buttons.add(ActiveFlatButton(
-      icon: Icon(Icons.favorite),
-      label: 'like'.tr,
-      active: controller.liked.value,
-      onPressed:
-          (authService.currentUser().id == null) ? null : this._onTapLikeButton,
+    buttons.add(Obx(
+      () => ActiveFlatButton(
+        icon: Icon(Icons.favorite),
+        label: 'like'.tr,
+        active: controller.liked.value,
+        onPressed: (authService.currentUser().id == null)
+            ? null
+            : this._onTapLikeButton,
+      ),
     ));
 
     buttons.add(FlatButton(

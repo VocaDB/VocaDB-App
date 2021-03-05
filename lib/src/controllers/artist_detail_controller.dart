@@ -23,6 +23,7 @@ class ArtistDetailController extends GetxController {
   @override
   void onInit() {
     initArgs();
+    checkFollowArtistStatus();
     fetchApis();
     super.onInit();
   }
@@ -49,6 +50,11 @@ class ArtistDetailController extends GetxController {
       return;
     }
     //TODO: Wait for API backend implementation
+
+    userRepository.getCurrentUserFollowedArtist(artist().id).then((artist) {
+      return (artist == null || artist.id == null) ? liked(false) : liked(true);
+    }).then((artist) => debounce(liked, (_) => updateFollowArtist(),
+        time: Duration(seconds: 1)));
   }
 
   updateFollowArtist() {

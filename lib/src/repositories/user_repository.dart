@@ -95,4 +95,13 @@ class UserRepository extends RestApiRepository {
         .get('/api/users/current/ratedSongs/$songId', null)
         .then((v) => v as String);
   }
+
+  /// Gets currently logged in user's rating for a artist
+  Future<ArtistModel> getCurrentUserFollowedArtist(int artistId) {
+    return httpService
+        .get('/api/users/current/followedArtists/$artistId', null)
+        .then((v) => (v == null || v['artist'] == null)
+            ? null
+            : ArtistModel.fromJson(v['artist']));
+  }
 }
