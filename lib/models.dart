@@ -1,5 +1,6 @@
 library models;
 
+export 'src/models/album_collection_status_model.dart';
 export 'src/models/album_disc_model.dart';
 export 'src/models/album_model.dart';
 export 'src/models/album_user_model.dart';

@@ -66,13 +66,18 @@ class AlbumDetailPageView extends StatelessWidget {
 
     List<Widget> buttons = [];
 
-    buttons.add(ActiveFlatButton(
-      icon: Icon(Icons.favorite),
-      label: 'collect'.tr,
-      active: controller.collected.value,
-      onPressed: (authService.currentUser().id == null)
-          ? null
-          : this._onTapCollectButton,
+    buttons.add(Obx(
+      () => ActiveFlatButton(
+        icon: Icon(Icons.favorite),
+        label: (controller.collectionStatus.value.isCollected)
+            ? controller.collectionStatus.value.purchaseStatus
+            : 'collect'.tr,
+        active: controller.collectionStatus.value.isCollected,
+        onPressed: (authService.currentUser().id == null ||
+                controller.statusLoading.value)
+            ? null
+            : this._onTapCollectButton,
+      ),
     ));
 
     buttons.add(FlatButton(

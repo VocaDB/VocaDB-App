@@ -5,9 +5,11 @@ import 'package:vocadb_app/repositories.dart';
 import 'package:vocadb_app/services.dart';
 
 class AlbumDetailController extends GetxController {
-  final collected = false.obs;
+  final collectionStatus = AlbumCollectionStatusModel().obs;
 
   final initialLoading = true.obs;
+
+  final statusLoading = true.obs;
 
   final album = AlbumModel().obs;
 
@@ -23,6 +25,7 @@ class AlbumDetailController extends GetxController {
   @override
   void onInit() {
     initArgs();
+    checkAlbumCollectionStatus();
     fetchApis();
     super.onInit();
   }
@@ -42,13 +45,24 @@ class AlbumDetailController extends GetxController {
       .then(album)
       .then(initialLoadingDone);
 
-  checkAlbumCollectionStatus() {
-    int userId = authService.currentUser().id;
-
-    if (userId == null) {
-      return;
+  Future<void> checkAlbumCollectionStatus() {
+    if (authService.currentUser == null ||
+        authService.currentUser().id == null) {
+      return Future.value();
     }
+
     //TODO: Wait for API backend implementation
+    return userRepository
+        .getCurrentUserAlbumCollection(album().id)
+        .then((AlbumCollectionStatusModel model) {
+          return (model == null)
+              ? AlbumCollectionStatusModel()
+              : collectionStatus(model);
+        })
+        .then((artist) => debounce(
+            collectionStatus, (_) => updateAlbumCollection(),
+            time: Duration(seconds: 1)))
+        .then(statusLoadingDone);
   }
 
   updateAlbumCollection() {
@@ -56,4 +70,6 @@ class AlbumDetailController extends GetxController {
   }
 
   initialLoadingDone(_) => initialLoading(false);
+
+  statusLoadingDone(_) => statusLoading(false);
 }

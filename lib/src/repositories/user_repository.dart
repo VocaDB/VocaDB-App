@@ -104,4 +104,14 @@ class UserRepository extends RestApiRepository {
             ? null
             : ArtistModel.fromJson(v['artist']));
   }
+
+  /// Gets currently logged in user's album collection status
+  Future<AlbumCollectionStatusModel> getCurrentUserAlbumCollection(
+      int albumId) {
+    return httpService
+        .get('/api/users/current/album-collection-statuses/$albumId', null)
+        .then((v) => (v == null || v['album'] == null)
+            ? null
+            : AlbumCollectionStatusModel.fromJson(v));
+  }
 }
