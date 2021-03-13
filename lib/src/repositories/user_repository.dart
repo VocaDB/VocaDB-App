@@ -114,4 +114,44 @@ class UserRepository extends RestApiRepository {
             ? null
             : AlbumCollectionStatusModel.fromJson(v));
   }
+
+  /// Update currently logged user's album collection status
+  Future<String> updateCurrentUserAlbumCollectionStatus(int albumId,
+      {String collectionStatus, String mediaType, int rating}) {
+    int collectionStatusId = 0;
+    switch (collectionStatus) {
+      case 'Wishlisted':
+        collectionStatusId = 1;
+        break;
+      case 'Ordered':
+        collectionStatusId = 2;
+        break;
+      case 'Owned':
+        collectionStatusId = 4;
+        break;
+    }
+
+    int mediaTypeId = 0;
+    switch (mediaType) {
+      case 'PhysicalDisc':
+        mediaTypeId = 1;
+        break;
+      case 'DigitalDownload':
+        mediaTypeId = 2;
+        break;
+      case 'Other':
+        mediaTypeId = 4;
+        break;
+    }
+
+    return httpService.post('/api/users/current/albums/$albumId', {
+      'collectionStatus': collectionStatusId,
+      'mediaType': mediaTypeId,
+      'rating': rating
+    }).then((res) {
+      return res;
+    });
+  }
 }
+
+enum PurchaseStatus { Wishlisted, Ordered, Owned, paused }
