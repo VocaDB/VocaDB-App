@@ -59,7 +59,19 @@ class AlbumDetailPageView extends StatelessWidget {
 
   void _onSelectTag(TagModel tag) => AppPages.toTagDetailPage(tag);
 
-  void _onTapCollectButton() {}
+  void _onTapCollectButton() {
+    Get.dialog(Obx(
+      () => AlbumCollectionStatusDialog(
+        purchaseStatus: controller.purchaseStatus.value,
+        mediaType: controller.mediaType.value,
+        rating: controller.rating.value,
+        onPurchaseStatusChanged: controller.purchaseStatus,
+        onMediaTypeChanged: controller.mediaType,
+        onRatingChanged: (String rating) =>
+            controller.rating(int.parse(rating)),
+      ),
+    ));
+  }
 
   Widget _buttonBarBuilder() {
     final authService = Get.find<AuthService>();
@@ -206,5 +218,88 @@ class AlbumDetailPageView extends StatelessWidget {
         )
       ],
     ));
+  }
+}
+
+class AlbumCollectionStatusDialog extends StatelessWidget {
+  final String purchaseStatus;
+
+  final String mediaType;
+
+  final int rating;
+
+  final Function(String) onPurchaseStatusChanged;
+
+  final Function(String) onMediaTypeChanged;
+
+  final Function(String) onRatingChanged;
+
+  final Function(String, String, String) onSaved;
+
+  const AlbumCollectionStatusDialog(
+      {this.purchaseStatus,
+      this.mediaType,
+      this.rating,
+      this.onPurchaseStatusChanged,
+      this.onMediaTypeChanged,
+      this.onRatingChanged,
+      this.onSaved});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Edit album in collection"),
+        actions: [
+          IconButton(
+              icon: const Icon(Icons.save),
+              onPressed: () {
+                this.onSaved(this.purchaseStatus, this.mediaType,
+                    this.rating.toString());
+                Get.close(0);
+              })
+        ],
+      ),
+      body: Container(
+        child: Column(
+          children: [
+            SimpleDropdownInput.fromJsonArray(
+              label: 'Status',
+              value: purchaseStatus,
+              onChanged: this.onPurchaseStatusChanged,
+              json: [
+                {'name': 'Nothing'.tr, 'value': ''},
+                {'name': 'Wishlisted'.tr, 'value': 'Wishlisted'},
+                {'name': 'Ordered'.tr, 'value': 'Ordered'},
+                {'name': 'Owned'.tr, 'value': 'Owned'},
+              ],
+            ),
+            SimpleDropdownInput.fromJsonArray(
+              label: 'Media type',
+              value: mediaType,
+              onChanged: this.onMediaTypeChanged,
+              json: [
+                {'name': 'Unspecified'.tr, 'value': ''},
+                {'name': 'Physical disc'.tr, 'value': 'PhysicalDisc'},
+                {'name': 'Digital download'.tr, 'value': 'DigitalDownload'},
+              ],
+            ),
+            SimpleDropdownInput.fromJsonArray(
+              label: 'Rating',
+              value: rating.toString(),
+              onChanged: this.onRatingChanged,
+              json: [
+                {'name': 'Nothing'.tr, 'value': '0'},
+                {'name': '1', 'value': '1'},
+                {'name': '2', 'value': '2'},
+                {'name': '3', 'value': '3'},
+                {'name': '4', 'value': '4'},
+                {'name': '5', 'value': '5'}
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

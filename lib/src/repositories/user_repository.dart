@@ -153,5 +153,3 @@ class UserRepository extends RestApiRepository {
     });
   }
 }
-
-enum PurchaseStatus { Wishlisted, Ordered, Owned, paused }

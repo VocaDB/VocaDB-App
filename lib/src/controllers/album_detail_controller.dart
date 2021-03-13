@@ -7,6 +7,12 @@ import 'package:vocadb_app/services.dart';
 class AlbumDetailController extends GetxController {
   final collectionStatus = AlbumCollectionStatusModel().obs;
 
+  final purchaseStatus = "".obs;
+
+  final mediaType = "".obs;
+
+  final rating = 0.obs;
+
   final initialLoading = true.obs;
 
   final statusLoading = true.obs;
@@ -51,13 +57,18 @@ class AlbumDetailController extends GetxController {
       return Future.value();
     }
 
-    //TODO: Wait for API backend implementation
     return userRepository
         .getCurrentUserAlbumCollection(album().id)
         .then((AlbumCollectionStatusModel model) {
-          return (model == null)
-              ? AlbumCollectionStatusModel()
-              : collectionStatus(model);
+          if (model == null) {
+            return AlbumCollectionStatusModel();
+          }
+
+          this.purchaseStatus(model.purchaseStatus);
+          this.mediaType(model.mediaType);
+          this.rating(model.rating);
+
+          return collectionStatus(model);
         })
         .then((artist) => debounce(
             collectionStatus, (_) => updateAlbumCollection(),
