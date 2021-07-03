@@ -70,14 +70,18 @@ class AlbumDetailController extends GetxController {
 
           return collectionStatus(model);
         })
-        .then((artist) => debounce(
-            collectionStatus, (_) => updateAlbumCollection(),
-            time: Duration(seconds: 1)))
+        .then((artist) => [
+              collectionStatus,
+            ].map((rx) => debounce(rx, (_) => updateAlbumCollectionStatus(),
+                time: Duration(seconds: 1))))
         .then(statusLoadingDone);
   }
 
-  updateAlbumCollection() {
-    //TODO: Wait for API backend implementation
+  Future<String> updateAlbumCollectionStatus() {
+    return userRepository.updateCurrentUserAlbumCollectionStatus(album().id,
+        collectionStatus: purchaseStatus(),
+        mediaType: mediaType(),
+        rating: rating());
   }
 
   initialLoadingDone(_) => initialLoading(false);

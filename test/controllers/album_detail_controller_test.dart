@@ -21,7 +21,7 @@ void main() {
     final AlbumCollectionStatusModel mockCollectionStatus =
         AlbumCollectionStatusModel(purchaseStatus: 'Wishlisted');
 
-    final mockUserModel = Rx<UserModel>();
+    final mockUserModel = Rx<UserModel>(UserModel(id: 1));
     mockUserModel(UserModel(id: 1));
 
     when(mockAuthService.currentUser).thenReturn(mockUserModel);
