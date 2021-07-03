@@ -13,9 +13,9 @@ class ReleaseEventSearchController
 
   final sort = 'Name'.obs;
 
-  final fromDate = Rx<DateTime>();
+  final fromDate = Rx<DateTime>(null);
 
-  final toDate = Rx<DateTime>();
+  final toDate = Rx<DateTime>(null);
 
   final artists = <ArtistModel>[].obs;
 

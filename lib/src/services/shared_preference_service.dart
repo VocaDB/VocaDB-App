@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:vocadb_app/config.dart';
@@ -34,21 +35,27 @@ class SharedPreferenceService extends GetxService {
   }
 
   void initUILang() {
+    print('initial shared_preference [uiLang]');
     uiLang.val = box.read('uiLang');
     AppTranslation().changeLocale(uiLang.val);
     print('current locale ${Get.locale}');
   }
 
   updateUiLang(String value) {
+    print('Updating shared_preference [uiLang] = $value');
     box.write('uiLang', value);
     uiLang.val = value;
     AppTranslation().changeLocale(value);
     print('current locale ${Get.locale}');
   }
 
-  void initContentLang() => contentLang(box.read('contentLang'));
+  void initContentLang() {
+    print('initial shared_preference [contentLang]');
+    contentLang(box.read('contentLang'));
+  }
 
   updateContentLang(String value) {
+    print('updating shared_preference [contentLang] = $value');
     box.write('contentLang', value);
     contentLang(value);
     Get.find<HomePageController>().fetchApi();
@@ -62,16 +69,19 @@ class SharedPreferenceService extends GetxService {
   }
 
   updateTheme(String value) {
+    print('updating shared_preference [theme] = $value');
     box.write('theme', value);
     theme(value);
     Themes.changeTheme(value);
   }
 
   void initAutoPlay() {
+    print('init autoPlay');
     autoPlay(box.read<bool>('autoPlay'));
   }
 
   updateAutoPlay(bool value) {
+    print('updating shared_preference [autoPlay] = $value');
     box.write('autoPlay', value);
     autoPlay(value);
   }

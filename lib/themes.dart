@@ -16,6 +16,7 @@ class Themes {
   );
 
   static void changeTheme(String value) {
-    Get.changeTheme((value == 'light') ? light : dark);
+    print('Get.changeTheme to $value');
+    Get.changeThemeMode((value == 'light') ? ThemeMode.light : ThemeMode.dark);
   }
 }

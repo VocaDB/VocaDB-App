@@ -12,7 +12,7 @@ class ErrorUtils {
   }
 
   static String readDioError(DioError err) {
-    if (err.type == DioErrorType.DEFAULT) {
+    if (err.type == DioErrorType.other) {
       return readDynamicError(err.error);
     }
 

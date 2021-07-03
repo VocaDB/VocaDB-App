@@ -1,7 +1,6 @@
 import 'package:cookie_jar/cookie_jar.dart';
 import 'package:dio/dio.dart';
 import 'package:dio_cookie_manager/dio_cookie_manager.dart';
-import 'package:dio_http_cache/dio_http_cache.dart';
 import 'package:get/get.dart' hide FormData;
 import 'package:vocadb_app/constants.dart';
 import 'package:vocadb_app/exceptions.dart';
@@ -18,10 +17,10 @@ class HttpService extends GetxService {
 
   Future<HttpService> init() async {
     _dio = Dio();
-    _dio.interceptors
-        .add(DioCacheManager(CacheConfig(baseUrl: baseUrl)).interceptor);
-    _dio.interceptors.add(CookieManager(
-        PersistCookieJar(dir: _appDirectory.cookiesDirectory.path)));
+    // _dio.interceptors
+    //     .add(DioCacheManager(CacheConfig(baseUrl: baseUrl)).interceptor);
+    _dio.interceptors.add(CookieManager(PersistCookieJar(
+        storage: FileStorage(_appDirectory.cookiesDirectory.path))));
     return this;
   }
 
@@ -29,8 +28,7 @@ class HttpService extends GetxService {
     params?.removeWhere((key, value) => value == null || value == '');
     String url = Uri.https(authority, endpoint, params).toString();
     print('GET $url | $params');
-    final response =
-        await _dio.get(url, options: buildCacheOptions(Duration(minutes: 5)));
+    final response = await _dio.get(url);
 
     if (response.statusCode == 200) {
       return response.data;
@@ -39,8 +37,8 @@ class HttpService extends GetxService {
     throw HttpRequestErrorException();
   }
 
-  Future<dynamic> post(String endpoint, Map<String, String> params) async {
-    params?.removeWhere((key, value) => value == null || value.isEmpty);
+  Future<dynamic> post(String endpoint, Map<String, dynamic> params) async {
+    params?.removeWhere((key, value) => value == null || value == '');
     String url = Uri.https(authority, endpoint).toString();
 
     print('POST $url | $params');

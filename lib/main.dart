@@ -54,7 +54,9 @@ class VocaDBApp extends StatelessWidget {
         translations: AppTranslation(),
         locale: Get.locale,
         fallbackLocale: AppTranslation.fallbackLocale,
-        theme: Get.theme,
+        theme: ThemeData.light(),
+        darkTheme: ThemeData.dark(),
+        themeMode: ThemeMode.system,
         navigatorObservers: <NavigatorObserver>[
           Get.find<FirebaseAnalyticsObserver>()
         ],
