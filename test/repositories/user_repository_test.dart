@@ -1,11 +1,13 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:vocadb_app/models.dart';
 import 'package:vocadb_app/repositories.dart';
 import 'package:vocadb_app/services.dart';
 
-class MockHttpService extends Mock implements HttpService {}
+import 'user_repository_test.mocks.dart';
 
+@GenerateMocks([HttpService])
 void main() {
   final MockHttpService mockHttpService = MockHttpService();
 
@@ -52,5 +54,90 @@ void main() {
             mediaType: 'DigitalDownload',
             rating: 2),
         'success');
+  });
+
+  test('should return list of albums when get albums from current user',
+      () async {
+    Map<String, dynamic> mockResponseSuccess;
+
+    List<AlbumUserModel> expectedResultSuccess;
+
+    mockResponseSuccess = {
+      "items": [
+        {
+          'album': {'id': 1, 'name': 'A'}
+        },
+        {
+          'album': {'id': 2, 'name': 'B'}
+        },
+      ]
+    };
+
+    expectedResultSuccess = [
+      AlbumUserModel(album: AlbumModel(id: 1, name: 'A')),
+      AlbumUserModel(album: AlbumModel(id: 2, name: 'B'))
+    ];
+
+    when(mockHttpService.get(any, any))
+        .thenAnswer((_) => Future.value(mockResponseSuccess));
+
+    expect(await userRepository.getAlbums(1), expectedResultSuccess);
+  });
+
+  test(
+      'should return list of artists when get followed artists from current user',
+      () async {
+    Map<String, dynamic> mockResponseSuccess;
+
+    List<FollowedArtistModel> expectedResultSuccess;
+
+    mockResponseSuccess = {
+      "items": [
+        {
+          'artist': {'id': 1, 'name': 'A'}
+        },
+        {
+          'artist': {'id': 2, 'name': 'B'}
+        },
+      ]
+    };
+
+    expectedResultSuccess = [
+      FollowedArtistModel(artist: ArtistModel(id: 1, name: 'A')),
+      FollowedArtistModel(artist: ArtistModel(id: 2, name: 'B'))
+    ];
+
+    when(mockHttpService.get(any, any))
+        .thenAnswer((_) => Future.value(mockResponseSuccess));
+
+    expect(await userRepository.getFollowedArtists(1), expectedResultSuccess);
+  });
+
+  test('should return list of songs when get favorite songs from current user',
+      () async {
+    Map<String, dynamic> mockResponseSuccess;
+
+    List<RatedSongModel> expectedResultSuccess;
+
+    mockResponseSuccess = {
+      "items": [
+        {
+          'song': {'id': 1, 'name': 'A'}
+        },
+        {
+          'song': {'id': 2, 'name': 'B'}
+        },
+      ]
+    };
+
+    expectedResultSuccess = [
+      RatedSongModel(song: SongModel(id: 1, name: 'A')),
+      RatedSongModel(song: SongModel(id: 2, name: 'B'))
+    ];
+
+    when(mockHttpService.get(any, any))
+        .thenAnswer((_) => Future.value(mockResponseSuccess));
+
+    expect(await userRepository.getRatedSongs(1), expectedResultSuccess);
   });
 }

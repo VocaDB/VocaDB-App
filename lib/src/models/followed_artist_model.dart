@@ -1,7 +1,13 @@
+import 'package:equatable/equatable.dart';
 import 'package:vocadb_app/models.dart';
 
-class FollowedArtistModel {
-  ArtistModel artist;
+class FollowedArtistModel extends Equatable {
+  final ArtistModel artist;
+
+  @override
+  List<Object> get props => [artist];
+
+  FollowedArtistModel({this.artist});
 
   FollowedArtistModel.fromJson(Map<String, dynamic> json)
       : artist = json.containsKey('artist')

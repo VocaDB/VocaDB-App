@@ -27,7 +27,14 @@ class FavoriteAlbumController extends SearchPageController<AlbumUserModel> {
 
   final AuthService authService;
 
-  FavoriteAlbumController({this.userRepository, this.authService});
+  final SharedPreferenceService sharedPreferenceService;
+
+  FavoriteAlbumController(
+      {this.userRepository,
+      this.authService,
+      SharedPreferenceService sharedPreferenceService})
+      : sharedPreferenceService =
+            sharedPreferenceService ?? Get.find<SharedPreferenceService>();
 
   @override
   void onInit() {
@@ -47,8 +54,8 @@ class FavoriteAlbumController extends SearchPageController<AlbumUserModel> {
           discType: discType.string,
           purchaseStatuses: purchaseStatuses.string,
           sort: sort.string,
-          lang: SharedPreferenceService.lang,
-          artistIds: artists.toList().map((e) => e.id).join(','),
-          tagIds: tags.toList().map((e) => e.id).join(','))
+          lang: sharedPreferenceService.getContentLang,
+          artistIds: artists.map((e) => e.id.toString()).toList(),
+          tagIds: tags.map((e) => e.id.toString()).toList())
       .catchError(super.onError);
 }

@@ -11,21 +11,21 @@ class UserRepository extends RestApiRepository {
       String query,
       String rating,
       String sort,
-      String artistIds,
-      String tagIds,
+      Iterable<String> artistIds,
+      Iterable<String> tagIds,
       bool groupByRating = false,
       String nameMatchMode = 'Auto',
       int start = 0,
       int maxResults = 50}) async {
     final String endpoint = '/api/users/$userId/ratedSongs';
-    final Map<String, String> params = Map();
+    final Map<String, dynamic> params = Map();
     params['query'] = query;
     params['fields'] = 'ThumbUrl,PVs,MainPicture';
     params['sort'] = sort;
     params['rating'] = rating;
     params['groupByRating'] = groupByRating.toString();
-    params['artistId'] = artistIds;
-    params['tagId'] = tagIds;
+    params['artistId[]'] = artistIds;
+    params['tagId[]'] = tagIds;
     params['nameMatchMode'] = nameMatchMode;
     params['lang'] = lang;
     params['start'] = start.toString();
@@ -40,17 +40,17 @@ class UserRepository extends RestApiRepository {
       {String lang = 'Default',
       String query,
       String artistType,
-      String tagIds,
+      Iterable<String> tagIds,
       String nameMatchMode = 'Auto',
       int start = 0,
       int maxResults = 50}) async {
     final String endpoint = '/api/users/$userId/followedArtists';
-    final Map<String, String> params = Map();
+    final Map<String, dynamic> params = Map();
     params['query'] = query;
     params['artistType'] = artistType;
     params['fields'] = 'MainPicture';
     params['lang'] = lang;
-    params['tagId'] = tagIds;
+    params['tagId[]'] = tagIds;
     params['start'] = start.toString();
     params['maxResults'] = maxResults.toString();
     params['nameMatchMode'] = nameMatchMode;
@@ -66,20 +66,20 @@ class UserRepository extends RestApiRepository {
       String discType,
       String sort,
       String purchaseStatuses,
-      String artistIds,
-      String tagIds,
+      Iterable<String> artistIds,
+      Iterable<String> tagIds,
       String nameMatchMode = 'Auto',
       int start = 0,
       int maxResults = 50}) async {
     final String endpoint = '/api/users/$userId/albums';
-    final Map<String, String> params = Map();
+    final Map<String, dynamic> params = Map();
     params['query'] = query;
     params['albumTypes'] = discType;
     params['purchaseStatuses'] = purchaseStatuses;
     params['fields'] = 'MainPicture';
     params['lang'] = lang;
-    params['tagId'] = tagIds;
-    params['artistId'] = artistIds;
+    params['tagId[]'] = tagIds;
+    params['artistId[]'] = artistIds;
     params['sort'] = sort;
     params['start'] = start.toString();
     params['maxResults'] = maxResults.toString();

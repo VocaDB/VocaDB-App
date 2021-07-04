@@ -25,7 +25,13 @@ class ReleaseEventSearchController
 
   TextEditingController textSearchController;
 
-  ReleaseEventSearchController({this.releaseEventRepository});
+  final SharedPreferenceService sharedPreferenceService;
+
+  ReleaseEventSearchController(
+      {this.releaseEventRepository,
+      SharedPreferenceService sharedPreferenceService})
+      : sharedPreferenceService =
+            sharedPreferenceService ?? Get.find<SharedPreferenceService>();
 
   @override
   void onInit() {
@@ -38,13 +44,13 @@ class ReleaseEventSearchController
       releaseEventRepository
           .findReleaseEvents(
             start: (start == null) ? 0 : start,
-            lang: SharedPreferenceService.lang,
+            lang: sharedPreferenceService.getContentLang,
             maxResults: maxResults,
             query: query.string,
             category: category.string,
             sort: sort.string,
-            artistIds: artists.toList().map((e) => e.id).join(','),
-            tagIds: tags.toList().map((e) => e.id).join(','),
+            artistIds: artists.map((e) => e.id.toString()).toList(),
+            tagIds: tags.map((e) => e.id.toString()).toList(),
             beforeDate: DateTimeUtils.toUtcDateString(toDate.value),
             afterDate: DateTimeUtils.toUtcDateString(fromDate.value),
           )

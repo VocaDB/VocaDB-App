@@ -18,7 +18,12 @@ class EntrySearchController extends SearchPageController<EntryModel> {
 
   final enableInitial = false;
 
-  EntrySearchController({this.entryRepository});
+  final SharedPreferenceService sharedPreferenceService;
+
+  EntrySearchController(
+      {this.entryRepository, SharedPreferenceService sharedPreferenceService})
+      : sharedPreferenceService =
+            sharedPreferenceService ?? Get.find<SharedPreferenceService>();
 
   @override
   void onInit() {
@@ -32,8 +37,8 @@ class EntrySearchController extends SearchPageController<EntryModel> {
       .findEntries(
           query: query.string,
           entryType: entryType.string,
-          lang: SharedPreferenceService.lang,
+          lang: sharedPreferenceService.getContentLang,
           sort: sort.string,
-          tagIds: tags.toList().map((e) => e.id).join(','))
+          tagIds: tags.map((e) => e.id.toString()).toList())
       .catchError(super.onError);
 }

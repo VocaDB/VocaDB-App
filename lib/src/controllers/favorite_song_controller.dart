@@ -27,7 +27,14 @@ class FavoriteSongController extends SearchPageController<RatedSongModel> {
 
   final AuthService authService;
 
-  FavoriteSongController({this.userRepository, this.authService});
+  final SharedPreferenceService sharedPreferenceService;
+
+  FavoriteSongController(
+      {this.userRepository,
+      this.authService,
+      SharedPreferenceService sharedPreferenceService})
+      : sharedPreferenceService =
+            sharedPreferenceService ?? Get.find<SharedPreferenceService>();
 
   @override
   void onInit() {
@@ -46,12 +53,12 @@ class FavoriteSongController extends SearchPageController<RatedSongModel> {
       .getRatedSongs(authService.currentUser().id,
           start: (start == null) ? 0 : start,
           maxResults: maxResults,
-          lang: SharedPreferenceService.lang,
+          lang: sharedPreferenceService.getContentLang,
           query: query.string,
           rating: rating.string,
           groupByRating: groupByRating.value,
           sort: sort.string,
-          artistIds: artists.toList().map((e) => e.id).join(','),
-          tagIds: tags.toList().map((e) => e.id).join(','))
+          artistIds: artists.map((e) => e.id.toString()).toList(),
+          tagIds: tags.map((e) => e.id.toString()).toList())
       .catchError(super.onError);
 }

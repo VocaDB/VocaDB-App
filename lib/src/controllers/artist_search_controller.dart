@@ -14,7 +14,12 @@ class ArtistSearchController extends SearchPageController<ArtistModel> {
 
   final ArtistRepository artistRepository;
 
-  ArtistSearchController({this.artistRepository});
+  final SharedPreferenceService sharedPreferenceService;
+
+  ArtistSearchController(
+      {this.artistRepository, SharedPreferenceService sharedPreferenceService})
+      : sharedPreferenceService =
+            sharedPreferenceService ?? Get.find<SharedPreferenceService>();
 
   @override
   void onInit() {
@@ -27,12 +32,12 @@ class ArtistSearchController extends SearchPageController<ArtistModel> {
   Future<List<ArtistModel>> fetchApi({int start}) => artistRepository
       .findArtists(
         start: (start == null) ? 0 : start,
-        lang: SharedPreferenceService.lang,
+        lang: sharedPreferenceService.getContentLang,
         maxResults: maxResults,
         query: query.string,
         artistType: artistType.string,
         sort: sort.string,
-        tagIds: tags.toList().map((e) => e.id).join(','),
+        tagIds: tags.map((e) => e.id.toString()).toList(),
       )
       .catchError(super.onError);
 }

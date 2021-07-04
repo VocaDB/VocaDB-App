@@ -11,19 +11,19 @@ class AlbumRepository extends RestApiRepository {
       String query,
       String discType,
       String sort,
-      String artistIds,
-      String tagIds,
+      Iterable<String> artistIds,
+      Iterable<String> tagIds,
       int start = 0,
       int maxResults = 50,
       String nameMatchMode = 'Auto'}) async {
     final String endpoint = '/api/albums';
-    final Map<String, String> params = Map();
+    final Map<String, dynamic> params = Map();
     params['query'] = query;
     params['discTypes'] = discType;
     params['fields'] = 'MainPicture';
     params['lang'] = lang;
-    params['tagId'] = tagIds;
-    params['artistId'] = artistIds;
+    params['tagId[]'] = tagIds;
+    params['artistId[]'] = artistIds;
     params['sort'] = sort;
     params['start'] = start.toString();
     params['maxResults'] = maxResults.toString();
@@ -69,7 +69,7 @@ class AlbumRepository extends RestApiRepository {
 
   Future<List<AlbumModel>> getTopAlbumsByTagId(int tagId,
       {String lang = 'Default'}) async {
-    return this
-        .findAlbums(lang: lang, tagIds: tagId.toString(), sort: 'RatingScore');
+    return this.findAlbums(
+        lang: lang, tagIds: [tagId.toString()], sort: 'RatingScore');
   }
 }

@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vocadb_app/controllers.dart';
 import 'package:vocadb_app/models.dart';
@@ -17,7 +16,14 @@ class FavoriteArtistController
 
   final AuthService authService;
 
-  FavoriteArtistController({this.userRepository, this.authService});
+  final SharedPreferenceService sharedPreferenceService;
+
+  FavoriteArtistController(
+      {this.userRepository,
+      this.authService,
+      SharedPreferenceService sharedPreferenceService})
+      : sharedPreferenceService =
+            sharedPreferenceService ?? Get.find<SharedPreferenceService>();
 
   @override
   void onInit() {
@@ -34,8 +40,8 @@ class FavoriteArtistController
           query: query.string,
           start: (start == null) ? 0 : start,
           maxResults: maxResults,
-          lang: SharedPreferenceService.lang,
+          lang: sharedPreferenceService.getContentLang,
           artistType: artistType.string,
-          tagIds: tags.toList().map((e) => e.id).join(','))
+          tagIds: tags.map((e) => e.id.toString()).toList())
       .catchError(super.onError);
 }

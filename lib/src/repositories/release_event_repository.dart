@@ -13,20 +13,20 @@ class ReleaseEventRepository extends RestApiRepository {
       String category,
       String afterDate,
       String beforeDate,
-      String artistIds,
-      String tagIds,
+      Iterable<String> artistIds,
+      Iterable<String> tagIds,
       int start = 0,
       int maxResults = 50,
       String nameMatchMode = 'Auto'}) async {
     final String endpoint = '/api/releaseEvents';
-    final Map<String, String> params = Map();
+    final Map<String, dynamic> params = Map();
     params['fields'] = ' MainPicture,Series';
     params['lang'] = lang;
     params['query'] = query;
     params['sort'] = sort;
     params['category'] = category;
-    params['tagId'] = tagIds;
-    params['artistId'] = artistIds;
+    params['tagId[]'] = tagIds;
+    params['artistId[]'] = artistIds;
     params['afterDate'] = afterDate;
     params['beforeDate'] = beforeDate;
     params['start'] = start.toString();

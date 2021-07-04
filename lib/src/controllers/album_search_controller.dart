@@ -16,7 +16,12 @@ class AlbumSearchController extends SearchPageController<AlbumModel> {
 
   final AlbumRepository albumRepository;
 
-  AlbumSearchController({this.albumRepository});
+  final SharedPreferenceService sharedPreferenceService;
+
+  AlbumSearchController(
+      {this.albumRepository, SharedPreferenceService sharedPreferenceService})
+      : sharedPreferenceService =
+            sharedPreferenceService ?? Get.find<SharedPreferenceService>();
 
   @override
   void onInit() {
@@ -27,14 +32,13 @@ class AlbumSearchController extends SearchPageController<AlbumModel> {
 
   Future<List<AlbumModel>> fetchApi({int start}) => albumRepository
       .findAlbums(
-        start: (start == null) ? 0 : start,
-        lang: SharedPreferenceService.lang,
-        maxResults: maxResults,
-        query: query.string,
-        discType: discType.string,
-        sort: sort.string,
-        artistIds: artists.toList().map((e) => e.id).join(','),
-        tagIds: tags.toList().map((e) => e.id).join(','),
-      )
+          start: (start == null) ? 0 : start,
+          lang: sharedPreferenceService.getContentLang,
+          maxResults: maxResults,
+          query: query.string,
+          discType: discType.string,
+          sort: sort.string,
+          artistIds: artists.map((e) => e.id.toString()).toList(),
+          tagIds: tags.map((e) => e.id.toString()).toList())
       .catchError(super.onError);
 }

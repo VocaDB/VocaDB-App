@@ -11,17 +11,17 @@ class ArtistRepository extends RestApiRepository {
       String query,
       String artistType,
       String sort,
-      String tagIds,
+      Iterable<String> tagIds,
       int start = 0,
       int maxResults = 50,
       String nameMatchMode = 'Auto'}) async {
     final String endpoint = '/api/artists';
-    final Map<String, String> params = Map();
+    final Map<String, dynamic> params = Map();
     params['query'] = query;
     params['artistTypes'] = artistType;
     params['fields'] = 'MainPicture';
     params['languagePreference'] = lang;
-    params['tagId'] = tagIds;
+    params['tagId[]'] = tagIds;
     params['sort'] = sort;
     params['start'] = start.toString();
     params['maxResults'] = maxResults.toString();
@@ -46,7 +46,7 @@ class ArtistRepository extends RestApiRepository {
 
   Future<List<ArtistModel>> getTopArtistsByTagId(int tagId,
       {String lang = 'Default'}) async {
-    return this
-        .findArtists(lang: lang, tagIds: tagId.toString(), sort: 'RatingScore');
+    return this.findArtists(
+        lang: lang, tagIds: [tagId.toString()], sort: 'RatingScore');
   }
 }

@@ -1,7 +1,13 @@
+import 'package:equatable/equatable.dart';
 import 'package:vocadb_app/models.dart';
 
-class AlbumUserModel {
-  AlbumModel album;
+class AlbumUserModel extends Equatable {
+  final AlbumModel album;
+
+  @override
+  List<Object> get props => [album];
+
+  AlbumUserModel({this.album});
 
   AlbumUserModel.fromJson(Map<String, dynamic> json)
       : album = json.containsKey('album')

@@ -11,15 +11,15 @@ class EntryRepository extends RestApiRepository {
       String query,
       String entryType,
       String sort,
-      String tagIds,
+      Iterable<String> tagIds,
       String nameMatchMode = 'Auto'}) async {
     final String endpoint = '/api/entries';
-    final Map<String, String> params = Map();
+    final Map<String, dynamic> params = Map();
     params['query'] = query;
     params['entryTypes'] = entryType;
     params['fields'] = 'MainPicture';
     params['languagePreference'] = lang;
-    params['tagId'] = tagIds;
+    params['tagId[]'] = tagIds;
     params['sort'] = sort;
     params['nameMatchMode'] = nameMatchMode;
     return super
