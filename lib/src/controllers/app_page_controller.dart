@@ -9,6 +9,7 @@ class AppPageController extends GetxController {
   void initialLoadingDone(_) => initialLoading(false);
 
   void onError(Object err) {
+    print(err);
     initialLoading(false);
     errorMessage(ErrorUtils.read(err));
   }
