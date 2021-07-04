@@ -18,6 +18,12 @@ class EntryModel extends BaseModel {
   List<TagGroupModel> tagGroups;
   List<WebLinkModel> webLinks;
 
+  @override
+  List<Object> get props => [
+        id,
+        name,
+      ];
+
   EntryModel(
       {this.id,
       this.entryType,

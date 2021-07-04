@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vocadb_app/controllers.dart';
 import 'package:vocadb_app/models.dart';
@@ -20,7 +19,12 @@ class SongSearchController extends SearchPageController<SongModel> {
 
   final SongRepository songRepository;
 
-  SongSearchController({this.songRepository});
+  final SharedPreferenceService sharedPreferenceService;
+
+  SongSearchController(
+      {this.songRepository, SharedPreferenceService sharedPreferenceService})
+      : sharedPreferenceService =
+            sharedPreferenceService ?? Get.find<SharedPreferenceService>();
 
   @override
   void onInit() {
@@ -33,11 +37,11 @@ class SongSearchController extends SearchPageController<SongModel> {
   Future<List<SongModel>> fetchApi({int start}) => songRepository
       .findSongs(
           start: (start == null) ? 0 : start,
-          lang: SharedPreferenceService.lang,
+          lang: sharedPreferenceService.getContentLang,
           query: query.string,
           songType: songType.string,
           sort: sort.string,
-          artistIds: artists.toList().map((e) => e.id).join(','),
-          tagIds: tags.toList().map((e) => e.id).join(','))
+          artistIds: artists.map((e) => e.id.toString()).toList(),
+          tagIds: tags.map((e) => e.id.toString()).toList())
       .catchError(super.onError);
 }

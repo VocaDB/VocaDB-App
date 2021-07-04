@@ -24,6 +24,9 @@ class SharedPreferenceService extends GetxService {
   static String get lang =>
       Get.find<SharedPreferenceService>().contentLang.string;
 
+  String get getContentLang =>
+      Get.find<SharedPreferenceService>().contentLang.string;
+
   static bool get autoPlayValue =>
       Get.find<SharedPreferenceService>().autoPlay.value;
 

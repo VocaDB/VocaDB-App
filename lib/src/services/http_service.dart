@@ -24,8 +24,9 @@ class HttpService extends GetxService {
     return this;
   }
 
-  Future<dynamic> get(String endpoint, Map<String, String> params) async {
-    params?.removeWhere((key, value) => value == null || value == '');
+  Future<dynamic> get(String endpoint, Map<String, dynamic> params) async {
+    params?.removeWhere(
+        (key, value) => value == null || (value is String && value.isEmpty));
     String url = Uri.https(authority, endpoint, params).toString();
     print('GET $url | $params');
     final response = await _dio.get(url);

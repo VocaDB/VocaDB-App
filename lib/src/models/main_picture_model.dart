@@ -1,8 +1,13 @@
-class MainPictureModel {
+import 'package:equatable/equatable.dart';
+
+class MainPictureModel extends Equatable {
   String meme;
   String urlSmallThumb;
   String urlThumb;
   String urlTinyThumb;
+
+  @override
+  List<Object> get props => [meme, urlSmallThumb, urlThumb, urlTinyThumb];
 
   MainPictureModel({this.urlThumb});
 

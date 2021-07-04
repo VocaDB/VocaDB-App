@@ -1,10 +1,15 @@
-class PVModel {
+import 'package:equatable/equatable.dart';
+
+class PVModel extends Equatable {
   int id;
   String name;
   String service;
   String url;
   String pvType;
   int length;
+
+  @override
+  List<Object> get props => [id, name, service, url, pvType, length];
 
   PVModel(
       {this.id, this.name, this.service, this.url, this.pvType, this.length});

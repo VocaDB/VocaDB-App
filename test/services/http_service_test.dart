@@ -20,7 +20,10 @@ void main() {
 
       expect(
           await HttpService(dio: mockDio)
-              .get('https://vocadb.net/api/songs/1', null),
+              .get('https://vocadb.net/api/songs/1', {
+            'id': '1',
+            'artistId[]': ['1', '2']
+          }),
           mockResponseData);
     });
 

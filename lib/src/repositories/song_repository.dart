@@ -11,19 +11,19 @@ class SongRepository extends RestApiRepository {
       String query,
       String songType,
       String sort,
-      String artistIds,
-      String tagIds,
+      Iterable<String> artistIds,
+      Iterable<String> tagIds,
       int start = 0,
       int maxResults = 50,
       String nameMatchMode = 'Auto'}) async {
     final String endpoint = '/api/songs';
-    final Map<String, String> params = Map();
+    final Map<String, dynamic> params = Map();
     params['query'] = query;
     params['fields'] = 'ThumbUrl,PVs,MainPicture';
     params['songType'] = songType;
     params['sort'] = sort;
-    params['artistId'] = artistIds;
-    params['tagId'] = tagIds;
+    params['artistId[]'] = artistIds;
+    params['tagId[]'] = tagIds;
     params['languagePreference'] = lang;
     params['maxResults'] = maxResults.toString();
     params['start'] = start.toString();
@@ -117,14 +117,14 @@ class SongRepository extends RestApiRepository {
 
   Future<List<SongModel>> getLatestSongsByTagId(int tagId,
       {String lang = 'Default'}) async {
-    return this
-        .findSongs(lang: lang, tagIds: tagId.toString(), sort: 'AdditionDate');
+    return this.findSongs(
+        lang: lang, tagIds: [tagId.toString()], sort: 'AdditionDate');
   }
 
   Future<List<SongModel>> getTopSongsByTagId(int tagId,
       {String lang = 'Default'}) async {
     return this
-        .findSongs(lang: lang, tagIds: tagId.toString(), sort: 'RatingScore');
+        .findSongs(lang: lang, tagIds: [tagId.toString()], sort: 'RatingScore');
   }
 
   Future<dynamic> rating(int songId, String rating) {

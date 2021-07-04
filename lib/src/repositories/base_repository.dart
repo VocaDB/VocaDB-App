@@ -5,7 +5,7 @@ class RestApiRepository {
 
   RestApiRepository({this.httpService});
 
-  Future<dynamic> getList(String endpoint, Map<String, String> params) async {
+  Future<dynamic> getList(String endpoint, Map<String, dynamic> params) async {
     return httpService.get('$endpoint', params).then((v) => (v is Iterable)
         ? v
         : (v.containsKey('items'))
