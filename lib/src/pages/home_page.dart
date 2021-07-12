@@ -29,28 +29,34 @@ class HomePage extends GetView<HomePageController> {
       SpaceDivider.small(),
       Center(
         child: Wrap(
+          key: Key('shortcutButtons'),
           crossAxisAlignment: WrapCrossAlignment.center,
           alignment: WrapAlignment.start,
           runAlignment: WrapAlignment.center,
           runSpacing: 24.0,
           children: <Widget>[
             _ShortcutMenuButton(
+                key: Key('songShortcut'),
                 title: 'songs'.tr,
                 iconData: Icons.music_note,
                 onPressed: this._onTapSongSearchIcon),
             _ShortcutMenuButton(
+                key: Key('artistShortcut'),
                 title: 'artists'.tr,
                 iconData: Icons.person,
                 onPressed: this._onTapArtistSearchIcon),
             _ShortcutMenuButton(
+                key: Key('albumShortcut'),
                 title: 'albums'.tr,
                 iconData: Icons.album,
                 onPressed: this._onTapAlbumSearchIcon),
             _ShortcutMenuButton(
+                key: Key('tagShortcut'),
                 title: 'tags'.tr,
                 iconData: Icons.label,
                 onPressed: this._onTapTagSearchIcon),
             _ShortcutMenuButton(
+                key: Key('eventShortcut'),
                 title: 'events'.tr,
                 iconData: Icons.event,
                 onPressed: this._onTapEventSearchIcon),
