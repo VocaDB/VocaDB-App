@@ -1,1 +1,0 @@
-class HttpRequestErrorException implements Exception {}
