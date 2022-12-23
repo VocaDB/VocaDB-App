@@ -11,12 +11,6 @@ class MainScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<Widget> pages = <Widget>[
-      const HomeScreen(),
-      const RankingScreen(),
-      const MenuScreen()
-    ];
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('VocaDB'),
@@ -24,29 +18,30 @@ class MainScreen extends StatelessWidget {
           IconButton(icon: const Icon(Icons.search), onPressed: () => {}),
         ],
       ),
-      body: Center(
-        child: AnimatedSwitcher(
-          duration: const Duration(milliseconds: 100),
-          child: pages.elementAt(currentIndex),
-        ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: currentIndex,
-        onTap: (index) => {},
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
+      body: [
+        const HomeScreen(),
+        const RankingScreen(),
+        const MenuScreen(),
+      ][currentIndex],
+      bottomNavigationBar: NavigationBar(
+        destinations: const [
+          NavigationDestination(
             icon: Icon(Icons.home),
-            label: 'home',
+            label: 'Home',
           ),
-          BottomNavigationBarItem(
+          NavigationDestination(
             icon: Icon(Icons.trending_up),
-            label: 'ranking',
+            label: 'Ranking',
           ),
-          BottomNavigationBarItem(
+          NavigationDestination(
             icon: Icon(Icons.menu),
-            label: 'menu',
+            label: 'Menu',
           ),
         ],
+        selectedIndex: currentIndex,
+        onDestinationSelected: (index) => {},
+        labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
+        animationDuration: const Duration(milliseconds: 100),
       ),
     );
   }
