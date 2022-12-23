@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vocadb_app/src/features/authentication/presentation/account/account_screen.dart';
 import 'package:vocadb_app/src/features/authentication/presentation/sign_in/sign_in_screen.dart';
-import 'package:vocadb_app/src/features/home/presentation/home_screen/home_screen.dart';
+import 'package:vocadb_app/src/features/home/presentation/main_screen/main_screen.dart';
 import 'package:vocadb_app/src/features/songs/presentation/song_detail_screen/song_detail_screen.dart';
 
 enum AppRoute { home, songDetail, account, signIn }
@@ -13,7 +13,7 @@ final goRouter = GoRouter(
     GoRoute(
       path: '/',
       name: AppRoute.home.name,
-      builder: (context, state) => const HomeScreen(),
+      builder: (context, state) => const MainScreen(),
       routes: [
         GoRoute(
           path: 'S/:id',
