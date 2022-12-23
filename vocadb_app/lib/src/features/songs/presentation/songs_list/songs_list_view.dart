@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:vocadb_app/src/common_widgets/infinite_list_view.dart';
 import 'package:vocadb_app/src/features/songs/domain/song.dart';
-import 'package:vocadb_app/src/features/songs/presentation/songs_list/song_card.dart';
+import 'package:vocadb_app/src/features/songs/presentation/song_card/song_card.dart';
 import 'package:vocadb_app/src/features/songs/presentation/songs_list/song_placeholder_list_view.dart';
-import 'package:vocadb_app/src/features/songs/presentation/songs_list/song_tile.dart';
+import 'package:vocadb_app/src/features/songs/presentation/song_tile/song_tile.dart';
 
 /// A widget for display list of songs as vertical or horizontal
 class SongListView extends StatelessWidget {
@@ -45,8 +45,10 @@ class SongListView extends StatelessWidget {
       );
 
   /// Return item for display in horizontal list
-  Widget _horizontalItemBuilder(BuildContext context, int index) =>
-      SongCard(song: songs[index], onTap: () => onSelect(songs[index]));
+  Widget _horizontalItemBuilder(BuildContext context, int index) => SongCard(
+        song: songs[index],
+        onTap: () => onSelect(songs[index]),
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -67,10 +69,12 @@ class SongListView extends StatelessWidget {
     }
 
     return SizedBox(
-        height: _rowHeight,
-        child: ListView.builder(
-            itemCount: songs.length,
-            scrollDirection: Axis.horizontal,
-            itemBuilder: _horizontalItemBuilder));
+      height: _rowHeight,
+      child: ListView.builder(
+        itemCount: songs.length,
+        scrollDirection: Axis.horizontal,
+        itemBuilder: _horizontalItemBuilder,
+      ),
+    );
   }
 }

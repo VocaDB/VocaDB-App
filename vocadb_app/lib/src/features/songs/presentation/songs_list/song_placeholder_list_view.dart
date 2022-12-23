@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vocadb_app/src/features/songs/presentation/songs_list/song_card_placeholder.dart';
+import 'package:vocadb_app/src/features/songs/presentation/song_card/song_card_placeholder.dart';
 
 class SongPlaceholderListView extends StatelessWidget {
   const SongPlaceholderListView(

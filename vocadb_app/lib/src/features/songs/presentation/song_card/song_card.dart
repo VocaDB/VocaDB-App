@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:vocadb_app/src/common_widgets/custom_network_image.dart';
 import 'package:vocadb_app/src/common_widgets/space_divider.dart';
+import 'package:vocadb_app/src/constants/app_sizes.dart';
 import 'package:vocadb_app/src/features/songs/domain/song.dart';
+import 'package:vocadb_app/src/features/songs/presentation/song_card/song_card_image.dart';
 import 'package:vocadb_app/src/features/songs/presentation/song_type_icon/song_type_icon.dart';
 
 /// A widget that displays simple information about song in card. Mostly use in horizontal list.
@@ -13,10 +14,7 @@ class SongCard extends StatelessWidget {
   final GestureTapCallback onTap;
 
   /// The width of card
-  static const double cardWidth = 130;
-
-  /// The height of thumbnail image
-  static const double thumbnailHeight = 100;
+  static const double cardWidth = 160;
 
   const SongCard({super.key, required this.song, required this.onTap});
 
@@ -27,21 +25,13 @@ class SongCard extends StatelessWidget {
         onTap: onTap,
         child: Container(
           width: cardWidth,
-          margin: const EdgeInsets.only(right: 8.0, left: 8.0),
+          margin: const EdgeInsets.only(right: Sizes.p8, left: Sizes.p8),
           child: Column(
             children: <Widget>[
-              Container(
-                width: double.infinity,
-                height: thumbnailHeight,
-                color: Colors.black,
-                child: FittedBox(
-                  fit: BoxFit.fitWidth,
-                  child: CustomNetworkImage(
-                    song.imageUrl,
-                  ),
-                ),
+              SongCardImage(
+                imageUrl: song.imageUrl,
               ),
-              const SpaceDivider.micro(),
+              gapH4,
               Container(
                 alignment: Alignment.centerLeft,
                 child: Text(song.name,
