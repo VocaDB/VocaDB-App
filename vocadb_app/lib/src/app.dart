@@ -11,7 +11,16 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       restorationScopeId: 'app',
       onGenerateTitle: (BuildContext context) => 'VocaDB',
-      theme: ThemeData.dark(),
+      theme: ThemeData(
+        brightness: Brightness.light,
+        /* light theme settings */
+      ),
+      darkTheme: ThemeData(
+        brightness: Brightness.dark,
+
+        /* dark theme settings */
+      ),
+      themeMode: ThemeMode.dark,
     );
   }
 }
