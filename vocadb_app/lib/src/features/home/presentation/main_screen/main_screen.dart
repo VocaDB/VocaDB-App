@@ -3,11 +3,25 @@ import 'package:vocadb_app/src/features/home/presentation/home_screen/home_scree
 import 'package:vocadb_app/src/features/home/presentation/menu_screen/menu_screen.dart';
 import 'package:vocadb_app/src/features/home/presentation/ranking_screen/ranking_screen.dart';
 
-class MainScreen extends StatelessWidget {
+class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
 
-  //TODO Move to controller
-  final currentIndex = 0;
+  @override
+  State<MainScreen> createState() => _MainScreenState();
+}
+
+class _MainScreenState extends State<MainScreen> {
+  int currentPageIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +36,7 @@ class MainScreen extends StatelessWidget {
         const HomeScreen(),
         const RankingScreen(),
         const MenuScreen(),
-      ][currentIndex],
+      ][currentPageIndex],
       bottomNavigationBar: NavigationBar(
         destinations: const [
           NavigationDestination(
@@ -38,8 +52,12 @@ class MainScreen extends StatelessWidget {
             label: 'Menu',
           ),
         ],
-        selectedIndex: currentIndex,
-        onDestinationSelected: (index) => {},
+        selectedIndex: currentPageIndex,
+        onDestinationSelected: (index) {
+          setState(() {
+            currentPageIndex = index;
+          });
+        },
         labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
         animationDuration: const Duration(milliseconds: 100),
       ),
