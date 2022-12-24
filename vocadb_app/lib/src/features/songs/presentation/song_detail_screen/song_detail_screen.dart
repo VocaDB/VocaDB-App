@@ -4,6 +4,7 @@ import 'package:vocadb_app/src/features/songs/data/song_repository.dart';
 import 'package:vocadb_app/src/features/songs/presentation/song_detail_screen/song_detail_button_bar.dart';
 import 'package:vocadb_app/src/features/songs/presentation/song_detail_screen/song_hero_image.dart';
 import 'package:vocadb_app/src/features/songs/presentation/song_detail_screen/song_info.dart';
+import 'package:vocadb_app/src/features/tags/presentation/tag_usage_group_view.dart';
 
 class SongDetailScreen extends StatelessWidget {
   const SongDetailScreen({super.key, required this.songId});
@@ -37,6 +38,8 @@ class SongDetailScreen extends StatelessWidget {
             ),
             const SongDetailButtonBar(),
             SongInfo(song: song),
+            TagUsageGroupView(tagUsages: song.tagUsages),
+            const Divider(),
           ],
         ),
       ),

@@ -1,3 +1,5 @@
+import 'package:vocadb_app/src/features/tags/domain/tag_usage.dart';
+
 class Song {
   const Song({
     required this.id,
@@ -12,6 +14,7 @@ class Song {
     this.createDate = '',
     this.publishDate = '',
     this.ratingScore = 0,
+    this.tagUsages = const [],
   });
 
   final String id;
@@ -37,4 +40,6 @@ class Song {
   final String publishDate;
 
   final int ratingScore;
+
+  final List<TagUsage> tagUsages;
 }
