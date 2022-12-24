@@ -5,15 +5,15 @@ import 'package:vocadb_app/src/features/albums/data/album_repository.dart';
 import 'package:vocadb_app/src/features/albums/presentation/albums_list/album_list_view.dart';
 import 'package:vocadb_app/src/routing/app_router.dart';
 
-class RecentAlbumSection extends StatelessWidget {
-  const RecentAlbumSection({super.key});
+class RandomAlbumSection extends StatelessWidget {
+  const RandomAlbumSection({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final albums = AlbumsRepository.instance.getNewAlbums();
+    final albums = AlbumsRepository.instance.getRandomAlbums();
 
     return Section(
-      title: 'Recent or upcoming albums',
+      title: 'Random popular albums',
       child: AlbumListView(
         albums: albums,
         scrollDirection: Axis.horizontal,

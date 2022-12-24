@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vocadb_app/src/constants/app_sizes.dart';
-import 'package:vocadb_app/src/features/songs/data/songs_repository.dart';
+import 'package:vocadb_app/src/features/songs/data/song_repository.dart';
 import 'package:vocadb_app/src/features/songs/presentation/song_detail_screen/song_detail_button_bar.dart';
 import 'package:vocadb_app/src/features/songs/presentation/song_detail_screen/song_hero_image.dart';
 import 'package:vocadb_app/src/features/songs/presentation/song_detail_screen/song_info.dart';
