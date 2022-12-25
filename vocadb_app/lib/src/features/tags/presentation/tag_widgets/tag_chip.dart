@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 /// Tag chip widget
 class TagChip extends StatelessWidget {
   const TagChip(
-      {required this.label,
-      required this.onPressed,
+      {super.key,
+      required this.label,
+      required this.onSelect,
       this.onDeleted,
       this.avatar});
 
@@ -18,7 +19,7 @@ class TagChip extends StatelessWidget {
   final VoidCallback? onDeleted;
 
   /// Callback when pressed
-  final VoidCallback? onPressed;
+  final VoidCallback? onSelect;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +33,7 @@ class TagChip extends StatelessWidget {
         avatar: avatar,
         deleteIcon: (onDeleted == null) ? null : const Icon(Icons.cancel),
         label: Text(label),
-        onPressed: onPressed,
+        onPressed: onSelect,
         onDeleted: onDeleted,
       ),
     );

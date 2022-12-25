@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vocadb_app/src/features/tags/domain/tag.dart';
 import 'package:vocadb_app/src/features/tags/domain/tag_usage.dart';
-import 'package:vocadb_app/src/features/tags/presentation/tag_chip.dart';
+import 'package:vocadb_app/src/features/tags/presentation/tag_widgets/tag_chip.dart';
 
 /// A widget to generate tags by list of tag model.
 class TagUsageGroupView extends StatefulWidget {
@@ -9,7 +9,7 @@ class TagUsageGroupView extends StatefulWidget {
   final List<TagUsage> tagUsages;
 
   /// Callback when pressed.
-  final Function(Tag)? onPressed;
+  final Function(Tag)? onSelectTag;
 
   /// A horizontal margin size. Default is 16.0
   final double margin;
@@ -20,7 +20,7 @@ class TagUsageGroupView extends StatefulWidget {
   const TagUsageGroupView(
       {super.key,
       required this.tagUsages,
-      this.onPressed,
+      this.onSelectTag,
       this.margin = 16.0,
       this.minimumDisplayCount = 5});
 
@@ -41,8 +41,8 @@ class _TagUsageGroupViewState extends State<TagUsageGroupView> {
   Widget _mapTagWidget(TagUsage tagUsage) {
     return TagChip(
         label: tagUsage.tag.name,
-        onPressed: () => (widget.onPressed != null)
-            ? widget.onPressed!(tagUsage.tag)
+        onSelect: () => (widget.onSelectTag != null)
+            ? widget.onSelectTag!(tagUsage.tag)
             : null);
   }
 

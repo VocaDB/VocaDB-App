@@ -7,6 +7,7 @@ import 'package:vocadb_app/src/features/authentication/presentation/account/acco
 import 'package:vocadb_app/src/features/authentication/presentation/sign_in/sign_in_screen.dart';
 import 'package:vocadb_app/src/features/home/presentation/main_screen/main_screen.dart';
 import 'package:vocadb_app/src/features/songs/presentation/song_detail_screen/song_detail_screen.dart';
+import 'package:vocadb_app/src/features/tags/presentation/tag_detail_screen/tag_detail_screen.dart';
 import 'package:vocadb_app/src/routing/go_router_refresh_stream.dart';
 
 enum AppRoute {
@@ -16,6 +17,8 @@ enum AppRoute {
   signIn,
   albumDetail,
   artistDetail,
+  tagDetail,
+  releaseEventDetail,
 }
 
 final goRouterProvider = Provider<GoRouter>((ref) {
@@ -58,6 +61,14 @@ final goRouterProvider = Provider<GoRouter>((ref) {
             builder: (context, state) {
               final albumId = state.params['id']!;
               return AlbumDetailScreen(albumId: albumId);
+            },
+          ),
+          GoRoute(
+            path: 'T/:id',
+            name: AppRoute.tagDetail.name,
+            builder: (context, state) {
+              final tagId = state.params['id']!;
+              return TagDetailScreen(tagId: tagId);
             },
           ),
           GoRoute(
