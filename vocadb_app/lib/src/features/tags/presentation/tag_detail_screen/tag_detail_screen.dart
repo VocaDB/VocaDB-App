@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vocadb_app/src/common_widgets/responsive_center.dart';
 
+// TODO : implement more UI detail
 class TagDetailScreen extends StatelessWidget {
   const TagDetailScreen({super.key, required this.tagId});
   final String tagId;

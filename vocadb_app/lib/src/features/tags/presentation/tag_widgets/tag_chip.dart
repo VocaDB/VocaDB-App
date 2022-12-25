@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 
 /// Tag chip widget
 class TagChip extends StatelessWidget {
-  const TagChip(
-      {super.key,
-      required this.label,
-      required this.onSelect,
-      this.onDeleted,
-      this.avatar});
+  const TagChip({
+    super.key,
+    required this.label,
+    required this.onSelect,
+    this.onDeleted,
+    this.avatar,
+  });
 
   /// A widget to display prior to the chip's label.
   final Widget? avatar;

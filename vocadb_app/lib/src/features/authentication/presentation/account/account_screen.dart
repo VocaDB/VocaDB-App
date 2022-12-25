@@ -9,6 +9,7 @@ import 'package:vocadb_app/src/features/authentication/presentation/account/acco
 import 'package:vocadb_app/src/localization/string_hardcoded.dart';
 import 'package:vocadb_app/src/utils/async_value_ui.dart';
 
+// TODO : need cleanup UI detail
 class AccountScreen extends ConsumerWidget {
   const AccountScreen({super.key});
 

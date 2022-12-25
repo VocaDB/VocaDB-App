@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vocadb_app/src/features/authentication/presentation/authenticated_widgets/authenticated_widget.dart';
 import 'package:vocadb_app/src/features/authentication/presentation/authenticated_widgets/guest_widget.dart';
+import 'package:vocadb_app/src/features/home/presentation/app_bar/global_app_bar.dart';
 import 'package:vocadb_app/src/routing/app_router.dart';
 
 class MenuScreen extends StatelessWidget {
@@ -10,6 +11,10 @@ class MenuScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: const GlobalAppBar(
+        title: 'VocaDB',
+        displayHome: false,
+      ),
       body: ListView(
         children: [
           AuthenticatedWidget(

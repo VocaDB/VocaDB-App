@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vocadb_app/src/features/authentication/data/auth_repository.dart';
 import 'package:vocadb_app/src/localization/string_hardcoded.dart';
 
+// TODO : need implementation
 /// Simple user data table showing the uid and email
 class AccountInfo extends ConsumerWidget {
   const AccountInfo({super.key});

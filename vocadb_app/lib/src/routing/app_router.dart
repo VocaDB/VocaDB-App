@@ -5,6 +5,7 @@ import 'package:vocadb_app/src/features/albums/presentation/album_detail_screen/
 import 'package:vocadb_app/src/features/authentication/data/auth_repository.dart';
 import 'package:vocadb_app/src/features/authentication/presentation/account/account_screen.dart';
 import 'package:vocadb_app/src/features/authentication/presentation/sign_in/sign_in_screen.dart';
+import 'package:vocadb_app/src/features/entries/presentation/entries_search_screen/entries_search_screen.dart';
 import 'package:vocadb_app/src/features/home/presentation/main_screen/main_screen.dart';
 import 'package:vocadb_app/src/features/songs/presentation/song_detail_screen/song_detail_screen.dart';
 import 'package:vocadb_app/src/features/tags/presentation/tag_detail_screen/tag_detail_screen.dart';
@@ -19,6 +20,7 @@ enum AppRoute {
   artistDetail,
   tagDetail,
   releaseEventDetail,
+  entriesSearch,
 }
 
 final goRouterProvider = Provider<GoRouter>((ref) {
@@ -87,6 +89,15 @@ final goRouterProvider = Provider<GoRouter>((ref) {
               key: state.pageKey,
               fullscreenDialog: true,
               child: const SignInScreen(),
+            ),
+          ),
+          GoRoute(
+            path: 'Search',
+            name: AppRoute.entriesSearch.name,
+            pageBuilder: (context, state) => MaterialPage(
+              key: state.pageKey,
+              fullscreenDialog: true,
+              child: const EntriesSearchScreen(),
             ),
           ),
         ],

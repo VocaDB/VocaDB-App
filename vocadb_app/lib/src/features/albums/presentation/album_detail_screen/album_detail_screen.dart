@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vocadb_app/src/common_widgets/responsive_center.dart';
 
+// TODO : need implementation
 class AlbumDetailScreen extends StatelessWidget {
   const AlbumDetailScreen({super.key, required this.albumId});
   final String albumId;
