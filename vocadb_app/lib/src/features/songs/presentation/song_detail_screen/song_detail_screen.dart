@@ -4,10 +4,14 @@ import 'package:vocadb_app/src/features/albums/presentation/albums_list/albums_s
 import 'package:vocadb_app/src/features/artists/presentation/artists_list/artist_role_list.dart';
 import 'package:vocadb_app/src/features/home/presentation/app_bar/global_app_bar.dart';
 import 'package:vocadb_app/src/features/pvs/presentation/pv_list/pv_group_list.dart';
+import 'package:vocadb_app/src/features/releaseEvents/data/test_list_events.dart';
+import 'package:vocadb_app/src/features/releaseEvents/presentation/release_events_list/release_events_section.dart';
 import 'package:vocadb_app/src/features/songs/data/song_repository.dart';
+import 'package:vocadb_app/src/features/songs/data/test_songs.dart';
 import 'package:vocadb_app/src/features/songs/presentation/song_detail_screen/song_detail_button_bar.dart';
 import 'package:vocadb_app/src/features/songs/presentation/song_detail_screen/song_hero_image.dart';
 import 'package:vocadb_app/src/features/songs/presentation/song_detail_screen/song_info.dart';
+import 'package:vocadb_app/src/features/songs/presentation/songs_list/songs_section.dart';
 import 'package:vocadb_app/src/features/tags/presentation/tag_widgets/tag_usage_group_view.dart';
 import 'package:vocadb_app/src/features/weblinks/presentation/web_link_group_view.dart';
 import 'package:vocadb_app/src/routing/app_router.dart';
@@ -19,7 +23,6 @@ class SongDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final song = SongRepository.instance.getSongByID(songId);
-
     return Scaffold(
       appBar: const GlobalAppBar(
         title: 'Song detail',
@@ -59,6 +62,20 @@ class SongDetailScreen extends StatelessWidget {
                   const Divider(),
                   AlbumsSection(
                     albums: song.albums,
+                  ),
+                  const Divider(),
+                  const SongsSection(
+                    title: 'Alternate version',
+                    songs: kTestSongs,
+                  ),
+                  const Divider(),
+                  const SongsSection(
+                    title: 'Users who liked this also liked',
+                    songs: kTestSongs,
+                  ),
+                  const Divider(),
+                  const ReleaseEventsSection(
+                    releaseEvents: kTestReleaseEvents,
                   ),
                   const Divider(),
                   WebLinkGroupList(webLinks: song.webLinks)

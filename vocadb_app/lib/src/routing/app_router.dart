@@ -15,6 +15,7 @@ import 'package:vocadb_app/src/features/home/presentation/main_screen/main_scree
 import 'package:vocadb_app/src/features/home/presentation/menu_screen/contact_us_screen.dart';
 import 'package:vocadb_app/src/features/home/presentation/menu_screen/setting_screen.dart';
 import 'package:vocadb_app/src/features/home/presentation/ranking_screen/ranking_filter_screen.dart';
+import 'package:vocadb_app/src/features/releaseEvents/presentation/release_event_detail_screen/release_event_detail_screen.dart';
 import 'package:vocadb_app/src/features/songs/presentation/rated_songs_screen/rated_songs_filter_screen.dart';
 import 'package:vocadb_app/src/features/songs/presentation/rated_songs_screen/rated_songs_screen.dart';
 import 'package:vocadb_app/src/features/songs/presentation/song_detail_screen/song_detail_screen.dart';
@@ -100,6 +101,14 @@ final goRouterProvider = Provider<GoRouter>(
               builder: (context, state) {
                 final tagId = state.params['id']!;
                 return TagDetailScreen(tagId: tagId);
+              },
+            ),
+            GoRoute(
+              path: 'E/:id',
+              name: AppRoute.releaseEventDetail.name,
+              builder: (context, state) {
+                final releaseEventId = state.params['id']!;
+                return ReleaseEventDetailScreen(releaseEventId: releaseEventId);
               },
             ),
             GoRoute(
