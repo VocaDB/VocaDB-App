@@ -1,3 +1,7 @@
+import 'package:vocadb_app/src/features/albums/domain/album.dart';
+import 'package:vocadb_app/src/features/artists/domain/artist_role.dart';
+import 'package:vocadb_app/src/features/pvs/domain/pv.dart';
+import 'package:vocadb_app/src/features/songs/domain/lyric.dart';
 import 'package:vocadb_app/src/features/tags/domain/tag_usage.dart';
 
 class Song {
@@ -15,6 +19,10 @@ class Song {
     this.publishDate = '',
     this.ratingScore = 0,
     this.tagUsages = const [],
+    this.artistRoles = const [],
+    this.albums = const [],
+    this.lyrics = const [],
+    this.pvs = const [],
   });
 
   final String id;
@@ -42,4 +50,15 @@ class Song {
   final int ratingScore;
 
   final List<TagUsage> tagUsages;
+
+  final List<ArtistRole> artistRoles;
+
+  final List<Album> albums;
+
+  final List<Lyric> lyrics;
+
+  final List<PV> pvs;
+
+  String get pvSearchQuery =>
+      (pvs.isNotEmpty) ? pvs[0].name : '$artistString+$name';
 }
