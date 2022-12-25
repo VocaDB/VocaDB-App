@@ -7,6 +7,8 @@ import 'package:vocadb_app/src/features/authentication/presentation/account/acco
 import 'package:vocadb_app/src/features/authentication/presentation/sign_in/sign_in_screen.dart';
 import 'package:vocadb_app/src/features/entries/presentation/entries_search_screen/entries_search_screen.dart';
 import 'package:vocadb_app/src/features/home/presentation/main_screen/main_screen.dart';
+import 'package:vocadb_app/src/features/home/presentation/menu_screen/contact_us_screen.dart';
+import 'package:vocadb_app/src/features/home/presentation/menu_screen/setting_screen.dart';
 import 'package:vocadb_app/src/features/home/presentation/ranking_screen/ranking_filter_screen.dart';
 import 'package:vocadb_app/src/features/songs/presentation/song_detail_screen/song_detail_screen.dart';
 import 'package:vocadb_app/src/features/tags/presentation/tag_detail_screen/tag_detail_screen.dart';
@@ -23,6 +25,8 @@ enum AppRoute {
   releaseEventDetail,
   entriesSearch,
   rankingFilters,
+  settings,
+  contactUs,
 }
 
 final goRouterProvider = Provider<GoRouter>(
@@ -111,6 +115,24 @@ final goRouterProvider = Provider<GoRouter>(
                 key: state.pageKey,
                 fullscreenDialog: true,
                 child: const RankingFilterScreen(),
+              ),
+            ),
+            GoRoute(
+              path: 'Settings',
+              name: AppRoute.settings.name,
+              pageBuilder: (context, state) => MaterialPage(
+                key: state.pageKey,
+                fullscreenDialog: true,
+                child: const SettingScreen(),
+              ),
+            ),
+            GoRoute(
+              path: 'Contact us',
+              name: AppRoute.contactUs.name,
+              pageBuilder: (context, state) => MaterialPage(
+                key: state.pageKey,
+                fullscreenDialog: true,
+                child: const ContactUsScreen(),
               ),
             ),
           ],

@@ -38,12 +38,16 @@ class MenuScreen extends StatelessWidget {
           ListTile(
             leading: const Icon(Icons.settings),
             title: const Text('Settings'),
-            onTap: () => {},
+            onTap: () {
+              GoRouter.of(context).pushNamed(AppRoute.settings.name);
+            },
           ),
           ListTile(
             leading: const Icon(Icons.email),
             title: const Text('Contact us'),
-            onTap: () => {},
+            onTap: () {
+              GoRouter.of(context).pushNamed(AppRoute.contactUs.name);
+            },
           ),
           const AboutListTile(
             icon: Icon(Icons.info),
