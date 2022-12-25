@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:vocadb_app/src/features/albums/presentation/album_detail_screen/album_detail_screen.dart';
 import 'package:vocadb_app/src/features/albums/presentation/user_albums/user_albums_filter_screen.dart';
 import 'package:vocadb_app/src/features/albums/presentation/user_albums/user_albums_screen.dart';
+import 'package:vocadb_app/src/features/artists/presentation/artist_detail_screen/artist_detail_screen.dart';
 import 'package:vocadb_app/src/features/artists/presentation/followed_artists/followed_artists_filter_screen.dart';
 import 'package:vocadb_app/src/features/artists/presentation/followed_artists/followed_artists_screen.dart';
 import 'package:vocadb_app/src/features/authentication/data/auth_repository.dart';
@@ -83,6 +84,14 @@ final goRouterProvider = Provider<GoRouter>(
               builder: (context, state) {
                 final albumId = state.params['id']!;
                 return AlbumDetailScreen(albumId: albumId);
+              },
+            ),
+            GoRoute(
+              path: 'Ar/:id',
+              name: AppRoute.artistDetail.name,
+              builder: (context, state) {
+                final artistId = state.params['id']!;
+                return ArtistDetailScreen(artistId: artistId);
               },
             ),
             GoRoute(

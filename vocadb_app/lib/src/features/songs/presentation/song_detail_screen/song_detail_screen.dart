@@ -46,7 +46,10 @@ class SongDetailScreen extends StatelessWidget {
                   ),
                   const Divider(),
                   ArtistGroupByRoleList(
-                    onTapArtist: (artist) {},
+                    onTapArtist: (artist) {
+                      GoRouter.of(context).pushNamed(AppRoute.artistDetail.name,
+                          params: {'id': artist.id});
+                    },
                     artistRoles: song.artistRoles,
                   ),
                   const Divider(),
@@ -62,7 +65,11 @@ class SongDetailScreen extends StatelessWidget {
                         child: AlbumListView(
                           scrollDirection: Axis.horizontal,
                           albums: song.albums,
-                          onSelect: (a) {},
+                          onSelect: (album) {
+                            GoRouter.of(context).pushNamed(
+                                AppRoute.albumDetail.name,
+                                params: {'id': album.id});
+                          },
                         ),
                       ),
                     ],
