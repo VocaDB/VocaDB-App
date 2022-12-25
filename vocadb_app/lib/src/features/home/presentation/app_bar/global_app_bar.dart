@@ -3,11 +3,14 @@ import 'package:go_router/go_router.dart';
 import 'package:vocadb_app/src/routing/app_router.dart';
 
 class GlobalAppBar extends StatelessWidget with PreferredSizeWidget {
-  const GlobalAppBar({super.key, required this.title, this.displayHome = true});
+  const GlobalAppBar(
+      {super.key, required this.title, this.displayHome = true, this.actions});
 
   final String title;
 
   final bool displayHome;
+
+  final List<Widget>? actions;
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +32,7 @@ class GlobalAppBar extends StatelessWidget with PreferredSizeWidget {
             },
           ),
         ),
+        ...?actions,
       ],
     );
   }
