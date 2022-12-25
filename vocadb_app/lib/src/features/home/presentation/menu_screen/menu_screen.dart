@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:vocadb_app/src/features/authentication/presentation/authenticated_widgets/authenticated_widget.dart';
+import 'package:vocadb_app/src/features/authentication/presentation/authenticated_widgets/guest_widget.dart';
+import 'package:vocadb_app/src/routing/app_router.dart';
 
 class MenuScreen extends StatelessWidget {
   const MenuScreen({super.key});
@@ -8,10 +12,23 @@ class MenuScreen extends StatelessWidget {
     return Scaffold(
       body: ListView(
         children: [
-          ListTile(
-            leading: const Icon(Icons.login),
-            title: const Text('Log in'),
-            onTap: () => {},
+          AuthenticatedWidget(
+            child: ListTile(
+              leading: const Icon(Icons.person),
+              title: const Text('Account'),
+              onTap: () {
+                GoRouter.of(context).pushNamed(AppRoute.account.name);
+              },
+            ),
+          ),
+          GuestWidget(
+            child: ListTile(
+              leading: const Icon(Icons.login),
+              title: const Text('Log in'),
+              onTap: () {
+                GoRouter.of(context).pushNamed(AppRoute.signIn.name);
+              },
+            ),
           ),
           ListTile(
             leading: const Icon(Icons.settings),
