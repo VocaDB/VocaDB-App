@@ -3,7 +3,12 @@ import 'package:vocadb_app/src/features/authentication/domain/app_user.dart';
 import 'package:vocadb_app/src/utils/in_memory_store.dart';
 
 class AuthRepository {
-  final _authState = InMemoryStore<AppUser?>(null);
+  final _authState = InMemoryStore<AppUser?>(
+    const AppUser(
+      id: '1065',
+      name: 'up2up',
+    ),
+  );
 
   Stream<AppUser?> authStateChanges() => _authState.stream;
   AppUser? get currentUser => _authState.value;

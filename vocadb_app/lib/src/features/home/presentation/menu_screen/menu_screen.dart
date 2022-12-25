@@ -26,6 +26,34 @@ class MenuScreen extends StatelessWidget {
               },
             ),
           ),
+          AuthenticatedWidget(
+            child: ListTile(
+              leading: const Icon(Icons.music_note),
+              title: const Text('My songs'),
+              onTap: () {
+                GoRouter.of(context).pushNamed(AppRoute.userRatedSongs.name);
+              },
+            ),
+          ),
+          AuthenticatedWidget(
+            child: ListTile(
+              leading: const Icon(Icons.people),
+              title: const Text('My followed artists'),
+              onTap: () {
+                GoRouter.of(context)
+                    .pushNamed(AppRoute.userFollowedArtists.name);
+              },
+            ),
+          ),
+          AuthenticatedWidget(
+            child: ListTile(
+              leading: const Icon(Icons.disc_full),
+              title: const Text('My albums'),
+              onTap: () {
+                GoRouter.of(context).pushNamed(AppRoute.userAlbums.name);
+              },
+            ),
+          ),
           GuestWidget(
             child: ListTile(
               leading: const Icon(Icons.login),

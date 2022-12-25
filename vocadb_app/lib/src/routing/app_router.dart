@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vocadb_app/src/features/albums/presentation/album_detail_screen/album_detail_screen.dart';
+import 'package:vocadb_app/src/features/albums/presentation/user_albums/user_albums_filter_screen.dart';
+import 'package:vocadb_app/src/features/albums/presentation/user_albums/user_albums_screen.dart';
+import 'package:vocadb_app/src/features/artists/presentation/followed_artists/followed_artists_filter_screen.dart';
+import 'package:vocadb_app/src/features/artists/presentation/followed_artists/followed_artists_screen.dart';
 import 'package:vocadb_app/src/features/authentication/data/auth_repository.dart';
 import 'package:vocadb_app/src/features/authentication/presentation/account/account_screen.dart';
 import 'package:vocadb_app/src/features/authentication/presentation/sign_in/sign_in_screen.dart';
@@ -10,6 +14,8 @@ import 'package:vocadb_app/src/features/home/presentation/main_screen/main_scree
 import 'package:vocadb_app/src/features/home/presentation/menu_screen/contact_us_screen.dart';
 import 'package:vocadb_app/src/features/home/presentation/menu_screen/setting_screen.dart';
 import 'package:vocadb_app/src/features/home/presentation/ranking_screen/ranking_filter_screen.dart';
+import 'package:vocadb_app/src/features/songs/presentation/rated_songs_screen/rated_songs_filter_screen.dart';
+import 'package:vocadb_app/src/features/songs/presentation/rated_songs_screen/rated_songs_screen.dart';
 import 'package:vocadb_app/src/features/songs/presentation/song_detail_screen/song_detail_screen.dart';
 import 'package:vocadb_app/src/features/tags/presentation/tag_detail_screen/tag_detail_screen.dart';
 import 'package:vocadb_app/src/routing/go_router_refresh_stream.dart';
@@ -24,9 +30,15 @@ enum AppRoute {
   tagDetail,
   releaseEventDetail,
   entriesSearch,
-  rankingFilters,
+  rankingFilter,
   settings,
   contactUs,
+  userRatedSongs,
+  userRatedSongFilter,
+  userFollowedArtists,
+  userFollowedArtistsFilter,
+  userAlbums,
+  userAlbumsFilter
 }
 
 final goRouterProvider = Provider<GoRouter>(
@@ -82,13 +94,66 @@ final goRouterProvider = Provider<GoRouter>(
               },
             ),
             GoRoute(
+              path: 'MySongs',
+              name: AppRoute.userRatedSongs.name,
+              builder: (context, state) {
+                return const RatedSongsScreen();
+              },
+              routes: [
+                GoRoute(
+                  path: 'filter',
+                  name: AppRoute.userRatedSongFilter.name,
+                  pageBuilder: (context, state) => MaterialPage(
+                    key: state.pageKey,
+                    fullscreenDialog: true,
+                    child: const RatedSongsFilterScreen(),
+                  ),
+                ),
+              ],
+            ),
+            GoRoute(
+              path: 'MyFollowedArtists',
+              name: AppRoute.userFollowedArtists.name,
+              builder: (context, state) {
+                return const FollowedArtistsScreen();
+              },
+              routes: [
+                GoRoute(
+                  path: 'filter',
+                  name: AppRoute.userFollowedArtistsFilter.name,
+                  pageBuilder: (context, state) => MaterialPage(
+                    key: state.pageKey,
+                    fullscreenDialog: true,
+                    child: const FollowedArtistsFilterScreen(),
+                  ),
+                ),
+              ],
+            ),
+            GoRoute(
+              path: 'MyAlbums',
+              name: AppRoute.userAlbums.name,
+              builder: (context, state) {
+                return const UserAlbumsScreen();
+              },
+              routes: [
+                GoRoute(
+                  path: 'filter',
+                  name: AppRoute.userAlbumsFilter.name,
+                  pageBuilder: (context, state) => MaterialPage(
+                    key: state.pageKey,
+                    fullscreenDialog: true,
+                    child: const UserAlbumsFilterScreen(),
+                  ),
+                ),
+              ],
+            ),
+            GoRoute(
+              // TODO : might implement by accept and fetch by userId
               path: 'Profile',
               name: AppRoute.account.name,
-              pageBuilder: (context, state) => MaterialPage(
-                key: state.pageKey,
-                fullscreenDialog: true,
-                child: const AccountScreen(),
-              ),
+              builder: (context, state) {
+                return const AccountScreen();
+              },
             ),
             GoRoute(
               path: 'Login',
@@ -110,7 +175,7 @@ final goRouterProvider = Provider<GoRouter>(
             ),
             GoRoute(
               path: 'RankingFilters',
-              name: AppRoute.rankingFilters.name,
+              name: AppRoute.rankingFilter.name,
               pageBuilder: (context, state) => MaterialPage(
                 key: state.pageKey,
                 fullscreenDialog: true,
