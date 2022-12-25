@@ -3,6 +3,7 @@ import 'package:vocadb_app/src/features/artists/domain/artist_role.dart';
 import 'package:vocadb_app/src/features/pvs/domain/pv.dart';
 import 'package:vocadb_app/src/features/songs/domain/lyric.dart';
 import 'package:vocadb_app/src/features/tags/domain/tag_usage.dart';
+import 'package:vocadb_app/src/features/weblinks/domain/web_link.dart';
 
 class Song {
   const Song({
@@ -23,6 +24,7 @@ class Song {
     this.albums = const [],
     this.lyrics = const [],
     this.pvs = const [],
+    this.webLinks = const [],
   });
 
   final String id;
@@ -58,6 +60,8 @@ class Song {
   final List<Lyric> lyrics;
 
   final List<PV> pvs;
+
+  final List<WebLink> webLinks;
 
   String get pvSearchQuery =>
       (pvs.isNotEmpty) ? pvs[0].name : '$artistString+$name';

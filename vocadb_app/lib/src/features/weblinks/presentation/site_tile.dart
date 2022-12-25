@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 // import 'package:url_launcher/url_launcher.dart';
 
 /// A widget for display redirect website as list tile and automatic display icon base on domain site.
@@ -36,8 +37,10 @@ class SiteTile extends StatelessWidget {
       {"pattern": "discord", "icon": FontAwesomeIcons.discord},
     ];
 
-    Map<String, dynamic> iconWebsite =
-        siteIcons.where((s) => url.contains(s['pattern'])).first;
+    Map<String, dynamic>? iconWebsite =
+        siteIcons.where((s) => url.contains(s['pattern'])).isNotEmpty
+            ? siteIcons.where((s) => url.contains(s['pattern'])).first
+            : null;
 
     if (iconWebsite == null) return Icons.web;
 
@@ -47,11 +50,11 @@ class SiteTile extends StatelessWidget {
   void openUrl(BuildContext context) async {
     String encodedUrl = Uri.encodeFull(url);
 
-    // if (!await launchUrl(Uri.parse(encodedUrl))) {
-    //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-    //     content: Text('Unable to open url $encodedUrl'),
-    //   ));
-    // }
+    if (!await launchUrl(Uri.parse(encodedUrl))) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('Unable to open url $encodedUrl'),
+      ));
+    }
   }
 
   @override

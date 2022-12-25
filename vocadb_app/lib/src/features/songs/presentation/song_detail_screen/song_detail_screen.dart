@@ -10,6 +10,7 @@ import 'package:vocadb_app/src/features/songs/presentation/song_detail_screen/so
 import 'package:vocadb_app/src/features/songs/presentation/song_detail_screen/song_hero_image.dart';
 import 'package:vocadb_app/src/features/songs/presentation/song_detail_screen/song_info.dart';
 import 'package:vocadb_app/src/features/tags/presentation/tag_widgets/tag_usage_group_view.dart';
+import 'package:vocadb_app/src/features/weblinks/presentation/web_link_group_view.dart';
 import 'package:vocadb_app/src/routing/app_router.dart';
 
 class SongDetailScreen extends StatelessWidget {
@@ -48,13 +49,14 @@ class SongDetailScreen extends StatelessWidget {
                     onTapArtist: (artist) {},
                     artistRoles: song.artistRoles,
                   ),
+                  const Divider(),
                   PVGroupList(
                       pvs: song.pvs,
                       searchQuery: song.pvSearchQuery,
                       onTap: (pv) {}),
-                  const Divider(),
                   Column(
                     children: [
+                      const Divider(),
                       Section(
                         title: 'Albums',
                         child: AlbumListView(
@@ -63,10 +65,10 @@ class SongDetailScreen extends StatelessWidget {
                           onSelect: (a) {},
                         ),
                       ),
-                      const Divider()
                     ],
                   ),
                   const Divider(),
+                  WebLinkGroupList(webLinks: song.webLinks)
                 ],
               ),
             ),

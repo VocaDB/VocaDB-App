@@ -6,6 +6,7 @@ import 'package:vocadb_app/src/features/songs/domain/lyric.dart';
 import 'package:vocadb_app/src/features/songs/domain/song.dart';
 import 'package:vocadb_app/src/features/tags/domain/tag.dart';
 import 'package:vocadb_app/src/features/tags/domain/tag_usage.dart';
+import 'package:vocadb_app/src/features/weblinks/domain/web_link.dart';
 
 const kTestSong = Song(
   id: '1501',
@@ -140,6 +141,33 @@ const kTestSong = Song(
       service: 'SoundCloud',
       pvType: 'Reprint',
       url: 'http://soundcloud.com/hatsune_uke/hatsune-miku-rolling-girl',
+    ),
+  ],
+  webLinks: [
+    WebLink(
+      id: '3988',
+      description: 'NicoNicoPedia',
+      category: 'Reference',
+      url: 'http://dic.nicovideo.jp/v/sm9714351',
+    ),
+    WebLink(
+      id: '6144',
+      description: 'UtaiteDB',
+      category: 'Reference',
+      url: 'http://utaitedb.net/S/2860',
+    ),
+    WebLink(
+      id: '6145',
+      description: 'MikuWiki',
+      category: 'Reference',
+      url: 'http://www5.atwiki.jp/hmiku/pages/8759.html',
+    ),
+    WebLink(
+      id: '82946',
+      description: 'Pixiv (Illustration)',
+      category: 'Official',
+      url:
+          'https://www.pixiv.net/member_illust.php?mode=medium&illust_id=10324371',
     ),
   ],
 );
