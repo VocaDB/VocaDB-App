@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:vocadb_app/src/common_widgets/section.dart';
-import 'package:vocadb_app/src/features/albums/presentation/albums_list/album_list_view.dart';
+import 'package:vocadb_app/src/features/albums/presentation/albums_list/albums_section.dart';
 import 'package:vocadb_app/src/features/artists/presentation/artists_list/artist_role_list.dart';
 import 'package:vocadb_app/src/features/home/presentation/app_bar/global_app_bar.dart';
 import 'package:vocadb_app/src/features/pvs/presentation/pv_list/pv_group_list.dart';
@@ -57,22 +56,9 @@ class SongDetailScreen extends StatelessWidget {
                       pvs: song.pvs,
                       searchQuery: song.pvSearchQuery,
                       onTap: (pv) {}),
-                  Column(
-                    children: [
-                      const Divider(),
-                      Section(
-                        title: 'Albums',
-                        child: AlbumListView(
-                          scrollDirection: Axis.horizontal,
-                          albums: song.albums,
-                          onSelect: (album) {
-                            GoRouter.of(context).pushNamed(
-                                AppRoute.albumDetail.name,
-                                params: {'id': album.id});
-                          },
-                        ),
-                      ),
-                    ],
+                  const Divider(),
+                  AlbumsSection(
+                    albums: song.albums,
                   ),
                   const Divider(),
                   WebLinkGroupList(webLinks: song.webLinks)

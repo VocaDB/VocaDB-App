@@ -5,7 +5,7 @@ import 'package:vocadb_app/src/features/albums/presentation/album_card/album_car
 import 'package:vocadb_app/src/features/albums/presentation/album_tile/album_tile.dart';
 import 'package:vocadb_app/src/features/albums/presentation/albums_list/album_placeholder_list_view.dart';
 
-/// A widget for display list of songs as vertical or horizontal
+/// A widget for display list of albums as vertical or horizontal
 class AlbumListView extends StatelessWidget {
   const AlbumListView({
     super.key,
@@ -17,7 +17,7 @@ class AlbumListView extends StatelessWidget {
     this.displayPlaceholder = false,
   });
 
-  /// List of songs to display.
+  /// List of albums to display.
   final List<Album> albums;
 
   /// Default is vertical
@@ -35,7 +35,7 @@ class AlbumListView extends StatelessWidget {
   /// Height of list content widget if set as horizontal.
   static const double _rowHeight = 180;
 
-  /// A widget that display when songs is empty
+  /// A widget that display when albums is empty
   final Widget emptyWidget;
 
   /// Return item for display in vertical list
