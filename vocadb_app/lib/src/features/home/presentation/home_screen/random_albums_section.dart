@@ -19,7 +19,7 @@ class RandomAlbumSection extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         onSelect: (album) => {
           GoRouter.of(context)
-              .pushNamed(AppRoute.songDetail.name, params: {'id': album.id})
+              .pushNamed(AppRoute.albumDetail.name, params: {'id': album.id})
         },
       ),
     );

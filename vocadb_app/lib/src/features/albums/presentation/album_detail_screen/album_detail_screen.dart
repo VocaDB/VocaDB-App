@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vocadb_app/src/common_widgets/responsive_center.dart';
+import 'package:vocadb_app/src/features/home/presentation/app_bar/global_app_bar.dart';
 
 // TODO : need implementation
 class AlbumDetailScreen extends StatelessWidget {
@@ -9,6 +10,9 @@ class AlbumDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
+      appBar: GlobalAppBar(
+        title: 'Album detail',
+      ),
       body: ResponsiveCenter(
         child: Text(
           'Album detail',

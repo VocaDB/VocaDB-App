@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vocadb_app/src/constants/app_sizes.dart';
+import 'package:vocadb_app/src/features/home/presentation/app_bar/global_app_bar.dart';
 import 'package:vocadb_app/src/features/songs/data/song_repository.dart';
 import 'package:vocadb_app/src/features/songs/presentation/song_detail_screen/song_detail_button_bar.dart';
 import 'package:vocadb_app/src/features/songs/presentation/song_detail_screen/song_hero_image.dart';
@@ -17,18 +18,8 @@ class SongDetailScreen extends StatelessWidget {
     final song = SongRepository.instance.getSongByID(songId);
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Song Detail ID'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.search),
-            onPressed: () => {},
-          ),
-          IconButton(
-            icon: const Icon(Icons.home),
-            onPressed: () => {},
-          ),
-        ],
+      appBar: const GlobalAppBar(
+        title: 'Song detail',
       ),
       body: Container(
         padding: const EdgeInsets.only(bottom: Sizes.p16),
