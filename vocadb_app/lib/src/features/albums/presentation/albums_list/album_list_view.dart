@@ -24,7 +24,7 @@ class AlbumListView extends StatelessWidget {
   final Axis scrollDirection;
 
   /// A callback function when user react to last item. Only worked on list view with vertical direction.
-  final Function? onReachLastItem;
+  final VoidCallback? onReachLastItem;
 
   /// Set to True for display list of placeholders.
   final bool displayPlaceholder;

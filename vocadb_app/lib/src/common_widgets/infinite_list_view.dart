@@ -9,7 +9,7 @@ class InfiniteListView extends StatelessWidget {
   final IndexedWidgetBuilder itemBuilder;
 
   /// A callback function when user react to last item.
-  final Function? onReachLastItem;
+  final VoidCallback? onReachLastItem;
 
   /// A progress indicator widget for display next to the last item of list
   final Widget progressIndicator;
@@ -21,9 +21,9 @@ class InfiniteListView extends StatelessWidget {
     super.key,
     required this.itemCount,
     required this.itemBuilder,
-    this.onReachLastItem,
     this.progressIndicator = const SizedBox(),
     this.emptyWidget = const SizedBox(),
+    this.onReachLastItem,
   });
 
   static Widget buildProgressIndicator() {
@@ -43,7 +43,9 @@ class InfiniteListView extends StatelessWidget {
       itemCount: itemCount + 1,
       itemBuilder: (context, index) {
         if (index == itemCount) {
-          onReachLastItem!();
+          if (onReachLastItem != null) {
+            onReachLastItem!();
+          }
 
           return progressIndicator;
         }

@@ -7,15 +7,15 @@ import 'package:vocadb_app/src/features/songs/presentation/song_tile/song_tile.d
 
 /// A widget for display list of songs as vertical or horizontal
 class SongListView extends StatelessWidget {
-  const SongListView({
-    super.key,
-    required this.songs,
-    required this.onSelect,
-    this.emptyWidget = const SizedBox(),
-    this.onReachLastItem,
-    this.scrollDirection = Axis.vertical,
-    this.displayPlaceholder = false,
-  });
+  const SongListView(
+      {super.key,
+      required this.songs,
+      required this.onSelect,
+      this.emptyWidget = const SizedBox(),
+      this.onReachLastItem,
+      this.scrollDirection = Axis.vertical,
+      this.displayPlaceholder = false,
+      this.displayOrderNumber = false});
 
   /// List of songs to display.
   final List<Song> songs;
@@ -27,7 +27,7 @@ class SongListView extends StatelessWidget {
   final void Function(Song) onSelect;
 
   /// A callback function when user react to last item. Only worked on list view with vertical direction.
-  final Function? onReachLastItem;
+  final VoidCallback? onReachLastItem;
 
   /// Set to True for display list of placeholders.
   final bool displayPlaceholder;
@@ -35,11 +35,16 @@ class SongListView extends StatelessWidget {
   /// A widget that display when songs is empty
   final Widget emptyWidget;
 
+  /// If this value is true, Song tile will display order number as leading. Only work with horizontal view. Default is fale
+  final bool displayOrderNumber;
+
   /// Height of list content widget if set as horizontal.
   static const double _rowHeight = 180;
 
   /// Return item for display in vertical list
   Widget _verticalItemBuilder(BuildContext context, int index) => SongTile(
+        leading:
+            (displayOrderNumber) ? Text((index + 1).toString()) : Container(),
         song: songs[index],
         onTap: () => onSelect(songs[index]),
       );

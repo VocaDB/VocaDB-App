@@ -18,7 +18,7 @@ class ReleaseEventsListView extends StatelessWidget {
   final Function(ReleaseEvent)? onSelect;
 
   /// A callback function when user react to last item. Only worked on list view with vertical direction.
-  final Function? onReachLastItem;
+  final VoidCallback? onReachLastItem;
 
   /// A widget that display when songs is empty
   final Widget emptyWidget;
