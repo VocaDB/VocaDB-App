@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:vocadb_app/src/common_widgets/simple_dropdown_input.dart';
+import 'package:vocadb_app/src/features/tags/presentation/tag_widgets/tag_input.dart';
 
 class EntriesSearchFilter extends StatelessWidget {
   const EntriesSearchFilter({super.key});
@@ -9,57 +11,33 @@ class EntriesSearchFilter extends StatelessWidget {
     const String selectedVocalistValue = 'Nothing';
 
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: const Text('Filter'),
+      ),
       body: ListView(
         children: [
-          const ListTile(
-            title: Text('Filter by'),
+          SimpleDropdownInput(
+            value: '',
+            label: 'Entry type',
+            onChanged: (value) {},
+            items: const [
+              SimpleDropdownItem(name: 'Anything', value: ''),
+              SimpleDropdownItem(name: 'Song', value: 'Song'),
+              SimpleDropdownItem(name: 'Artist', value: 'Artist'),
+              SimpleDropdownItem(name: 'Album', value: 'Album'),
+              SimpleDropdownItem(name: 'Event', value: 'Event'),
+            ],
           ),
-          RadioListTile<String>(
-            title: const Text('Newly added'),
-            value: 'CreateDate',
-            groupValue: selectedFilterByValue,
-            onChanged: (String? value) {},
+          SimpleDropdownInput(
+            value: 'Name',
+            label: 'Sort by',
+            onChanged: (value) {},
+            items: const [
+              SimpleDropdownItem(name: 'Name', value: 'Name'),
+              SimpleDropdownItem(name: 'AdditionDate', value: 'AdditionDate'),
+            ],
           ),
-          RadioListTile<String>(
-            title: const Text('Newly published'),
-            value: 'PublishDate',
-            groupValue: selectedFilterByValue,
-            onChanged: (String? value) {},
-          ),
-          RadioListTile<String>(
-            title: const Text('Popularity'),
-            value: 'Popularity',
-            groupValue: selectedFilterByValue,
-            onChanged: (String? value) {},
-          ),
-          const ListTile(
-            title: Text('Vocalist'),
-          ),
-          RadioListTile<String>(
-            title: const Text('All vocalists'),
-            value: 'Nothing',
-            groupValue: selectedVocalistValue,
-            onChanged: (String? value) {},
-          ),
-          RadioListTile<String>(
-            title: const Text('Only Vocaloid'),
-            value: 'Vocaloid',
-            groupValue: selectedVocalistValue,
-            onChanged: (String? value) {},
-          ),
-          RadioListTile<String>(
-            title: const Text('UTAU'),
-            value: 'UTAU',
-            groupValue: selectedVocalistValue,
-            onChanged: (String? value) {},
-          ),
-          RadioListTile<String>(
-            title: const Text('Other vocalists'),
-            value: 'Other',
-            groupValue: selectedVocalistValue,
-            onChanged: (String? value) {},
-          ),
+          const TagInput(),
         ],
       ),
     );

@@ -185,24 +185,25 @@ final goRouterProvider = Provider<GoRouter>(
               ),
             ),
             GoRoute(
-                path: 'Search',
-                name: AppRoute.entriesSearch.name,
-                pageBuilder: (context, state) => MaterialPage(
-                      key: state.pageKey,
-                      fullscreenDialog: true,
-                      child: const EntriesSearchScreen(),
-                    ),
-                routes: [
-                  GoRoute(
-                    path: 'filter',
-                    name: AppRoute.entriesFilter.name,
-                    pageBuilder: (context, state) => MaterialPage(
-                      key: state.pageKey,
-                      fullscreenDialog: true,
-                      child: const EntriesSearchFilter(),
-                    ),
+              path: 'Search',
+              name: AppRoute.entriesSearch.name,
+              pageBuilder: (context, state) => MaterialPage(
+                key: state.pageKey,
+                fullscreenDialog: true,
+                child: const EntriesSearchScreen(),
+              ),
+              routes: [
+                GoRoute(
+                  path: 'filter',
+                  name: AppRoute.entriesFilter.name,
+                  pageBuilder: (context, state) => MaterialPage(
+                    key: state.pageKey,
+                    fullscreenDialog: true,
+                    child: const EntriesSearchFilter(),
                   ),
-                ]),
+                ),
+              ],
+            ),
             GoRoute(
               path: 'RankingFilters',
               name: AppRoute.rankingFilter.name,
