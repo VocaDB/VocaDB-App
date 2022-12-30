@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:vocadb_app/src/common_widgets/responsive_center.dart';
+import 'package:vocadb_app/src/common_widgets/search_appbar.dart';
+import 'package:vocadb_app/src/features/artists/data/constants/fake_followed_artist.dart';
+import 'package:vocadb_app/src/features/artists/presentation/artists_list/artist_list_view.dart';
 import 'package:vocadb_app/src/routing/app_router.dart';
 
 // TODO : need implementation
@@ -9,14 +11,12 @@ class FollowedArtistsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final followedArtists = kFakeFollowedArtistsList;
+
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Followed artists'),
+      appBar: SearchAppBar(
+        titleText: 'Followed artists',
         actions: [
-          IconButton(
-            icon: const Icon(Icons.search),
-            onPressed: () {},
-          ),
           IconButton(
             icon: const Icon(Icons.tune),
             onPressed: () {
@@ -26,11 +26,8 @@ class FollowedArtistsScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: const ResponsiveCenter(
-        child: Text(
-          'Followed artists',
-          textAlign: TextAlign.center,
-        ),
+      body: ArtistListView(
+        artists: followedArtists.map((e) => e.artist).toList(),
       ),
     );
   }

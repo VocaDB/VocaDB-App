@@ -7,15 +7,16 @@ import 'package:vocadb_app/src/features/songs/presentation/song_tile/song_tile.d
 
 /// A widget for display list of songs as vertical or horizontal
 class SongListView extends StatelessWidget {
-  const SongListView(
-      {super.key,
-      required this.songs,
-      required this.onSelect,
-      this.emptyWidget = const SizedBox(),
-      this.onReachLastItem,
-      this.scrollDirection = Axis.vertical,
-      this.displayPlaceholder = false,
-      this.displayOrderNumber = false});
+  const SongListView({
+    super.key,
+    required this.songs,
+    required this.onSelect,
+    this.emptyWidget = const SizedBox(),
+    this.onReachLastItem,
+    this.scrollDirection = Axis.vertical,
+    this.displayPlaceholder = false,
+    this.displayOrderNumber = false,
+  });
 
   /// List of songs to display.
   final List<Song> songs;
