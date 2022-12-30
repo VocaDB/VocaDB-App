@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:vocadb_app/src/common_widgets/responsive_center.dart';
+import 'package:vocadb_app/src/common_widgets/search_appbar.dart';
+import 'package:vocadb_app/src/features/albums/data/constants/fake_album_collections.dart';
+import 'package:vocadb_app/src/features/albums/presentation/albums_list/album_list_view.dart';
 import 'package:vocadb_app/src/routing/app_router.dart';
 
 // TODO : need implementation
@@ -9,14 +11,11 @@ class UserAlbumsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final albumCollections = kFakeAlbumCollections;
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('My Collections'),
+      appBar: SearchAppBar(
+        titleText: 'My Collections',
         actions: [
-          IconButton(
-            icon: const Icon(Icons.search),
-            onPressed: () {},
-          ),
           IconButton(
             icon: const Icon(Icons.tune),
             onPressed: () {
@@ -25,11 +24,9 @@ class UserAlbumsScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: const ResponsiveCenter(
-        child: Text(
-          'My Collections',
-          textAlign: TextAlign.center,
-        ),
+      body: AlbumListView(
+        albums: albumCollections.map((e) => e.album).toList(),
+        onSelect: (a) {},
       ),
     );
   }

@@ -1,6 +1,6 @@
 import 'package:vocadb_app/src/features/albums/domain/album.dart';
 
-const kTestAlbums = [
+const kFakeAlbumsList = [
   Album(
     id: '27594',
     imageUrl: 'https://vocadb.net/Album/CoverPicture/27594',
