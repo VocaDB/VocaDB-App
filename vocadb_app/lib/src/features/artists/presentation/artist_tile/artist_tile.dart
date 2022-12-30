@@ -22,13 +22,14 @@ class ArtistTile extends StatelessWidget {
         width: imageSize,
         height: imageSize,
         child: ClipOval(
-            child: Container(
-          color: Colors.white,
-          child: CustomNetworkImage(
-            artist.imageUrl!,
-            fit: BoxFit.contain,
+          child: Container(
+            color: Colors.white,
+            child: CustomNetworkImage(
+              artist.imageUrl!,
+              fit: BoxFit.contain,
+            ),
           ),
-        )),
+        ),
       ),
       title: Text(artist.name!, overflow: TextOverflow.ellipsis),
       subtitle: Text(artist.artistType!),
