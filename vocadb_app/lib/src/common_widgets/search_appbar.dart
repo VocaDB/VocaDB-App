@@ -7,13 +7,13 @@ class SearchAppBar extends StatefulWidget with PreferredSizeWidget {
   static const iconSearchKey = Key('icon-search');
   static const textTitleKey = Key('text-title');
 
-  const SearchAppBar({
-    super.key,
-    this.actions,
-    this.showTextInput = false,
-    this.onChanged,
-    this.onCleared,
-  });
+  const SearchAppBar(
+      {super.key,
+      this.actions,
+      this.showTextInput = false,
+      this.onChanged,
+      this.onCleared,
+      this.titleText = 'Search'});
 
   final List<Widget>? actions;
 
@@ -23,6 +23,8 @@ class SearchAppBar extends StatefulWidget with PreferredSizeWidget {
   final Function(String)? onChanged;
 
   final VoidCallback? onCleared;
+
+  final String titleText;
 
   @override
   State<SearchAppBar> createState() => _SearchAppBarState();
@@ -67,8 +69,8 @@ class _SearchAppBarState extends State<SearchAppBar> {
               ),
               keyboardType: TextInputType.text,
             )
-          : const Text(
-              'Search',
+          : Text(
+              widget.titleText,
               key: SearchAppBar.textTitleKey,
             ),
       actions: [

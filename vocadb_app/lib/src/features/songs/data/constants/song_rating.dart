@@ -1,0 +1,4 @@
+enum SongRating {
+  Like,
+  Favorite,
+}
