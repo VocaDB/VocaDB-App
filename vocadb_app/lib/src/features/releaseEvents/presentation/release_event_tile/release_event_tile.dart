@@ -82,7 +82,7 @@ class ReleaseEventTile extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          releaseEvent.category,
+                          releaseEvent.category ?? 'None',
                           style: Theme.of(context).textTheme.caption,
                         ),
                         (releaseEvent.venueName == null)

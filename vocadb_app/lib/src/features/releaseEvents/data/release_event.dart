@@ -10,7 +10,7 @@ class ReleaseEvent {
 
   final String imageUrl;
 
-  final String category;
+  final String? category;
 
   final String? venueName;
   const ReleaseEvent({
@@ -20,6 +20,6 @@ class ReleaseEvent {
     this.endDate,
     required this.imageUrl,
     this.venueName,
-    required this.category,
+    this.category = 'None',
   });
 }

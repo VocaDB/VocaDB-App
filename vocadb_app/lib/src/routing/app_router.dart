@@ -10,6 +10,7 @@ import 'package:vocadb_app/src/features/artists/presentation/followed_artists/fo
 import 'package:vocadb_app/src/features/authentication/data/auth_repository.dart';
 import 'package:vocadb_app/src/features/authentication/presentation/account/account_screen.dart';
 import 'package:vocadb_app/src/features/authentication/presentation/sign_in/sign_in_screen.dart';
+import 'package:vocadb_app/src/features/entries/presentation/entries_search_screen/entries_search_filter_screen.dart';
 import 'package:vocadb_app/src/features/entries/presentation/entries_search_screen/entries_search_screen.dart';
 import 'package:vocadb_app/src/features/home/presentation/main_screen/main_screen.dart';
 import 'package:vocadb_app/src/features/home/presentation/menu_screen/contact_us_screen.dart';
@@ -32,6 +33,7 @@ enum AppRoute {
   tagDetail,
   releaseEventDetail,
   entriesSearch,
+  entriesFilter,
   rankingFilter,
   settings,
   contactUs,
@@ -183,14 +185,24 @@ final goRouterProvider = Provider<GoRouter>(
               ),
             ),
             GoRoute(
-              path: 'Search',
-              name: AppRoute.entriesSearch.name,
-              pageBuilder: (context, state) => MaterialPage(
-                key: state.pageKey,
-                fullscreenDialog: true,
-                child: const EntriesSearchScreen(),
-              ),
-            ),
+                path: 'Search',
+                name: AppRoute.entriesSearch.name,
+                pageBuilder: (context, state) => MaterialPage(
+                      key: state.pageKey,
+                      fullscreenDialog: true,
+                      child: const EntriesSearchScreen(),
+                    ),
+                routes: [
+                  GoRoute(
+                    path: 'filter',
+                    name: AppRoute.entriesFilter.name,
+                    pageBuilder: (context, state) => MaterialPage(
+                      key: state.pageKey,
+                      fullscreenDialog: true,
+                      child: const EntriesSearchFilter(),
+                    ),
+                  ),
+                ]),
             GoRoute(
               path: 'RankingFilters',
               name: AppRoute.rankingFilter.name,
