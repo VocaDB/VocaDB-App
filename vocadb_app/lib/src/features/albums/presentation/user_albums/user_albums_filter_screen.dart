@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:vocadb_app/src/common_widgets/search_appbar.dart';
 import 'package:vocadb_app/src/common_widgets/simple_dropdown_input.dart';
 import 'package:vocadb_app/src/features/artists/presentation/artist_input/artist_input.dart';
 import 'package:vocadb_app/src/features/tags/presentation/tag_widgets/tag_input.dart';
@@ -35,7 +34,7 @@ class UserAlbumsFilterScreen extends StatelessWidget {
             items: const [
               SimpleDropdownItem(name: 'Not specified', value: 'Unknown'),
               SimpleDropdownItem(name: 'Original album', value: 'Album'),
-              SimpleDropdownItem(name: 'E.E.', value: 'EP'),
+              SimpleDropdownItem(name: 'E.P.', value: 'EP'),
               SimpleDropdownItem(name: 'Split album', value: 'SplitAlbum'),
               SimpleDropdownItem(name: 'Compilation', value: 'Compilation'),
               SimpleDropdownItem(name: 'Video', value: 'Video'),
