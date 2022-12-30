@@ -10,7 +10,7 @@ class ArtistRole {
     required this.artist,
   });
 
-  final String id;
+  final int id;
 
   final String name;
 

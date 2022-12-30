@@ -1,47 +1,56 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 class MainPicture {
-  String meme;
-  String urlSmallThumb;
-  String urlThumb;
-  String urlTinyThumb;
+  String? mime;
+  String? urlSmallThumb;
+  String? urlThumb;
+  String? urlTinyThumb;
+  String? urlOriginal;
   MainPicture({
-    required this.meme,
-    required this.urlSmallThumb,
-    required this.urlThumb,
-    required this.urlTinyThumb,
+    this.mime,
+    this.urlSmallThumb,
+    this.urlThumb,
+    this.urlTinyThumb,
+    this.urlOriginal,
   });
 
   MainPicture copyWith({
-    String? meme,
+    String? mime,
     String? urlSmallThumb,
     String? urlThumb,
     String? urlTinyThumb,
+    String? urlOriginal,
   }) {
     return MainPicture(
-      meme: meme ?? this.meme,
+      mime: mime ?? this.mime,
       urlSmallThumb: urlSmallThumb ?? this.urlSmallThumb,
       urlThumb: urlThumb ?? this.urlThumb,
       urlTinyThumb: urlTinyThumb ?? this.urlTinyThumb,
+      urlOriginal: urlOriginal ?? this.urlOriginal,
     );
   }
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'meme': meme,
+      'mime': mime,
       'urlSmallThumb': urlSmallThumb,
       'urlThumb': urlThumb,
       'urlTinyThumb': urlTinyThumb,
+      'urlOriginal': urlOriginal,
     };
   }
 
   factory MainPicture.fromMap(Map<String, dynamic> map) {
     return MainPicture(
-      meme: map['meme'] as String,
-      urlSmallThumb: map['urlSmallThumb'] as String,
-      urlThumb: map['urlThumb'] as String,
-      urlTinyThumb: map['urlTinyThumb'] as String,
+      mime: map['mime'] != null ? map['mime'] as String : null,
+      urlSmallThumb:
+          map['urlSmallThumb'] != null ? map['urlSmallThumb'] as String : null,
+      urlThumb: map['urlThumb'] != null ? map['urlThumb'] as String : null,
+      urlTinyThumb:
+          map['urlTinyThumb'] != null ? map['urlTinyThumb'] as String : null,
+      urlOriginal:
+          map['urlOriginal'] != null ? map['urlOriginal'] as String : null,
     );
   }
 
@@ -52,24 +61,26 @@ class MainPicture {
 
   @override
   String toString() {
-    return 'MainPicture(meme: $meme, urlSmallThumb: $urlSmallThumb, urlThumb: $urlThumb, urlTinyThumb: $urlTinyThumb)';
+    return 'MainPicture(mime: $mime, urlSmallThumb: $urlSmallThumb, urlThumb: $urlThumb, urlTinyThumb: $urlTinyThumb, urlOriginal: $urlOriginal)';
   }
 
   @override
   bool operator ==(covariant MainPicture other) {
     if (identical(this, other)) return true;
 
-    return other.meme == meme &&
+    return other.mime == mime &&
         other.urlSmallThumb == urlSmallThumb &&
         other.urlThumb == urlThumb &&
-        other.urlTinyThumb == urlTinyThumb;
+        other.urlTinyThumb == urlTinyThumb &&
+        other.urlOriginal == urlOriginal;
   }
 
   @override
   int get hashCode {
-    return meme.hashCode ^
+    return mime.hashCode ^
         urlSmallThumb.hashCode ^
         urlThumb.hashCode ^
-        urlTinyThumb.hashCode;
+        urlTinyThumb.hashCode ^
+        urlOriginal.hashCode;
   }
 }

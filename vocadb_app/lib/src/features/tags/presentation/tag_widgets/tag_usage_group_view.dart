@@ -19,7 +19,7 @@ class TagUsageGroupView extends StatefulWidget {
 
   const TagUsageGroupView(
       {super.key,
-      required this.tagUsages,
+      this.tagUsages = const [],
       this.onSelectTag,
       this.margin = 16.0,
       this.minimumDisplayCount = 5});

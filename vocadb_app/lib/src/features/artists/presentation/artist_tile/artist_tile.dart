@@ -25,13 +25,13 @@ class ArtistTile extends StatelessWidget {
             child: Container(
           color: Colors.white,
           child: CustomNetworkImage(
-            artist.imageUrl,
+            artist.imageUrl!,
             fit: BoxFit.contain,
           ),
         )),
       ),
-      title: Text(artist.name, overflow: TextOverflow.ellipsis),
-      subtitle: Text(artist.artistType),
+      title: Text(artist.name!, overflow: TextOverflow.ellipsis),
+      subtitle: Text(artist.artistType!),
     );
   }
 }

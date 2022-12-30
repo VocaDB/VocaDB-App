@@ -8,6 +8,7 @@ import 'package:vocadb_app/src/features/releaseEvents/data/test_list_events.dart
 import 'package:vocadb_app/src/features/releaseEvents/presentation/release_events_list/release_events_section.dart';
 import 'package:vocadb_app/src/features/songs/data/song_repository.dart';
 import 'package:vocadb_app/src/features/songs/data/test_songs.dart';
+import 'package:vocadb_app/src/features/songs/domain/song.dart';
 import 'package:vocadb_app/src/features/songs/presentation/song_detail_screen/song_detail_button_bar.dart';
 import 'package:vocadb_app/src/features/songs/presentation/song_detail_screen/song_hero_image.dart';
 import 'package:vocadb_app/src/features/songs/presentation/song_detail_screen/song_info.dart';
@@ -50,7 +51,7 @@ class SongDetailScreen extends StatelessWidget {
                   ArtistGroupByRoleList(
                     onTapArtist: (artist) {
                       GoRouter.of(context).pushNamed(AppRoute.artistDetail.name,
-                          params: {'id': artist.id});
+                          params: {'id': artist.id.toString()});
                     },
                     artistRoles: song.artistRoles,
                   ),

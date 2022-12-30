@@ -62,7 +62,9 @@ class Song {
   final List<PV> pvs;
 
   final List<WebLink> webLinks;
+}
 
+extension SongPV on Song {
   String get pvSearchQuery =>
       (pvs.isNotEmpty) ? pvs[0].name : '$artistString+$name';
 }

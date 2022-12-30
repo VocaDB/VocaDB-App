@@ -25,12 +25,12 @@ class ArtistRoleTile extends StatelessWidget {
             child: Container(
           color: Colors.white,
           child: CustomNetworkImage(
-            artistRole.artist.imageUrl,
+            artistRole.artist.imageUrl!,
           ),
         )),
       ),
-      title: Text(artistRole.artist.name, overflow: TextOverflow.ellipsis),
-      subtitle: Text(artistRole.artist.artistType),
+      title: Text(artistRole.artist.name!, overflow: TextOverflow.ellipsis),
+      subtitle: Text(artistRole.artist.artistType!),
     );
   }
 }

@@ -211,7 +211,7 @@ extension EntryMapper on Entry {
 
   Artist toArtist() {
     return Artist(
-      id: id.toString(),
+      id: id,
       name: name,
       imageUrl: mainPicture?.urlThumb ?? kPlaceholderImageUrl,
       artistType: artistType ?? 'None',
