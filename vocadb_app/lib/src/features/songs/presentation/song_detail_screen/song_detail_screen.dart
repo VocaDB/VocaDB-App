@@ -44,7 +44,7 @@ class SongDetailScreen extends StatelessWidget {
                     tagUsages: song.tagUsages!,
                     onSelectTag: (tag) {
                       GoRouter.of(context).pushNamed(AppRoute.tagDetail.name,
-                          params: {'id': tag.id});
+                          params: {'id': tag.id.toString()});
                     },
                   ),
                   const Divider(),

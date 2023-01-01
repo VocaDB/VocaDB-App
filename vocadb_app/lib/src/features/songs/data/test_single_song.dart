@@ -17,26 +17,26 @@ final kTestSong = Song(
   pvServices: 'NicoNicoDouga, Youtube, SoundCloud',
   additionalNames: "Rolling Girl, Rollin' Girl, 翻滚少女",
   tagUsages: [
-    const TagUsage(
+    TagUsage(
       count: 4,
       tag: Tag(
-        id: '16',
+        id: 16,
         name: 'alternative rock',
         categoryName: 'Genres',
       ),
     ),
-    const TagUsage(
+    TagUsage(
       count: 6,
       tag: Tag(
-        id: '260',
+        id: 260,
         name: 'melancholic',
         categoryName: 'Subjective',
       ),
     ),
-    const TagUsage(
+    TagUsage(
       count: 5,
       tag: Tag(
-        id: '337',
+        id: 337,
         name: 'piano',
         categoryName: 'Instruments',
       ),

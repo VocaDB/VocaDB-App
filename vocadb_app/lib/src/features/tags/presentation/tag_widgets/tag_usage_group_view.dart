@@ -40,7 +40,7 @@ class _TagUsageGroupViewState extends State<TagUsageGroupView> {
 
   Widget _mapTagWidget(TagUsage tagUsage) {
     return TagChip(
-        label: tagUsage.tag.name,
+        label: tagUsage.tag.name ?? '<None>',
         onSelect: () => (widget.onSelectTag != null)
             ? widget.onSelectTag!(tagUsage.tag)
             : null);
