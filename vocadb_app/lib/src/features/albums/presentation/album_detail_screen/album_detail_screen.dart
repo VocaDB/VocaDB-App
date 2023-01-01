@@ -3,8 +3,11 @@ import 'package:vocadb_app/src/common_widgets/custom_network_image.dart';
 import 'package:vocadb_app/src/constants/app_sizes.dart';
 import 'package:vocadb_app/src/features/albums/data/constants/fake_album_detail.dart';
 import 'package:vocadb_app/src/features/albums/presentation/album_detail_screen/album_additional_info.dart';
+import 'package:vocadb_app/src/features/albums/presentation/album_detail_screen/album_detail_button_bar.dart';
+import 'package:vocadb_app/src/features/albums/presentation/album_detail_screen/album_rating_info.dart';
 import 'package:vocadb_app/src/features/albums/presentation/tracks_list/tracks_list_view.dart';
 import 'package:vocadb_app/src/features/artists/presentation/artists_list/artist_roles_horizontal_list_view.dart';
+import 'package:vocadb_app/src/features/pvs/presentation/pv_list/pv_group_list.dart';
 import 'package:vocadb_app/src/features/tags/presentation/tag_widgets/tag_usage_group_view.dart';
 import 'package:vocadb_app/src/features/weblinks/presentation/web_link_group_view.dart';
 
@@ -17,7 +20,6 @@ class AlbumDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final album = kFakeAlbumDetailSingleDisc;
     final artistRoles = album.artists;
-    // final a = ArtistRole(artist: artist)
 
     return Scaffold(
       body: CustomScrollView(
@@ -49,29 +51,37 @@ class AlbumDetailScreen extends StatelessWidget {
                   ),
                 ),
                 gapH8,
-                Column(
+                AlbumRatingInfo(album: album),
+                const AlbumDetailButtonBar(),
+                const Divider(),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    gapH8,
-                    Text(
-                      album.name!,
-                      style: Theme.of(context).textTheme.titleLarge,
-                      maxLines: 2,
-                      textAlign: TextAlign.center,
-                    ),
-                    gapH8,
-                    Text(album.artistString!),
-                    gapH4,
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                    Column(
                       children: [
                         Text(
-                          '${album.discType} • ${album.releaseDate!.formatted}',
+                          album.ratingCount.toString() ?? '0',
+                        ),
+                        gapH4,
+                        Text(
+                          'Total Ratings',
                           style: Theme.of(context).textTheme.caption,
                         ),
                       ],
-                    )
+                    ),
+                    Column(
+                      children: [
+                        Text('★ ${album.ratingAverage} / 5'),
+                        gapH4,
+                        Text(
+                          'Average Rating',
+                          style: Theme.of(context).textTheme.caption,
+                        ),
+                      ],
+                    ),
                   ],
                 ),
+                const Divider(),
                 TagUsageGroupView(
                   tagUsages: album.tags ?? [],
                 ),
@@ -90,6 +100,8 @@ class AlbumDetailScreen extends StatelessWidget {
                       style: Theme.of(context).textTheme.headline6!),
                 ),
                 TracksListView(tracks: album.tracks ?? []),
+                const Divider(),
+                PVGroupList(pvs: album.pvs ?? [], searchQuery: ''),
                 const Divider(),
                 AlbumAdditionalInfo(album: album),
                 ListTile(

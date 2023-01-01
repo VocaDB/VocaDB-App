@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vocadb_app/src/constants/app_sizes.dart';
+import 'package:vocadb_app/src/features/albums/presentation/album_detail_screen/album_collection_edit_modal.dart';
 
 class AlbumDetailButtonBar extends StatelessWidget {
   const AlbumDetailButtonBar({super.key});
@@ -10,15 +11,20 @@ class AlbumDetailButtonBar extends StatelessWidget {
       alignment: MainAxisAlignment.spaceEvenly,
       children: [
         TextButton(
-          onPressed: () => {},
+          onPressed: () => {
+            showModalBottomSheet(
+              context: context,
+              builder: ((context) => AlbumCollectionEditModal(context).build()),
+            )
+          },
           style: ButtonStyle(
             foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
           ),
           child: Column(
             children: const [
-              Icon(Icons.favorite),
+              Icon(Icons.add),
               gapH4,
-              Text('Like'),
+              Text('Add to Collection'),
             ],
           ),
         ),

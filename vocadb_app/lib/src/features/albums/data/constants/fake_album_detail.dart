@@ -57,9 +57,16 @@ final kFakeAlbumDetailSingleDisc = Album(
     const PV(
       id: 13,
       name: 'Tripshots album - synthesis - [ anger / Nebula / Extended ] ',
-      service: 'service',
+      service: 'Youtube',
       pvType: 'Other',
       url: 'https://youtu.be/yhcvQhj5PVc',
+    ),
+    const PV(
+      id: 110,
+      name: 'Tripshots - synthesis -',
+      service: 'NicoNicoDouga',
+      pvType: 'Other',
+      url: 'http://www.nicovideo.jp/watch/sm7314826',
     ),
   ],
   catalogNumber: 'KRHS-90035',

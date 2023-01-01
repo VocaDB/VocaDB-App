@@ -46,6 +46,7 @@ dependencies:
   intl: 0.18.0
   collection: 1.16.0
   flutter_markdown: 0.6.13
+  flutter_rating_bar: 4.0.1
 
 dev_dependencies:
   flutter_test:
