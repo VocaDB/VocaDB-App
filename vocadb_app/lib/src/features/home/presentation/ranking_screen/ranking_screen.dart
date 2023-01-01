@@ -61,7 +61,9 @@ class RankingScreen extends StatelessWidget {
               ],
             ),
             floatingActionButton: FloatingActionButton(
-              onPressed: () => {},
+              onPressed: () {
+                GoRouter.of(context).pushNamed(AppRoute.playlist.name);
+              },
               child: const Icon(Icons.play_arrow),
             ),
           ),

@@ -16,7 +16,9 @@ import 'package:vocadb_app/src/features/home/presentation/main_screen/main_scree
 import 'package:vocadb_app/src/features/home/presentation/menu_screen/contact_us_screen.dart';
 import 'package:vocadb_app/src/features/home/presentation/menu_screen/setting_screen.dart';
 import 'package:vocadb_app/src/features/home/presentation/ranking_screen/ranking_filter_screen.dart';
+import 'package:vocadb_app/src/features/pvs/presentation/playlist_screen/playlist_screen.dart';
 import 'package:vocadb_app/src/features/releaseEvents/presentation/release_event_detail_screen/release_event_detail_screen.dart';
+import 'package:vocadb_app/src/features/songs/data/test_songs.dart';
 import 'package:vocadb_app/src/features/songs/presentation/rated_songs_screen/rated_songs_filter_screen.dart';
 import 'package:vocadb_app/src/features/songs/presentation/rated_songs_screen/rated_songs_screen.dart';
 import 'package:vocadb_app/src/features/songs/presentation/song_detail_screen/song_detail_screen.dart';
@@ -42,7 +44,8 @@ enum AppRoute {
   userFollowedArtists,
   userFollowedArtistsFilter,
   userAlbums,
-  userAlbumsFilter
+  userAlbumsFilter,
+  playlist,
 }
 
 final goRouterProvider = Provider<GoRouter>(
@@ -211,6 +214,17 @@ final goRouterProvider = Provider<GoRouter>(
                 key: state.pageKey,
                 fullscreenDialog: true,
                 child: const RankingFilterScreen(),
+              ),
+            ),
+            GoRoute(
+              path: 'Playlist',
+              name: AppRoute.playlist.name,
+              pageBuilder: (context, state) => MaterialPage(
+                key: state.pageKey,
+                fullscreenDialog: true,
+                child: const PlaylistScreen(
+                  songs: kTestSongs,
+                ),
               ),
             ),
             GoRoute(
