@@ -2,28 +2,28 @@ import 'package:vocadb_app/src/features/artists/domain/artist.dart';
 
 class ArtistRole {
   const ArtistRole({
-    required this.id,
-    required this.name,
-    required this.categories,
+    this.id,
+    this.name,
+    this.categories,
     this.effectiveRoles = 'Default',
     this.roles = 'Default',
     required this.artist,
   });
 
-  final int id;
+  final int? id;
 
-  final String name;
+  final String? name;
 
-  final String categories;
+  final String? categories;
 
-  final String effectiveRoles;
+  final String? effectiveRoles;
 
-  final String roles;
+  final String? roles;
 
   final Artist artist;
 
   String get artistRole =>
-      (categories == 'Other') ? effectiveRoles : categories;
+      (categories! == 'Other') ? effectiveRoles! : categories!;
 
   bool get isProducer => (categories == 'Producer');
 

@@ -7,7 +7,7 @@ class PV {
     required this.url,
   });
 
-  final String id;
+  final int id;
 
   final String name;
 

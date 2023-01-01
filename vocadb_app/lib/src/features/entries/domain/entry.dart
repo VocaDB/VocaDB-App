@@ -201,7 +201,7 @@ class Entry {
 extension EntryMapper on Entry {
   Song toSong() {
     return Song(
-      id: id.toString(),
+      id: id,
       imageUrl: mainPicture?.urlThumb ?? kPlaceholderImageUrl,
       name: name,
       artistString: artistString ?? 'None',
@@ -220,7 +220,7 @@ extension EntryMapper on Entry {
 
   Album toAlbum() {
     return Album(
-      id: id.toString(),
+      id: id,
       name: name,
       imageUrl: mainPicture?.urlThumb ?? kPlaceholderImageUrl,
       discType: discType ?? 'None',

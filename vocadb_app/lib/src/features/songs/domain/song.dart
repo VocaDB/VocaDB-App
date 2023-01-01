@@ -8,10 +8,10 @@ import 'package:vocadb_app/src/features/weblinks/domain/web_link.dart';
 class Song {
   const Song({
     required this.id,
-    required this.imageUrl,
-    required this.name,
-    required this.artistString,
-    required this.songType,
+    this.imageUrl,
+    this.name,
+    this.artistString,
+    this.songType,
     this.pvServices = '',
     this.additionalNames = '',
     this.favoritedTimes = 0,
@@ -27,44 +27,44 @@ class Song {
     this.webLinks = const [],
   });
 
-  final String id;
+  final int id;
 
-  final String name;
+  final String? name;
 
-  final String artistString;
+  final String? artistString;
 
-  final String imageUrl;
+  final String? imageUrl;
 
-  final String songType;
+  final String? songType;
 
-  final String pvServices;
+  final String? pvServices;
 
-  final String additionalNames;
+  final String? additionalNames;
 
-  final String createDate;
+  final String? createDate;
 
-  final int favoritedTimes;
+  final int? favoritedTimes;
 
-  final int lengthSeconds;
+  final int? lengthSeconds;
 
-  final String publishDate;
+  final String? publishDate;
 
-  final int ratingScore;
+  final int? ratingScore;
 
-  final List<TagUsage> tagUsages;
+  final List<TagUsage>? tagUsages;
 
-  final List<ArtistRole> artistRoles;
+  final List<ArtistRole>? artistRoles;
 
-  final List<Album> albums;
+  final List<Album>? albums;
 
-  final List<Lyric> lyrics;
+  final List<Lyric>? lyrics;
 
-  final List<PV> pvs;
+  final List<PV>? pvs;
 
-  final List<WebLink> webLinks;
+  final List<WebLink>? webLinks;
 }
 
 extension SongPV on Song {
   String get pvSearchQuery =>
-      (pvs.isNotEmpty) ? pvs[0].name : '$artistString+$name';
+      (pvs!.isNotEmpty) ? pvs![0].name : '$artistString+$name';
 }

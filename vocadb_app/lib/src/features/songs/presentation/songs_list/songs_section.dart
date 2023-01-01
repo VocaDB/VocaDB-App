@@ -26,8 +26,8 @@ class SongsSection extends StatelessWidget {
         songs: songs,
         onSelect: (song) {
           if (onSelect == null) {
-            GoRouter.of(context)
-                .pushNamed(AppRoute.songDetail.name, params: {'id': song.id});
+            GoRouter.of(context).pushNamed(AppRoute.songDetail.name,
+                params: {'id': song.id.toString()});
           } else {
             onSelect!(song);
           }

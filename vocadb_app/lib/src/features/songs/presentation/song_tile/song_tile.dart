@@ -45,9 +45,9 @@ class SongTile extends StatelessWidget {
               padding: const EdgeInsets.all(Sizes.p8),
               child: SizedBox(
                 width: thumbnailWidth,
-                child: (song.imageUrl.isNotEmpty)
+                child: (song.imageUrl!.isNotEmpty)
                     ? CustomNetworkImage(
-                        song.imageUrl,
+                        song.imageUrl!,
                         fit: BoxFit.cover,
                       )
                     : const Icon(Icons.music_note),
@@ -60,8 +60,8 @@ class SongTile extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
-                    Text(song.name, overflow: TextOverflow.ellipsis),
-                    Text(song.artistString,
+                    Text(song.name!, overflow: TextOverflow.ellipsis),
+                    Text(song.artistString!,
                         overflow: TextOverflow.ellipsis,
                         maxLines: 1,
                         style: Theme.of(context).textTheme.caption),
@@ -69,9 +69,9 @@ class SongTile extends StatelessWidget {
                     Row(
                       children: <Widget>[
                         SongTypeIcon(
-                          songType: song.songType,
+                          songType: song.songType!,
                         ),
-                        (song.pvServices.isNotEmpty)
+                        (song.pvServices!.isNotEmpty)
                             ? const Icon(Icons.local_movies)
                             : Container()
                       ],

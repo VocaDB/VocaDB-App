@@ -29,12 +29,12 @@ class SongCard extends StatelessWidget {
           child: Column(
             children: <Widget>[
               SongCardImage(
-                imageUrl: song.imageUrl,
+                imageUrl: song.imageUrl!,
               ),
               gapH4,
               Container(
                 alignment: Alignment.centerLeft,
-                child: Text(song.name,
+                child: Text(song.name!,
                     style: Theme.of(context).textTheme.bodyText1,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis),
@@ -42,7 +42,7 @@ class SongCard extends StatelessWidget {
               const SpaceDivider.micro(),
               Container(
                 alignment: Alignment.centerLeft,
-                child: Text(song.artistString,
+                child: Text(song.artistString!,
                     style: Theme.of(context).textTheme.caption,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis),
@@ -51,9 +51,9 @@ class SongCard extends StatelessWidget {
               Row(
                 children: <Widget>[
                   SongTypeIcon(
-                    songType: song.songType,
+                    songType: song.songType!,
                   ),
-                  (song.pvServices.isNotEmpty)
+                  (song.pvServices!.isNotEmpty)
                       ? const Icon(Icons.local_movies)
                       : Container(),
                 ],

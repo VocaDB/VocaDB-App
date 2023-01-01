@@ -8,7 +8,7 @@ class Lyric {
     required this.value,
   });
 
-  final String id;
+  final int id;
 
   final String cultureCode;
 

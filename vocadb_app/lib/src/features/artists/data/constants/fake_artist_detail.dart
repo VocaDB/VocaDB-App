@@ -23,7 +23,7 @@ final kFakeArtistDetail = Artist(
     urlThumb: "https://static.vocadb.net/img/artist/mainThumb/1.png?v=32",
     urlTinyThumb: "https://static.vocadb.net/img/artist/mainTiny/1.png?v=32",
   ),
-  relations: const ArtistRelations(
+  relations: ArtistRelations(
     latestAlbums: kFakeAlbumsList,
     latestSongs: kTestSongs,
     popularAlbums: kFakeAlbumsList,

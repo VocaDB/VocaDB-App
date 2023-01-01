@@ -27,12 +27,12 @@ class AlbumTile extends StatelessWidget {
         width: imageSize,
         height: imageSize,
         child: CustomNetworkImage(
-          album.imageUrl,
+          album.imageUrl!,
           fit: BoxFit.fill,
         ),
       ),
-      title: Text(album.name, overflow: TextOverflow.ellipsis),
-      subtitle: Text(album.artistString, overflow: TextOverflow.ellipsis),
+      title: Text(album.name!, overflow: TextOverflow.ellipsis),
+      subtitle: Text(album.artistString!, overflow: TextOverflow.ellipsis),
     );
   }
 }

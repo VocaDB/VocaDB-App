@@ -40,7 +40,7 @@ class AlbumCard extends StatelessWidget {
                 child: FittedBox(
                   fit: BoxFit.fitWidth,
                   child: CustomNetworkImage(
-                    album.imageUrl,
+                    album.imageUrl!,
                   ),
                 ),
               ),
@@ -48,7 +48,7 @@ class AlbumCard extends StatelessWidget {
               Container(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    album.name,
+                    album.name!,
                     style: Theme.of(context).textTheme.bodyText2,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
@@ -57,7 +57,7 @@ class AlbumCard extends StatelessWidget {
               Container(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    album.artistString,
+                    album.artistString!,
                     style: Theme.of(context).textTheme.caption,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,

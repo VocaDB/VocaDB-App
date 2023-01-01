@@ -26,8 +26,8 @@ class AlbumsSection extends StatelessWidget {
         albums: albums,
         onSelect: (album) {
           if (onSelect == null) {
-            GoRouter.of(context)
-                .pushNamed(AppRoute.albumDetail.name, params: {'id': album.id});
+            GoRouter.of(context).pushNamed(AppRoute.albumDetail.name,
+                params: {'id': album.id.toString()});
           } else {
             onSelect!(album);
           }

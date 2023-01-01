@@ -2,7 +2,7 @@ import 'package:vocadb_app/src/features/songs/domain/song.dart';
 
 const kTestSongs = [
   Song(
-    id: '1501',
+    id: 1501,
     name: 'ローリンガール',
     imageUrl: 'https://nicovideo.cdn.nimg.jp/thumbnails/9714351/9714351',
     artistString: 'wowaka feat. 初音ミク',
@@ -10,7 +10,7 @@ const kTestSongs = [
     pvServices: 'NicoNicoDouga, Youtube, SoundCloud',
   ),
   Song(
-    id: '3022',
+    id: 3022,
     name: '炉心融解',
     imageUrl: 'https://tn-skr2.smilevideo.jp/smile?i=8089993',
     artistString: 'iroha(sasaki) feat. 鏡音リン',
@@ -18,7 +18,7 @@ const kTestSongs = [
     pvServices: 'NicoNicoDouga, Youtube, SoundCloud',
   ),
   Song(
-    id: '19094',
+    id: 19094,
     name: 'ロストワンの号哭',
     imageUrl: 'https://tn-skr3.smilevideo.jp/smile?i=20244918',
     artistString: 'Neru feat. 鏡音リン Append (Power)',
@@ -26,7 +26,7 @@ const kTestSongs = [
     pvServices: 'NicoNicoDouga, Youtube',
   ),
   Song(
-    id: '1032',
+    id: 1032,
     name: 'ロミオとシンデレラ',
     imageUrl: 'https://tn-skr1.smilevideo.jp/smile?i=6666016',
     artistString: 'doriko feat. 初音ミク',
@@ -34,7 +34,7 @@ const kTestSongs = [
     pvServices: 'NicoNicoDouga, Youtube',
   ),
   Song(
-    id: '63276',
+    id: 63276,
     name: 'ヒビカセ',
     imageUrl: 'https://i.ytimg.com/vi/TkroHwQYpFE/default.jpg',
     artistString: 'Giga feat. 初音ミク V3 (Solid)',
@@ -42,7 +42,7 @@ const kTestSongs = [
     pvServices: 'NicoNicoDouga, Youtube, SoundCloud, Bilibili',
   ),
   Song(
-    id: '15662',
+    id: 15662,
     name: 'ODDS&ENDS',
     imageUrl: 'https://tn-skr2.smilevideo.jp/smile?i=18626305',
     artistString: 'ryo feat. 初音ミク',
@@ -50,7 +50,7 @@ const kTestSongs = [
     pvServices: 'NicoNicoDouga, Youtube, SoundCloud',
   ),
   Song(
-    id: '20',
+    id: 20,
     name: 'ワールズエンド・ダンスホール',
     imageUrl: 'https://tn-skr4.smilevideo.jp/smile?i=10759623',
     artistString: 'wowaka feat. 初音ミク, 巡音ルカ',
@@ -58,7 +58,7 @@ const kTestSongs = [
     pvServices: 'NicoNicoDouga, Youtube',
   ),
   Song(
-    id: '49755',
+    id: 49755,
     name: 'LUVORATORRRRRY!',
     imageUrl: 'https://tn-skr4.smilevideo.jp/smile?i=22942867',
     artistString: 'Giga, れをる feat. 鏡音リン Append (Power), V3 GUMI (Power)',
@@ -66,21 +66,21 @@ const kTestSongs = [
     pvServices: 'NicoNicoDouga, Youtube',
   ),
   Song(
-    id: '1320',
+    id: 1320,
     name: '恋は戦争',
     imageUrl: 'https://tn-skr4.smilevideo.jp/smile?i=22942867',
     artistString: 'ryo, supercell feat. 初音ミク',
     songType: 'Original',
   ),
   Song(
-    id: '8395',
+    id: 8395,
     name: 'Tell Your World',
     imageUrl: 'https://tn-skr4.smilevideo.jp/smile?i=22942867',
     artistString: 'kz feat. 初音ミク',
     songType: 'Original',
   ),
   Song(
-    id: '555',
+    id: 555,
     name: '東京テディベア',
     imageUrl: 'https://tn-skr3.smilevideo.jp/smile?i=15308214',
     artistString: 'Neru, おればななP feat. 鏡音リン Append (Sweet), 鏡音リン Append (Power)',
