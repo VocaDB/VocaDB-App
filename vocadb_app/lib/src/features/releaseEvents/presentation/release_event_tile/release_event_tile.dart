@@ -45,7 +45,7 @@ class ReleaseEventTile extends StatelessWidget {
                     ),
                     Container(
                         child: CustomNetworkImage(
-                      releaseEvent.imageUrl,
+                      releaseEvent.imageUrl!,
                       fit: BoxFit.cover,
                       width: double.infinity,
                       height: double.infinity,
@@ -106,7 +106,7 @@ class ReleaseEventTile extends StatelessWidget {
                     ),
                     gapH4,
                     Text(
-                      releaseEvent.name,
+                      releaseEvent.name ?? '<None>',
                       style: Theme.of(context).textTheme.subtitle1,
                     ),
                     gapH4,

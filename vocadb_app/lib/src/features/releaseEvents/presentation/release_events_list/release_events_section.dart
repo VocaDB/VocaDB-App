@@ -28,7 +28,7 @@ class ReleaseEventsSection extends StatelessWidget {
         onSelect: (releaseEvent) {
           if (onSelect == null) {
             GoRouter.of(context).pushNamed(AppRoute.releaseEventDetail.name,
-                params: {'id': releaseEvent.id});
+                params: {'id': releaseEvent.id.toString()});
           } else {
             onSelect!(releaseEvent);
           }

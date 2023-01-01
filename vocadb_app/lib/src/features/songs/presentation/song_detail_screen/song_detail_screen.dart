@@ -75,7 +75,7 @@ class SongDetailScreen extends StatelessWidget {
                     songs: kTestSongs,
                   ),
                   const Divider(),
-                  const ReleaseEventsSection(
+                  ReleaseEventsSection(
                     releaseEvents: kTestReleaseEvents,
                   ),
                   const Divider(),

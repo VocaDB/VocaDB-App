@@ -28,7 +28,7 @@ class ReleaseEventCard extends StatelessWidget {
             textDirection: TextDirection.ltr,
             children: [
               CustomNetworkImage(
-                releaseEvent.imageUrl,
+                releaseEvent.imageUrl!,
               ),
               Align(
                 alignment: Alignment.bottomLeft,
@@ -39,7 +39,7 @@ class ReleaseEventCard extends StatelessWidget {
                     alignment: Alignment.centerLeft,
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: Sizes.p8),
-                      child: Text(releaseEvent.name,
+                      child: Text(releaseEvent.name ?? '<None>',
                           maxLines: 2, overflow: TextOverflow.ellipsis),
                     ),
                   ),

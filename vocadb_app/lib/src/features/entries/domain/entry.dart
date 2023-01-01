@@ -121,7 +121,7 @@ extension EntryMapper on Entry {
 
   ReleaseEvent toReleaseEvent() {
     return ReleaseEvent(
-      id: id.toString(),
+      id: id,
       name: name,
       imageUrl: mainPicture?.urlThumb ?? kPlaceholderImageUrl,
     );
