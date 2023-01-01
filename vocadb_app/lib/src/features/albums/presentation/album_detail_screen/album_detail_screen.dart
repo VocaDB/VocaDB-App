@@ -3,8 +3,8 @@ import 'package:vocadb_app/src/common_widgets/custom_network_image.dart';
 import 'package:vocadb_app/src/constants/app_sizes.dart';
 import 'package:vocadb_app/src/features/albums/data/constants/fake_album_detail.dart';
 import 'package:vocadb_app/src/features/albums/presentation/album_detail_screen/album_additional_info.dart';
-import 'package:vocadb_app/src/features/albums/presentation/album_detail_screen/album_detail_button_bar.dart';
 import 'package:vocadb_app/src/features/albums/presentation/tracks_list/tracks_list_view.dart';
+import 'package:vocadb_app/src/features/artists/presentation/artists_list/artist_roles_horizontal_list_view.dart';
 import 'package:vocadb_app/src/features/tags/presentation/tag_widgets/tag_usage_group_view.dart';
 import 'package:vocadb_app/src/features/weblinks/presentation/web_link_group_view.dart';
 
@@ -16,6 +16,8 @@ class AlbumDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final album = kFakeAlbumDetailSingleDisc;
+    final artistRoles = album.artists;
+    // final a = ArtistRole(artist: artist)
 
     return Scaffold(
       body: CustomScrollView(
@@ -49,16 +51,10 @@ class AlbumDetailScreen extends StatelessWidget {
                 gapH8,
                 Column(
                   children: [
-                    Visibility(
-                      visible:
-                          album.ratingCount != null && album.ratingCount! > 0,
-                      child: Text(
-                          '${album.ratingAverage} ★ (${album.ratingCount})'),
-                    ),
                     gapH8,
                     Text(
                       album.name!,
-                      style: Theme.of(context).textTheme.headline6,
+                      style: Theme.of(context).textTheme.titleLarge,
                       maxLines: 2,
                       textAlign: TextAlign.center,
                     ),
@@ -76,18 +72,33 @@ class AlbumDetailScreen extends StatelessWidget {
                     )
                   ],
                 ),
-                gapH8,
-                const AlbumDetailButtonBar(),
                 TagUsageGroupView(
-                  tagUsages: album.tags!,
-                ),
-                AlbumAdditionalInfo(
-                  album: album,
+                  tagUsages: album.tags ?? [],
                 ),
                 const Divider(),
+                ListTile(
+                  title: Text('Artists',
+                      style: Theme.of(context).textTheme.headline6!),
+                ),
+                ArtistRolesHorizontalListView(
+                  artists: artistRoles ?? [],
+                ),
+                gapH8,
+                const Divider(),
+                ListTile(
+                  title: Text('Tracklist',
+                      style: Theme.of(context).textTheme.headline6!),
+                ),
                 TracksListView(tracks: album.tracks ?? []),
                 const Divider(),
-                WebLinkGroupList(webLinks: album.webLinks!)
+                AlbumAdditionalInfo(album: album),
+                ListTile(
+                  title: const Text('Related albums'),
+                  trailing: const Icon(Icons.arrow_forward_ios),
+                  onTap: () {},
+                ),
+                const Divider(),
+                WebLinkGroupList(webLinks: album.webLinks ?? []),
               ],
             ),
           ),

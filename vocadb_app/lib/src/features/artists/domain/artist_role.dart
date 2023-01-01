@@ -29,5 +29,16 @@ class ArtistRole {
 
   bool get isVocalist => (categories == 'Vocalist');
 
+  bool get isCircle => (categories == 'Circle');
+
+  bool get isLabel => (categories == 'Label');
+
   bool get isOtherRole => (!isProducer && !isVocalist);
+}
+
+extension ArtistsByRole on List<ArtistRole> {
+  List<ArtistRole> get producers => where((e) => e.isProducer).toList();
+  List<ArtistRole> get vocalists => where((e) => e.isVocalist).toList();
+  List<ArtistRole> get circles => where((e) => e.isVocalist).toList();
+  List<ArtistRole> get labels => where((e) => e.isLabel).toList();
 }

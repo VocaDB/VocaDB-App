@@ -28,6 +28,30 @@ final kFakeAlbumDetailSingleDisc = Album(
         imageUrl: 'https://vocadb.net/Artist/Picture/1',
       ),
     ),
+    ArtistRole(
+      name: 'Tripshots',
+      categories: 'Producer',
+      effectiveRoles: 'Default',
+      roles: 'Default',
+      artist: Artist(
+        id: 10,
+        name: 'Tripshots',
+        artistType: 'Producer',
+        imageUrl: 'https://vocadb.net/Artist/Picture/10',
+      ),
+    ),
+    ArtistRole(
+      name: 'KARENT',
+      categories: 'Label',
+      effectiveRoles: 'Default',
+      roles: 'Default',
+      artist: Artist(
+        id: 276,
+        name: 'KARENT',
+        artistType: 'Label',
+        imageUrl: 'https://vocadb.net/Artist/Picture/276',
+      ),
+    ),
   ],
   pvs: [
     const PV(
