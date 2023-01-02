@@ -8,7 +8,7 @@ import 'package:vocadb_app/src/features/albums/data/constants/fake_albums_list.d
 import 'package:vocadb_app/src/features/albums/presentation/albums_list/albums_section.dart';
 import 'package:vocadb_app/src/features/artists/data/constants/fake_artists_list.dart';
 import 'package:vocadb_app/src/features/artists/presentation/artists_list/artists_horizontal_list_view.dart';
-import 'package:vocadb_app/src/features/songs/data/test_songs.dart';
+import 'package:vocadb_app/src/features/songs/data/constants/fake_songs_list.dart';
 import 'package:vocadb_app/src/features/songs/presentation/songs_list/songs_section.dart';
 import 'package:vocadb_app/src/features/tags/data/constants/fake_tag_detail.dart';
 import 'package:vocadb_app/src/features/tags/presentation/tag_detail_screen/tag_detail_button_bar.dart';

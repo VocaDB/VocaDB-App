@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vocadb_app/src/features/pvs/presentation/playlist_screen/playlist_track_tile.dart';
-import 'package:vocadb_app/src/features/songs/data/test_songs.dart';
+import 'package:vocadb_app/src/features/songs/data/constants/fake_songs_list.dart';
 import 'package:vocadb_app/src/features/songs/domain/song.dart';
 
 class PlaylistScreen extends StatelessWidget {

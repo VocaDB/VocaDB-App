@@ -18,7 +18,7 @@ import 'package:vocadb_app/src/features/home/presentation/menu_screen/setting_sc
 import 'package:vocadb_app/src/features/home/presentation/ranking_screen/ranking_filter_screen.dart';
 import 'package:vocadb_app/src/features/pvs/presentation/playlist_screen/playlist_screen.dart';
 import 'package:vocadb_app/src/features/releaseEvents/presentation/release_event_detail_screen/release_event_detail_screen.dart';
-import 'package:vocadb_app/src/features/songs/data/test_songs.dart';
+import 'package:vocadb_app/src/features/songs/data/constants/fake_songs_list.dart';
 import 'package:vocadb_app/src/features/songs/presentation/rated_songs_screen/rated_songs_filter_screen.dart';
 import 'package:vocadb_app/src/features/songs/presentation/rated_songs_screen/rated_songs_screen.dart';
 import 'package:vocadb_app/src/features/songs/presentation/song_detail_screen/song_detail_screen.dart';

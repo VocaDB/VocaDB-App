@@ -1,5 +1,5 @@
-import 'package:vocadb_app/src/features/songs/data/fake_song_detail.dart';
-import 'package:vocadb_app/src/features/songs/data/test_songs.dart';
+import 'package:vocadb_app/src/features/songs/data/constants/fake_song_detail.dart';
+import 'package:vocadb_app/src/features/songs/data/constants/fake_songs_list.dart';
 import 'package:vocadb_app/src/features/songs/domain/song.dart';
 
 class SongRepository {

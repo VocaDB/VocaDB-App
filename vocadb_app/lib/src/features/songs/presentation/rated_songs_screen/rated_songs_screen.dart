@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vocadb_app/src/common_widgets/search_appbar.dart';
-import 'package:vocadb_app/src/features/songs/data/fake_rated_songs_list.dart';
+import 'package:vocadb_app/src/features/songs/data/constants/fake_rated_songs_list.dart';
 import 'package:vocadb_app/src/features/songs/presentation/songs_list/songs_list_view.dart';
 import 'package:vocadb_app/src/routing/app_router.dart';
 

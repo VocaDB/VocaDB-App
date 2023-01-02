@@ -4,7 +4,7 @@ import 'package:vocadb_app/src/features/artists/data/constants/fake_artist_link_
 import 'package:vocadb_app/src/features/artists/domain/artist.dart';
 import 'package:vocadb_app/src/features/artists/domain/artist_relations.dart';
 import 'package:vocadb_app/src/features/entries/domain/main_picture.dart';
-import 'package:vocadb_app/src/features/songs/data/test_songs.dart';
+import 'package:vocadb_app/src/features/songs/data/constants/fake_songs_list.dart';
 import 'package:vocadb_app/src/features/tags/data/constants/fake_tags_usage_list.dart';
 import 'package:vocadb_app/src/features/weblinks/data/constants/fake_web_links_list.dart';
 

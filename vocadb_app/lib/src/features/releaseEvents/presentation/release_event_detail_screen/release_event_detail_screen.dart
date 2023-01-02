@@ -12,7 +12,7 @@ import 'package:vocadb_app/src/features/releaseEvents/data/constants/fake_releas
 import 'package:vocadb_app/src/features/releaseEvents/data/release_event.dart';
 import 'package:vocadb_app/src/features/releaseEvents/presentation/release_event_detail_screen/release_event_detail_button_bar.dart';
 import 'package:vocadb_app/src/features/releaseEvents/presentation/release_event_tile/release_event_series_tile.dart';
-import 'package:vocadb_app/src/features/songs/data/test_songs.dart';
+import 'package:vocadb_app/src/features/songs/data/constants/fake_songs_list.dart';
 import 'package:vocadb_app/src/features/songs/presentation/songs_list/songs_section.dart';
 import 'package:vocadb_app/src/features/tags/presentation/tag_widgets/tag_usage_group_view.dart';
 import 'package:vocadb_app/src/features/weblinks/presentation/web_link_group_view.dart';

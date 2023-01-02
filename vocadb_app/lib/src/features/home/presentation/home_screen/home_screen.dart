@@ -4,7 +4,7 @@ import 'package:vocadb_app/src/features/home/presentation/app_bar/global_app_bar
 import 'package:vocadb_app/src/features/home/presentation/home_screen/highlighted_section.dart';
 import 'package:vocadb_app/src/features/home/presentation/home_screen/home_content_list.dart';
 import 'package:vocadb_app/src/features/home/presentation/home_screen/recent_albums_section.dart';
-import 'package:vocadb_app/src/features/releaseEvents/data/test_list_events.dart';
+import 'package:vocadb_app/src/features/releaseEvents/data/constants/fake_release_events_list.dart';
 import 'package:vocadb_app/src/features/releaseEvents/presentation/release_events_list/release_events_section.dart';
 
 import 'random_albums_section.dart';
