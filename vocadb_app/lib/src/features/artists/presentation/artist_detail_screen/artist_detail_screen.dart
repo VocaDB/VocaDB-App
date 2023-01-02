@@ -3,7 +3,6 @@ import 'package:vocadb_app/src/common_widgets/custom_network_image.dart';
 import 'package:vocadb_app/src/constants/app_sizes.dart';
 import 'package:vocadb_app/src/features/artists/data/constants/fake_artist_detail.dart';
 import 'package:vocadb_app/src/features/artists/presentation/artist_detail_screen/artist_additional_info.dart';
-import 'package:vocadb_app/src/features/artists/presentation/artist_detail_screen/artist_basic_info.dart';
 import 'package:vocadb_app/src/features/artists/presentation/artist_detail_screen/artist_detail_button_bar.dart';
 import 'package:vocadb_app/src/features/artists/presentation/artist_detail_screen/artist_relations_view.dart';
 import 'package:vocadb_app/src/features/tags/presentation/tag_widgets/tag_usage_group_view.dart';
@@ -23,7 +22,7 @@ class ArtistDetailScreen extends StatelessWidget {
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
-            expandedHeight: 200,
+            expandedHeight: 300,
             pinned: true,
             actions: [
               IconButton(
@@ -36,12 +35,24 @@ class ArtistDetailScreen extends StatelessWidget {
               )
             ],
             flexibleSpace: FlexibleSpaceBar(
-              title: const Text('Artist name'),
+              centerTitle: true,
+              title: Text(artist.name ?? '<None>'),
               background: SafeArea(
-                child: Opacity(
-                  opacity: 0.7,
-                  child: CustomNetworkImage(
-                    artist.imageUrl!,
+                child: Container(
+                  color: Theme.of(context).canvasColor,
+                  child: Center(
+                    child: ClipOval(
+                      child: Container(
+                        color: Colors.white,
+                        padding: const EdgeInsets.all(8.0),
+                        child: CustomNetworkImage(
+                          artist.imageUrl!,
+                          width: 130,
+                          height: 130,
+                          fit: BoxFit.contain,
+                        ),
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -50,26 +61,70 @@ class ArtistDetailScreen extends StatelessWidget {
           SliverList(
             delegate: SliverChildListDelegate(
               [
+                InkWell(
+                  onTap: () {
+                    showModalBottomSheet(
+                      context: context,
+                      builder: ((context) {
+                        return Padding(
+                          padding: const EdgeInsets.all(Sizes.p16),
+                          child: ListView(
+                            children: [
+                              Row(
+                                children: [
+                                  IconButton(
+                                    padding: const EdgeInsets.all(0),
+                                    icon: const Icon(Icons.close),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                  ),
+                                ],
+                              ),
+                              gapH12,
+                              Text(
+                                artist.name!,
+                                style: Theme.of(context).textTheme.titleLarge,
+                              ),
+                              gapH16,
+                              Text(artist.description!),
+                            ],
+                          ),
+                        );
+                      }),
+                    );
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Text(
+                      artist.description!,
+                      maxLines: 4,
+                      overflow: TextOverflow.fade,
+                      style: Theme.of(context).textTheme.bodyText2,
+                    ),
+                  ),
+                ),
+                const Divider(),
                 const ArtistDetailButtonBar(),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    ArtistBasicInfo(artist: artist),
                     gapH8,
                     TagUsageGroupView(
                       tagUsages: artist.tags!,
                     ),
                     gapH8,
-                    ArtistAdditionalInfo(
-                      artist: artist,
-                    ),
                   ],
                 ),
                 const Divider(),
                 ArtistRelationsView(
                   artistRelations: artist.relations!,
                 ),
+                ArtistAdditionalInfo(
+                  artist: artist,
+                ),
+                const Divider(),
                 WebLinkGroupList(webLinks: artist.webLinks!),
               ],
             ),
