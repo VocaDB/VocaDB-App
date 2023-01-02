@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vocadb_app/src/features/releaseEvents/data/release_event_series.dart';
+import 'package:vocadb_app/src/features/releaseEvents/data/domain/release_event_series.dart';
 
 /// A widget for display release event series tile
 class ReleaseEventSeriesTile extends StatelessWidget {

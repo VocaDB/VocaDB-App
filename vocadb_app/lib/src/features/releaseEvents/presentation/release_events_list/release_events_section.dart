@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vocadb_app/src/common_widgets/section.dart';
-import 'package:vocadb_app/src/features/releaseEvents/data/release_event.dart';
+import 'package:vocadb_app/src/features/releaseEvents/data/domain/release_event.dart';
 import 'package:vocadb_app/src/features/releaseEvents/presentation/release_events_list/release_events_horizontal_list_view.dart';
 import 'package:vocadb_app/src/routing/app_router.dart';
 

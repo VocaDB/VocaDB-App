@@ -1,4 +1,4 @@
-import 'package:vocadb_app/src/features/releaseEvents/data/release_event.dart';
+import 'package:vocadb_app/src/features/releaseEvents/data/domain/release_event.dart';
 
 final kFakeReleaseEventsList = [
   ReleaseEvent(

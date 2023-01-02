@@ -1,6 +1,6 @@
 import 'package:vocadb_app/src/features/entries/domain/main_picture.dart';
-import 'package:vocadb_app/src/features/releaseEvents/data/release_event.dart';
-import 'package:vocadb_app/src/features/releaseEvents/data/release_event_series.dart';
+import 'package:vocadb_app/src/features/releaseEvents/data/domain/release_event.dart';
+import 'package:vocadb_app/src/features/releaseEvents/data/domain/release_event_series.dart';
 import 'package:vocadb_app/src/features/tags/data/constants/fake_tags_usage_list.dart';
 import 'package:vocadb_app/src/features/weblinks/data/constants/fake_web_links_list.dart';
 

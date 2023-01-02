@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vocadb_app/src/features/releaseEvents/data/release_event.dart';
+import 'package:vocadb_app/src/features/releaseEvents/data/domain/release_event.dart';
 import 'package:vocadb_app/src/features/releaseEvents/presentation/release_event_tile/release_event_tile.dart';
 
 /// A widget for generate release events in [Column] instead of [ListView]. Use it only when need to display release event content inside parent [ListView] widget.

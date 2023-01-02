@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vocadb_app/src/common_widgets/infinite_list_view.dart';
-import 'package:vocadb_app/src/features/releaseEvents/data/release_event.dart';
+import 'package:vocadb_app/src/features/releaseEvents/data/domain/release_event.dart';
 import 'package:vocadb_app/src/features/releaseEvents/presentation/release_event_tile/release_event_tile.dart';
 
 class ReleaseEventsListView extends StatelessWidget {

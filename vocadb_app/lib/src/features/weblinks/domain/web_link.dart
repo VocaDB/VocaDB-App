@@ -74,3 +74,13 @@ class WebLink {
         url.hashCode;
   }
 }
+
+extension WebLinkList on List<WebLink> {
+  List<WebLink> get officialLinks =>
+      where((link) => link.category != 'Reference').toList()
+        ..sort((a, b) => a.description.compareTo(b.description));
+
+  List<WebLink> get unofficialLinks =>
+      where((link) => link.category == 'Reference').toList()
+        ..sort((a, b) => a.description.compareTo(b.description));
+}

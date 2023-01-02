@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vocadb_app/src/common_widgets/custom_network_image.dart';
 import 'package:vocadb_app/src/constants/app_sizes.dart';
-import 'package:vocadb_app/src/features/releaseEvents/data/release_event.dart';
+import 'package:vocadb_app/src/features/releaseEvents/data/domain/release_event.dart';
 import 'package:vocadb_app/src/utils/date_time_utils.dart';
 
 /// A widget to display release event information for horizontal list.

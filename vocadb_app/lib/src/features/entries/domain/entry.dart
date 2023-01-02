@@ -6,7 +6,7 @@ import 'package:vocadb_app/src/features/albums/domain/album.dart';
 import 'package:vocadb_app/src/features/artists/domain/artist.dart';
 
 import 'package:vocadb_app/src/features/entries/domain/main_picture.dart';
-import 'package:vocadb_app/src/features/releaseEvents/data/release_event.dart';
+import 'package:vocadb_app/src/features/releaseEvents/data/domain/release_event.dart';
 import 'package:vocadb_app/src/features/songs/domain/song.dart';
 import 'package:vocadb_app/src/features/tags/domain/tag_usage.dart';
 import 'package:vocadb_app/src/features/weblinks/domain/web_link.dart';
