@@ -15,7 +15,7 @@ class PlaylistScreen extends StatelessWidget {
         title: const Text('Playlist'),
       ),
       body: ListView.builder(
-        itemCount: kTestSongs.length,
+        itemCount: kFakeSongsList.length,
         itemBuilder: ((context, index) {
           final song = songs[index];
           return PlaylistTrackTile(

@@ -25,7 +25,7 @@ class HomeScreen extends StatelessWidget {
           const RecentAlbumSection(),
           const RandomAlbumSection(),
           ReleaseEventsSection(
-            releaseEvents: kTestReleaseEvents,
+            releaseEvents: kFakeReleaseEventsList,
           ),
           gapH24,
         ],

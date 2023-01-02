@@ -7,7 +7,7 @@ import 'package:vocadb_app/src/features/pvs/presentation/pv_list/pv_group_list.d
 import 'package:vocadb_app/src/features/releaseEvents/data/test_list_events.dart';
 import 'package:vocadb_app/src/features/releaseEvents/presentation/release_events_list/release_events_section.dart';
 import 'package:vocadb_app/src/features/songs/data/song_repository.dart';
-import 'package:vocadb_app/src/features/songs/data/test_songs.dart';
+import 'package:vocadb_app/src/features/songs/data/constants/fake_songs_list.dart';
 import 'package:vocadb_app/src/features/songs/domain/song.dart';
 import 'package:vocadb_app/src/features/songs/presentation/song_detail_screen/song_detail_button_bar.dart';
 import 'package:vocadb_app/src/features/songs/presentation/song_detail_screen/song_hero_image.dart';
@@ -67,16 +67,16 @@ class SongDetailScreen extends StatelessWidget {
                   const Divider(),
                   const SongsSection(
                     title: 'Alternate version',
-                    songs: kTestSongs,
+                    songs: kFakeSongsList,
                   ),
                   const Divider(),
                   const SongsSection(
                     title: 'Users who liked this also liked',
-                    songs: kTestSongs,
+                    songs: kFakeSongsList,
                   ),
                   const Divider(),
                   ReleaseEventsSection(
-                    releaseEvents: kTestReleaseEvents,
+                    releaseEvents: kFakeReleaseEventsList,
                   ),
                   const Divider(),
                   WebLinkGroupList(webLinks: song.webLinks!)

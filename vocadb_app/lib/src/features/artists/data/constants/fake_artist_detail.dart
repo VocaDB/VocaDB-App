@@ -25,9 +25,9 @@ final kFakeArtistDetail = Artist(
   ),
   relations: ArtistRelations(
     latestAlbums: kFakeAlbumsList,
-    latestSongs: kTestSongs,
+    latestSongs: kFakeSongsList,
     popularAlbums: kFakeAlbumsList,
-    popularSongs: kTestSongs,
+    popularSongs: kFakeSongsList,
   ),
   releaseDate: '2007-08-31T00:00:00Z',
   tags: kFakeTagsUsageList,

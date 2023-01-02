@@ -2,7 +2,7 @@
 import 'dart:convert';
 
 class WebLink {
-  final String id;
+  final int id;
   final String description;
   final String category;
   final String url;
@@ -15,7 +15,7 @@ class WebLink {
   });
 
   WebLink copyWith({
-    String? id,
+    int? id,
     String? description,
     String? category,
     String? url,
@@ -39,7 +39,7 @@ class WebLink {
 
   factory WebLink.fromMap(Map<String, dynamic> map) {
     return WebLink(
-      id: map['id'] as String,
+      id: map['id'] as int,
       description: map['description'] as String,
       category: map['category'] as String,
       url: map['url'] as String,

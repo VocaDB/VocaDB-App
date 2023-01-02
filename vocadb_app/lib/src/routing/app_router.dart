@@ -223,7 +223,7 @@ final goRouterProvider = Provider<GoRouter>(
                 key: state.pageKey,
                 fullscreenDialog: true,
                 child: const PlaylistScreen(
-                  songs: kTestSongs,
+                  songs: kFakeSongsList,
                 ),
               ),
             ),

@@ -91,7 +91,7 @@ class TagDetailScreen extends StatelessWidget {
                   const Divider(),
                   const SongsSection(
                     title: 'Recent songs PVs',
-                    songs: kTestSongs,
+                    songs: kFakeSongsList,
                   ),
                   const Divider(),
                   Section(

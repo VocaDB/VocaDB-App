@@ -1,6 +1,6 @@
 import 'package:vocadb_app/src/features/songs/domain/song.dart';
 
-const kTestSongs = [
+const kFakeSongsList = [
   Song(
     id: 1501,
     name: 'ローリンガール',

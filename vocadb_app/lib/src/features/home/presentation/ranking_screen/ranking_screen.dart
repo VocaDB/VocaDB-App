@@ -39,22 +39,22 @@ class RankingScreen extends StatelessWidget {
             body: TabBarView(
               children: [
                 SongListView(
-                  songs: kTestSongs,
+                  songs: kFakeSongsList,
                   displayOrderNumber: true,
                   onSelect: (song) => {},
                 ),
                 SongListView(
-                  songs: kTestSongs,
+                  songs: kFakeSongsList,
                   displayOrderNumber: true,
                   onSelect: (song) => {},
                 ),
                 SongListView(
-                  songs: kTestSongs,
+                  songs: kFakeSongsList,
                   displayOrderNumber: true,
                   onSelect: (song) => {},
                 ),
                 SongListView(
-                  songs: kTestSongs,
+                  songs: kFakeSongsList,
                   displayOrderNumber: true,
                   onSelect: (song) => {},
                 ),

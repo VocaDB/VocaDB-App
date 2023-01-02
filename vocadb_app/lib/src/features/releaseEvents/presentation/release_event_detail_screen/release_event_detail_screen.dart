@@ -116,7 +116,7 @@ class ReleaseEventDetailScreen extends StatelessWidget {
                   ),
                   const Divider(),
                   const SongsSection(
-                    songs: kTestSongs,
+                    songs: kFakeSongsList,
                   ),
                   const Divider(),
                   AlbumsSection(

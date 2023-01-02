@@ -1,6 +1,6 @@
 import 'package:vocadb_app/src/features/releaseEvents/data/release_event.dart';
 
-final kTestReleaseEvents = [
+final kFakeReleaseEventsList = [
   ReleaseEvent(
     id: 4819,
     name: '鏡音ちゃお!',
