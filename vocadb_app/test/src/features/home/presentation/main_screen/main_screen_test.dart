@@ -1,10 +1,10 @@
 import 'package:flutter_test/flutter_test.dart';
 
-import '../../home_robot.dart';
+import '../../main_robot.dart';
 
 void main() {
   testWidgets('Main screen switch tab correctly', (tester) async {
-    final r = HomeRobot(tester);
+    final r = MainRobot(tester);
     await r.pumpMainScreen();
     await r.expectHomeScreenVisible(true);
     await r.expectRankingScreenVisible(false);

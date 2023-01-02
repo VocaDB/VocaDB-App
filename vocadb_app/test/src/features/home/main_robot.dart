@@ -6,10 +6,10 @@ import 'package:vocadb_app/src/features/home/presentation/main_screen/main_scree
 import 'package:vocadb_app/src/features/home/presentation/menu_screen/menu_screen.dart';
 import 'package:vocadb_app/src/features/home/presentation/ranking_screen/ranking_screen.dart';
 
-class HomeRobot {
+class MainRobot {
   final WidgetTester tester;
 
-  HomeRobot(this.tester);
+  MainRobot(this.tester);
 
   Future<void> pumpMainScreen() async {
     await tester.pumpWidget(

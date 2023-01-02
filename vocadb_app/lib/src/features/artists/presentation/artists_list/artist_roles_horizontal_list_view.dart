@@ -26,7 +26,7 @@ class ArtistRolesHorizontalListView extends StatelessWidget {
         .toList();
 
     return SizedBox(
-      height: 120,
+      height: 140,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: children.length,

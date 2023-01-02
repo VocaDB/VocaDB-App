@@ -3,7 +3,7 @@ import 'package:mocktail/mocktail.dart';
 import 'package:vocadb_app/src/features/authentication/domain/app_user.dart';
 
 import '../../../../mocks.dart';
-import '../../menu_robot.dart';
+import 'menu_robot.dart';
 
 void main() {
   testWidgets('Menu screen display correctly for logged in user',

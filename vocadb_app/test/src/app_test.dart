@@ -1,0 +1,10 @@
+import 'package:flutter_test/flutter_test.dart';
+
+import 'robot.dart';
+
+void main() {
+  testWidgets('app ...', (tester) async {
+    final r = Robot(tester);
+    await r.pumpMyApp();
+  });
+}

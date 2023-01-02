@@ -14,6 +14,9 @@ class AccountInfo extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final style = Theme.of(context).textTheme.subtitle2!;
     final user = ref.watch(authStateChangesProvider).value;
+
+    if (user == null) return Container();
+
     return Column(
       children: [
         gapH16,
@@ -32,7 +35,7 @@ class AccountInfo extends ConsumerWidget {
         ),
         gapH16,
         Text(
-          user!.name,
+          user.name,
           style: Theme.of(context).textTheme.headline6,
         ),
       ],
