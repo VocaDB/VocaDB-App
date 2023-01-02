@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vocadb_app/src/common_widgets/custom_network_image.dart';
+import 'package:vocadb_app/src/features/artists/domain/artist.dart';
 import 'package:vocadb_app/src/features/artists/domain/artist_role.dart';
 
 /// A widget for display artist role information in vertical list

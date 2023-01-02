@@ -1,4 +1,6 @@
 import 'package:vocadb_app/src/features/albums/domain/album.dart';
+import 'package:vocadb_app/src/features/albums/domain/disc.dart';
+import 'package:vocadb_app/src/features/albums/domain/release_date.dart';
 import 'package:vocadb_app/src/features/albums/domain/track.dart';
 import 'package:vocadb_app/src/features/artists/domain/artist.dart';
 import 'package:vocadb_app/src/features/artists/domain/artist_role.dart';
@@ -10,7 +12,6 @@ import 'package:vocadb_app/src/features/weblinks/data/constants/fake_web_links_l
 
 final kFakeAlbumDetailSingleDisc = Album(
   id: 1,
-  imageUrl: 'https://vocadb.net/Album/CoverPicture/1?v=14',
   name: 'synthesis',
   artistString: 'Tripshots feat. 初音ミク',
   discType: 'Album',
@@ -25,7 +26,8 @@ final kFakeAlbumDetailSingleDisc = Album(
         id: 1,
         name: '初音ミク',
         artistType: 'Vocaloid',
-        imageUrl: 'https://vocadb.net/Artist/Picture/1',
+        mainPicture:
+            MainPicture(urlOriginal: 'https://vocadb.net/Artist/Picture/1'),
       ),
     ),
     ArtistRole(
@@ -37,7 +39,8 @@ final kFakeAlbumDetailSingleDisc = Album(
         id: 10,
         name: 'Tripshots',
         artistType: 'Producer',
-        imageUrl: 'https://vocadb.net/Artist/Picture/10',
+        mainPicture:
+            MainPicture(urlOriginal: 'https://vocadb.net/Artist/Picture/10'),
       ),
     ),
     ArtistRole(
@@ -49,19 +52,20 @@ final kFakeAlbumDetailSingleDisc = Album(
         id: 276,
         name: 'KARENT',
         artistType: 'Label',
-        imageUrl: 'https://vocadb.net/Artist/Picture/276',
+        mainPicture:
+            MainPicture(urlOriginal: 'https://vocadb.net/Artist/Picture/276'),
       ),
     ),
   ],
   pvs: [
-    const PV(
+    PV(
       id: 13,
       name: 'Tripshots album - synthesis - [ anger / Nebula / Extended ] ',
       service: 'Youtube',
       pvType: 'Other',
       url: 'https://youtu.be/yhcvQhj5PVc',
     ),
-    const PV(
+    PV(
       id: 110,
       name: 'Tripshots - synthesis -',
       service: 'NicoNicoDouga',
@@ -106,7 +110,8 @@ final kFakeAlbumDetailSingleDisc = Album(
 
 final kFakeAlbumDetailMultiDisc = Album(
   id: 30232,
-  imageUrl: 'https://vocadb.net/Album/CoverPicture/30232',
+  mainPicture:
+      MainPicture(urlOriginal: 'https://vocadb.net/Album/CoverPicture/30232'),
   name: 'HATSUNE MIKU Digital Stars 2021 Compilation',
   artistString: 'Various artists',
   discType: 'Compilation',
@@ -132,7 +137,6 @@ final kFakeAlbumDetailMultiDisc = Album(
         id: 1,
         name: 'anger [Extend-RMX]',
         artistString: 'Tripshots feat. 初音ミク',
-        imageUrl: 'https://vocadb.net/Artist/Picture/1',
       ),
       trackNumber: 1,
     ),

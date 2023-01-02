@@ -41,7 +41,7 @@ class SongDetailScreen extends StatelessWidget {
                   const SongDetailButtonBar(),
                   SongInfo(song: song),
                   TagUsageGroupView(
-                    tagUsages: song.tagUsages!,
+                    tagUsages: song.tags,
                     onSelectTag: (tag) {
                       GoRouter.of(context).pushNamed(AppRoute.tagDetail.name,
                           params: {'id': tag.id.toString()});
@@ -53,16 +53,16 @@ class SongDetailScreen extends StatelessWidget {
                       GoRouter.of(context).pushNamed(AppRoute.artistDetail.name,
                           params: {'id': artist.id.toString()});
                     },
-                    artistRoles: song.artistRoles!,
+                    artistRoles: song.artists,
                   ),
                   const Divider(),
                   PVGroupList(
-                      pvs: song.pvs!,
+                      pvs: song.pvs,
                       searchQuery: song.pvSearchQuery,
                       onTap: (pv) {}),
                   const Divider(),
                   AlbumsSection(
-                    albums: song.albums!,
+                    albums: song.albums,
                   ),
                   const Divider(),
                   const SongsSection(
@@ -79,7 +79,7 @@ class SongDetailScreen extends StatelessWidget {
                     releaseEvents: kFakeReleaseEventsList,
                   ),
                   const Divider(),
-                  WebLinkGroupList(webLinks: song.webLinks!)
+                  WebLinkGroupList(webLinks: song.webLinks)
                 ],
               ),
             ),

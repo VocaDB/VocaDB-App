@@ -1,86 +1,28 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:convert';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-class WebLink {
-  final int id;
-  final String description;
-  final String category;
-  final String url;
+part 'web_link.freezed.dart';
 
-  const WebLink({
-    required this.id,
-    required this.description,
-    required this.category,
-    required this.url,
-  });
+part 'web_link.g.dart';
 
-  WebLink copyWith({
-    int? id,
+@freezed
+class WebLink with _$WebLink {
+  const factory WebLink({
+    required int id,
     String? description,
     String? category,
     String? url,
-  }) {
-    return WebLink(
-      id: id ?? this.id,
-      description: description ?? this.description,
-      category: category ?? this.category,
-      url: url ?? this.url,
-    );
-  }
+  }) = _WebLink;
 
-  Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'id': id,
-      'description': description,
-      'category': category,
-      'url': url,
-    };
-  }
-
-  factory WebLink.fromMap(Map<String, dynamic> map) {
-    return WebLink(
-      id: map['id'] as int,
-      description: map['description'] as String,
-      category: map['category'] as String,
-      url: map['url'] as String,
-    );
-  }
-
-  String toJson() => json.encode(toMap());
-
-  factory WebLink.fromJson(String source) =>
-      WebLink.fromMap(json.decode(source) as Map<String, dynamic>);
-
-  @override
-  String toString() {
-    return 'WebLink(id: $id, description: $description, category: $category, url: $url)';
-  }
-
-  @override
-  bool operator ==(covariant WebLink other) {
-    if (identical(this, other)) return true;
-
-    return other.id == id &&
-        other.description == description &&
-        other.category == category &&
-        other.url == url;
-  }
-
-  @override
-  int get hashCode {
-    return id.hashCode ^
-        description.hashCode ^
-        category.hashCode ^
-        url.hashCode;
-  }
+  factory WebLink.fromJson(Map<String, Object?> json) =>
+      _$WebLinkFromJson(json);
 }
 
 extension WebLinkList on List<WebLink> {
   List<WebLink> get officialLinks =>
       where((link) => link.category != 'Reference').toList()
-        ..sort((a, b) => a.description.compareTo(b.description));
+        ..sort((a, b) => a.description!.compareTo(b.description!));
 
   List<WebLink> get unofficialLinks =>
       where((link) => link.category == 'Reference').toList()
-        ..sort((a, b) => a.description.compareTo(b.description));
+        ..sort((a, b) => a.description!.compareTo(b.description!));
 }

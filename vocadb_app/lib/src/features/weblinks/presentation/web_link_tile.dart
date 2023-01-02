@@ -12,7 +12,7 @@ class WebLinkTile extends StatelessWidget {
   const WebLinkTile({super.key, required this.webLink, this.iconSize = 32});
 
   Widget buildLeading() {
-    IconSite ic = IconSiteList.findIconAsset(webLink.description);
+    IconSite ic = IconSiteList.findIconAsset(webLink.description ?? '<None>');
 
     return (ic == null) ? const Icon(Icons.web) : buildImageIcon(ic.assetName);
   }
@@ -31,8 +31,8 @@ class WebLinkTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SiteTile(
-      title: webLink.description,
-      url: webLink.url,
+      title: webLink.description ?? '<None>',
+      url: webLink.url ?? '<None>',
     );
   }
 }

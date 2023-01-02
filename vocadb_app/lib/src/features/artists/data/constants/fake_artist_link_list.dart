@@ -1,4 +1,3 @@
-import 'package:vocadb_app/src/constants/config.dart';
 import 'package:vocadb_app/src/features/artists/domain/artist.dart';
 import 'package:vocadb_app/src/features/artists/domain/artist_link.dart';
 
@@ -9,7 +8,6 @@ final kFakeArtistLinkList = [
       id: 25,
       name: 'Crypton Future Media',
       artistType: 'Label',
-      imageUrl: kPlaceholderImageUrl,
     ),
   ),
   ArtistLink(
@@ -18,7 +16,6 @@ final kFakeArtistLinkList = [
       id: 9213,
       name: 'KEI',
       artistType: 'Label',
-      imageUrl: kPlaceholderImageUrl,
     ),
   ),
   ArtistLink(
@@ -27,7 +24,6 @@ final kFakeArtistLinkList = [
       id: 49761,
       name: '藤田咲',
       artistType: 'OtherVocalist',
-      imageUrl: kPlaceholderImageUrl,
     ),
   ),
 ];

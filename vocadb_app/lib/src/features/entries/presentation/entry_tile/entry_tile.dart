@@ -23,7 +23,7 @@ class EntryTile extends StatelessWidget {
         return ReleaseEventTile(
             releaseEvent: entry.toReleaseEvent(), onTap: () {});
       default:
-        return ListTile(title: Text(entry.name));
+        return ListTile(title: Text(entry.name ?? '<None>'));
     }
   }
 }

@@ -10,7 +10,6 @@ import 'package:vocadb_app/src/features/weblinks/data/constants/fake_web_links_l
 final kFakeArtistDetail = Artist(
   id: 1,
   name: 'Hatsune Miku',
-  imageUrl: 'https://vocadb.net/Artist/Picture/1?v=32',
   artistType: 'Vocaloid',
   additionalNames: 'Hatsune Miku, 初音未来, Chūyīn Wèilái',
   description:

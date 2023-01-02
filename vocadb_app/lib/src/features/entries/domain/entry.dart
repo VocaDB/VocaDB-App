@@ -10,6 +10,10 @@ import 'package:vocadb_app/src/features/releaseEvents/data/domain/release_event.
 import 'package:vocadb_app/src/features/songs/domain/song.dart';
 import 'package:vocadb_app/src/features/tags/domain/tag_usage.dart';
 import 'package:vocadb_app/src/features/weblinks/domain/web_link.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+part 'entry.freezed.dart';
+part 'entry.g.dart';
 
 enum EntryType {
   Undefined,
@@ -21,42 +25,11 @@ enum EntryType {
   ReleaseEventSeries
 }
 
-class Entry {
-  int id;
-  String entryType;
-  String? additionalNames;
-  String? defaultName;
-  String name;
-  String? artistString;
-  String? artistType;
-  String? songType;
-  String? discType;
-  String? eventCategory;
-  String? activityDate;
-  MainPicture? mainPicture;
-  List<TagUsage>? tags;
-  List<WebLink>? webLinks;
-
-  Entry({
-    required this.id,
-    required this.entryType,
-    this.additionalNames,
-    this.defaultName,
-    required this.name,
-    this.artistString,
-    this.artistType,
-    this.songType,
-    this.discType,
-    this.eventCategory,
-    this.activityDate,
-    this.mainPicture,
-    this.tags,
-    this.webLinks,
-  });
-
-  Entry copyWith({
-    int? id,
-    String? entryType,
+@freezed
+class Entry with _$Entry {
+  factory Entry({
+    required int id,
+    required String entryType,
     String? additionalNames,
     String? defaultName,
     String? name,
@@ -67,33 +40,18 @@ class Entry {
     String? eventCategory,
     String? activityDate,
     MainPicture? mainPicture,
-    List<TagUsage>? tags,
-    List<WebLink>? webLinks,
-  }) {
-    return Entry(
-      id: id ?? this.id,
-      entryType: entryType ?? this.entryType,
-      additionalNames: additionalNames ?? this.additionalNames,
-      defaultName: defaultName ?? this.defaultName,
-      name: name ?? this.name,
-      artistString: artistString ?? this.artistString,
-      artistType: artistType ?? this.artistType,
-      songType: songType ?? this.songType,
-      discType: discType ?? this.discType,
-      eventCategory: eventCategory ?? this.eventCategory,
-      activityDate: activityDate ?? this.activityDate,
-      mainPicture: mainPicture ?? this.mainPicture,
-      tags: tags ?? this.tags,
-      webLinks: webLinks ?? this.webLinks,
-    );
-  }
+    @Default([]) List<TagUsage> tags,
+    @Default([]) List<WebLink> webLinks,
+  }) = _Entry;
+
+  factory Entry.fromJson(Map<String, dynamic> json) => _$EntryFromJson(json);
 }
 
 extension EntryMapper on Entry {
   Song toSong() {
     return Song(
       id: id,
-      imageUrl: mainPicture?.urlThumb ?? kPlaceholderImageUrl,
+      mainPicture: mainPicture,
       name: name,
       artistString: artistString ?? 'None',
       songType: songType ?? 'None',
@@ -104,7 +62,7 @@ extension EntryMapper on Entry {
     return Artist(
       id: id,
       name: name,
-      imageUrl: mainPicture?.urlThumb ?? kPlaceholderImageUrl,
+      mainPicture: mainPicture,
       artistType: artistType ?? 'None',
     );
   }
@@ -113,7 +71,7 @@ extension EntryMapper on Entry {
     return Album(
       id: id,
       name: name,
-      imageUrl: mainPicture?.urlThumb ?? kPlaceholderImageUrl,
+      mainPicture: mainPicture,
       discType: discType ?? 'None',
       artistString: artistString ?? 'None',
     );

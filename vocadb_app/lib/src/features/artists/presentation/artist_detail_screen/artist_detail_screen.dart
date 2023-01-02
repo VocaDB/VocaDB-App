@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:vocadb_app/src/common_widgets/custom_network_image.dart';
 import 'package:vocadb_app/src/constants/app_sizes.dart';
 import 'package:vocadb_app/src/features/artists/data/constants/fake_artist_detail.dart';
+import 'package:vocadb_app/src/features/artists/domain/artist.dart';
 import 'package:vocadb_app/src/features/artists/presentation/artist_detail_screen/artist_additional_info.dart';
 import 'package:vocadb_app/src/features/artists/presentation/artist_detail_screen/artist_detail_button_bar.dart';
 import 'package:vocadb_app/src/features/artists/presentation/artist_detail_screen/artist_relations_view.dart';
@@ -119,7 +120,7 @@ class ArtistDetailScreen extends StatelessWidget {
                   children: [
                     gapH8,
                     TagUsageGroupView(
-                      tagUsages: artist.tags!,
+                      tagUsages: artist.tags,
                     ),
                     gapH8,
                   ],
@@ -133,7 +134,7 @@ class ArtistDetailScreen extends StatelessWidget {
                 ),
                 ArtistLinkListView(artistLinks: artist.artistLinks ?? []),
                 const Divider(),
-                WebLinkGroupList(webLinks: artist.webLinks!),
+                WebLinkGroupList(webLinks: artist.webLinks),
               ],
             ),
           ),

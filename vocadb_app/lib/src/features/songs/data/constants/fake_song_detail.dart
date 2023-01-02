@@ -1,6 +1,7 @@
 import 'package:vocadb_app/src/features/albums/domain/album.dart';
 import 'package:vocadb_app/src/features/artists/domain/artist.dart';
 import 'package:vocadb_app/src/features/artists/domain/artist_role.dart';
+import 'package:vocadb_app/src/features/entries/domain/main_picture.dart';
 import 'package:vocadb_app/src/features/pvs/domain/pv.dart';
 import 'package:vocadb_app/src/features/songs/domain/lyric.dart';
 import 'package:vocadb_app/src/features/songs/domain/song.dart';
@@ -16,7 +17,7 @@ final kFakeSongDetail = Song(
   songType: 'Original',
   pvServices: 'NicoNicoDouga, Youtube, SoundCloud',
   additionalNames: "Rolling Girl, Rollin' Girl, 翻滚少女",
-  tagUsages: [
+  tags: [
     TagUsage(
       count: 4,
       tag: Tag(
@@ -42,7 +43,7 @@ final kFakeSongDetail = Song(
       ),
     ),
   ],
-  artistRoles: [
+  artists: [
     ArtistRole(
       id: 661,
       name: 'wowaka',
@@ -50,8 +51,9 @@ final kFakeSongDetail = Song(
       artist: Artist(
         id: 53,
         name: 'wowaka',
-        imageUrl: 'https://vocadb.net/Artist/Picture/53',
         artistType: 'Producer',
+        mainPicture:
+            MainPicture(urlOriginal: 'https://vocadb.net/Artist/Picture/53'),
       ),
     ),
     ArtistRole(
@@ -61,36 +63,40 @@ final kFakeSongDetail = Song(
       artist: Artist(
         id: 1,
         name: '初音ミク',
-        imageUrl: 'https://vocadb.net/Artist/Picture/1',
         artistType: 'Vocaloid',
+        mainPicture:
+            MainPicture(urlOriginal: 'https://vocadb.net/Artist/Picture/1'),
       ),
     ),
   ],
   albums: [
     Album(
       id: 445,
-      imageUrl: 'https://vocadb.net/Album/CoverPicture/445',
       name: 'EXIT TUNES PRESENTS Supernova 2',
       artistString: 'Various artists',
       discType: 'Compilation',
+      mainPicture:
+          MainPicture(urlOriginal: 'https://vocadb.net/Album/CoverPicture/445'),
     ),
     Album(
       id: 414,
-      imageUrl: 'https://vocadb.net/Album/CoverPicture/414',
       name: 'EXIT TUNES PRESENTS Vocalogenesis feat. 初音ミク',
       artistString: 'Various artists',
       discType: 'Compilation',
+      mainPicture:
+          MainPicture(urlOriginal: 'https://vocadb.net/Album/CoverPicture/414'),
     ),
     Album(
       id: 661,
-      imageUrl: 'https://vocadb.net/Album/CoverPicture/661',
       name: 'SEVEN GIRLS\' DISCORD',
       artistString: 'wowaka, 非日常レコーズ feat. various',
       discType: 'EP',
+      mainPicture:
+          MainPicture(urlOriginal: 'https://vocadb.net/Album/CoverPicture/661'),
     ),
   ],
   lyrics: [
-    const Lyric(
+    Lyric(
       id: 97,
       cultureCode: 'ja',
       source: 'MikuWiki',
@@ -99,7 +105,7 @@ final kFakeSongDetail = Song(
       value:
           'ロンリーガールはいつまでも　届かない夢見て \r\n騒ぐ頭の中を掻き回して、掻き回して。\r\n\r\n「問題ない。」と呟いて、言葉は失われた？ \r\nもう失敗、もう失敗。 \r\n間違い探しに終われば、また、回るの！\r\n\r\nもう一回、もう一回。 \r\n「私は今日も転がります。」と、 \r\n少女は言う　少女は言う \r\n言葉に意味を奏でながら！\r\n\r\n「もう良いかい？」 \r\n「まだですよ、まだまだ先は見えないので。息を 止\r\nと\r\nめるの、今。」\r\n\r\nローリンガールの成れの果て　届かない、向こうの色 \r\n重なる声と声を混ぜあわせて、混ぜあわせて。\r\n\r\n「問題ない。」と呟いた言葉は失われた。 \r\nどうなったって良いんだってさ、 \r\n間違いだって起こしちゃおうと誘う、坂道。\r\n\r\nもう一回、もう一回。 \r\n私をどうか転がしてと \r\n少女は言う　少女は言う \r\n無口に意味を重ねながら！\r\n\r\n「もう良いかい？」 \r\n「もう少し、もうすぐ何か見えるだろうと。息を 止\r\nと\r\nめるの、今。」\r\n\r\nもう一回、もう一回。 \r\n「私は今日も転がります。」と、 \r\n少女は言う　少女は言う \r\n言葉に笑みを奏でながら！\r\n\r\n「もう良いかい？もう良いよ。そろそろ君も疲れたろう、ね。」\r\n\r\n息を 止\r\nや\r\nめるの、今。',
     ),
-    const Lyric(
+    Lyric(
       id: 98,
       cultureCode: '',
       source: 'yorokondesuru',
@@ -108,7 +114,7 @@ final kFakeSongDetail = Song(
       value:
           'RONRII GAARU wa itsu made mo todoka nai yume mite\r\nsawagu atama no naka o kaki mawashite, kaki mawashite\r\n\r\n"mondai nai" to tsubuyaite, kotoba wa ushinawareta?\r\n\r\nmou shippai, mou shippai\r\nmachigai sagashi ni owareba, mata, mawaru no!\r\n\r\nmou ikai, mou ikai\r\n"watashi wa kyou mo korogari masu" to\r\nshoujo wa iu shoujo wa iu\r\nkotoba ni imi o kanade nagara!\r\n\r\n"mou ii kai?"\r\n"mada desu yo, madamada saki wa mie nai node. iki o tomeru no, ima"\r\n\r\nROORIN GAARU no narenohate todoka nai, mukou no iro\r\nkasanaru koe to koe o maze awasete, maze awasete\r\n\r\n"mondai nai" to tsubuyai ta kotoba wa ushinawareta\r\ndounattatte yoi n datte sa\r\nmachigai datte okoshi chaou to sasou, sakamichi\r\n\r\nmou ikai, mou ikai \r\nwatashi o douka korogashite to\r\nshoujo wa iu shoujo wa iu\r\nmukuchi ni imi o kasane nagara!\r\n\r\n"mou ii kai?"\r\n"mousukoshi, mousugu nani ka mieru daro u to. iki o tomeru no, ima"\r\n\r\nmou ikai, mou ikai \r\n"watashi wa kyou mo korogari masu" to\r\nshoujo wa iu shoujo wa iu\r\nkotoba ni imi o kanade nagara!\r\n\r\n"mou ii kai? mou ii yo. sorosoro kimi mo tsukare ta rou, ne"\r\niki o yameru no, ima',
     ),
-    const Lyric(
+    Lyric(
       id: 99,
       cultureCode: 'en',
       source: 'Vocaloid Wiki',
@@ -120,14 +126,14 @@ final kFakeSongDetail = Song(
     ),
   ],
   pvs: [
-    const PV(
+    PV(
       id: 356640,
       name: '初音ミク　オリジナル曲　「ローリンガール」',
       service: 'NicoNicoDouga',
       pvType: 'Original',
       url: 'http://www.nicovideo.jp/watch/sm9714351',
     ),
-    const PV(
+    PV(
       id: 356641,
       name:
           'wowaka 『ローリンガール』feat. 初音ミク / wowaka - Rollin Girl (Official Video) ft. Hatsune Miku',
@@ -135,7 +141,7 @@ final kFakeSongDetail = Song(
       pvType: 'Original',
       url: 'https://youtu.be/vnw8zURAxkU',
     ),
-    const PV(
+    PV(
       id: 356642,
       name: 'Hatsune miku - rolling girl',
       service: 'SoundCloud',

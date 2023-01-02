@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:vocadb_app/src/common_widgets/custom_network_image.dart';
 import 'package:vocadb_app/src/constants/app_sizes.dart';
 import 'package:vocadb_app/src/features/albums/data/constants/fake_album_detail.dart';
+import 'package:vocadb_app/src/features/albums/domain/album.dart';
 import 'package:vocadb_app/src/features/albums/presentation/album_detail_screen/album_additional_info.dart';
 import 'package:vocadb_app/src/features/albums/presentation/album_detail_screen/album_detail_button_bar.dart';
 import 'package:vocadb_app/src/features/albums/presentation/album_detail_screen/album_rating_info.dart';

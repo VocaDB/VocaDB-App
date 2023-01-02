@@ -45,7 +45,7 @@ class SongTile extends StatelessWidget {
               padding: const EdgeInsets.all(Sizes.p8),
               child: SizedBox(
                 width: thumbnailWidth,
-                child: (song.imageUrl!.isNotEmpty)
+                child: (song.imageUrl != null)
                     ? CustomNetworkImage(
                         song.imageUrl!,
                         fit: BoxFit.cover,
@@ -71,7 +71,7 @@ class SongTile extends StatelessWidget {
                         SongTypeIcon(
                           songType: song.songType!,
                         ),
-                        (song.pvServices!.isNotEmpty)
+                        (song.pvServices != null)
                             ? const Icon(Icons.local_movies)
                             : Container()
                       ],

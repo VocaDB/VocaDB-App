@@ -1,104 +1,22 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:convert';
-
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:vocadb_app/src/features/artists/domain/artist.dart';
 
-class ArtistRole {
-  const ArtistRole({
-    this.id,
-    this.name,
-    this.categories,
-    this.effectiveRoles = 'Default',
-    this.roles = 'Default',
-    required this.artist,
-  });
+part 'artist_role.freezed.dart';
+part 'artist_role.g.dart';
 
-  final int? id;
-
-  final String? name;
-
-  final String? categories;
-
-  final String? effectiveRoles;
-
-  final String? roles;
-
-  final Artist artist;
-
-  ArtistRole copyWith({
+@freezed
+class ArtistRole with _$ArtistRole {
+  factory ArtistRole({
     int? id,
     String? name,
     String? categories,
-    String? effectiveRoles,
-    String? roles,
-    Artist? artist,
-  }) {
-    return ArtistRole(
-      id: id ?? this.id,
-      name: name ?? this.name,
-      categories: categories ?? this.categories,
-      effectiveRoles: effectiveRoles ?? this.effectiveRoles,
-      roles: roles ?? this.roles,
-      artist: artist ?? this.artist,
-    );
-  }
+    @Default('Default') String effectiveRoles,
+    @Default('Default') String roles,
+    required Artist artist,
+  }) = _ArtistRole;
 
-  Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'id': id,
-      'name': name,
-      'categories': categories,
-      'effectiveRoles': effectiveRoles,
-      'roles': roles,
-      'artist': artist.toMap(),
-    };
-  }
-
-  factory ArtistRole.fromMap(Map<String, dynamic> map) {
-    return ArtistRole(
-      id: map['id'] != null ? map['id'] as int : null,
-      name: map['name'] != null ? map['name'] as String : null,
-      categories:
-          map['categories'] != null ? map['categories'] as String : null,
-      effectiveRoles: map['effectiveRoles'] != null
-          ? map['effectiveRoles'] as String
-          : null,
-      roles: map['roles'] != null ? map['roles'] as String : null,
-      artist: Artist.fromMap(map['artist'] as Map<String, dynamic>),
-    );
-  }
-
-  String toJson() => json.encode(toMap());
-
-  factory ArtistRole.fromJson(String source) =>
-      ArtistRole.fromMap(json.decode(source) as Map<String, dynamic>);
-
-  @override
-  String toString() {
-    return 'ArtistRole(id: $id, name: $name, categories: $categories, effectiveRoles: $effectiveRoles, roles: $roles, artist: $artist)';
-  }
-
-  @override
-  bool operator ==(covariant ArtistRole other) {
-    if (identical(this, other)) return true;
-
-    return other.id == id &&
-        other.name == name &&
-        other.categories == categories &&
-        other.effectiveRoles == effectiveRoles &&
-        other.roles == roles &&
-        other.artist == artist;
-  }
-
-  @override
-  int get hashCode {
-    return id.hashCode ^
-        name.hashCode ^
-        categories.hashCode ^
-        effectiveRoles.hashCode ^
-        roles.hashCode ^
-        artist.hashCode;
-  }
+  factory ArtistRole.fromJson(Map<String, dynamic> json) =>
+      _$ArtistRoleFromJson(json);
 }
 
 extension ArtistRoleExtended on ArtistRole {

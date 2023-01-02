@@ -1,16 +1,36 @@
-# vocadb_app
+# VocaDB App
+VocaDB mobile version with [Flutter framework](https://flutter.dev/).
 
-A new Flutter project.
+## Download
+### VocaDB
+- [Playstore for Android](https://play.google.com/store/apps/details?id=com.coolappz.Vocadb)
+- [Playstore (Alpha/Beta)](https://play.google.com/apps/testing/com.coolappz.Vocadb)
+- [App Store for iOS](https://itunes.apple.com/us/app/vocadb/id907510673)
 
-## Getting Started
+### TouhouDB
+- [Playstore for Android](https://play.google.com/store/apps/details?id=com.touhoudb.app)
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+## Getting started for development
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+### Prerequisite
+- [Flutter](https://flutter.dev/) (Currently this project use version 3.3)
+- Run `flutter doctor`
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### Install package dependencies
+```
+$ flutter pub get
+```
+
+### Run unit tests
+```
+$ flutter test
+```
+
+### With coverage report
+```
+$ flutter test --coverage
+```
+
+## Build
+WIP
