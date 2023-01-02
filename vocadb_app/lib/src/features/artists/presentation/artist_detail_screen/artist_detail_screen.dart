@@ -5,6 +5,7 @@ import 'package:vocadb_app/src/features/artists/data/constants/fake_artist_detai
 import 'package:vocadb_app/src/features/artists/presentation/artist_detail_screen/artist_additional_info.dart';
 import 'package:vocadb_app/src/features/artists/presentation/artist_detail_screen/artist_detail_button_bar.dart';
 import 'package:vocadb_app/src/features/artists/presentation/artist_detail_screen/artist_relations_view.dart';
+import 'package:vocadb_app/src/features/artists/presentation/artists_list/artist_link_list_view.dart';
 import 'package:vocadb_app/src/features/tags/presentation/tag_widgets/tag_usage_group_view.dart';
 import 'package:vocadb_app/src/features/weblinks/presentation/web_link_group_view.dart';
 
@@ -61,6 +62,12 @@ class ArtistDetailScreen extends StatelessWidget {
           SliverList(
             delegate: SliverChildListDelegate(
               [
+                gapH8,
+                Center(
+                    child: Text(
+                  artist.artistType ?? '<None>',
+                  style: Theme.of(context).textTheme.titleLarge,
+                )),
                 InkWell(
                   onTap: () {
                     showModalBottomSheet(
@@ -124,6 +131,7 @@ class ArtistDetailScreen extends StatelessWidget {
                 ArtistAdditionalInfo(
                   artist: artist,
                 ),
+                ArtistLinkListView(artistLinks: artist.artistLinks ?? []),
                 const Divider(),
                 WebLinkGroupList(webLinks: artist.webLinks!),
               ],
