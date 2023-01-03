@@ -30,7 +30,7 @@ mixin _$Entry {
   String? get songType => throw _privateConstructorUsedError;
   String? get discType => throw _privateConstructorUsedError;
   String? get eventCategory => throw _privateConstructorUsedError;
-  String? get activityDate => throw _privateConstructorUsedError;
+  DateTime? get activityDate => throw _privateConstructorUsedError;
   MainPicture? get mainPicture => throw _privateConstructorUsedError;
   List<TagUsage> get tags => throw _privateConstructorUsedError;
   List<WebLink> get webLinks => throw _privateConstructorUsedError;
@@ -56,7 +56,7 @@ abstract class $EntryCopyWith<$Res> {
       String? songType,
       String? discType,
       String? eventCategory,
-      String? activityDate,
+      DateTime? activityDate,
       MainPicture? mainPicture,
       List<TagUsage> tags,
       List<WebLink> webLinks});
@@ -136,7 +136,7 @@ class _$EntryCopyWithImpl<$Res, $Val extends Entry>
       activityDate: freezed == activityDate
           ? _value.activityDate
           : activityDate // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as DateTime?,
       mainPicture: freezed == mainPicture
           ? _value.mainPicture
           : mainPicture // ignore: cast_nullable_to_non_nullable
@@ -182,7 +182,7 @@ abstract class _$$_EntryCopyWith<$Res> implements $EntryCopyWith<$Res> {
       String? songType,
       String? discType,
       String? eventCategory,
-      String? activityDate,
+      DateTime? activityDate,
       MainPicture? mainPicture,
       List<TagUsage> tags,
       List<WebLink> webLinks});
@@ -259,7 +259,7 @@ class __$$_EntryCopyWithImpl<$Res> extends _$EntryCopyWithImpl<$Res, _$_Entry>
       activityDate: freezed == activityDate
           ? _value.activityDate
           : activityDate // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as DateTime?,
       mainPicture: freezed == mainPicture
           ? _value.mainPicture
           : mainPicture // ignore: cast_nullable_to_non_nullable
@@ -321,7 +321,7 @@ class _$_Entry implements _Entry {
   @override
   final String? eventCategory;
   @override
-  final String? activityDate;
+  final DateTime? activityDate;
   @override
   final MainPicture? mainPicture;
   final List<TagUsage> _tags;
@@ -421,7 +421,7 @@ abstract class _Entry implements Entry {
       final String? songType,
       final String? discType,
       final String? eventCategory,
-      final String? activityDate,
+      final DateTime? activityDate,
       final MainPicture? mainPicture,
       final List<TagUsage> tags,
       final List<WebLink> webLinks}) = _$_Entry;
@@ -449,7 +449,7 @@ abstract class _Entry implements Entry {
   @override
   String? get eventCategory;
   @override
-  String? get activityDate;
+  DateTime? get activityDate;
   @override
   MainPicture? get mainPicture;
   @override

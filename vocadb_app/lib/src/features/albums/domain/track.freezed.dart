@@ -21,7 +21,7 @@ Track _$TrackFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Track {
   int get id => throw _privateConstructorUsedError;
-  String? get name => throw _privateConstructorUsedError;
+  String get name => throw _privateConstructorUsedError;
   int get discNumber => throw _privateConstructorUsedError;
   int get trackNumber => throw _privateConstructorUsedError;
   Song? get song => throw _privateConstructorUsedError;
@@ -36,8 +36,7 @@ abstract class $TrackCopyWith<$Res> {
   factory $TrackCopyWith(Track value, $Res Function(Track) then) =
       _$TrackCopyWithImpl<$Res, Track>;
   @useResult
-  $Res call(
-      {int id, String? name, int discNumber, int trackNumber, Song? song});
+  $Res call({int id, String name, int discNumber, int trackNumber, Song? song});
 
   $SongCopyWith<$Res>? get song;
 }
@@ -56,7 +55,7 @@ class _$TrackCopyWithImpl<$Res, $Val extends Track>
   @override
   $Res call({
     Object? id = null,
-    Object? name = freezed,
+    Object? name = null,
     Object? discNumber = null,
     Object? trackNumber = null,
     Object? song = freezed,
@@ -66,10 +65,10 @@ class _$TrackCopyWithImpl<$Res, $Val extends Track>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
-      name: freezed == name
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       discNumber: null == discNumber
           ? _value.discNumber
           : discNumber // ignore: cast_nullable_to_non_nullable
@@ -104,8 +103,7 @@ abstract class _$$_TrackCopyWith<$Res> implements $TrackCopyWith<$Res> {
       __$$_TrackCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {int id, String? name, int discNumber, int trackNumber, Song? song});
+  $Res call({int id, String name, int discNumber, int trackNumber, Song? song});
 
   @override
   $SongCopyWith<$Res>? get song;
@@ -121,7 +119,7 @@ class __$$_TrackCopyWithImpl<$Res> extends _$TrackCopyWithImpl<$Res, _$_Track>
   @override
   $Res call({
     Object? id = null,
-    Object? name = freezed,
+    Object? name = null,
     Object? discNumber = null,
     Object? trackNumber = null,
     Object? song = freezed,
@@ -131,10 +129,10 @@ class __$$_TrackCopyWithImpl<$Res> extends _$TrackCopyWithImpl<$Res, _$_Track>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
-      name: freezed == name
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       discNumber: null == discNumber
           ? _value.discNumber
           : discNumber // ignore: cast_nullable_to_non_nullable
@@ -168,7 +166,7 @@ class _$_Track implements _Track {
   final int id;
   @override
   @JsonKey()
-  final String? name;
+  final String name;
   @override
   @JsonKey()
   final int discNumber;
@@ -219,7 +217,7 @@ class _$_Track implements _Track {
 abstract class _Track implements Track {
   factory _Track(
       {required final int id,
-      final String? name,
+      final String name,
       final int discNumber,
       final int trackNumber,
       final Song? song}) = _$_Track;
@@ -229,7 +227,7 @@ abstract class _Track implements Track {
   @override
   int get id;
   @override
-  String? get name;
+  String get name;
   @override
   int get discNumber;
   @override

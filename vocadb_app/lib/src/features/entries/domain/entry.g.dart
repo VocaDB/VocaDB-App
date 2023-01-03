@@ -17,7 +17,9 @@ _$_Entry _$$_EntryFromJson(Map<String, dynamic> json) => _$_Entry(
       songType: json['songType'] as String?,
       discType: json['discType'] as String?,
       eventCategory: json['eventCategory'] as String?,
-      activityDate: json['activityDate'] as String?,
+      activityDate: json['activityDate'] == null
+          ? null
+          : DateTime.parse(json['activityDate'] as String),
       mainPicture: json['mainPicture'] == null
           ? null
           : MainPicture.fromJson(json['mainPicture'] as Map<String, dynamic>),
@@ -42,7 +44,7 @@ Map<String, dynamic> _$$_EntryToJson(_$_Entry instance) => <String, dynamic>{
       'songType': instance.songType,
       'discType': instance.discType,
       'eventCategory': instance.eventCategory,
-      'activityDate': instance.activityDate,
+      'activityDate': instance.activityDate?.toIso8601String(),
       'mainPicture': instance.mainPicture,
       'tags': instance.tags,
       'webLinks': instance.webLinks,

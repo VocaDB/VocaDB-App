@@ -38,7 +38,7 @@ class Entry with _$Entry {
     String? songType,
     String? discType,
     String? eventCategory,
-    String? activityDate,
+    DateTime? activityDate,
     MainPicture? mainPicture,
     @Default([]) List<TagUsage> tags,
     @Default([]) List<WebLink> webLinks,
