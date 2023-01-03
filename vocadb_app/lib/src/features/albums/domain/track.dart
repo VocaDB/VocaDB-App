@@ -10,12 +10,29 @@ part 'track.g.dart';
 class Track with _$Track {
   factory Track({
     required int id,
-    required int discNumber,
-    required Song song,
-    required int trackNumber,
+    @Default('') String name,
+    @Default(0) int discNumber,
+    @Default(0) int trackNumber,
+    Song? song,
   }) = _Track;
 
   factory Track.fromJson(Map<String, dynamic> json) => _$TrackFromJson(json);
+}
+
+extension TrackExtended on Track {
+  String? get trackName {
+    if (song == null) {
+      return name;
+    }
+    return song!.name;
+  }
+
+  String? get trackArtistString {
+    if (song == null) {
+      return '';
+    }
+    return song!.artistString;
+  }
 }
 
 extension TracksList on List<Track> {

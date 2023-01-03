@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:vocadb_app/src/common_widgets/custom_network_image.dart';
-import 'package:vocadb_app/src/features/artists/domain/artist.dart';
 import 'package:vocadb_app/src/features/artists/domain/artist_role.dart';
 
 /// A widget for display artist role information in vertical list
@@ -26,12 +25,12 @@ class ArtistRoleTile extends StatelessWidget {
             child: Container(
           color: Colors.white,
           child: CustomNetworkImage(
-            artistRole.artist.imageUrl!,
+            artistRole.imageUrl,
           ),
         )),
       ),
-      title: Text(artistRole.artist.name!, overflow: TextOverflow.ellipsis),
-      subtitle: Text(artistRole.artist.artistType!),
+      title: Text(artistRole.artistName!, overflow: TextOverflow.ellipsis),
+      subtitle: Text(artistRole.artistType!),
     );
   }
 }

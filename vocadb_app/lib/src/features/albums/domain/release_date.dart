@@ -6,10 +6,10 @@ part 'release_date.g.dart';
 @freezed
 class ReleaseDate with _$ReleaseDate {
   factory ReleaseDate({
-    required int day,
-    required String formatted,
-    required int month,
-    required int year,
+    @Default(0) int day,
+    @Default('') String formatted,
+    @Default(0) int month,
+    @Default(0) int year,
   }) = _ReleaseDate;
 
   factory ReleaseDate.fromJson(Map<String, dynamic> json) =>

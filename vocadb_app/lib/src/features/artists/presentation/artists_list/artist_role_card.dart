@@ -23,7 +23,7 @@ class ArtistRoleCard extends StatelessWidget {
             child: Container(
               color: Colors.white,
               child: CustomNetworkImage(
-                artistRole.artist.imageUrl!,
+                artistRole.imageUrl,
                 width: 72,
                 height: 72,
                 fit: BoxFit.contain,
@@ -31,7 +31,7 @@ class ArtistRoleCard extends StatelessWidget {
             ),
           ),
           gapH8,
-          Text(artistRole.artist.name ?? '<None>'),
+          Text(artistRole.artistName ?? '<None>'),
           gapH4,
           Text(
             artistRole.artistRole ?? '<None>',

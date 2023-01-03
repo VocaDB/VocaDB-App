@@ -25,7 +25,7 @@ mixin _$ArtistRole {
   String? get categories => throw _privateConstructorUsedError;
   String get effectiveRoles => throw _privateConstructorUsedError;
   String get roles => throw _privateConstructorUsedError;
-  Artist get artist => throw _privateConstructorUsedError;
+  Artist? get artist => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -45,9 +45,9 @@ abstract class $ArtistRoleCopyWith<$Res> {
       String? categories,
       String effectiveRoles,
       String roles,
-      Artist artist});
+      Artist? artist});
 
-  $ArtistCopyWith<$Res> get artist;
+  $ArtistCopyWith<$Res>? get artist;
 }
 
 /// @nodoc
@@ -68,7 +68,7 @@ class _$ArtistRoleCopyWithImpl<$Res, $Val extends ArtistRole>
     Object? categories = freezed,
     Object? effectiveRoles = null,
     Object? roles = null,
-    Object? artist = null,
+    Object? artist = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -91,17 +91,21 @@ class _$ArtistRoleCopyWithImpl<$Res, $Val extends ArtistRole>
           ? _value.roles
           : roles // ignore: cast_nullable_to_non_nullable
               as String,
-      artist: null == artist
+      artist: freezed == artist
           ? _value.artist
           : artist // ignore: cast_nullable_to_non_nullable
-              as Artist,
+              as Artist?,
     ) as $Val);
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $ArtistCopyWith<$Res> get artist {
-    return $ArtistCopyWith<$Res>(_value.artist, (value) {
+  $ArtistCopyWith<$Res>? get artist {
+    if (_value.artist == null) {
+      return null;
+    }
+
+    return $ArtistCopyWith<$Res>(_value.artist!, (value) {
       return _then(_value.copyWith(artist: value) as $Val);
     });
   }
@@ -121,10 +125,10 @@ abstract class _$$_ArtistRoleCopyWith<$Res>
       String? categories,
       String effectiveRoles,
       String roles,
-      Artist artist});
+      Artist? artist});
 
   @override
-  $ArtistCopyWith<$Res> get artist;
+  $ArtistCopyWith<$Res>? get artist;
 }
 
 /// @nodoc
@@ -143,7 +147,7 @@ class __$$_ArtistRoleCopyWithImpl<$Res>
     Object? categories = freezed,
     Object? effectiveRoles = null,
     Object? roles = null,
-    Object? artist = null,
+    Object? artist = freezed,
   }) {
     return _then(_$_ArtistRole(
       id: freezed == id
@@ -166,10 +170,10 @@ class __$$_ArtistRoleCopyWithImpl<$Res>
           ? _value.roles
           : roles // ignore: cast_nullable_to_non_nullable
               as String,
-      artist: null == artist
+      artist: freezed == artist
           ? _value.artist
           : artist // ignore: cast_nullable_to_non_nullable
-              as Artist,
+              as Artist?,
     ));
   }
 }
@@ -183,7 +187,7 @@ class _$_ArtistRole implements _ArtistRole {
       this.categories,
       this.effectiveRoles = 'Default',
       this.roles = 'Default',
-      required this.artist});
+      this.artist});
 
   factory _$_ArtistRole.fromJson(Map<String, dynamic> json) =>
       _$$_ArtistRoleFromJson(json);
@@ -201,7 +205,7 @@ class _$_ArtistRole implements _ArtistRole {
   @JsonKey()
   final String roles;
   @override
-  final Artist artist;
+  final Artist? artist;
 
   @override
   String toString() {
@@ -249,7 +253,7 @@ abstract class _ArtistRole implements ArtistRole {
       final String? categories,
       final String effectiveRoles,
       final String roles,
-      required final Artist artist}) = _$_ArtistRole;
+      final Artist? artist}) = _$_ArtistRole;
 
   factory _ArtistRole.fromJson(Map<String, dynamic> json) =
       _$_ArtistRole.fromJson;
@@ -265,7 +269,7 @@ abstract class _ArtistRole implements ArtistRole {
   @override
   String get roles;
   @override
-  Artist get artist;
+  Artist? get artist;
   @override
   @JsonKey(ignore: true)
   _$$_ArtistRoleCopyWith<_$_ArtistRole> get copyWith =>

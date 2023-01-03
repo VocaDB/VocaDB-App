@@ -13,7 +13,9 @@ _$_ArtistRole _$$_ArtistRoleFromJson(Map<String, dynamic> json) =>
       categories: json['categories'] as String?,
       effectiveRoles: json['effectiveRoles'] as String? ?? 'Default',
       roles: json['roles'] as String? ?? 'Default',
-      artist: Artist.fromJson(json['artist'] as Map<String, dynamic>),
+      artist: json['artist'] == null
+          ? null
+          : Artist.fromJson(json['artist'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$_ArtistRoleToJson(_$_ArtistRole instance) =>

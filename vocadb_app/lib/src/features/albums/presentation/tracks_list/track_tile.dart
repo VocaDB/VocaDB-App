@@ -18,9 +18,9 @@ class TrackTile extends StatelessWidget {
       leading: Text(track.trackNumber.toString()),
       enabled: (onTap != null),
       onTap: onTap,
-      title: Text(track.song.name ?? '<None>',
+      title: Text(track.trackName ?? '<None>',
           maxLines: 1, overflow: TextOverflow.ellipsis),
-      subtitle: Text(track.song.artistString ?? '<None>',
+      subtitle: Text(track.trackArtistString ?? '<None>',
           maxLines: 1, overflow: TextOverflow.ellipsis),
     );
   }

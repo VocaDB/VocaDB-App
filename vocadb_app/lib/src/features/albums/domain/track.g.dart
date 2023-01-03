@@ -8,14 +8,18 @@ part of 'track.dart';
 
 _$_Track _$$_TrackFromJson(Map<String, dynamic> json) => _$_Track(
       id: json['id'] as int,
-      discNumber: json['discNumber'] as int,
-      song: Song.fromJson(json['song'] as Map<String, dynamic>),
-      trackNumber: json['trackNumber'] as int,
+      name: json['name'] as String? ?? '',
+      discNumber: json['discNumber'] as int? ?? 0,
+      trackNumber: json['trackNumber'] as int? ?? 0,
+      song: json['song'] == null
+          ? null
+          : Song.fromJson(json['song'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$_TrackToJson(_$_Track instance) => <String, dynamic>{
       'id': instance.id,
+      'name': instance.name,
       'discNumber': instance.discNumber,
-      'song': instance.song,
       'trackNumber': instance.trackNumber,
+      'song': instance.song,
     };

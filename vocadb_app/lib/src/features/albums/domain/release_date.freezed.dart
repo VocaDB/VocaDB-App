@@ -131,21 +131,22 @@ class __$$_ReleaseDateCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_ReleaseDate implements _ReleaseDate {
   _$_ReleaseDate(
-      {required this.day,
-      required this.formatted,
-      required this.month,
-      required this.year});
+      {this.day = 0, this.formatted = '', this.month = 0, this.year = 0});
 
   factory _$_ReleaseDate.fromJson(Map<String, dynamic> json) =>
       _$$_ReleaseDateFromJson(json);
 
   @override
+  @JsonKey()
   final int day;
   @override
+  @JsonKey()
   final String formatted;
   @override
+  @JsonKey()
   final int month;
   @override
+  @JsonKey()
   final int year;
 
   @override
@@ -185,10 +186,10 @@ class _$_ReleaseDate implements _ReleaseDate {
 
 abstract class _ReleaseDate implements ReleaseDate {
   factory _ReleaseDate(
-      {required final int day,
-      required final String formatted,
-      required final int month,
-      required final int year}) = _$_ReleaseDate;
+      {final int day,
+      final String formatted,
+      final int month,
+      final int year}) = _$_ReleaseDate;
 
   factory _ReleaseDate.fromJson(Map<String, dynamic> json) =
       _$_ReleaseDate.fromJson;

@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:vocadb_app/src/constants/config.dart';
 import 'package:vocadb_app/src/features/artists/domain/artist.dart';
 
 part 'artist_role.freezed.dart';
@@ -12,7 +13,7 @@ class ArtistRole with _$ArtistRole {
     String? categories,
     @Default('Default') String effectiveRoles,
     @Default('Default') String roles,
-    required Artist artist,
+    Artist? artist,
   }) = _ArtistRole;
 
   factory ArtistRole.fromJson(Map<String, dynamic> json) =>
@@ -21,7 +22,7 @@ class ArtistRole with _$ArtistRole {
 
 extension ArtistRoleExtended on ArtistRole {
   String get artistRole =>
-      (categories! == 'Other') ? effectiveRoles! : categories!;
+      (categories! == 'Other') ? effectiveRoles : categories!;
 
   bool get isProducer => (categories == 'Producer');
 
@@ -32,6 +33,33 @@ extension ArtistRoleExtended on ArtistRole {
   bool get isLabel => (categories == 'Label');
 
   bool get isOtherRole => (!isProducer && !isVocalist);
+
+  /// Get image of artist. Return placeholder image if `artist` is null.
+  String get imageUrl {
+    if (artist == null) {
+      return kPlaceholderImageUrl;
+    }
+
+    return artist!.imageUrl ?? kPlaceholderImageUrl;
+  }
+
+  /// Get name of artist. Return `name` if `artist` is null.
+  String? get artistName {
+    if (artist == null) {
+      return name;
+    }
+
+    return artist!.name;
+  }
+
+  /// Get type of artist
+  String? get artistType {
+    if (artist == null) {
+      return categories;
+    }
+
+    return artist!.artistType;
+  }
 }
 
 extension ArtistsByRole on List<ArtistRole> {
