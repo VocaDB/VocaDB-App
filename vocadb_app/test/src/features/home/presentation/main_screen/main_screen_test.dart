@@ -1,11 +1,15 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mocktail/mocktail.dart';
 
+import '../../../../mocks.dart';
 import '../../main_robot.dart';
 
 void main() {
   testWidgets('Main screen switch tab correctly', (tester) async {
     final r = MainRobot(tester);
-    await r.pumpMainScreen();
+    final songRepository = MockSongRepository();
+
+    await r.pumpMainScreen(songRepository: songRepository);
     await r.expectHomeScreenVisible(true);
     await r.expectRankingScreenVisible(false);
     await r.expectMenuScreenVisible(false);
@@ -19,5 +23,7 @@ void main() {
     await r.expectHomeScreenVisible(false);
     await r.expectRankingScreenVisible(false);
     await r.expectMenuScreenVisible(true);
+
+    verify(songRepository.fetchSongsHighlighted).called(1);
   });
 }

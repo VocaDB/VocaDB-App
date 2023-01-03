@@ -10,7 +10,7 @@ class ContactUsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Scaffold(
       appBar: GlobalAppBar(
-        title: 'Contact us',
+        title: Text('Contact us'),
       ),
       body: ResponsiveCenter(
         child: Text(

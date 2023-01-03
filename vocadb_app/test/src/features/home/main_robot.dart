@@ -5,16 +5,21 @@ import 'package:vocadb_app/src/features/home/presentation/home_screen/home_scree
 import 'package:vocadb_app/src/features/home/presentation/main_screen/main_screen.dart';
 import 'package:vocadb_app/src/features/home/presentation/menu_screen/menu_screen.dart';
 import 'package:vocadb_app/src/features/home/presentation/ranking_screen/ranking_screen.dart';
+import 'package:vocadb_app/src/features/songs/data/song_repository.dart';
 
 class MainRobot {
   final WidgetTester tester;
 
   MainRobot(this.tester);
 
-  Future<void> pumpMainScreen() async {
+  Future<void> pumpMainScreen({SongRepository? songRepository}) async {
     await tester.pumpWidget(
-      const ProviderScope(
-        child: MaterialApp(
+      ProviderScope(
+        overrides: [
+          if (songRepository != null)
+            songRepositoryProvider.overrideWithValue(songRepository)
+        ],
+        child: const MaterialApp(
           home: MainScreen(),
         ),
       ),

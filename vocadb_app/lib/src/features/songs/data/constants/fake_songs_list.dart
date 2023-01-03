@@ -4,7 +4,7 @@ const kFakeSongsList = [
   Song(
     id: 1501,
     name: 'ローリンガール',
-    imageUrl: 'https://nicovideo.cdn.nimg.jp/thumbnails/9714351/9714351',
+    thumbUrl: 'https://nicovideo.cdn.nimg.jp/thumbnails/9714351/9714351',
     artistString: 'wowaka feat. 初音ミク',
     songType: 'Original',
     pvServices: 'NicoNicoDouga, Youtube, SoundCloud',
@@ -12,7 +12,7 @@ const kFakeSongsList = [
   Song(
     id: 3022,
     name: '炉心融解',
-    imageUrl: 'https://tn-skr2.smilevideo.jp/smile?i=8089993',
+    thumbUrl: 'https://tn-skr2.smilevideo.jp/smile?i=8089993',
     artistString: 'iroha(sasaki) feat. 鏡音リン',
     songType: 'Original',
     pvServices: 'NicoNicoDouga, Youtube, SoundCloud',
@@ -20,7 +20,7 @@ const kFakeSongsList = [
   Song(
     id: 19094,
     name: 'ロストワンの号哭',
-    imageUrl: 'https://tn-skr3.smilevideo.jp/smile?i=20244918',
+    thumbUrl: 'https://tn-skr3.smilevideo.jp/smile?i=20244918',
     artistString: 'Neru feat. 鏡音リン Append (Power)',
     songType: 'Original',
     pvServices: 'NicoNicoDouga, Youtube',
@@ -28,7 +28,7 @@ const kFakeSongsList = [
   Song(
     id: 1032,
     name: 'ロミオとシンデレラ',
-    imageUrl: 'https://tn-skr1.smilevideo.jp/smile?i=6666016',
+    thumbUrl: 'https://tn-skr1.smilevideo.jp/smile?i=6666016',
     artistString: 'doriko feat. 初音ミク',
     songType: 'Original',
     pvServices: 'NicoNicoDouga, Youtube',
@@ -36,7 +36,7 @@ const kFakeSongsList = [
   Song(
     id: 63276,
     name: 'ヒビカセ',
-    imageUrl: 'https://i.ytimg.com/vi/TkroHwQYpFE/default.jpg',
+    thumbUrl: 'https://i.ytimg.com/vi/TkroHwQYpFE/default.jpg',
     artistString: 'Giga feat. 初音ミク V3 (Solid)',
     songType: 'Original',
     pvServices: 'NicoNicoDouga, Youtube, SoundCloud, Bilibili',
@@ -44,7 +44,7 @@ const kFakeSongsList = [
   Song(
     id: 15662,
     name: 'ODDS&ENDS',
-    imageUrl: 'https://tn-skr2.smilevideo.jp/smile?i=18626305',
+    thumbUrl: 'https://tn-skr2.smilevideo.jp/smile?i=18626305',
     artistString: 'ryo feat. 初音ミク',
     songType: 'Original',
     pvServices: 'NicoNicoDouga, Youtube, SoundCloud',
@@ -52,7 +52,7 @@ const kFakeSongsList = [
   Song(
     id: 20,
     name: 'ワールズエンド・ダンスホール',
-    imageUrl: 'https://tn-skr4.smilevideo.jp/smile?i=10759623',
+    thumbUrl: 'https://tn-skr4.smilevideo.jp/smile?i=10759623',
     artistString: 'wowaka feat. 初音ミク, 巡音ルカ',
     songType: 'Original',
     pvServices: 'NicoNicoDouga, Youtube',
@@ -60,7 +60,7 @@ const kFakeSongsList = [
   Song(
     id: 49755,
     name: 'LUVORATORRRRRY!',
-    imageUrl: 'https://tn-skr4.smilevideo.jp/smile?i=22942867',
+    thumbUrl: 'https://tn-skr4.smilevideo.jp/smile?i=22942867',
     artistString: 'Giga, れをる feat. 鏡音リン Append (Power), V3 GUMI (Power)',
     songType: 'Original',
     pvServices: 'NicoNicoDouga, Youtube',
@@ -68,21 +68,21 @@ const kFakeSongsList = [
   Song(
     id: 1320,
     name: '恋は戦争',
-    imageUrl: 'https://tn-skr4.smilevideo.jp/smile?i=22942867',
+    thumbUrl: 'https://tn-skr4.smilevideo.jp/smile?i=22942867',
     artistString: 'ryo, supercell feat. 初音ミク',
     songType: 'Original',
   ),
   Song(
     id: 8395,
     name: 'Tell Your World',
-    imageUrl: 'https://tn-skr4.smilevideo.jp/smile?i=22942867',
+    thumbUrl: 'https://tn-skr4.smilevideo.jp/smile?i=22942867',
     artistString: 'kz feat. 初音ミク',
     songType: 'Original',
   ),
   Song(
     id: 555,
     name: '東京テディベア',
-    imageUrl: 'https://tn-skr3.smilevideo.jp/smile?i=15308214',
+    thumbUrl: 'https://tn-skr3.smilevideo.jp/smile?i=15308214',
     artistString: 'Neru, おればななP feat. 鏡音リン Append (Sweet), 鏡音リン Append (Power)',
     songType: 'Original',
   ),

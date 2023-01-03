@@ -1,23 +1,41 @@
-import 'package:vocadb_app/src/features/songs/data/constants/fake_song_detail.dart';
-import 'package:vocadb_app/src/features/songs/data/constants/fake_songs_list.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:vocadb_app/flavor_config.dart';
+import 'package:vocadb_app/src/features/songs/data/song_api_repository.dart';
+import 'package:vocadb_app/src/features/songs/data/song_fake_repository.dart';
 import 'package:vocadb_app/src/features/songs/domain/song.dart';
 
-class SongRepository {
-  SongRepository._();
-  static SongRepository instance = SongRepository._();
+abstract class SongRepository {
+  Future<List<Song>> fetchSongsHighlighted();
 
-  final List<Song> _mockSongs = kFakeSongsList;
-  final Song _mockSong = kFakeSongDetail;
+  Future<List<Song>> fetchSongsList();
 
-  List<Song> getHighlightedSongsList() {
-    return _mockSongs;
-  }
+  Future<Song> fetchSongId(int id);
 
-  Song getSongByID(String id) {
-    return _mockSong;
-  }
+  Future<List<Song>> fetchSongsTopRated({
+    String? lang,
+    int? durationHours,
+    String? filterBy,
+    String? vocalist,
+  });
 
-  Future<List<Song>> fetchHighlightedSongs() {
-    return Future.value(_mockSongs);
-  }
+  Future<List<Song>> fetchSongsDerived(int id, {String? lang});
+
+  Future<List<Song>> fetchSongsRelated(int id, {String? lang});
+
+  Future<void> rating(int id, String rating);
 }
+
+/// Song Repository Provider
+final songRepositoryProvider = Provider.autoDispose<SongRepository>((ref) {
+  final config = ref.read(flavorConfigProvider);
+
+  return (config.useFakeData)
+      ? ref.watch(songFakeRepositoryProvider)
+      : ref.watch(songApiRepositoryProvider);
+});
+
+/// Song Repository method Provider
+final songsHighlightedProvider = FutureProvider.autoDispose<List<Song>>((ref) {
+  final songRepository = ref.watch(songRepositoryProvider);
+  return songRepository.fetchSongsHighlighted();
+});

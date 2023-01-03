@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:vocadb_app/src/features/home/presentation/app_bar/app_title.dart';
 import 'package:vocadb_app/src/features/home/presentation/app_bar/global_app_bar.dart';
 import 'package:vocadb_app/src/features/songs/data/constants/fake_songs_list.dart';
 import 'package:vocadb_app/src/features/songs/presentation/songs_list/songs_list_view.dart';
@@ -14,7 +15,7 @@ class RankingScreen extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: GlobalAppBar(
-          title: 'VocaDB',
+          title: const AppTitle(),
           displayHome: false,
           actions: [
             IconButton(

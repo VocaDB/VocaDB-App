@@ -10,13 +10,14 @@ _$_Song _$$_SongFromJson(Map<String, dynamic> json) => _$_Song(
       id: json['id'] as int,
       name: json['name'] as String?,
       artistString: json['artistString'] as String?,
-      imageUrl: json['imageUrl'] as String?,
+      thumbUrl: json['thumbUrl'] as String?,
       songType: json['songType'] as String?,
       pvServices: json['pvServices'] as String?,
       additionalNames: json['additionalNames'] as String?,
       createDate: json['createDate'] == null
           ? null
           : DateTime.parse(json['createDate'] as String),
+      originalVersionId: json['originalVersionId'] as int?,
       mainPicture: json['mainPicture'] == null
           ? null
           : MainPicture.fromJson(json['mainPicture'] as Map<String, dynamic>),
@@ -56,11 +57,12 @@ Map<String, dynamic> _$$_SongToJson(_$_Song instance) => <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
       'artistString': instance.artistString,
-      'imageUrl': instance.imageUrl,
+      'thumbUrl': instance.thumbUrl,
       'songType': instance.songType,
       'pvServices': instance.pvServices,
       'additionalNames': instance.additionalNames,
       'createDate': instance.createDate?.toIso8601String(),
+      'originalVersionId': instance.originalVersionId,
       'mainPicture': instance.mainPicture,
       'favoritedTimes': instance.favoritedTimes,
       'lengthSeconds': instance.lengthSeconds,

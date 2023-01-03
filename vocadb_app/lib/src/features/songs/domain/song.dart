@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:vocadb_app/src/constants/config.dart';
 import 'package:vocadb_app/src/features/albums/domain/album.dart';
 import 'package:vocadb_app/src/features/artists/domain/artist_role.dart';
 import 'package:vocadb_app/src/features/entries/domain/main_picture.dart';
@@ -19,11 +20,12 @@ class Song with _$Song {
     required int id,
     String? name,
     String? artistString,
-    String? imageUrl,
+    String? thumbUrl,
     String? songType,
     String? pvServices,
     String? additionalNames,
     DateTime? createDate,
+    int? originalVersionId,
     MainPicture? mainPicture,
     @Default(0) int favoritedTimes,
     @Default(0) int lengthSeconds,
@@ -38,9 +40,24 @@ class Song with _$Song {
   }) = _Song;
 
   factory Song.fromJson(Map<String, Object?> json) => _$SongFromJson(json);
+
+  static List<Song> fromJsonToList(List<dynamic> source) {
+    return source.map((e) => Song.fromJson(e)).toList();
+  }
 }
 
-extension SongPV on Song {
+extension SongExtended on Song {
+  // Get song thunbnail image. Get from main picture instead if thumbUrl is null or empty
+  String? get imageUrl {
+    if (thumbUrl != null && thumbUrl!.isNotEmpty) {
+      return thumbUrl;
+    }
+
+    return (mainPicture != null && mainPicture!.urlOriginal != null)
+        ? mainPicture!.urlOriginal
+        : kPlaceholderImageUrl;
+  }
+
   String get pvSearchQuery =>
-      (pvs!.isNotEmpty) ? pvs![0].name : '$artistString+$name';
+      (pvs.isNotEmpty) ? pvs[0].name : '$artistString+$name';
 }

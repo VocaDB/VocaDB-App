@@ -6,7 +6,7 @@ import 'package:vocadb_app/src/features/home/presentation/app_bar/global_app_bar
 import 'package:vocadb_app/src/features/pvs/presentation/pv_list/pv_group_list.dart';
 import 'package:vocadb_app/src/features/releaseEvents/data/constants/fake_release_events_list.dart';
 import 'package:vocadb_app/src/features/releaseEvents/presentation/release_events_list/release_events_section.dart';
-import 'package:vocadb_app/src/features/songs/data/song_repository.dart';
+import 'package:vocadb_app/src/features/songs/data/constants/fake_song_detail.dart';
 import 'package:vocadb_app/src/features/songs/data/constants/fake_songs_list.dart';
 import 'package:vocadb_app/src/features/songs/domain/song.dart';
 import 'package:vocadb_app/src/features/songs/presentation/song_detail_screen/song_detail_button_bar.dart';
@@ -23,10 +23,10 @@ class SongDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final song = SongRepository.instance.getSongByID(songId);
+    final song = kFakeSongDetail;
     return Scaffold(
       appBar: const GlobalAppBar(
-        title: 'Song detail',
+        title: Text('Song detail'),
       ),
       body: Container(
         padding: const EdgeInsets.only(bottom: 16.0),

@@ -6,7 +6,7 @@ class GlobalAppBar extends StatelessWidget with PreferredSizeWidget {
   const GlobalAppBar(
       {super.key, required this.title, this.displayHome = true, this.actions});
 
-  final String title;
+  final Widget title;
 
   final bool displayHome;
 
@@ -15,7 +15,7 @@ class GlobalAppBar extends StatelessWidget with PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: Text(title),
+      title: title,
       actions: [
         IconButton(
           icon: const Icon(Icons.search),

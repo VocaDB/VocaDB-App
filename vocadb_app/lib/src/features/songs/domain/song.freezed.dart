@@ -23,11 +23,12 @@ mixin _$Song {
   int get id => throw _privateConstructorUsedError;
   String? get name => throw _privateConstructorUsedError;
   String? get artistString => throw _privateConstructorUsedError;
-  String? get imageUrl => throw _privateConstructorUsedError;
+  String? get thumbUrl => throw _privateConstructorUsedError;
   String? get songType => throw _privateConstructorUsedError;
   String? get pvServices => throw _privateConstructorUsedError;
   String? get additionalNames => throw _privateConstructorUsedError;
   DateTime? get createDate => throw _privateConstructorUsedError;
+  int? get originalVersionId => throw _privateConstructorUsedError;
   MainPicture? get mainPicture => throw _privateConstructorUsedError;
   int get favoritedTimes => throw _privateConstructorUsedError;
   int get lengthSeconds => throw _privateConstructorUsedError;
@@ -54,11 +55,12 @@ abstract class $SongCopyWith<$Res> {
       {int id,
       String? name,
       String? artistString,
-      String? imageUrl,
+      String? thumbUrl,
       String? songType,
       String? pvServices,
       String? additionalNames,
       DateTime? createDate,
+      int? originalVersionId,
       MainPicture? mainPicture,
       int favoritedTimes,
       int lengthSeconds,
@@ -90,11 +92,12 @@ class _$SongCopyWithImpl<$Res, $Val extends Song>
     Object? id = null,
     Object? name = freezed,
     Object? artistString = freezed,
-    Object? imageUrl = freezed,
+    Object? thumbUrl = freezed,
     Object? songType = freezed,
     Object? pvServices = freezed,
     Object? additionalNames = freezed,
     Object? createDate = freezed,
+    Object? originalVersionId = freezed,
     Object? mainPicture = freezed,
     Object? favoritedTimes = null,
     Object? lengthSeconds = null,
@@ -120,9 +123,9 @@ class _$SongCopyWithImpl<$Res, $Val extends Song>
           ? _value.artistString
           : artistString // ignore: cast_nullable_to_non_nullable
               as String?,
-      imageUrl: freezed == imageUrl
-          ? _value.imageUrl
-          : imageUrl // ignore: cast_nullable_to_non_nullable
+      thumbUrl: freezed == thumbUrl
+          ? _value.thumbUrl
+          : thumbUrl // ignore: cast_nullable_to_non_nullable
               as String?,
       songType: freezed == songType
           ? _value.songType
@@ -140,6 +143,10 @@ class _$SongCopyWithImpl<$Res, $Val extends Song>
           ? _value.createDate
           : createDate // ignore: cast_nullable_to_non_nullable
               as DateTime?,
+      originalVersionId: freezed == originalVersionId
+          ? _value.originalVersionId
+          : originalVersionId // ignore: cast_nullable_to_non_nullable
+              as int?,
       mainPicture: freezed == mainPicture
           ? _value.mainPicture
           : mainPicture // ignore: cast_nullable_to_non_nullable
@@ -210,11 +217,12 @@ abstract class _$$_SongCopyWith<$Res> implements $SongCopyWith<$Res> {
       {int id,
       String? name,
       String? artistString,
-      String? imageUrl,
+      String? thumbUrl,
       String? songType,
       String? pvServices,
       String? additionalNames,
       DateTime? createDate,
+      int? originalVersionId,
       MainPicture? mainPicture,
       int favoritedTimes,
       int lengthSeconds,
@@ -243,11 +251,12 @@ class __$$_SongCopyWithImpl<$Res> extends _$SongCopyWithImpl<$Res, _$_Song>
     Object? id = null,
     Object? name = freezed,
     Object? artistString = freezed,
-    Object? imageUrl = freezed,
+    Object? thumbUrl = freezed,
     Object? songType = freezed,
     Object? pvServices = freezed,
     Object? additionalNames = freezed,
     Object? createDate = freezed,
+    Object? originalVersionId = freezed,
     Object? mainPicture = freezed,
     Object? favoritedTimes = null,
     Object? lengthSeconds = null,
@@ -273,9 +282,9 @@ class __$$_SongCopyWithImpl<$Res> extends _$SongCopyWithImpl<$Res, _$_Song>
           ? _value.artistString
           : artistString // ignore: cast_nullable_to_non_nullable
               as String?,
-      imageUrl: freezed == imageUrl
-          ? _value.imageUrl
-          : imageUrl // ignore: cast_nullable_to_non_nullable
+      thumbUrl: freezed == thumbUrl
+          ? _value.thumbUrl
+          : thumbUrl // ignore: cast_nullable_to_non_nullable
               as String?,
       songType: freezed == songType
           ? _value.songType
@@ -293,6 +302,10 @@ class __$$_SongCopyWithImpl<$Res> extends _$SongCopyWithImpl<$Res, _$_Song>
           ? _value.createDate
           : createDate // ignore: cast_nullable_to_non_nullable
               as DateTime?,
+      originalVersionId: freezed == originalVersionId
+          ? _value.originalVersionId
+          : originalVersionId // ignore: cast_nullable_to_non_nullable
+              as int?,
       mainPicture: freezed == mainPicture
           ? _value.mainPicture
           : mainPicture // ignore: cast_nullable_to_non_nullable
@@ -348,11 +361,12 @@ class _$_Song implements _Song {
       {required this.id,
       this.name,
       this.artistString,
-      this.imageUrl,
+      this.thumbUrl,
       this.songType,
       this.pvServices,
       this.additionalNames,
       this.createDate,
+      this.originalVersionId,
       this.mainPicture,
       this.favoritedTimes = 0,
       this.lengthSeconds = 0,
@@ -380,7 +394,7 @@ class _$_Song implements _Song {
   @override
   final String? artistString;
   @override
-  final String? imageUrl;
+  final String? thumbUrl;
   @override
   final String? songType;
   @override
@@ -389,6 +403,8 @@ class _$_Song implements _Song {
   final String? additionalNames;
   @override
   final DateTime? createDate;
+  @override
+  final int? originalVersionId;
   @override
   final MainPicture? mainPicture;
   @override
@@ -452,7 +468,7 @@ class _$_Song implements _Song {
 
   @override
   String toString() {
-    return 'Song(id: $id, name: $name, artistString: $artistString, imageUrl: $imageUrl, songType: $songType, pvServices: $pvServices, additionalNames: $additionalNames, createDate: $createDate, mainPicture: $mainPicture, favoritedTimes: $favoritedTimes, lengthSeconds: $lengthSeconds, publishDate: $publishDate, ratingScore: $ratingScore, tags: $tags, artists: $artists, albums: $albums, lyrics: $lyrics, pvs: $pvs, webLinks: $webLinks)';
+    return 'Song(id: $id, name: $name, artistString: $artistString, thumbUrl: $thumbUrl, songType: $songType, pvServices: $pvServices, additionalNames: $additionalNames, createDate: $createDate, originalVersionId: $originalVersionId, mainPicture: $mainPicture, favoritedTimes: $favoritedTimes, lengthSeconds: $lengthSeconds, publishDate: $publishDate, ratingScore: $ratingScore, tags: $tags, artists: $artists, albums: $albums, lyrics: $lyrics, pvs: $pvs, webLinks: $webLinks)';
   }
 
   @override
@@ -464,8 +480,8 @@ class _$_Song implements _Song {
             (identical(other.name, name) || other.name == name) &&
             (identical(other.artistString, artistString) ||
                 other.artistString == artistString) &&
-            (identical(other.imageUrl, imageUrl) ||
-                other.imageUrl == imageUrl) &&
+            (identical(other.thumbUrl, thumbUrl) ||
+                other.thumbUrl == thumbUrl) &&
             (identical(other.songType, songType) ||
                 other.songType == songType) &&
             (identical(other.pvServices, pvServices) ||
@@ -474,6 +490,8 @@ class _$_Song implements _Song {
                 other.additionalNames == additionalNames) &&
             (identical(other.createDate, createDate) ||
                 other.createDate == createDate) &&
+            (identical(other.originalVersionId, originalVersionId) ||
+                other.originalVersionId == originalVersionId) &&
             (identical(other.mainPicture, mainPicture) ||
                 other.mainPicture == mainPicture) &&
             (identical(other.favoritedTimes, favoritedTimes) ||
@@ -499,11 +517,12 @@ class _$_Song implements _Song {
         id,
         name,
         artistString,
-        imageUrl,
+        thumbUrl,
         songType,
         pvServices,
         additionalNames,
         createDate,
+        originalVersionId,
         mainPicture,
         favoritedTimes,
         lengthSeconds,
@@ -536,11 +555,12 @@ abstract class _Song implements Song {
       {required final int id,
       final String? name,
       final String? artistString,
-      final String? imageUrl,
+      final String? thumbUrl,
       final String? songType,
       final String? pvServices,
       final String? additionalNames,
       final DateTime? createDate,
+      final int? originalVersionId,
       final MainPicture? mainPicture,
       final int favoritedTimes,
       final int lengthSeconds,
@@ -562,7 +582,7 @@ abstract class _Song implements Song {
   @override
   String? get artistString;
   @override
-  String? get imageUrl;
+  String? get thumbUrl;
   @override
   String? get songType;
   @override
@@ -571,6 +591,8 @@ abstract class _Song implements Song {
   String? get additionalNames;
   @override
   DateTime? get createDate;
+  @override
+  int? get originalVersionId;
   @override
   MainPicture? get mainPicture;
   @override

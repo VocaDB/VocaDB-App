@@ -12,7 +12,7 @@ import 'package:vocadb_app/src/features/weblinks/domain/web_link.dart';
 final kFakeSongDetail = Song(
   id: 1501,
   name: 'ローリンガール',
-  imageUrl: 'https://nicovideo.cdn.nimg.jp/thumbnails/9714351/9714351',
+  thumbUrl: 'https://nicovideo.cdn.nimg.jp/thumbnails/9714351/9714351',
   artistString: 'wowaka feat. 初音ミク',
   songType: 'Original',
   pvServices: 'NicoNicoDouga, Youtube, SoundCloud',
