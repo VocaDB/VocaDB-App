@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:vocadb_app/src/features/albums/data/album_repository.dart';
 import 'package:vocadb_app/src/features/home/presentation/home_screen/home_screen.dart';
 import 'package:vocadb_app/src/features/home/presentation/main_screen/main_screen.dart';
 import 'package:vocadb_app/src/features/home/presentation/menu_screen/menu_screen.dart';
@@ -13,12 +14,17 @@ class MainRobot {
 
   MainRobot(this.tester);
 
-  Future<void> pumpMainScreen({SongRepository? songRepository}) async {
+  Future<void> pumpMainScreen({
+    SongRepository? songRepository,
+    AlbumRepository? albumRepository,
+  }) async {
     await tester.pumpWidget(
       ProviderScope(
         overrides: [
           if (songRepository != null)
-            songRepositoryProvider.overrideWithValue(songRepository)
+            songRepositoryProvider.overrideWithValue(songRepository),
+          if (albumRepository != null)
+            albumRepositoryProvider.overrideWithValue(albumRepository)
         ],
         child: const MaterialApp(
           home: MainScreen(),

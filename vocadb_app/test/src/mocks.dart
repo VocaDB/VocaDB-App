@@ -1,5 +1,6 @@
 import 'package:http/http.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:vocadb_app/src/features/albums/data/album_repository.dart';
 import 'package:vocadb_app/src/features/api/api_client.dart';
 import 'package:vocadb_app/src/features/authentication/data/auth_repository.dart';
 import 'package:vocadb_app/src/features/songs/data/song_repository.dart';
@@ -13,3 +14,5 @@ class MockApiClient extends Mock implements ApiClient {}
 class FakeUri extends Fake implements Uri {}
 
 class MockSongRepository extends Mock implements SongRepository {}
+
+class MockAlbumRepository extends Mock implements AlbumRepository {}

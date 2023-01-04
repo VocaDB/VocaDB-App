@@ -8,8 +8,10 @@ void main() {
   testWidgets('Main screen switch tab correctly', (tester) async {
     final r = MainRobot(tester);
     final songRepository = MockSongRepository();
+    final albumRepository = MockAlbumRepository();
 
-    await r.pumpMainScreen(songRepository: songRepository);
+    await r.pumpMainScreen(
+        songRepository: songRepository, albumRepository: albumRepository);
     await r.expectHomeScreenVisible(true);
     await r.expectRankingScreenVisible(false);
     await r.expectMenuScreenVisible(false);
@@ -25,5 +27,7 @@ void main() {
     await r.expectMenuScreenVisible(true);
 
     verify(songRepository.fetchSongsHighlighted).called(1);
+    verify(albumRepository.fetchNew).called(1);
+    verify(albumRepository.fetchTop).called(1);
   });
 }

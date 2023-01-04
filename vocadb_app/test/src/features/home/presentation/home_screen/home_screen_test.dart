@@ -8,9 +8,13 @@ void main() {
   testWidgets('home screen ...', (tester) async {
     final r = HomeRobot(tester);
     final songRepository = MockSongRepository();
+    final albumRepository = MockAlbumRepository();
 
-    await r.pumpHomeScreen(songRepository: songRepository);
+    await r.pumpHomeScreen(
+        songRepository: songRepository, albumRepository: albumRepository);
 
     verify(songRepository.fetchSongsHighlighted).called(1);
+    verify(albumRepository.fetchNew).called(1);
+    verify(albumRepository.fetchTop).called(1);
   });
 }

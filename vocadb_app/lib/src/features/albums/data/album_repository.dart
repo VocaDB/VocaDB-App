@@ -1,16 +1,49 @@
-import 'package:vocadb_app/src/features/albums/data/constants/fake_albums_list.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:vocadb_app/flavor_config.dart';
+import 'package:vocadb_app/src/features/albums/data/album_api_repository.dart';
+import 'package:vocadb_app/src/features/albums/data/album_fake_repository.dart';
 import 'package:vocadb_app/src/features/albums/domain/album.dart';
+import 'package:vocadb_app/src/features/settings/data/user_settings_repository.dart';
 
-// TODO : use real data
-class AlbumsRepository {
-  AlbumsRepository._();
-  static AlbumsRepository instance = AlbumsRepository._();
+abstract class AlbumRepository {
+  /// Find albums
+  Future<List<Album>> fetchAlbums({String lang = 'Default'});
 
-  List<Album> getRandomAlbums() {
-    return kFakeAlbumsList;
-  }
+  /// Gets a album by Id.
+  Future<Album> fetchAlbumID(int id, {String lang = 'Default'});
 
-  List<Album> getNewAlbums() {
-    return kFakeAlbumsList;
-  }
+  /// Gets list of upcoming or recent albums, same as front page.
+  Future<List<Album>> fetchNew({String lang = 'Default'});
+
+  /// Gets list of top rated albums, same as front page.
+  Future<List<Album>> fetchTop({String lang = 'Default'});
 }
+
+/// Album Repository Provider
+final albumRepositoryProvider = Provider.autoDispose<AlbumRepository>((ref) {
+  final config = ref.read(flavorConfigProvider);
+
+  return (config.useFakeData)
+      ? ref.watch(albumFakeRepositoryProvider)
+      : ref.watch(albumApiRepositoryProvider);
+});
+
+/// Albums new Provider
+final albumsNewProvider = FutureProvider.autoDispose<List<Album>>((ref) {
+  final albumRepository = ref.watch(albumRepositoryProvider);
+  final userSettings = ref.watch(userSettingsRepositoryProvider);
+
+  return albumRepository.fetchNew(
+    lang: userSettings.currentPreferredLang!,
+  );
+});
+
+/// Albums new Provider
+final albumsTopProvider = FutureProvider.autoDispose<List<Album>>((ref) {
+  final albumRepository = ref.watch(albumRepositoryProvider);
+  final userSettings = ref.watch(userSettingsRepositoryProvider);
+
+  return albumRepository.fetchTop(
+    lang: userSettings.currentPreferredLang!,
+  );
+});

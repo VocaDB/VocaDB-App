@@ -34,6 +34,10 @@ class Album with _$Album {
   }) = _Album;
 
   factory Album.fromJson(Map<String, dynamic> json) => _$AlbumFromJson(json);
+
+  static List<Album> fromJsonToList(List<dynamic> source) {
+    return source.map((e) => Album.fromJson(e)).toList();
+  }
 }
 
 extension AlbumExtended on Album {
