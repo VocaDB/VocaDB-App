@@ -21,6 +21,8 @@ class ApiClient {
     final uri = Uri.https(host, endpoint, uriQueryParameters);
     final response = await client.get(uri);
 
+    print('[GET] ${uri.toString()}');
+
     if (response.ok) {
       return (json) ? jsonDecode(response.body) : response.body;
     } else {

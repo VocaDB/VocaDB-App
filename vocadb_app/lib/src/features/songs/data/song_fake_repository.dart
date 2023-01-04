@@ -16,7 +16,7 @@ class SongFakeRepository implements SongRepository {
   }
 
   @override
-  Future<List<Song>> fetchSongsHighlighted() async {
+  Future<List<Song>> fetchSongsHighlighted({String lang = 'Default'}) async {
     return await Future.value(kFakeSongsList);
   }
 
@@ -46,7 +46,6 @@ class SongFakeRepository implements SongRepository {
   }
 }
 
-final songFakeRepositoryProvider =
-    Provider.autoDispose<SongFakeRepository>((ref) {
+final songFakeRepositoryProvider = Provider<SongFakeRepository>((ref) {
   return SongFakeRepository();
 });

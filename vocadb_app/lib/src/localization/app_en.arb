@@ -1,0 +1,6 @@
+{
+    "highlighted": "Highlight PVs",
+    "@highlighted": {
+      "description": "The title of highlighted songs on home screen"
+    }
+}

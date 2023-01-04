@@ -24,9 +24,10 @@ class SongApiRepository implements SongRepository {
   }
 
   @override
-  Future<List<Song>> fetchSongsHighlighted() async {
+  Future<List<Song>> fetchSongsHighlighted({String lang = 'Default'}) async {
     final responseBody = await client.get('api/songs/highlighted', params: {
       'fields': 'ThumbUrl,MainPicture,PVs',
+      'languagePreference': lang,
     });
     return Song.fromJsonToList(responseBody).toList();
   }

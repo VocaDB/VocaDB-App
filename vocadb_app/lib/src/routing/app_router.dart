@@ -14,7 +14,7 @@ import 'package:vocadb_app/src/features/entries/presentation/entries_search_scre
 import 'package:vocadb_app/src/features/entries/presentation/entries_search_screen/entries_search_screen.dart';
 import 'package:vocadb_app/src/features/home/presentation/main_screen/main_screen.dart';
 import 'package:vocadb_app/src/features/home/presentation/menu_screen/contact_us_screen.dart';
-import 'package:vocadb_app/src/features/home/presentation/menu_screen/setting_screen.dart';
+import 'package:vocadb_app/src/features/settings/presentation/settings_screen/setting_screen.dart';
 import 'package:vocadb_app/src/features/home/presentation/ranking_screen/ranking_filter_screen.dart';
 import 'package:vocadb_app/src/features/pvs/presentation/playlist_screen/playlist_screen.dart';
 import 'package:vocadb_app/src/features/releaseEvents/presentation/release_event_detail_screen/release_event_detail_screen.dart';

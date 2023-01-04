@@ -1,3 +1,4 @@
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:vocadb_app/src/app.dart';
 import 'package:vocadb_app/src/localization/string_hardcoded.dart';
 import 'package:flutter/foundation.dart';
@@ -8,11 +9,13 @@ import 'package:flutter_web_plugins/url_strategy.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
   // turn off the # in the URLs on the web
   usePathUrlStrategy();
   // * Register error handlers. For more info, see:
   // * https://docs.flutter.dev/testing/errors
   registerErrorHandlers();
+
   // * Entry point of the app
   runApp(const ProviderScope(child: MyApp()));
 }

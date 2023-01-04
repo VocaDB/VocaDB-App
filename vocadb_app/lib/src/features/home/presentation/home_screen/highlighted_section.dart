@@ -12,7 +12,7 @@ class HighlightedSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Section(
-      title: 'Highlighted',
+      title: 'highlighted',
       child: Consumer(
         builder: ((context, ref, child) {
           final value = ref.watch(songsHighlightedProvider);

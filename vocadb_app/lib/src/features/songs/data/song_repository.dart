@@ -1,11 +1,12 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vocadb_app/flavor_config.dart';
+import 'package:vocadb_app/src/features/settings/data/user_settings_repository.dart';
 import 'package:vocadb_app/src/features/songs/data/song_api_repository.dart';
 import 'package:vocadb_app/src/features/songs/data/song_fake_repository.dart';
 import 'package:vocadb_app/src/features/songs/domain/song.dart';
 
 abstract class SongRepository {
-  Future<List<Song>> fetchSongsHighlighted();
+  Future<List<Song>> fetchSongsHighlighted({String lang = 'Default'});
 
   Future<List<Song>> fetchSongsList();
 
@@ -37,5 +38,8 @@ final songRepositoryProvider = Provider.autoDispose<SongRepository>((ref) {
 /// Song Repository method Provider
 final songsHighlightedProvider = FutureProvider.autoDispose<List<Song>>((ref) {
   final songRepository = ref.watch(songRepositoryProvider);
-  return songRepository.fetchSongsHighlighted();
+  final userSettings = ref.watch(userSettingsRepositoryProvider);
+
+  return songRepository.fetchSongsHighlighted(
+      lang: userSettings.currentPreferredLang!);
 });

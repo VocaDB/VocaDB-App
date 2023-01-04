@@ -6,6 +6,7 @@ import 'package:vocadb_app/src/features/home/presentation/main_screen/main_scree
 import 'package:vocadb_app/src/features/home/presentation/menu_screen/menu_screen.dart';
 import 'package:vocadb_app/src/features/home/presentation/ranking_screen/ranking_screen.dart';
 import 'package:vocadb_app/src/features/songs/data/song_repository.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MainRobot {
   final WidgetTester tester;
@@ -21,6 +22,8 @@ class MainRobot {
         ],
         child: const MaterialApp(
           home: MainScreen(),
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
         ),
       ),
     );
