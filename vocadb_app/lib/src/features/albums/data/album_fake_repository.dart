@@ -7,26 +7,22 @@ import 'package:vocadb_app/src/features/albums/domain/album.dart';
 class AlbumFakeRepository implements AlbumRepository {
   @override
   Future<Album> fetchAlbumID(int id, {String lang = 'Default'}) {
-    // TODO: implement fetchAlbumID
-    throw kFakeAlbumDetailSingleDisc;
+    return Future.value(kFakeAlbumDetailSingleDisc);
   }
 
   @override
   Future<List<Album>> fetchAlbums({String lang = 'Default'}) {
-    // TODO: implement fetchAlbums
-    throw kFakeAlbumsList;
+    return Future.value(kFakeAlbumsList);
   }
 
   @override
   Future<List<Album>> fetchNew({String lang = 'Default'}) {
-    // TODO: implement fetchNew
-    throw kFakeAlbumsList;
+    return Future.value(kFakeAlbumsList);
   }
 
   @override
   Future<List<Album>> fetchTop({String lang = 'Default'}) {
-    // TODO: implement fetchTop
-    throw kFakeAlbumsList;
+    return Future.value(kFakeAlbumsList);
   }
 }
 
