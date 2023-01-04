@@ -10,7 +10,6 @@ VocaDB mobile version with [Flutter framework](https://flutter.dev/).
 ### TouhouDB
 - [Playstore for Android](https://play.google.com/store/apps/details?id=com.touhoudb.app)
 
-
 ## Getting started for development
 
 ### Prerequisite
@@ -22,6 +21,7 @@ VocaDB mobile version with [Flutter framework](https://flutter.dev/).
 $ flutter pub get
 ```
 
+## Test
 ### Run unit tests
 ```
 $ flutter test
@@ -34,3 +34,21 @@ $ flutter test --coverage
 
 ## Build
 WIP
+
+## Translation / Localization
+
+### Create new language (For anyone)
+1. Create new `.arb` file in `${FLUTTER_PROJECT}/lib/src/localization`. File format will be `app_{lang_code}_{country_code}.arb`.
+2. Copy file content from `app_en.arb` as template and then edit on your own language.
+
+### Edit existing language
+You can edit file inside `${FLUTTER_PROJECT}/lib/src/localization`.
+
+### Run codegen (For developer)
+```
+$ flutter gen-l10n
+```
+
+### Reference
+- [Internationalizing Flutter apps](https://docs.flutter.dev/development/accessibility-and-localization/internationalization)
+

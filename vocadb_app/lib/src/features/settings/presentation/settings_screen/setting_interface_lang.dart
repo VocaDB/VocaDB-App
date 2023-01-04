@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vocadb_app/src/common_widgets/async_value_widget.dart';
 import 'package:vocadb_app/src/common_widgets/simple_radio_group.dart';
 import 'package:vocadb_app/src/features/settings/data/user_settings_repository.dart';
+import 'package:vocadb_app/src/utils/app_localizations_context.dart';
 
 class SettingInterfaceLang extends ConsumerWidget {
   const SettingInterfaceLang({super.key});
@@ -14,7 +15,7 @@ class SettingInterfaceLang extends ConsumerWidget {
     return AsyncValueWidget(
       value: value,
       data: (data) => SimpleRadioGroup(
-        title: const Text('Interface language'),
+        title: Text(context.loc.interfaceLanguage),
         groupValue: data,
         onChanged: (value) {
           ref.read(userSettingsRepositoryProvider).saveInterfaceLang(value);

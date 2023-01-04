@@ -5,6 +5,7 @@ import 'package:vocadb_app/src/common_widgets/section.dart';
 import 'package:vocadb_app/src/features/songs/data/song_repository.dart';
 import 'package:vocadb_app/src/features/songs/presentation/songs_list/song_placeholder_list_view.dart';
 import 'package:vocadb_app/src/features/songs/presentation/songs_list/songs_list_view.dart';
+import 'package:vocadb_app/src/utils/app_localizations_context.dart';
 
 class HighlightedSection extends StatelessWidget {
   const HighlightedSection({super.key});
@@ -12,7 +13,7 @@ class HighlightedSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Section(
-      title: 'highlighted',
+      title: context.loc.highlighted,
       child: Consumer(
         builder: ((context, ref, child) {
           final value = ref.watch(songsHighlightedProvider);

@@ -2,5 +2,7 @@
     "highlighted": "Highlight PVs",
     "@highlighted": {
       "description": "The title of highlighted songs on home screen"
-    }
+    },
+    "interfaceLanguage": "Interface language",
+    "preferredDisplayLanguage": "Preferred display language"
 }
