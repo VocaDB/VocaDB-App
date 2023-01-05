@@ -20,7 +20,7 @@ abstract class AlbumRepository {
 }
 
 /// Album Repository Provider
-final albumRepositoryProvider = Provider.autoDispose<AlbumRepository>((ref) {
+final albumRepositoryProvider = Provider<AlbumRepository>((ref) {
   final config = ref.read(flavorConfigProvider);
 
   return (config.useFakeData)
@@ -29,7 +29,7 @@ final albumRepositoryProvider = Provider.autoDispose<AlbumRepository>((ref) {
 });
 
 /// Albums new Provider
-final albumsNewProvider = FutureProvider.autoDispose<List<Album>>((ref) {
+final albumsNewProvider = FutureProvider<List<Album>>((ref) {
   final albumRepository = ref.watch(albumRepositoryProvider);
   final userSettings = ref.watch(userSettingsRepositoryProvider);
 
@@ -39,7 +39,7 @@ final albumsNewProvider = FutureProvider.autoDispose<List<Album>>((ref) {
 });
 
 /// Albums new Provider
-final albumsTopProvider = FutureProvider.autoDispose<List<Album>>((ref) {
+final albumsTopProvider = FutureProvider<List<Album>>((ref) {
   final albumRepository = ref.watch(albumRepositoryProvider);
   final userSettings = ref.watch(userSettingsRepositoryProvider);
 

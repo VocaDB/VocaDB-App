@@ -34,6 +34,26 @@ void main() {
       ]);
     });
 
+    test('fetchTopRated return success', () async {
+      // Setup
+      const responseBody = [
+        {"id": 1, "name": "test-ja"},
+        {"id": 2, "name": "test-ja-2"},
+      ];
+      when(() => client.get(any(), params: any(named: 'params', that: isMap)))
+          .thenAnswer((_) => Future.value(responseBody));
+
+      // Run
+      final response =
+          await songApiRepository.fetchSongsTopRated(durationHours: 24);
+
+      // Verify
+      expect(response, [
+        const Song(id: 1, name: 'test-ja'),
+        const Song(id: 2, name: 'test-ja-2'),
+      ]);
+    });
+
     test('fetchSongId return success', () async {
       // Setup
       const responseBody = {"id": 1};

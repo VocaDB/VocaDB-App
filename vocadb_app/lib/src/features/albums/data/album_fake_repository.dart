@@ -27,7 +27,6 @@ class AlbumFakeRepository implements AlbumRepository {
 }
 
 /// Album Fake Repository Provider
-final albumFakeRepositoryProvider =
-    Provider.autoDispose<AlbumFakeRepository>((ref) {
+final albumFakeRepositoryProvider = Provider<AlbumFakeRepository>((ref) {
   return AlbumFakeRepository();
 });

@@ -2,12 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vocadb_app/src/features/home/presentation/app_bar/app_title.dart';
 import 'package:vocadb_app/src/features/home/presentation/app_bar/global_app_bar.dart';
-import 'package:vocadb_app/src/features/songs/data/constants/fake_songs_list.dart';
-import 'package:vocadb_app/src/features/songs/presentation/songs_list/songs_list_view.dart';
+import 'package:vocadb_app/src/features/home/presentation/ranking_screen/top_songs_daily_list_view.dart';
+import 'package:vocadb_app/src/features/home/presentation/ranking_screen/top_songs_monthly_list_view.dart';
+import 'package:vocadb_app/src/features/home/presentation/ranking_screen/top_songs_overall_list_view%20copy.dart';
+import 'package:vocadb_app/src/features/home/presentation/ranking_screen/top_songs_weekly_list_view.dart';
 import 'package:vocadb_app/src/routing/app_router.dart';
 
 // TODO : need implementation
 class RankingScreen extends StatelessWidget {
+  static const tabDailyKey = Key('tab-daily-key');
+  static const tabWeeklyKey = Key('tab-weekly-key');
+  static const tabMonthlyKey = Key('tab-monthly-key');
+  static const tabOverallKey = Key('tab-overall-key');
+
   const RankingScreen({super.key});
 
   @override
@@ -31,34 +38,18 @@ class RankingScreen extends StatelessWidget {
           child: Scaffold(
             appBar: const TabBar(
               tabs: [
-                Tab(text: 'Daily'),
-                Tab(text: 'Weekly'),
-                Tab(text: 'Monthly'),
-                Tab(text: 'Overall'),
+                Tab(key: tabDailyKey, text: 'Daily'),
+                Tab(key: tabWeeklyKey, text: 'Weekly'),
+                Tab(key: tabMonthlyKey, text: 'Monthly'),
+                Tab(key: tabOverallKey, text: 'Overall'),
               ],
             ),
-            body: TabBarView(
+            body: const TabBarView(
               children: [
-                SongListView(
-                  songs: kFakeSongsList,
-                  displayOrderNumber: true,
-                  onSelect: (song) => {},
-                ),
-                SongListView(
-                  songs: kFakeSongsList,
-                  displayOrderNumber: true,
-                  onSelect: (song) => {},
-                ),
-                SongListView(
-                  songs: kFakeSongsList,
-                  displayOrderNumber: true,
-                  onSelect: (song) => {},
-                ),
-                SongListView(
-                  songs: kFakeSongsList,
-                  displayOrderNumber: true,
-                  onSelect: (song) => {},
-                ),
+                TopSongsDailyListView(),
+                TopSongsWeeklyListView(),
+                TopSongsMonthlyListView(),
+                TopSongsOverallListView(),
               ],
             ),
             floatingActionButton: FloatingActionButton(

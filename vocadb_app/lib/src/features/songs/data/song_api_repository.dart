@@ -9,9 +9,11 @@ class SongApiRepository implements SongRepository {
   final ApiClient client;
 
   @override
-  Future<Song> fetchSongId(int id) async {
+  Future<Song> fetchSongId(int id, {String lang = 'Default'}) async {
     final responseBody = await client.get('api/songs/$id', params: {
-      'fields': 'ThumbUrl,MainPicture,PVs',
+      'fields':
+          'MainPicture,PVs,ThumbUrl,Albums,Artists,Tags,WebLinks,AdditionalNames,WebLinks,Lyrics',
+      'lang': lang
     });
 
     return Song.fromJson(responseBody);
@@ -25,10 +27,14 @@ class SongApiRepository implements SongRepository {
 
   @override
   Future<List<Song>> fetchSongsHighlighted({String lang = 'Default'}) async {
-    final responseBody = await client.get('api/songs/highlighted', params: {
+    final params = {
       'fields': 'ThumbUrl,MainPicture,PVs',
       'languagePreference': lang,
-    });
+    };
+
+    final responseBody =
+        await client.get('api/songs/highlighted', params: params);
+
     return Song.fromJsonToList(responseBody).toList();
   }
 
@@ -45,10 +51,27 @@ class SongApiRepository implements SongRepository {
   }
 
   @override
-  Future<List<Song>> fetchSongsTopRated(
-      {String? lang, int? durationHours, String? filterBy, String? vocalist}) {
-    // TODO: implement fetchSongsTopRated
-    throw UnimplementedError();
+  Future<List<Song>> fetchSongsTopRated({
+    String lang = 'Default',
+    int durationHours = 0,
+    String filterBy = 'CreateDate',
+    String vocalist = 'Nothing',
+  }) async {
+    final params = {
+      'filterBy': filterBy,
+      'vocalist': vocalist,
+      'fields': 'ThumbUrl,MainPicture,PVs',
+      'languagePreference': lang,
+    };
+
+    if (durationHours > 0) {
+      params['durationHours'] = durationHours.toString();
+    }
+
+    final responseBody =
+        await client.get('api/songs/top-rated', params: params);
+
+    return Song.fromJsonToList(responseBody).toList();
   }
 
   @override
@@ -58,8 +81,7 @@ class SongApiRepository implements SongRepository {
   }
 }
 
-final songApiRepositoryProvider =
-    Provider.autoDispose<SongApiRepository>((ref) {
+final songApiRepositoryProvider = Provider<SongApiRepository>((ref) {
   final apiClient = ref.watch(apiClientProvider);
   return SongApiRepository(client: apiClient);
 });

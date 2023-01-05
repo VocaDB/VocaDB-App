@@ -11,9 +11,7 @@ class MyApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final goRouter = ref.watch(goRouterProvider);
     final settings = ref.watch(userSettingsRepositoryProvider);
-    final state = ref.watch(interfaceLangStateChangesProvider);
-
-    print('MyApp.build().....');
+    ref.watch(interfaceLangStateChangesProvider);
 
     return MaterialApp.router(
       routerConfig: goRouter,

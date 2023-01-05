@@ -6,7 +6,7 @@ import 'package:vocadb_app/src/features/songs/domain/song.dart';
 
 class SongFakeRepository implements SongRepository {
   @override
-  Future<Song> fetchSongId(int id) async {
+  Future<Song> fetchSongId(int id, {String lang = 'Default'}) async {
     return await Future.value(kFakeSongDetail);
   }
 
@@ -31,11 +31,12 @@ class SongFakeRepository implements SongRepository {
   }
 
   @override
-  Future<List<Song>> fetchSongsTopRated(
-      {String? lang,
-      int? durationHours,
-      String? filterBy,
-      String? vocalist}) async {
+  Future<List<Song>> fetchSongsTopRated({
+    String lang = 'Default',
+    int durationHours = 0,
+    String filterBy = 'CreateDate',
+    String vocalist = 'Nothing',
+  }) async {
     return await Future.value(kFakeSongsList);
   }
 
