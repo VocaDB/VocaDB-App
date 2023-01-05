@@ -1,5 +1,4 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:vocadb_app/src/constants/config.dart';
 import 'package:vocadb_app/src/features/artists/domain/artist.dart';
 
 part 'artist_role.freezed.dart';
@@ -35,12 +34,21 @@ extension ArtistRoleExtended on ArtistRole {
   bool get isOtherRole => (!isProducer && !isVocalist);
 
   /// Get image of artist. Return placeholder image if `artist` is null.
-  String get imageUrl {
+  String? get imageUrl {
     if (artist == null) {
-      return kPlaceholderImageUrl;
+      return null;
     }
 
-    return artist!.imageUrl ?? kPlaceholderImageUrl;
+    return artist!.imageUrl;
+  }
+
+  /// Get id of artist
+  int? get artistId {
+    if (artist == null) {
+      return id;
+    }
+
+    return artist!.id;
   }
 
   /// Get name of artist. Return `name` if `artist` is null.

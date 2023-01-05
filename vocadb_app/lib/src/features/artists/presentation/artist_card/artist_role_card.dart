@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:vocadb_app/src/common_widgets/custom_network_image.dart';
 import 'package:vocadb_app/src/constants/app_sizes.dart';
-import 'package:vocadb_app/src/features/artists/domain/artist.dart';
 import 'package:vocadb_app/src/features/artists/domain/artist_role.dart';
+import 'package:vocadb_app/src/features/artists/presentation/artist_card/artist_image_card.dart';
 
 class ArtistRoleCard extends StatelessWidget {
   const ArtistRoleCard({
@@ -19,16 +18,9 @@ class ArtistRoleCard extends StatelessWidget {
       height: double.infinity,
       child: Column(
         children: [
-          ClipOval(
-            child: Container(
-              color: Colors.white,
-              child: CustomNetworkImage(
-                artistRole.imageUrl,
-                width: 72,
-                height: 72,
-                fit: BoxFit.contain,
-              ),
-            ),
+          ArtistImageCard(
+            imageUrl: artistRole.imageUrl,
+            artistId: artistRole.artistId,
           ),
           gapH8,
           Text(artistRole.artistName ?? '<None>'),

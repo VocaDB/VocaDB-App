@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:vocadb_app/src/common_widgets/custom_network_image.dart';
 import 'package:vocadb_app/src/features/artists/domain/artist.dart';
+import 'package:vocadb_app/src/features/artists/presentation/artist_tile/artist_tile_image.dart';
 
 /// A widget for display artist information in vertical list
 class ArtistTile extends StatelessWidget {
@@ -21,18 +21,13 @@ class ArtistTile extends StatelessWidget {
       leading: SizedBox(
         width: imageSize,
         height: imageSize,
-        child: ClipOval(
-          child: Container(
-            color: Colors.white,
-            child: CustomNetworkImage(
-              artist.imageUrl!,
-              fit: BoxFit.contain,
-            ),
-          ),
+        child: ArtistTileImage(
+          imageUrl: artist.imageUrl,
+          artistId: artist.id,
         ),
       ),
       title: Text(artist.name!, overflow: TextOverflow.ellipsis),
-      subtitle: Text(artist.artistType!),
+      subtitle: Text(artist.artistType ?? '<None>'),
     );
   }
 }

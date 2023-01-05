@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vocadb_app/src/features/artists/domain/artist_role.dart';
-import 'package:vocadb_app/src/features/artists/presentation/artists_list/artist_role_card.dart';
+import 'package:vocadb_app/src/features/artists/presentation/artist_card/artist_role_card.dart';
 
 //TODO Change to horizontal view
 class ArtistRolesHorizontalListView extends StatelessWidget {

@@ -1,5 +1,4 @@
 import 'package:intl/intl.dart';
-import 'package:vocadb_app/src/constants/config.dart';
 
 import 'package:vocadb_app/src/features/artists/domain/artist_link.dart';
 import 'package:vocadb_app/src/features/artists/domain/artist_relations.dart';
@@ -37,7 +36,9 @@ extension ArtistExtended on Artist {
       ? null
       : DateFormat('yyyy-MM-dd').format(DateTime.parse(releaseDate!));
 
-  String? get imageUrl => (mainPicture?.urlOriginal != null)
-      ? mainPicture!.urlOriginal
-      : kPlaceholderImageUrl;
+  String? get imageUrl {
+    if (mainPicture == null) return null;
+
+    return mainPicture!.urlOriginal;
+  }
 }

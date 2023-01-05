@@ -53,7 +53,7 @@ class SongCard extends StatelessWidget {
                   SongTypeIcon(
                     songType: song.songType!,
                   ),
-                  (song.pvServices!.isNotEmpty)
+                  (song.pvServices != null && song.pvServices!.isNotEmpty)
                       ? const Icon(Icons.local_movies)
                       : Container(),
                 ],
