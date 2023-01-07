@@ -125,7 +125,7 @@ class __$$_SongRelatedCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_SongRelated implements _SongRelated {
-  _$_SongRelated(
+  const _$_SongRelated(
       {final List<Song> artistMatches = const [],
       final List<Song> likeMatches = const [],
       final List<Song> tagMatches = const []})
@@ -201,7 +201,7 @@ class _$_SongRelated implements _SongRelated {
 }
 
 abstract class _SongRelated implements SongRelated {
-  factory _SongRelated(
+  const factory _SongRelated(
       {final List<Song> artistMatches,
       final List<Song> likeMatches,
       final List<Song> tagMatches}) = _$_SongRelated;

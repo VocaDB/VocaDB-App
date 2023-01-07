@@ -6,7 +6,7 @@ part 'song_related.g.dart';
 
 @freezed
 class SongRelated with _$SongRelated {
-  factory SongRelated({
+  const factory SongRelated({
     @Default([]) List<Song> artistMatches,
     @Default([]) List<Song> likeMatches,
     @Default([]) List<Song> tagMatches,
