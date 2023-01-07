@@ -14,10 +14,15 @@ class SongInfo extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(song.name!, style: Theme.of(context).textTheme.headline6),
-          Text(song.additionalNames!),
+          Text(song.name ?? '<Song name>',
+              style: Theme.of(context).textTheme.headline6),
+          (song.additionalNames != null && song.additionalNames!.isNotEmpty)
+              ? Text(song.additionalNames!)
+              : Container(),
           gapH4,
-          Text(song.songType!),
+          (song.songType != null && song.songType!.isNotEmpty)
+              ? Text(song.songType!)
+              : Container(),
         ],
       ),
     );

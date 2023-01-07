@@ -5,6 +5,7 @@ import 'package:vocadb_app/src/features/songs/data/constants/duration_hours.dart
 import 'package:vocadb_app/src/features/songs/data/song_api_repository.dart';
 import 'package:vocadb_app/src/features/songs/data/song_fake_repository.dart';
 import 'package:vocadb_app/src/features/songs/domain/song.dart';
+import 'package:vocadb_app/src/features/songs/domain/song_related.dart';
 
 abstract class SongRepository {
   Future<List<Song>> fetchSongsHighlighted({String lang = 'Default'});
@@ -22,7 +23,7 @@ abstract class SongRepository {
 
   Future<List<Song>> fetchSongsDerived(int id, {String? lang});
 
-  Future<List<Song>> fetchSongsRelated(int id, {String? lang});
+  Future<SongRelated> fetchSongsRelated(int id, {String? lang});
 
   Future<void> rating(int id, String rating);
 }
@@ -30,7 +31,7 @@ abstract class SongRepository {
 /// Providers
 
 /// Song Repository Provider
-final songRepositoryProvider = Provider<SongRepository>((ref) {
+final songRepositoryProvider = Provider.autoDispose<SongRepository>((ref) {
   final config = ref.read(flavorConfigProvider);
 
   return (config.useFakeData)
@@ -39,7 +40,7 @@ final songRepositoryProvider = Provider<SongRepository>((ref) {
 });
 
 /// Songs Highlighed Provider
-final songsHighlightedProvider = FutureProvider<List<Song>>((ref) {
+final songsHighlightedProvider = FutureProvider.autoDispose<List<Song>>((ref) {
   final songRepository = ref.watch(songRepositoryProvider);
   final preferredLang = ref.watch(preferredStateChangesProvider);
 
@@ -47,7 +48,8 @@ final songsHighlightedProvider = FutureProvider<List<Song>>((ref) {
 });
 
 /// SongsID Provider
-final songDetailProvider = FutureProvider.family<Song, int>((ref, id) {
+final songDetailProvider =
+    FutureProvider.autoDispose.family<Song, int>((ref, id) {
   final songRepository = ref.watch(songRepositoryProvider);
   final preferredLang = ref.watch(preferredStateChangesProvider);
 
@@ -55,7 +57,7 @@ final songDetailProvider = FutureProvider.family<Song, int>((ref, id) {
 });
 
 // Songs Daily Ranking Provider
-final songsDailyProvider = FutureProvider<List<Song>>((ref) {
+final songsDailyProvider = FutureProvider.autoDispose<List<Song>>((ref) {
   final durationHours = DurationHours.daily.value;
   final songRepository = ref.watch(songRepositoryProvider);
   final userSettings = ref.watch(userSettingsRepositoryProvider);
@@ -67,7 +69,7 @@ final songsDailyProvider = FutureProvider<List<Song>>((ref) {
 });
 
 // Songs Weekly Ranking Provider
-final songsWeeklyProvider = FutureProvider<List<Song>>((ref) {
+final songsWeeklyProvider = FutureProvider.autoDispose<List<Song>>((ref) {
   final durationHours = DurationHours.weekly.value;
   final songRepository = ref.watch(songRepositoryProvider);
   final userSettings = ref.watch(userSettingsRepositoryProvider);
@@ -79,7 +81,7 @@ final songsWeeklyProvider = FutureProvider<List<Song>>((ref) {
 });
 
 // Songs Monthly Ranking Provider
-final songsMonthlyProvider = FutureProvider<List<Song>>((ref) {
+final songsMonthlyProvider = FutureProvider.autoDispose<List<Song>>((ref) {
   final durationHours = DurationHours.monthly.value;
   final songRepository = ref.watch(songRepositoryProvider);
   final userSettings = ref.watch(userSettingsRepositoryProvider);
@@ -91,11 +93,39 @@ final songsMonthlyProvider = FutureProvider<List<Song>>((ref) {
 });
 
 // Songs Overall Ranking Provider
-final songsOverallProvider = FutureProvider<List<Song>>((ref) {
+final songsOverallProvider = FutureProvider.autoDispose<List<Song>>((ref) {
   final songRepository = ref.watch(songRepositoryProvider);
   final userSettings = ref.watch(userSettingsRepositoryProvider);
 
   return songRepository.fetchSongsTopRated(
     lang: userSettings.currentPreferredLang!,
   );
+});
+
+// Songs Derived Provider
+final songsDerivedProvider =
+    FutureProvider.autoDispose.family<List<Song>, int>((ref, id) async {
+  final songRepository = ref.watch(songRepositoryProvider);
+  final userSettings = ref.watch(userSettingsRepositoryProvider);
+
+  final value = songRepository.fetchSongsDerived(
+    id,
+    lang: userSettings.currentPreferredLang!,
+  );
+
+  return value;
+});
+
+// Songs Related Provider
+final songsRelatedProvider =
+    FutureProvider.autoDispose.family<SongRelated, int>((ref, id) async {
+  final songRepository = ref.watch(songRepositoryProvider);
+  final userSettings = ref.watch(userSettingsRepositoryProvider);
+
+  final value = songRepository.fetchSongsRelated(
+    id,
+    lang: userSettings.currentPreferredLang!,
+  );
+
+  return value;
 });

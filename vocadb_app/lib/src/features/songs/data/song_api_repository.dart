@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vocadb_app/src/features/api/api_client.dart';
 import 'package:vocadb_app/src/features/songs/data/song_repository.dart';
 import 'package:vocadb_app/src/features/songs/domain/song.dart';
+import 'package:vocadb_app/src/features/songs/domain/song_related.dart';
 
 class SongApiRepository implements SongRepository {
   SongApiRepository({required this.client});
@@ -10,19 +11,26 @@ class SongApiRepository implements SongRepository {
 
   @override
   Future<Song> fetchSongId(int id, {String lang = 'Default'}) async {
-    final responseBody = await client.get('api/songs/$id', params: {
+    final params = {
       'fields':
           'MainPicture,PVs,ThumbUrl,Albums,Artists,Tags,WebLinks,AdditionalNames,WebLinks,Lyrics',
       'lang': lang
-    });
+    };
+    final responseBody = await client.get('api/songs/$id', params: params);
 
     return Song.fromJson(responseBody);
   }
 
   @override
-  Future<List<Song>> fetchSongsDerived(int id, {String? lang}) {
-    // TODO: implement fetchSongsDerived
-    throw UnimplementedError();
+  Future<List<Song>> fetchSongsDerived(int id, {String? lang}) async {
+    final params = {
+      'fields': 'ThumbUrl,MainPicture,PVs',
+      'languagePreference': lang,
+    };
+    final responseBody =
+        await client.get('api/songs/$id/derived', params: params);
+
+    return Song.fromJsonToList(responseBody).toList();
   }
 
   @override
@@ -31,7 +39,6 @@ class SongApiRepository implements SongRepository {
       'fields': 'ThumbUrl,MainPicture,PVs',
       'languagePreference': lang,
     };
-
     final responseBody =
         await client.get('api/songs/highlighted', params: params);
 
@@ -45,9 +52,15 @@ class SongApiRepository implements SongRepository {
   }
 
   @override
-  Future<List<Song>> fetchSongsRelated(int id, {String? lang}) {
-    // TODO: implement fetchSongsRelated
-    throw UnimplementedError();
+  Future<SongRelated> fetchSongsRelated(int id, {String? lang}) async {
+    final params = {
+      'fields': 'ThumbUrl,MainPicture,PVs',
+      'languagePreference': lang,
+    };
+    final responseBody =
+        await client.get('api/songs/$id/related', params: params);
+
+    return SongRelated.fromJson(responseBody);
   }
 
   @override

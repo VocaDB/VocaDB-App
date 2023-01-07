@@ -18,7 +18,7 @@ void main() {
     await r.tapOverall();
 
     verify(() => songRepository.fetchSongsTopRated(
-        durationHours: DurationHours.daily.value)).called(1);
+        durationHours: DurationHours.daily.value)).called(2);
     verify(() => songRepository.fetchSongsTopRated(
         durationHours: DurationHours.weekly.value)).called(1);
     verify(() => songRepository.fetchSongsTopRated(

@@ -2,34 +2,35 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vocadb_app/src/features/songs/data/song_repository.dart';
 import 'package:vocadb_app/src/features/songs/domain/song.dart';
 import 'package:vocadb_app/src/features/songs/presentation/song_detail_screen/song_detail_state.dart';
-import 'package:vocadb_app/src/utils/delay.dart';
 
 class SongDetailScreenController extends StateNotifier<SongDetailState> {
   SongDetailScreenController({
     required this.songRepository,
-    required this.songId,
-  }) : super(SongDetailState(song: Song(id: songId))) {
-    _init();
+    required this.song,
+  }) : super(SongDetailState(song: AsyncValue.data(song))) {
+    loadDetail();
   }
 
   final SongRepository songRepository;
 
-  final int songId;
+  final Song song;
 
-  _init() async {
-    state = state.copyWith(isLoading: true);
-    delay(true);
-    final songDetail = await songRepository.fetchSongId(songId);
-    state = state.copyWith(song: songDetail, isLoading: false);
+  Future<bool> loadDetail() async {
+    state = state.copyWith(song: const AsyncValue.loading());
+    final value =
+        await AsyncValue.guard(() => songRepository.fetchSongId(song.id));
+    state = state.copyWith(song: value);
+
+    return value.hasError == false;
   }
 }
 
-final songDetailScreenControllerProvider = StateNotifierProvider.family<
-    SongDetailScreenController, SongDetailState, int>((ref, id) {
+final songDetailScreenControllerProvider = StateNotifierProvider.autoDispose
+    .family<SongDetailScreenController, SongDetailState, int>((ref, id) {
   final songRepository = ref.watch(songRepositoryProvider);
 
   return SongDetailScreenController(
     songRepository: songRepository,
-    songId: id,
+    song: Song(id: id),
   );
 });

@@ -12,12 +12,10 @@ class UserSettingsRepository {
   String? get currentPreferredLang => _preferredLangState.value;
 
   Future<void> saveInterfaceLang(String? interfaceLang) async {
-    print('UserSettingsRepository.updateInterfaceLang....');
     _interfaceLangState.value = interfaceLang;
   }
 
   Future<void> savePreferredLang(String? preferredDisplayLang) async {
-    print('UserSettingsRepository.updatePreferredLang....');
     _preferredLangState.value = preferredDisplayLang;
   }
 

@@ -1,8 +1,10 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vocadb_app/src/features/songs/data/constants/fake_song_detail.dart';
+import 'package:vocadb_app/src/features/songs/data/constants/fake_song_related.dart';
 import 'package:vocadb_app/src/features/songs/data/constants/fake_songs_list.dart';
 import 'package:vocadb_app/src/features/songs/data/song_repository.dart';
 import 'package:vocadb_app/src/features/songs/domain/song.dart';
+import 'package:vocadb_app/src/features/songs/domain/song_related.dart';
 
 class SongFakeRepository implements SongRepository {
   @override
@@ -26,8 +28,8 @@ class SongFakeRepository implements SongRepository {
   }
 
   @override
-  Future<List<Song>> fetchSongsRelated(int id, {String? lang}) async {
-    return await Future.value(kFakeSongsList);
+  Future<SongRelated> fetchSongsRelated(int id, {String? lang}) async {
+    return await Future.value(kFakeSongRelated);
   }
 
   @override
