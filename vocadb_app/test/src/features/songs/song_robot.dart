@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:vocadb_app/src/features/songs/data/song_repository.dart';
+import 'package:vocadb_app/src/features/songs/domain/song.dart';
 import 'package:vocadb_app/src/features/songs/presentation/song_detail_screen/song_detail_screen.dart';
 import 'package:vocadb_app/src/features/songs/presentation/songs_list/songs_derived_list_view.dart';
 import 'package:vocadb_app/src/features/songs/presentation/songs_list/songs_related_list_view.dart';
@@ -12,7 +13,7 @@ class SongRobot {
   SongRobot(this.tester);
 
   Future<void> pumpSongDetailScreen(
-      {SongRepository? songRepository, required String songId}) async {
+      {SongRepository? songRepository, required int songId}) async {
     await tester.pumpWidget(
       ProviderScope(
         overrides: [
@@ -21,7 +22,7 @@ class SongRobot {
         ],
         child: MaterialApp(
           home: SongDetailScreen(
-            songId: songId,
+            song: Song(id: songId),
           ),
         ),
       ),

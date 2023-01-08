@@ -9,33 +9,39 @@ class SongDetailState {
   final AsyncValue<Song> song;
   final AsyncValue<SongRelated> relatedSongs;
   final AsyncValue<List<Song>> derivedSongs;
+  final bool displayLyricsModal;
   const SongDetailState({
     required this.song,
     this.relatedSongs = const AsyncValue.data(SongRelated()),
     this.derivedSongs = const AsyncValue.data([]),
+    this.displayLyricsModal = false,
   });
 
   SongDetailState.loading({
     this.song = const AsyncValue.loading(),
     this.relatedSongs = const AsyncValue.data(SongRelated()),
     this.derivedSongs = const AsyncValue.data([]),
+    this.displayLyricsModal = false,
   });
 
   SongDetailState copyWith({
     AsyncValue<Song>? song,
     AsyncValue<SongRelated>? relatedSongs,
     AsyncValue<List<Song>>? derivedSongs,
+    bool? displayLyricsModal,
   }) {
     return SongDetailState(
       song: song ?? this.song,
       relatedSongs: relatedSongs ?? this.relatedSongs,
       derivedSongs: derivedSongs ?? this.derivedSongs,
+      displayLyricsModal: displayLyricsModal ?? this.displayLyricsModal,
     );
   }
 
   @override
-  String toString() =>
-      'SongDetailState(song: $song, relatedSongs: $relatedSongs, derivedSongs: $derivedSongs)';
+  String toString() {
+    return 'SongDetailState(song: $song, relatedSongs: $relatedSongs, derivedSongs: $derivedSongs, displayLyricsModal: $displayLyricsModal)';
+  }
 
   @override
   bool operator ==(covariant SongDetailState other) {
@@ -43,10 +49,15 @@ class SongDetailState {
 
     return other.song == song &&
         other.relatedSongs == relatedSongs &&
-        other.derivedSongs == derivedSongs;
+        other.derivedSongs == derivedSongs &&
+        other.displayLyricsModal == displayLyricsModal;
   }
 
   @override
-  int get hashCode =>
-      song.hashCode ^ relatedSongs.hashCode ^ derivedSongs.hashCode;
+  int get hashCode {
+    return song.hashCode ^
+        relatedSongs.hashCode ^
+        derivedSongs.hashCode ^
+        displayLyricsModal.hashCode;
+  }
 }

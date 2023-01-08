@@ -1,3 +1,4 @@
+@Timeout(Duration(milliseconds: 2000))
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:vocadb_app/src/features/songs/data/constants/fake_song_detail.dart';
@@ -35,7 +36,7 @@ void main() {
     /// Pump screen
     await r.pumpSongDetailScreen(
       songRepository: songRepository,
-      songId: song.id.toString(),
+      songId: song.id,
     );
 
     verify(() => songRepository.fetchSongId(song.id, lang: 'Default'))
@@ -78,7 +79,7 @@ void main() {
     );
 
     /// Pump screen
-    await r.pumpSongDetailScreen(songRepository: songRepository, songId: '1');
+    await r.pumpSongDetailScreen(songRepository: songRepository, songId: 1);
 
     verify(() => songRepository.fetchSongId(1, lang: 'Default')).called(1);
 
@@ -111,7 +112,7 @@ void main() {
       Exception('Connection error'),
     );
 
-    await r.pumpSongDetailScreen(songRepository: songRepository, songId: '1');
+    await r.pumpSongDetailScreen(songRepository: songRepository, songId: 1);
 
     verify(() => songRepository.fetchSongId(1)).called(1);
   });

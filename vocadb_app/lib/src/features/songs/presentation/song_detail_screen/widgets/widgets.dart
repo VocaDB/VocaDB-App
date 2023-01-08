@@ -1,0 +1,11 @@
+export 'song_detail_albums_section.dart';
+export 'song_detail_artists_section.dart';
+export 'song_detail_button_bar.dart';
+export 'song_detail_derived_section.dart';
+export 'song_detail_info_section.dart';
+export 'song_detail_lyrics_content.dart';
+export 'song_detail_pvs_section.dart';
+export 'song_detail_related_section.dart';
+export 'song_detail_tags_section.dart';
+export 'song_detail_web_links_section.dart';
+export 'song_hero_image.dart';

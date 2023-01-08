@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:vocadb_app/src/constants/app_sizes.dart';
 import 'package:vocadb_app/src/features/songs/domain/song.dart';
 
-class SongInfo extends StatelessWidget {
-  const SongInfo({super.key, required this.song});
+class SongDetailInfoSection extends StatelessWidget {
+  const SongDetailInfoSection({super.key, required this.song});
 
   final Song song;
 
