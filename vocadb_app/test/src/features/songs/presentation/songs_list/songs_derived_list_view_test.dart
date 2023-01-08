@@ -11,38 +11,22 @@ void main() {
     final r = SongRobot(tester);
     final songRepository = MockSongRepository();
 
-    when(() => songRepository.fetchSongsDerived(any(),
-        lang: any(named: 'lang', that: isNotEmpty))).thenAnswer((_) {
+    when(() => songRepository.fetchSongId(any()))
+        .thenAnswer((_) => Future.value(const Song(id: 1501)));
+
+    when(() => songRepository.fetchSongsDerived(1501)).thenAnswer((_) {
       return Future.value([
         const Song(id: 1, name: 'Song_A'),
         const Song(id: 2, name: 'Song_B'),
       ]);
     });
 
-    // await tester.pumpWidget(
-    //   ProviderScope(
-    //     overrides: [
-    //       songRepositoryProvider.overrideWithValue(songRepository),
-    //     ],
-    //     child: MaterialApp(
-    //       home: Scaffold(
-    //         body: Column(
-    //           children: const [
-    //             SongsDerivedListView(songId: 1501),
-    //           ],
-    //         ),
-    //       ),
-    //     ),
-    //   ),
-    // );
-
     await r.pumpSongDerivedListView(
       songRepository: songRepository,
       songId: 1501,
     );
 
-    verify(() => songRepository.fetchSongsDerived(any(),
-        lang: any(named: 'lang', that: isNotEmpty))).called(1);
+    verify(() => songRepository.fetchSongsDerived(1501)).called(1);
 
     await tester.pump();
 

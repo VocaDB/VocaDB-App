@@ -26,6 +26,7 @@ class SongDetailScreenController extends StateNotifier<SongDetailState> {
     final isSuccess = await _loadDetail();
     if (isSuccess) {
       await _loadRelatedSongs();
+      await _loadDerivedSongs();
     }
   }
 
@@ -43,6 +44,15 @@ class SongDetailScreenController extends StateNotifier<SongDetailState> {
     final value =
         await AsyncValue.guard(() => songRepository.fetchSongsRelated(song.id));
     state = state.copyWith(relatedSongs: value);
+
+    return value.hasError == false;
+  }
+
+  Future<bool> _loadDerivedSongs() async {
+    state = state.copyWith(derivedSongs: const AsyncValue.loading());
+    final value =
+        await AsyncValue.guard(() => songRepository.fetchSongsDerived(song.id));
+    state = state.copyWith(derivedSongs: value);
 
     return value.hasError == false;
   }
@@ -65,4 +75,10 @@ final songRelatedStateProvider =
     StateProvider.autoDispose.family<AsyncValue<SongRelated>, int>((ref, id) {
   final controller = ref.watch(songDetailScreenControllerProvider(id));
   return controller.relatedSongs;
+});
+
+final songDerivedStateProvider =
+    StateProvider.autoDispose.family<AsyncValue<List<Song>>, int>((ref, id) {
+  final controller = ref.watch(songDetailScreenControllerProvider(id));
+  return controller.derivedSongs;
 });

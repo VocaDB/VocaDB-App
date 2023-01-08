@@ -27,12 +27,19 @@ void main() {
         Song(id: 2, name: 'Song_B'),
         Song(id: 1, name: 'Song_C'),
       ]);
+      const songDerived = [
+        Song(id: 3, name: 'song_derived_a'),
+        Song(id: 4, name: 'song_derived_b')
+      ];
 
       when(() => songRepository.fetchSongId(1))
           .thenAnswer((_) => Future.value(song));
 
       when(() => songRepository.fetchSongsRelated(1))
           .thenAnswer((_) => Future.value(songRelated));
+
+      when(() => songRepository.fetchSongsDerived(1))
+          .thenAnswer((_) => Future.value(songDerived));
 
       expectLater(
         controller.stream,
@@ -41,20 +48,34 @@ void main() {
           SongDetailState.loading(),
 
           // fetchSongID success
-          SongDetailState(
-            song: const AsyncValue.data(song),
+          const SongDetailState(
+            song: AsyncValue.data(song),
           ),
 
           // fetchSongRelated loading
-          SongDetailState(
-            song: const AsyncValue.data(song),
-            relatedSongs: const AsyncValue.loading(),
+          const SongDetailState(
+            song: AsyncValue.data(song),
+            relatedSongs: AsyncValue.loading(),
           ),
 
           // fetchSongRelated success
-          SongDetailState(
-            song: const AsyncValue.data(song),
-            relatedSongs: const AsyncValue.data(songRelated),
+          const SongDetailState(
+            song: AsyncValue.data(song),
+            relatedSongs: AsyncValue.data(songRelated),
+          ),
+
+          // fetchSongDerived loading
+          const SongDetailState(
+            song: AsyncValue.data(song),
+            relatedSongs: AsyncValue.data(songRelated),
+            derivedSongs: AsyncValue.loading(),
+          ),
+
+          // fetchSongDerived success
+          const SongDetailState(
+            song: AsyncValue.data(song),
+            relatedSongs: AsyncValue.data(songRelated),
+            derivedSongs: AsyncValue.data(songDerived),
           ),
           emitsDone
         ]),
@@ -67,9 +88,11 @@ void main() {
 
       verify(() => songRepository.fetchSongId(1)).called(1);
       verify(() => songRepository.fetchSongsRelated(1)).called(1);
+      verify(() => songRepository.fetchSongsDerived(1)).called(1);
     });
 
-    test('initial with fetchSongID failure should not load related song',
+    test(
+        'initial with fetchSongID failure should not load related songs and derived songs',
         () async {
       final exception = Exception('Connection failed');
       when(() => songRepository.fetchSongId(1)).thenThrow(exception);
@@ -97,6 +120,7 @@ void main() {
 
       verify(() => songRepository.fetchSongId(1)).called(1);
       verifyNever(() => songRepository.fetchSongsRelated(1));
+      verifyNever(() => songRepository.fetchSongsDerived(1));
     });
   });
 }

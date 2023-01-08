@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vocadb_app/src/common_widgets/error_message_widget.dart';
 import 'package:vocadb_app/src/common_widgets/section.dart';
-import 'package:vocadb_app/src/features/songs/data/song_repository.dart';
+import 'package:vocadb_app/src/features/songs/presentation/song_detail_screen/song_detail_screen_controller.dart';
 import 'package:vocadb_app/src/features/songs/presentation/songs_list/songs_list_view.dart';
 
 class SongsDerivedListView extends ConsumerWidget {
@@ -16,7 +16,7 @@ class SongsDerivedListView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final value = ref.watch(songsDerivedProvider(songId));
+    final value = ref.watch(songDerivedStateProvider(songId));
     return value.when(
       data: (data) {
         if (data.isEmpty) {
