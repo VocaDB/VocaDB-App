@@ -22,7 +22,8 @@ class SongApiRepository implements SongRepository {
   }
 
   @override
-  Future<List<Song>> fetchSongsDerived(int id, {String? lang}) async {
+  Future<List<Song>> fetchSongsDerived(int id,
+      {String lang = 'Default'}) async {
     final params = {
       'fields': 'ThumbUrl,MainPicture,PVs',
       'languagePreference': lang,
@@ -52,7 +53,8 @@ class SongApiRepository implements SongRepository {
   }
 
   @override
-  Future<SongRelated> fetchSongsRelated(int id, {String? lang}) async {
+  Future<SongRelated> fetchSongsRelated(int id,
+      {String lang = 'Default'}) async {
     final params = {
       'fields': 'ThumbUrl,MainPicture,PVs',
       'languagePreference': lang,

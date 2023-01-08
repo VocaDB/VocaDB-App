@@ -21,9 +21,9 @@ abstract class SongRepository {
     String vocalist = 'Nothing',
   });
 
-  Future<List<Song>> fetchSongsDerived(int id, {String? lang});
+  Future<List<Song>> fetchSongsDerived(int id, {String lang = 'Default'});
 
-  Future<SongRelated> fetchSongsRelated(int id, {String? lang});
+  Future<SongRelated> fetchSongsRelated(int id, {String lang = 'Default'});
 
   Future<void> rating(int id, String rating);
 }

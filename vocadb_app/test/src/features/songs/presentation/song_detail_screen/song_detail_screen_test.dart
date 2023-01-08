@@ -18,13 +18,14 @@ void main() {
     when(() => songRepository.fetchSongId(song.id, lang: 'Default'))
         .thenAnswer((_) => Future.value(song));
 
-    when(() => songRepository.fetchSongsDerived(song.id))
+    when(() => songRepository.fetchSongsDerived(song.id, lang: 'Default'))
         .thenAnswer((_) => Future.value([
               const Song(id: 1, name: 'Song_A'),
               const Song(id: 2, name: 'Song_B'),
             ]));
 
-    when(() => songRepository.fetchSongsRelated(song.id)).thenAnswer(
+    when(() => songRepository.fetchSongsRelated(song.id, lang: 'Default'))
+        .thenAnswer(
       (_) => Future.value(
         const SongRelated(likeMatches: [
           Song(id: 3, name: 'Song_Related_A'),
@@ -56,8 +57,10 @@ void main() {
     await r.scrollDown();
     await tester.pump();
 
-    verify(() => songRepository.fetchSongsDerived(song.id)).called(1);
-    verify(() => songRepository.fetchSongsRelated(song.id)).called(1);
+    verify(() => songRepository.fetchSongsDerived(song.id, lang: 'Default'))
+        .called(1);
+    verify(() => songRepository.fetchSongsRelated(song.id, lang: 'Default'))
+        .called(1);
 
     await r.expectSameLikeSongsVisible(true);
     await r.expectWebLinksVisible(true);
@@ -71,10 +74,10 @@ void main() {
     when(() => songRepository.fetchSongId(1))
         .thenAnswer((_) => Future.value(const Song(id: 1)));
 
-    when(() => songRepository.fetchSongsDerived(1))
+    when(() => songRepository.fetchSongsDerived(1, lang: 'Default'))
         .thenAnswer((_) => Future.value([]));
 
-    when(() => songRepository.fetchSongsRelated(1)).thenAnswer(
+    when(() => songRepository.fetchSongsRelated(1, lang: 'Default')).thenAnswer(
       (_) => Future.value(const SongRelated()),
     );
 
@@ -98,8 +101,10 @@ void main() {
     await r.scrollDown();
     await tester.pump();
 
-    verify(() => songRepository.fetchSongsDerived(1)).called(1);
-    verify(() => songRepository.fetchSongsRelated(1)).called(1);
+    verify(() => songRepository.fetchSongsDerived(1, lang: 'Default'))
+        .called(1);
+    verify(() => songRepository.fetchSongsRelated(1, lang: 'Default'))
+        .called(1);
 
     await r.expectSameLikeSongsVisible(false);
     await r.expectWebLinksVisible(false);
