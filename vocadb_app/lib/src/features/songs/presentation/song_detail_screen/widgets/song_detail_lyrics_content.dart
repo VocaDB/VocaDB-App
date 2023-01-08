@@ -2,50 +2,55 @@ import 'package:flutter/material.dart';
 import 'package:vocadb_app/src/features/songs/domain/lyric.dart';
 
 /// A widget for display group of lyrics content
-class SongDetailLyricsContent extends StatefulWidget {
+class LyricContent extends StatefulWidget {
   final List<Lyric> lyrics;
 
   final GestureTapCallback? onTapClose;
 
-  const SongDetailLyricsContent({this.onTapClose, required this.lyrics});
+  const LyricContent({super.key, this.onTapClose, required this.lyrics});
+
+  static const iconCloseKey = Key('icon-close');
 
   @override
-  State<SongDetailLyricsContent> createState() =>
-      _SongDetailLyricsContentState();
+  State<LyricContent> createState() => _LyricContentState();
 }
 
-class _SongDetailLyricsContentState extends State<SongDetailLyricsContent> {
+class _LyricContentState extends State<LyricContent> {
   late Lyric selectedLyric;
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     selectedLyric = widget.lyrics[0];
   }
 
-  void _changeTranslation(Lyric lyricModel) {
+  void _changeTranslation(Lyric lyric) {
     setState(() {
-      selectedLyric = lyricModel;
+      selectedLyric = lyric;
     });
   }
 
-  String _translationLabel(Lyric lyricModel) {
-    return 'label';
-    // return lyricModel.translationType +
-    //     ((lyricModel.cultureCode == null || lyricModel?.cultureCode.isEmpty)
-    //         ? ''
-    //         : ' (${lyricModel.cultureCode})');
+  String _translationLabel(Lyric lyric) {
+    if (lyric.translationType == null) {
+      return 'Original';
+    }
+
+    if (lyric.cultureCode != null && lyric.cultureCode!.isNotEmpty) {
+      return '${lyric.translationType} (${lyric.cultureCode})';
+    }
+
+    return lyric.translationType!;
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return Expanded(
       child: Column(
         children: <Widget>[
           InkWell(
             onTap: widget.onTapClose,
             child: Container(
+              key: LyricContent.iconCloseKey,
               height: 36,
               alignment: Alignment.center,
               child: const Icon(Icons.close),
