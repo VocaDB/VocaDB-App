@@ -12,8 +12,10 @@ void main() {
     final r = SongRobot(tester);
     final songRepository = MockSongRepository();
 
-    when(() => songRepository.fetchSongsRelated(any(), lang: 'Default'))
-        .thenAnswer((_) {
+    when(() => songRepository.fetchSongId(any()))
+        .thenAnswer((_) => Future.value(const Song(id: 1501)));
+
+    when(() => songRepository.fetchSongsRelated(any())).thenAnswer((_) {
       return Future.value(const SongRelated(
         likeMatches: [
           Song(id: 1, name: 'Song_Related_A'),
@@ -27,8 +29,7 @@ void main() {
       songId: 1501,
     );
 
-    verify(() => songRepository.fetchSongsRelated(any(), lang: 'Default'))
-        .called(1);
+    verify(() => songRepository.fetchSongsRelated(any())).called(1);
 
     await tester.pump();
 

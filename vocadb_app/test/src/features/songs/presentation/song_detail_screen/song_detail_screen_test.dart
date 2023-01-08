@@ -23,12 +23,11 @@ void main() {
               const Song(id: 2, name: 'Song_B'),
             ]));
 
-    when(() => songRepository.fetchSongsRelated(song.id, lang: 'Default'))
-        .thenAnswer(
+    when(() => songRepository.fetchSongsRelated(song.id)).thenAnswer(
       (_) => Future.value(
-        SongRelated(likeMatches: [
-          const Song(id: 3, name: 'Song_Related_A'),
-          const Song(id: 4, name: 'Song_Related_B'),
+        const SongRelated(likeMatches: [
+          Song(id: 3, name: 'Song_Related_A'),
+          Song(id: 4, name: 'Song_Related_B'),
         ]),
       ),
     );
@@ -38,6 +37,9 @@ void main() {
       songRepository: songRepository,
       songId: song.id.toString(),
     );
+
+    verify(() => songRepository.fetchSongId(song.id, lang: 'Default'))
+        .called(1);
 
     /// Verify widget visibility
     await r.expectTagsVisible(true);
@@ -53,16 +55,12 @@ void main() {
     await r.scrollDown();
     await tester.pump();
 
-    await r.expectSameLikeSongsVisible(true);
-    await r.expectWebLinksVisible(true);
-
-    /// Verify All API called
-    verify(() => songRepository.fetchSongId(song.id, lang: 'Default'))
-        .called(1);
     verify(() => songRepository.fetchSongsDerived(song.id, lang: 'Default'))
         .called(1);
-    verify(() => songRepository.fetchSongsRelated(song.id, lang: 'Default'))
-        .called(1);
+    verify(() => songRepository.fetchSongsRelated(song.id)).called(1);
+
+    await r.expectSameLikeSongsVisible(true);
+    await r.expectWebLinksVisible(true);
   });
 
   testWidgets('song detail screen with song detail all fields is default',
@@ -76,12 +74,14 @@ void main() {
     when(() => songRepository.fetchSongsDerived(1, lang: 'Default'))
         .thenAnswer((_) => Future.value([]));
 
-    when(() => songRepository.fetchSongsRelated(1, lang: 'Default')).thenAnswer(
-      (_) => Future.value(SongRelated()),
+    when(() => songRepository.fetchSongsRelated(1)).thenAnswer(
+      (_) => Future.value(const SongRelated()),
     );
 
     /// Pump screen
     await r.pumpSongDetailScreen(songRepository: songRepository, songId: '1');
+
+    verify(() => songRepository.fetchSongId(1, lang: 'Default')).called(1);
 
     /// Verify widget visibility
     await r.expectTagsVisible(false);
@@ -97,15 +97,12 @@ void main() {
     await r.scrollDown();
     await tester.pump();
 
-    await r.expectSameLikeSongsVisible(false);
-    await r.expectWebLinksVisible(false);
-
-    /// Verify All API called
-    verify(() => songRepository.fetchSongId(1, lang: 'Default')).called(1);
     verify(() => songRepository.fetchSongsDerived(1, lang: 'Default'))
         .called(1);
-    verify(() => songRepository.fetchSongsRelated(1, lang: 'Default'))
-        .called(1);
+    verify(() => songRepository.fetchSongsRelated(1)).called(1);
+
+    await r.expectSameLikeSongsVisible(false);
+    await r.expectWebLinksVisible(false);
   });
 
   testWidgets('song detail screen with fetch song detail failure',
