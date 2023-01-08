@@ -9,38 +9,38 @@ class SongDetailState {
   final AsyncValue<Song> song;
   final AsyncValue<SongRelated> relatedSongs;
   final AsyncValue<List<Song>> derivedSongs;
-  final bool displayLyricsModal;
+  final bool showLyricContent;
   const SongDetailState({
     required this.song,
     this.relatedSongs = const AsyncValue.data(SongRelated()),
     this.derivedSongs = const AsyncValue.data([]),
-    this.displayLyricsModal = false,
+    this.showLyricContent = false,
   });
 
   SongDetailState.loading({
     this.song = const AsyncValue.loading(),
     this.relatedSongs = const AsyncValue.data(SongRelated()),
     this.derivedSongs = const AsyncValue.data([]),
-    this.displayLyricsModal = false,
+    this.showLyricContent = false,
   });
 
   SongDetailState copyWith({
     AsyncValue<Song>? song,
     AsyncValue<SongRelated>? relatedSongs,
     AsyncValue<List<Song>>? derivedSongs,
-    bool? displayLyricsModal,
+    bool? showLyricContent,
   }) {
     return SongDetailState(
       song: song ?? this.song,
       relatedSongs: relatedSongs ?? this.relatedSongs,
       derivedSongs: derivedSongs ?? this.derivedSongs,
-      displayLyricsModal: displayLyricsModal ?? this.displayLyricsModal,
+      showLyricContent: showLyricContent ?? this.showLyricContent,
     );
   }
 
   @override
   String toString() {
-    return 'SongDetailState(song: $song, relatedSongs: $relatedSongs, derivedSongs: $derivedSongs, displayLyricsModal: $displayLyricsModal)';
+    return 'SongDetailState(song: $song, relatedSongs: $relatedSongs, derivedSongs: $derivedSongs, showLyricContent: $showLyricContent)';
   }
 
   @override
@@ -50,7 +50,7 @@ class SongDetailState {
     return other.song == song &&
         other.relatedSongs == relatedSongs &&
         other.derivedSongs == derivedSongs &&
-        other.displayLyricsModal == displayLyricsModal;
+        other.showLyricContent == showLyricContent;
   }
 
   @override
@@ -58,6 +58,6 @@ class SongDetailState {
     return song.hashCode ^
         relatedSongs.hashCode ^
         derivedSongs.hashCode ^
-        displayLyricsModal.hashCode;
+        showLyricContent.hashCode;
   }
 }

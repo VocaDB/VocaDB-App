@@ -13,9 +13,12 @@ import 'package:vocadb_app/src/features/songs/presentation/song_detail_screen/wi
 import 'package:vocadb_app/src/features/songs/presentation/song_detail_screen/widgets/song_hero_image.dart';
 
 class SongDetailContent extends StatelessWidget {
-  const SongDetailContent({super.key, required this.song});
+  const SongDetailContent(
+      {super.key, required this.song, this.onTapLyricButton});
 
   final Song song;
+
+  final VoidCallback? onTapLyricButton;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +29,7 @@ class SongDetailContent extends StatelessWidget {
           SongHeroImage(
             imageUrl: song.imageUrl!,
           ),
-          const SongDetailButtonBar(),
+          SongDetailButtonBar(song: song, onTapLyricButton: onTapLyricButton),
           SongDetailInfoSection(song: song),
           SongDetailTagsSection(song: song),
           SongDetailArtistsSection(song: song),

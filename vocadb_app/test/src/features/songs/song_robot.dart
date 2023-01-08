@@ -4,6 +4,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:vocadb_app/src/features/songs/data/song_repository.dart';
 import 'package:vocadb_app/src/features/songs/domain/song.dart';
 import 'package:vocadb_app/src/features/songs/presentation/song_detail_screen/song_detail_screen.dart';
+import 'package:vocadb_app/src/features/songs/presentation/song_detail_screen/widgets/song_detail_content.dart';
+import 'package:vocadb_app/src/features/songs/presentation/song_detail_screen/widgets/widgets.dart';
 import 'package:vocadb_app/src/features/songs/presentation/songs_list/songs_derived_list_view.dart';
 import 'package:vocadb_app/src/features/songs/presentation/songs_list/songs_related_list_view.dart';
 
@@ -73,6 +75,37 @@ class SongRobot {
       ),
     );
     // await tester.pumpAndSettle(const Duration(seconds: 10));
+  }
+
+  Future<void> expectSongInfoContentVisible(bool visible) async {
+    final finder = find.byType(SongDetailContent);
+    (visible) ? expect(finder, findsOneWidget) : expect(finder, findsNothing);
+  }
+
+  Future<void> expectSongLyricContentVisible(bool visible) async {
+    final finder = find.byType(LyricContent);
+    (visible) ? expect(finder, findsOneWidget) : expect(finder, findsNothing);
+  }
+
+  Future<void> expectLyricButtonVisible(bool visible) async {
+    final finder = find.byKey(SongDetailButtonBar.lyricBtnKey);
+    (visible) ? expect(finder, findsOneWidget) : expect(finder, findsNothing);
+  }
+
+  Future<void> tapLyricButton() async {
+    final finder = find.byKey(SongDetailButtonBar.lyricBtnKey);
+    expect(finder, findsOneWidget);
+
+    await tester.tap(finder);
+    await tester.pump();
+  }
+
+  Future<void> tapCloseLyricButton() async {
+    final finder = find.byKey(LyricContent.iconCloseKey);
+    expect(finder, findsOneWidget);
+
+    await tester.tap(finder);
+    await tester.pump();
   }
 
   Future<void> expectTagsVisible(bool visible) async {

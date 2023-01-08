@@ -84,6 +84,7 @@ void main() {
     verify(() => songRepository.fetchSongId(1, lang: 'Default')).called(1);
 
     /// Verify widget visibility
+    await r.expectLyricButtonVisible(false);
     await r.expectTagsVisible(false);
     await r.expectArtistsVisible(false);
 
@@ -115,5 +116,47 @@ void main() {
     await r.pumpSongDetailScreen(songRepository: songRepository, songId: 1);
 
     verify(() => songRepository.fetchSongId(1)).called(1);
+  });
+
+  testWidgets('song detail screen toggle lyric', (tester) async {
+    /// Setup
+    final r = SongRobot(tester);
+    final songRepository = MockSongRepository();
+    final song = kFakeSongDetail;
+    when(() => songRepository.fetchSongId(song.id, lang: 'Default'))
+        .thenAnswer((_) => Future.value(song));
+
+    when(() => songRepository.fetchSongsDerived(song.id))
+        .thenAnswer((_) => Future.value([]));
+
+    when(() => songRepository.fetchSongsRelated(song.id)).thenAnswer(
+      (_) => Future.value(
+        const SongRelated(),
+      ),
+    );
+
+    /// Pump screen
+    await r.pumpSongDetailScreen(
+      songRepository: songRepository,
+      songId: song.id,
+    );
+
+    verify(() => songRepository.fetchSongId(song.id, lang: 'Default'))
+        .called(1);
+
+    /// Verify before tap lyric button
+    await r.expectSongInfoContentVisible(true);
+    await r.expectSongLyricContentVisible(false);
+    await r.expectLyricButtonVisible(true);
+
+    /// Verify after tap lyric button
+    await r.tapLyricButton();
+    await r.expectSongInfoContentVisible(false);
+    await r.expectSongLyricContentVisible(true);
+
+    /// Verify after tap close lyric button
+    await r.tapCloseLyricButton();
+    await r.expectSongInfoContentVisible(true);
+    await r.expectSongLyricContentVisible(false);
   });
 }

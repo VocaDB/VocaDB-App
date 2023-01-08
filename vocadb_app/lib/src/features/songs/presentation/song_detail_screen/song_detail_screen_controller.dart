@@ -56,6 +56,10 @@ class SongDetailScreenController extends StateNotifier<SongDetailState> {
 
     return value.hasError == false;
   }
+
+  Future<void> toggleLyricContent() async {
+    state = state.copyWith(showLyricContent: !state.showLyricContent);
+  }
 }
 
 final songDetailScreenControllerProvider = StateNotifierProvider.autoDispose

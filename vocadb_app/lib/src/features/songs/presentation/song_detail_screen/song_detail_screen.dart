@@ -5,6 +5,7 @@ import 'package:vocadb_app/src/features/home/presentation/app_bar/global_app_bar
 import 'package:vocadb_app/src/features/songs/domain/song.dart';
 import 'package:vocadb_app/src/features/songs/presentation/song_detail_screen/song_detail_screen_controller.dart';
 import 'package:vocadb_app/src/features/songs/presentation/song_detail_screen/widgets/song_detail_content.dart';
+import 'package:vocadb_app/src/features/songs/presentation/song_detail_screen/widgets/song_detail_lyrics_content.dart';
 
 class SongDetailScreen extends ConsumerStatefulWidget {
   const SongDetailScreen({super.key, required this.song});
@@ -38,7 +39,26 @@ class _SongDetailScreenState extends ConsumerState<SongDetailScreen> {
           padding: const EdgeInsets.only(bottom: 16.0),
           child: Column(
             children: [
-              SongDetailContent(song: song),
+              (state.showLyricContent)
+                  ? LyricContent(
+                      lyrics: song.lyrics,
+                      onTapClose: () {
+                        ref
+                            .read(songDetailScreenControllerProvider(
+                                    widget.song.id)
+                                .notifier)
+                            .toggleLyricContent();
+                      },
+                    )
+                  : SongDetailContent(
+                      song: song,
+                      onTapLyricButton: () {
+                        ref
+                            .read(songDetailScreenControllerProvider(
+                                    widget.song.id)
+                                .notifier)
+                            .toggleLyricContent();
+                      }),
             ],
           ),
         ),

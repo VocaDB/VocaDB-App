@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:vocadb_app/src/constants/app_sizes.dart';
+import 'package:vocadb_app/src/features/songs/domain/song.dart';
 
 class SongDetailButtonBar extends StatelessWidget {
   const SongDetailButtonBar(
-      {super.key, this.onTapLyricButton, this.displayLyricButton = false});
+      {super.key, this.onTapLyricButton, required this.song});
 
   static const likeBtnKey = Key('song-detail-like-btn-key');
   static const lyricBtnKey = Key('song-detail-lyric-btn-key');
@@ -11,7 +12,7 @@ class SongDetailButtonBar extends StatelessWidget {
   static const infoBtnKey = Key('song-detail-info-btn-key');
 
   final VoidCallback? onTapLyricButton;
-  final bool displayLyricButton;
+  final Song song;
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +34,7 @@ class SongDetailButtonBar extends StatelessWidget {
           ),
         ),
         Visibility(
-          visible: displayLyricButton,
+          visible: song.lyrics.isNotEmpty,
           child: TextButton(
             key: lyricBtnKey,
             onPressed: onTapLyricButton,
