@@ -60,3 +60,9 @@ final songDetailScreenControllerProvider = StateNotifierProvider.autoDispose
 
   return controller;
 });
+
+final songRelatedStateProvider =
+    StateProvider.autoDispose.family<AsyncValue<SongRelated>, int>((ref, id) {
+  final controller = ref.watch(songDetailScreenControllerProvider(id));
+  return controller.relatedSongs;
+});

@@ -14,10 +14,10 @@ void main() {
 
     when(() => songRepository.fetchSongsRelated(any(), lang: 'Default'))
         .thenAnswer((_) {
-      return Future.value(SongRelated(
+      return Future.value(const SongRelated(
         likeMatches: [
-          const Song(id: 1, name: 'Song_Related_A'),
-          const Song(id: 2, name: 'Song_Related_B'),
+          Song(id: 1, name: 'Song_Related_A'),
+          Song(id: 2, name: 'Song_Related_B'),
         ],
       ));
     });
