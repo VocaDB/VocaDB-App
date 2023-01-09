@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:vocadb_app/src/common_widgets/custom_network_image.dart';
 import 'package:vocadb_app/src/features/albums/domain/album.dart';
+import 'package:vocadb_app/src/features/albums/presentation/album_tile/album_image_tile.dart';
 
 /// A widget for display album information in vertical list
 class AlbumTile extends StatelessWidget {
@@ -9,9 +9,6 @@ class AlbumTile extends StatelessWidget {
 
   /// Callback when tap
   final GestureTapCallback onTap;
-
-  /// Album image size both width and height
-  static const double imageSize = 50;
 
   const AlbumTile({
     super.key,
@@ -23,14 +20,7 @@ class AlbumTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       onTap: onTap,
-      leading: SizedBox(
-        width: imageSize,
-        height: imageSize,
-        child: CustomNetworkImage(
-          album.imageUrl!,
-          fit: BoxFit.fill,
-        ),
-      ),
+      leading: AlbumImageTile(imageUrl: album.imageUrl, albumId: album.id),
       title: Text(album.name!, overflow: TextOverflow.ellipsis),
       subtitle: Text(album.artistString!, overflow: TextOverflow.ellipsis),
     );

@@ -1,4 +1,3 @@
-import 'package:vocadb_app/src/constants/config.dart';
 import 'package:vocadb_app/src/features/albums/domain/disc.dart';
 import 'package:vocadb_app/src/features/albums/domain/release_date.dart';
 import 'package:vocadb_app/src/features/albums/domain/track.dart';
@@ -41,7 +40,11 @@ class Album with _$Album {
 }
 
 extension AlbumExtended on Album {
-  String? get imageUrl => (mainPicture?.urlOriginal != null)
-      ? mainPicture!.urlOriginal
-      : kPlaceholderImageUrl;
+  String? get imageUrl {
+    if (mainPicture == null) {
+      return null;
+    }
+
+    return mainPicture!.urlOriginal;
+  }
 }

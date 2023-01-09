@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:vocadb_app/src/common_widgets/custom_network_image.dart';
 import 'package:vocadb_app/src/constants/app_sizes.dart';
 import 'package:vocadb_app/src/features/albums/domain/album.dart';
+import 'package:vocadb_app/src/features/albums/presentation/album_card/album_image_card.dart';
 
 /// A widget that displays simple information about album in card. Mostly use in horizontal list.
 class AlbumCard extends StatelessWidget {
@@ -33,17 +33,7 @@ class AlbumCard extends StatelessWidget {
           margin: const EdgeInsets.only(right: Sizes.p8, left: Sizes.p8),
           child: Column(
             children: <Widget>[
-              Container(
-                width: double.infinity,
-                height: imageHeight,
-                color: Colors.black,
-                child: FittedBox(
-                  fit: BoxFit.fitWidth,
-                  child: CustomNetworkImage(
-                    album.imageUrl!,
-                  ),
-                ),
-              ),
+              AlbumImageCard(imageUrl: album.imageUrl, albumId: album.id),
               gapH4,
               Container(
                   alignment: Alignment.centerLeft,
