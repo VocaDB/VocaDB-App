@@ -8,68 +8,112 @@ import 'package:vocadb_app/src/features/api/api_client.dart';
 import '../../mocks.dart';
 
 void main() {
+  late Client httpClient;
+  late ApiClient apiClient;
+
   setUpAll(() {
     registerFallbackValue(FakeUri());
   });
+
+  setUp(() {
+    httpClient = MockClient();
+    apiClient = ApiClient(host: 'vocadb.net', client: httpClient);
+  });
   group('ApiClient.get', () {
     test('json format and without query parameters', () async {
-      final httpClient = MockClient();
-      final restApiClient = ApiClient(host: 'vocadb.net', client: httpClient);
-
       const body = '{"id": 1}';
-      when(() => httpClient.get(any()))
-          .thenAnswer((_) => Future.value(Response(body, 200)));
+
+      // Mock
+      callGet() => httpClient.get(any());
+
+      when(callGet).thenAnswer((_) => Future.value(Response(body, 200)));
 
       final expected = {"id": 1};
-      final actualResult = restApiClient.get('/api/something');
+      final response = await apiClient.get('/api/something');
 
-      expectLater(actualResult, completion(expected));
+      expect(response, expected);
+
+      verify(callGet).called(1);
     });
 
     test('non-json format and without query parameters', () async {
-      final httpClient = MockClient();
-      final restApiClient = ApiClient(host: 'vocadb.net', client: httpClient);
-
       const body = 'testResponse';
-      when(() => httpClient.get(any()))
-          .thenAnswer((_) => Future.value(Response(body, 200)));
+
+      // Mock
+      callGet() => httpClient.get(any());
+
+      when(callGet).thenAnswer((_) => Future.value(Response(body, 200)));
 
       const expected = 'testResponse';
-      final actualResult = restApiClient.get('/api/something', json: false);
+      final response = await apiClient.get('/api/something', json: false);
 
-      expectLater(actualResult, completion(expected));
+      expect(response, expected);
+
+      verify(callGet).called(1);
     });
 
     test('json and with parameters success', () async {
-      final httpClient = MockClient();
-      final restApiClient = ApiClient(host: 'vocadb.net', client: httpClient);
-
       const body = '{"id": 1}';
-      when(() => httpClient.get(any())).thenAnswer(
+
+      // Mock
+      callGet() => httpClient.get(any());
+
+      when(callGet).thenAnswer(
         (_) => Future.value(Response(body, 200)),
       );
 
       final expected = {"id": 1};
-      final actualResult = restApiClient.get(
+      final response = await apiClient.get(
         '/api/something',
         params: {'id': 39, 'query': 'miku'},
       );
 
-      expectLater(actualResult, completion(expected));
+      expect(response, expected);
+
+      verify(callGet).called(1);
     });
 
     test('throws http exception when response status code is error', () async {
-      final httpClient = MockClient();
-      final restApiClient = ApiClient(host: 'vocadb.net', client: httpClient);
+      // Mock
+      callGet() => httpClient.get(any());
 
-      when(() => httpClient.get(any())).thenAnswer(
+      when(callGet).thenAnswer(
         (_) => Future.value(Response('Error', 404)),
       );
 
       expectLater(
-        restApiClient.get('/api/something'),
+        apiClient.get('/api/something'),
         throwsA(predicate((e) => e is HttpException)),
       );
+    });
+  });
+
+  group('ApiClient.post', () {
+    test('success', () async {
+      final expectedResponse = Response('success', 200);
+      callPost() => httpClient.post(any());
+
+      when(callPost).thenAnswer((_) => Future.value(expectedResponse));
+
+      final response = await apiClient.post('/api/something');
+
+      expect(response, expectedResponse);
+
+      verify(callPost).called(1);
+    });
+
+    test('throws http exception when response status code is error', () async {
+      final response = Response('Error', 400);
+      callPost() => httpClient.post(any());
+
+      when(callPost).thenAnswer((_) => Future.value(response));
+
+      expectLater(
+        apiClient.post('/api/something'),
+        throwsA(predicate((e) => e is HttpException)),
+      );
+
+      verify(callPost).called(1);
     });
   });
 }

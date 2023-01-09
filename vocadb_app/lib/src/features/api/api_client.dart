@@ -29,6 +29,20 @@ class ApiClient {
       throw HttpException(response.reasonPhrase ?? 'ApiClient error', uri: uri);
     }
   }
+
+  Future<http.Response> post(
+    String endpoint, {
+    Object? body,
+  }) async {
+    final uri = Uri.https(host, endpoint);
+    final response = await client.post(uri, body: body);
+
+    if (response.ok) {
+      return response;
+    } else {
+      throw HttpException(response.reasonPhrase ?? 'ApiClient error', uri: uri);
+    }
+  }
 }
 
 extension ResponseExtended on http.Response {
