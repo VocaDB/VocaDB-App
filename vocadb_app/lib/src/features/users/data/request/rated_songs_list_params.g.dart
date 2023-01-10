@@ -22,15 +22,23 @@ _$_RatedSongsListParams _$$_RatedSongsListParamsFromJson(
     );
 
 Map<String, dynamic> _$$_RatedSongsListParamsToJson(
-        _$_RatedSongsListParams instance) =>
-    <String, dynamic>{
-      'query': instance.query,
-      'tagId': instance.tagId,
-      'artistId': instance.artistId,
-      'rating': instance.rating,
-      'start': instance.start,
-      'maxResults': instance.maxResults,
-      'sort': instance.sort,
-      'fields': instance.fields,
-      'lang': instance.lang,
-    };
+    _$_RatedSongsListParams instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('query', instance.query);
+  writeNotNull('tagId', instance.tagId);
+  writeNotNull('artistId', instance.artistId);
+  writeNotNull('rating', instance.rating);
+  val['start'] = instance.start;
+  val['maxResults'] = instance.maxResults;
+  val['sort'] = instance.sort;
+  val['fields'] = instance.fields;
+  val['lang'] = instance.lang;
+  return val;
+}

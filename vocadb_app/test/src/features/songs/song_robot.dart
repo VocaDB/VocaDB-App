@@ -3,11 +3,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:vocadb_app/src/features/songs/data/song_repository.dart';
 import 'package:vocadb_app/src/features/songs/domain/song.dart';
+import 'package:vocadb_app/src/features/songs/presentation/rated_songs_screen/rated_songs_screen.dart';
 import 'package:vocadb_app/src/features/songs/presentation/song_detail_screen/song_detail_screen.dart';
 import 'package:vocadb_app/src/features/songs/presentation/song_detail_screen/widgets/song_detail_content.dart';
 import 'package:vocadb_app/src/features/songs/presentation/song_detail_screen/widgets/widgets.dart';
 import 'package:vocadb_app/src/features/songs/presentation/songs_list/songs_derived_list_view.dart';
 import 'package:vocadb_app/src/features/songs/presentation/songs_list/songs_related_list_view.dart';
+import 'package:vocadb_app/src/features/users/data/user_repository.dart';
 
 class SongRobot {
   final WidgetTester tester;
@@ -53,6 +55,25 @@ class SongRobot {
       ),
     );
     // await tester.pumpAndSettle(const Duration(seconds: 10));
+  }
+
+  Future<void> pumpRatedSongsListScreen(
+      {SongRepository? songRepository, UserRepository? userRepository}) async {
+    await tester.pumpWidget(
+      ProviderScope(
+        overrides: [
+          if (songRepository != null)
+            songRepositoryProvider.overrideWithValue(songRepository),
+          if (userRepository != null)
+            userRepositoryProvider.overrideWithValue(userRepository),
+        ],
+        child: const MaterialApp(
+          home: RatedSongsScreen(),
+        ),
+      ),
+    );
+    // await tester.pumpAndSettle(const Duration(seconds: 10));
+    await tester.pump();
   }
 
   Future<void> pumpSongRelatedListView(

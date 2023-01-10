@@ -202,7 +202,8 @@ class __$$_RatedSongsListParamsCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@JsonSerializable(includeIfNull: false)
 class _$_RatedSongsListParams implements _RatedSongsListParams {
   _$_RatedSongsListParams(
       {this.query,

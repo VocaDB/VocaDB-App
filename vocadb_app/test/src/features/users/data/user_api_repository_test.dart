@@ -48,10 +48,8 @@ void main() {
       };
       final params = RatedSongsListParams(query: 'Song');
 
-      clientCallGet() => client.get(
-            '/api/users/$userID/ratedSongs',
-            params: params.toJson(),
-          );
+      clientCallGet() =>
+          client.get(any(), params: any(named: 'params', that: isMap));
 
       when(clientCallGet).thenAnswer((_) => Future.value(responseBody));
 
@@ -65,7 +63,21 @@ void main() {
 
       expect(response, expected);
 
-      verify(clientCallGet).called(1);
+      // Capture arguments
+      final captured = verify(() =>
+              client.get(captureAny(), params: captureAny(named: 'params')))
+          .captured;
+
+      expect(captured[0], '/api/users/$userID/ratedSongs');
+
+      expect(captured[1], {
+        'query': 'Song',
+        'start': 0,
+        'maxResults': 10,
+        'sort': 'RatingDate',
+        'fields': 'MainPicture,PVs',
+        'lang': 'Default',
+      });
     });
   });
 }

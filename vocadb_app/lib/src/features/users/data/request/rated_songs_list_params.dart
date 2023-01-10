@@ -5,6 +5,7 @@ part 'rated_songs_list_params.g.dart';
 
 @freezed
 class RatedSongsListParams with _$RatedSongsListParams {
+  @JsonSerializable(includeIfNull: false)
   factory RatedSongsListParams({
     String? query,
     List<int>? tagId,
