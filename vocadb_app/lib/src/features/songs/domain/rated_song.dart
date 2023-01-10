@@ -13,4 +13,8 @@ class RatedSong with _$RatedSong {
 
   factory RatedSong.fromJson(Map<String, dynamic> json) =>
       _$RatedSongFromJson(json);
+
+  static List<RatedSong> fromJsonToList(List<dynamic> source) {
+    return source.map((e) => RatedSong.fromJson(e)).toList();
+  }
 }
