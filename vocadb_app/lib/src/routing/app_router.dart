@@ -20,8 +20,8 @@ import 'package:vocadb_app/src/features/pvs/presentation/playlist_screen/playlis
 import 'package:vocadb_app/src/features/releaseEvents/presentation/release_event_detail_screen/release_event_detail_screen.dart';
 import 'package:vocadb_app/src/features/songs/data/constants/fake_songs_list.dart';
 import 'package:vocadb_app/src/features/songs/domain/song.dart';
-import 'package:vocadb_app/src/features/songs/presentation/rated_songs_screen/rated_songs_filter_screen.dart';
-import 'package:vocadb_app/src/features/songs/presentation/rated_songs_screen/rated_songs_screen.dart';
+import 'package:vocadb_app/src/features/users/presentation/rated_songs_screen/rated_songs_filter_screen.dart';
+import 'package:vocadb_app/src/features/users/presentation/rated_songs_screen/rated_songs_screen.dart';
 import 'package:vocadb_app/src/features/songs/presentation/song_detail_screen/song_detail_screen.dart';
 import 'package:vocadb_app/src/features/tags/presentation/tag_detail_screen/tag_detail_screen.dart';
 import 'package:vocadb_app/src/routing/go_router_refresh_stream.dart';

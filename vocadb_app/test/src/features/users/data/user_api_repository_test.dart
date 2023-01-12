@@ -3,8 +3,8 @@ import 'package:mocktail/mocktail.dart';
 import 'package:vocadb_app/src/features/api/api_client.dart';
 import 'package:vocadb_app/src/features/songs/domain/rated_song.dart';
 import 'package:vocadb_app/src/features/songs/domain/song.dart';
-import 'package:vocadb_app/src/features/users/data/request/rated_songs_list_params.dart';
 import 'package:vocadb_app/src/features/users/data/user_api_repository.dart';
+import 'package:vocadb_app/src/features/users/domain/rated_songs_list_params.dart';
 
 import '../../../mocks.dart';
 
@@ -46,7 +46,6 @@ void main() {
         ],
         "totalCount": 2
       };
-      final params = RatedSongsListParams(query: 'Song');
 
       clientCallGet() =>
           client.get(any(), params: any(named: 'params', that: isMap));
@@ -54,7 +53,7 @@ void main() {
       when(clientCallGet).thenAnswer((_) => Future.value(responseBody));
 
       final response = await userApiRepository.fetchRatedSongsList(
-          userID, RatedSongsListParams(query: 'Song'));
+          userID, const RatedSongsListParams(query: 'Song'));
 
       final expected = [
         RatedSong(rating: 'Favorite', song: const Song(id: 1, name: 'Song_A')),
@@ -77,6 +76,7 @@ void main() {
         'sort': 'RatingDate',
         'fields': 'MainPicture,PVs',
         'lang': 'Default',
+        'rating': 'Nothing'
       });
     });
   });

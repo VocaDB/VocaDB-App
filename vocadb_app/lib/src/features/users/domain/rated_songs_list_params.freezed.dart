@@ -23,7 +23,7 @@ mixin _$RatedSongsListParams {
   String? get query => throw _privateConstructorUsedError;
   List<int>? get tagId => throw _privateConstructorUsedError;
   List<int>? get artistId => throw _privateConstructorUsedError;
-  String? get rating => throw _privateConstructorUsedError;
+  String get rating => throw _privateConstructorUsedError;
   int get start => throw _privateConstructorUsedError;
   int get maxResults => throw _privateConstructorUsedError;
   String get sort => throw _privateConstructorUsedError;
@@ -46,7 +46,7 @@ abstract class $RatedSongsListParamsCopyWith<$Res> {
       {String? query,
       List<int>? tagId,
       List<int>? artistId,
-      String? rating,
+      String rating,
       int start,
       int maxResults,
       String sort,
@@ -71,7 +71,7 @@ class _$RatedSongsListParamsCopyWithImpl<$Res,
     Object? query = freezed,
     Object? tagId = freezed,
     Object? artistId = freezed,
-    Object? rating = freezed,
+    Object? rating = null,
     Object? start = null,
     Object? maxResults = null,
     Object? sort = null,
@@ -91,10 +91,10 @@ class _$RatedSongsListParamsCopyWithImpl<$Res,
           ? _value.artistId
           : artistId // ignore: cast_nullable_to_non_nullable
               as List<int>?,
-      rating: freezed == rating
+      rating: null == rating
           ? _value.rating
           : rating // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       start: null == start
           ? _value.start
           : start // ignore: cast_nullable_to_non_nullable
@@ -131,7 +131,7 @@ abstract class _$$_RatedSongsListParamsCopyWith<$Res>
       {String? query,
       List<int>? tagId,
       List<int>? artistId,
-      String? rating,
+      String rating,
       int start,
       int maxResults,
       String sort,
@@ -153,7 +153,7 @@ class __$$_RatedSongsListParamsCopyWithImpl<$Res>
     Object? query = freezed,
     Object? tagId = freezed,
     Object? artistId = freezed,
-    Object? rating = freezed,
+    Object? rating = null,
     Object? start = null,
     Object? maxResults = null,
     Object? sort = null,
@@ -173,10 +173,10 @@ class __$$_RatedSongsListParamsCopyWithImpl<$Res>
           ? _value._artistId
           : artistId // ignore: cast_nullable_to_non_nullable
               as List<int>?,
-      rating: freezed == rating
+      rating: null == rating
           ? _value.rating
           : rating // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       start: null == start
           ? _value.start
           : start // ignore: cast_nullable_to_non_nullable
@@ -205,11 +205,11 @@ class __$$_RatedSongsListParamsCopyWithImpl<$Res>
 
 @JsonSerializable(includeIfNull: false)
 class _$_RatedSongsListParams implements _RatedSongsListParams {
-  _$_RatedSongsListParams(
+  const _$_RatedSongsListParams(
       {this.query,
       final List<int>? tagId,
       final List<int>? artistId,
-      this.rating,
+      this.rating = 'Nothing',
       this.start = 0,
       this.maxResults = 10,
       this.sort = 'RatingDate',
@@ -242,7 +242,8 @@ class _$_RatedSongsListParams implements _RatedSongsListParams {
   }
 
   @override
-  final String? rating;
+  @JsonKey()
+  final String rating;
   @override
   @JsonKey()
   final int start;
@@ -311,11 +312,11 @@ class _$_RatedSongsListParams implements _RatedSongsListParams {
 }
 
 abstract class _RatedSongsListParams implements RatedSongsListParams {
-  factory _RatedSongsListParams(
+  const factory _RatedSongsListParams(
       {final String? query,
       final List<int>? tagId,
       final List<int>? artistId,
-      final String? rating,
+      final String rating,
       final int start,
       final int maxResults,
       final String sort,
@@ -332,7 +333,7 @@ abstract class _RatedSongsListParams implements RatedSongsListParams {
   @override
   List<int>? get artistId;
   @override
-  String? get rating;
+  String get rating;
   @override
   int get start;
   @override

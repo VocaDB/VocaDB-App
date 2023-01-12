@@ -1,9 +1,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vocadb_app/src/features/api/api_client.dart';
 import 'package:vocadb_app/src/features/api/data/api_query_result.dart';
-import 'package:vocadb_app/src/features/users/data/request/rated_songs_list_params.dart';
 import 'package:vocadb_app/src/features/songs/domain/rated_song.dart';
 import 'package:vocadb_app/src/features/users/data/user_repository.dart';
+import 'package:vocadb_app/src/features/users/domain/rated_songs_list_params.dart';
 
 class UserApiRepository implements UserRepository {
   UserApiRepository({required this.client});

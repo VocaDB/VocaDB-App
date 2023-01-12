@@ -13,7 +13,7 @@ _$_RatedSongsListParams _$$_RatedSongsListParamsFromJson(
       tagId: (json['tagId'] as List<dynamic>?)?.map((e) => e as int).toList(),
       artistId:
           (json['artistId'] as List<dynamic>?)?.map((e) => e as int).toList(),
-      rating: json['rating'] as String?,
+      rating: json['rating'] as String? ?? 'Nothing',
       start: json['start'] as int? ?? 0,
       maxResults: json['maxResults'] as int? ?? 10,
       sort: json['sort'] as String? ?? 'RatingDate',
@@ -34,7 +34,7 @@ Map<String, dynamic> _$$_RatedSongsListParamsToJson(
   writeNotNull('query', instance.query);
   writeNotNull('tagId', instance.tagId);
   writeNotNull('artistId', instance.artistId);
-  writeNotNull('rating', instance.rating);
+  val['rating'] = instance.rating;
   val['start'] = instance.start;
   val['maxResults'] = instance.maxResults;
   val['sort'] = instance.sort;

@@ -13,6 +13,7 @@ class SearchAppBar extends StatefulWidget with PreferredSizeWidget {
       this.showTextInput = false,
       this.onChanged,
       this.onCleared,
+      this.onSubmitted,
       this.titleText = 'Search'});
 
   final List<Widget>? actions;
@@ -21,6 +22,8 @@ class SearchAppBar extends StatefulWidget with PreferredSizeWidget {
   final bool showTextInput;
 
   final Function(String)? onChanged;
+
+  final Function(String)? onSubmitted;
 
   final VoidCallback? onCleared;
 
@@ -59,6 +62,11 @@ class _SearchAppBarState extends State<SearchAppBar> {
               onChanged: (value) {
                 if (widget.onChanged != null) {
                   widget.onChanged!(value);
+                }
+              },
+              onSubmitted: (value) {
+                if (widget.onSubmitted != null) {
+                  widget.onSubmitted!(value);
                 }
               },
               autofocus: true,

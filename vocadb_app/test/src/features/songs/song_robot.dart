@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:go_router/go_router.dart';
+import 'package:vocadb_app/src/features/authentication/data/auth_repository.dart';
 import 'package:vocadb_app/src/features/songs/data/song_repository.dart';
 import 'package:vocadb_app/src/features/songs/domain/song.dart';
-import 'package:vocadb_app/src/features/songs/presentation/rated_songs_screen/rated_songs_screen.dart';
+import 'package:vocadb_app/src/features/users/presentation/rated_songs_screen/rated_songs_filter_screen.dart';
+import 'package:vocadb_app/src/features/users/presentation/rated_songs_screen/rated_songs_screen.dart';
 import 'package:vocadb_app/src/features/songs/presentation/song_detail_screen/song_detail_screen.dart';
 import 'package:vocadb_app/src/features/songs/presentation/song_detail_screen/widgets/song_detail_content.dart';
 import 'package:vocadb_app/src/features/songs/presentation/song_detail_screen/widgets/widgets.dart';
+import 'package:vocadb_app/src/features/songs/presentation/song_tile/song_tile.dart';
 import 'package:vocadb_app/src/features/songs/presentation/songs_list/songs_derived_list_view.dart';
 import 'package:vocadb_app/src/features/songs/presentation/songs_list/songs_related_list_view.dart';
 import 'package:vocadb_app/src/features/users/data/user_repository.dart';
+import 'package:vocadb_app/src/routing/app_router.dart';
 
 class SongRobot {
   final WidgetTester tester;
@@ -57,8 +62,31 @@ class SongRobot {
     // await tester.pumpAndSettle(const Duration(seconds: 10));
   }
 
-  Future<void> pumpRatedSongsListScreen(
-      {SongRepository? songRepository, UserRepository? userRepository}) async {
+  Future<void> pumpRatedSongsListScreen({
+    SongRepository? songRepository,
+    UserRepository? userRepository,
+    AuthRepository? authRepository,
+  }) async {
+    final router = GoRouter(
+      routes: [
+        GoRoute(
+          path: '/',
+          builder: (context, state) => const RatedSongsScreen(),
+          routes: [
+            GoRoute(
+              path: 'filter',
+              name: AppRoute.userRatedSongFilter.name,
+              pageBuilder: (context, state) => MaterialPage(
+                key: state.pageKey,
+                fullscreenDialog: true,
+                child: const RatedSongsFilterScreen(),
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+
     await tester.pumpWidget(
       ProviderScope(
         overrides: [
@@ -66,9 +94,11 @@ class SongRobot {
             songRepositoryProvider.overrideWithValue(songRepository),
           if (userRepository != null)
             userRepositoryProvider.overrideWithValue(userRepository),
+          if (authRepository != null)
+            authRepositoryProvider.overrideWithValue(authRepository),
         ],
-        child: const MaterialApp(
-          home: RatedSongsScreen(),
+        child: MaterialApp.router(
+          routerConfig: router,
         ),
       ),
     );
@@ -96,6 +126,51 @@ class SongRobot {
       ),
     );
     // await tester.pumpAndSettle(const Duration(seconds: 10));
+  }
+
+  Future<void> expectRatedSongDisplayCountAtLeast(int count) async {
+    final finder = find.byType(SongTile);
+    expect(finder, findsAtLeastNWidgets(count));
+  }
+
+  Future<void> tapIconFilterRatedSongs() async {
+    final finder = find.byKey(RatedSongsScreen.filterKey);
+    expect(finder, findsOneWidget);
+    await tester.tap(finder);
+    await tester.pump();
+  }
+
+  Future<void> selectRating(String rating) async {
+    await tester.pump();
+    final finder = find.byKey(RatedSongsFilterScreen.ratingKey);
+    expect(finder, findsOneWidget);
+    await tester.tap(finder);
+    await tester.pumpAndSettle();
+
+    final selectedFinder = find.text(rating).last;
+    expect(selectedFinder, findsOneWidget);
+    await tester.tap(selectedFinder);
+    await tester.pump();
+  }
+
+  Future<void> selectSort(String sort) async {
+    await tester.pump();
+    final finder = find.byKey(RatedSongsFilterScreen.sortKey);
+    expect(finder, findsOneWidget);
+    await tester.tap(finder);
+    await tester.pumpAndSettle();
+
+    final selectedFinder = find.text(sort).last;
+    expect(selectedFinder, findsOneWidget);
+    await tester.tap(selectedFinder);
+    await tester.pump();
+  }
+
+  Future<void> tapCloseFilterScreen() async {
+    final finder = find.byIcon(Icons.close);
+    expect(finder, findsOneWidget);
+    await tester.tap(finder);
+    await tester.pump();
   }
 
   Future<void> expectSongInfoContentVisible(bool visible) async {
