@@ -4,8 +4,9 @@ import 'package:vocadb_app/src/features/home/presentation/app_bar/app_title.dart
 import 'package:vocadb_app/src/features/home/presentation/app_bar/global_app_bar.dart';
 import 'package:vocadb_app/src/features/home/presentation/ranking_screen/top_songs_daily_list_view.dart';
 import 'package:vocadb_app/src/features/home/presentation/ranking_screen/top_songs_monthly_list_view.dart';
-import 'package:vocadb_app/src/features/home/presentation/ranking_screen/top_songs_overall_list_view%20copy.dart';
+import 'package:vocadb_app/src/features/home/presentation/ranking_screen/top_songs_overall_list_view.dart';
 import 'package:vocadb_app/src/features/home/presentation/ranking_screen/top_songs_weekly_list_view.dart';
+import 'package:vocadb_app/src/routing/app_route_context.dart';
 import 'package:vocadb_app/src/routing/app_router.dart';
 
 // TODO : need implementation
@@ -44,12 +45,20 @@ class RankingScreen extends StatelessWidget {
                 Tab(key: tabOverallKey, text: 'Overall'),
               ],
             ),
-            body: const TabBarView(
+            body: TabBarView(
               children: [
-                TopSongsDailyListView(),
-                TopSongsWeeklyListView(),
-                TopSongsMonthlyListView(),
-                TopSongsOverallListView(),
+                TopSongsDailyListView(
+                  onSelect: (song) => context.goSong(song.id),
+                ),
+                TopSongsWeeklyListView(
+                  onSelect: (song) => context.goSong(song.id),
+                ),
+                TopSongsMonthlyListView(
+                  onSelect: (song) => context.goSong(song.id),
+                ),
+                TopSongsOverallListView(
+                  onSelect: (song) => context.goSong(song.id),
+                ),
               ],
             ),
             floatingActionButton: FloatingActionButton(
