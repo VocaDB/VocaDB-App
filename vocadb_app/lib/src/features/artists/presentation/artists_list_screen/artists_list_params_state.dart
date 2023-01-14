@@ -15,5 +15,5 @@ class ArtistsListParamsState extends StateNotifier<ArtistsListParams> {
 final artistsListParamsStateProvider = StateNotifierProvider.autoDispose<
     ArtistsListParamsState, ArtistsListParams>((ref) {
   final preferredLang = ref.watch(preferredStateChangesProvider);
-  return ArtistsListParamsState(lang: preferredLang.value!);
+  return ArtistsListParamsState(lang: preferredLang.value ?? 'Default');
 });

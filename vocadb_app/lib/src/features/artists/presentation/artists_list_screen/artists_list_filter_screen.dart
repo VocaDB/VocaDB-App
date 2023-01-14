@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:vocadb_app/src/features/artists/presentation/artist_input/artist_input.dart';
 import 'package:vocadb_app/src/features/artists/presentation/artists_list_screen/artists_list_params_state.dart';
 import 'package:vocadb_app/src/features/artists/presentation/widgets/dropdown_artist_types.dart';
 import 'package:vocadb_app/src/features/artists/presentation/widgets/dropdown_artist_sort.dart';
 import 'package:vocadb_app/src/features/tags/presentation/tag_widgets/tag_input.dart';
 
 class ArtistsFilterScreen extends StatelessWidget {
-  const ArtistsFilterScreen({super.key});
+  const ArtistsFilterScreen(
+      {super.key, this.onSortChanged, this.onArtistTypesChanged});
+
+  final Function(String?)? onArtistTypesChanged;
+
+  final Function(String?)? onSortChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -23,22 +27,20 @@ class ArtistsFilterScreen extends StatelessWidget {
             children: [
               DropdownArtistTypes(
                 value: state.artistTypes ?? '',
-                onChanged: (value) {
-                  ref
-                      .read(artistsListParamsStateProvider.notifier)
-                      .updateArtistTypes((value!.isEmpty) ? null : value);
-                },
+                onChanged: (value) =>
+                    onArtistTypesChanged?.call(value) ??
+                    ref
+                        .read(artistsListParamsStateProvider.notifier)
+                        .updateArtistTypes(value!),
               ),
               DropdownArtistSort(
                 value: 'Name',
-                onChanged: (value) {
-                  ref
-                      .read(artistsListParamsStateProvider.notifier)
-                      .updateSort(value!);
-                },
+                onChanged: (value) =>
+                    onArtistTypesChanged?.call(value) ??
+                    ref
+                        .read(artistsListParamsStateProvider.notifier)
+                        .updateSort(value!),
               ),
-              const Divider(),
-              const ArtistInput(),
               const Divider(),
               const TagInput(),
             ],
