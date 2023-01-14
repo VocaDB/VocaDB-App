@@ -17,7 +17,6 @@ class ArtistsListScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final value = ref.watch(artistsListProvider);
     return Scaffold(
       appBar: SearchAppBar(
         titleText: 'Artists',
@@ -35,14 +34,17 @@ class ArtistsListScreen extends ConsumerWidget {
           ref.read(artistsListParamsStateProvider.notifier).clearQuery();
         },
       ),
-      body: AsyncValueWidget(
-          value: value,
-          data: (data) {
-            return ArtistListView(
-              artists: data,
-              onSelect: (artist) => onSelectArtist?.call(artist),
-            );
-          }),
+      body: Consumer(builder: ((context, ref, child) {
+        final value = ref.watch(artistsListProvider);
+        return AsyncValueWidget(
+            value: value,
+            data: (data) {
+              return ArtistListView(
+                artists: data,
+                onSelect: (artist) => onSelectArtist?.call(artist),
+              );
+            });
+      })),
     );
   }
 }

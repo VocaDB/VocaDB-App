@@ -32,7 +32,6 @@ class UserSettingsRepository {
 /// Declare repository provider
 final userSettingsRepositoryProvider = Provider<UserSettingsRepository>((ref) {
   final userSettingsRepository = UserSettingsRepository();
-  // ref.onDispose(() => userSettingsRepository.dispose());
   return userSettingsRepository;
 });
 
