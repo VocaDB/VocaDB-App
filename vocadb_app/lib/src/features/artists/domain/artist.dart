@@ -29,6 +29,10 @@ class Artist with _$Artist {
   }) = _Artist;
 
   factory Artist.fromJson(Map<String, dynamic> json) => _$ArtistFromJson(json);
+
+  static List<Artist> fromJsonToList(List<dynamic> source) {
+    return source.map((e) => Artist.fromJson(e)).toList();
+  }
 }
 
 extension ArtistExtended on Artist {

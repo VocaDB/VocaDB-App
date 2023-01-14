@@ -21,9 +21,17 @@ class UserApiRepository implements UserRepository {
   @override
   Future<List<RatedSong>> fetchRatedSongsList(
       int userID, RatedSongsListParams params) async {
+    final mapParams = params.toJson();
+    mapParams.remove('artistId');
+
+    if (params.artistId != null) {
+      mapParams['artistId[]'] =
+          params.artistId?.map((e) => e.toString()).toList();
+    }
+
     final response = await client.get(
       '/api/users/$userID/ratedSongs',
-      params: params.toJson(),
+      params: mapParams,
     );
 
     final queryResult = ApiQueryResult.fromMap(response);

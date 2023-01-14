@@ -3,6 +3,7 @@ import 'package:mocktail/mocktail.dart';
 import 'package:vocadb_app/src/features/albums/data/album_repository.dart';
 import 'package:vocadb_app/src/features/api/api_client.dart';
 import 'package:vocadb_app/src/features/authentication/data/auth_repository.dart';
+import 'package:vocadb_app/src/features/settings/data/user_settings_repository.dart';
 import 'package:vocadb_app/src/features/songs/data/song_repository.dart';
 import 'package:vocadb_app/src/features/users/data/user_repository.dart';
 import 'package:vocadb_app/src/features/users/domain/rated_songs_list_params.dart';
@@ -22,3 +23,6 @@ class MockAlbumRepository extends Mock implements AlbumRepository {}
 class MockUserRepository extends Mock implements UserRepository {}
 
 class RatedSongsListParamsFake extends Fake implements RatedSongsListParams {}
+
+class MockUserSettingsRepository extends Mock
+    implements UserSettingsRepository {}

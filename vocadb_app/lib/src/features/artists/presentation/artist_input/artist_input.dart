@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vocadb_app/src/common_widgets/custom_network_image.dart';
 import 'package:vocadb_app/src/features/artists/domain/artist.dart';
+import 'package:vocadb_app/src/features/artists/presentation/artists_list_screen/artists_list_screen.dart';
 
 /// A widget for display artist browsing input
 class ArtistInput extends StatelessWidget {
@@ -35,7 +36,10 @@ class ArtistInput extends StatelessWidget {
         color: Colors.white,
         child: (imageUrl == null)
             ? const Placeholder()
-            : CustomNetworkImage(imageUrl),
+            : CustomNetworkImage(
+                imageUrl,
+                fit: BoxFit.contain,
+              ),
       )),
     );
   }
@@ -80,7 +84,22 @@ class ArtistInput extends StatelessWidget {
     }
 
     items.add(ListTile(
-      onTap: _onBrowse,
+      onTap: () async {
+        final result = await Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ArtistsListScreen(
+              onSelectArtist: (artist) {
+                Navigator.pop(context, artist);
+              },
+            ),
+          ),
+        );
+
+        if (result != null) {
+          onSelect?.call(result);
+        }
+      },
       leading: const Icon(Icons.add),
       title: const Text('Add'),
     ));

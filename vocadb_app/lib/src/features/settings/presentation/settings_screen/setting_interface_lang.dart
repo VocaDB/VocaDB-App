@@ -18,7 +18,7 @@ class SettingInterfaceLang extends ConsumerWidget {
         title: Text(context.loc.interfaceLanguage),
         groupValue: data,
         onChanged: (value) {
-          ref.read(userSettingsRepositoryProvider).saveInterfaceLang(value);
+          ref.read(userSettingsRepositoryProvider).saveInterfaceLang(value!);
         },
         items: const [
           SimpleRadioItem(name: 'English', value: 'en'),

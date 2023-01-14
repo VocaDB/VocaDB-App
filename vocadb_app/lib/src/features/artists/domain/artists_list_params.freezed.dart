@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
-part of 'rated_songs_list_params.dart';
+part of 'artists_list_params.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -14,54 +14,50 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-RatedSongsListParams _$RatedSongsListParamsFromJson(Map<String, dynamic> json) {
-  return _RatedSongsListParams.fromJson(json);
+ArtistsListParams _$ArtistsListParamsFromJson(Map<String, dynamic> json) {
+  return _ArtistsListParams.fromJson(json);
 }
 
 /// @nodoc
-mixin _$RatedSongsListParams {
+mixin _$ArtistsListParams {
   String? get query => throw _privateConstructorUsedError;
+  String? get artistTypes => throw _privateConstructorUsedError;
   List<int>? get tagId => throw _privateConstructorUsedError;
-  List<int>? get artistId => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  List<Artist>? get artists => throw _privateConstructorUsedError;
-  String get rating => throw _privateConstructorUsedError;
   int get start => throw _privateConstructorUsedError;
   int get maxResults => throw _privateConstructorUsedError;
   String get sort => throw _privateConstructorUsedError;
+  String get nameMatchMode => throw _privateConstructorUsedError;
   String get fields => throw _privateConstructorUsedError;
   String get lang => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $RatedSongsListParamsCopyWith<RatedSongsListParams> get copyWith =>
+  $ArtistsListParamsCopyWith<ArtistsListParams> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $RatedSongsListParamsCopyWith<$Res> {
-  factory $RatedSongsListParamsCopyWith(RatedSongsListParams value,
-          $Res Function(RatedSongsListParams) then) =
-      _$RatedSongsListParamsCopyWithImpl<$Res, RatedSongsListParams>;
+abstract class $ArtistsListParamsCopyWith<$Res> {
+  factory $ArtistsListParamsCopyWith(
+          ArtistsListParams value, $Res Function(ArtistsListParams) then) =
+      _$ArtistsListParamsCopyWithImpl<$Res, ArtistsListParams>;
   @useResult
   $Res call(
       {String? query,
+      String? artistTypes,
       List<int>? tagId,
-      List<int>? artistId,
-      @JsonKey(ignore: true) List<Artist>? artists,
-      String rating,
       int start,
       int maxResults,
       String sort,
+      String nameMatchMode,
       String fields,
       String lang});
 }
 
 /// @nodoc
-class _$RatedSongsListParamsCopyWithImpl<$Res,
-        $Val extends RatedSongsListParams>
-    implements $RatedSongsListParamsCopyWith<$Res> {
-  _$RatedSongsListParamsCopyWithImpl(this._value, this._then);
+class _$ArtistsListParamsCopyWithImpl<$Res, $Val extends ArtistsListParams>
+    implements $ArtistsListParamsCopyWith<$Res> {
+  _$ArtistsListParamsCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -72,13 +68,12 @@ class _$RatedSongsListParamsCopyWithImpl<$Res,
   @override
   $Res call({
     Object? query = freezed,
+    Object? artistTypes = freezed,
     Object? tagId = freezed,
-    Object? artistId = freezed,
-    Object? artists = freezed,
-    Object? rating = null,
     Object? start = null,
     Object? maxResults = null,
     Object? sort = null,
+    Object? nameMatchMode = null,
     Object? fields = null,
     Object? lang = null,
   }) {
@@ -87,22 +82,14 @@ class _$RatedSongsListParamsCopyWithImpl<$Res,
           ? _value.query
           : query // ignore: cast_nullable_to_non_nullable
               as String?,
+      artistTypes: freezed == artistTypes
+          ? _value.artistTypes
+          : artistTypes // ignore: cast_nullable_to_non_nullable
+              as String?,
       tagId: freezed == tagId
           ? _value.tagId
           : tagId // ignore: cast_nullable_to_non_nullable
               as List<int>?,
-      artistId: freezed == artistId
-          ? _value.artistId
-          : artistId // ignore: cast_nullable_to_non_nullable
-              as List<int>?,
-      artists: freezed == artists
-          ? _value.artists
-          : artists // ignore: cast_nullable_to_non_nullable
-              as List<Artist>?,
-      rating: null == rating
-          ? _value.rating
-          : rating // ignore: cast_nullable_to_non_nullable
-              as String,
       start: null == start
           ? _value.start
           : start // ignore: cast_nullable_to_non_nullable
@@ -114,6 +101,10 @@ class _$RatedSongsListParamsCopyWithImpl<$Res,
       sort: null == sort
           ? _value.sort
           : sort // ignore: cast_nullable_to_non_nullable
+              as String,
+      nameMatchMode: null == nameMatchMode
+          ? _value.nameMatchMode
+          : nameMatchMode // ignore: cast_nullable_to_non_nullable
               as String,
       fields: null == fields
           ? _value.fields
@@ -128,69 +119,59 @@ class _$RatedSongsListParamsCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$_RatedSongsListParamsCopyWith<$Res>
-    implements $RatedSongsListParamsCopyWith<$Res> {
-  factory _$$_RatedSongsListParamsCopyWith(_$_RatedSongsListParams value,
-          $Res Function(_$_RatedSongsListParams) then) =
-      __$$_RatedSongsListParamsCopyWithImpl<$Res>;
+abstract class _$$_ArtistsListParamsCopyWith<$Res>
+    implements $ArtistsListParamsCopyWith<$Res> {
+  factory _$$_ArtistsListParamsCopyWith(_$_ArtistsListParams value,
+          $Res Function(_$_ArtistsListParams) then) =
+      __$$_ArtistsListParamsCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
       {String? query,
+      String? artistTypes,
       List<int>? tagId,
-      List<int>? artistId,
-      @JsonKey(ignore: true) List<Artist>? artists,
-      String rating,
       int start,
       int maxResults,
       String sort,
+      String nameMatchMode,
       String fields,
       String lang});
 }
 
 /// @nodoc
-class __$$_RatedSongsListParamsCopyWithImpl<$Res>
-    extends _$RatedSongsListParamsCopyWithImpl<$Res, _$_RatedSongsListParams>
-    implements _$$_RatedSongsListParamsCopyWith<$Res> {
-  __$$_RatedSongsListParamsCopyWithImpl(_$_RatedSongsListParams _value,
-      $Res Function(_$_RatedSongsListParams) _then)
+class __$$_ArtistsListParamsCopyWithImpl<$Res>
+    extends _$ArtistsListParamsCopyWithImpl<$Res, _$_ArtistsListParams>
+    implements _$$_ArtistsListParamsCopyWith<$Res> {
+  __$$_ArtistsListParamsCopyWithImpl(
+      _$_ArtistsListParams _value, $Res Function(_$_ArtistsListParams) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? query = freezed,
+    Object? artistTypes = freezed,
     Object? tagId = freezed,
-    Object? artistId = freezed,
-    Object? artists = freezed,
-    Object? rating = null,
     Object? start = null,
     Object? maxResults = null,
     Object? sort = null,
+    Object? nameMatchMode = null,
     Object? fields = null,
     Object? lang = null,
   }) {
-    return _then(_$_RatedSongsListParams(
+    return _then(_$_ArtistsListParams(
       query: freezed == query
           ? _value.query
           : query // ignore: cast_nullable_to_non_nullable
+              as String?,
+      artistTypes: freezed == artistTypes
+          ? _value.artistTypes
+          : artistTypes // ignore: cast_nullable_to_non_nullable
               as String?,
       tagId: freezed == tagId
           ? _value._tagId
           : tagId // ignore: cast_nullable_to_non_nullable
               as List<int>?,
-      artistId: freezed == artistId
-          ? _value._artistId
-          : artistId // ignore: cast_nullable_to_non_nullable
-              as List<int>?,
-      artists: freezed == artists
-          ? _value._artists
-          : artists // ignore: cast_nullable_to_non_nullable
-              as List<Artist>?,
-      rating: null == rating
-          ? _value.rating
-          : rating // ignore: cast_nullable_to_non_nullable
-              as String,
       start: null == start
           ? _value.start
           : start // ignore: cast_nullable_to_non_nullable
@@ -202,6 +183,10 @@ class __$$_RatedSongsListParamsCopyWithImpl<$Res>
       sort: null == sort
           ? _value.sort
           : sort // ignore: cast_nullable_to_non_nullable
+              as String,
+      nameMatchMode: null == nameMatchMode
+          ? _value.nameMatchMode
+          : nameMatchMode // ignore: cast_nullable_to_non_nullable
               as String,
       fields: null == fields
           ? _value.fields
@@ -218,27 +203,26 @@ class __$$_RatedSongsListParamsCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable(includeIfNull: false)
-class _$_RatedSongsListParams implements _RatedSongsListParams {
-  const _$_RatedSongsListParams(
+class _$_ArtistsListParams implements _ArtistsListParams {
+  const _$_ArtistsListParams(
       {this.query,
+      this.artistTypes,
       final List<int>? tagId,
-      final List<int>? artistId,
-      @JsonKey(ignore: true) final List<Artist>? artists,
-      this.rating = 'Nothing',
       this.start = 0,
       this.maxResults = 10,
-      this.sort = 'RatingDate',
-      this.fields = 'MainPicture,PVs',
+      this.sort = 'None',
+      this.nameMatchMode = 'Auto',
+      this.fields = 'MainPicture',
       this.lang = 'Default'})
-      : _tagId = tagId,
-        _artistId = artistId,
-        _artists = artists;
+      : _tagId = tagId;
 
-  factory _$_RatedSongsListParams.fromJson(Map<String, dynamic> json) =>
-      _$$_RatedSongsListParamsFromJson(json);
+  factory _$_ArtistsListParams.fromJson(Map<String, dynamic> json) =>
+      _$$_ArtistsListParamsFromJson(json);
 
   @override
   final String? query;
+  @override
+  final String? artistTypes;
   final List<int>? _tagId;
   @override
   List<int>? get tagId {
@@ -248,28 +232,6 @@ class _$_RatedSongsListParams implements _RatedSongsListParams {
     return EqualUnmodifiableListView(value);
   }
 
-  final List<int>? _artistId;
-  @override
-  List<int>? get artistId {
-    final value = _artistId;
-    if (value == null) return null;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
-  }
-
-  final List<Artist>? _artists;
-  @override
-  @JsonKey(ignore: true)
-  List<Artist>? get artists {
-    final value = _artists;
-    if (value == null) return null;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
-  }
-
-  @override
-  @JsonKey()
-  final String rating;
   @override
   @JsonKey()
   final int start;
@@ -281,6 +243,9 @@ class _$_RatedSongsListParams implements _RatedSongsListParams {
   final String sort;
   @override
   @JsonKey()
+  final String nameMatchMode;
+  @override
+  @JsonKey()
   final String fields;
   @override
   @JsonKey()
@@ -288,23 +253,24 @@ class _$_RatedSongsListParams implements _RatedSongsListParams {
 
   @override
   String toString() {
-    return 'RatedSongsListParams(query: $query, tagId: $tagId, artistId: $artistId, artists: $artists, rating: $rating, start: $start, maxResults: $maxResults, sort: $sort, fields: $fields, lang: $lang)';
+    return 'ArtistsListParams(query: $query, artistTypes: $artistTypes, tagId: $tagId, start: $start, maxResults: $maxResults, sort: $sort, nameMatchMode: $nameMatchMode, fields: $fields, lang: $lang)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_RatedSongsListParams &&
+            other is _$_ArtistsListParams &&
             (identical(other.query, query) || other.query == query) &&
+            (identical(other.artistTypes, artistTypes) ||
+                other.artistTypes == artistTypes) &&
             const DeepCollectionEquality().equals(other._tagId, _tagId) &&
-            const DeepCollectionEquality().equals(other._artistId, _artistId) &&
-            const DeepCollectionEquality().equals(other._artists, _artists) &&
-            (identical(other.rating, rating) || other.rating == rating) &&
             (identical(other.start, start) || other.start == start) &&
             (identical(other.maxResults, maxResults) ||
                 other.maxResults == maxResults) &&
             (identical(other.sort, sort) || other.sort == sort) &&
+            (identical(other.nameMatchMode, nameMatchMode) ||
+                other.nameMatchMode == nameMatchMode) &&
             (identical(other.fields, fields) || other.fields == fields) &&
             (identical(other.lang, lang) || other.lang == lang));
   }
@@ -314,58 +280,51 @@ class _$_RatedSongsListParams implements _RatedSongsListParams {
   int get hashCode => Object.hash(
       runtimeType,
       query,
+      artistTypes,
       const DeepCollectionEquality().hash(_tagId),
-      const DeepCollectionEquality().hash(_artistId),
-      const DeepCollectionEquality().hash(_artists),
-      rating,
       start,
       maxResults,
       sort,
+      nameMatchMode,
       fields,
       lang);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_RatedSongsListParamsCopyWith<_$_RatedSongsListParams> get copyWith =>
-      __$$_RatedSongsListParamsCopyWithImpl<_$_RatedSongsListParams>(
+  _$$_ArtistsListParamsCopyWith<_$_ArtistsListParams> get copyWith =>
+      __$$_ArtistsListParamsCopyWithImpl<_$_ArtistsListParams>(
           this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_RatedSongsListParamsToJson(
+    return _$$_ArtistsListParamsToJson(
       this,
     );
   }
 }
 
-abstract class _RatedSongsListParams implements RatedSongsListParams {
-  const factory _RatedSongsListParams(
+abstract class _ArtistsListParams implements ArtistsListParams {
+  const factory _ArtistsListParams(
       {final String? query,
+      final String? artistTypes,
       final List<int>? tagId,
-      final List<int>? artistId,
-      @JsonKey(ignore: true) final List<Artist>? artists,
-      final String rating,
       final int start,
       final int maxResults,
       final String sort,
+      final String nameMatchMode,
       final String fields,
-      final String lang}) = _$_RatedSongsListParams;
+      final String lang}) = _$_ArtistsListParams;
 
-  factory _RatedSongsListParams.fromJson(Map<String, dynamic> json) =
-      _$_RatedSongsListParams.fromJson;
+  factory _ArtistsListParams.fromJson(Map<String, dynamic> json) =
+      _$_ArtistsListParams.fromJson;
 
   @override
   String? get query;
   @override
+  String? get artistTypes;
+  @override
   List<int>? get tagId;
-  @override
-  List<int>? get artistId;
-  @override
-  @JsonKey(ignore: true)
-  List<Artist>? get artists;
-  @override
-  String get rating;
   @override
   int get start;
   @override
@@ -373,11 +332,13 @@ abstract class _RatedSongsListParams implements RatedSongsListParams {
   @override
   String get sort;
   @override
+  String get nameMatchMode;
+  @override
   String get fields;
   @override
   String get lang;
   @override
   @JsonKey(ignore: true)
-  _$$_RatedSongsListParamsCopyWith<_$_RatedSongsListParams> get copyWith =>
+  _$$_ArtistsListParamsCopyWith<_$_ArtistsListParams> get copyWith =>
       throw _privateConstructorUsedError;
 }

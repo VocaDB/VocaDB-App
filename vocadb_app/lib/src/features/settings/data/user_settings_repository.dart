@@ -2,20 +2,24 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vocadb_app/src/utils/in_memory_store.dart';
 
 class UserSettingsRepository {
-  final _interfaceLangState = InMemoryStore<String?>('en');
-  final _preferredLangState = InMemoryStore<String?>('Default');
+  final _interfaceLangState = InMemoryStore<String>('en');
+  final _preferredLangState = InMemoryStore<String>('Default');
 
-  Stream<String?> interfaceLangStateChanges() => _interfaceLangState.stream;
-  String? get currentInterfaceLang => _interfaceLangState.value;
+  Stream<String> interfaceLangStateChanges() => _interfaceLangState.stream;
+  String get currentInterfaceLang => _interfaceLangState.value;
 
-  Stream<String?> preferredLangStateChanges() => _preferredLangState.stream;
-  String? get currentPreferredLang => _preferredLangState.value;
+  Stream<String> preferredLangStateChanges() {
+    final s = _preferredLangState.stream;
+    return s;
+  }
 
-  Future<void> saveInterfaceLang(String? interfaceLang) async {
+  String get currentPreferredLang => _preferredLangState.value;
+
+  Future<void> saveInterfaceLang(String interfaceLang) async {
     _interfaceLangState.value = interfaceLang;
   }
 
-  Future<void> savePreferredLang(String? preferredDisplayLang) async {
+  Future<void> savePreferredLang(String preferredDisplayLang) async {
     _preferredLangState.value = preferredDisplayLang;
   }
 
@@ -32,12 +36,12 @@ final userSettingsRepositoryProvider = Provider<UserSettingsRepository>((ref) {
   return userSettingsRepository;
 });
 
-final interfaceLangStateChangesProvider = StreamProvider<String?>((ref) {
+final interfaceLangStateChangesProvider = StreamProvider<String?>((ref) async* {
   final repository = ref.watch(userSettingsRepositoryProvider);
-  return repository.interfaceLangStateChanges();
+  yield* repository.interfaceLangStateChanges();
 });
 
-final preferredStateChangesProvider = StreamProvider<String?>((ref) {
+final preferredStateChangesProvider = StreamProvider<String>((ref) async* {
   final repository = ref.watch(userSettingsRepositoryProvider);
-  return repository.preferredLangStateChanges();
+  yield* repository.preferredLangStateChanges();
 });

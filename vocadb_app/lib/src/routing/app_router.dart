@@ -5,6 +5,8 @@ import 'package:vocadb_app/src/features/albums/presentation/album_detail_screen/
 import 'package:vocadb_app/src/features/albums/presentation/user_albums/user_albums_filter_screen.dart';
 import 'package:vocadb_app/src/features/albums/presentation/user_albums/user_albums_screen.dart';
 import 'package:vocadb_app/src/features/artists/presentation/artist_detail_screen/artist_detail_screen.dart';
+import 'package:vocadb_app/src/features/artists/presentation/artists_list_screen/artists_list_filter_screen.dart';
+import 'package:vocadb_app/src/features/artists/presentation/artists_list_screen/artists_list_screen.dart';
 import 'package:vocadb_app/src/features/artists/presentation/followed_artists/followed_artists_filter_screen.dart';
 import 'package:vocadb_app/src/features/artists/presentation/followed_artists/followed_artists_screen.dart';
 import 'package:vocadb_app/src/features/authentication/data/auth_repository.dart';
@@ -33,6 +35,8 @@ enum AppRoute {
   signIn,
   albumDetail,
   artistDetail,
+  artistsList,
+  artistsListFilter,
   tagDetail,
   releaseEventDetail,
   entriesSearch,
@@ -84,6 +88,26 @@ final goRouterProvider = Provider<GoRouter>(
                 final songId = state.params['id']!;
                 return SongDetailScreen(song: Song(id: int.parse(songId)));
               },
+            ),
+            GoRoute(
+              path: 'Artists',
+              name: AppRoute.artistsList.name,
+              pageBuilder: (context, state) => MaterialPage(
+                key: state.pageKey,
+                fullscreenDialog: true,
+                child: const ArtistsListScreen(),
+              ),
+              routes: [
+                GoRoute(
+                  path: 'Filter',
+                  name: AppRoute.artistsListFilter.name,
+                  pageBuilder: (context, state) => MaterialPage(
+                    key: state.pageKey,
+                    fullscreenDialog: true,
+                    child: const ArtistsFilterScreen(),
+                  ),
+                )
+              ],
             ),
             GoRoute(
               path: 'A/:id',

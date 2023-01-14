@@ -13,7 +13,6 @@ class RatedSongsFilterScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // ratedSongsListParamsStateProvider
     return Scaffold(
       appBar: AppBar(
         title: const Text('Filter'),
@@ -81,7 +80,19 @@ class RatedSongsFilterScreen extends StatelessWidget {
                 ],
               ),
               const Divider(),
-              const ArtistInput(),
+              ArtistInput(
+                values: state.artists ?? [],
+                onSelect: (a) {
+                  ref
+                      .read(ratedSongsListParamsStateProvider.notifier)
+                      .addArtist(a);
+                },
+                onDeleted: (a) {
+                  ref
+                      .read(ratedSongsListParamsStateProvider.notifier)
+                      .removeArtist(a);
+                },
+              ),
               const Divider(),
               const TagInput(),
             ],

@@ -32,6 +32,8 @@ void main() {
       authRepository: authRepository,
     );
 
+    await tester.pump();
+
     await r.expectRatedSongDisplayCountAtLeast(3);
     await r.tapIconFilterRatedSongs();
 

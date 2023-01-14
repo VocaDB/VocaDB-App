@@ -7,4 +7,8 @@ extension AppRouteContext on BuildContext {
     return GoRouter.of(this)
         .pushNamed(AppRoute.songDetail.name, params: {'id': songID.toString()});
   }
+
+  void goArtistsListFilterScreen() {
+    return GoRouter.of(this).pushNamed(AppRoute.artistsListFilter.name);
+  }
 }

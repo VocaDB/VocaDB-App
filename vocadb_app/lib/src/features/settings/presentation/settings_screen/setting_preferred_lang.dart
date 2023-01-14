@@ -19,7 +19,7 @@ class SettingPreferredLang extends ConsumerWidget {
         title: Text(context.loc.preferredDisplayLanguage),
         groupValue: data,
         onChanged: (value) {
-          ref.read(userSettingsRepositoryProvider).savePreferredLang(value);
+          ref.read(userSettingsRepositoryProvider).savePreferredLang(value!);
         },
         items: [
           SimpleRadioItem(name: 'Original', value: PreferredLang.Default.name),

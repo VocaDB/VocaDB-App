@@ -16,8 +16,13 @@ class ApiClient {
     Map<String, dynamic>? params,
     bool json = true,
   }) async {
-    var uriQueryParameters =
-        params?.map((key, value) => MapEntry(key, value.toString()));
+    var uriQueryParameters = params?.map((key, value) {
+      if (value is List) {
+        return MapEntry(key, value.map((e) => e.toString()).toList());
+      }
+
+      return MapEntry(key, value.toString());
+    });
     final uri = Uri.https(host, endpoint, uriQueryParameters);
     final response = await client.get(uri);
 

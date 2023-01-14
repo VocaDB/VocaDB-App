@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vocadb_app/src/features/authentication/data/auth_repository.dart';
+import 'package:vocadb_app/src/features/settings/data/user_settings_repository.dart';
 import 'package:vocadb_app/src/features/songs/data/song_repository.dart';
 import 'package:vocadb_app/src/features/songs/domain/song.dart';
 import 'package:vocadb_app/src/features/users/presentation/rated_songs_screen/rated_songs_filter_screen.dart';
@@ -66,6 +67,7 @@ class SongRobot {
     SongRepository? songRepository,
     UserRepository? userRepository,
     AuthRepository? authRepository,
+    UserSettingsRepository? userSettingsRepository,
   }) async {
     final router = GoRouter(
       routes: [
@@ -96,6 +98,9 @@ class SongRobot {
             userRepositoryProvider.overrideWithValue(userRepository),
           if (authRepository != null)
             authRepositoryProvider.overrideWithValue(authRepository),
+          if (userSettingsRepository != null)
+            userSettingsRepositoryProvider
+                .overrideWithValue(userSettingsRepository),
         ],
         child: MaterialApp.router(
           routerConfig: router,
