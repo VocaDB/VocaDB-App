@@ -6,13 +6,14 @@ import 'package:vocadb_app/src/features/albums/presentation/tracks_list/track_ti
 class TracksListView extends StatelessWidget {
   final List<Track> tracks;
 
-  final Function(Track?)? onSelect;
+  final Function(Track)? onSelect;
 
   const TracksListView({super.key, required this.tracks, this.onSelect});
 
   Widget _mapTrackModel(Track t) {
     return TrackTile(
       track: t,
+      onTap: () => onSelect?.call(t),
     );
   }
 

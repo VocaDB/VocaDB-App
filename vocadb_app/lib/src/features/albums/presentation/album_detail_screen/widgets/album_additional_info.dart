@@ -12,8 +12,15 @@ class AlbumAdditionalInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (album.description == null &&
+        album.catalogNumber == null &&
+        album.releaseDate == null) {
+      return Container();
+    }
+
     return Column(
       children: [
+        const Divider(),
         ListTile(
           title: Text('Information',
               style: Theme.of(context).textTheme.headline6!),

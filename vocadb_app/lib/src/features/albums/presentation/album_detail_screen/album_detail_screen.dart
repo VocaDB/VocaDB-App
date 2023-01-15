@@ -50,6 +50,7 @@ class AlbumDetailScreen extends ConsumerWidget {
                       gapH8,
                       AlbumTracksSection(album: album),
                       AlbumPVsSection(album: album),
+                      AlbumAdditionalInfo(album: album),
                       AlbumWebLinksSection(album: album),
                     ],
                   ),
