@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:vocadb_app/src/constants/app_sizes.dart';
+import 'package:vocadb_app/src/features/artists/domain/artist.dart';
 
 class ArtistDetailButtonBar extends StatelessWidget {
-  const ArtistDetailButtonBar({super.key});
+  const ArtistDetailButtonBar({super.key, required this.artist});
+
+  final Artist artist;
+
+  static const addBtnKey = Key('add-btn-key');
+  static const shareBtnKey = Key('share-btn-key');
+  static const infoBtnKey = Key('info-btn-key');
 
   @override
   Widget build(BuildContext context) {
@@ -10,6 +17,7 @@ class ArtistDetailButtonBar extends StatelessWidget {
       alignment: MainAxisAlignment.spaceEvenly,
       children: [
         TextButton(
+          key: addBtnKey,
           onPressed: () => {},
           style: ButtonStyle(
             foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
@@ -23,6 +31,7 @@ class ArtistDetailButtonBar extends StatelessWidget {
           ),
         ),
         TextButton(
+          key: shareBtnKey,
           onPressed: () => {},
           style: ButtonStyle(
             foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
@@ -36,6 +45,7 @@ class ArtistDetailButtonBar extends StatelessWidget {
           ),
         ),
         TextButton(
+          key: infoBtnKey,
           onPressed: () => {},
           style: ButtonStyle(
             foregroundColor: MaterialStateProperty.all<Color>(Colors.white),

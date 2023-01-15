@@ -13,6 +13,11 @@ extension AppRouteContext on BuildContext {
         params: {'id': albumID.toString()});
   }
 
+  void goArtist(int artistID) {
+    return GoRouter.of(this).pushNamed(AppRoute.artistDetail.name,
+        params: {'id': artistID.toString()});
+  }
+
   void goArtistsListFilterScreen() {
     return GoRouter.of(this).pushNamed(AppRoute.artistsListFilter.name);
   }

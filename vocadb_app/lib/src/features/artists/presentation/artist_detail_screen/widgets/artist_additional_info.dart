@@ -11,21 +11,28 @@ class ArtistAdditionalInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        const Divider(),
         ListTile(
           title: Text('Information',
               style: Theme.of(context).textTheme.headline6!),
         ),
-        TextInfoTile(
-          title: 'Addition names',
-          subtitle: artist.additionalNames,
+        Visibility(
+          visible: artist.additionalNames != null,
+          child: TextInfoTile(
+            title: 'Addition names',
+            subtitle: artist.additionalNames,
+          ),
         ),
         TextInfoTile(
           title: 'Type',
-          subtitle: artist.artistType,
+          subtitle: artist.artistType ?? '<Unknown>',
         ),
-        TextInfoTile(
-          title: 'Release date',
-          subtitle: artist.releaseDateFormatted,
+        Visibility(
+          visible: artist.releaseDateFormatted != null,
+          child: TextInfoTile(
+            title: 'Release date',
+            subtitle: artist.releaseDateFormatted,
+          ),
         ),
       ],
     );
