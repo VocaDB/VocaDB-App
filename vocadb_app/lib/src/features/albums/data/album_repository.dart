@@ -52,7 +52,7 @@ final albumsTopProvider = FutureProvider<List<Album>>((ref) {
 final albumDetailProvider =
     FutureProvider.autoDispose.family<Album, int>((ref, id) {
   final albumRepository = ref.watch(albumRepositoryProvider);
-  final preferredLang = ref.watch(preferredStateChangesProvider);
-
-  return albumRepository.fetchAlbumID(id, lang: preferredLang.value!);
+  final preferredLang = ref.watch(userSettingsRepositoryProvider
+      .select((value) => value.currentPreferredLang));
+  return albumRepository.fetchAlbumID(id, lang: preferredLang);
 });

@@ -9,28 +9,31 @@ class AlbumBasicInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        gapH8,
-        Text(
-          album.name!,
-          style: Theme.of(context).textTheme.titleLarge,
-          maxLines: 2,
-          textAlign: TextAlign.center,
-        ),
-        gapH8,
-        Text(album.artistString!),
-        gapH4,
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              '${album.discType} • ${album.releaseDate!.formatted}',
-              style: Theme.of(context).textTheme.caption,
-            ),
-          ],
-        )
-      ],
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: Sizes.p16),
+      child: Column(
+        children: [
+          gapH8,
+          Text(
+            album.name!,
+            style: Theme.of(context).textTheme.titleLarge,
+            maxLines: 2,
+            textAlign: TextAlign.center,
+          ),
+          gapH8,
+          Text(album.artistString!),
+          gapH4,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                '${album.discType} • ${album.releaseDate!.formatted}',
+                style: Theme.of(context).textTheme.caption,
+              ),
+            ],
+          )
+        ],
+      ),
     );
   }
 }

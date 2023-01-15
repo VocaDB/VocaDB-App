@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:vocadb_app/src/common_widgets/error_message_widget.dart';
+import 'package:vocadb_app/src/features/albums/data/album_repository.dart';
 import 'package:vocadb_app/src/features/albums/domain/album.dart';
 import 'package:vocadb_app/src/features/albums/presentation/album_detail_screen/album_detail_screen.dart';
 import 'package:vocadb_app/src/features/albums/presentation/album_detail_screen/widgets/widgets.dart';
@@ -15,9 +17,13 @@ class AlbumRobot {
 
   AlbumRobot(this.tester);
 
-  Future<void> pumpAlbumDetailScreen() async {
+  Future<void> pumpAlbumDetailScreen({AlbumRepository? albumRepository}) async {
     await tester.pumpWidget(
       ProviderScope(
+        overrides: [
+          if (albumRepository != null)
+            albumRepositoryProvider.overrideWithValue(albumRepository),
+        ],
         child: MaterialApp(
           home: AlbumDetailScreen(
             album: Album(id: 1, name: 'test-album'),
@@ -26,6 +32,16 @@ class AlbumRobot {
       ),
     );
     await tester.pump();
+  }
+
+  Future<void> expectErrorMessageWidgetNotVisible() async {
+    final finder = find.byType(ErrorMessageWidget);
+    expect(finder, findsNothing);
+  }
+
+  Future<void> expectLoadingNotVisible() async {
+    final finder = find.byType(CircularProgressIndicator);
+    expect(finder, findsNothing);
   }
 
   Future<void> expectAlbumDetailImageVisible() async {

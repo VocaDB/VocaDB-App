@@ -1,12 +1,22 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mocktail/mocktail.dart';
+import 'package:vocadb_app/src/features/albums/data/constants/fake_album_detail.dart';
 import 'package:vocadb_app/src/features/albums/presentation/album_detail_screen/widgets/album_basic_info.dart';
 
+import '../../../../mocks.dart';
 import '../../album_robot.dart';
 
 void main() {
   testWidgets('album detail screen initial success', (tester) async {
     final r = AlbumRobot(tester);
-    await r.pumpAlbumDetailScreen();
+    final albumRepository = MockAlbumRepository();
+
+    when(() => albumRepository.fetchAlbumID(any()))
+        .thenAnswer((invocation) => Future.value(kFakeAlbumDetailSingleDisc));
+
+    await r.pumpAlbumDetailScreen(albumRepository: albumRepository);
+
+    await r.expectErrorMessageWidgetNotVisible();
 
     expect(find.widgetWithText(AlbumBasicInfo, 'synthesis'), findsOneWidget);
     expect(find.widgetWithText(AlbumBasicInfo, 'Tripshots feat. 初音ミク'),
