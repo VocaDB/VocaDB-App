@@ -5,6 +5,7 @@ import 'package:vocadb_app/src/common_widgets/section.dart';
 import 'package:vocadb_app/src/features/songs/data/song_repository.dart';
 import 'package:vocadb_app/src/features/songs/presentation/songs_list/song_placeholder_list_view.dart';
 import 'package:vocadb_app/src/features/songs/presentation/songs_list/songs_list_view.dart';
+import 'package:vocadb_app/src/routing/app_route_context.dart';
 import 'package:vocadb_app/src/utils/app_localizations_context.dart';
 
 class HighlightedSection extends StatelessWidget {
@@ -21,7 +22,7 @@ class HighlightedSection extends StatelessWidget {
             data: (data) => SongListView(
               scrollDirection: Axis.horizontal,
               songs: data,
-              onSelect: (song) {},
+              onSelect: (song) => context.goSong(song.id),
             ),
             error: (e, st) => Center(
               child: ErrorMessageWidget(e.toString()),
