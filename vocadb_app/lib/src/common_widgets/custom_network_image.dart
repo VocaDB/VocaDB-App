@@ -21,7 +21,7 @@ class CustomNetworkImage extends StatelessWidget {
   const CustomNetworkImage(
     this.imageUrl, {
     super.key,
-    this.placeholder = const CircularProgressIndicator(),
+    this.placeholder = const Center(child: CircularProgressIndicator()),
     this.errorWidget = const Icon(Icons.error),
     this.fit = BoxFit.cover,
     this.width = 140,

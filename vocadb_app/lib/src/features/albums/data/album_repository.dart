@@ -34,7 +34,7 @@ final albumsNewProvider = FutureProvider<List<Album>>((ref) {
   final userSettings = ref.watch(userSettingsRepositoryProvider);
 
   return albumRepository.fetchNew(
-    lang: userSettings.currentPreferredLang!,
+    lang: userSettings.currentPreferredLang,
   );
 });
 
@@ -44,6 +44,15 @@ final albumsTopProvider = FutureProvider<List<Album>>((ref) {
   final userSettings = ref.watch(userSettingsRepositoryProvider);
 
   return albumRepository.fetchTop(
-    lang: userSettings.currentPreferredLang!,
+    lang: userSettings.currentPreferredLang,
   );
+});
+
+/// Album ID Provider
+final albumDetailProvider =
+    FutureProvider.autoDispose.family<Album, int>((ref, id) {
+  final albumRepository = ref.watch(albumRepositoryProvider);
+  final preferredLang = ref.watch(preferredStateChangesProvider);
+
+  return albumRepository.fetchAlbumID(id, lang: preferredLang.value!);
 });

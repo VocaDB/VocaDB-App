@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:vocadb_app/src/constants/app_sizes.dart';
 import 'package:vocadb_app/src/features/albums/domain/album.dart';
 
-class AlbumRatingInfo extends StatelessWidget {
-  const AlbumRatingInfo({super.key, required this.album});
+class AlbumBasicInfo extends StatelessWidget {
+  const AlbumBasicInfo({super.key, required this.album});
 
   final Album album;
 

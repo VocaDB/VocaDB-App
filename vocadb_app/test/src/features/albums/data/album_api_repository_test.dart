@@ -53,5 +53,20 @@ void main() {
         Album(id: 2, name: 'test-ja-2'),
       ]);
     });
+
+    test('fetchAlbumID', () async {
+      // Setup
+      const responseBody = {"id": 1, "name": "test-album-ja"};
+
+      // Mock
+      when(() => client.get(any(), params: any(named: 'params', that: isMap)))
+          .thenAnswer((_) => Future.value(responseBody));
+
+      // Run
+      final response = await albumApiRepository.fetchAlbumID(1);
+
+      // Verify
+      expect(response, Album(id: 1, name: 'test-album-ja'));
+    });
   });
 }

@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:vocadb_app/src/constants/app_sizes.dart';
+import 'package:vocadb_app/src/features/albums/domain/album.dart';
 import 'package:vocadb_app/src/features/albums/presentation/album_detail_screen/album_collection_edit_modal.dart';
 
 class AlbumDetailButtonBar extends StatelessWidget {
-  const AlbumDetailButtonBar({super.key});
+  const AlbumDetailButtonBar({super.key, required this.album});
+
+  final Album album;
+
+  static const addBtnKey = Key('add-btn-key');
+  static const shareBtnKey = Key('share-btn-key');
+  static const infoBtnKey = Key('info-btn-key');
 
   @override
   Widget build(BuildContext context) {
@@ -11,6 +18,7 @@ class AlbumDetailButtonBar extends StatelessWidget {
       alignment: MainAxisAlignment.spaceEvenly,
       children: [
         TextButton(
+          key: addBtnKey,
           onPressed: () => {
             showModalBottomSheet(
               context: context,
@@ -29,6 +37,7 @@ class AlbumDetailButtonBar extends StatelessWidget {
           ),
         ),
         TextButton(
+          key: shareBtnKey,
           onPressed: () => {},
           style: ButtonStyle(
             foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
@@ -42,6 +51,7 @@ class AlbumDetailButtonBar extends StatelessWidget {
           ),
         ),
         TextButton(
+          key: infoBtnKey,
           onPressed: () => {},
           style: ButtonStyle(
             foregroundColor: MaterialStateProperty.all<Color>(Colors.white),

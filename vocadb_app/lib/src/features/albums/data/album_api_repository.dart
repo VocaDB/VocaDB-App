@@ -9,9 +9,16 @@ class AlbumApiRepository implements AlbumRepository {
   final ApiClient client;
 
   @override
-  Future<Album> fetchAlbumID(int id, {String lang = 'Default'}) {
-    // TODO: implement fetchAlbumID
-    throw UnimplementedError();
+  Future<Album> fetchAlbumID(int id, {String lang = 'Default'}) async {
+    final params = {
+      'fields':
+          'Tags,MainPicture,Tracks,AdditionalNames,Artists,Description,WebLinks,PVs',
+      'songFields': 'MainPicture,PVs,ThumbUrl',
+      'lang': lang,
+    };
+    final responseBody = await client.get('api/albums/$id', params: params);
+
+    return Album.fromJson(responseBody);
   }
 
   @override

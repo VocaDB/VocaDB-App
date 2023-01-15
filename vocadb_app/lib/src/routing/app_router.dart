@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:vocadb_app/src/features/albums/domain/album.dart';
 import 'package:vocadb_app/src/features/albums/presentation/album_detail_screen/album_detail_screen.dart';
 import 'package:vocadb_app/src/features/albums/presentation/user_albums/user_albums_filter_screen.dart';
 import 'package:vocadb_app/src/features/albums/presentation/user_albums/user_albums_screen.dart';
@@ -114,7 +115,7 @@ final goRouterProvider = Provider<GoRouter>(
               name: AppRoute.albumDetail.name,
               builder: (context, state) {
                 final albumId = state.params['id']!;
-                return AlbumDetailScreen(albumId: albumId);
+                return AlbumDetailScreen(album: Album(id: int.parse(albumId)));
               },
             ),
             GoRoute(
