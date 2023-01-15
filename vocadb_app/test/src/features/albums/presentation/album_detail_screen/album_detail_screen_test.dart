@@ -1,6 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:vocadb_app/src/features/albums/data/constants/fake_album_detail.dart';
+import 'package:vocadb_app/src/features/albums/domain/album.dart';
 import 'package:vocadb_app/src/features/albums/presentation/album_detail_screen/widgets/album_basic_info.dart';
 
 import '../../../../mocks.dart';
@@ -46,5 +47,55 @@ void main() {
     await r.scrollDown();
 
     await r.expectWebLinksVisible(true);
+  });
+
+  testWidgets('album detail screen with album detail all fields are default',
+      (tester) async {
+    final r = AlbumRobot(tester);
+    final albumRepository = MockAlbumRepository();
+
+    when(() => albumRepository.fetchAlbumID(any()))
+        .thenAnswer((invocation) => Future.value(Album(id: 1)));
+
+    await r.pumpAlbumDetailScreen(albumRepository: albumRepository);
+
+    await r.expectErrorMessageWidgetNotVisible();
+
+    await r.expectAlbumDetailImageVisible();
+
+    // Buttons
+    await r.expectAddButtonVisible();
+    await r.expectShareButtonVisible();
+    await r.expectInfoButtonVisible();
+
+    // Rating info
+    await r.expectTotalRatingVisible();
+    await r.expectAverageRatingVisible();
+
+    await r.expectTagsVisible(false);
+    await r.expectArtistsVisible(false);
+
+    await r.scrollDown();
+
+    await r.expectTracksListVisible(false);
+    await r.expectPVsVisible(false);
+
+    await r.scrollDown();
+
+    await r.expectWebLinksVisible(false);
+  });
+
+  testWidgets('album detail screen with fetch album detail failure',
+      (tester) async {
+    final r = AlbumRobot(tester);
+    final albumRepository = MockAlbumRepository();
+
+    when(() => albumRepository.fetchAlbumID(any())).thenThrow(
+      Exception('Connection error'),
+    );
+
+    await r.pumpAlbumDetailScreen(albumRepository: albumRepository);
+
+    verify(() => albumRepository.fetchAlbumID(any()));
   });
 }

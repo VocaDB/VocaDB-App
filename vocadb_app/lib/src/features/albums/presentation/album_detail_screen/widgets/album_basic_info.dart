@@ -15,21 +15,21 @@ class AlbumBasicInfo extends StatelessWidget {
         children: [
           gapH8,
           Text(
-            album.name!,
+            album.name ?? '<None>',
             style: Theme.of(context).textTheme.titleLarge,
             maxLines: 2,
             textAlign: TextAlign.center,
           ),
           gapH8,
-          Text(album.artistString!),
+          Text(album.artistString ?? '<None>'),
           gapH4,
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                '${album.discType} • ${album.releaseDate!.formatted}',
+                '${(album.discType ?? '<None>')} • ${(album.releaseDate?.formatted ?? '<Unknown release data>')}',
                 style: Theme.of(context).textTheme.caption,
-              ),
+              )
             ],
           )
         ],
