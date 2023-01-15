@@ -8,6 +8,11 @@ extension AppRouteContext on BuildContext {
         .pushNamed(AppRoute.songDetail.name, params: {'id': songID.toString()});
   }
 
+  void goAlbum(int albumID) {
+    return GoRouter.of(this).pushNamed(AppRoute.albumDetail.name,
+        params: {'id': albumID.toString()});
+  }
+
   void goArtistsListFilterScreen() {
     return GoRouter.of(this).pushNamed(AppRoute.artistsListFilter.name);
   }
