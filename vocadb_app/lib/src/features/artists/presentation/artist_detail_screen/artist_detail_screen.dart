@@ -10,7 +10,6 @@ import 'package:vocadb_app/src/features/artists/presentation/artist_detail_scree
 import 'package:vocadb_app/src/features/artists/presentation/artist_detail_screen/widgets/artist_web_links_section.dart';
 import 'package:vocadb_app/src/features/artists/presentation/artists_list/artist_link_list_view.dart';
 
-// TODO : need implementation
 class ArtistDetailScreen extends StatelessWidget {
   const ArtistDetailScreen({super.key, required this.artistId});
 
