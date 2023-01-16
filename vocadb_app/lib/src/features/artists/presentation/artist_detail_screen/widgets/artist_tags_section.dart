@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:vocadb_app/src/constants/app_sizes.dart';
 import 'package:vocadb_app/src/features/artists/domain/artist.dart';
 import 'package:vocadb_app/src/features/tags/presentation/tag_widgets/tag_usage_group_view.dart';
+import 'package:vocadb_app/src/routing/app_route_context.dart';
 
 class ArtistTagSection extends StatelessWidget {
   const ArtistTagSection({super.key, required this.artist});
@@ -21,6 +22,7 @@ class ArtistTagSection extends StatelessWidget {
         gapH8,
         TagUsageGroupView(
           tagUsages: artist.tags,
+          onSelectTag: context.goTagDetail,
         ),
         gapH8,
       ],
