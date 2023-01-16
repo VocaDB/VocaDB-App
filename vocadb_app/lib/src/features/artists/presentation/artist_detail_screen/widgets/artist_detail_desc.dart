@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:vocadb_app/src/constants/app_sizes.dart';
 import 'package:vocadb_app/src/features/artists/domain/artist.dart';
 
@@ -9,6 +10,10 @@ class ArtistDetailDesc extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (artist.description == null) {
+      return Container();
+    }
+
     return InkWell(
       onTap: () {
         showModalBottomSheet(
@@ -64,7 +69,10 @@ class _ArtistDetailDescBottomSheet {
             style: Theme.of(context).textTheme.titleLarge,
           ),
           gapH16,
-          Text(artist.description!),
+          MarkdownBody(
+            data: artist.description!,
+            selectable: true,
+          )
         ],
       ),
     );
