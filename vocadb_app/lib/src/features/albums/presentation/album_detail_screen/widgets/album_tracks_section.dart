@@ -21,7 +21,7 @@ class AlbumTracksSection extends StatelessWidget {
         tracks: album.tracks,
         onSelect: (track) {
           if (track.song != null) {
-            context.goSong(track.song!.id);
+            context.goSongDetail(track.song!);
           }
         },
       ),

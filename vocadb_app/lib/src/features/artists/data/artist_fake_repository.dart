@@ -13,7 +13,7 @@ class ArtistFakeRepository implements ArtistRepository {
 
   @override
   Future<Artist> fetchArtistID(int id, {String lang = 'Default'}) {
-    throw Future.value(kFakeArtistDetail);
+    return Future.value(kFakeArtistDetail);
   }
 }
 

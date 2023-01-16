@@ -16,7 +16,7 @@ class SongDetailArtistsSection extends StatelessWidget {
       visible: song.artists.isNotEmpty,
       child: ArtistGroupByRoleList(
         key: SongDetailScreen.artistsKey,
-        onTapArtist: (artist) => context.goArtist(artist.id),
+        onTapArtist: context.goArtistDetail,
         artistRoles: song.artists,
       ),
     );

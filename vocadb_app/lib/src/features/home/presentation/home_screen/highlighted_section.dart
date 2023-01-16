@@ -22,7 +22,7 @@ class HighlightedSection extends StatelessWidget {
             data: (data) => SongListView(
               scrollDirection: Axis.horizontal,
               songs: data,
-              onSelect: (song) => context.goSong(song.id),
+              onSelect: context.goSongDetail,
             ),
             error: (e, st) => Center(
               child: ErrorMessageWidget(e.toString()),

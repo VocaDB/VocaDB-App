@@ -9,7 +9,6 @@ import 'package:vocadb_app/src/features/home/presentation/ranking_screen/top_son
 import 'package:vocadb_app/src/routing/app_route_context.dart';
 import 'package:vocadb_app/src/routing/app_router.dart';
 
-// TODO : need implementation
 class RankingScreen extends StatelessWidget {
   static const tabDailyKey = Key('tab-daily-key');
   static const tabWeeklyKey = Key('tab-weekly-key');
@@ -48,16 +47,16 @@ class RankingScreen extends StatelessWidget {
             body: TabBarView(
               children: [
                 TopSongsDailyListView(
-                  onSelect: (song) => context.goSong(song.id),
+                  onSelect: context.goSongDetail,
                 ),
                 TopSongsWeeklyListView(
-                  onSelect: (song) => context.goSong(song.id),
+                  onSelect: context.goSongDetail,
                 ),
                 TopSongsMonthlyListView(
-                  onSelect: (song) => context.goSong(song.id),
+                  onSelect: context.goSongDetail,
                 ),
                 TopSongsOverallListView(
-                  onSelect: (song) => context.goSong(song.id),
+                  onSelect: context.goSongDetail,
                 ),
               ],
             ),

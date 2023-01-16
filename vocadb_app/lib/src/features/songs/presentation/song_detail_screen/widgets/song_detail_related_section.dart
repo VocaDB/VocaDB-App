@@ -5,6 +5,7 @@ import 'package:vocadb_app/src/common_widgets/section.dart';
 import 'package:vocadb_app/src/features/songs/domain/song.dart';
 import 'package:vocadb_app/src/features/songs/presentation/song_detail_screen/song_detail_screen_controller.dart';
 import 'package:vocadb_app/src/features/songs/presentation/songs_list/songs_list_view.dart';
+import 'package:vocadb_app/src/routing/app_route_context.dart';
 
 class SongDetailRelatedSection extends ConsumerWidget {
   const SongDetailRelatedSection({super.key, required this.song});
@@ -33,7 +34,7 @@ class SongDetailRelatedSection extends ConsumerWidget {
               child: SongListView(
                 scrollDirection: Axis.horizontal,
                 songs: data.likeMatches,
-                onSelect: (song) {},
+                onSelect: context.goSongDetail,
               ),
             ),
           ],

@@ -3,6 +3,7 @@ import 'package:vocadb_app/src/common_widgets/section_divider.dart';
 import 'package:vocadb_app/src/features/albums/presentation/albums_list/album_list_view.dart';
 import 'package:vocadb_app/src/features/artists/domain/artist_relations.dart';
 import 'package:vocadb_app/src/features/songs/presentation/songs_list/songs_list_view.dart';
+import 'package:vocadb_app/src/routing/app_route_context.dart';
 
 class ArtistRelationsView extends StatelessWidget {
   const ArtistRelationsView({super.key, required this.artistRelations});
@@ -29,7 +30,7 @@ class ArtistRelationsView extends StatelessWidget {
           child: SongListView(
             scrollDirection: Axis.horizontal,
             songs: artistRelations!.latestSongs,
-            onSelect: (s) {},
+            onSelect: context.goSongDetail,
           ),
         ),
         SectionDivider(
@@ -39,7 +40,7 @@ class ArtistRelationsView extends StatelessWidget {
           child: SongListView(
             scrollDirection: Axis.horizontal,
             songs: artistRelations!.popularSongs,
-            onSelect: (s) {},
+            onSelect: context.goSongDetail,
           ),
         ),
         SectionDivider(
@@ -49,7 +50,7 @@ class ArtistRelationsView extends StatelessWidget {
           child: AlbumListView(
             scrollDirection: Axis.horizontal,
             albums: artistRelations!.latestAlbums,
-            onSelect: (s) {},
+            onSelect: context.goAlbumDetail,
           ),
         ),
         SectionDivider(
@@ -59,7 +60,7 @@ class ArtistRelationsView extends StatelessWidget {
           child: AlbumListView(
             scrollDirection: Axis.horizontal,
             albums: artistRelations!.popularAlbums,
-            onSelect: (s) {},
+            onSelect: context.goAlbumDetail,
           ),
         ),
       ],

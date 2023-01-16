@@ -8,6 +8,7 @@ import 'package:vocadb_app/src/features/songs/domain/rated_song.dart';
 import 'package:vocadb_app/src/features/users/presentation/rated_songs_screen/rated_songs_state.dart';
 import 'package:vocadb_app/src/features/songs/presentation/songs_list/songs_list_view.dart';
 import 'package:vocadb_app/src/features/users/data/user_repository.dart';
+import 'package:vocadb_app/src/routing/app_route_context.dart';
 import 'package:vocadb_app/src/routing/app_router.dart';
 
 class RatedSongsScreen extends ConsumerWidget {
@@ -44,7 +45,9 @@ class RatedSongsScreen extends ConsumerWidget {
           value: value,
           data: (data) {
             return SongListView(
-                songs: data.map((e) => e.song).toList(), onSelect: (s) {});
+              songs: data.map((e) => e.song).toList(),
+              onSelect: context.goSongDetail,
+            );
           }),
     );
   }
