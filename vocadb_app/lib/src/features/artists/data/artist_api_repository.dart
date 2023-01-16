@@ -20,6 +20,21 @@ class ArtistApiRepository implements ArtistRepository {
 
     return Artist.fromJsonToList(queryResult.items).toList();
   }
+
+  @override
+  Future<Artist> fetchArtistID(int id, {String lang = 'Default'}) async {
+    final params = {
+      'fields':
+          'AdditionalNames, ArtistLinks, ArtistLinksReverse, BaseVoicebank, Description, MainPicture, Tags, WebLinks',
+      'relations':
+          'LatestAlbums, LatestEvents, LatestSongs, PopularAlbums, PopularSongs, All',
+      'lang': lang,
+    };
+
+    final response = await client.get('/api/artists/$id', params: params);
+
+    return Artist.fromJson(response);
+  }
 }
 
 final artistApiRepositoryProvider = Provider<ArtistApiRepository>((ref) {

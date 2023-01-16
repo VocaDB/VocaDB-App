@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:vocadb_app/src/common_widgets/error_message_widget.dart';
+import 'package:vocadb_app/src/features/artists/data/artist_repository.dart';
 import 'package:vocadb_app/src/features/artists/presentation/artist_detail_screen/artist_detail_screen.dart';
 import 'package:vocadb_app/src/features/artists/presentation/artist_detail_screen/widgets/artist_detail_button_bar.dart';
 import 'package:vocadb_app/src/features/artists/presentation/artist_detail_screen/widgets/artist_detail_image.dart';
@@ -14,10 +15,15 @@ class ArtistRobot {
 
   ArtistRobot(this.tester);
 
-  Future<void> pumpArtistDetailScreen() async {
+  Future<void> pumpArtistDetailScreen(
+      {ArtistRepository? artistRepository}) async {
     await tester.pumpWidget(
-      const ProviderScope(
-        child: MaterialApp(
+      ProviderScope(
+        overrides: [
+          if (artistRepository != null)
+            artistRepositoryProvider.overrideWithValue(artistRepository)
+        ],
+        child: const MaterialApp(
           home: ArtistDetailScreen(
             artistId: '1',
           ),

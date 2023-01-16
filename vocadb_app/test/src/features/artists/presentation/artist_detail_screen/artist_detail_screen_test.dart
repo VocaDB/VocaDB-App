@@ -1,11 +1,25 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mocktail/mocktail.dart';
+import 'package:vocadb_app/src/features/artists/data/constants/fake_artist_detail.dart';
 
+import '../../../../mocks.dart';
 import '../../artist_robot.dart';
 
 void main() {
-  testWidgets('album detail screen initial success', (tester) async {
+  testWidgets('artist detail screen initial success', (tester) async {
     final r = ArtistRobot(tester);
-    await r.pumpArtistDetailScreen();
+    final artistRepository = MockArtistRepository();
+
+    when(() => artistRepository.fetchArtistID(any(),
+            lang: any(named: 'lang', that: isNotEmpty)))
+        .thenAnswer((_) => Future.value(kFakeArtistDetail));
+
+    await r.pumpArtistDetailScreen(artistRepository: artistRepository);
+
+    await tester.pump();
+
+    verify(() => artistRepository.fetchArtistID(any(),
+        lang: any(named: 'lang', that: isNotEmpty))).called(1);
 
     await r.expectArtistDetailImageVisible();
     expect(find.text('Hatsune Miku').first, findsOneWidget);

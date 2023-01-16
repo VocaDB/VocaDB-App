@@ -40,6 +40,19 @@ void main() {
         Artist(id: 2, name: 'Kagamine Rin'),
       ]);
     });
+
+    test('fetchArtistID', () async {
+      when(() => client.get('/api/artists/1',
+              params: any(named: 'params', that: isMap)))
+          .thenAnswer((_) => Future.value({'id': 1, 'name': 'Hatsune Miku'}));
+
+      final result = await artistRepository.fetchArtistID(1);
+
+      verify(() => client.get('/api/artists/1',
+          params: any(named: 'params', that: isMap)));
+
+      expect(result, Artist(id: 1, name: 'Hatsune Miku'));
+    });
   });
 }
 
