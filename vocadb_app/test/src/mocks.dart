@@ -7,6 +7,7 @@ import 'package:vocadb_app/src/features/artists/domain/artists_list_params.dart'
 import 'package:vocadb_app/src/features/authentication/data/auth_repository.dart';
 import 'package:vocadb_app/src/features/settings/data/user_settings_repository.dart';
 import 'package:vocadb_app/src/features/songs/data/song_repository.dart';
+import 'package:vocadb_app/src/features/tags/data/tag_repository.dart';
 import 'package:vocadb_app/src/features/users/data/user_repository.dart';
 import 'package:vocadb_app/src/features/users/domain/rated_songs_list_params.dart';
 
@@ -32,3 +33,5 @@ class MockUserSettingsRepository extends Mock
     implements UserSettingsRepository {}
 
 class MockArtistRepository extends Mock implements ArtistRepository {}
+
+class MockTagRepository extends Mock implements TagRepository {}

@@ -22,3 +22,7 @@ class Tag with _$Tag {
 
   factory Tag.fromJson(Map<String, dynamic> json) => _$TagFromJson(json);
 }
+
+extension TagExtended on Tag {
+  String? get imageUrl => mainPicture?.urlOriginal;
+}
