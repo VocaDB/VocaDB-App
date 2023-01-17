@@ -113,11 +113,55 @@ void main() {
       // Verify
       expect(
         response,
-        SongRelated(likeMatches: [
-          const Song(id: 1, name: 'test-ja'),
-          const Song(id: 2, name: 'test-ja-2'),
+        const SongRelated(likeMatches: [
+          Song(id: 1, name: 'test-ja'),
+          Song(id: 2, name: 'test-ja-2'),
         ]),
       );
+    });
+
+    test('fetchSongs return success', () async {
+      // Setup
+      const responseBody = {
+        "items": [
+          {"id": 1, "name": "test-ja"},
+          {"id": 2, "name": "test-ja-2"},
+        ],
+        "totalCount": 2,
+      };
+      when(() => client.get(any(), params: any(named: 'params', that: isMap)))
+          .thenAnswer((_) => Future.value(responseBody));
+
+      // Run
+      final response = await songApiRepository.fetchSongsList();
+
+      // Verify
+      expect(response, [
+        const Song(id: 1, name: 'test-ja'),
+        const Song(id: 2, name: 'test-ja-2'),
+      ]);
+    });
+
+    test('fetchTopSongsByTagID return success', () async {
+      // Setup
+      const responseBody = {
+        "items": [
+          {"id": 1, "name": "test-ja"},
+          {"id": 2, "name": "test-ja-2"},
+        ],
+        "totalCount": 2,
+      };
+      when(() => client.get(any(), params: any(named: 'params', that: isMap)))
+          .thenAnswer((_) => Future.value(responseBody));
+
+      // Run
+      final response = await songApiRepository.fetchTopSongsByTagID(1);
+
+      // Verify
+      expect(response, [
+        const Song(id: 1, name: 'test-ja'),
+        const Song(id: 2, name: 'test-ja-2'),
+      ]);
     });
   });
 }

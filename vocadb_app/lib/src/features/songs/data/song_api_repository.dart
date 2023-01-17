@@ -1,8 +1,10 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vocadb_app/src/features/api/api_client.dart';
+import 'package:vocadb_app/src/features/api/data/api_query_result.dart';
 import 'package:vocadb_app/src/features/songs/data/song_repository.dart';
 import 'package:vocadb_app/src/features/songs/domain/song.dart';
 import 'package:vocadb_app/src/features/songs/domain/song_related.dart';
+import 'package:vocadb_app/src/features/songs/domain/songs_list_params.dart';
 
 class SongApiRepository implements SongRepository {
   SongApiRepository({required this.client});
@@ -47,9 +49,14 @@ class SongApiRepository implements SongRepository {
   }
 
   @override
-  Future<List<Song>> fetchSongsList() {
-    // TODO: implement fetchSongsList
-    throw UnimplementedError();
+  Future<List<Song>> fetchSongsList({
+    SongsListParams params = const SongsListParams(),
+  }) async {
+    final responseBody = await client.get('api/songs', params: params.toJson());
+
+    final queryResult = ApiQueryResult.fromMap(responseBody);
+
+    return Song.fromJsonToList(queryResult.items).toList();
   }
 
   @override
@@ -93,6 +100,18 @@ class SongApiRepository implements SongRepository {
   Future<void> rating(int id, String rating) {
     // TODO: implement rating
     throw UnimplementedError();
+  }
+
+  @override
+  Future<List<Song>> fetchTopSongsByTagID(int tagId,
+      {String lang = 'Default'}) {
+    return fetchSongsList(
+      params: SongsListParams(
+        tagId: [tagId],
+        sort: 'RatingScore',
+        lang: lang,
+      ),
+    );
   }
 }
 

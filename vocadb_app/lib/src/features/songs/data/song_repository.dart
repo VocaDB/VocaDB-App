@@ -6,11 +6,12 @@ import 'package:vocadb_app/src/features/songs/data/song_api_repository.dart';
 import 'package:vocadb_app/src/features/songs/data/song_fake_repository.dart';
 import 'package:vocadb_app/src/features/songs/domain/song.dart';
 import 'package:vocadb_app/src/features/songs/domain/song_related.dart';
+import 'package:vocadb_app/src/features/songs/domain/songs_list_params.dart';
 
 abstract class SongRepository {
   Future<List<Song>> fetchSongsHighlighted({String lang = 'Default'});
 
-  Future<List<Song>> fetchSongsList();
+  Future<List<Song>> fetchSongsList({SongsListParams params});
 
   Future<Song> fetchSongId(int id, {String lang = 'Default'});
 
@@ -26,6 +27,8 @@ abstract class SongRepository {
   Future<SongRelated> fetchSongsRelated(int id, {String lang = 'Default'});
 
   Future<void> rating(int id, String rating);
+
+  Future<List<Song>> fetchTopSongsByTagID(int tagId, {String lang = 'Default'});
 }
 
 /// Providers
@@ -64,7 +67,7 @@ final songsDailyProvider = FutureProvider.autoDispose<List<Song>>((ref) {
 
   return songRepository.fetchSongsTopRated(
     durationHours: durationHours,
-    lang: userSettings.currentPreferredLang!,
+    lang: userSettings.currentPreferredLang,
   );
 });
 
@@ -76,7 +79,7 @@ final songsWeeklyProvider = FutureProvider.autoDispose<List<Song>>((ref) {
 
   return songRepository.fetchSongsTopRated(
     durationHours: durationHours,
-    lang: userSettings.currentPreferredLang!,
+    lang: userSettings.currentPreferredLang,
   );
 });
 
@@ -88,7 +91,7 @@ final songsMonthlyProvider = FutureProvider.autoDispose<List<Song>>((ref) {
 
   return songRepository.fetchSongsTopRated(
     durationHours: durationHours,
-    lang: userSettings.currentPreferredLang!,
+    lang: userSettings.currentPreferredLang,
   );
 });
 
@@ -98,7 +101,7 @@ final songsOverallProvider = FutureProvider.autoDispose<List<Song>>((ref) {
   final userSettings = ref.watch(userSettingsRepositoryProvider);
 
   return songRepository.fetchSongsTopRated(
-    lang: userSettings.currentPreferredLang!,
+    lang: userSettings.currentPreferredLang,
   );
 });
 
@@ -110,7 +113,7 @@ final songsDerivedProvider =
 
   final value = songRepository.fetchSongsDerived(
     id,
-    lang: userSettings.currentPreferredLang!,
+    lang: userSettings.currentPreferredLang,
   );
 
   return value;
@@ -124,7 +127,7 @@ final songsRelatedProvider =
 
   final value = songRepository.fetchSongsRelated(
     id,
-    lang: userSettings.currentPreferredLang!,
+    lang: userSettings.currentPreferredLang,
   );
 
   return value;

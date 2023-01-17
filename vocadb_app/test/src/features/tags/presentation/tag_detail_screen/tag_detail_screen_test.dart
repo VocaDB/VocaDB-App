@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:vocadb_app/src/features/songs/data/constants/fake_songs_list.dart';
 import 'package:vocadb_app/src/features/tags/data/constants/fake_tag_detail.dart';
 
 import '../../../../mocks.dart';
@@ -15,7 +16,10 @@ void main() {
     final albumRepository = MockAlbumRepository();
 
     when(() => tagRepository.fetchTagID(1, lang: 'Default'))
-        .thenAnswer((invocation) => Future.value(kFakeTagDetail));
+        .thenAnswer((_) => Future.value(kFakeTagDetail));
+
+    when(() => songRepository.fetchTopSongsByTagID(1, lang: 'Default'))
+        .thenAnswer((_) => Future.value(kFakeSongsList));
 
     await r.pumpTagDetailScreen(
       tagRepository: tagRepository,
