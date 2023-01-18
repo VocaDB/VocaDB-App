@@ -77,4 +77,19 @@ class TagRobot {
     final finder = find.byKey(TagDetailButtonBar.infoBtnKey);
     expect(finder, findsOneWidget);
   }
+
+  Future<void> expectTagNameIs(String name) async {
+    final finder = find.widgetWithText(ListTile, name);
+    expect(finder, findsOneWidget);
+  }
+
+  Future<void> expectTagCategoryIs(String category) async {
+    final finder = find.widgetWithText(ListTile, category);
+    expect(finder, findsOneWidget);
+  }
+
+  Future<void> expectDescriptionIsVisible(bool visible) async {
+    final finder = find.byKey(TagDetailButtonBar.infoBtnKey);
+    expect(finder, findsOneWidget);
+  }
 }

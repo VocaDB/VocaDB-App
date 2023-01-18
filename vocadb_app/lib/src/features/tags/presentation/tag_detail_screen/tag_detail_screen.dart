@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vocadb_app/src/common_widgets/async_value_widget.dart';
-import 'package:vocadb_app/src/common_widgets/markdown.dart';
-import 'package:vocadb_app/src/constants/app_sizes.dart';
 import 'package:vocadb_app/src/features/tags/data/tag_repository.dart';
 import 'package:vocadb_app/src/features/tags/presentation/tag_detail_screen/tag_detail_button_bar.dart';
 import 'package:vocadb_app/src/features/tags/presentation/tag_detail_screen/widgets/tag_detail_image.dart';
+import 'package:vocadb_app/src/features/tags/presentation/tag_detail_screen/widgets/tag_detail_info.dart';
 import 'package:vocadb_app/src/features/tags/presentation/tag_detail_screen/widgets/tag_detail_top_albums.dart';
 import 'package:vocadb_app/src/features/tags/presentation/tag_detail_screen/widgets/tag_detail_top_artists.dart';
 import 'package:vocadb_app/src/features/tags/presentation/tag_detail_screen/widgets/tag_detail_top_songs.dart';
-import 'package:vocadb_app/src/features/weblinks/presentation/web_link_group_view.dart';
+import 'package:vocadb_app/src/features/tags/presentation/tag_detail_screen/widgets/tag_web_links_section.dart';
 
 // TODO : implement more UI detail
 class TagDetailScreen extends ConsumerWidget {
@@ -55,26 +54,12 @@ class TagDetailScreen extends ConsumerWidget {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        ListTile(
-                          title: const Text('Name'),
-                          subtitle: Text(tag.name ?? '<None>'),
-                        ),
-                        ListTile(
-                          title: const Text('Category'),
-                          subtitle: Text(tag.categoryName ?? '<None>'),
-                        ),
-                        gapH8,
-                        ListTile(
-                          title: const Text('Description'),
-                          subtitle: Markdown(
-                            data: tag.description ?? '<None>',
-                          ),
-                        ),
+                        TagDetailInfo(tag: tag),
                         TagDetailTopSongs(tag: tag),
                         TagDetailTopArtists(tag: tag),
                         TagDetailTopAlbums(tag: tag),
                         const Divider(),
-                        WebLinkGroupList(webLinks: tag.webLinks),
+                        TagWebLinksSection(tag: tag),
                       ],
                     )
                   ]),
