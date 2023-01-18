@@ -10,7 +10,7 @@ _$_ArtistsListParams _$$_ArtistsListParamsFromJson(Map<String, dynamic> json) =>
     _$_ArtistsListParams(
       query: json['query'] as String?,
       artistTypes: json['artistTypes'] as String?,
-      tagId: (json['tagId'] as List<dynamic>?)?.map((e) => e as int).toList(),
+      tagId: (json['tagId[]'] as List<dynamic>?)?.map((e) => e as int).toList(),
       start: json['start'] as int? ?? 0,
       maxResults: json['maxResults'] as int? ?? 10,
       sort: json['sort'] as String? ?? 'None',
@@ -31,7 +31,7 @@ Map<String, dynamic> _$$_ArtistsListParamsToJson(
 
   writeNotNull('query', instance.query);
   writeNotNull('artistTypes', instance.artistTypes);
-  writeNotNull('tagId', instance.tagId);
+  writeNotNull('tagId[]', instance.tagId);
   val['start'] = instance.start;
   val['maxResults'] = instance.maxResults;
   val['sort'] = instance.sort;

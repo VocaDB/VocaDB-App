@@ -10,6 +10,9 @@ abstract class ArtistRepository {
   Future<List<Artist>> fetchList({ArtistsListParams params});
 
   Future<Artist> fetchArtistID(int id, {String lang = 'Default'});
+
+  Future<List<Artist>> fetchTopArtistsByTagID(int tagID,
+      {String lang = 'Default'});
 }
 
 final artistRepositoryProvider = Provider.autoDispose<ArtistRepository>((ref) {

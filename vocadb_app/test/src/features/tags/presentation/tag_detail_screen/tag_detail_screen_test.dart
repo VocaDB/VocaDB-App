@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:vocadb_app/src/features/artists/data/constants/fake_artists_list.dart';
 import 'package:vocadb_app/src/features/songs/data/constants/fake_songs_list.dart';
 import 'package:vocadb_app/src/features/tags/data/constants/fake_tag_detail.dart';
 import 'package:vocadb_app/src/features/tags/domain/tag.dart';
@@ -21,6 +22,9 @@ void main() {
 
     when(() => songRepository.fetchTopSongsByTagID(1, lang: 'Default'))
         .thenAnswer((_) => Future.value(kFakeSongsList));
+
+    when(() => artistRepository.fetchTopArtistsByTagID(1, lang: 'Default'))
+        .thenAnswer((_) => Future.value(kFakeArtistList));
 
     await r.pumpTagDetailScreen(
       tagRepository: tagRepository,

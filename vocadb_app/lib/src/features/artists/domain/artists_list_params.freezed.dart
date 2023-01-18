@@ -22,6 +22,7 @@ ArtistsListParams _$ArtistsListParamsFromJson(Map<String, dynamic> json) {
 mixin _$ArtistsListParams {
   String? get query => throw _privateConstructorUsedError;
   String? get artistTypes => throw _privateConstructorUsedError;
+  @JsonKey(name: 'tagId[]')
   List<int>? get tagId => throw _privateConstructorUsedError;
   int get start => throw _privateConstructorUsedError;
   int get maxResults => throw _privateConstructorUsedError;
@@ -45,7 +46,7 @@ abstract class $ArtistsListParamsCopyWith<$Res> {
   $Res call(
       {String? query,
       String? artistTypes,
-      List<int>? tagId,
+      @JsonKey(name: 'tagId[]') List<int>? tagId,
       int start,
       int maxResults,
       String sort,
@@ -129,7 +130,7 @@ abstract class _$$_ArtistsListParamsCopyWith<$Res>
   $Res call(
       {String? query,
       String? artistTypes,
-      List<int>? tagId,
+      @JsonKey(name: 'tagId[]') List<int>? tagId,
       int start,
       int maxResults,
       String sort,
@@ -207,7 +208,7 @@ class _$_ArtistsListParams implements _ArtistsListParams {
   const _$_ArtistsListParams(
       {this.query,
       this.artistTypes,
-      final List<int>? tagId,
+      @JsonKey(name: 'tagId[]') final List<int>? tagId,
       this.start = 0,
       this.maxResults = 10,
       this.sort = 'None',
@@ -225,6 +226,7 @@ class _$_ArtistsListParams implements _ArtistsListParams {
   final String? artistTypes;
   final List<int>? _tagId;
   @override
+  @JsonKey(name: 'tagId[]')
   List<int>? get tagId {
     final value = _tagId;
     if (value == null) return null;
@@ -308,7 +310,7 @@ abstract class _ArtistsListParams implements ArtistsListParams {
   const factory _ArtistsListParams(
       {final String? query,
       final String? artistTypes,
-      final List<int>? tagId,
+      @JsonKey(name: 'tagId[]') final List<int>? tagId,
       final int start,
       final int maxResults,
       final String sort,
@@ -324,6 +326,7 @@ abstract class _ArtistsListParams implements ArtistsListParams {
   @override
   String? get artistTypes;
   @override
+  @JsonKey(name: 'tagId[]')
   List<int>? get tagId;
   @override
   int get start;

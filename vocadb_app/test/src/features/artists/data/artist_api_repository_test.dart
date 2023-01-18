@@ -52,5 +52,27 @@ void main() {
 
       expect(result, Artist(id: 1, name: 'Hatsune Miku'));
     });
+    test('fetchTopArtists returns non-empty list of artists', () async {
+      when(() => client
+              .get('/api/artists', params: any(named: 'params', that: isMap)))
+          .thenAnswer((_) async => {
+                'items': [
+                  {'id': 1, 'name': 'Hatsune Miku'},
+                  {'id': 2, 'name': 'Kagamine Rin'},
+                ],
+                'totalCount': 2,
+              });
+
+      final result = await artistRepository.fetchTopArtistsByTagID(1);
+
+      verify(() => client.get('/api/artists',
+          params: any(named: 'params', that: isMap)));
+      expect(result, isA<List<Artist>>());
+      expect(result, isNotEmpty);
+      expect(result, [
+        Artist(id: 1, name: 'Hatsune Miku'),
+        Artist(id: 2, name: 'Kagamine Rin'),
+      ]);
+    });
   });
 }

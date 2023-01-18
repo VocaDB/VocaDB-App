@@ -9,7 +9,7 @@ class ArtistsListParams with _$ArtistsListParams {
   const factory ArtistsListParams({
     String? query,
     String? artistTypes,
-    List<int>? tagId,
+    @JsonKey(name: 'tagId[]') List<int>? tagId,
     @Default(0) int start,
     @Default(10) int maxResults,
     @Default('None') String sort,

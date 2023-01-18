@@ -35,6 +35,17 @@ class ArtistApiRepository implements ArtistRepository {
 
     return Artist.fromJson(response);
   }
+
+  @override
+  Future<List<Artist>> fetchTopArtistsByTagID(int tagID,
+      {String lang = 'Default'}) {
+    return fetchList(
+        params: ArtistsListParams(
+      tagId: [tagID],
+      sort: 'SongRating',
+      lang: lang,
+    ));
+  }
 }
 
 final artistApiRepositoryProvider = Provider<ArtistApiRepository>((ref) {

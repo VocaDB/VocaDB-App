@@ -5,6 +5,7 @@ import 'package:vocadb_app/src/features/songs/data/constants/fake_songs_list.dar
 import 'package:vocadb_app/src/features/songs/data/song_repository.dart';
 import 'package:vocadb_app/src/features/songs/domain/song.dart';
 import 'package:vocadb_app/src/features/songs/domain/song_related.dart';
+import 'package:vocadb_app/src/features/songs/domain/songs_list_params.dart';
 
 class SongFakeRepository implements SongRepository {
   @override
@@ -23,7 +24,9 @@ class SongFakeRepository implements SongRepository {
   }
 
   @override
-  Future<List<Song>> fetchSongsList() async {
+  Future<List<Song>> fetchSongsList({
+    SongsListParams params = const SongsListParams(),
+  }) async {
     return await Future.value(kFakeSongsList);
   }
 
@@ -46,6 +49,13 @@ class SongFakeRepository implements SongRepository {
   Future<void> rating(int id, String rating) {
     // TODO: implement rating
     throw UnimplementedError();
+  }
+
+  @override
+  Future<List<Song>> fetchTopSongsByTagID(int tagId,
+      {String lang = 'Default'}) {
+    // TODO: implement fetchTopSongsByTagID
+    return Future.value(kFakeSongsList);
   }
 }
 

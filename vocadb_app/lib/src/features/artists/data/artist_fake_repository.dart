@@ -15,6 +15,13 @@ class ArtistFakeRepository implements ArtistRepository {
   Future<Artist> fetchArtistID(int id, {String lang = 'Default'}) {
     return Future.value(kFakeArtistDetail);
   }
+
+  @override
+  Future<List<Artist>> fetchTopArtistsByTagID(int tagID,
+      {String lang = 'Default'}) {
+    // TODO: implement fetchTopArtistsByTagID
+    return Future.value(kFakeArtistList);
+  }
 }
 
 final artistFakeRepositoryProvider = Provider<ArtistFakeRepository>((ref) {
