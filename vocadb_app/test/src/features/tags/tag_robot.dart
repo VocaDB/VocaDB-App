@@ -16,6 +16,7 @@ class TagRobot {
   TagRobot(this.tester);
 
   Future<void> pumpTagDetailScreen({
+    required String tagId,
     TagRepository? tagRepository,
     SongRepository? songRepository,
     ArtistRepository? artistRepository,
@@ -33,9 +34,9 @@ class TagRobot {
           if (albumRepository != null)
             albumRepositoryProvider.overrideWithValue(albumRepository),
         ],
-        child: const MaterialApp(
+        child: MaterialApp(
           home: TagDetailScreen(
-            tagId: '1',
+            tagId: tagId,
           ),
         ),
       ),

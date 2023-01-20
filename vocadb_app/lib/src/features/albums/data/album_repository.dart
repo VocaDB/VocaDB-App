@@ -3,11 +3,12 @@ import 'package:vocadb_app/flavor_config.dart';
 import 'package:vocadb_app/src/features/albums/data/album_api_repository.dart';
 import 'package:vocadb_app/src/features/albums/data/album_fake_repository.dart';
 import 'package:vocadb_app/src/features/albums/domain/album.dart';
+import 'package:vocadb_app/src/features/albums/domain/albums_list_params.dart';
 import 'package:vocadb_app/src/features/settings/data/user_settings_repository.dart';
 
 abstract class AlbumRepository {
   /// Find albums
-  Future<List<Album>> fetchAlbums({String lang = 'Default'});
+  Future<List<Album>> fetchAlbums({AlbumsListParams params});
 
   /// Gets a album by Id.
   Future<Album> fetchAlbumID(int id, {String lang = 'Default'});
@@ -17,6 +18,9 @@ abstract class AlbumRepository {
 
   /// Gets list of top rated albums, same as front page.
   Future<List<Album>> fetchTop({String lang = 'Default'});
+
+  Future<List<Album>> fetchTopAlbumsByTagID(int tagID,
+      {String lang = 'Default'});
 }
 
 /// Album Repository Provider

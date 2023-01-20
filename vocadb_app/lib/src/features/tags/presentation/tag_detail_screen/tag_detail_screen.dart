@@ -58,7 +58,6 @@ class TagDetailScreen extends ConsumerWidget {
                         TagDetailTopSongs(tag: tag),
                         TagDetailTopArtists(tag: tag),
                         TagDetailTopAlbums(tag: tag),
-                        const Divider(),
                         TagWebLinksSection(tag: tag),
                       ],
                     )

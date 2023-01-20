@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:vocadb_app/src/features/albums/data/constants/fake_albums_list.dart';
 import 'package:vocadb_app/src/features/artists/data/constants/fake_artists_list.dart';
 import 'package:vocadb_app/src/features/songs/data/constants/fake_songs_list.dart';
 import 'package:vocadb_app/src/features/tags/data/constants/fake_tag_detail.dart';
@@ -17,23 +18,31 @@ void main() {
     final artistRepository = MockArtistRepository();
     final albumRepository = MockAlbumRepository();
 
-    when(() => tagRepository.fetchTagID(1, lang: 'Default'))
+    when(() => tagRepository.fetchTagID(any(),
+            lang: any(named: 'lang', that: isNotEmpty)))
         .thenAnswer((_) => Future.value(kFakeTagDetail));
 
-    when(() => songRepository.fetchTopSongsByTagID(1, lang: 'Default'))
+    when(() => songRepository.fetchTopSongsByTagID(any(),
+            lang: any(named: 'lang', that: isNotEmpty)))
         .thenAnswer((_) => Future.value(kFakeSongsList));
 
-    when(() => artistRepository.fetchTopArtistsByTagID(1, lang: 'Default'))
+    when(() => artistRepository.fetchTopArtistsByTagID(any(),
+            lang: any(named: 'lang', that: isNotEmpty)))
         .thenAnswer((_) => Future.value(kFakeArtistList));
 
+    when(() => albumRepository.fetchTopAlbumsByTagID(any(),
+            lang: any(named: 'lang', that: isNotEmpty)))
+        .thenAnswer((_) => Future.value(kFakeAlbumsList));
+
     await r.pumpTagDetailScreen(
+      tagId: '29',
       tagRepository: tagRepository,
       songRepository: songRepository,
       artistRepository: artistRepository,
       albumRepository: albumRepository,
     );
 
-    verify(() => tagRepository.fetchTagID(1, lang: 'Default')).called(1);
+    await tester.pump();
 
     await r.expectErrorMessageWidgetNotVisible();
 
@@ -44,6 +53,15 @@ void main() {
     await r.expectTagCategoryIs('Genres');
     await r.expectDescriptionIsVisible(true);
     await r.expectWebLinksVisible(true);
+
+    verify(() => tagRepository.fetchTagID(any(),
+        lang: any(named: 'lang', that: isNotEmpty))).called(1);
+    verify(() => songRepository.fetchTopSongsByTagID(any(),
+        lang: any(named: 'lang', that: isNotEmpty))).called(1);
+    verify(() => artistRepository.fetchTopArtistsByTagID(any(),
+        lang: any(named: 'lang', that: isNotEmpty))).called(1);
+    verify(() => albumRepository.fetchTopAlbumsByTagID(any(),
+        lang: any(named: 'lang', that: isNotEmpty))).called(1);
   });
 
   testWidgets('tag detail screen with default values', (tester) async {
@@ -54,20 +72,29 @@ void main() {
     final artistRepository = MockArtistRepository();
     final albumRepository = MockAlbumRepository();
 
-    when(() => tagRepository.fetchTagID(1, lang: 'Default')).thenAnswer(
-        (_) => Future.value(Tag(id: 1, name: 'rock', categoryName: 'Genres')));
+    when(() => tagRepository.fetchTagID(29, lang: 'Default')).thenAnswer(
+        (_) => Future.value(Tag(id: 29, name: 'rock', categoryName: 'Genres')));
 
-    when(() => songRepository.fetchTopSongsByTagID(1, lang: 'Default'))
+    when(() => songRepository.fetchTopSongsByTagID(any(), lang: 'Default'))
+        .thenAnswer((_) => Future.value([]));
+
+    when(() => artistRepository.fetchTopArtistsByTagID(any(),
+            lang: any(named: 'lang', that: isNotEmpty)))
+        .thenAnswer((_) => Future.value([]));
+
+    when(() => albumRepository.fetchTopAlbumsByTagID(any(),
+            lang: any(named: 'lang', that: isNotEmpty)))
         .thenAnswer((_) => Future.value([]));
 
     await r.pumpTagDetailScreen(
+      tagId: '29',
       tagRepository: tagRepository,
       songRepository: songRepository,
       artistRepository: artistRepository,
       albumRepository: albumRepository,
     );
 
-    verify(() => tagRepository.fetchTagID(1, lang: 'Default')).called(1);
+    await tester.pump();
 
     await r.expectErrorMessageWidgetNotVisible();
 
@@ -77,6 +104,14 @@ void main() {
     await r.expectTagNameIs('rock');
     await r.expectTagCategoryIs('Genres');
     await r.expectDescriptionIsVisible(false);
+
+    verify(() => tagRepository.fetchTagID(29, lang: 'Default')).called(1);
+    verify(() => songRepository.fetchTopSongsByTagID(any(),
+        lang: any(named: 'lang', that: isNotEmpty))).called(1);
+    verify(() => artistRepository.fetchTopArtistsByTagID(any(),
+        lang: any(named: 'lang', that: isNotEmpty))).called(1);
+    verify(() => albumRepository.fetchTopAlbumsByTagID(any(),
+        lang: any(named: 'lang', that: isNotEmpty))).called(1);
     await r.expectWebLinksVisible(false);
   });
 }

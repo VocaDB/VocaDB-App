@@ -68,5 +68,51 @@ void main() {
       // Verify
       expect(response, Album(id: 1, name: 'test-album-ja'));
     });
+
+    test('fetch top albums by tag ID', () async {
+      when(() => client
+              .get('/api/albums', params: any(named: 'params', that: isMap)))
+          .thenAnswer((_) async => {
+                'items': [
+                  {'id': 1, 'name': 'Album_A'},
+                  {'id': 2, 'name': 'Album_B'},
+                ],
+                'totalCount': 2,
+              });
+
+      final result = await albumApiRepository.fetchTopAlbumsByTagID(1);
+
+      verify(() =>
+          client.get('/api/albums', params: any(named: 'params', that: isMap)));
+      expect(result, isA<List<Album>>());
+      expect(result, isNotEmpty);
+      expect(result, [
+        Album(id: 1, name: 'Album_A'),
+        Album(id: 2, name: 'Album_B'),
+      ]);
+    });
+
+    test('fetch albums', () async {
+      when(() => client
+              .get('/api/albums', params: any(named: 'params', that: isMap)))
+          .thenAnswer((_) async => {
+                'items': [
+                  {'id': 1, 'name': 'Album_A'},
+                  {'id': 2, 'name': 'Album_B'},
+                ],
+                'totalCount': 2,
+              });
+
+      final result = await albumApiRepository.fetchAlbums();
+
+      verify(() =>
+          client.get('/api/albums', params: any(named: 'params', that: isMap)));
+      expect(result, isA<List<Album>>());
+      expect(result, isNotEmpty);
+      expect(result, [
+        Album(id: 1, name: 'Album_A'),
+        Album(id: 2, name: 'Album_B'),
+      ]);
+    });
   });
 }
