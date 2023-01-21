@@ -17,7 +17,7 @@ void main() {
 
   setUp(() {
     httpClient = MockClient();
-    apiClient = ApiClient(host: 'vocadb.net', client: httpClient);
+    apiClient = ApiClient(host: 'unittest.net', client: httpClient);
   });
   group('ApiClient.get', () {
     test('json format and without query parameters', () async {
