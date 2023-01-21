@@ -22,6 +22,7 @@ _$_ReleaseEventsListParams _$$_ReleaseEventsListParamsFromJson(
           : DateTime.parse(json['beforeDate'] as String),
       start: json['start'] ?? 0,
       maxResult: json['maxResult'] ?? 10,
+      fields: json['fields'] ?? 'MainPicture',
       lang: json['lang'] ?? 'Default',
     );
 
@@ -43,6 +44,7 @@ Map<String, dynamic> _$$_ReleaseEventsListParamsToJson(
   writeNotNull('beforeDate', instance.beforeDate?.toIso8601String());
   writeNotNull('start', instance.start);
   writeNotNull('maxResult', instance.maxResult);
+  writeNotNull('fields', instance.fields);
   writeNotNull('lang', instance.lang);
   return val;
 }

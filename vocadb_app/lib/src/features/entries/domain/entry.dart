@@ -1,7 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 // TODO : need implementation
 
-import 'package:vocadb_app/src/constants/config.dart';
 import 'package:vocadb_app/src/features/albums/domain/album.dart';
 import 'package:vocadb_app/src/features/artists/domain/artist.dart';
 
@@ -81,7 +80,6 @@ extension EntryMapper on Entry {
     return ReleaseEvent(
       id: id,
       name: name,
-      imageUrl: mainPicture?.urlThumb ?? kPlaceholderImageUrl,
     );
   }
 }

@@ -15,6 +15,7 @@ class ReleaseEventsListParams with _$ReleaseEventsListParams {
     DateTime? beforeDate,
     @Default(0) start,
     @Default(10) maxResult,
+    @Default('MainPicture') fields,
     @Default('Default') lang,
   }) = _ReleaseEventsListParams;
 

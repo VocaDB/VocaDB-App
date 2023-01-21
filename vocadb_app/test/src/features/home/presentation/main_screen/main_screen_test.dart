@@ -9,9 +9,13 @@ void main() {
     final r = MainRobot(tester);
     final songRepository = MockSongRepository();
     final albumRepository = MockAlbumRepository();
+    final releaseEventRepository = MockReleaseEventRepository();
 
     await r.pumpMainScreen(
-        songRepository: songRepository, albumRepository: albumRepository);
+      songRepository: songRepository,
+      albumRepository: albumRepository,
+      releaseEventRepository: releaseEventRepository,
+    );
     await r.expectHomeScreenVisible(true);
     await r.expectRankingScreenVisible(false);
     await r.expectMenuScreenVisible(false);
@@ -29,5 +33,6 @@ void main() {
     verify(songRepository.fetchSongsHighlighted).called(1);
     verify(albumRepository.fetchNew).called(1);
     verify(albumRepository.fetchTop).called(1);
+    verify(releaseEventRepository.fetchRecentEvents).called(1);
   });
 }

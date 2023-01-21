@@ -26,7 +26,6 @@ mixin _$ReleaseEvent {
   String? get description => throw _privateConstructorUsedError;
   DateTime? get date => throw _privateConstructorUsedError;
   DateTime? get endDate => throw _privateConstructorUsedError;
-  String? get imageUrl => throw _privateConstructorUsedError;
   String? get category => throw _privateConstructorUsedError;
   String? get venueName => throw _privateConstructorUsedError;
   MainPicture? get mainPicture => throw _privateConstructorUsedError;
@@ -54,7 +53,6 @@ abstract class $ReleaseEventCopyWith<$Res> {
       String? description,
       DateTime? date,
       DateTime? endDate,
-      String? imageUrl,
       String? category,
       String? venueName,
       MainPicture? mainPicture,
@@ -86,7 +84,6 @@ class _$ReleaseEventCopyWithImpl<$Res, $Val extends ReleaseEvent>
     Object? description = freezed,
     Object? date = freezed,
     Object? endDate = freezed,
-    Object? imageUrl = freezed,
     Object? category = freezed,
     Object? venueName = freezed,
     Object? mainPicture = freezed,
@@ -120,10 +117,6 @@ class _$ReleaseEventCopyWithImpl<$Res, $Val extends ReleaseEvent>
           ? _value.endDate
           : endDate // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      imageUrl: freezed == imageUrl
-          ? _value.imageUrl
-          : imageUrl // ignore: cast_nullable_to_non_nullable
-              as String?,
       category: freezed == category
           ? _value.category
           : category // ignore: cast_nullable_to_non_nullable
@@ -195,7 +188,6 @@ abstract class _$$_ReleaseEventCopyWith<$Res>
       String? description,
       DateTime? date,
       DateTime? endDate,
-      String? imageUrl,
       String? category,
       String? venueName,
       MainPicture? mainPicture,
@@ -227,7 +219,6 @@ class __$$_ReleaseEventCopyWithImpl<$Res>
     Object? description = freezed,
     Object? date = freezed,
     Object? endDate = freezed,
-    Object? imageUrl = freezed,
     Object? category = freezed,
     Object? venueName = freezed,
     Object? mainPicture = freezed,
@@ -261,10 +252,6 @@ class __$$_ReleaseEventCopyWithImpl<$Res>
           ? _value.endDate
           : endDate // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      imageUrl: freezed == imageUrl
-          ? _value.imageUrl
-          : imageUrl // ignore: cast_nullable_to_non_nullable
-              as String?,
       category: freezed == category
           ? _value.category
           : category // ignore: cast_nullable_to_non_nullable
@@ -307,7 +294,6 @@ class _$_ReleaseEvent implements _ReleaseEvent {
       this.description,
       this.date,
       this.endDate,
-      this.imageUrl,
       this.category,
       this.venueName,
       this.mainPicture,
@@ -334,8 +320,6 @@ class _$_ReleaseEvent implements _ReleaseEvent {
   final DateTime? date;
   @override
   final DateTime? endDate;
-  @override
-  final String? imageUrl;
   @override
   final String? category;
   @override
@@ -374,7 +358,7 @@ class _$_ReleaseEvent implements _ReleaseEvent {
 
   @override
   String toString() {
-    return 'ReleaseEvent(id: $id, name: $name, additionalNames: $additionalNames, description: $description, date: $date, endDate: $endDate, imageUrl: $imageUrl, category: $category, venueName: $venueName, mainPicture: $mainPicture, artists: $artists, series: $series, tags: $tags, webLinks: $webLinks)';
+    return 'ReleaseEvent(id: $id, name: $name, additionalNames: $additionalNames, description: $description, date: $date, endDate: $endDate, category: $category, venueName: $venueName, mainPicture: $mainPicture, artists: $artists, series: $series, tags: $tags, webLinks: $webLinks)';
   }
 
   @override
@@ -390,8 +374,6 @@ class _$_ReleaseEvent implements _ReleaseEvent {
                 other.description == description) &&
             (identical(other.date, date) || other.date == date) &&
             (identical(other.endDate, endDate) || other.endDate == endDate) &&
-            (identical(other.imageUrl, imageUrl) ||
-                other.imageUrl == imageUrl) &&
             (identical(other.category, category) ||
                 other.category == category) &&
             (identical(other.venueName, venueName) ||
@@ -414,7 +396,6 @@ class _$_ReleaseEvent implements _ReleaseEvent {
       description,
       date,
       endDate,
-      imageUrl,
       category,
       venueName,
       mainPicture,
@@ -445,7 +426,6 @@ abstract class _ReleaseEvent implements ReleaseEvent {
       final String? description,
       final DateTime? date,
       final DateTime? endDate,
-      final String? imageUrl,
       final String? category,
       final String? venueName,
       final MainPicture? mainPicture,
@@ -469,8 +449,6 @@ abstract class _ReleaseEvent implements ReleaseEvent {
   DateTime? get date;
   @override
   DateTime? get endDate;
-  @override
-  String? get imageUrl;
   @override
   String? get category;
   @override

@@ -8,7 +8,6 @@ final kFakeReleaseEventDetail = ReleaseEvent(
   id: 3335,
   additionalNames: '3/9 Miku day 2022',
   name: '3月9日はミクの日 2022',
-  imageUrl: 'https://static.vocadb.net/img/releaseevent/mainOrig/3335.jpg?v=4',
   description: 'Art by [メレ](https://twitter.com/mele_ck)',
   mainPicture: MainPicture(
     urlOriginal:

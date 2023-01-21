@@ -6,6 +6,7 @@ import 'package:vocadb_app/src/features/home/presentation/home_screen/home_scree
 import 'package:vocadb_app/src/features/home/presentation/main_screen/main_screen.dart';
 import 'package:vocadb_app/src/features/home/presentation/menu_screen/menu_screen.dart';
 import 'package:vocadb_app/src/features/home/presentation/ranking_screen/ranking_screen.dart';
+import 'package:vocadb_app/src/features/releaseEvents/data/release_event_repository.dart';
 import 'package:vocadb_app/src/features/songs/data/song_repository.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -17,6 +18,7 @@ class MainRobot {
   Future<void> pumpMainScreen({
     SongRepository? songRepository,
     AlbumRepository? albumRepository,
+    ReleaseEventRepository? releaseEventRepository,
   }) async {
     await tester.pumpWidget(
       ProviderScope(
@@ -24,7 +26,10 @@ class MainRobot {
           if (songRepository != null)
             songRepositoryProvider.overrideWithValue(songRepository),
           if (albumRepository != null)
-            albumRepositoryProvider.overrideWithValue(albumRepository)
+            albumRepositoryProvider.overrideWithValue(albumRepository),
+          if (releaseEventRepository != null)
+            releaseEventRepositoryProvider
+                .overrideWithValue(releaseEventRepository)
         ],
         child: const MaterialApp(
           home: MainScreen(),

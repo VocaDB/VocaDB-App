@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:vocadb_app/src/common_widgets/custom_network_image.dart';
 import 'package:vocadb_app/src/constants/app_sizes.dart';
 import 'package:vocadb_app/src/features/releaseEvents/domain/release_event.dart';
+import 'package:vocadb_app/src/features/releaseEvents/presentation/release_event_tile/release_event_image_tile.dart';
 import 'package:vocadb_app/src/utils/date_time_utils.dart';
 
 /// A widget to display release event information for horizontal list.
@@ -43,13 +43,7 @@ class ReleaseEventTile extends StatelessWidget {
                     Container(
                       color: Colors.black,
                     ),
-                    Container(
-                        child: CustomNetworkImage(
-                      releaseEvent.imageUrl!,
-                      fit: BoxFit.cover,
-                      width: double.infinity,
-                      height: double.infinity,
-                    )),
+                    ReleaseEventImageTile(releaseEvent: releaseEvent),
                     (dateRange == null)
                         ? Container()
                         : Column(

@@ -1,15 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:vocadb_app/src/features/releaseEvents/data/constants/fake_release_events_list.dart';
-import 'package:vocadb_app/src/features/releaseEvents/presentation/release_events_list/release_events_section.dart';
+import 'package:vocadb_app/src/common_widgets/error_message_widget.dart';
+import 'package:vocadb_app/src/common_widgets/section.dart';
+import 'package:vocadb_app/src/features/releaseEvents/data/release_event_repository.dart';
+import 'package:vocadb_app/src/features/releaseEvents/presentation/release_events_list/release_events_horizontal_list_view.dart';
+import 'package:vocadb_app/src/routing/app_route_context.dart';
 
-class RecentEventsSection extends ConsumerWidget {
+class RecentEventsSection extends StatelessWidget {
   const RecentEventsSection({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return ReleaseEventsSection(
-      releaseEvents: kFakeReleaseEventsList,
+  Widget build(BuildContext context) {
+    return Section(
+      title: 'Happening now',
+      child: Consumer(builder: ((context, ref, child) {
+        final value = ref.watch(recentEventsProvider);
+
+        return value.when(
+          data: (data) {
+            return ReleaseEventsHorizontalListView(
+              releaseEvents: data,
+              onSelect: context.goReleaseEventDetail,
+            );
+          },
+          error: (e, st) => Center(
+            child: ErrorMessageWidget(e.toString()),
+          ),
+          loading: () => const Center(child: CircularProgressIndicator()),
+        );
+      })),
     );
   }
 }

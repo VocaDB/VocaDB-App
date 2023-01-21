@@ -5,6 +5,7 @@ import 'package:vocadb_app/src/features/api/api_client.dart';
 import 'package:vocadb_app/src/features/artists/data/artist_repository.dart';
 import 'package:vocadb_app/src/features/artists/domain/artists_list_params.dart';
 import 'package:vocadb_app/src/features/authentication/data/auth_repository.dart';
+import 'package:vocadb_app/src/features/releaseEvents/data/release_event_repository.dart';
 import 'package:vocadb_app/src/features/settings/data/user_settings_repository.dart';
 import 'package:vocadb_app/src/features/songs/data/song_repository.dart';
 import 'package:vocadb_app/src/features/tags/data/tag_repository.dart';
@@ -35,3 +36,6 @@ class MockUserSettingsRepository extends Mock
 class MockArtistRepository extends Mock implements ArtistRepository {}
 
 class MockTagRepository extends Mock implements TagRepository {}
+
+class MockReleaseEventRepository extends Mock
+    implements ReleaseEventRepository {}

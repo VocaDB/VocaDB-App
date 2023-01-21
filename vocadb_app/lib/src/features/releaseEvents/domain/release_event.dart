@@ -19,7 +19,6 @@ class ReleaseEvent with _$ReleaseEvent {
     String? description,
     DateTime? date,
     DateTime? endDate,
-    String? imageUrl,
     String? category,
     String? venueName,
     MainPicture? mainPicture,
@@ -44,4 +43,9 @@ extension ReleaseEventExtended on ReleaseEvent {
 
   String? get dateFormatted =>
       (date == null) ? null : DateFormat('yyyy-MM-dd').format(date!);
+
+  String? get imageUrl =>
+      (mainPicture == null || mainPicture!.urlOriginal == null)
+          ? null
+          : mainPicture!.urlOriginal;
 }

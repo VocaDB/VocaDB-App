@@ -17,7 +17,6 @@ _$_ReleaseEvent _$$_ReleaseEventFromJson(Map<String, dynamic> json) =>
       endDate: json['endDate'] == null
           ? null
           : DateTime.parse(json['endDate'] as String),
-      imageUrl: json['imageUrl'] as String?,
       category: json['category'] as String?,
       venueName: json['venueName'] as String?,
       mainPicture: json['mainPicture'] == null
@@ -48,7 +47,6 @@ Map<String, dynamic> _$$_ReleaseEventToJson(_$_ReleaseEvent instance) =>
       'description': instance.description,
       'date': instance.date?.toIso8601String(),
       'endDate': instance.endDate?.toIso8601String(),
-      'imageUrl': instance.imageUrl,
       'category': instance.category,
       'venueName': instance.venueName,
       'mainPicture': instance.mainPicture,

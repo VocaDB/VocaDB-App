@@ -31,6 +31,7 @@ mixin _$ReleaseEventsListParams {
   DateTime? get beforeDate => throw _privateConstructorUsedError;
   dynamic get start => throw _privateConstructorUsedError;
   dynamic get maxResult => throw _privateConstructorUsedError;
+  dynamic get fields => throw _privateConstructorUsedError;
   dynamic get lang => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -54,6 +55,7 @@ abstract class $ReleaseEventsListParamsCopyWith<$Res> {
       DateTime? beforeDate,
       dynamic start,
       dynamic maxResult,
+      dynamic fields,
       dynamic lang});
 }
 
@@ -79,6 +81,7 @@ class _$ReleaseEventsListParamsCopyWithImpl<$Res,
     Object? beforeDate = freezed,
     Object? start = null,
     Object? maxResult = null,
+    Object? fields = null,
     Object? lang = null,
   }) {
     return _then(_value.copyWith(
@@ -114,6 +117,10 @@ class _$ReleaseEventsListParamsCopyWithImpl<$Res,
           ? _value.maxResult
           : maxResult // ignore: cast_nullable_to_non_nullable
               as dynamic,
+      fields: null == fields
+          ? _value.fields
+          : fields // ignore: cast_nullable_to_non_nullable
+              as dynamic,
       lang: null == lang
           ? _value.lang
           : lang // ignore: cast_nullable_to_non_nullable
@@ -139,6 +146,7 @@ abstract class _$$_ReleaseEventsListParamsCopyWith<$Res>
       DateTime? beforeDate,
       dynamic start,
       dynamic maxResult,
+      dynamic fields,
       dynamic lang});
 }
 
@@ -162,6 +170,7 @@ class __$$_ReleaseEventsListParamsCopyWithImpl<$Res>
     Object? beforeDate = freezed,
     Object? start = null,
     Object? maxResult = null,
+    Object? fields = null,
     Object? lang = null,
   }) {
     return _then(_$_ReleaseEventsListParams(
@@ -191,6 +200,7 @@ class __$$_ReleaseEventsListParamsCopyWithImpl<$Res>
               as DateTime?,
       start: null == start ? _value.start : start,
       maxResult: null == maxResult ? _value.maxResult : maxResult,
+      fields: null == fields ? _value.fields : fields,
       lang: null == lang ? _value.lang : lang,
     ));
   }
@@ -209,6 +219,7 @@ class _$_ReleaseEventsListParams implements _ReleaseEventsListParams {
       this.beforeDate,
       this.start = 0,
       this.maxResult = 10,
+      this.fields = 'MainPicture',
       this.lang = 'Default'})
       : _tagId = tagId,
         _artistId = artistId;
@@ -253,11 +264,14 @@ class _$_ReleaseEventsListParams implements _ReleaseEventsListParams {
   final dynamic maxResult;
   @override
   @JsonKey()
+  final dynamic fields;
+  @override
+  @JsonKey()
   final dynamic lang;
 
   @override
   String toString() {
-    return 'ReleaseEventsListParams(query: $query, sort: $sort, tagId: $tagId, artistId: $artistId, afterDate: $afterDate, beforeDate: $beforeDate, start: $start, maxResult: $maxResult, lang: $lang)';
+    return 'ReleaseEventsListParams(query: $query, sort: $sort, tagId: $tagId, artistId: $artistId, afterDate: $afterDate, beforeDate: $beforeDate, start: $start, maxResult: $maxResult, fields: $fields, lang: $lang)';
   }
 
   @override
@@ -275,6 +289,7 @@ class _$_ReleaseEventsListParams implements _ReleaseEventsListParams {
                 other.beforeDate == beforeDate) &&
             const DeepCollectionEquality().equals(other.start, start) &&
             const DeepCollectionEquality().equals(other.maxResult, maxResult) &&
+            const DeepCollectionEquality().equals(other.fields, fields) &&
             const DeepCollectionEquality().equals(other.lang, lang));
   }
 
@@ -290,6 +305,7 @@ class _$_ReleaseEventsListParams implements _ReleaseEventsListParams {
       beforeDate,
       const DeepCollectionEquality().hash(start),
       const DeepCollectionEquality().hash(maxResult),
+      const DeepCollectionEquality().hash(fields),
       const DeepCollectionEquality().hash(lang));
 
   @JsonKey(ignore: true)
@@ -318,6 +334,7 @@ abstract class _ReleaseEventsListParams implements ReleaseEventsListParams {
       final DateTime? beforeDate,
       final dynamic start,
       final dynamic maxResult,
+      final dynamic fields,
       final dynamic lang}) = _$_ReleaseEventsListParams;
 
   factory _ReleaseEventsListParams.fromJson(Map<String, dynamic> json) =
@@ -341,6 +358,8 @@ abstract class _ReleaseEventsListParams implements ReleaseEventsListParams {
   dynamic get start;
   @override
   dynamic get maxResult;
+  @override
+  dynamic get fields;
   @override
   dynamic get lang;
   @override

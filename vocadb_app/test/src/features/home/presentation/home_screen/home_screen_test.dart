@@ -9,12 +9,19 @@ void main() {
     final r = HomeRobot(tester);
     final songRepository = MockSongRepository();
     final albumRepository = MockAlbumRepository();
+    final releaseEventRepository = MockReleaseEventRepository();
 
     await r.pumpHomeScreen(
-        songRepository: songRepository, albumRepository: albumRepository);
+      songRepository: songRepository,
+      albumRepository: albumRepository,
+      releaseEventRepository: releaseEventRepository,
+    );
+
+    await r.scrollDown();
 
     verify(songRepository.fetchSongsHighlighted).called(1);
     verify(albumRepository.fetchNew).called(1);
     verify(albumRepository.fetchTop).called(1);
+    verify(releaseEventRepository.fetchRecentEvents).called(1);
   });
 }

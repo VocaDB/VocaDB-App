@@ -31,7 +31,7 @@ class ReleaseEventApiRepository implements ReleaseEventRepository {
       sort: 'Date',
       lang: lang,
       afterDate: DateTime.now().subtract(const Duration(days: 3)),
-      beforeDate: DateTime.now().subtract(const Duration(days: 12)),
+      beforeDate: DateTime.now().add(const Duration(days: 12)),
     ));
   }
 }

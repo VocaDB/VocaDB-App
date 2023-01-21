@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:vocadb_app/src/common_widgets/custom_network_image.dart';
 import 'package:vocadb_app/src/constants/app_sizes.dart';
 import 'package:vocadb_app/src/features/releaseEvents/domain/release_event.dart';
+import 'package:vocadb_app/src/features/releaseEvents/presentation/release_event_card/release_event_image_card.dart';
 
 class ReleaseEventCard extends StatelessWidget {
   const ReleaseEventCard({
@@ -27,9 +27,7 @@ class ReleaseEventCard extends StatelessWidget {
             alignment: AlignmentDirectional.bottomCenter,
             textDirection: TextDirection.ltr,
             children: [
-              CustomNetworkImage(
-                releaseEvent.imageUrl!,
-              ),
+              ReleaseEventImageCard(releaseEvent: releaseEvent),
               Align(
                 alignment: Alignment.bottomLeft,
                 child: Container(
