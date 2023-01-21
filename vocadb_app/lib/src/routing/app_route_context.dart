@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vocadb_app/src/features/albums/domain/album.dart';
 import 'package:vocadb_app/src/features/artists/domain/artist.dart';
+import 'package:vocadb_app/src/features/releaseEvents/domain/release_event.dart';
 import 'package:vocadb_app/src/features/songs/domain/song.dart';
 import 'package:vocadb_app/src/features/tags/domain/tag.dart';
 import 'package:vocadb_app/src/routing/app_router.dart';
@@ -25,6 +26,11 @@ extension AppRouteContext on BuildContext {
   void goTagDetail(Tag tag) {
     return GoRouter.of(this)
         .pushNamed(AppRoute.tagDetail.name, params: {'id': tag.id.toString()});
+  }
+
+  void goReleaseEventDetail(ReleaseEvent releaseEvent) {
+    return GoRouter.of(this).pushNamed(AppRoute.releaseEventDetail.name,
+        params: {'id': releaseEvent.id.toString()});
   }
 
   void goArtistsListFilterScreen() {

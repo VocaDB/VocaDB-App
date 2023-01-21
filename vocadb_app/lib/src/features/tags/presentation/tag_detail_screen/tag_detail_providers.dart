@@ -16,6 +16,8 @@ final topSongsByTagIdProvider =
   final preferredLang = ref.watch(userSettingsRepositoryProvider
       .select((value) => value.currentPreferredLang));
 
+  print('topSongsByTagIdProvider... : tagID : $id, lang: $preferredLang');
+
   return tagDetail.when(
     data: (data) {
       return songRepository.fetchTopSongsByTagID(id, lang: preferredLang);

@@ -2,7 +2,7 @@ import 'package:intl/intl.dart';
 
 import 'package:vocadb_app/src/features/artists/domain/artist_role.dart';
 import 'package:vocadb_app/src/features/entries/domain/main_picture.dart';
-import 'package:vocadb_app/src/features/releaseEvents/data/domain/release_event_series.dart';
+import 'package:vocadb_app/src/features/releaseEvents/domain/release_event_series.dart';
 import 'package:vocadb_app/src/features/tags/domain/tag_usage.dart';
 import 'package:vocadb_app/src/features/weblinks/domain/web_link.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -31,6 +31,10 @@ class ReleaseEvent with _$ReleaseEvent {
 
   factory ReleaseEvent.fromJson(Map<String, dynamic> json) =>
       _$ReleaseEventFromJson(json);
+
+  static List<ReleaseEvent> fromJsonToList(List<dynamic> source) {
+    return source.map((e) => ReleaseEvent.fromJson(e)).toList();
+  }
 }
 
 extension ReleaseEventExtended on ReleaseEvent {

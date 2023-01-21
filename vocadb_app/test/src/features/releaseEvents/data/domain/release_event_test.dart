@@ -3,8 +3,8 @@ import 'dart:convert';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:vocadb_app/src/features/artists/domain/artist_role.dart';
 import 'package:vocadb_app/src/features/entries/domain/main_picture.dart';
-import 'package:vocadb_app/src/features/releaseEvents/data/domain/release_event.dart';
-import 'package:vocadb_app/src/features/releaseEvents/data/domain/release_event_series.dart';
+import 'package:vocadb_app/src/features/releaseEvents/domain/release_event.dart';
+import 'package:vocadb_app/src/features/releaseEvents/domain/release_event_series.dart';
 import 'package:vocadb_app/src/features/tags/domain/tag.dart';
 import 'package:vocadb_app/src/features/tags/domain/tag_usage.dart';
 import 'package:vocadb_app/src/features/weblinks/domain/web_link.dart';
@@ -12,7 +12,8 @@ import 'package:vocadb_app/src/features/weblinks/domain/web_link.dart';
 void main() {
   group('release_event', () {
     test('parse json with all data', () {
-      const raw = '''
+      const raw =
+          '''
       {
         "id": 1,
         "name": "event_name",

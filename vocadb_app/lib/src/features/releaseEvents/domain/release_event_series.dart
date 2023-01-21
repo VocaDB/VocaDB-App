@@ -1,7 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
 import 'package:vocadb_app/src/features/entries/domain/main_picture.dart';
-import 'package:vocadb_app/src/features/releaseEvents/data/domain/release_event.dart';
+import 'package:vocadb_app/src/features/releaseEvents/domain/release_event.dart';
 import 'package:vocadb_app/src/features/weblinks/domain/web_link.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 

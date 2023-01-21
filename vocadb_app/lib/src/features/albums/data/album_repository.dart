@@ -26,7 +26,6 @@ abstract class AlbumRepository {
 /// Album Repository Provider
 final albumRepositoryProvider = Provider<AlbumRepository>((ref) {
   final config = ref.read(flavorConfigProvider);
-
   return (config.useFakeData)
       ? ref.watch(albumFakeRepositoryProvider)
       : ref.watch(albumApiRepositoryProvider);
@@ -42,7 +41,7 @@ final albumsNewProvider = FutureProvider<List<Album>>((ref) {
   );
 });
 
-/// Albums new Provider
+/// Albums top Provider
 final albumsTopProvider = FutureProvider<List<Album>>((ref) {
   final albumRepository = ref.watch(albumRepositoryProvider);
   final userSettings = ref.watch(userSettingsRepositoryProvider);

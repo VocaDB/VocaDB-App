@@ -9,7 +9,7 @@ import 'package:vocadb_app/src/features/albums/data/constants/fake_albums_list.d
 import 'package:vocadb_app/src/features/albums/presentation/albums_list/albums_section.dart';
 import 'package:vocadb_app/src/features/artists/presentation/artists_list/artist_role_list.dart';
 import 'package:vocadb_app/src/features/releaseEvents/data/constants/fake_release_event_detail.dart';
-import 'package:vocadb_app/src/features/releaseEvents/data/domain/release_event.dart';
+import 'package:vocadb_app/src/features/releaseEvents/domain/release_event.dart';
 import 'package:vocadb_app/src/features/releaseEvents/presentation/release_event_detail_screen/release_event_detail_button_bar.dart';
 import 'package:vocadb_app/src/features/releaseEvents/presentation/release_event_tile/release_event_series_tile.dart';
 import 'package:vocadb_app/src/features/songs/data/constants/fake_songs_list.dart';

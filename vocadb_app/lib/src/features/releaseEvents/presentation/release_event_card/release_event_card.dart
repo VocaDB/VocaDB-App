@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vocadb_app/src/common_widgets/custom_network_image.dart';
 import 'package:vocadb_app/src/constants/app_sizes.dart';
-import 'package:vocadb_app/src/features/releaseEvents/data/domain/release_event.dart';
+import 'package:vocadb_app/src/features/releaseEvents/domain/release_event.dart';
 
 class ReleaseEventCard extends StatelessWidget {
   const ReleaseEventCard({
