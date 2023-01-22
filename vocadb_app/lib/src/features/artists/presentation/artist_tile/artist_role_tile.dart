@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:vocadb_app/src/common_widgets/custom_network_image.dart';
+import 'package:vocadb_app/src/constants/config.dart';
 import 'package:vocadb_app/src/features/artists/domain/artist_role.dart';
+import 'package:vocadb_app/src/features/artists/presentation/artist_tile/artist_tile_image.dart';
 
 /// A widget for display artist role information in vertical list
 class ArtistRoleTile extends StatelessWidget {
@@ -17,16 +20,21 @@ class ArtistRoleTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       onTap: onTap,
-      // leading: SizedBox(
-      //   width: imageSize,
-      //   height: imageSize,
-      //   child: ArtistTileImage(
-      //     imageUrl: artistRole.imageUrl,
-      //     artistId: artistRole.artistId,
-      //   ),
-      // ),
-      title: Text(artistRole.artistName!, overflow: TextOverflow.ellipsis),
-      subtitle: Text(artistRole.artistType!),
+      leading: SizedBox(
+        width: imageSize,
+        height: imageSize,
+        child: (artistRole.artist == null)
+            ? const ClipOval(
+                child: CustomNetworkImage(kPlaceholderImageUrl),
+              )
+            : ArtistTileImage(
+                imageUrl: artistRole.imageUrl,
+                artistId: artistRole.artistId,
+              ),
+      ),
+      title: Text(artistRole.artistName ?? '<Unknown>',
+          overflow: TextOverflow.ellipsis),
+      subtitle: Text(artistRole.artistType ?? '<Unknown>'),
     );
   }
 }

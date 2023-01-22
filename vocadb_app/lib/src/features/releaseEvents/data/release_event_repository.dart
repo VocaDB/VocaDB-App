@@ -11,6 +11,8 @@ abstract class ReleaseEventRepository {
     ReleaseEventsListParams params,
   });
   Future<List<ReleaseEvent>> fetchRecentEvents({String lang = 'Default'});
+
+  Future<ReleaseEvent> fetchReleaseEventByID(int id, {String lang = 'Default'});
 }
 
 final releaseEventRepositoryProvider = Provider<ReleaseEventRepository>((ref) {
@@ -25,4 +27,12 @@ final recentEventsProvider = FutureProvider<List<ReleaseEvent>>((ref) async {
   final preferredLang = ref.watch(userSettingsRepositoryProvider
       .select((value) => value.currentPreferredLang));
   return releaseEventRepository.fetchRecentEvents(lang: preferredLang);
+});
+
+final releaseEventDetailProvider =
+    FutureProvider.autoDispose.family<ReleaseEvent, int>((ref, id) {
+  final releaseEventRepository = ref.watch(releaseEventRepositoryProvider);
+  final preferredLang = ref.watch(userSettingsRepositoryProvider
+      .select((value) => value.currentPreferredLang));
+  return releaseEventRepository.fetchReleaseEventByID(id, lang: preferredLang);
 });

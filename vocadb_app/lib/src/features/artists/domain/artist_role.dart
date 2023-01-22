@@ -63,7 +63,7 @@ extension ArtistRoleExtended on ArtistRole {
   /// Get type of artist
   String? get artistType {
     if (artist == null) {
-      return categories;
+      return (categories == null) ? effectiveRoles : categories;
     }
 
     return artist!.artistType;

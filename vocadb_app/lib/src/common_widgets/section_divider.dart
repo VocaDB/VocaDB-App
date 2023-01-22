@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class SectionDivider extends StatelessWidget {
   const SectionDivider(
-      {super.key, required this.visible, required this.child, this.title});
+      {super.key, this.visible = true, required this.child, this.title});
 
   final bool visible;
 

@@ -4,12 +4,17 @@ import 'package:vocadb_app/src/constants/app_sizes.dart';
 class ReleaseEventDetailButtonBar extends StatelessWidget {
   const ReleaseEventDetailButtonBar({super.key});
 
+  static const addBtnKey = Key('add-btn-key');
+  static const shareBtnKey = Key('share-btn-key');
+  static const infoBtnKey = Key('info-btn-key');
+
   @override
   Widget build(BuildContext context) {
     return ButtonBar(
       alignment: MainAxisAlignment.spaceEvenly,
       children: [
         TextButton(
+          key: addBtnKey,
           onPressed: () => {},
           style: ButtonStyle(
             foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
@@ -23,6 +28,7 @@ class ReleaseEventDetailButtonBar extends StatelessWidget {
           ),
         ),
         TextButton(
+          key: shareBtnKey,
           onPressed: () => {},
           style: ButtonStyle(
             foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
@@ -36,6 +42,7 @@ class ReleaseEventDetailButtonBar extends StatelessWidget {
           ),
         ),
         TextButton(
+          key: infoBtnKey,
           onPressed: () => {},
           style: ButtonStyle(
             foregroundColor: MaterialStateProperty.all<Color>(Colors.white),

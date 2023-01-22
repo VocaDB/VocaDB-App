@@ -34,6 +34,19 @@ class ReleaseEventApiRepository implements ReleaseEventRepository {
       beforeDate: DateTime.now().add(const Duration(days: 12)),
     ));
   }
+
+  @override
+  Future<ReleaseEvent> fetchReleaseEventByID(int id,
+      {String lang = 'Default'}) async {
+    final params = {
+      'fields':
+          'AdditionalNames, Artists, Description, MainPicture, Names, Series, SongList, Tags, Venue, WebLinks, PVs',
+      'lang': lang,
+    };
+    final response = await client.get('/api/releaseEvents/$id', params: params);
+
+    return ReleaseEvent.fromJson(response);
+  }
 }
 
 final releaseEventApiRepositoryProvider =

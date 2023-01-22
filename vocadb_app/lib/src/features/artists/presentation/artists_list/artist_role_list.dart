@@ -71,7 +71,9 @@ class ArtistGroupByRoleList extends StatelessWidget {
   ArtistRoleTile _mapOtherArtistTile(ArtistRole artistRole) {
     return ArtistRoleTile(
       artistRole: artistRole,
-      onTap: () => onTapArtist?.call(artistRole.artist!),
+      onTap: () => (artistRole.artist != null)
+          ? onTapArtist?.call(artistRole.artist!)
+          : {},
     );
   }
 

@@ -1,5 +1,4 @@
 import 'package:intl/intl.dart';
-
 import 'package:vocadb_app/src/features/artists/domain/artist_role.dart';
 import 'package:vocadb_app/src/features/entries/domain/main_picture.dart';
 import 'package:vocadb_app/src/features/releaseEvents/domain/release_event_series.dart';
@@ -41,8 +40,20 @@ extension ReleaseEventExtended on ReleaseEvent {
     return series?.category ?? category ?? '<None>';
   }
 
-  String? get dateFormatted =>
-      (date == null) ? null : DateFormat('yyyy-MM-dd').format(date!);
+  String? get dateFormatted {
+    if (date == null) {
+      return null;
+    }
+
+    final dateFormatted = DateFormat('yyyy-MM-dd').format(date!);
+
+    if (endDate != null) {
+      final endDateFormatted = DateFormat('yyyy-MM-dd').format(endDate!);
+      return '$dateFormatted - $endDateFormatted';
+    }
+
+    return dateFormatted;
+  }
 
   String? get imageUrl =>
       (mainPicture == null || mainPicture!.urlOriginal == null)
