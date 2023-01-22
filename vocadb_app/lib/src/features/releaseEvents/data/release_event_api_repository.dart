@@ -1,9 +1,11 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:vocadb_app/src/features/albums/domain/album.dart';
 import 'package:vocadb_app/src/features/api/api_client.dart';
 import 'package:vocadb_app/src/features/api/data/api_query_result.dart';
 import 'package:vocadb_app/src/features/releaseEvents/data/release_event_repository.dart';
 import 'package:vocadb_app/src/features/releaseEvents/domain/release_event.dart';
 import 'package:vocadb_app/src/features/releaseEvents/domain/release_events_list_params.dart';
+import 'package:vocadb_app/src/features/songs/domain/song.dart';
 
 class ReleaseEventApiRepository implements ReleaseEventRepository {
   final ApiClient client;
@@ -46,6 +48,33 @@ class ReleaseEventApiRepository implements ReleaseEventRepository {
     final response = await client.get('/api/releaseEvents/$id', params: params);
 
     return ReleaseEvent.fromJson(response);
+  }
+
+  @override
+  Future<List<Album>> fetchAlbums(int id, {String lang = 'Default'}) async {
+    final params = {
+      'fields': 'MainPicture',
+      'lang': lang,
+    };
+
+    final response =
+        await client.get('/api/releaseEvents/$id/albums', params: params);
+
+    return Album.fromJsonToList(response);
+  }
+
+  @override
+  Future<List<Song>> fetchPublishedSongs(int id,
+      {String lang = 'Default'}) async {
+    final params = {
+      'fields': 'ThumbUrl,MainPicture,PVs',
+      'lang': lang,
+    };
+
+    final response = await client.get('/api/releaseEvents/$id/published-songs',
+        params: params);
+
+    return Song.fromJsonToList(response);
   }
 }
 
