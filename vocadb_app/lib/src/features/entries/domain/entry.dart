@@ -44,6 +44,10 @@ class Entry with _$Entry {
   }) = _Entry;
 
   factory Entry.fromJson(Map<String, dynamic> json) => _$EntryFromJson(json);
+
+  static List<Entry> fromJsonToList(List<dynamic> source) {
+    return source.map((e) => Entry.fromJson(e)).toList();
+  }
 }
 
 extension EntryMapper on Entry {
