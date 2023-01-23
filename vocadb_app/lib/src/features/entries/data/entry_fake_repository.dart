@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vocadb_app/src/features/entries/data/constants/fake_entry_list.dart';
 import 'package:vocadb_app/src/features/entries/data/entry_repository.dart';
 import 'package:vocadb_app/src/features/entries/domain/entries_list_params.dart';
@@ -10,3 +11,7 @@ class EntryFakeRepository implements EntryRepository {
     return Future.value(kFakeEntryList);
   }
 }
+
+final entryFakeRepositoryProvider = Provider<EntryFakeRepository>((ref) {
+  return EntryFakeRepository();
+});

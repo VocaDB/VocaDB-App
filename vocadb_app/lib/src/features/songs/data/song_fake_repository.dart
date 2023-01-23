@@ -20,6 +20,7 @@ class SongFakeRepository implements SongRepository {
 
   @override
   Future<List<Song>> fetchSongsHighlighted({String lang = 'Default'}) async {
+    print('songFakeRepository.fetchSongsHighlighted...');
     return await Future.value(kFakeSongsList);
   }
 

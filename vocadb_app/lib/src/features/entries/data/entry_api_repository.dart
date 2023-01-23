@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vocadb_app/src/features/api/api_client.dart';
 import 'package:vocadb_app/src/features/api/data/api_query_result.dart';
 import 'package:vocadb_app/src/features/entries/data/entry_repository.dart';
@@ -19,3 +20,8 @@ class EntryApiRepository implements EntryRepository {
     return Entry.fromJsonToList(queryResponse.items);
   }
 }
+
+final entryApiRepositoryProvider = Provider<EntryApiRepository>((ref) {
+  final apiClient = ref.watch(apiClientProvider);
+  return EntryApiRepository(client: apiClient);
+});

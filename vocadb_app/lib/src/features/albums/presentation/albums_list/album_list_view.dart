@@ -33,7 +33,7 @@ class AlbumListView extends StatelessWidget {
   final void Function(Album) onSelect;
 
   /// Height of list content widget if set as horizontal.
-  static const double _rowHeight = 180;
+  static const double _rowHeight = 216;
 
   /// A widget that display when albums is empty
   final Widget emptyWidget;
@@ -47,7 +47,9 @@ class AlbumListView extends StatelessWidget {
   /// Return item for display in horizontal list
   Widget _horizontalItemBuilder(BuildContext context, int index) => AlbumCard(
         album: albums[index],
-        onTap: () => onSelect(albums[index]),
+        onTap: () {
+          return onSelect(albums[index]);
+        },
       );
 
   @override
@@ -70,10 +72,13 @@ class AlbumListView extends StatelessWidget {
 
     return SizedBox(
       height: _rowHeight,
-      child: ListView.builder(
+      child: ListView.separated(
         itemCount: albums.length,
         scrollDirection: Axis.horizontal,
         itemBuilder: _horizontalItemBuilder,
+        separatorBuilder: (context, index) => const SizedBox(
+          width: 8,
+        ),
       ),
     );
   }

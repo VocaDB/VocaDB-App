@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:vocadb_app/src/constants/app_sizes.dart';
 import 'package:vocadb_app/src/features/albums/domain/album.dart';
 import 'package:vocadb_app/src/features/albums/presentation/album_card/album_image_card.dart';
 
@@ -25,35 +24,34 @@ class AlbumCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
+    return Card(
       child: InkWell(
-        onTap: onTap,
-        child: Container(
-          width: cardWidth,
-          margin: const EdgeInsets.only(right: Sizes.p8, left: Sizes.p8),
-          child: Column(
-            children: <Widget>[
-              AlbumImageCard(imageUrl: album.imageUrl, albumId: album.id),
-              gapH4,
-              Container(
-                  alignment: Alignment.centerLeft,
+        onTap: () {
+          onTap.call();
+        },
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            AlbumImageCard(
+              imageUrl: album.imageUrl,
+              albumId: album.id,
+            ),
+            SizedBox(
+              width: 160,
+              height: 42,
+              child: Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(4.0),
                   child: Text(
-                    album.name!,
-                    style: Theme.of(context).textTheme.bodyText2,
-                    maxLines: 1,
+                    album.name ?? '<None>',
+                    textAlign: TextAlign.center,
+                    maxLines: 2,
                     overflow: TextOverflow.ellipsis,
-                  )),
-              gapH4,
-              Container(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    album.artistString!,
-                    style: Theme.of(context).textTheme.caption,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  )),
-            ],
-          ),
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );

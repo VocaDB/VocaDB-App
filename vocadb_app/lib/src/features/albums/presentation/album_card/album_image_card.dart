@@ -20,15 +20,15 @@ class AlbumImageCard extends ConsumerWidget {
     final config = ref.watch(flavorConfigProvider);
     return Container(
       color: Colors.white,
-      width: double.infinity,
-      height: 130,
+      width: 160,
+      height: 160,
       child: CustomNetworkImage(
         (imageUrl != null && imageUrl!.isNotEmpty)
             ? imageUrl!
             : (albumId != null && albumId != 0)
                 ? 'https://${config.apiAuthority}/Album/CoverPicture/$albumId'
                 : kPlaceholderImageUrl,
-        fit: BoxFit.contain,
+        fit: BoxFit.cover,
       ),
     );
   }
