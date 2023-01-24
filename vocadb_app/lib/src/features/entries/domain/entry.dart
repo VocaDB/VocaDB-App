@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 // TODO : need implementation
 
+import 'package:vocadb_app/src/constants/config.dart';
 import 'package:vocadb_app/src/features/albums/domain/album.dart';
 import 'package:vocadb_app/src/features/artists/domain/artist.dart';
 
@@ -50,7 +51,7 @@ class Entry with _$Entry {
   }
 }
 
-extension EntryMapper on Entry {
+extension EntryExtended on Entry {
   Song toSong() {
     return Song(
       id: id,
@@ -85,6 +86,14 @@ extension EntryMapper on Entry {
       id: id,
       name: name,
     );
+  }
+
+  String get imageUrl {
+    if (mainPicture == null || mainPicture!.urlOriginal == null) {
+      return kPlaceholderImageUrl;
+    }
+
+    return mainPicture!.urlOriginal!;
   }
 }
 

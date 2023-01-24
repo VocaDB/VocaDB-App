@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:vocadb_app/src/common_widgets/simple_dropdown_input.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:vocadb_app/src/features/entries/domain/entries_list_params_state.dart';
+import 'package:vocadb_app/src/features/entries/presentation/widgets/dropdown_entry_sort.dart';
+import 'package:vocadb_app/src/features/entries/presentation/widgets/dropdown_entry_type.dart';
 import 'package:vocadb_app/src/features/tags/presentation/tag_widgets/tag_input.dart';
 
 class EntriesSearchFilter extends StatelessWidget {
@@ -7,38 +10,33 @@ class EntriesSearchFilter extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const String selectedFilterByValue = 'CreateDate';
-    const String selectedVocalistValue = 'Nothing';
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('Filter'),
       ),
-      body: ListView(
-        children: [
-          SimpleDropdownInput(
-            value: '',
-            label: 'Entry type',
-            onChanged: (value) {},
-            items: const [
-              SimpleDropdownItem(name: 'Anything', value: ''),
-              SimpleDropdownItem(name: 'Song', value: 'Song'),
-              SimpleDropdownItem(name: 'Artist', value: 'Artist'),
-              SimpleDropdownItem(name: 'Album', value: 'Album'),
-              SimpleDropdownItem(name: 'Event', value: 'Event'),
+      body: Consumer(
+        builder: (context, ref, child) {
+          final state = ref.watch(entriesListParamsStateProvider);
+
+          return ListView(
+            children: [
+              DropdownEntryTypes(
+                value: state.entryTypes ?? '',
+                onChanged: (value) => ref
+                    .read(entriesListParamsStateProvider.notifier)
+                    .updateEntryTypes(value!),
+              ),
+              DropdownEntrySort(
+                value: 'Name',
+                onChanged: (value) => ref
+                    .read(entriesListParamsStateProvider.notifier)
+                    .updateSort(value!),
+              ),
+              const Divider(),
+              const TagInput(),
             ],
-          ),
-          SimpleDropdownInput(
-            value: 'Name',
-            label: 'Sort by',
-            onChanged: (value) {},
-            items: const [
-              SimpleDropdownItem(name: 'Name', value: 'Name'),
-              SimpleDropdownItem(name: 'AdditionDate', value: 'AdditionDate'),
-            ],
-          ),
-          const TagInput(),
-        ],
+          );
+        },
       ),
     );
   }
