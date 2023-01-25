@@ -8,7 +8,9 @@ class SongCardPlaceholder extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 8.0),
-      child: const Text('Placeholder'),
+      child: const Center(
+        child: CircularProgressIndicator(),
+      ),
     );
   }
 }

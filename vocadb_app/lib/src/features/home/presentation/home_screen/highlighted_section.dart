@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vocadb_app/src/common_widgets/error_message_widget.dart';
 import 'package:vocadb_app/src/common_widgets/section.dart';
-import 'package:vocadb_app/src/features/songs/data/song_repository.dart';
+import 'package:vocadb_app/src/features/home/presentation/main_screen/main_screen_controller.dart';
 import 'package:vocadb_app/src/features/songs/presentation/songs_list/song_placeholder_list_view.dart';
 import 'package:vocadb_app/src/features/songs/presentation/songs_list/songs_list_view.dart';
 import 'package:vocadb_app/src/routing/app_route_context.dart';
@@ -17,7 +17,12 @@ class HighlightedSection extends StatelessWidget {
       title: context.loc.highlighted,
       child: Consumer(
         builder: ((context, ref, child) {
-          final value = ref.watch(songsHighlightedProvider);
+          final value = ref.watch(mainScreenHighlightedSongsProvider);
+
+          if (value == null) {
+            return const SongPlaceholderListView();
+          }
+
           return value.when(
             data: (data) => SongListView(
               scrollDirection: Axis.horizontal,

@@ -1,40 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vocadb_app/src/features/home/presentation/home_screen/home_screen.dart';
+import 'package:vocadb_app/src/features/home/presentation/main_screen/main_screen_controller.dart';
 import 'package:vocadb_app/src/features/home/presentation/menu_screen/menu_screen.dart';
 import 'package:vocadb_app/src/features/home/presentation/ranking_screen/ranking_screen.dart';
 
-class MainScreen extends StatefulWidget {
+class MainScreen extends ConsumerWidget {
+  const MainScreen({super.key});
+
   static const tabHomeKey = Key('home-tab-key');
   static const tabRankingKey = Key('ranking-tab-key');
   static const tabMenuKey = Key('menu-tab-key');
 
-  const MainScreen({super.key});
-
   @override
-  State<MainScreen> createState() => _MainScreenState();
-}
-
-class _MainScreenState extends State<MainScreen> {
-  int currentPageIndex = 0;
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final tabIndex = ref.watch(mainScreenTabIndexStateProvider);
     return Scaffold(
       body: [
         const HomeScreen(),
         const RankingScreen(),
         const MenuScreen(),
-      ][currentPageIndex],
+      ][tabIndex],
       bottomNavigationBar: NavigationBar(
         destinations: const [
           NavigationDestination(
@@ -53,11 +39,9 @@ class _MainScreenState extends State<MainScreen> {
             label: 'Menu',
           ),
         ],
-        selectedIndex: currentPageIndex,
+        selectedIndex: tabIndex,
         onDestinationSelected: (index) {
-          setState(() {
-            currentPageIndex = index;
-          });
+          ref.read(mainScreenControllerProvider.notifier).updateTabIndex(index);
         },
         labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
         animationDuration: const Duration(milliseconds: 100),
