@@ -1,5 +1,6 @@
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:vocadb_app/src/app.dart';
+import 'package:vocadb_app/src/features/api/api_cache.dart';
 import 'package:vocadb_app/src/localization/string_hardcoded.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -16,8 +17,16 @@ void main() async {
   // * https://docs.flutter.dev/testing/errors
   registerErrorHandlers();
 
+  // * Storages/Cache
+  final apiCacheBox = await Hive.openBox(ApiCache.key);
+
   // * Entry point of the app
-  runApp(const ProviderScope(child: MyApp()));
+  runApp(
+    ProviderScope(
+      overrides: [apiCacheBoxProvider.overrideWithValue(apiCacheBox)],
+      child: const MyApp(),
+    ),
+  );
 }
 
 void registerErrorHandlers() {

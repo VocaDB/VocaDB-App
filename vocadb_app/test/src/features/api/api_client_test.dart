@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:vocadb_app/src/features/api/api_cache.dart';
 import 'package:vocadb_app/src/features/api/api_client.dart';
 
 import '../../mocks.dart';
@@ -10,6 +11,7 @@ import '../../mocks.dart';
 void main() {
   late Client httpClient;
   late ApiClient apiClient;
+  late ApiCache apiCache;
 
   setUpAll(() {
     registerFallbackValue(FakeUri());
@@ -17,7 +19,9 @@ void main() {
 
   setUp(() {
     httpClient = MockClient();
-    apiClient = ApiClient(host: 'unittest.net', client: httpClient);
+    apiCache = MockApiCache();
+    apiClient =
+        ApiClient(host: 'unittest.net', client: httpClient, apiCache: apiCache);
   });
   group('ApiClient.get', () {
     test('json format and without query parameters', () async {
@@ -29,7 +33,7 @@ void main() {
       when(callGet).thenAnswer((_) => Future.value(Response(body, 200)));
 
       final expected = {"id": 1};
-      final response = await apiClient.get('/api/something');
+      final response = await apiClient.get('/api/something', cache: false);
 
       expect(response, expected);
 
@@ -45,7 +49,8 @@ void main() {
       when(callGet).thenAnswer((_) => Future.value(Response(body, 200)));
 
       const expected = 'testResponse';
-      final response = await apiClient.get('/api/something', json: false);
+      final response =
+          await apiClient.get('/api/something', json: false, cache: false);
 
       expect(response, expected);
 
@@ -63,10 +68,8 @@ void main() {
       );
 
       final expected = {"id": 1};
-      final response = await apiClient.get(
-        '/api/something',
-        params: {'id': 39, 'query': 'miku'},
-      );
+      final response = await apiClient.get('/api/something',
+          params: {'id': 39, 'query': 'miku'}, cache: false);
 
       expect(response, expected);
 
@@ -82,9 +85,48 @@ void main() {
       );
 
       expectLater(
-        apiClient.get('/api/something'),
+        apiClient.get('/api/something', cache: false),
         throwsA(predicate((e) => e is HttpException)),
       );
+    });
+    test('get from cache as map', () async {
+      const body = '{"id": 1}';
+
+      // Mock
+      callGet() => httpClient.get(any());
+      callGetFromCache() => apiCache.get(any());
+
+      when(callGetFromCache).thenAnswer((_) => Future.value(body));
+
+      final expected = {"id": 1};
+      final response = await apiClient.get('/api/something');
+
+      expect(response, expected);
+
+      verifyNever(callGet);
+      verify(callGetFromCache).called(1);
+      verifyNever(() => apiCache.put(any(), any()));
+    });
+    test('get from API and save cache when cache not found', () async {
+      const body = '{"id": 1}';
+
+      // Mock
+      callGet() => httpClient.get(any());
+      callGetFromCache() => apiCache.get(any());
+      callSaveCache() => apiCache.put(any(), any());
+
+      when(callGetFromCache).thenAnswer((_) => Future.value(""));
+      when(callGet).thenAnswer((_) => Future.value(Response(body, 200)));
+      when(callSaveCache).thenAnswer((_) => Future.value());
+
+      final expected = {"id": 1};
+      final response = await apiClient.get('/api/something');
+
+      expect(response, expected);
+
+      verify(callGet).called(1);
+      verify(callGetFromCache).called(1);
+      verify(callSaveCache).called(1);
     });
   });
 

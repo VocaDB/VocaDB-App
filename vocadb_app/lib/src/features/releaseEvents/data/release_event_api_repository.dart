@@ -79,7 +79,7 @@ class ReleaseEventApiRepository implements ReleaseEventRepository {
 }
 
 final releaseEventApiRepositoryProvider =
-    Provider<ReleaseEventApiRepository>((ref) {
+    Provider.autoDispose<ReleaseEventApiRepository>((ref) {
   final apiClient = ref.watch(apiClientProvider);
   return ReleaseEventApiRepository(client: apiClient);
 });

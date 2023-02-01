@@ -70,7 +70,8 @@ class AlbumApiRepository implements AlbumRepository {
 }
 
 /// Album API Repository Provider
-final albumApiRepositoryProvider = Provider<AlbumApiRepository>((ref) {
+final albumApiRepositoryProvider =
+    Provider.autoDispose<AlbumApiRepository>((ref) {
   final apiClient = ref.watch(apiClientProvider);
   return AlbumApiRepository(client: apiClient);
 });

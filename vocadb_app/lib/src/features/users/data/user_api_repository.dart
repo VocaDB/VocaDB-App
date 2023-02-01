@@ -40,7 +40,8 @@ class UserApiRepository implements UserRepository {
   }
 }
 
-final userApiRepositoryProvider = Provider<UserApiRepository>((ref) {
+final userApiRepositoryProvider =
+    Provider.autoDispose<UserApiRepository>((ref) {
   final apiClient = ref.watch(apiClientProvider);
   return UserApiRepository(client: apiClient);
 });

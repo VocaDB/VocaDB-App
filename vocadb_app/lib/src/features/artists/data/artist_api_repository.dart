@@ -48,7 +48,8 @@ class ArtistApiRepository implements ArtistRepository {
   }
 }
 
-final artistApiRepositoryProvider = Provider<ArtistApiRepository>((ref) {
+final artistApiRepositoryProvider =
+    Provider.autoDispose<ArtistApiRepository>((ref) {
   final apiClient = ref.watch(apiClientProvider);
   return ArtistApiRepository(client: apiClient);
 });

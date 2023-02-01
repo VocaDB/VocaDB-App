@@ -25,7 +25,7 @@ class TagApiRepository implements TagRepository {
   }
 }
 
-final tagApiRepositoryProvider = Provider<TagApiRepository>((ref) {
+final tagApiRepositoryProvider = Provider.autoDispose<TagApiRepository>((ref) {
   final apiClient = ref.watch(apiClientProvider);
   return TagApiRepository(client: apiClient);
 });

@@ -115,7 +115,8 @@ class SongApiRepository implements SongRepository {
   }
 }
 
-final songApiRepositoryProvider = Provider<SongApiRepository>((ref) {
+final songApiRepositoryProvider =
+    Provider.autoDispose<SongApiRepository>((ref) {
   final apiClient = ref.watch(apiClientProvider);
   return SongApiRepository(client: apiClient);
 });

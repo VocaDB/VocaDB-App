@@ -21,7 +21,8 @@ class EntryApiRepository implements EntryRepository {
   }
 }
 
-final entryApiRepositoryProvider = Provider<EntryApiRepository>((ref) {
+final entryApiRepositoryProvider =
+    Provider.autoDispose<EntryApiRepository>((ref) {
   final apiClient = ref.watch(apiClientProvider);
   return EntryApiRepository(client: apiClient);
 });
