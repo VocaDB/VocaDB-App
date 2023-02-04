@@ -15,8 +15,9 @@ class FollowedArtistsListParamsState
   Future<void> clearQuery() async => state = state.copyWith(query: null);
 }
 
-final ratedSongsListParamsStateProvider = StateNotifierProvider.autoDispose<
-    FollowedArtistsListParamsState, FollowedArtistsListParams>((ref) {
+final followedArtistsListParamsStateProvider =
+    StateNotifierProvider.autoDispose<FollowedArtistsListParamsState,
+        FollowedArtistsListParams>((ref) {
   final preferredLang = ref.watch(userSettingsRepositoryProvider
       .select((value) => value.currentPreferredLang));
   return FollowedArtistsListParamsState(lang: preferredLang);

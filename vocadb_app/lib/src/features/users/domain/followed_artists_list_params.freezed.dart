@@ -26,7 +26,7 @@ mixin _$FollowedArtistsListParams {
   List<int>? get tagId => throw _privateConstructorUsedError;
   int get start => throw _privateConstructorUsedError;
   int get maxResults => throw _privateConstructorUsedError;
-  String get artistType => throw _privateConstructorUsedError;
+  String? get artistType => throw _privateConstructorUsedError;
   String get sort => throw _privateConstructorUsedError;
   String get fields => throw _privateConstructorUsedError;
   String get lang => throw _privateConstructorUsedError;
@@ -48,7 +48,7 @@ abstract class $FollowedArtistsListParamsCopyWith<$Res> {
       @JsonKey(name: 'tagId[]') List<int>? tagId,
       int start,
       int maxResults,
-      String artistType,
+      String? artistType,
       String sort,
       String fields,
       String lang});
@@ -72,7 +72,7 @@ class _$FollowedArtistsListParamsCopyWithImpl<$Res,
     Object? tagId = freezed,
     Object? start = null,
     Object? maxResults = null,
-    Object? artistType = null,
+    Object? artistType = freezed,
     Object? sort = null,
     Object? fields = null,
     Object? lang = null,
@@ -94,10 +94,10 @@ class _$FollowedArtistsListParamsCopyWithImpl<$Res,
           ? _value.maxResults
           : maxResults // ignore: cast_nullable_to_non_nullable
               as int,
-      artistType: null == artistType
+      artistType: freezed == artistType
           ? _value.artistType
           : artistType // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       sort: null == sort
           ? _value.sort
           : sort // ignore: cast_nullable_to_non_nullable
@@ -128,7 +128,7 @@ abstract class _$$_FollowedArtistsListParamsCopyWith<$Res>
       @JsonKey(name: 'tagId[]') List<int>? tagId,
       int start,
       int maxResults,
-      String artistType,
+      String? artistType,
       String sort,
       String fields,
       String lang});
@@ -151,7 +151,7 @@ class __$$_FollowedArtistsListParamsCopyWithImpl<$Res>
     Object? tagId = freezed,
     Object? start = null,
     Object? maxResults = null,
-    Object? artistType = null,
+    Object? artistType = freezed,
     Object? sort = null,
     Object? fields = null,
     Object? lang = null,
@@ -173,10 +173,10 @@ class __$$_FollowedArtistsListParamsCopyWithImpl<$Res>
           ? _value.maxResults
           : maxResults // ignore: cast_nullable_to_non_nullable
               as int,
-      artistType: null == artistType
+      artistType: freezed == artistType
           ? _value.artistType
           : artistType // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       sort: null == sort
           ? _value.sort
           : sort // ignore: cast_nullable_to_non_nullable
@@ -202,7 +202,7 @@ class _$_FollowedArtistsListParams implements _FollowedArtistsListParams {
       @JsonKey(name: 'tagId[]') final List<int>? tagId,
       this.start = 0,
       this.maxResults = 10,
-      this.artistType = 'Unknown',
+      this.artistType,
       this.sort = 'Name',
       this.fields = 'MainPicture',
       this.lang = 'Default'})
@@ -230,8 +230,7 @@ class _$_FollowedArtistsListParams implements _FollowedArtistsListParams {
   @JsonKey()
   final int maxResults;
   @override
-  @JsonKey()
-  final String artistType;
+  final String? artistType;
   @override
   @JsonKey()
   final String sort;
@@ -298,7 +297,7 @@ abstract class _FollowedArtistsListParams implements FollowedArtistsListParams {
       @JsonKey(name: 'tagId[]') final List<int>? tagId,
       final int start,
       final int maxResults,
-      final String artistType,
+      final String? artistType,
       final String sort,
       final String fields,
       final String lang}) = _$_FollowedArtistsListParams;
@@ -316,7 +315,7 @@ abstract class _FollowedArtistsListParams implements FollowedArtistsListParams {
   @override
   int get maxResults;
   @override
-  String get artistType;
+  String? get artistType;
   @override
   String get sort;
   @override

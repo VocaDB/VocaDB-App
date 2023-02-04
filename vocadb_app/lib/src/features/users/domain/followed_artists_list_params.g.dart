@@ -13,7 +13,7 @@ _$_FollowedArtistsListParams _$$_FollowedArtistsListParamsFromJson(
       tagId: (json['tagId[]'] as List<dynamic>?)?.map((e) => e as int).toList(),
       start: json['start'] as int? ?? 0,
       maxResults: json['maxResults'] as int? ?? 10,
-      artistType: json['artistType'] as String? ?? 'Unknown',
+      artistType: json['artistType'] as String?,
       sort: json['sort'] as String? ?? 'Name',
       fields: json['fields'] as String? ?? 'MainPicture',
       lang: json['lang'] as String? ?? 'Default',
@@ -33,7 +33,7 @@ Map<String, dynamic> _$$_FollowedArtistsListParamsToJson(
   writeNotNull('tagId[]', instance.tagId);
   val['start'] = instance.start;
   val['maxResults'] = instance.maxResults;
-  val['artistType'] = instance.artistType;
+  writeNotNull('artistType', instance.artistType);
   val['sort'] = instance.sort;
   val['fields'] = instance.fields;
   val['lang'] = instance.lang;

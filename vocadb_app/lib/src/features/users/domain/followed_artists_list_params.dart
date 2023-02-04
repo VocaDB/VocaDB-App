@@ -11,7 +11,7 @@ class FollowedArtistsListParams with _$FollowedArtistsListParams {
     @JsonKey(name: 'tagId[]') List<int>? tagId,
     @Default(0) int start,
     @Default(10) int maxResults,
-    @Default('Unknown') String artistType,
+    String? artistType,
     @Default('Name') String sort,
     @Default('MainPicture') String fields,
     @Default('Default') String lang,
