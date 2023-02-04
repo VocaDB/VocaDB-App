@@ -8,8 +8,8 @@ import 'package:vocadb_app/src/features/albums/presentation/user_albums/user_alb
 import 'package:vocadb_app/src/features/artists/presentation/artist_detail_screen/artist_detail_screen.dart';
 import 'package:vocadb_app/src/features/artists/presentation/artists_list_screen/artists_list_filter_screen.dart';
 import 'package:vocadb_app/src/features/artists/presentation/artists_list_screen/artists_list_screen.dart';
-import 'package:vocadb_app/src/features/artists/presentation/followed_artists/followed_artists_filter_screen.dart';
-import 'package:vocadb_app/src/features/artists/presentation/followed_artists/followed_artists_screen.dart';
+import 'package:vocadb_app/src/features/users/presentation/followed_artists_screen/followed_artists_filter_screen.dart';
+import 'package:vocadb_app/src/features/users/presentation/followed_artists_screen/followed_artists_screen.dart';
 import 'package:vocadb_app/src/features/authentication/data/auth_repository.dart';
 import 'package:vocadb_app/src/features/authentication/presentation/account/account_screen.dart';
 import 'package:vocadb_app/src/features/authentication/presentation/sign_in/sign_in_screen.dart';
