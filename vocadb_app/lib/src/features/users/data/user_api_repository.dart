@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:vocadb_app/src/features/albums/domain/album_collection.dart';
 import 'package:vocadb_app/src/features/api/api_client.dart';
 import 'package:vocadb_app/src/features/api/data/api_query_result.dart';
 import 'package:vocadb_app/src/features/artists/domain/followed_artist.dart';
@@ -6,6 +7,7 @@ import 'package:vocadb_app/src/features/songs/domain/rated_song.dart';
 import 'package:vocadb_app/src/features/users/data/user_repository.dart';
 import 'package:vocadb_app/src/features/users/domain/followed_artists_list_params.dart';
 import 'package:vocadb_app/src/features/users/domain/rated_songs_list_params.dart';
+import 'package:vocadb_app/src/features/users/domain/user_albums_list_params.dart';
 
 class UserApiRepository implements UserRepository {
   UserApiRepository({required this.client});
@@ -52,6 +54,19 @@ class UserApiRepository implements UserRepository {
     final queryResult = ApiQueryResult.fromMap(response);
 
     return FollowedArtist.fromJsonToList(queryResult.items).toList();
+  }
+
+  @override
+  Future<List<AlbumCollection>> fetchAlbums(
+      int userID, UserAlbumsListParams params) async {
+    final response = await client.get(
+      '/api/users/$userID/albums',
+      params: params.toJson(),
+    );
+
+    final queryResult = ApiQueryResult.fromMap(response);
+
+    return AlbumCollection.fromJsonToList(queryResult.items).toList();
   }
 }
 
