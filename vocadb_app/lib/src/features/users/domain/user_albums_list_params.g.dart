@@ -15,11 +15,12 @@ _$_UserAlbumsListParams _$$_UserAlbumsListParamsFromJson(
           (json['artistId[]'] as List<dynamic>?)?.map((e) => e as int).toList(),
       start: json['start'] as int? ?? 0,
       maxResults: json['maxResults'] as int? ?? 10,
-      purchaseStatuses: json['purchaseStatuses'] ?? 'Nothing',
+      purchaseStatuses: json['purchaseStatuses'] as String?,
       albumTypes: json['albumTypes'] as String? ?? 'Unknown',
       sort: json['sort'] as String? ?? 'Name',
       fields: json['fields'] as String? ?? 'MainPicture',
       lang: json['lang'] as String? ?? 'Default',
+      nameMatchMode: json['nameMatchMode'] as String? ?? 'Auto',
       mediaType: json['mediaType'] as String?,
     );
 
@@ -43,6 +44,7 @@ Map<String, dynamic> _$$_UserAlbumsListParamsToJson(
   val['sort'] = instance.sort;
   val['fields'] = instance.fields;
   val['lang'] = instance.lang;
+  val['nameMatchMode'] = instance.nameMatchMode;
   writeNotNull('mediaType', instance.mediaType);
   return val;
 }

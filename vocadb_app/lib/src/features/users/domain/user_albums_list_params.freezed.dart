@@ -27,11 +27,12 @@ mixin _$UserAlbumsListParams {
   List<int>? get artistId => throw _privateConstructorUsedError;
   int get start => throw _privateConstructorUsedError;
   int get maxResults => throw _privateConstructorUsedError;
-  dynamic get purchaseStatuses => throw _privateConstructorUsedError;
+  String? get purchaseStatuses => throw _privateConstructorUsedError;
   String get albumTypes => throw _privateConstructorUsedError;
   String get sort => throw _privateConstructorUsedError;
   String get fields => throw _privateConstructorUsedError;
   String get lang => throw _privateConstructorUsedError;
+  String get nameMatchMode => throw _privateConstructorUsedError;
   String? get mediaType => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -52,11 +53,12 @@ abstract class $UserAlbumsListParamsCopyWith<$Res> {
       @JsonKey(name: 'artistId[]') List<int>? artistId,
       int start,
       int maxResults,
-      dynamic purchaseStatuses,
+      String? purchaseStatuses,
       String albumTypes,
       String sort,
       String fields,
       String lang,
+      String nameMatchMode,
       String? mediaType});
 }
 
@@ -79,11 +81,12 @@ class _$UserAlbumsListParamsCopyWithImpl<$Res,
     Object? artistId = freezed,
     Object? start = null,
     Object? maxResults = null,
-    Object? purchaseStatuses = null,
+    Object? purchaseStatuses = freezed,
     Object? albumTypes = null,
     Object? sort = null,
     Object? fields = null,
     Object? lang = null,
+    Object? nameMatchMode = null,
     Object? mediaType = freezed,
   }) {
     return _then(_value.copyWith(
@@ -107,10 +110,10 @@ class _$UserAlbumsListParamsCopyWithImpl<$Res,
           ? _value.maxResults
           : maxResults // ignore: cast_nullable_to_non_nullable
               as int,
-      purchaseStatuses: null == purchaseStatuses
+      purchaseStatuses: freezed == purchaseStatuses
           ? _value.purchaseStatuses
           : purchaseStatuses // ignore: cast_nullable_to_non_nullable
-              as dynamic,
+              as String?,
       albumTypes: null == albumTypes
           ? _value.albumTypes
           : albumTypes // ignore: cast_nullable_to_non_nullable
@@ -126,6 +129,10 @@ class _$UserAlbumsListParamsCopyWithImpl<$Res,
       lang: null == lang
           ? _value.lang
           : lang // ignore: cast_nullable_to_non_nullable
+              as String,
+      nameMatchMode: null == nameMatchMode
+          ? _value.nameMatchMode
+          : nameMatchMode // ignore: cast_nullable_to_non_nullable
               as String,
       mediaType: freezed == mediaType
           ? _value.mediaType
@@ -149,11 +156,12 @@ abstract class _$$_UserAlbumsListParamsCopyWith<$Res>
       @JsonKey(name: 'artistId[]') List<int>? artistId,
       int start,
       int maxResults,
-      dynamic purchaseStatuses,
+      String? purchaseStatuses,
       String albumTypes,
       String sort,
       String fields,
       String lang,
+      String nameMatchMode,
       String? mediaType});
 }
 
@@ -173,11 +181,12 @@ class __$$_UserAlbumsListParamsCopyWithImpl<$Res>
     Object? artistId = freezed,
     Object? start = null,
     Object? maxResults = null,
-    Object? purchaseStatuses = null,
+    Object? purchaseStatuses = freezed,
     Object? albumTypes = null,
     Object? sort = null,
     Object? fields = null,
     Object? lang = null,
+    Object? nameMatchMode = null,
     Object? mediaType = freezed,
   }) {
     return _then(_$_UserAlbumsListParams(
@@ -201,8 +210,10 @@ class __$$_UserAlbumsListParamsCopyWithImpl<$Res>
           ? _value.maxResults
           : maxResults // ignore: cast_nullable_to_non_nullable
               as int,
-      purchaseStatuses:
-          null == purchaseStatuses ? _value.purchaseStatuses : purchaseStatuses,
+      purchaseStatuses: freezed == purchaseStatuses
+          ? _value.purchaseStatuses
+          : purchaseStatuses // ignore: cast_nullable_to_non_nullable
+              as String?,
       albumTypes: null == albumTypes
           ? _value.albumTypes
           : albumTypes // ignore: cast_nullable_to_non_nullable
@@ -218,6 +229,10 @@ class __$$_UserAlbumsListParamsCopyWithImpl<$Res>
       lang: null == lang
           ? _value.lang
           : lang // ignore: cast_nullable_to_non_nullable
+              as String,
+      nameMatchMode: null == nameMatchMode
+          ? _value.nameMatchMode
+          : nameMatchMode // ignore: cast_nullable_to_non_nullable
               as String,
       mediaType: freezed == mediaType
           ? _value.mediaType
@@ -237,11 +252,12 @@ class _$_UserAlbumsListParams implements _UserAlbumsListParams {
       @JsonKey(name: 'artistId[]') final List<int>? artistId,
       this.start = 0,
       this.maxResults = 10,
-      this.purchaseStatuses = 'Nothing',
+      this.purchaseStatuses,
       this.albumTypes = 'Unknown',
       this.sort = 'Name',
       this.fields = 'MainPicture',
       this.lang = 'Default',
+      this.nameMatchMode = 'Auto',
       this.mediaType})
       : _tagId = tagId,
         _artistId = artistId;
@@ -278,8 +294,7 @@ class _$_UserAlbumsListParams implements _UserAlbumsListParams {
   @JsonKey()
   final int maxResults;
   @override
-  @JsonKey()
-  final dynamic purchaseStatuses;
+  final String? purchaseStatuses;
   @override
   @JsonKey()
   final String albumTypes;
@@ -293,11 +308,14 @@ class _$_UserAlbumsListParams implements _UserAlbumsListParams {
   @JsonKey()
   final String lang;
   @override
+  @JsonKey()
+  final String nameMatchMode;
+  @override
   final String? mediaType;
 
   @override
   String toString() {
-    return 'UserAlbumsListParams(query: $query, tagId: $tagId, artistId: $artistId, start: $start, maxResults: $maxResults, purchaseStatuses: $purchaseStatuses, albumTypes: $albumTypes, sort: $sort, fields: $fields, lang: $lang, mediaType: $mediaType)';
+    return 'UserAlbumsListParams(query: $query, tagId: $tagId, artistId: $artistId, start: $start, maxResults: $maxResults, purchaseStatuses: $purchaseStatuses, albumTypes: $albumTypes, sort: $sort, fields: $fields, lang: $lang, nameMatchMode: $nameMatchMode, mediaType: $mediaType)';
   }
 
   @override
@@ -311,13 +329,15 @@ class _$_UserAlbumsListParams implements _UserAlbumsListParams {
             (identical(other.start, start) || other.start == start) &&
             (identical(other.maxResults, maxResults) ||
                 other.maxResults == maxResults) &&
-            const DeepCollectionEquality()
-                .equals(other.purchaseStatuses, purchaseStatuses) &&
+            (identical(other.purchaseStatuses, purchaseStatuses) ||
+                other.purchaseStatuses == purchaseStatuses) &&
             (identical(other.albumTypes, albumTypes) ||
                 other.albumTypes == albumTypes) &&
             (identical(other.sort, sort) || other.sort == sort) &&
             (identical(other.fields, fields) || other.fields == fields) &&
             (identical(other.lang, lang) || other.lang == lang) &&
+            (identical(other.nameMatchMode, nameMatchMode) ||
+                other.nameMatchMode == nameMatchMode) &&
             (identical(other.mediaType, mediaType) ||
                 other.mediaType == mediaType));
   }
@@ -331,11 +351,12 @@ class _$_UserAlbumsListParams implements _UserAlbumsListParams {
       const DeepCollectionEquality().hash(_artistId),
       start,
       maxResults,
-      const DeepCollectionEquality().hash(purchaseStatuses),
+      purchaseStatuses,
       albumTypes,
       sort,
       fields,
       lang,
+      nameMatchMode,
       mediaType);
 
   @JsonKey(ignore: true)
@@ -360,11 +381,12 @@ abstract class _UserAlbumsListParams implements UserAlbumsListParams {
       @JsonKey(name: 'artistId[]') final List<int>? artistId,
       final int start,
       final int maxResults,
-      final dynamic purchaseStatuses,
+      final String? purchaseStatuses,
       final String albumTypes,
       final String sort,
       final String fields,
       final String lang,
+      final String nameMatchMode,
       final String? mediaType}) = _$_UserAlbumsListParams;
 
   factory _UserAlbumsListParams.fromJson(Map<String, dynamic> json) =
@@ -383,7 +405,7 @@ abstract class _UserAlbumsListParams implements UserAlbumsListParams {
   @override
   int get maxResults;
   @override
-  dynamic get purchaseStatuses;
+  String? get purchaseStatuses;
   @override
   String get albumTypes;
   @override
@@ -392,6 +414,8 @@ abstract class _UserAlbumsListParams implements UserAlbumsListParams {
   String get fields;
   @override
   String get lang;
+  @override
+  String get nameMatchMode;
   @override
   String? get mediaType;
   @override

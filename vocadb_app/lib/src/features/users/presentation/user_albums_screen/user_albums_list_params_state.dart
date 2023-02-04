@@ -26,7 +26,7 @@ class UserAlbumsListParamsState extends StateNotifier<UserAlbumsListParams> {
   Future<void> clearQuery() async => state = state.copyWith(query: null);
 }
 
-final userAlbumListParamsStateProvider = StateNotifierProvider.autoDispose<
+final userAlbumsListParamsStateProvider = StateNotifierProvider.autoDispose<
     UserAlbumsListParamsState, UserAlbumsListParams>((ref) {
   final preferredLang = ref.watch(userSettingsRepositoryProvider
       .select((value) => value.currentPreferredLang));

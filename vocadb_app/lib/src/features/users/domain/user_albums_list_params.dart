@@ -12,11 +12,12 @@ class UserAlbumsListParams with _$UserAlbumsListParams {
       @JsonKey(name: 'artistId[]') List<int>? artistId,
       @Default(0) int start,
       @Default(10) int maxResults,
-      @Default('Nothing') purchaseStatuses,
+      String? purchaseStatuses,
       @Default('Unknown') String albumTypes,
       @Default('Name') String sort,
       @Default('MainPicture') String fields,
       @Default('Default') String lang,
+      @Default('Auto') String nameMatchMode,
       String? mediaType}) = _UserAlbumsListParams;
 
   factory UserAlbumsListParams.fromJson(Map<String, dynamic> json) =>
