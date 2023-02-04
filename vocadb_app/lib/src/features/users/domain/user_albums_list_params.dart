@@ -12,7 +12,7 @@ class UserAlbumsListParams with _$UserAlbumsListParams {
       @JsonKey(name: 'artistId[]') List<int>? artistId,
       @Default(0) int start,
       @Default(10) int maxResults,
-      String? purchaseStatuses,
+      @Default('All') String purchaseStatuses,
       @Default('Unknown') String albumTypes,
       @Default('Name') String sort,
       @Default('MainPicture') String fields,

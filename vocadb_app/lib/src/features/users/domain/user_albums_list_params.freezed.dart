@@ -27,7 +27,7 @@ mixin _$UserAlbumsListParams {
   List<int>? get artistId => throw _privateConstructorUsedError;
   int get start => throw _privateConstructorUsedError;
   int get maxResults => throw _privateConstructorUsedError;
-  String? get purchaseStatuses => throw _privateConstructorUsedError;
+  String get purchaseStatuses => throw _privateConstructorUsedError;
   String get albumTypes => throw _privateConstructorUsedError;
   String get sort => throw _privateConstructorUsedError;
   String get fields => throw _privateConstructorUsedError;
@@ -53,7 +53,7 @@ abstract class $UserAlbumsListParamsCopyWith<$Res> {
       @JsonKey(name: 'artistId[]') List<int>? artistId,
       int start,
       int maxResults,
-      String? purchaseStatuses,
+      String purchaseStatuses,
       String albumTypes,
       String sort,
       String fields,
@@ -81,7 +81,7 @@ class _$UserAlbumsListParamsCopyWithImpl<$Res,
     Object? artistId = freezed,
     Object? start = null,
     Object? maxResults = null,
-    Object? purchaseStatuses = freezed,
+    Object? purchaseStatuses = null,
     Object? albumTypes = null,
     Object? sort = null,
     Object? fields = null,
@@ -110,10 +110,10 @@ class _$UserAlbumsListParamsCopyWithImpl<$Res,
           ? _value.maxResults
           : maxResults // ignore: cast_nullable_to_non_nullable
               as int,
-      purchaseStatuses: freezed == purchaseStatuses
+      purchaseStatuses: null == purchaseStatuses
           ? _value.purchaseStatuses
           : purchaseStatuses // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       albumTypes: null == albumTypes
           ? _value.albumTypes
           : albumTypes // ignore: cast_nullable_to_non_nullable
@@ -156,7 +156,7 @@ abstract class _$$_UserAlbumsListParamsCopyWith<$Res>
       @JsonKey(name: 'artistId[]') List<int>? artistId,
       int start,
       int maxResults,
-      String? purchaseStatuses,
+      String purchaseStatuses,
       String albumTypes,
       String sort,
       String fields,
@@ -181,7 +181,7 @@ class __$$_UserAlbumsListParamsCopyWithImpl<$Res>
     Object? artistId = freezed,
     Object? start = null,
     Object? maxResults = null,
-    Object? purchaseStatuses = freezed,
+    Object? purchaseStatuses = null,
     Object? albumTypes = null,
     Object? sort = null,
     Object? fields = null,
@@ -210,10 +210,10 @@ class __$$_UserAlbumsListParamsCopyWithImpl<$Res>
           ? _value.maxResults
           : maxResults // ignore: cast_nullable_to_non_nullable
               as int,
-      purchaseStatuses: freezed == purchaseStatuses
+      purchaseStatuses: null == purchaseStatuses
           ? _value.purchaseStatuses
           : purchaseStatuses // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       albumTypes: null == albumTypes
           ? _value.albumTypes
           : albumTypes // ignore: cast_nullable_to_non_nullable
@@ -252,7 +252,7 @@ class _$_UserAlbumsListParams implements _UserAlbumsListParams {
       @JsonKey(name: 'artistId[]') final List<int>? artistId,
       this.start = 0,
       this.maxResults = 10,
-      this.purchaseStatuses,
+      this.purchaseStatuses = 'All',
       this.albumTypes = 'Unknown',
       this.sort = 'Name',
       this.fields = 'MainPicture',
@@ -294,7 +294,8 @@ class _$_UserAlbumsListParams implements _UserAlbumsListParams {
   @JsonKey()
   final int maxResults;
   @override
-  final String? purchaseStatuses;
+  @JsonKey()
+  final String purchaseStatuses;
   @override
   @JsonKey()
   final String albumTypes;
@@ -381,7 +382,7 @@ abstract class _UserAlbumsListParams implements UserAlbumsListParams {
       @JsonKey(name: 'artistId[]') final List<int>? artistId,
       final int start,
       final int maxResults,
-      final String? purchaseStatuses,
+      final String purchaseStatuses,
       final String albumTypes,
       final String sort,
       final String fields,
@@ -405,7 +406,7 @@ abstract class _UserAlbumsListParams implements UserAlbumsListParams {
   @override
   int get maxResults;
   @override
-  String? get purchaseStatuses;
+  String get purchaseStatuses;
   @override
   String get albumTypes;
   @override

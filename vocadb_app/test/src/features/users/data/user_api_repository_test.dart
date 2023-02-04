@@ -197,11 +197,12 @@ void main() {
         'query': 'Supercell',
         'start': 0,
         'maxResults': 10,
-        'purchaseStatuses': 'Nothing',
         'albumTypes': 'Unknown',
         'sort': 'Name',
         'fields': 'MainPicture',
         'lang': 'Default',
+        'nameMatchMode': 'Auto',
+        'purchaseStatus': 'All'
       });
     });
   });
