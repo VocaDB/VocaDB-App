@@ -13,4 +13,8 @@ class FollowedArtist with _$FollowedArtist {
 
   factory FollowedArtist.fromJson(Map<String, dynamic> json) =>
       _$FollowedArtistFromJson(json);
+
+  static List<FollowedArtist> fromJsonToList(List<dynamic> source) {
+    return source.map((e) => FollowedArtist.fromJson(e)).toList();
+  }
 }

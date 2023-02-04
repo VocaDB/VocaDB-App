@@ -1,8 +1,10 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vocadb_app/src/features/api/api_client.dart';
 import 'package:vocadb_app/src/features/api/data/api_query_result.dart';
+import 'package:vocadb_app/src/features/artists/domain/followed_artist.dart';
 import 'package:vocadb_app/src/features/songs/domain/rated_song.dart';
 import 'package:vocadb_app/src/features/users/data/user_repository.dart';
+import 'package:vocadb_app/src/features/users/domain/followed_artists_list_params.dart';
 import 'package:vocadb_app/src/features/users/domain/rated_songs_list_params.dart';
 
 class UserApiRepository implements UserRepository {
@@ -37,6 +39,19 @@ class UserApiRepository implements UserRepository {
     final queryResult = ApiQueryResult.fromMap(response);
 
     return RatedSong.fromJsonToList(queryResult.items).toList();
+  }
+
+  @override
+  Future<List<FollowedArtist>> fetchFollowedArtistsList(
+      int userID, FollowedArtistsListParams params) async {
+    final response = await client.get(
+      '/api/users/$userID/followedArtists',
+      params: params.toJson(),
+    );
+
+    final queryResult = ApiQueryResult.fromMap(response);
+
+    return FollowedArtist.fromJsonToList(queryResult.items).toList();
   }
 }
 

@@ -1,9 +1,12 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:vocadb_app/src/features/api/api_client.dart';
+import 'package:vocadb_app/src/features/artists/domain/artist.dart';
+import 'package:vocadb_app/src/features/artists/domain/followed_artist.dart';
 import 'package:vocadb_app/src/features/songs/domain/rated_song.dart';
 import 'package:vocadb_app/src/features/songs/domain/song.dart';
 import 'package:vocadb_app/src/features/users/data/user_api_repository.dart';
+import 'package:vocadb_app/src/features/users/domain/followed_artists_list_params.dart';
 import 'package:vocadb_app/src/features/users/domain/rated_songs_list_params.dart';
 
 import '../../../mocks.dart';
@@ -77,6 +80,55 @@ void main() {
         'fields': 'MainPicture,PVs',
         'lang': 'Default',
         'rating': 'Nothing'
+      });
+    });
+
+    test('fetchFollowedArtistsList success', () async {
+      const userID = 1;
+      const responseBody = {
+        "items": [
+          {
+            "id": 1,
+            "artist": {"id": 2, "name": "Artist_A"}
+          },
+          {
+            "id": 3,
+            "artist": {"id": 4, "name": "Artist_B"}
+          }
+        ],
+        "totalCount": 2
+      };
+
+      clientCallGet() =>
+          client.get(any(), params: any(named: 'params', that: isMap));
+
+      when(clientCallGet).thenAnswer((_) => Future.value(responseBody));
+
+      final response = await userApiRepository.fetchFollowedArtistsList(
+          userID, const FollowedArtistsListParams(query: 'Miku'));
+
+      final expected = [
+        FollowedArtist(id: 1, artist: Artist(id: 2, name: 'Artist_A')),
+        FollowedArtist(id: 3, artist: Artist(id: 4, name: 'Artist_B'))
+      ];
+
+      expect(response, expected);
+
+      // Capture arguments
+      final captured = verify(() =>
+              client.get(captureAny(), params: captureAny(named: 'params')))
+          .captured;
+
+      expect(captured[0], '/api/users/$userID/followedArtists');
+
+      expect(captured[1], {
+        'query': 'Miku',
+        'start': 0,
+        'maxResults': 10,
+        'artistType': 'Unknown',
+        'sort': 'Name',
+        'fields': 'MainPicture',
+        'lang': 'Default',
       });
     });
   });
