@@ -21,10 +21,6 @@ UserAlbumsListParams _$UserAlbumsListParamsFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$UserAlbumsListParams {
   String? get query => throw _privateConstructorUsedError;
-  @JsonKey(name: 'tagId[]')
-  List<int>? get tagId => throw _privateConstructorUsedError;
-  @JsonKey(name: 'artistId[]')
-  List<int>? get artistId => throw _privateConstructorUsedError;
   int get start => throw _privateConstructorUsedError;
   int get maxResults => throw _privateConstructorUsedError;
   String get purchaseStatuses => throw _privateConstructorUsedError;
@@ -49,8 +45,6 @@ abstract class $UserAlbumsListParamsCopyWith<$Res> {
   @useResult
   $Res call(
       {String? query,
-      @JsonKey(name: 'tagId[]') List<int>? tagId,
-      @JsonKey(name: 'artistId[]') List<int>? artistId,
       int start,
       int maxResults,
       String purchaseStatuses,
@@ -77,8 +71,6 @@ class _$UserAlbumsListParamsCopyWithImpl<$Res,
   @override
   $Res call({
     Object? query = freezed,
-    Object? tagId = freezed,
-    Object? artistId = freezed,
     Object? start = null,
     Object? maxResults = null,
     Object? purchaseStatuses = null,
@@ -94,14 +86,6 @@ class _$UserAlbumsListParamsCopyWithImpl<$Res,
           ? _value.query
           : query // ignore: cast_nullable_to_non_nullable
               as String?,
-      tagId: freezed == tagId
-          ? _value.tagId
-          : tagId // ignore: cast_nullable_to_non_nullable
-              as List<int>?,
-      artistId: freezed == artistId
-          ? _value.artistId
-          : artistId // ignore: cast_nullable_to_non_nullable
-              as List<int>?,
       start: null == start
           ? _value.start
           : start // ignore: cast_nullable_to_non_nullable
@@ -152,8 +136,6 @@ abstract class _$$_UserAlbumsListParamsCopyWith<$Res>
   @useResult
   $Res call(
       {String? query,
-      @JsonKey(name: 'tagId[]') List<int>? tagId,
-      @JsonKey(name: 'artistId[]') List<int>? artistId,
       int start,
       int maxResults,
       String purchaseStatuses,
@@ -177,8 +159,6 @@ class __$$_UserAlbumsListParamsCopyWithImpl<$Res>
   @override
   $Res call({
     Object? query = freezed,
-    Object? tagId = freezed,
-    Object? artistId = freezed,
     Object? start = null,
     Object? maxResults = null,
     Object? purchaseStatuses = null,
@@ -194,14 +174,6 @@ class __$$_UserAlbumsListParamsCopyWithImpl<$Res>
           ? _value.query
           : query // ignore: cast_nullable_to_non_nullable
               as String?,
-      tagId: freezed == tagId
-          ? _value._tagId
-          : tagId // ignore: cast_nullable_to_non_nullable
-              as List<int>?,
-      artistId: freezed == artistId
-          ? _value._artistId
-          : artistId // ignore: cast_nullable_to_non_nullable
-              as List<int>?,
       start: null == start
           ? _value.start
           : start // ignore: cast_nullable_to_non_nullable
@@ -248,8 +220,6 @@ class __$$_UserAlbumsListParamsCopyWithImpl<$Res>
 class _$_UserAlbumsListParams implements _UserAlbumsListParams {
   const _$_UserAlbumsListParams(
       {this.query,
-      @JsonKey(name: 'tagId[]') final List<int>? tagId,
-      @JsonKey(name: 'artistId[]') final List<int>? artistId,
       this.start = 0,
       this.maxResults = 10,
       this.purchaseStatuses = 'All',
@@ -258,35 +228,13 @@ class _$_UserAlbumsListParams implements _UserAlbumsListParams {
       this.fields = 'MainPicture',
       this.lang = 'Default',
       this.nameMatchMode = 'Auto',
-      this.mediaType})
-      : _tagId = tagId,
-        _artistId = artistId;
+      this.mediaType});
 
   factory _$_UserAlbumsListParams.fromJson(Map<String, dynamic> json) =>
       _$$_UserAlbumsListParamsFromJson(json);
 
   @override
   final String? query;
-  final List<int>? _tagId;
-  @override
-  @JsonKey(name: 'tagId[]')
-  List<int>? get tagId {
-    final value = _tagId;
-    if (value == null) return null;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
-  }
-
-  final List<int>? _artistId;
-  @override
-  @JsonKey(name: 'artistId[]')
-  List<int>? get artistId {
-    final value = _artistId;
-    if (value == null) return null;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
-  }
-
   @override
   @JsonKey()
   final int start;
@@ -316,7 +264,7 @@ class _$_UserAlbumsListParams implements _UserAlbumsListParams {
 
   @override
   String toString() {
-    return 'UserAlbumsListParams(query: $query, tagId: $tagId, artistId: $artistId, start: $start, maxResults: $maxResults, purchaseStatuses: $purchaseStatuses, albumTypes: $albumTypes, sort: $sort, fields: $fields, lang: $lang, nameMatchMode: $nameMatchMode, mediaType: $mediaType)';
+    return 'UserAlbumsListParams(query: $query, start: $start, maxResults: $maxResults, purchaseStatuses: $purchaseStatuses, albumTypes: $albumTypes, sort: $sort, fields: $fields, lang: $lang, nameMatchMode: $nameMatchMode, mediaType: $mediaType)';
   }
 
   @override
@@ -325,8 +273,6 @@ class _$_UserAlbumsListParams implements _UserAlbumsListParams {
         (other.runtimeType == runtimeType &&
             other is _$_UserAlbumsListParams &&
             (identical(other.query, query) || other.query == query) &&
-            const DeepCollectionEquality().equals(other._tagId, _tagId) &&
-            const DeepCollectionEquality().equals(other._artistId, _artistId) &&
             (identical(other.start, start) || other.start == start) &&
             (identical(other.maxResults, maxResults) ||
                 other.maxResults == maxResults) &&
@@ -348,8 +294,6 @@ class _$_UserAlbumsListParams implements _UserAlbumsListParams {
   int get hashCode => Object.hash(
       runtimeType,
       query,
-      const DeepCollectionEquality().hash(_tagId),
-      const DeepCollectionEquality().hash(_artistId),
       start,
       maxResults,
       purchaseStatuses,
@@ -378,8 +322,6 @@ class _$_UserAlbumsListParams implements _UserAlbumsListParams {
 abstract class _UserAlbumsListParams implements UserAlbumsListParams {
   const factory _UserAlbumsListParams(
       {final String? query,
-      @JsonKey(name: 'tagId[]') final List<int>? tagId,
-      @JsonKey(name: 'artistId[]') final List<int>? artistId,
       final int start,
       final int maxResults,
       final String purchaseStatuses,
@@ -395,12 +337,6 @@ abstract class _UserAlbumsListParams implements UserAlbumsListParams {
 
   @override
   String? get query;
-  @override
-  @JsonKey(name: 'tagId[]')
-  List<int>? get tagId;
-  @override
-  @JsonKey(name: 'artistId[]')
-  List<int>? get artistId;
   @override
   int get start;
   @override

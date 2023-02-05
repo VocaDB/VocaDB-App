@@ -10,9 +10,6 @@ _$_UserAlbumsListParams _$$_UserAlbumsListParamsFromJson(
         Map<String, dynamic> json) =>
     _$_UserAlbumsListParams(
       query: json['query'] as String?,
-      tagId: (json['tagId[]'] as List<dynamic>?)?.map((e) => e as int).toList(),
-      artistId:
-          (json['artistId[]'] as List<dynamic>?)?.map((e) => e as int).toList(),
       start: json['start'] as int? ?? 0,
       maxResults: json['maxResults'] as int? ?? 10,
       purchaseStatuses: json['purchaseStatuses'] as String? ?? 'All',
@@ -35,8 +32,6 @@ Map<String, dynamic> _$$_UserAlbumsListParamsToJson(
   }
 
   writeNotNull('query', instance.query);
-  writeNotNull('tagId[]', instance.tagId);
-  writeNotNull('artistId[]', instance.artistId);
   val['start'] = instance.start;
   val['maxResults'] = instance.maxResults;
   val['purchaseStatuses'] = instance.purchaseStatuses;

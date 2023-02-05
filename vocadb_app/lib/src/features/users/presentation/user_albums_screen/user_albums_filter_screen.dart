@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vocadb_app/src/features/albums/presentation/widgets/dropdown_album_type.dart';
 import 'package:vocadb_app/src/features/albums/presentation/widgets/dropdown_purchase_status.dart';
-import 'package:vocadb_app/src/features/artists/presentation/artist_input/artist_input.dart';
-import 'package:vocadb_app/src/features/tags/presentation/tag_widgets/tag_input.dart';
 import 'package:vocadb_app/src/features/users/presentation/user_albums_screen/user_albums_list_params_state.dart';
 
 class UserAlbumsFilterScreen extends StatelessWidget {
@@ -27,15 +25,11 @@ class UserAlbumsFilterScreen extends StatelessWidget {
                     .updateAlbumTypes(value!),
               ),
               DropdownPurchaseStatus(
-                value: state.purchaseStatuses!,
+                value: state.purchaseStatuses,
                 onChanged: (value) => ref
                     .read(userAlbumsListParamsStateProvider.notifier)
                     .updatePurchaseStatuses(value!),
               ),
-              const Divider(),
-              const ArtistInput(),
-              const Divider(),
-              const TagInput(),
             ],
           );
         }),
