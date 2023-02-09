@@ -65,7 +65,7 @@ final ratedSongsListProvider =
   }
 
   return userRepository.fetchRatedSongsList(
-    int.parse(authRepository.currentUser!.id),
+    authRepository.currentUser!.id,
     ratedSongsListParams,
   );
 });

@@ -1,11 +1,16 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:vocadb_app/flavor_config.dart';
+import 'package:vocadb_app/src/features/authentication/data/auth_api_repository.dart';
+import 'package:vocadb_app/src/features/authentication/data/auth_fake_repository.dart';
 import 'package:vocadb_app/src/features/authentication/domain/app_user.dart';
 import 'package:vocadb_app/src/utils/in_memory_store.dart';
 
-class AuthRepository {
+abstract class AuthRepository {
+  AuthRepository();
+
   final _authState = InMemoryStore<AppUser?>(
     const AppUser(
-      id: '1065',
+      id: 1065,
       name: 'up2up',
     ),
   );
@@ -15,26 +20,17 @@ class AuthRepository {
 
   void dispose() => _authState.close();
 
-  Future<void> signIn(String username, String password) async {
-    await Future.delayed(const Duration(seconds: 2));
-    if (currentUser == null) {
-      _authState.value = const AppUser(
-        id: '1065',
-        name: 'up2up',
-      );
-    }
-  }
+  Future<void> signIn(String username, String password);
 
-  Future<void> signOut() async {
-    await Future.delayed(const Duration(seconds: 2));
-    _authState.value = null;
-  }
+  Future<void> signOut();
 }
 
-final authRepositoryProvider = Provider<AuthRepository>((ref) {
-  final auth = AuthRepository();
-  ref.onDispose(() => auth.dispose());
-  return auth;
+final authRepositoryProvider = Provider.autoDispose<AuthRepository>((ref) {
+  final config = ref.read(flavorConfigProvider);
+
+  return (config.useFakeData)
+      ? ref.watch(authFakeRepositoryProvider)
+      : ref.watch(authApiRepositoryProvider);
 });
 
 final authStateChangesProvider = StreamProvider.autoDispose<AppUser?>((ref) {

@@ -1,6 +1,7 @@
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:vocadb_app/src/app.dart';
 import 'package:vocadb_app/src/features/api/api_cache.dart';
+import 'package:vocadb_app/src/features/api/data/cookie_storage.dart';
 import 'package:vocadb_app/src/localization/string_hardcoded.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -19,11 +20,15 @@ void main() async {
 
   // * Storages/Cache
   final apiCacheBox = await Hive.openBox(ApiCache.key);
+  final cookieBox = await Hive.openBox(CookieStorage.boxKey);
 
   // * Entry point of the app
   runApp(
     ProviderScope(
-      overrides: [apiCacheBoxProvider.overrideWithValue(apiCacheBox)],
+      overrides: [
+        apiCacheBoxProvider.overrideWithValue(apiCacheBox),
+        cookieBoxProvider.overrideWithValue(cookieBox),
+      ],
       child: const MyApp(),
     ),
   );

@@ -9,11 +9,13 @@ import '../../../../mocks.dart';
 import '../../user_robot.dart';
 
 void main() {
-  testWidgets('''
+  testWidgets(
+      '''
     When open followed artists screen with logged in user
     And followed artists is not empty
     Then display list of followed artists 
-    ''', (tester) async {
+    ''',
+      (tester) async {
     final r = UserRobot(tester);
     final userRepository = MockUserRepository();
     final authRepository = MockAuthRepository();
@@ -24,7 +26,7 @@ void main() {
         )).thenAnswer((_) => Future.value(kFakeFollowedArtistsList));
 
     when(() => authRepository.currentUser)
-        .thenReturn(const AppUser(id: '1', name: 'up2up'));
+        .thenReturn(const AppUser(id: 1, name: 'up2up'));
 
     await r.pumpFollowedArtistsScreen(
         userRepository: userRepository, authRepository: authRepository);

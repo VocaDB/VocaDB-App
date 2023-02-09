@@ -10,11 +10,16 @@ void main() {
     final songRepository = MockSongRepository();
     final albumRepository = MockAlbumRepository();
     final releaseEventRepository = MockReleaseEventRepository();
+    final authRepository = MockAuthRepository();
+
+    when(() => authRepository.authStateChanges())
+        .thenAnswer((_) => Stream.value(null));
 
     await r.pumpMainScreen(
       songRepository: songRepository,
       albumRepository: albumRepository,
       releaseEventRepository: releaseEventRepository,
+      authRepository: authRepository,
     );
     await r.expectHomeScreenVisible(true);
     await r.expectRankingScreenVisible(false);

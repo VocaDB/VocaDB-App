@@ -4,6 +4,7 @@ import 'package:mocktail/mocktail.dart';
 import 'package:vocadb_app/src/features/albums/data/album_repository.dart';
 import 'package:vocadb_app/src/features/api/api_cache.dart';
 import 'package:vocadb_app/src/features/api/api_client.dart';
+import 'package:vocadb_app/src/features/api/data/cookie_storage.dart';
 import 'package:vocadb_app/src/features/artists/data/artist_repository.dart';
 import 'package:vocadb_app/src/features/artists/domain/artists_list_params.dart';
 import 'package:vocadb_app/src/features/authentication/data/auth_repository.dart';
@@ -48,3 +49,5 @@ class MockEntryRepository extends Mock implements EntryRepository {}
 class MockBox extends Mock implements Box {}
 
 class MockApiCache extends Mock implements ApiCache {}
+
+class MockCookieStorage extends Mock implements CookieStorage {}

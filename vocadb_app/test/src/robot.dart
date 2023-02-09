@@ -3,6 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:vocadb_app/src/app.dart';
 import 'package:vocadb_app/src/features/albums/data/album_repository.dart';
 import 'package:vocadb_app/src/features/artists/data/artist_repository.dart';
+import 'package:vocadb_app/src/features/authentication/data/auth_repository.dart';
 import 'package:vocadb_app/src/features/releaseEvents/data/release_event_repository.dart';
 import 'package:vocadb_app/src/features/songs/data/song_repository.dart';
 
@@ -16,6 +17,7 @@ class Robot {
     ArtistRepository? artistRepository,
     AlbumRepository? albumRepository,
     ReleaseEventRepository? releaseEventRepository,
+    AuthRepository? authRepository,
   }) async {
     await tester.pumpWidget(
       ProviderScope(
@@ -28,7 +30,9 @@ class Robot {
             albumRepositoryProvider.overrideWithValue(albumRepository),
           if (releaseEventRepository != null)
             releaseEventRepositoryProvider
-                .overrideWithValue(releaseEventRepository)
+                .overrideWithValue(releaseEventRepository),
+          if (authRepository != null)
+            authRepositoryProvider.overrideWithValue(authRepository),
         ],
         child: const MyApp(),
       ),

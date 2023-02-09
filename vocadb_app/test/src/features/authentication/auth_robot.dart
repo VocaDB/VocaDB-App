@@ -10,10 +10,14 @@ class AuthRobot {
 
   AuthRobot(this.tester);
 
-  Future<void> pumpSignInScreen() async {
+  Future<void> pumpSignInScreen({AuthRepository? authRepository}) async {
     await tester.pumpWidget(
-      const ProviderScope(
-        child: MaterialApp(
+      ProviderScope(
+        overrides: [
+          if (authRepository != null)
+            authRepositoryProvider.overrideWithValue(authRepository)
+        ],
+        child: const MaterialApp(
           home: SignInScreen(),
         ),
       ),

@@ -24,7 +24,7 @@ void main() {
         .thenAnswer((_) => Future.value(kFakeRatedSongsList));
 
     when(() => authRepository.currentUser)
-        .thenReturn(const AppUser(id: '1', name: 'up2up'));
+        .thenReturn(const AppUser(id: 1, name: 'up2up'));
 
     await r.pumpRatedSongsListScreen(
       songRepository: songRepository,

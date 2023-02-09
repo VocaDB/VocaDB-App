@@ -5,8 +5,6 @@ import 'package:vocadb_app/src/constants/app_sizes.dart';
 import 'package:vocadb_app/src/constants/config.dart';
 import 'package:vocadb_app/src/features/authentication/data/auth_repository.dart';
 
-// TODO : need implementation
-/// Simple user data table showing the uid and email
 class AccountInfo extends ConsumerWidget {
   const AccountInfo({super.key});
 
@@ -26,8 +24,8 @@ class AccountInfo extends ConsumerWidget {
           child: ClipOval(
             child: Container(
               color: Colors.white,
-              child: const CustomNetworkImage(
-                kPlaceholderImageUrl,
+              child: CustomNetworkImage(
+                user.mainPicture?.urlThumb ?? kPlaceholderImageUrl,
                 fit: BoxFit.contain,
               ),
             ),

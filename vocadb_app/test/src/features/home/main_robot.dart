@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:vocadb_app/src/features/albums/data/album_repository.dart';
+import 'package:vocadb_app/src/features/authentication/data/auth_repository.dart';
 import 'package:vocadb_app/src/features/home/presentation/home_screen/home_screen.dart';
 import 'package:vocadb_app/src/features/home/presentation/main_screen/main_screen.dart';
 import 'package:vocadb_app/src/features/home/presentation/menu_screen/menu_screen.dart';
@@ -19,6 +20,7 @@ class MainRobot {
     SongRepository? songRepository,
     AlbumRepository? albumRepository,
     ReleaseEventRepository? releaseEventRepository,
+    AuthRepository? authRepository,
   }) async {
     await tester.pumpWidget(
       ProviderScope(
@@ -29,7 +31,9 @@ class MainRobot {
             albumRepositoryProvider.overrideWithValue(albumRepository),
           if (releaseEventRepository != null)
             releaseEventRepositoryProvider
-                .overrideWithValue(releaseEventRepository)
+                .overrideWithValue(releaseEventRepository),
+          if (authRepository != null)
+            authRepositoryProvider.overrideWithValue(authRepository),
         ],
         child: const MaterialApp(
           home: MainScreen(),

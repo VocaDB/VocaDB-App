@@ -54,7 +54,7 @@ enum AppRoute {
   playlist,
 }
 
-final goRouterProvider = Provider<GoRouter>(
+final goRouterProvider = Provider.autoDispose<GoRouter>(
   (ref) {
     final authRepository = ref.watch(authRepositoryProvider);
 

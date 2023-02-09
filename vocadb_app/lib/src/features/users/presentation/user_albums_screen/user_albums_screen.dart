@@ -67,7 +67,7 @@ final userAlbumsListProvider =
   }
 
   return userRepository.fetchAlbums(
-    int.parse(authRepository.currentUser!.id),
+    authRepository.currentUser!.id,
     userAlbumsListParams,
   );
 });

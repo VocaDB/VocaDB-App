@@ -71,7 +71,7 @@ final followedArtistsListProvider =
   }
 
   return userRepository.fetchFollowedArtistsList(
-    int.parse(authRepository.currentUser!.id),
+    authRepository.currentUser!.id,
     followedArtistsListParams,
   );
 });

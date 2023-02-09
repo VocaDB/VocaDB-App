@@ -11,7 +11,7 @@ void main() {
     final r = AuthRobot(tester);
     final authRepository = MockAuthRepository();
     when(authRepository.authStateChanges)
-        .thenAnswer((_) => Stream.value(const AppUser(id: '1', name: 'user')));
+        .thenAnswer((_) => Stream.value(const AppUser(id: 1, name: 'user')));
     await r.pumpAccountScreen(authRepository: authRepository);
   });
 }
