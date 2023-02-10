@@ -37,6 +37,11 @@ class AuthFakeRepository implements AuthRepository {
     await Future.delayed(const Duration(seconds: 2));
     _authState.value = null;
   }
+
+  @override
+  Future<String> getRatedSongs(int id) async {
+    return 'Favorite';
+  }
 }
 
 final authFakeRepositoryProvider =

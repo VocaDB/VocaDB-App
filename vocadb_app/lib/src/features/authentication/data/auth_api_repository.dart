@@ -40,6 +40,13 @@ class AuthApiRepository implements AuthRepository {
     await apiClient.logout();
     _authState.value = null;
   }
+
+  @override
+  Future<String> getRatedSongs(int id) async {
+    return await apiClient.authGet(
+      '/api/users/current/ratedSongs/$id',
+    );
+  }
 }
 
 final authApiRepositoryProvider =

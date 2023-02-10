@@ -23,6 +23,8 @@ abstract class AuthRepository {
   Future<void> signIn(String username, String password);
 
   Future<void> signOut();
+
+  Future<String> getRatedSongs(int id);
 }
 
 final authRepositoryProvider = Provider.autoDispose<AuthRepository>((ref) {
@@ -36,4 +38,10 @@ final authRepositoryProvider = Provider.autoDispose<AuthRepository>((ref) {
 final authStateChangesProvider = StreamProvider.autoDispose<AppUser?>((ref) {
   final authRepository = ref.watch(authRepositoryProvider);
   return authRepository.authStateChanges();
+});
+
+final getRatedSongsProvider =
+    FutureProvider.autoDispose.family<String, int>((ref, id) async {
+  final authRepository = ref.watch(authRepositoryProvider);
+  return authRepository.getRatedSongs(id);
 });

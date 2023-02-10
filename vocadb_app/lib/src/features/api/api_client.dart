@@ -46,6 +46,7 @@ class ApiClient {
   Future<dynamic> authGet(
     String endpoint, {
     Map<String, String>? params,
+    bool json = true,
   }) async {
     final cookie = await cookieStorage.get();
 
@@ -65,7 +66,7 @@ class ApiClient {
       throw HttpException(response.reasonPhrase ?? 'ApiClient error', uri: uri);
     }
 
-    return jsonDecode(response.body);
+    return (json) ? jsonDecode(response.body) : response.body;
   }
 
   Future<dynamic> get(
