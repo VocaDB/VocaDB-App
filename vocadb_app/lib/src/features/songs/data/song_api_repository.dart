@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vocadb_app/src/features/api/api_client.dart';
 import 'package:vocadb_app/src/features/api/data/api_query_result.dart';
@@ -97,9 +99,9 @@ class SongApiRepository implements SongRepository {
   }
 
   @override
-  Future<void> rating(int id, String rating) {
-    // TODO: implement rating
-    throw UnimplementedError();
+  Future<void> rating(int id, String rating) async {
+    final body = jsonEncode({'rating': rating});
+    await client.post('/api/songs/$id/ratings', body: body);
   }
 
   @override

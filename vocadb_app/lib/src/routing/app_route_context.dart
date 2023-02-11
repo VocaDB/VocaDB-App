@@ -36,4 +36,8 @@ extension AppRouteContext on BuildContext {
   void goArtistsListFilterScreen() {
     return GoRouter.of(this).pushNamed(AppRoute.artistsListFilter.name);
   }
+
+  void goLogin() {
+    return GoRouter.of(this).pushNamed(AppRoute.signIn.name);
+  }
 }

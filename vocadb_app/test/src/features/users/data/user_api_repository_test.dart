@@ -53,8 +53,8 @@ void main() {
         "totalCount": 2
       };
 
-      clientCallGet() =>
-          client.get(any(), params: any(named: 'params', that: isMap));
+      clientCallGet() => client.get(any(),
+          params: any(named: 'params', that: isMap), cache: false);
 
       when(clientCallGet).thenAnswer((_) => Future.value(responseBody));
 
@@ -69,9 +69,8 @@ void main() {
       expect(response, expected);
 
       // Capture arguments
-      final captured = verify(() =>
-              client.get(captureAny(), params: captureAny(named: 'params')))
-          .captured;
+      final captured = verify(() => client.get(captureAny(),
+          params: captureAny(named: 'params'), cache: false)).captured;
 
       expect(captured[0], '/api/users/$userID/ratedSongs');
 
@@ -102,8 +101,8 @@ void main() {
         "totalCount": 2
       };
 
-      clientCallGet() =>
-          client.get(any(), params: any(named: 'params', that: isMap));
+      clientCallGet() => client.get(any(),
+          params: any(named: 'params', that: isMap), cache: false);
 
       when(clientCallGet).thenAnswer((_) => Future.value(responseBody));
 
@@ -118,9 +117,8 @@ void main() {
       expect(response, expected);
 
       // Capture arguments
-      final captured = verify(() =>
-              client.get(captureAny(), params: captureAny(named: 'params')))
-          .captured;
+      final captured = verify(() => client.get(captureAny(),
+          params: captureAny(named: 'params'), cache: false)).captured;
 
       expect(captured[0], '/api/users/$userID/followedArtists');
 
@@ -154,8 +152,8 @@ void main() {
         "totalCount": 2
       };
 
-      clientCallGet() =>
-          client.get(any(), params: any(named: 'params', that: isMap));
+      clientCallGet() => client.get(any(),
+          params: any(named: 'params', that: isMap), cache: false);
 
       when(clientCallGet).thenAnswer((_) => Future.value(responseBody));
 
@@ -186,9 +184,8 @@ void main() {
       expect(response, expected);
 
       // Capture arguments
-      final captured = verify(() =>
-              client.get(captureAny(), params: captureAny(named: 'params')))
-          .captured;
+      final captured = verify(() => client.get(captureAny(),
+          params: captureAny(named: 'params'), cache: false)).captured;
 
       expect(captured[0], '/api/users/$userID/albums');
 

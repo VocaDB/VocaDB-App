@@ -112,9 +112,15 @@ class ApiClient {
   Future<http.Response> post(
     String endpoint, {
     Object? body,
-    Map<String, String>? headers,
   }) async {
+    final cookie = await cookieStorage.get();
+
+    if (cookie.isEmpty) {
+      throw RequireLoginException();
+    }
+    final headers = {'Cookie': cookie, 'Content-Type': 'application/json'};
     final uri = Uri.https(host, endpoint);
+    print('[POST] ${uri.toString()}');
     final response = await client.post(uri, body: body, headers: headers);
 
     if (response.ok) {

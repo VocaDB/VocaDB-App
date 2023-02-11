@@ -33,10 +33,8 @@ class UserApiRepository implements UserRepository {
           params.artistId?.map((e) => e.toString()).toList();
     }
 
-    final response = await client.get(
-      '/api/users/$userID/ratedSongs',
-      params: mapParams,
-    );
+    final response = await client.get('/api/users/$userID/ratedSongs',
+        params: mapParams, cache: false);
 
     final queryResult = ApiQueryResult.fromMap(response);
 
@@ -46,10 +44,8 @@ class UserApiRepository implements UserRepository {
   @override
   Future<List<FollowedArtist>> fetchFollowedArtistsList(
       int userID, FollowedArtistsListParams params) async {
-    final response = await client.get(
-      '/api/users/$userID/followedArtists',
-      params: params.toJson(),
-    );
+    final response = await client.get('/api/users/$userID/followedArtists',
+        params: params.toJson(), cache: false);
 
     final queryResult = ApiQueryResult.fromMap(response);
 
@@ -59,10 +55,8 @@ class UserApiRepository implements UserRepository {
   @override
   Future<List<AlbumCollection>> fetchAlbums(
       int userID, UserAlbumsListParams params) async {
-    final response = await client.get(
-      '/api/users/$userID/albums',
-      params: params.toJson(),
-    );
+    final response = await client.get('/api/users/$userID/albums',
+        params: params.toJson(), cache: false);
 
     final queryResult = ApiQueryResult.fromMap(response);
 

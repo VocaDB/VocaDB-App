@@ -22,13 +22,18 @@ class SongRobot {
 
   SongRobot(this.tester);
 
-  Future<void> pumpSongDetailScreen(
-      {SongRepository? songRepository, required int songId}) async {
+  Future<void> pumpSongDetailScreen({
+    SongRepository? songRepository,
+    AuthRepository? authRepository,
+    required int songId,
+  }) async {
     await tester.pumpWidget(
       ProviderScope(
         overrides: [
           if (songRepository != null)
             songRepositoryProvider.overrideWithValue(songRepository),
+          if (authRepository != null)
+            authRepositoryProvider.overrideWithValue(authRepository),
         ],
         child: MaterialApp(
           home: SongDetailScreen(
@@ -41,13 +46,18 @@ class SongRobot {
     await tester.pump();
   }
 
-  Future<void> pumpSongDerivedListView(
-      {SongRepository? songRepository, required int songId}) async {
+  Future<void> pumpSongDerivedListView({
+    SongRepository? songRepository,
+    AuthRepository? authRepository,
+    required int songId,
+  }) async {
     await tester.pumpWidget(
       ProviderScope(
         overrides: [
           if (songRepository != null)
             songRepositoryProvider.overrideWithValue(songRepository),
+          if (authRepository != null)
+            authRepositoryProvider.overrideWithValue(authRepository),
         ],
         child: MaterialApp(
           home: Scaffold(
@@ -112,12 +122,16 @@ class SongRobot {
   }
 
   Future<void> pumpSongRelatedListView(
-      {SongRepository? songRepository, required int songId}) async {
+      {SongRepository? songRepository,
+      AuthRepository? authRepository,
+      required int songId}) async {
     await tester.pumpWidget(
       ProviderScope(
         overrides: [
           if (songRepository != null)
             songRepositoryProvider.overrideWithValue(songRepository),
+          if (authRepository != null)
+            authRepositoryProvider.overrideWithValue(authRepository),
         ],
         child: MaterialApp(
           home: Scaffold(

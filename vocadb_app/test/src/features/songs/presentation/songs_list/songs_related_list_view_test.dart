@@ -11,6 +11,7 @@ void main() {
   testWidgets('songs related list view ...', (tester) async {
     final r = SongRobot(tester);
     final songRepository = MockSongRepository();
+    final authRepository = MockAuthRepository();
 
     when(() => songRepository.fetchSongId(any()))
         .thenAnswer((_) => Future.value(const Song(id: 1501)));
@@ -26,6 +27,7 @@ void main() {
 
     await r.pumpSongRelatedListView(
       songRepository: songRepository,
+      authRepository: authRepository,
       songId: 1501,
     );
 

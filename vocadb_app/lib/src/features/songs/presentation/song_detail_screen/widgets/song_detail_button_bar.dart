@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vocadb_app/src/constants/app_sizes.dart';
-import 'package:vocadb_app/src/features/authentication/data/auth_repository.dart';
 import 'package:vocadb_app/src/features/songs/domain/song.dart';
+import 'package:vocadb_app/src/features/songs/presentation/song_detail_screen/widgets/song_detail_like_button.dart';
 
 class SongDetailButtonBar extends StatelessWidget {
   const SongDetailButtonBar(
@@ -21,31 +20,7 @@ class SongDetailButtonBar extends StatelessWidget {
     return ButtonBar(
       alignment: MainAxisAlignment.spaceEvenly,
       children: [
-        Consumer(builder: ((context, ref, child) {
-          final value = ref.watch(getRatedSongsProvider(song.id));
-
-          return value.when(
-            loading: () => Container(),
-            error: (e, st) => Container(),
-            data: (data) => TextButton(
-              key: likeBtnKey,
-              onPressed: () {
-                print(data);
-              },
-              style: ButtonStyle(
-                foregroundColor: MaterialStateProperty.all<Color>(
-                    (data == 'Nothing') ? Colors.white : Colors.pinkAccent),
-              ),
-              child: Column(
-                children: const [
-                  Icon(Icons.favorite),
-                  gapH4,
-                  Text('Like'),
-                ],
-              ),
-            ),
-          );
-        })),
+        SongDetailLikeButton(song: song),
         Visibility(
           visible: song.lyrics.isNotEmpty,
           child: TextButton(

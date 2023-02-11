@@ -21,7 +21,7 @@ class ApiCache {
 
   Future<void> clearAll() async {
     print('Clear all cache API');
-    await box.deleteFromDisk();
+    await box.clear();
   }
 }
 

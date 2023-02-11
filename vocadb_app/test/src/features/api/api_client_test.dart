@@ -143,29 +143,59 @@ void main() {
   group('ApiClient.post', () {
     test('success', () async {
       final expectedResponse = Response('success', 200);
-      callPost() => httpClient.post(any());
 
+      callGetCookie() => cookieStorage.get();
+      when(callGetCookie).thenAnswer((_) => Future.value('cookieValue'));
+
+      callPost() => httpClient.post(
+            Uri.https(host, '/api/something'),
+            body: 'bodystring',
+            headers: {
+              'Cookie': 'cookieValue',
+              'Content-Type': 'application/json'
+            },
+          );
       when(callPost).thenAnswer((_) => Future.value(expectedResponse));
 
-      final response = await apiClient.post('/api/something');
+      final response =
+          await apiClient.post('/api/something', body: 'bodystring');
 
       expect(response, expectedResponse);
 
+      verify(callGetCookie).called(1);
       verify(callPost).called(1);
     });
 
-    test('throws http exception when response status code is error', () async {
-      final response = Response('Error', 400);
-      callPost() => httpClient.post(any());
-
-      when(callPost).thenAnswer((_) => Future.value(response));
+    test('throws RequireLoginException when cookie is empty', () async {
+      callGetCookie() => cookieStorage.get();
+      when(callGetCookie).thenAnswer((_) => Future.value(''));
 
       expectLater(
-        apiClient.post('/api/something'),
+        apiClient.post('/api/something', body: 'bodystring'),
+        throwsA(predicate((e) => e is RequireLoginException)),
+      );
+    });
+
+    test('throws http exception when response status code is error', () async {
+      callGetCookie() => cookieStorage.get();
+      when(callGetCookie).thenAnswer((_) => Future.value('cookieValue'));
+
+      callPost() => httpClient.post(
+            Uri.https(host, '/api/something'),
+            body: 'bodystring',
+            headers: {
+              'Cookie': 'cookieValue',
+              'Content-Type': 'application/json'
+            },
+          );
+      when(callPost).thenAnswer((_) => Future.value(Response('Error', 400)));
+
+      expectLater(
+        apiClient.post('/api/something', body: 'bodystring'),
         throwsA(predicate((e) => e is HttpException)),
       );
 
-      verify(callPost).called(1);
+      verify(callGetCookie).called(1);
     });
   });
 

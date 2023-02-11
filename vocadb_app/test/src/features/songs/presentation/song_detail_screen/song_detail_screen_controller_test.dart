@@ -11,12 +11,15 @@ import '../../../../mocks.dart';
 void main() {
   group('song_detail_screen_controller', () {
     late MockSongRepository songRepository;
+    late MockAuthRepository authRepository;
     late SongDetailScreenController controller;
 
     setUp(() {
       songRepository = MockSongRepository();
+      authRepository = MockAuthRepository();
       controller = SongDetailScreenController(
         songRepository: songRepository,
+        authRepository: authRepository,
         song: const Song(id: 1, name: 'Melt'),
       );
     });
@@ -45,7 +48,9 @@ void main() {
         controller.stream,
         emitsInOrder([
           // fetchSongID loading
-          SongDetailState.loading(),
+          const SongDetailState(
+            song: AsyncValue.loading(),
+          ),
 
           // fetchSongID success
           const SongDetailState(
@@ -101,7 +106,9 @@ void main() {
         controller.stream,
         emitsInOrder([
           // fetchSongID loading
-          SongDetailState.loading(),
+          const SongDetailState(
+            song: AsyncValue.loading(),
+          ),
 
           // fetchSongID error
           predicate<SongDetailState>((state) {

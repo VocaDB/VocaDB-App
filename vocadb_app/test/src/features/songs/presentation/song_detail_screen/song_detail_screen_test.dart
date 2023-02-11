@@ -15,6 +15,7 @@ void main() {
     /// Setup
     final r = SongRobot(tester);
     final songRepository = MockSongRepository();
+    final authRepository = MockAuthRepository();
     final song = kFakeSongDetail;
 
     /// Mock
@@ -43,6 +44,7 @@ void main() {
     /// Pump screen
     await r.pumpSongDetailScreen(
       songRepository: songRepository,
+      authRepository: authRepository,
       songId: song.id,
     );
 
@@ -78,6 +80,7 @@ void main() {
     /// Setup
     final r = SongRobot(tester);
     final songRepository = MockSongRepository();
+    final authRepository = MockAuthRepository();
     const songId = 1;
 
     /// Mock
@@ -97,7 +100,10 @@ void main() {
 
     /// Pump screen
     await r.pumpSongDetailScreen(
-        songRepository: songRepository, songId: songId);
+      songRepository: songRepository,
+      authRepository: authRepository,
+      songId: songId,
+    );
 
     // Verify
     verify(callFetchSongId).called(1);
@@ -126,6 +132,7 @@ void main() {
       (tester) async {
     final r = SongRobot(tester);
     final songRepository = MockSongRepository();
+    final authRepository = MockAuthRepository();
     const songId = 1;
 
     // Mock
@@ -137,7 +144,10 @@ void main() {
     );
 
     await r.pumpSongDetailScreen(
-        songRepository: songRepository, songId: songId);
+      songRepository: songRepository,
+      authRepository: authRepository,
+      songId: songId,
+    );
 
     verify(callFetchSongId).called(1);
   });
@@ -146,6 +156,7 @@ void main() {
     /// Setup
     final r = SongRobot(tester);
     final songRepository = MockSongRepository();
+    final authRepository = MockAuthRepository();
     final song = kFakeSongDetail;
     final songId = song.id;
 
@@ -166,6 +177,7 @@ void main() {
     /// Pump screen
     await r.pumpSongDetailScreen(
       songRepository: songRepository,
+      authRepository: authRepository,
       songId: song.id,
     );
 

@@ -22,6 +22,9 @@ void main() async {
   final apiCacheBox = await Hive.openBox(ApiCache.key);
   final cookieBox = await Hive.openBox(CookieStorage.boxKey);
 
+  // Clear old cached
+  await apiCacheBox.clear();
+
   // * Entry point of the app
   runApp(
     ProviderScope(
