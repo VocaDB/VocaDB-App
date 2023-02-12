@@ -1,7 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:http/http.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:vocadb_app/src/features/albums/data/album_api_repository.dart';
 import 'package:vocadb_app/src/features/albums/domain/album.dart';
+import 'package:vocadb_app/src/features/albums/domain/album_rate.dart';
 import 'package:vocadb_app/src/features/api/api_client.dart';
 
 import '../../../mocks.dart';
@@ -113,6 +115,19 @@ void main() {
         Album(id: 1, name: 'Album_A'),
         Album(id: 2, name: 'Album_B'),
       ]);
+    });
+
+    test('rate album', () async {
+      when(() => client.post('/api/current/albums/1', queryParams: {
+            'mediaType': 'Ordered',
+            'collectionStatus': 'Nothing',
+            'rating': 5,
+          })).thenAnswer((_) => Future.value(Response('OK', 200)));
+
+      await albumApiRepository.rateAlbum(
+        1,
+        const AlbumRate(mediaType: 'Ordered', rating: 5),
+      );
     });
   });
 }

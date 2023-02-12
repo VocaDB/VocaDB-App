@@ -3,6 +3,7 @@ import 'package:vocadb_app/src/features/albums/data/album_repository.dart';
 import 'package:vocadb_app/src/features/albums/data/constants/fake_album_detail.dart';
 import 'package:vocadb_app/src/features/albums/data/constants/fake_albums_list.dart';
 import 'package:vocadb_app/src/features/albums/domain/album.dart';
+import 'package:vocadb_app/src/features/albums/domain/album_rate.dart';
 import 'package:vocadb_app/src/features/albums/domain/albums_list_params.dart';
 
 class AlbumFakeRepository implements AlbumRepository {
@@ -32,6 +33,11 @@ class AlbumFakeRepository implements AlbumRepository {
   Future<List<Album>> fetchTopAlbumsByTagID(int tagID,
       {String lang = 'Default'}) {
     return Future.value(kFakeAlbumsList);
+  }
+
+  @override
+  Future<void> rateAlbum(int albumId, AlbumRate rateValue) {
+    return Future.value();
   }
 }
 

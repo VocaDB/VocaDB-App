@@ -8,6 +8,7 @@ import 'package:vocadb_app/src/exceptions/require_login_exception.dart';
 import 'package:vocadb_app/src/features/api/api_cache.dart';
 import 'package:vocadb_app/src/features/api/data/cookie_storage.dart';
 import 'package:vocadb_app/src/features/api/utils/cookie_reader.dart';
+import 'package:vocadb_app/src/features/api/utils/map_dynamic_extended.dart';
 
 class ApiClient {
   ApiClient({
@@ -111,6 +112,7 @@ class ApiClient {
 
   Future<http.Response> post(
     String endpoint, {
+    Map<String, dynamic>? queryParams,
     Object? body,
   }) async {
     final cookie = await cookieStorage.get();
@@ -119,7 +121,7 @@ class ApiClient {
       throw RequireLoginException();
     }
     final headers = {'Cookie': cookie, 'Content-Type': 'application/json'};
-    final uri = Uri.https(host, endpoint);
+    final uri = Uri.https(host, endpoint, queryParams?.mapAllValuesToString);
     print('[POST] ${uri.toString()}');
     final response = await client.post(uri, body: body, headers: headers);
 

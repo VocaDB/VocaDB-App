@@ -6,12 +6,7 @@ import 'package:vocadb_app/src/utils/in_memory_store.dart';
 class AuthFakeRepository implements AuthRepository {
   AuthFakeRepository();
 
-  final _authState = InMemoryStore<AppUser?>(
-    const AppUser(
-      id: 1065,
-      name: 'up2up',
-    ),
-  );
+  final _authState = InMemoryStore<AppUser?>(null);
 
   @override
   Stream<AppUser?> authStateChanges() => _authState.stream;
@@ -41,6 +36,16 @@ class AuthFakeRepository implements AuthRepository {
   @override
   Future<String> getRatedSongs(int id) async {
     return 'Favorite';
+  }
+
+  @override
+  Future<void> loadUserIfExists() async {
+    await Future.delayed(const Duration(seconds: 2));
+  }
+
+  @override
+  Future<AppUser> getCurrentUser() async {
+    return const AppUser(id: 1065, name: 'up2up');
   }
 }
 

@@ -166,6 +166,31 @@ void main() {
       verify(callPost).called(1);
     });
 
+    test('success with query params', () async {
+      final expectedResponse = Response('success', 200);
+
+      callGetCookie() => cookieStorage.get();
+      when(callGetCookie).thenAnswer((_) => Future.value('cookieValue'));
+
+      callPost() => httpClient.post(
+            Uri.https(host, '/api/something', {'name': 'value', 'num': '5'}),
+            body: 'bodystring',
+            headers: {
+              'Cookie': 'cookieValue',
+              'Content-Type': 'application/json'
+            },
+          );
+      when(callPost).thenAnswer((_) => Future.value(expectedResponse));
+
+      final response = await apiClient.post('/api/something',
+          body: 'bodystring', queryParams: {'name': 'value', 'num': 5});
+
+      expect(response, expectedResponse);
+
+      verify(callGetCookie).called(1);
+      verify(callPost).called(1);
+    });
+
     test('throws RequireLoginException when cookie is empty', () async {
       callGetCookie() => cookieStorage.get();
       when(callGetCookie).thenAnswer((_) => Future.value(''));

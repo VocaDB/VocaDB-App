@@ -25,14 +25,21 @@ abstract class AuthRepository {
   Future<void> signOut();
 
   Future<String> getRatedSongs(int id);
+
+  Future<AppUser> getCurrentUser();
+
+  Future<void> loadUserIfExists();
 }
 
 final authRepositoryProvider = Provider.autoDispose<AuthRepository>((ref) {
   final config = ref.read(flavorConfigProvider);
-
-  return (config.useFakeData)
+  final authRepository = (config.useFakeData)
       ? ref.watch(authFakeRepositoryProvider)
       : ref.watch(authApiRepositoryProvider);
+
+  authRepository.loadUserIfExists();
+
+  return authRepository;
 });
 
 final authStateChangesProvider = StreamProvider.autoDispose<AppUser?>((ref) {

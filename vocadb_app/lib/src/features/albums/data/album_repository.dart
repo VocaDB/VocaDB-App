@@ -3,6 +3,7 @@ import 'package:vocadb_app/flavor_config.dart';
 import 'package:vocadb_app/src/features/albums/data/album_api_repository.dart';
 import 'package:vocadb_app/src/features/albums/data/album_fake_repository.dart';
 import 'package:vocadb_app/src/features/albums/domain/album.dart';
+import 'package:vocadb_app/src/features/albums/domain/album_rate.dart';
 import 'package:vocadb_app/src/features/albums/domain/albums_list_params.dart';
 import 'package:vocadb_app/src/features/settings/data/user_settings_repository.dart';
 
@@ -21,6 +22,8 @@ abstract class AlbumRepository {
 
   Future<List<Album>> fetchTopAlbumsByTagID(int tagID,
       {String lang = 'Default'});
+
+  Future<void> rateAlbum(int albumId, AlbumRate rateValue);
 }
 
 /// Album Repository Provider

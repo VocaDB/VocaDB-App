@@ -26,12 +26,7 @@ class AuthApiRepository implements AuthRepository {
   @override
   Future<void> signIn(String username, String password) async {
     await apiClient.login(username, password);
-    final response = await apiClient.authGet(
-      '/api/users/current',
-      params: {'fields': 'MainPicture'},
-    );
-
-    final appUser = AppUser.fromJson(response);
+    final appUser = await getCurrentUser();
     _authState.value = appUser;
   }
 
@@ -46,6 +41,27 @@ class AuthApiRepository implements AuthRepository {
     return await apiClient.authGet(
       '/api/users/current/ratedSongs/$id',
     );
+  }
+
+  @override
+  Future<void> loadUserIfExists() async {
+    try {
+      print('Check current user if exists...');
+      final value = await getCurrentUser();
+      _authState.value = value;
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  @override
+  Future<AppUser> getCurrentUser() async {
+    final response = await apiClient.authGet(
+      '/api/users/current',
+      params: {'fields': 'MainPicture'},
+    );
+
+    return AppUser.fromJson(response);
   }
 }
 

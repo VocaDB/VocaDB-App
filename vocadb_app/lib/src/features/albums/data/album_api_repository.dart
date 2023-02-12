@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vocadb_app/src/features/albums/data/album_repository.dart';
 import 'package:vocadb_app/src/features/albums/domain/album.dart';
+import 'package:vocadb_app/src/features/albums/domain/album_rate.dart';
 import 'package:vocadb_app/src/features/albums/domain/albums_list_params.dart';
 import 'package:vocadb_app/src/features/api/api_client.dart';
 import 'package:vocadb_app/src/features/api/data/api_query_result.dart';
@@ -66,6 +67,12 @@ class AlbumApiRepository implements AlbumRepository {
         lang: lang,
       ),
     );
+  }
+
+  @override
+  Future<void> rateAlbum(int albumId, AlbumRate rateValue) async {
+    final queryParams = rateValue.toJson();
+    await client.post('/api/current/albums/$albumId', queryParams: queryParams);
   }
 }
 
