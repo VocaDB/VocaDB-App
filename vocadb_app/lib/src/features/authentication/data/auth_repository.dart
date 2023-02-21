@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vocadb_app/flavor_config.dart';
+import 'package:vocadb_app/src/features/albums/domain/album_collection.dart';
 import 'package:vocadb_app/src/features/authentication/data/auth_api_repository.dart';
 import 'package:vocadb_app/src/features/authentication/data/auth_fake_repository.dart';
 import 'package:vocadb_app/src/features/authentication/domain/app_user.dart';
@@ -25,6 +26,8 @@ abstract class AuthRepository {
   Future<void> signOut();
 
   Future<String> getRatedSongs(int id);
+
+  Future<AlbumCollection> getAlbumCollection(int id);
 
   Future<AppUser> getCurrentUser();
 

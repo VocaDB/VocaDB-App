@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:vocadb_app/src/features/albums/domain/album.dart';
+import 'package:vocadb_app/src/features/albums/domain/album_collection.dart';
 import 'package:vocadb_app/src/features/api/api_client.dart';
 import 'package:vocadb_app/src/features/authentication/data/auth_api_repository.dart';
 import 'package:vocadb_app/src/features/authentication/domain/app_user.dart';
@@ -87,6 +89,33 @@ void main() {
       await authRepository.signOut();
 
       verify(callLogout).called(1);
+    });
+  });
+
+  group('authApiRepository.getAlbumCollectionStatus', () {
+    test('success', () async {
+      const albumId = 1;
+
+      when(() => apiClient
+              .authGet('/api/users/current/album-collection-statuses/1'))
+          .thenAnswer((_) => Future.value({
+                'rating': 5,
+                'purchaseStatus': 'Wishlisted',
+                'mediaType': 'Other',
+                'album': {'id': 1, 'name': 'Album_A'}
+              }));
+
+      final result = await authRepository.getAlbumCollection(albumId);
+
+      expect(
+        result,
+        AlbumCollection(
+          mediaType: 'Other',
+          purchaseStatus: 'Wishlisted',
+          rating: 5,
+          album: Album(id: 1, name: 'Album_A'),
+        ),
+      );
     });
   });
 }

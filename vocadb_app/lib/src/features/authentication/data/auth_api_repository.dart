@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:vocadb_app/src/features/albums/domain/album_collection.dart';
 import 'package:vocadb_app/src/features/api/api_client.dart';
 import 'package:vocadb_app/src/features/authentication/data/auth_repository.dart';
 import 'package:vocadb_app/src/features/authentication/domain/app_user.dart';
@@ -62,6 +63,14 @@ class AuthApiRepository implements AuthRepository {
     );
 
     return AppUser.fromJson(response);
+  }
+
+  @override
+  Future<AlbumCollection> getAlbumCollection(int id) async {
+    final response = await apiClient
+        .authGet('/api/users/current/album-collection-statuses/$id');
+
+    return AlbumCollection.fromJson(response);
   }
 }
 

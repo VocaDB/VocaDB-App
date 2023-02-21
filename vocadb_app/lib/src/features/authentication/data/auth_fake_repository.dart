@@ -1,4 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:vocadb_app/src/features/albums/data/constants/fake_album_collections.dart';
+import 'package:vocadb_app/src/features/albums/domain/album_collection.dart';
 import 'package:vocadb_app/src/features/authentication/data/auth_repository.dart';
 import 'package:vocadb_app/src/features/authentication/domain/app_user.dart';
 import 'package:vocadb_app/src/utils/in_memory_store.dart';
@@ -46,6 +48,11 @@ class AuthFakeRepository implements AuthRepository {
   @override
   Future<AppUser> getCurrentUser() async {
     return const AppUser(id: 1065, name: 'up2up');
+  }
+
+  @override
+  Future<AlbumCollection> getAlbumCollection(int id) async {
+    return kFakeAlbumCollections.first;
   }
 }
 
