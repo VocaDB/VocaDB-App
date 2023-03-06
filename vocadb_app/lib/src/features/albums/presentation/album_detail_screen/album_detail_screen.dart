@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vocadb_app/src/common_widgets/async_value_widget.dart';
 import 'package:vocadb_app/src/constants/app_sizes.dart';
-import 'package:vocadb_app/src/features/albums/data/album_repository.dart';
 import 'package:vocadb_app/src/features/albums/domain/album.dart';
+import 'package:vocadb_app/src/features/albums/presentation/album_detail_screen/album_detail_controller.dart';
 import 'package:vocadb_app/src/features/albums/presentation/album_detail_screen/widgets/widgets.dart';
 
 class AlbumDetailScreen extends ConsumerWidget {
@@ -13,11 +13,12 @@ class AlbumDetailScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final value = ref.watch(albumDetailProvider(album.id));
+    final controller = ref.watch(albumDetailControllerProvider(album.id));
+    // final value = ref.watch(albumDetailProvider(album.id));
 
     return Scaffold(
       body: AsyncValueWidget(
-          value: value,
+          value: controller.album,
           data: (album) {
             return CustomScrollView(
               slivers: [

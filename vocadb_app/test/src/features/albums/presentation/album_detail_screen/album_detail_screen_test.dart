@@ -8,14 +8,24 @@ import '../../../../mocks.dart';
 import '../../album_robot.dart';
 
 void main() {
+  late MockAlbumRepository albumRepository;
+  late MockAuthRepository authRepository;
+
+  setUp(() {
+    albumRepository = MockAlbumRepository();
+    authRepository = MockAuthRepository();
+  });
+
   testWidgets('album detail screen initial success', (tester) async {
     final r = AlbumRobot(tester);
-    final albumRepository = MockAlbumRepository();
 
     when(() => albumRepository.fetchAlbumID(any()))
         .thenAnswer((invocation) => Future.value(kFakeAlbumDetailSingleDisc));
 
-    await r.pumpAlbumDetailScreen(albumRepository: albumRepository);
+    await r.pumpAlbumDetailScreen(
+      albumRepository: albumRepository,
+      authRepository: authRepository,
+    );
 
     await r.expectErrorMessageWidgetNotVisible();
 
@@ -52,12 +62,14 @@ void main() {
   testWidgets('album detail screen with album detail all fields are default',
       (tester) async {
     final r = AlbumRobot(tester);
-    final albumRepository = MockAlbumRepository();
 
     when(() => albumRepository.fetchAlbumID(any()))
         .thenAnswer((invocation) => Future.value(Album(id: 1)));
 
-    await r.pumpAlbumDetailScreen(albumRepository: albumRepository);
+    await r.pumpAlbumDetailScreen(
+      albumRepository: albumRepository,
+      authRepository: authRepository,
+    );
 
     await r.expectErrorMessageWidgetNotVisible();
 
@@ -88,13 +100,15 @@ void main() {
   testWidgets('album detail screen with fetch album detail failure',
       (tester) async {
     final r = AlbumRobot(tester);
-    final albumRepository = MockAlbumRepository();
 
     when(() => albumRepository.fetchAlbumID(any())).thenThrow(
       Exception('Connection error'),
     );
 
-    await r.pumpAlbumDetailScreen(albumRepository: albumRepository);
+    await r.pumpAlbumDetailScreen(
+      albumRepository: albumRepository,
+      authRepository: authRepository,
+    );
 
     verify(() => albumRepository.fetchAlbumID(any()));
   });

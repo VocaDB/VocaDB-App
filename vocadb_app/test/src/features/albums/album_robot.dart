@@ -8,6 +8,7 @@ import 'package:vocadb_app/src/features/albums/presentation/album_detail_screen/
 import 'package:vocadb_app/src/features/albums/presentation/album_detail_screen/widgets/widgets.dart';
 import 'package:vocadb_app/src/features/albums/presentation/tracks_list/tracks_list_view.dart';
 import 'package:vocadb_app/src/features/artists/presentation/artists_list/artist_roles_horizontal_list_view.dart';
+import 'package:vocadb_app/src/features/authentication/data/auth_repository.dart';
 import 'package:vocadb_app/src/features/pvs/presentation/pv_list/pv_group_list.dart';
 import 'package:vocadb_app/src/features/tags/presentation/tag_widgets/tag_usage_group_view.dart';
 import 'package:vocadb_app/src/features/weblinks/presentation/web_link_group_view.dart';
@@ -17,12 +18,17 @@ class AlbumRobot {
 
   AlbumRobot(this.tester);
 
-  Future<void> pumpAlbumDetailScreen({AlbumRepository? albumRepository}) async {
+  Future<void> pumpAlbumDetailScreen({
+    AlbumRepository? albumRepository,
+    AuthRepository? authRepository,
+  }) async {
     await tester.pumpWidget(
       ProviderScope(
         overrides: [
           if (albumRepository != null)
             albumRepositoryProvider.overrideWithValue(albumRepository),
+          if (authRepository != null)
+            authRepositoryProvider.overrideWithValue(authRepository),
         ],
         child: MaterialApp(
           home: AlbumDetailScreen(
