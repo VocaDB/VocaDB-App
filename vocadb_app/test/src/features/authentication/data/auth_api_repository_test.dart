@@ -93,7 +93,7 @@ void main() {
   });
 
   group('authApiRepository.getAlbumCollectionStatus', () {
-    test('success', () async {
+    test('success with collected album', () async {
       const albumId = 1;
 
       when(() => apiClient
@@ -114,6 +114,23 @@ void main() {
           purchaseStatus: 'Wishlisted',
           rating: 5,
           album: Album(id: 1, name: 'Album_A'),
+        ),
+      );
+    });
+
+    test('success with uncollected album', () async {
+      const albumId = 1;
+
+      when(() => apiClient
+              .authGet('/api/users/current/album-collection-statuses/1'))
+          .thenAnswer((_) => Future.value({'rating': 0}));
+
+      final result = await authRepository.getAlbumCollection(albumId);
+
+      expect(
+        result,
+        const AlbumCollection(
+          rating: 0,
         ),
       );
     });
