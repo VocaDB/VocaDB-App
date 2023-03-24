@@ -6,11 +6,12 @@ part 'album_collection.g.dart';
 
 @freezed
 class AlbumCollection with _$AlbumCollection {
-  const factory AlbumCollection(
-      {required String mediaType,
-      required String purchaseStatus,
-      required int rating,
-      required Album album}) = _AlbumCollection;
+  const factory AlbumCollection({
+    String? mediaType,
+    String? purchaseStatus,
+    required int rating,
+    Album? album,
+  }) = _AlbumCollection;
 
   factory AlbumCollection.fromJson(Map<String, dynamic> json) =>
       _$AlbumCollectionFromJson(json);

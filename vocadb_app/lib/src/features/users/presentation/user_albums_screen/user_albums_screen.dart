@@ -48,7 +48,7 @@ class UserAlbumsScreen extends ConsumerWidget {
             }
 
             return AlbumListView(
-              albums: data.map((e) => e.album).toList(),
+              albums: data.map((e) => e.album!).toList(),
               onSelect: context.goAlbumDetail,
             );
           }),

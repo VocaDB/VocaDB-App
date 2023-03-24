@@ -20,10 +20,10 @@ AlbumCollection _$AlbumCollectionFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$AlbumCollection {
-  String get mediaType => throw _privateConstructorUsedError;
-  String get purchaseStatus => throw _privateConstructorUsedError;
+  String? get mediaType => throw _privateConstructorUsedError;
+  String? get purchaseStatus => throw _privateConstructorUsedError;
   int get rating => throw _privateConstructorUsedError;
-  Album get album => throw _privateConstructorUsedError;
+  Album? get album => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -37,9 +37,10 @@ abstract class $AlbumCollectionCopyWith<$Res> {
           AlbumCollection value, $Res Function(AlbumCollection) then) =
       _$AlbumCollectionCopyWithImpl<$Res, AlbumCollection>;
   @useResult
-  $Res call({String mediaType, String purchaseStatus, int rating, Album album});
+  $Res call(
+      {String? mediaType, String? purchaseStatus, int rating, Album? album});
 
-  $AlbumCopyWith<$Res> get album;
+  $AlbumCopyWith<$Res>? get album;
 }
 
 /// @nodoc
@@ -55,35 +56,39 @@ class _$AlbumCollectionCopyWithImpl<$Res, $Val extends AlbumCollection>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? mediaType = null,
-    Object? purchaseStatus = null,
+    Object? mediaType = freezed,
+    Object? purchaseStatus = freezed,
     Object? rating = null,
-    Object? album = null,
+    Object? album = freezed,
   }) {
     return _then(_value.copyWith(
-      mediaType: null == mediaType
+      mediaType: freezed == mediaType
           ? _value.mediaType
           : mediaType // ignore: cast_nullable_to_non_nullable
-              as String,
-      purchaseStatus: null == purchaseStatus
+              as String?,
+      purchaseStatus: freezed == purchaseStatus
           ? _value.purchaseStatus
           : purchaseStatus // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       rating: null == rating
           ? _value.rating
           : rating // ignore: cast_nullable_to_non_nullable
               as int,
-      album: null == album
+      album: freezed == album
           ? _value.album
           : album // ignore: cast_nullable_to_non_nullable
-              as Album,
+              as Album?,
     ) as $Val);
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $AlbumCopyWith<$Res> get album {
-    return $AlbumCopyWith<$Res>(_value.album, (value) {
+  $AlbumCopyWith<$Res>? get album {
+    if (_value.album == null) {
+      return null;
+    }
+
+    return $AlbumCopyWith<$Res>(_value.album!, (value) {
       return _then(_value.copyWith(album: value) as $Val);
     });
   }
@@ -97,10 +102,11 @@ abstract class _$$_AlbumCollectionCopyWith<$Res>
       __$$_AlbumCollectionCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String mediaType, String purchaseStatus, int rating, Album album});
+  $Res call(
+      {String? mediaType, String? purchaseStatus, int rating, Album? album});
 
   @override
-  $AlbumCopyWith<$Res> get album;
+  $AlbumCopyWith<$Res>? get album;
 }
 
 /// @nodoc
@@ -114,28 +120,28 @@ class __$$_AlbumCollectionCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? mediaType = null,
-    Object? purchaseStatus = null,
+    Object? mediaType = freezed,
+    Object? purchaseStatus = freezed,
     Object? rating = null,
-    Object? album = null,
+    Object? album = freezed,
   }) {
     return _then(_$_AlbumCollection(
-      mediaType: null == mediaType
+      mediaType: freezed == mediaType
           ? _value.mediaType
           : mediaType // ignore: cast_nullable_to_non_nullable
-              as String,
-      purchaseStatus: null == purchaseStatus
+              as String?,
+      purchaseStatus: freezed == purchaseStatus
           ? _value.purchaseStatus
           : purchaseStatus // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       rating: null == rating
           ? _value.rating
           : rating // ignore: cast_nullable_to_non_nullable
               as int,
-      album: null == album
+      album: freezed == album
           ? _value.album
           : album // ignore: cast_nullable_to_non_nullable
-              as Album,
+              as Album?,
     ));
   }
 }
@@ -144,22 +150,19 @@ class __$$_AlbumCollectionCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_AlbumCollection implements _AlbumCollection {
   const _$_AlbumCollection(
-      {required this.mediaType,
-      required this.purchaseStatus,
-      required this.rating,
-      required this.album});
+      {this.mediaType, this.purchaseStatus, required this.rating, this.album});
 
   factory _$_AlbumCollection.fromJson(Map<String, dynamic> json) =>
       _$$_AlbumCollectionFromJson(json);
 
   @override
-  final String mediaType;
+  final String? mediaType;
   @override
-  final String purchaseStatus;
+  final String? purchaseStatus;
   @override
   final int rating;
   @override
-  final Album album;
+  final Album? album;
 
   @override
   String toString() {
@@ -200,22 +203,22 @@ class _$_AlbumCollection implements _AlbumCollection {
 
 abstract class _AlbumCollection implements AlbumCollection {
   const factory _AlbumCollection(
-      {required final String mediaType,
-      required final String purchaseStatus,
+      {final String? mediaType,
+      final String? purchaseStatus,
       required final int rating,
-      required final Album album}) = _$_AlbumCollection;
+      final Album? album}) = _$_AlbumCollection;
 
   factory _AlbumCollection.fromJson(Map<String, dynamic> json) =
       _$_AlbumCollection.fromJson;
 
   @override
-  String get mediaType;
+  String? get mediaType;
   @override
-  String get purchaseStatus;
+  String? get purchaseStatus;
   @override
   int get rating;
   @override
-  Album get album;
+  Album? get album;
   @override
   @JsonKey(ignore: true)
   _$$_AlbumCollectionCopyWith<_$_AlbumCollection> get copyWith =>
