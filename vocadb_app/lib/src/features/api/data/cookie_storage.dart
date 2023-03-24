@@ -20,7 +20,7 @@ class CookieStorage {
   }
 
   Future<void> clearAll() async {
-    await box.deleteFromDisk();
+    await box.clear();
   }
 }
 
