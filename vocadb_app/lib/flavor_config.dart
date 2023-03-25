@@ -8,7 +8,7 @@ class FlavorConfig {
   FlavorConfig({
     this.appTitle = "VocaDB",
     this.apiAuthority = "vocadb.net",
-    this.useFakeData = true,
+    this.useFakeData = false,
   });
 }
 

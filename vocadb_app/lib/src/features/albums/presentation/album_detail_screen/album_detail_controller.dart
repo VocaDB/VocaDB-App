@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vocadb_app/src/features/albums/data/album_repository.dart';
 import 'package:vocadb_app/src/features/albums/domain/album.dart';
 import 'package:vocadb_app/src/features/albums/domain/album_collection.dart';
+import 'package:vocadb_app/src/features/albums/domain/album_rate.dart';
 import 'package:vocadb_app/src/features/albums/presentation/album_detail_screen/album_detail_state.dart';
 import 'package:vocadb_app/src/features/authentication/data/auth_repository.dart';
 
@@ -58,6 +59,19 @@ class AlbumDetailController extends StateNotifier<AlbumDetailState> {
   Future<void> updateMediaType(String mediaType) async {
     final newStatus = state.albumCollection?.copyWith(mediaType: mediaType);
     state = state.copyWith(albumCollection: newStatus);
+  }
+
+  Future<void> submitUpdateStatus() async {
+    if (state.albumCollection == null) {
+      return;
+    }
+
+    final currentStatus = state.albumCollection!;
+    final albumRate = AlbumRate(
+        rating: currentStatus.rating,
+        collectionStatus: currentStatus.purchaseStatus!,
+        mediaType: currentStatus.mediaType!);
+    await albumRepository.rateAlbum(album.id, albumRate);
   }
 }
 

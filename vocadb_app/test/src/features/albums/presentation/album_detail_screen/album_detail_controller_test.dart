@@ -4,6 +4,7 @@ import 'package:mocktail/mocktail.dart';
 import 'package:vocadb_app/src/features/albums/data/album_repository.dart';
 import 'package:vocadb_app/src/features/albums/domain/album.dart';
 import 'package:vocadb_app/src/features/albums/domain/album_collection.dart';
+import 'package:vocadb_app/src/features/albums/domain/album_rate.dart';
 import 'package:vocadb_app/src/features/albums/presentation/album_detail_screen/album_detail_controller.dart';
 import 'package:vocadb_app/src/features/albums/presentation/album_detail_screen/album_detail_state.dart';
 import 'package:vocadb_app/src/features/authentication/data/auth_repository.dart';
@@ -191,6 +192,35 @@ void main() {
       await controller.updateMediaType('Digital');
 
       controller.dispose();
+    });
+
+    test('submit update status success', () async {
+      final album = Album(id: 1, name: 'Album_A');
+      const albumCollection = AlbumCollection(
+          rating: 4, purchaseStatus: 'Ordered', mediaType: 'Other');
+
+      when(() => albumRepository.rateAlbum(
+              1,
+              const AlbumRate(
+                  mediaType: 'Other', rating: 4, collectionStatus: 'Ordered')))
+          .thenAnswer((invocation) => Future.value());
+
+      controller = AlbumDetailController(
+        albumRepository: albumRepository,
+        authRepository: authRepository,
+        album: album,
+        albumCollection: albumCollection,
+      );
+
+      await controller.submitUpdateStatus();
+
+      controller.dispose();
+
+      verify(() => albumRepository.rateAlbum(
+            1,
+            const AlbumRate(
+                mediaType: 'Other', rating: 4, collectionStatus: 'Ordered'),
+          )).called(1);
     });
   });
 }
