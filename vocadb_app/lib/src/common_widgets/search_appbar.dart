@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 /// A custom appbar widget that allow user perform search
-class SearchAppBar extends StatefulWidget with PreferredSizeWidget {
+class SearchAppBar extends StatefulWidget implements PreferredSizeWidget {
   // * Keys for testing using find.byKey()
   static const iconClearKey = Key('icon-clear');
   static const iconSearchKey = Key('icon-search');

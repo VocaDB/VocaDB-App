@@ -86,7 +86,7 @@ final goRouterProvider = Provider.autoDispose<GoRouter>(
               path: 'S/:id',
               name: AppRoute.songDetail.name,
               builder: (context, state) {
-                final songId = state.params['id']!;
+                final songId = state.pathParameters['id']!;
                 return SongDetailScreen(song: Song(id: int.parse(songId)));
               },
             ),
@@ -114,7 +114,7 @@ final goRouterProvider = Provider.autoDispose<GoRouter>(
               path: 'A/:id',
               name: AppRoute.albumDetail.name,
               builder: (context, state) {
-                final albumId = state.params['id']!;
+                final albumId = state.pathParameters['id']!;
                 return AlbumDetailScreen(album: Album(id: int.parse(albumId)));
               },
             ),
@@ -122,7 +122,7 @@ final goRouterProvider = Provider.autoDispose<GoRouter>(
               path: 'Ar/:id',
               name: AppRoute.artistDetail.name,
               builder: (context, state) {
-                final artistId = state.params['id']!;
+                final artistId = state.pathParameters['id']!;
                 return ArtistDetailScreen(artistId: artistId);
               },
             ),
@@ -130,7 +130,7 @@ final goRouterProvider = Provider.autoDispose<GoRouter>(
               path: 'T/:id',
               name: AppRoute.tagDetail.name,
               builder: (context, state) {
-                final tagId = state.params['id']!;
+                final tagId = state.pathParameters['id']!;
                 return TagDetailScreen(tagId: tagId);
               },
             ),
@@ -138,7 +138,7 @@ final goRouterProvider = Provider.autoDispose<GoRouter>(
               path: 'E/:id',
               name: AppRoute.releaseEventDetail.name,
               builder: (context, state) {
-                final releaseEventId = state.params['id']!;
+                final releaseEventId = state.pathParameters['id']!;
                 return ReleaseEventDetailScreen(releaseEventId: releaseEventId);
               },
             ),

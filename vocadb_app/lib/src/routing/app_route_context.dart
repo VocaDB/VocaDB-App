@@ -8,36 +8,32 @@ import 'package:vocadb_app/src/features/tags/domain/tag.dart';
 import 'package:vocadb_app/src/routing/app_router.dart';
 
 extension AppRouteContext on BuildContext {
-  void goSongDetail(Song song) {
-    return GoRouter.of(this).pushNamed(AppRoute.songDetail.name,
-        params: {'id': song.id.toString()});
+  Future<void> goSongDetail(Song song) async {
+    goNamed(AppRoute.songDetail.name, pathParameters: { 'id': song.id.toString() });
   }
 
-  void goAlbumDetail(Album album) {
-    return GoRouter.of(this).pushNamed(AppRoute.albumDetail.name,
-        params: {'id': album.id.toString()});
+  Future<void> goAlbumDetail(Album album) async {
+    goNamed(AppRoute.albumDetail.name, pathParameters: { 'id': album.id.toString() });
   }
 
-  void goArtistDetail(Artist artist) {
-    return GoRouter.of(this).pushNamed(AppRoute.artistDetail.name,
-        params: {'id': artist.id.toString()});
+  Future<void> goArtistDetail(Artist artist) async {
+    goNamed(AppRoute.artistDetail.name, pathParameters: { 'id': artist.id.toString() });
   }
 
-  void goTagDetail(Tag tag) {
-    return GoRouter.of(this)
-        .pushNamed(AppRoute.tagDetail.name, params: {'id': tag.id.toString()});
+  Future<void> goTagDetail(Tag tag) async {
+    goNamed(AppRoute.tagDetail.name, pathParameters: { 'id': tag.id.toString() });
   }
 
-  void goReleaseEventDetail(ReleaseEvent releaseEvent) {
-    return GoRouter.of(this).pushNamed(AppRoute.releaseEventDetail.name,
-        params: {'id': releaseEvent.id.toString()});
+  Future<void> goReleaseEventDetail(ReleaseEvent releaseEvent) async {
+    goNamed(AppRoute.releaseEventDetail.name, pathParameters: { 'id': releaseEvent.id.toString() });
   }
 
-  void goArtistsListFilterScreen() {
-    return GoRouter.of(this).pushNamed(AppRoute.artistsListFilter.name);
+  Future<void> goArtistsListFilterScreen() async {
+    goNamed(AppRoute.artistsListFilter.name);
+
   }
 
-  void goLogin() {
-    return GoRouter.of(this).pushNamed(AppRoute.signIn.name);
+  Future<void> goLogin() async {
+    goNamed(AppRoute.signIn.name);
   }
 }

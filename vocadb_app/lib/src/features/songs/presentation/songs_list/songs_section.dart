@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:vocadb_app/src/common_widgets/section.dart';
 import 'package:vocadb_app/src/features/songs/domain/song.dart';
 import 'package:vocadb_app/src/features/songs/presentation/songs_list/songs_list_view.dart';
+import 'package:vocadb_app/src/routing/app_route_context.dart';
 import 'package:vocadb_app/src/routing/app_router.dart';
 
 /// A widget for display section of songs as horizontal
@@ -26,8 +27,7 @@ class SongsSection extends StatelessWidget {
         songs: songs,
         onSelect: (song) {
           if (onSelect == null) {
-            GoRouter.of(context).pushNamed(AppRoute.songDetail.name,
-                params: {'id': song.id.toString()});
+            context.goSongDetail(song);
           } else {
             onSelect!(song);
           }
