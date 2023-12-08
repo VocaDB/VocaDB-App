@@ -18,7 +18,7 @@ class AlbumDetailController extends StateNotifier<AlbumDetailState> {
     required this.albumRepository,
     required this.authRepository,
     required this.album,
-    AlbumCollection? albumCollection,
+    AlbumCollection albumCollection = const AlbumCollection(rating: 0),
   }) : super(AlbumDetailState(
           album: AsyncValue.data(album),
           albumCollection: albumCollection,
@@ -46,27 +46,23 @@ class AlbumDetailController extends StateNotifier<AlbumDetailState> {
   }
 
   Future<void> updateRating(int rating) async {
-    final newStatus = state.albumCollection?.copyWith(rating: rating);
+    final newStatus = state.albumCollection.copyWith(rating: rating);
     state = state.copyWith(albumCollection: newStatus);
   }
 
   Future<void> updatePurchaseStatus(String purchaseStatus) async {
     final newStatus =
-        state.albumCollection?.copyWith(purchaseStatus: purchaseStatus);
+        state.albumCollection.copyWith(purchaseStatus: purchaseStatus);
     state = state.copyWith(albumCollection: newStatus);
   }
 
   Future<void> updateMediaType(String mediaType) async {
-    final newStatus = state.albumCollection?.copyWith(mediaType: mediaType);
+    final newStatus = state.albumCollection.copyWith(mediaType: mediaType);
     state = state.copyWith(albumCollection: newStatus);
   }
 
   Future<void> submitUpdateStatus() async {
-    if (state.albumCollection == null) {
-      return;
-    }
-
-    final currentStatus = state.albumCollection!;
+    final currentStatus = state.albumCollection;
     final albumRate = AlbumRate(
         rating: currentStatus.rating,
         collectionStatus: currentStatus.purchaseStatus!,

@@ -17,7 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$AlbumDetailState {
   AsyncValue<Album> get album => throw _privateConstructorUsedError;
-  AlbumCollection? get albumCollection => throw _privateConstructorUsedError;
+  AlbumCollection get albumCollection => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $AlbumDetailStateCopyWith<AlbumDetailState> get copyWith =>
@@ -30,9 +30,9 @@ abstract class $AlbumDetailStateCopyWith<$Res> {
           AlbumDetailState value, $Res Function(AlbumDetailState) then) =
       _$AlbumDetailStateCopyWithImpl<$Res, AlbumDetailState>;
   @useResult
-  $Res call({AsyncValue<Album> album, AlbumCollection? albumCollection});
+  $Res call({AsyncValue<Album> album, AlbumCollection albumCollection});
 
-  $AlbumCollectionCopyWith<$Res>? get albumCollection;
+  $AlbumCollectionCopyWith<$Res> get albumCollection;
 }
 
 /// @nodoc
@@ -49,28 +49,24 @@ class _$AlbumDetailStateCopyWithImpl<$Res, $Val extends AlbumDetailState>
   @override
   $Res call({
     Object? album = null,
-    Object? albumCollection = freezed,
+    Object? albumCollection = null,
   }) {
     return _then(_value.copyWith(
       album: null == album
           ? _value.album
           : album // ignore: cast_nullable_to_non_nullable
               as AsyncValue<Album>,
-      albumCollection: freezed == albumCollection
+      albumCollection: null == albumCollection
           ? _value.albumCollection
           : albumCollection // ignore: cast_nullable_to_non_nullable
-              as AlbumCollection?,
+              as AlbumCollection,
     ) as $Val);
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $AlbumCollectionCopyWith<$Res>? get albumCollection {
-    if (_value.albumCollection == null) {
-      return null;
-    }
-
-    return $AlbumCollectionCopyWith<$Res>(_value.albumCollection!, (value) {
+  $AlbumCollectionCopyWith<$Res> get albumCollection {
+    return $AlbumCollectionCopyWith<$Res>(_value.albumCollection, (value) {
       return _then(_value.copyWith(albumCollection: value) as $Val);
     });
   }
@@ -84,10 +80,10 @@ abstract class _$$_AlbumDetailStateCopyWith<$Res>
       __$$_AlbumDetailStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({AsyncValue<Album> album, AlbumCollection? albumCollection});
+  $Res call({AsyncValue<Album> album, AlbumCollection albumCollection});
 
   @override
-  $AlbumCollectionCopyWith<$Res>? get albumCollection;
+  $AlbumCollectionCopyWith<$Res> get albumCollection;
 }
 
 /// @nodoc
@@ -102,17 +98,17 @@ class __$$_AlbumDetailStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? album = null,
-    Object? albumCollection = freezed,
+    Object? albumCollection = null,
   }) {
     return _then(_$_AlbumDetailState(
       album: null == album
           ? _value.album
           : album // ignore: cast_nullable_to_non_nullable
               as AsyncValue<Album>,
-      albumCollection: freezed == albumCollection
+      albumCollection: null == albumCollection
           ? _value.albumCollection
           : albumCollection // ignore: cast_nullable_to_non_nullable
-              as AlbumCollection?,
+              as AlbumCollection,
     ));
   }
 }
@@ -120,12 +116,15 @@ class __$$_AlbumDetailStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_AlbumDetailState implements _AlbumDetailState {
-  const _$_AlbumDetailState({required this.album, this.albumCollection});
+  const _$_AlbumDetailState(
+      {required this.album,
+      this.albumCollection = const AlbumCollection(rating: 0)});
 
   @override
   final AsyncValue<Album> album;
   @override
-  final AlbumCollection? albumCollection;
+  @JsonKey()
+  final AlbumCollection albumCollection;
 
   @override
   String toString() {
@@ -155,12 +154,12 @@ class _$_AlbumDetailState implements _AlbumDetailState {
 abstract class _AlbumDetailState implements AlbumDetailState {
   const factory _AlbumDetailState(
       {required final AsyncValue<Album> album,
-      final AlbumCollection? albumCollection}) = _$_AlbumDetailState;
+      final AlbumCollection albumCollection}) = _$_AlbumDetailState;
 
   @override
   AsyncValue<Album> get album;
   @override
-  AlbumCollection? get albumCollection;
+  AlbumCollection get albumCollection;
   @override
   @JsonKey(ignore: true)
   _$$_AlbumDetailStateCopyWith<_$_AlbumDetailState> get copyWith =>

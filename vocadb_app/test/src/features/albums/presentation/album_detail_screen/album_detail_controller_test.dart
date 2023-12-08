@@ -109,7 +109,7 @@ void main() {
       verify(() => authRepository.getAlbumCollection(album.id)).called(1);
     });
 
-    test('update rating success', () async {
+    test('update rating success on exists collection', () async {
       final album = Album(id: 1, name: 'Album_A');
       const albumCollection = AlbumCollection(
           rating: 4, purchaseStatus: 'Ordered', mediaType: 'Other');
@@ -137,7 +137,35 @@ void main() {
       controller.dispose();
     });
 
-    test('update purchase status success', () async {
+    test('update purchase status success on empty collection', () async {
+      final album = Album(id: 1, name: 'Album_A');
+      const albumCollection = AlbumCollection(rating: 0);
+
+      controller = AlbumDetailController(
+        albumRepository: albumRepository,
+        authRepository: authRepository,
+        album: album,
+        albumCollection: albumCollection,
+      );
+
+      expectLater(
+        controller.stream,
+        emitsInOrder([
+          AlbumDetailState(
+            album: AsyncValue.data(album),
+            albumCollection:
+                albumCollection.copyWith(purchaseStatus: 'Wishlisted'),
+          ),
+          emitsDone
+        ]),
+      );
+
+      await controller.updatePurchaseStatus('Wishlisted');
+
+      controller.dispose();
+    });
+
+    test('update purchase status success on exists collection', () async {
       final album = Album(id: 1, name: 'Album_A');
       const albumCollection = AlbumCollection(
           rating: 4, purchaseStatus: 'Ordered', mediaType: 'Other');
@@ -166,7 +194,7 @@ void main() {
       controller.dispose();
     });
 
-    test('update media type success', () async {
+    test('update media type success on exists collection', () async {
       final album = Album(id: 1, name: 'Album_A');
       const albumCollection = AlbumCollection(
           rating: 4, purchaseStatus: 'Ordered', mediaType: 'Other');
@@ -194,7 +222,7 @@ void main() {
       controller.dispose();
     });
 
-    test('submit update status success', () async {
+    test('submit rate album success', () async {
       final album = Album(id: 1, name: 'Album_A');
       const albumCollection = AlbumCollection(
           rating: 4, purchaseStatus: 'Ordered', mediaType: 'Other');

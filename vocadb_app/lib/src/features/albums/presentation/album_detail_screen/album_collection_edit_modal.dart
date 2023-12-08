@@ -34,9 +34,12 @@ class AlbumCollectionEditModal {
                   child: Column(
                     children: [
                       SimpleDropdownInput(
-                        value: value?.purchaseStatus ?? 'Nothing',
+                        value: value.purchaseStatus ?? 'Nothing',
                         label: 'Status',
-                        onChanged: (value) {},
+                        onChanged: (value) {
+                          ref.read(albumDetailControllerProvider(album.id).notifier)
+                            .updatePurchaseStatus(value!);
+                        },
                         items: const [
                           SimpleDropdownItem(name: 'Nothing', value: 'Nothing'),
                           SimpleDropdownItem(
@@ -46,9 +49,12 @@ class AlbumCollectionEditModal {
                         ],
                       ),
                       SimpleDropdownInput(
-                        value: value?.mediaType ?? 'Other',
+                        value: value.mediaType ?? 'Other',
                         label: 'Media type',
-                        onChanged: (value) {},
+                        onChanged: (value) {
+                          ref.read(albumDetailControllerProvider(album.id).notifier)
+                            .updateMediaType(value!);
+                        },
                         items: const [
                           SimpleDropdownItem(
                               name: 'Unpsecified', value: 'Other'),
@@ -61,7 +67,7 @@ class AlbumCollectionEditModal {
                       ),
                       gapH16,
                       RatingBar.builder(
-                        initialRating: value?.rating.toDouble() ?? 0,
+                        initialRating: value.rating.toDouble(),
                         minRating: 0,
                         direction: Axis.horizontal,
                         itemCount: 5,
@@ -72,14 +78,17 @@ class AlbumCollectionEditModal {
                           color: Colors.amber,
                         ),
                         onRatingUpdate: (rating) {
-                          print(rating);
+                           ref.read(albumDetailControllerProvider(album.id).notifier)
+                            .updateRating(rating.toInt());
                         },
                       ),
                       gapH16,
                       const Divider(),
                       gapH16,
                       ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          
+                        },
                         style: ElevatedButton.styleFrom(
                           minimumSize: const Size.fromHeight(50), // NEW
                         ),

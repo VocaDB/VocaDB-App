@@ -9,6 +9,6 @@ part 'album_detail_state.freezed.dart';
 class AlbumDetailState with _$AlbumDetailState {
   const factory AlbumDetailState({
     required AsyncValue<Album> album,
-    AlbumCollection? albumCollection,
+    @Default(AlbumCollection(rating: 0)) AlbumCollection albumCollection,
   }) = _AlbumDetailState;
 }
