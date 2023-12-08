@@ -1,0 +1,15 @@
+VocaDB mobile app version.
+
+Available features
+• Searchable for songs, artists, albums and events
+• Highlighted songs, new released albums and events
+• Song ranking
+• Watch any song PV that contains Youtube url.
+• Save your favorite songs, artists or albums (For temporary)
+
+VocaDB is a free to use database for discography information about Vocaloid and related voice synthesizers.
+For more information please visit at  http://vocadb.net
+
+Also this app is open source, For any bugs report, suggestion or feedback is welcome.
+
+Github: https://github.com/VocaDB/VocaDB-App
