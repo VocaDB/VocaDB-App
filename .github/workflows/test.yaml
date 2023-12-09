@@ -59,7 +59,7 @@ jobs:
       - name: Download google-play-service-account.json
         run: | 
           echo "${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_JSON }}" > ./android/fastlane/google-play-service-account.json
-          ls ./android/fastlane -l
+          ls -l ./android/fastlane
 
       - uses: ruby/setup-ruby@v1
         with:
