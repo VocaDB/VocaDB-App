@@ -8,7 +8,7 @@ on:
 
 jobs:
   build_android:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
       - name: Print environment variables
@@ -19,7 +19,7 @@ jobs:
 
       - name: Get current version
         id: increment-version
-        run: echo "::set-output name=version::$((${{ vars.BASE_VERSION_CODE }} + 1))"
+        run: echo "::set-output name=version::$((${{ vars.BASE_VERSION_CODE }} + $GITHUB_RUN_NUMBER))"
   
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
