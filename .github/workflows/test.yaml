@@ -36,3 +36,13 @@ jobs:
         run: |
           echo "${{ secrets.RELEASE_KEYSTORE }}" > release.keystore.asc
           gpg -d --passphrase "${{ secrets.RELEASE_KEYSTORE_PASSPAHSE }}" --batch release.keystore.asc > ./android/app/vocadb-release-key.keystore
+          ls ./android/app -l
+      - name: Create key.properties
+        run: |
+          echo "storePassword=${{ secrets.STORE_PASSWORD }}" > ./android/key.properties
+          echo "keyPassword=${{ secrets.KEY_PASSWORD }}" >> ./android/key.properties
+          echo "keyAlias=" >> ./android/key.properties
+          echo "storeFile=./vocadb-release-key.keystore" >> ./android/key.properties
+
+      - name: Build appbundle
+        run: flutter build appbundle --no-tree-shake-icons
