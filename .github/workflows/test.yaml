@@ -19,7 +19,7 @@ jobs:
 
       - name: Get current version
         id: increment-version
-        run: echo "::set-output name=version::$(($BASE_VERSION_CODE + 1))"
+        run: echo "::set-output name=version::$((${{ vars.BASE_VERSION_CODE }} + 1))"
   
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -63,5 +63,6 @@ jobs:
           bundler-cache: true
       - uses: maierj/fastlane-action@v3.0.0
         with:
+          subdirectory: 'android'
           lane: 'internal'
           options: '{ "version_code": ${{ steps.increment-version.outputs.version }} }'
