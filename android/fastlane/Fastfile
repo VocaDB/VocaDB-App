@@ -31,10 +31,10 @@ platform :android do
   end
 
   desc "Deploy a new version to the Google Play as Internal track"
-  lane :internal do
+  lane :internal do |options|
     # https://docs.fastlane.tools/actions/upload_to_play_store/
     upload_to_play_store(track: "internal", 
-    version_code:102439, 
+    version_code:options[:version_code],
     aab: "../build/app/outputs/bundle/release/app-release.aab")
   end
 

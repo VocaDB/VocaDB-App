@@ -16,6 +16,10 @@ jobs:
   
       - name: Print architecture
         run: uname -m
+
+      - name: Get current version
+        id: increment-version
+        run: echo "::set-output name=version::$(($BASE_VERSION_CODE + 1))"
   
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -45,4 +49,19 @@ jobs:
           echo "storeFile=./vocadb-release-key.keystore" >> ./android/key.properties
 
       - name: Build appbundle
-        run: flutter build appbundle --no-tree-shake-icons
+        run: flutter build appbundle --build-number=${{ steps.increment-version.outputs.version }} --no-tree-shake-icons
+
+
+      - name: Download google-play-service-account.json
+        run: | 
+          echo "${{ secrets.GOOGLE_PLAY_SERVICE_ACCOUNT_JSON }}" > ./android/fastlane/google-play-service-account.json
+          ls ./android/fastlane -l
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.0'
+          bundler-cache: true
+      - uses: maierj/fastlane-action@v3.0.0
+        with:
+          lane: 'internal'
+          options: '{ "version_code": ${{ steps.increment-version.outputs.version }} }'
