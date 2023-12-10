@@ -44,4 +44,5 @@ app.*.map.json
 /android/app/release
 
 # Ignore test coverage data
+coverage
 coverage/lcov.info

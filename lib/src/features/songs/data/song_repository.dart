@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vocadb_app/flavor_config.dart';
+import 'package:vocadb_app/src/features/home/presentation/ranking_screen/ranking_filter_params_state.dart';
 import 'package:vocadb_app/src/features/settings/data/user_settings_repository.dart';
 import 'package:vocadb_app/src/features/songs/data/constants/duration_hours.dart';
 import 'package:vocadb_app/src/features/songs/data/song_api_repository.dart';
@@ -63,11 +64,14 @@ final songDetailProvider =
 final songsDailyProvider = FutureProvider.autoDispose<List<Song>>((ref) {
   final durationHours = DurationHours.daily.value;
   final songRepository = ref.watch(songRepositoryProvider);
+  final rankingFilter = ref.watch(rankingFilterParamsStateProvider);
   final userSettings = ref.watch(userSettingsRepositoryProvider);
 
   return songRepository.fetchSongsTopRated(
     durationHours: durationHours,
     lang: userSettings.currentPreferredLang,
+    filterBy: rankingFilter.filterBy,
+    vocalist: rankingFilter.vocalist
   );
 });
 
@@ -75,11 +79,14 @@ final songsDailyProvider = FutureProvider.autoDispose<List<Song>>((ref) {
 final songsWeeklyProvider = FutureProvider.autoDispose<List<Song>>((ref) {
   final durationHours = DurationHours.weekly.value;
   final songRepository = ref.watch(songRepositoryProvider);
+  final rankingFilter = ref.watch(rankingFilterParamsStateProvider);
   final userSettings = ref.watch(userSettingsRepositoryProvider);
 
   return songRepository.fetchSongsTopRated(
     durationHours: durationHours,
     lang: userSettings.currentPreferredLang,
+    filterBy: rankingFilter.filterBy,
+    vocalist: rankingFilter.vocalist
   );
 });
 
@@ -87,21 +94,27 @@ final songsWeeklyProvider = FutureProvider.autoDispose<List<Song>>((ref) {
 final songsMonthlyProvider = FutureProvider.autoDispose<List<Song>>((ref) {
   final durationHours = DurationHours.monthly.value;
   final songRepository = ref.watch(songRepositoryProvider);
+  final rankingFilter = ref.watch(rankingFilterParamsStateProvider);
   final userSettings = ref.watch(userSettingsRepositoryProvider);
 
   return songRepository.fetchSongsTopRated(
     durationHours: durationHours,
     lang: userSettings.currentPreferredLang,
+    filterBy: rankingFilter.filterBy,
+    vocalist: rankingFilter.vocalist
   );
 });
 
 // Songs Overall Ranking Provider
 final songsOverallProvider = FutureProvider.autoDispose<List<Song>>((ref) {
   final songRepository = ref.watch(songRepositoryProvider);
+  final rankingFilter = ref.watch(rankingFilterParamsStateProvider);
   final userSettings = ref.watch(userSettingsRepositoryProvider);
 
   return songRepository.fetchSongsTopRated(
     lang: userSettings.currentPreferredLang,
+    filterBy: rankingFilter.filterBy,
+    vocalist: rankingFilter.vocalist
   );
 });
 
