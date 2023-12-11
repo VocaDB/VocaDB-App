@@ -4,9 +4,9 @@ import 'package:vocadb_app/src/features/home/domain/ranking_filter_params.dart';
 class RankingFilterParamsState extends StateNotifier<RankingFilterParams> {
   RankingFilterParamsState()
       : super(const RankingFilterParams());
-  void updateFilterBy(String value) =>
+  Future<void> updateFilterBy(String value) async =>
       state = state.copyWith(filterBy: value);
-  void updateVocalist(String value) => state = state.copyWith(vocalist: value);
+  Future<void> updateVocalist(String value) async => state = state.copyWith(vocalist: value);
 }
 
 final rankingFilterParamsStateProvider = StateNotifierProvider.autoDispose<
