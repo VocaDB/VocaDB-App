@@ -149,4 +149,44 @@ void main() {
       });
     });
   });
+
+  group('song.youtubeUrl', () {
+    test('Test get youtube url when have both reprint and original in PV list', () {
+      expect(Song(
+        id: 1,
+        pvs: [
+          PV(id: 1, name: 'A', service: 'Youtube', pvType: 'Reprint', url: 'https://youtube.com/watch?v=A'),
+          PV(id: 2, name: 'B', service: 'Youtube', pvType: 'Original', url: 'https://youtube.com/watch?v=B'),
+          PV(id: 3, name: 'C', service: 'Soundcloud', pvType: 'Reprint', url: 'https://youtube.com/watch?v=C'),
+          PV(id: 4, name: 'D', service: 'BB', pvType: 'Original', url: 'https://youtube.com/watch?v=D'),
+        ]
+      ).youtubeUrl,'https://youtube.com/watch?v=B');
+    });
+
+    test('Test get youtube url as null when pvs list is empty', () {
+      expect(const Song(id: 1).youtubeUrl, isNull);
+    });
+
+    test('Test get youtube url as null when no youtube pv', () {
+      expect(Song(id: 1,
+      pvs: [
+          PV(id: 3, name: 'C', service: 'Soundcloud', pvType: 'Reprint', url: 'https://youtube.com/watch?v=C'),
+      ]).youtubeUrl, isNull);
+    });
+
+    test('Test get youtube url when contain youtube pv but no original type', () {
+      expect(Song(id: 1,
+      pvs: [
+          PV(id: 1, name: 'A', service: 'Youtube', pvType: 'Reprint', url: 'https://youtube.com/watch?v=A'),
+      ]).youtubeUrl, 'https://youtube.com/watch?v=A');
+    });
+
+    test('Test get youtube url when contain multiple original youtube url', () {
+      expect(Song(id: 1,
+      pvs: [
+          PV(id: 1, name: 'A', service: 'Youtube', pvType: 'Original', url: 'https://youtube.com/watch?v=A'),
+          PV(id: 2, name: 'B', service: 'Youtube', pvType: 'Original', url: 'https://youtube.com/watch?v=B'),
+      ]).youtubeUrl, 'https://youtube.com/watch?v=A');
+    });
+  });
 }
