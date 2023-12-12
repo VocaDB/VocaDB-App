@@ -60,4 +60,28 @@ extension SongExtended on Song {
 
   String get pvSearchQuery =>
       (pvs.isNotEmpty) ? pvs[0].name : '$artistString+$name';
+
+  String? get youtubeUrl {
+    if(pvs.isEmpty) {
+      return null;
+    }
+
+    final youtubePVs = pvs.where((element) => element.service.toLowerCase() == 'youtube');
+
+    if(youtubePVs.isEmpty) {
+      return null;
+    }
+
+    if(youtubePVs.length == 1) {
+      return youtubePVs.elementAt(0).url;
+    }
+
+    final originalYoutubePVs = youtubePVs.where((element) => element.pvType.toLowerCase() == 'original');
+
+    if(originalYoutubePVs.isEmpty) {
+      return youtubePVs.elementAt(0).url;
+    }
+
+    return originalYoutubePVs.elementAt(0).url;
+  }
 }
