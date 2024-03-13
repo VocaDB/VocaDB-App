@@ -6,6 +6,7 @@ import 'package:vocadb_app/src/features/songs/domain/song.dart';
 import 'package:vocadb_app/src/features/songs/presentation/song_detail_screen/song_detail_screen_controller.dart';
 import 'package:vocadb_app/src/features/songs/presentation/song_detail_screen/widgets/song_detail_content.dart';
 import 'package:vocadb_app/src/features/songs/presentation/song_detail_screen/widgets/song_detail_lyrics_content.dart';
+import 'package:vocadb_app/src/features/songs/presentation/song_detail_screen/widgets/song_detail_pv_player.dart';
 
 class SongDetailScreen extends ConsumerStatefulWidget {
   const SongDetailScreen({super.key, required this.song});
@@ -29,40 +30,14 @@ class _SongDetailScreenState extends ConsumerState<SongDetailScreen> {
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(songDetailScreenControllerProvider(widget.song.id));
+    
     return AsyncValueWidget(
       value: state.song,
-      data: (song) => Scaffold(
-        appBar: GlobalAppBar(
-          title: Text(song.name ?? 'Song detail'),
-        ),
-        body: Container(
-          padding: const EdgeInsets.only(bottom: 16.0),
-          child: Column(
-            children: [
-              (state.showLyricContent)
-                  ? LyricContent(
-                      lyrics: song.lyrics,
-                      onTapClose: () {
-                        ref
-                            .read(songDetailScreenControllerProvider(
-                                    widget.song.id)
-                                .notifier)
-                            .toggleLyricContent();
-                      },
-                    )
-                  : SongDetailContent(
-                      song: song,
-                      onTapLyricButton: () {
-                        ref
-                            .read(songDetailScreenControllerProvider(
-                                    widget.song.id)
-                                .notifier)
-                            .toggleLyricContent();
-                      }),
-            ],
-          ),
-        ),
-      ),
+      data: (song) => SafeArea(child: Scaffold(
+        appBar: const GlobalAppBar(title: Text('Song Detail')),
+        body: 
+      (song.hasYoutubePV)? SongDetailPVPlayer(song: song) : const Text('No PV!!'),
+      ),),
     );
   }
 }
