@@ -10,194 +10,195 @@ import '../../../../mocks.dart';
 import '../../song_robot.dart';
 
 void main() {
-//   testWidgets('song detail screen with fetch song detail success',
-//       (tester) async {
-//     /// Setup
-//     final r = SongRobot(tester);
-//     final songRepository = MockSongRepository();
-//     final authRepository = MockAuthRepository();
-//     final song = kFakeSongDetail;
 
-//     /// Mock
-//     callFetchSongId() =>
-//         songRepository.fetchSongId(song.id, lang: PreferredLang.Default.name);
-//     callFetchSongDerived() => songRepository.fetchSongsDerived(song.id,
-//         lang: PreferredLang.Default.name);
-//     callFetchSongRelated() => songRepository.fetchSongsRelated(song.id,
-//         lang: PreferredLang.Default.name);
+  testWidgets('song detail screen with fetch song detail success',
+      (tester) async {
+    /// Setup
+    final r = SongRobot(tester);
+    final songRepository = MockSongRepository();
+    final authRepository = MockAuthRepository();
+    final song = kFakeSongDetail;
 
-//     when(callFetchSongId).thenAnswer((_) => Future.value(song));
-//     when(callFetchSongDerived).thenAnswer((_) => Future.value([
-//           const Song(id: 1, name: 'Song_A'),
-//           const Song(id: 2, name: 'Song_B'),
-//         ]));
+    /// Mock
+    callFetchSongId() =>
+        songRepository.fetchSongId(song.id, lang: PreferredLang.Default.name);
+    callFetchSongDerived() => songRepository.fetchSongsDerived(song.id,
+        lang: PreferredLang.Default.name);
+    callFetchSongRelated() => songRepository.fetchSongsRelated(song.id,
+        lang: PreferredLang.Default.name);
 
-//     when(callFetchSongRelated).thenAnswer(
-//       (_) => Future.value(
-//         const SongRelated(likeMatches: [
-//           Song(id: 3, name: 'Song_Related_A'),
-//           Song(id: 4, name: 'Song_Related_B'),
-//         ]),
-//       ),
-//     );
+    when(callFetchSongId).thenAnswer((_) => Future.value(song));
+    when(callFetchSongDerived).thenAnswer((_) => Future.value([
+          const Song(id: 1, name: 'Song_A'),
+          const Song(id: 2, name: 'Song_B'),
+        ]));
 
-//     /// Pump screen
-//     await r.pumpSongDetailScreen(
-//       songRepository: songRepository,
-//       authRepository: authRepository,
-//       songId: song.id,
-//     );
+    when(callFetchSongRelated).thenAnswer(
+      (_) => Future.value(
+        const SongRelated(likeMatches: [
+          Song(id: 3, name: 'Song_Related_A'),
+          Song(id: 4, name: 'Song_Related_B'),
+        ]),
+      ),
+    );
 
-//     // Verify
-//     verify(callFetchSongId).called(1);
-//     verify(callFetchSongDerived).called(1);
-//     verify(callFetchSongRelated).called(1);
+    /// Pump screen
+    await r.pumpSongDetailScreen(
+      songRepository: songRepository,
+      authRepository: authRepository,
+      songId: song.id,
+    );
 
-//     await r.expectTagsVisible(true);
-//     await r.expectArtistsVisible(true);
+    // Verify
+    verify(callFetchSongId).called(1);
+    verify(callFetchSongDerived).called(1);
+    verify(callFetchSongRelated).called(1);
 
-//     await r.scrollDown();
-//     await tester.pump();
+    await r.expectTagsVisible(true);
+    await r.expectArtistsVisible(true);
 
-//     await r.expectPVsVisible(true);
-//     await r.expectAlbumsVisible(true);
-//     await r.expectAltSongsVisible(true);
+    await r.scrollDown();
+    await tester.pump();
 
-//     await r.scrollDown();
-//     await tester.pump();
+    await r.expectPVsVisible(true);
+    await r.expectAlbumsVisible(true);
+    await r.expectAltSongsVisible(true);
 
-//     await r.expectSameLikeSongsVisible(true);
-//     await r.expectWebLinksVisible(true);
+    await r.scrollDown();
+    await tester.pump();
 
-//     // Verify no extra call
-//     verifyNever(callFetchSongId);
-//     verifyNever(callFetchSongDerived);
-//     verifyNever(callFetchSongRelated);
-//   });
+    await r.expectSameLikeSongsVisible(true);
+    await r.expectWebLinksVisible(true);
 
-//   testWidgets('song detail screen with song detail all fields is default',
-//       (tester) async {
-//     /// Setup
-//     final r = SongRobot(tester);
-//     final songRepository = MockSongRepository();
-//     final authRepository = MockAuthRepository();
-//     const songId = 1;
+    // Verify no extra call
+    verifyNever(callFetchSongId);
+    verifyNever(callFetchSongDerived);
+    verifyNever(callFetchSongRelated);
+  });
 
-//     /// Mock
-//     callFetchSongId() =>
-//         songRepository.fetchSongId(songId, lang: PreferredLang.Default.name);
-//     callFetchSongDerived() => songRepository.fetchSongsDerived(songId,
-//         lang: PreferredLang.Default.name);
-//     callFetchSongRelated() => songRepository.fetchSongsRelated(songId,
-//         lang: PreferredLang.Default.name);
+  testWidgets('song detail screen with song detail all fields is default',
+      (tester) async {
+    /// Setup
+    final r = SongRobot(tester);
+    final songRepository = MockSongRepository();
+    final authRepository = MockAuthRepository();
+    const songId = 1;
 
-//     when(callFetchSongId)
-//         .thenAnswer((_) => Future.value(const Song(id: songId)));
-//     when(callFetchSongDerived).thenAnswer((_) => Future.value([]));
-//     when(callFetchSongRelated).thenAnswer(
-//       (_) => Future.value(const SongRelated()),
-//     );
+    /// Mock
+    callFetchSongId() =>
+        songRepository.fetchSongId(songId, lang: PreferredLang.Default.name);
+    callFetchSongDerived() => songRepository.fetchSongsDerived(songId,
+        lang: PreferredLang.Default.name);
+    callFetchSongRelated() => songRepository.fetchSongsRelated(songId,
+        lang: PreferredLang.Default.name);
 
-//     /// Pump screen
-//     await r.pumpSongDetailScreen(
-//       songRepository: songRepository,
-//       authRepository: authRepository,
-//       songId: songId,
-//     );
+    when(callFetchSongId)
+        .thenAnswer((_) => Future.value(const Song(id: songId)));
+    when(callFetchSongDerived).thenAnswer((_) => Future.value([]));
+    when(callFetchSongRelated).thenAnswer(
+      (_) => Future.value(const SongRelated()),
+    );
 
-//     // Verify
-//     verify(callFetchSongId).called(1);
-//     verify(callFetchSongDerived).called(1);
-//     verify(callFetchSongRelated).called(1);
+    /// Pump screen
+    await r.pumpSongDetailScreen(
+      songRepository: songRepository,
+      authRepository: authRepository,
+      songId: songId,
+    );
 
-//     await r.expectLyricButtonVisible(false);
-//     await r.expectTagsVisible(false);
-//     await r.expectArtistsVisible(false);
+    // Verify
+    verify(callFetchSongId).called(1);
+    verify(callFetchSongDerived).called(1);
+    verify(callFetchSongRelated).called(1);
 
-//     await r.scrollDown();
-//     await tester.pump();
+    await r.expectLyricButtonVisible(false);
+    await r.expectTagsVisible(false);
+    await r.expectArtistsVisible(false);
 
-//     await r.expectPVsVisible(false);
-//     await r.expectAlbumsVisible(false);
-//     await r.expectAltSongsVisible(false);
+    await r.scrollDown();
+    await tester.pump();
 
-//     await r.scrollDown();
-//     await tester.pump();
+    await r.expectPVsVisible(false);
+    await r.expectAlbumsVisible(false);
+    await r.expectAltSongsVisible(false);
 
-//     await r.expectSameLikeSongsVisible(false);
-//     await r.expectWebLinksVisible(false);
-//   });
+    await r.scrollDown();
+    await tester.pump();
 
-//   testWidgets('song detail screen with fetch song detail failure',
-//       (tester) async {
-//     final r = SongRobot(tester);
-//     final songRepository = MockSongRepository();
-//     final authRepository = MockAuthRepository();
-//     const songId = 1;
+    await r.expectSameLikeSongsVisible(false);
+    await r.expectWebLinksVisible(false);
+  });
 
-//     // Mock
-//     callFetchSongId() =>
-//         songRepository.fetchSongId(songId, lang: PreferredLang.Default.name);
+  testWidgets('song detail screen with fetch song detail failure',
+      (tester) async {
+    final r = SongRobot(tester);
+    final songRepository = MockSongRepository();
+    final authRepository = MockAuthRepository();
+    const songId = 1;
 
-//     when(callFetchSongId).thenThrow(
-//       Exception('Connection error'),
-//     );
+    // Mock
+    callFetchSongId() =>
+        songRepository.fetchSongId(songId, lang: PreferredLang.Default.name);
 
-//     await r.pumpSongDetailScreen(
-//       songRepository: songRepository,
-//       authRepository: authRepository,
-//       songId: songId,
-//     );
+    when(callFetchSongId).thenThrow(
+      Exception('Connection error'),
+    );
 
-//     verify(callFetchSongId).called(1);
-//   });
+    await r.pumpSongDetailScreen(
+      songRepository: songRepository,
+      authRepository: authRepository,
+      songId: songId,
+    );
 
-//   testWidgets('song detail screen toggle lyric', (tester) async {
-//     /// Setup
-//     final r = SongRobot(tester);
-//     final songRepository = MockSongRepository();
-//     final authRepository = MockAuthRepository();
-//     final song = kFakeSongDetail;
-//     final songId = song.id;
+    verify(callFetchSongId).called(1);
+  });
 
-//     /// Mock
-//     callFetchSongId() =>
-//         songRepository.fetchSongId(songId, lang: PreferredLang.Default.name);
-//     callFetchSongDerived() => songRepository.fetchSongsDerived(songId,
-//         lang: PreferredLang.Default.name);
-//     callFetchSongRelated() => songRepository.fetchSongsRelated(songId,
-//         lang: PreferredLang.Default.name);
+  testWidgets('song detail screen toggle lyric', (tester) async {
+    /// Setup
+    final r = SongRobot(tester);
+    final songRepository = MockSongRepository();
+    final authRepository = MockAuthRepository();
+    final song = kFakeSongDetail;
+    final songId = song.id;
 
-//     // Mock
-//     when(callFetchSongId).thenAnswer((_) => Future.value(song));
-//     when(callFetchSongDerived).thenAnswer((_) => Future.value([]));
-//     when(callFetchSongRelated)
-//         .thenAnswer((_) => Future.value(const SongRelated()));
+    /// Mock
+    callFetchSongId() =>
+        songRepository.fetchSongId(songId, lang: PreferredLang.Default.name);
+    callFetchSongDerived() => songRepository.fetchSongsDerived(songId,
+        lang: PreferredLang.Default.name);
+    callFetchSongRelated() => songRepository.fetchSongsRelated(songId,
+        lang: PreferredLang.Default.name);
 
-//     /// Pump screen
-//     await r.pumpSongDetailScreen(
-//       songRepository: songRepository,
-//       authRepository: authRepository,
-//       songId: song.id,
-//     );
+    // Mock
+    when(callFetchSongId).thenAnswer((_) => Future.value(song));
+    when(callFetchSongDerived).thenAnswer((_) => Future.value([]));
+    when(callFetchSongRelated)
+        .thenAnswer((_) => Future.value(const SongRelated()));
 
-//     verify(callFetchSongId).called(1);
-//     verify(callFetchSongDerived).called(1);
-//     verify(callFetchSongRelated).called(1);
+    /// Pump screen
+    await r.pumpSongDetailScreen(
+      songRepository: songRepository,
+      authRepository: authRepository,
+      songId: song.id,
+    );
 
-//     /// Verify before tap lyric button
-//     await r.expectSongInfoContentVisible(true);
-//     await r.expectSongLyricContentVisible(false);
-//     await r.expectLyricButtonVisible(true);
+    verify(callFetchSongId).called(1);
+    verify(callFetchSongDerived).called(1);
+    verify(callFetchSongRelated).called(1);
 
-//     /// Verify after tap lyric button
-//     await r.tapLyricButton();
-//     await r.expectSongInfoContentVisible(false);
-//     await r.expectSongLyricContentVisible(true);
+    // /// Verify before tap lyric button
+    // await r.expectSongInfoContentVisible(true);
+    await r.expectSongLyricContentVisible(false);
+    await r.expectLyricButtonVisible(true);
 
-//     /// Verify after tap close lyric button
-//     await r.tapCloseLyricButton();
-//     await r.expectSongInfoContentVisible(true);
-//     await r.expectSongLyricContentVisible(false);
-//   });
+    // /// Verify after tap lyric button
+    await r.tapLyricButton();
+    // await r.expectSongInfoContentVisible(false);
+    // await r.expectSongLyricContentVisible(true);
+
+    // /// Verify after tap close lyric button
+    // await r.tapCloseLyricButton();
+    // await r.expectSongInfoContentVisible(true);
+    // await r.expectSongLyricContentVisible(false);
+  });
 }

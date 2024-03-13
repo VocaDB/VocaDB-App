@@ -38,6 +38,7 @@ class SongRobot {
         child: MaterialApp(
           home: SongDetailScreen(
             song: Song(id: songId),
+            pvPlayerWidget: const Text('Mock Player Widget'),
           ),
         ),
       ),

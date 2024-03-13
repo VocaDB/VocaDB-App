@@ -4,13 +4,29 @@ import 'package:vocadb_app/src/common_widgets/async_value_widget.dart';
 import 'package:vocadb_app/src/features/home/presentation/app_bar/global_app_bar.dart';
 import 'package:vocadb_app/src/features/songs/domain/song.dart';
 import 'package:vocadb_app/src/features/songs/presentation/song_detail_screen/song_detail_screen_controller.dart';
+import 'package:vocadb_app/src/features/songs/presentation/song_detail_screen/widgets/song_detail_albums_section.dart';
+import 'package:vocadb_app/src/features/songs/presentation/song_detail_screen/widgets/song_detail_artists_section.dart';
+import 'package:vocadb_app/src/features/songs/presentation/song_detail_screen/widgets/song_detail_button_bar.dart';
 import 'package:vocadb_app/src/features/songs/presentation/song_detail_screen/widgets/song_detail_content.dart';
+import 'package:vocadb_app/src/features/songs/presentation/song_detail_screen/widgets/song_detail_derived_section.dart';
+import 'package:vocadb_app/src/features/songs/presentation/song_detail_screen/widgets/song_detail_info_section.dart';
 import 'package:vocadb_app/src/features/songs/presentation/song_detail_screen/widgets/song_detail_lyrics_content.dart';
 import 'package:vocadb_app/src/features/songs/presentation/song_detail_screen/widgets/song_detail_pv_player.dart';
+import 'package:vocadb_app/src/features/songs/presentation/song_detail_screen/widgets/song_detail_pvs_section.dart';
+import 'package:vocadb_app/src/features/songs/presentation/song_detail_screen/widgets/song_detail_related_section.dart';
+import 'package:vocadb_app/src/features/songs/presentation/song_detail_screen/widgets/song_detail_tags_section.dart';
+import 'package:vocadb_app/src/features/songs/presentation/song_detail_screen/widgets/song_detail_web_links_section.dart';
+import 'package:vocadb_app/src/features/songs/presentation/song_detail_screen/widgets/song_detail_with_pv.dart';
+import 'package:vocadb_app/src/features/songs/presentation/song_detail_screen/widgets/song_detail_without_pv.dart';
+import 'package:vocadb_app/src/features/songs/presentation/song_detail_screen/widgets/song_hero_image.dart';
 
 class SongDetailScreen extends ConsumerStatefulWidget {
-  const SongDetailScreen({super.key, required this.song});
+
+  const SongDetailScreen({super.key, required this.song, this.pvPlayerWidget});
+
   final Song song;
+
+  final Widget? pvPlayerWidget;
 
   /// Keys for test
   static const tagsKey = Key('tags-key');
@@ -30,14 +46,17 @@ class _SongDetailScreenState extends ConsumerState<SongDetailScreen> {
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(songDetailScreenControllerProvider(widget.song.id));
-    
+
     return AsyncValueWidget(
       value: state.song,
-      data: (song) => SafeArea(child: Scaffold(
-        appBar: const GlobalAppBar(title: Text('Song Detail')),
-        body: 
-      (song.hasYoutubePV)? SongDetailPVPlayer(song: song) : const Text('No PV!!'),
-      ),),
+      data: (song) => SafeArea(
+        child: Scaffold(
+          appBar: GlobalAppBar(title: Text(song.name ?? 'Song detail')),
+          body: (song.hasYoutubePV)
+              ? SongDetailWithPV(song: song, pvPlayerWidget: widget.pvPlayerWidget, onTapLyricButton: () {},)
+              : SongDetailWithoutPV(song: song, onTapLyricButton: () {},),
+        ),
+      ),
     );
   }
 }

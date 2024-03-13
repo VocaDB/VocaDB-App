@@ -23,7 +23,7 @@ class _SongDetailPVPlayerState extends ConsumerState<SongDetailPVPlayer> {
         initialVideoId: YoutubePlayer.convertUrlToId(widget.song.youtubeUrl!)!,
         flags: const YoutubePlayerFlags(
             mute: false,
-            autoPlay: true,
+            autoPlay: false,
         ),
     );
     super.initState();
