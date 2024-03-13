@@ -61,6 +61,8 @@ extension SongExtended on Song {
   String get pvSearchQuery =>
       (pvs.isNotEmpty) ? pvs[0].name : '$artistString+$name';
 
+  bool get hasYoutubePV => youtubeUrl != null;
+
   String? get youtubeUrl {
     if(pvs.isEmpty) {
       return null;
