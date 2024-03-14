@@ -118,7 +118,7 @@ void main() {
     });
 
     test('rate album', () async {
-      when(() => client.post('/api/current/albums/1', queryParams: {
+      when(() => client.post('/api/users/current/albums/1', queryParams: {
             'mediaType': 'Ordered',
             'collectionStatus': 'Nothing',
             'rating': 5,

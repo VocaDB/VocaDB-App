@@ -72,7 +72,7 @@ class AlbumApiRepository implements AlbumRepository {
   @override
   Future<void> rateAlbum(int albumId, AlbumRate rateValue) async {
     final queryParams = rateValue.toJson();
-    await client.post('/api/current/albums/$albumId', queryParams: queryParams);
+    await client.post('/api/users/current/albums/$albumId', queryParams: queryParams);
   }
 }
 
