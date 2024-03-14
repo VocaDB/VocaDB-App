@@ -21,7 +21,6 @@ import 'package:vocadb_app/src/features/songs/presentation/song_detail_screen/wi
 import 'package:vocadb_app/src/features/songs/presentation/song_detail_screen/widgets/song_hero_image.dart';
 
 class SongDetailScreen extends ConsumerStatefulWidget {
-
   const SongDetailScreen({super.key, required this.song, this.pvPlayerWidget});
 
   final Song song;
@@ -43,6 +42,12 @@ class SongDetailScreen extends ConsumerStatefulWidget {
 }
 
 class _SongDetailScreenState extends ConsumerState<SongDetailScreen> {
+  _toggleShowLyric() {
+    ref
+        .read(songDetailScreenControllerProvider(widget.song.id).notifier)
+        .toggleLyricContent();
+  }
+
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(songDetailScreenControllerProvider(widget.song.id));
@@ -52,9 +57,23 @@ class _SongDetailScreenState extends ConsumerState<SongDetailScreen> {
       data: (song) => SafeArea(
         child: Scaffold(
           appBar: GlobalAppBar(title: Text(song.name ?? 'Song detail')),
-          body: (song.hasYoutubePV)
-              ? SongDetailWithPV(song: song, pvPlayerWidget: widget.pvPlayerWidget, onTapLyricButton: () {},)
-              : SongDetailWithoutPV(song: song, onTapLyricButton: () {},),
+          body: Column(children: [
+            // PV or thumbnail
+            (song.hasYoutubePV)
+                ? widget.pvPlayerWidget ?? SongDetailPVPlayer(song: song)
+                : SongHeroImage(imageUrl: song.imageUrl!),
+            
+            // Lyrics or Song detail content
+            (state.showLyricContent)
+                ? LyricContent(
+                    lyrics: song.lyrics,
+                    onTapClose: _toggleShowLyric,
+                  )
+                : SongDetailContent(
+                    song: song,
+                    onTapLyricButton: _toggleShowLyric,
+                  ),
+          ]),
         ),
       ),
     );

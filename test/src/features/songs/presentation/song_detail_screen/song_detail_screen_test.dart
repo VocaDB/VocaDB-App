@@ -187,18 +187,18 @@ void main() {
     verify(callFetchSongRelated).called(1);
 
     // /// Verify before tap lyric button
-    // await r.expectSongInfoContentVisible(true);
+    await r.expectSongInfoContentVisible(true);
     await r.expectSongLyricContentVisible(false);
     await r.expectLyricButtonVisible(true);
 
     // /// Verify after tap lyric button
     await r.tapLyricButton();
-    // await r.expectSongInfoContentVisible(false);
-    // await r.expectSongLyricContentVisible(true);
+    await r.expectSongInfoContentVisible(false);
+    await r.expectSongLyricContentVisible(true);
 
-    // /// Verify after tap close lyric button
-    // await r.tapCloseLyricButton();
-    // await r.expectSongInfoContentVisible(true);
-    // await r.expectSongLyricContentVisible(false);
+    /// Verify after tap close lyric button
+    await r.tapCloseLyricButton();
+    await r.expectSongInfoContentVisible(true);
+    await r.expectSongLyricContentVisible(false);
   });
 }

@@ -26,7 +26,10 @@ class SongDetailContent extends StatelessWidget {
       child: ListView(
         key: SongDetailScreen.songDetailScrollKey,
         children: [
-          SongDetailButtonBar(song: song, onTapLyricButton: onTapLyricButton),
+          SongDetailButtonBar(
+            song: song,
+            onTapLyricButton: onTapLyricButton,
+          ),
           SongDetailInfoSection(song: song),
           SongDetailTagsSection(song: song),
           SongDetailArtistsSection(song: song),
