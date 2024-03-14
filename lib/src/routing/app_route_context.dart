@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vocadb_app/src/features/albums/domain/album.dart';
 import 'package:vocadb_app/src/features/artists/domain/artist.dart';
+import 'package:vocadb_app/src/features/entries/domain/entry.dart';
 import 'package:vocadb_app/src/features/releaseEvents/domain/release_event.dart';
 import 'package:vocadb_app/src/features/songs/domain/song.dart';
 import 'package:vocadb_app/src/features/tags/domain/tag.dart';
@@ -31,6 +32,29 @@ extension AppRouteContext on BuildContext {
   Future<void> goArtistsListFilterScreen() async {
     goNamed(AppRoute.artistsListFilter.name);
 
+  }
+
+  Future<void> goEntryDetail(Entry entry) async {
+    String entryType = entry.entryType;
+    switch (entryType) {
+      case 'Album':
+        goAlbumDetail(entry.toAlbum());
+        break;
+      case 'Artist':
+        goArtistDetail(entry.toArtist());
+        break;
+      case 'Song':
+        goSongDetail(entry.toSong());
+        break;
+      case 'Tag':
+        goTagDetail(entry.toTag());
+        break;
+      case 'ReleaseEvent':
+        goReleaseEventDetail(entry.toReleaseEvent());
+        break;
+      default:
+        throw Exception('Unsupported entry type: $entryType');
+    } 
   }
 
   Future<void> goLogin() async {

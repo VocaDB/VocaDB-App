@@ -8,6 +8,7 @@ import 'package:vocadb_app/src/features/artists/domain/artist.dart';
 import 'package:vocadb_app/src/features/entries/domain/main_picture.dart';
 import 'package:vocadb_app/src/features/releaseEvents/domain/release_event.dart';
 import 'package:vocadb_app/src/features/songs/domain/song.dart';
+import 'package:vocadb_app/src/features/tags/domain/tag.dart';
 import 'package:vocadb_app/src/features/tags/domain/tag_usage.dart';
 import 'package:vocadb_app/src/features/weblinks/domain/web_link.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -83,6 +84,13 @@ extension EntryExtended on Entry {
 
   ReleaseEvent toReleaseEvent() {
     return ReleaseEvent(
+      id: id,
+      name: name,
+    );
+  }
+
+  Tag toTag() {
+    return Tag(
       id: id,
       name: name,
     );
