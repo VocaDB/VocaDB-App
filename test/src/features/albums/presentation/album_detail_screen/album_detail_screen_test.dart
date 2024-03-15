@@ -1,8 +1,16 @@
+import 'dart:io';
+
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:vocadb_app/src/features/albums/data/constants/fake_album_detail.dart';
 import 'package:vocadb_app/src/features/albums/domain/album.dart';
+import 'package:vocadb_app/src/features/albums/domain/album_collection.dart';
+import 'package:vocadb_app/src/features/albums/domain/album_rate.dart';
+import 'package:vocadb_app/src/features/albums/presentation/album_detail_screen/album_collection_edit_modal.dart';
+import 'package:vocadb_app/src/features/albums/presentation/album_detail_screen/album_detail_screen.dart';
 import 'package:vocadb_app/src/features/albums/presentation/album_detail_screen/widgets/album_basic_info.dart';
+import 'package:vocadb_app/src/features/albums/presentation/album_detail_screen/widgets/album_detail_button_bar.dart';
 import 'package:vocadb_app/src/features/authentication/domain/app_user.dart';
 
 import '../../../../mocks.dart';
@@ -156,5 +164,48 @@ void main() {
     );
 
     verify(() => albumRepository.fetchAlbumID(any()));
+  });
+
+  testWidgets('album detail screen with tap save album collection status',
+      (tester) async {
+
+    final r = AlbumRobot(tester);
+
+    when(() => albumRepository.fetchAlbumID(any()))
+        .thenAnswer((invocation) => Future.value(Album(id: 1)));
+
+    when(() => albumRepository.rateAlbum(1, const AlbumRate(mediaType: 'DigitalDownload', collectionStatus: 'Owned', rating: 5)))
+    .thenAnswer((invocation) => Future.value(Album(id: 1)));
+
+    when(() => authRepository.currentUser)
+        .thenReturn(const AppUser(id: 1, name: 'test'));
+
+    when(() => authRepository.getAlbumCollection(1))
+    .thenAnswer((invocation) => Future.value(const AlbumCollection(mediaType: 'DigitalDownload', purchaseStatus: 'Owned' ,rating: 5)));
+
+    await r.pumpAlbumDetailScreen(
+      albumRepository: albumRepository,
+      authRepository: authRepository,
+    );
+
+    await r.expectErrorMessageWidgetNotVisible();
+
+    await r.expectAlbumDetailImageVisible();
+
+    expect(find.byKey(AlbumCollectionEditModal.albumCollectionStatusModal), findsNothing);
+    await tester.tap(find.byKey(AlbumDetailButtonBar.addBtnKey));
+
+    // If not using 2 pump, it will error Offset is out of bounds
+    await tester.pump(Duration(seconds: 1));
+    await tester.pump(Duration(seconds: 1));
+    expect(find.byKey(AlbumCollectionEditModal.albumCollectionStatusModal), findsOneWidget);
+
+    expect(find.byKey(AlbumCollectionEditModal.saveBtnKey), findsOneWidget);
+    await tester.ensureVisible(find.byKey(AlbumCollectionEditModal.saveBtnKey));
+    await tester.tap(find.byKey(AlbumCollectionEditModal.saveBtnKey));
+    await tester.pump(Duration(seconds: 1));
+    await tester.pump(Duration(seconds: 1));
+    expect(find.byKey(AlbumCollectionEditModal.albumCollectionStatusModal), findsNothing);
+
   });
 }

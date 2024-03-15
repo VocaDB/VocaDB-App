@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:go_router/go_router.dart';
 import 'package:vocadb_app/src/common_widgets/error_message_widget.dart';
 import 'package:vocadb_app/src/features/albums/data/album_repository.dart';
 import 'package:vocadb_app/src/features/albums/domain/album.dart';
+import 'package:vocadb_app/src/features/albums/presentation/album_detail_screen/album_collection_edit_modal.dart';
 import 'package:vocadb_app/src/features/albums/presentation/album_detail_screen/album_detail_screen.dart';
 import 'package:vocadb_app/src/features/albums/presentation/album_detail_screen/widgets/widgets.dart';
 import 'package:vocadb_app/src/features/albums/presentation/tracks_list/tracks_list_view.dart';
@@ -30,9 +32,16 @@ class AlbumRobot {
           if (authRepository != null)
             authRepositoryProvider.overrideWithValue(authRepository),
         ],
-        child: MaterialApp(
-          home: AlbumDetailScreen(
-            album: Album(id: 1, name: 'test-album'),
+        child: MaterialApp.router(
+          routerConfig: GoRouter(
+            routes: [
+              GoRoute(
+                path: '/',
+                builder: (context, state) => AlbumDetailScreen(
+                  album: Album(id: 1, name: 'test-album'),
+                ),
+              ),
+            ],
           ),
         ),
       ),
@@ -70,6 +79,12 @@ class AlbumRobot {
     (visible) ? expect(finder, findsOneWidget) : expect(finder, findsNothing);
   }
 
+  Future<void> expectSaveCollectionStatusModalVisible(bool visible) async {
+    final finder =
+        find.byKey(AlbumCollectionEditModal.albumCollectionStatusModal);
+    (visible) ? expect(finder, findsOneWidget) : expect(finder, findsNothing);
+  }
+
   Future<void> scrollDown({double offset = -800}) async {
     await tester.drag(find.byType(CustomScrollView), Offset(0, offset));
     await tester.pump();
@@ -98,6 +113,22 @@ class AlbumRobot {
   Future<void> expectAddButtonVisible() async {
     final finder = find.byKey(AlbumDetailButtonBar.addBtnKey);
     expect(finder, findsOneWidget);
+  }
+
+  Future<void> tapAddButton() async {
+    final finder = find.byKey(AlbumDetailButtonBar.addBtnKey);
+    expect(finder, findsOneWidget);
+
+    await tester.tap(finder);
+    await tester.pump();
+  }
+
+  Future<void> tapAlbumCollectionStatusSaveButton() async {
+    final finder = find.byKey(AlbumCollectionEditModal.saveBtnKey);
+    expect(finder, findsOneWidget);
+    await tester.ensureVisible(finder);
+    await tester.tap(finder);
+    await tester.pump();
   }
 
   Future<void> expectShareButtonVisible() async {

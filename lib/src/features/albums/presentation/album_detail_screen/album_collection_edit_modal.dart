@@ -12,11 +12,17 @@ class AlbumCollectionEditModal {
 
   final Album album;
 
+  static const albumCollectionStatusModal = Key('album-collection-status-modal');
+  static const saveBtnKey = Key('save-btn-key');
+  static const statusDropdownKey = Key('status-dropdown-key');
+  static const mediaTypeDropdownKey = Key('media-type-dropdown-key');
+  static const ratingBarDropdownKey = Key('rating-bar-dropdown-key');
+
   AlbumCollectionEditModal(this.context, this.album);
 
   Widget build() {
-    return SizedBox(
-      height: 400,
+    return SingleChildScrollView(
+      key: albumCollectionStatusModal,
       child: Padding(
         padding: const EdgeInsets.all(Sizes.p16),
         child: Column(
@@ -35,6 +41,7 @@ class AlbumCollectionEditModal {
                   child: Column(
                     children: [
                       SimpleDropdownInput(
+                        key: statusDropdownKey,
                         value: value.purchaseStatus ?? 'Nothing',
                         label: 'Status',
                         onChanged: (value) {
@@ -50,6 +57,7 @@ class AlbumCollectionEditModal {
                         ],
                       ),
                       SimpleDropdownInput(
+                        key: mediaTypeDropdownKey,
                         value: value.mediaType ?? 'Other',
                         label: 'Media type',
                         onChanged: (value) {
@@ -87,10 +95,11 @@ class AlbumCollectionEditModal {
                       const Divider(),
                       gapH16,
                       ElevatedButton(
+                        key: saveBtnKey,
                         onPressed: () {
                            ref.read(albumDetailControllerProvider(album.id).notifier)
                             .submitUpdateStatus();
-                          context.pop();
+                            context.pop();
                         },
                         style: ElevatedButton.styleFrom(
                           minimumSize: const Size.fromHeight(50), // NEW
