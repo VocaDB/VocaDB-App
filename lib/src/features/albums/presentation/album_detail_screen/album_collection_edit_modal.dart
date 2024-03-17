@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vocadb_app/src/common_widgets/simple_dropdown_input.dart';
 import 'package:vocadb_app/src/constants/app_sizes.dart';
@@ -12,13 +13,25 @@ class AlbumCollectionEditModal {
 
   final Album album;
 
-  static const albumCollectionStatusModal = Key('album-collection-status-modal');
+  static const albumCollectionStatusModal =
+      Key('album-collection-status-modal');
   static const saveBtnKey = Key('save-btn-key');
   static const statusDropdownKey = Key('status-dropdown-key');
   static const mediaTypeDropdownKey = Key('media-type-dropdown-key');
   static const ratingBarDropdownKey = Key('rating-bar-dropdown-key');
 
   AlbumCollectionEditModal(this.context, this.album);
+
+  _showToast() {
+    Fluttertoast.showToast(
+      msg: "Added to collection",
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.CENTER,
+      timeInSecForIosWeb: 1,
+      textColor: Colors.white,
+      fontSize: 16.0,
+    );
+  }
 
   Widget build() {
     return SingleChildScrollView(
@@ -45,8 +58,10 @@ class AlbumCollectionEditModal {
                         value: value.purchaseStatus ?? 'Nothing',
                         label: 'Status',
                         onChanged: (value) {
-                          ref.read(albumDetailControllerProvider(album.id).notifier)
-                            .updatePurchaseStatus(value!);
+                          ref
+                              .read(albumDetailControllerProvider(album.id)
+                                  .notifier)
+                              .updatePurchaseStatus(value!);
                         },
                         items: const [
                           SimpleDropdownItem(name: 'Nothing', value: 'Nothing'),
@@ -61,8 +76,10 @@ class AlbumCollectionEditModal {
                         value: value.mediaType ?? 'Other',
                         label: 'Media type',
                         onChanged: (value) {
-                          ref.read(albumDetailControllerProvider(album.id).notifier)
-                            .updateMediaType(value!);
+                          ref
+                              .read(albumDetailControllerProvider(album.id)
+                                  .notifier)
+                              .updateMediaType(value!);
                         },
                         items: const [
                           SimpleDropdownItem(
@@ -87,8 +104,10 @@ class AlbumCollectionEditModal {
                           color: Colors.amber,
                         ),
                         onRatingUpdate: (rating) {
-                           ref.read(albumDetailControllerProvider(album.id).notifier)
-                            .updateRating(rating.toInt());
+                          ref
+                              .read(albumDetailControllerProvider(album.id)
+                                  .notifier)
+                              .updateRating(rating.toInt());
                         },
                       ),
                       gapH16,
@@ -97,9 +116,12 @@ class AlbumCollectionEditModal {
                       ElevatedButton(
                         key: saveBtnKey,
                         onPressed: () {
-                           ref.read(albumDetailControllerProvider(album.id).notifier)
-                            .submitUpdateStatus();
-                            context.pop();
+                          ref
+                              .read(albumDetailControllerProvider(album.id)
+                                  .notifier)
+                              .submitUpdateStatus();
+                              _showToast();
+                          context.pop();
                         },
                         style: ElevatedButton.styleFrom(
                           minimumSize: const Size.fromHeight(50), // NEW

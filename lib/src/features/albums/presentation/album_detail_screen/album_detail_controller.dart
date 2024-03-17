@@ -68,7 +68,11 @@ class AlbumDetailController extends StateNotifier<AlbumDetailState> {
         collectionStatus: currentStatus.purchaseStatus!,
         mediaType: currentStatus.mediaType!);
     await albumRepository.rateAlbum(album.id, albumRate);
+    if(state.albumCollection.album == null) {
+      state = state.copyWith(albumCollection: state.albumCollection.copyWith(album: state.album.value!));
+    }
   }
+
 }
 
 final albumDetailControllerProvider = StateNotifierProvider.autoDispose
