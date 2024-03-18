@@ -16,6 +16,7 @@ import 'package:vocadb_app/src/features/songs/presentation/songs_list/songs_deri
 import 'package:vocadb_app/src/features/songs/presentation/songs_list/songs_related_list_view.dart';
 import 'package:vocadb_app/src/features/users/data/user_repository.dart';
 import 'package:vocadb_app/src/routing/app_router.dart';
+import 'package:vocadb_app/src/utils/url_launcher.dart';
 
 class SongRobot {
   final WidgetTester tester;
@@ -25,6 +26,7 @@ class SongRobot {
   Future<void> pumpSongDetailScreen({
     SongRepository? songRepository,
     AuthRepository? authRepository,
+    UrlLauncher? urlLauncher,
     required int songId,
   }) async {
     await tester.pumpWidget(
@@ -34,6 +36,8 @@ class SongRobot {
             songRepositoryProvider.overrideWithValue(songRepository),
           if (authRepository != null)
             authRepositoryProvider.overrideWithValue(authRepository),
+          if (urlLauncher != null)
+            urlLauncherProvider.overrideWithValue(urlLauncher),
         ],
         child: MaterialApp(
           home: SongDetailScreen(

@@ -8,8 +8,8 @@ class UrlLauncher {
 
   UrlLauncher(this.host);
 
-  launchMoreInfo(String path) {
-    launchUrlString('https://${host}${path}');
+  launchSongMoreInfo(int id) {
+    launchUrlString('https://${host}/S/${id}');
   }
 }
 

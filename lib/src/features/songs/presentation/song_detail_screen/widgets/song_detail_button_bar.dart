@@ -31,8 +31,8 @@ class SongDetailButtonBar extends StatelessWidget {
             style: ButtonStyle(
               foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
             ),
-            child: Column(
-              children: const [
+            child: const Column(
+              children:  [
                 Icon(Icons.subtitles),
                 gapH4,
                 Text('Lyrics'),
@@ -46,8 +46,8 @@ class SongDetailButtonBar extends StatelessWidget {
           style: ButtonStyle(
             foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
           ),
-          child: Column(
-            children: const [
+          child: const Column(
+            children:  [
               Icon(Icons.share),
               gapH4,
               Text('Share'),
@@ -59,13 +59,13 @@ class SongDetailButtonBar extends StatelessWidget {
             return TextButton(
             key: infoBtnKey,
             onPressed: () {
-              ref.read(urlLauncherProvider).launchMoreInfo('/S/${song.id}');
+              ref.read(urlLauncherProvider).launchSongMoreInfo(song.id);
             },
             style: ButtonStyle(
               foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
             ),
-            child: Column(
-              children: const [
+            child: const Column(
+              children:  [
                 Icon(Icons.info),
                 gapH4,
                 Text('Info'),

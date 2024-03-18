@@ -201,4 +201,57 @@ void main() {
     await r.expectSongInfoContentVisible(true);
     await r.expectSongLyricContentVisible(false);
   });
+  
+  testWidgets('tap Info button in song detail screen',
+      (tester) async {
+    /// Setup
+    final r = SongRobot(tester);
+    final songRepository = MockSongRepository();
+    final authRepository = MockAuthRepository();
+    final urlLauncher = MockUrlLauncher();
+    final song = kFakeSongDetail;
+
+    /// Mock
+    callFetchSongId() =>
+        songRepository.fetchSongId(song.id, lang: PreferredLang.Default.name);
+    callFetchSongDerived() => songRepository.fetchSongsDerived(song.id,
+        lang: PreferredLang.Default.name);
+    callFetchSongRelated() => songRepository.fetchSongsRelated(song.id,
+        lang: PreferredLang.Default.name);
+
+    when(callFetchSongId).thenAnswer((_) => Future.value(song));
+    when(callFetchSongDerived).thenAnswer((_) => Future.value([
+          const Song(id: 1, name: 'Song_A'),
+          const Song(id: 2, name: 'Song_B'),
+        ]));
+
+    when(callFetchSongRelated).thenAnswer(
+      (_) => Future.value(
+        const SongRelated(likeMatches: [
+          Song(id: 3, name: 'Song_Related_A'),
+          Song(id: 4, name: 'Song_Related_B'),
+        ]),
+      ),
+    );
+
+    /// Pump screen
+    await r.pumpSongDetailScreen(
+      songRepository: songRepository,
+      authRepository: authRepository,
+      songId: song.id,
+      urlLauncher: urlLauncher,
+    );
+
+    // Verify
+    verify(callFetchSongId).called(1);
+    verify(callFetchSongDerived).called(1);
+    verify(callFetchSongRelated).called(1);
+
+
+    await tester.tap(find.text('Info'));
+    await tester.pump();
+    
+    verify(() => urlLauncher.launchSongMoreInfo(1501)).called(1);
+  });
+
 }
