@@ -208,4 +208,38 @@ void main() {
     expect(find.byKey(AlbumCollectionEditModal.albumCollectionStatusModal), findsNothing);
 
   });
+
+  testWidgets('tap more info on album detail screen', (tester) async {
+    final r = AlbumRobot(tester);
+    final urlLauncher = MockUrlLauncher();
+
+    when(() => albumRepository.fetchAlbumID(any()))
+        .thenAnswer((invocation) => Future.value(kFakeAlbumDetailSingleDisc));
+
+    await r.pumpAlbumDetailScreen(
+      albumRepository: albumRepository,
+      authRepository: authRepository,
+      urlLauncher: urlLauncher
+    );
+
+    await r.expectErrorMessageWidgetNotVisible();
+
+    expect(find.widgetWithText(AlbumBasicInfo, 'synthesis'), findsOneWidget);
+    expect(find.widgetWithText(AlbumBasicInfo, 'Tripshots feat. 初音ミク'),
+        findsOneWidget);
+    expect(find.widgetWithText(AlbumBasicInfo, 'Album • 6/11/2009'),
+        findsOneWidget);
+
+    await r.expectAlbumDetailImageVisible();
+
+    // Buttons
+    await r.expectAddButtonVisible();
+    await r.expectShareButtonVisible();
+    await r.expectInfoButtonVisible();
+    
+    await r.tapMoreInfo();
+
+    verify(() => urlLauncher.launchAlbumMoreInfo(kFakeAlbumDetailSingleDisc.id)).called(1);
+  });
+
 }

@@ -5,7 +5,7 @@ import 'package:vocadb_app/src/features/albums/domain/album.dart';
 import 'package:vocadb_app/src/features/albums/domain/album_collection.dart';
 import 'package:vocadb_app/src/features/albums/presentation/album_detail_screen/album_collection_edit_modal.dart';
 import 'package:vocadb_app/src/features/albums/presentation/album_detail_screen/album_detail_controller.dart';
-import 'package:vocadb_app/src/features/authentication/data/auth_repository.dart';
+import 'package:vocadb_app/src/utils/url_launcher.dart';
 
 class AlbumDetailButtonBar extends StatelessWidget {
   const AlbumDetailButtonBar({super.key, required this.album});
@@ -56,28 +56,32 @@ class AlbumDetailButtonBar extends StatelessWidget {
           style: ButtonStyle(
             foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
           ),
-          child: Column(
-            children: const [
+          child: const Column(
+            children: [
               Icon(Icons.share),
               gapH4,
               Text('Share'),
             ],
           ),
         ),
-        TextButton(
-          key: infoBtnKey,
-          onPressed: () => {},
-          style: ButtonStyle(
-            foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-          ),
-          child: Column(
-            children: const [
-              Icon(Icons.info),
-              gapH4,
-              Text('Info'),
-            ],
-          ),
-        ),
+        Consumer(builder: (context, ref, _) {
+          return TextButton(
+            key: infoBtnKey,
+            onPressed: () {
+              ref.read(urlLauncherProvider).launchAlbumMoreInfo(album.id);
+            },
+            style: ButtonStyle(
+              foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+            ),
+            child: const Column(
+              children: [
+                Icon(Icons.info),
+                gapH4,
+                Text('Info'),
+              ],
+            ),
+          );
+        })
       ],
     );
   }
