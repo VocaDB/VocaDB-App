@@ -9,6 +9,7 @@ import 'package:vocadb_app/src/features/artists/presentation/artist_detail_scree
 import 'package:vocadb_app/src/features/artists/presentation/artist_detail_screen/widgets/artist_relations_view.dart';
 import 'package:vocadb_app/src/features/tags/presentation/tag_widgets/tag_usage_group_view.dart';
 import 'package:vocadb_app/src/features/weblinks/presentation/web_link_group_view.dart';
+import 'package:vocadb_app/src/utils/url_launcher.dart';
 
 class ArtistRobot {
   final WidgetTester tester;
@@ -16,12 +17,15 @@ class ArtistRobot {
   ArtistRobot(this.tester);
 
   Future<void> pumpArtistDetailScreen(
-      {ArtistRepository? artistRepository}) async {
+      {ArtistRepository? artistRepository,
+      UrlLauncher? urlLauncher,}) async {
     await tester.pumpWidget(
       ProviderScope(
         overrides: [
           if (artistRepository != null)
-            artistRepositoryProvider.overrideWithValue(artistRepository)
+            artistRepositoryProvider.overrideWithValue(artistRepository),
+          if(urlLauncher != null)
+            urlLauncherProvider.overrideWithValue(urlLauncher)
         ],
         child: const MaterialApp(
           home: ArtistDetailScreen(
@@ -96,5 +100,12 @@ class ArtistRobot {
   Future<void> expectInfoButtonVisible() async {
     final finder = find.byKey(ArtistDetailButtonBar.infoBtnKey);
     expect(finder, findsOneWidget);
+  }
+
+  Future<void> tapMoreInfo() async {
+    final finder = find.byKey(ArtistDetailButtonBar.infoBtnKey);
+    expect(finder, findsOneWidget);
+    await tester.tap(finder);
+    await tester.pump();
   }
 }

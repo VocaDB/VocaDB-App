@@ -94,4 +94,35 @@ void main() {
     verify(() => artistRepository.fetchArtistID(any(),
         lang: any(named: 'lang', that: isNotEmpty))).called(1);
   });
+
+  testWidgets('tap more info on artist detail screen', (tester) async {
+    final r = ArtistRobot(tester);
+    final artistRepository = MockArtistRepository();
+    final urlLauncher = MockUrlLauncher();
+
+    when(() => artistRepository.fetchArtistID(any(),
+            lang: any(named: 'lang', that: isNotEmpty)))
+        .thenAnswer((_) => Future.value(kFakeArtistDetail));
+
+    await r.pumpArtistDetailScreen(
+      artistRepository: artistRepository, 
+      urlLauncher: urlLauncher);
+
+    await tester.pump();
+
+    verify(() => artistRepository.fetchArtistID(any(),
+        lang: any(named: 'lang', that: isNotEmpty))).called(1);
+
+    await r.expectArtistDetailImageVisible();
+    expect(find.text('Hatsune Miku').first, findsOneWidget);
+
+    await r.expectAddButtonVisible();
+    await r.expectShareButtonVisible();
+    await r.expectInfoButtonVisible();
+
+    await r.tapMoreInfo();
+
+    verify(() => urlLauncher.launchArtistMoreInfo(kFakeArtistDetail.id)).called(1);
+  });
+
 }

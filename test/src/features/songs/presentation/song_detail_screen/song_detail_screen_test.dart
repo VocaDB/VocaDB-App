@@ -247,9 +247,7 @@ void main() {
     verify(callFetchSongDerived).called(1);
     verify(callFetchSongRelated).called(1);
 
-
-    await tester.tap(find.text('Info'));
-    await tester.pump();
+    await r.tapMoreInfo();
     
     verify(() => urlLauncher.launchSongMoreInfo(1501)).called(1);
   });

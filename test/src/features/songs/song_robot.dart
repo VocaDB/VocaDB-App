@@ -197,6 +197,13 @@ class SongRobot {
     await tester.pump();
   }
 
+  Future<void> tapMoreInfo() async {
+    final finder = find.byKey(SongDetailButtonBar.infoBtnKey);
+    expect(finder, findsOneWidget);
+    await tester.tap(finder);
+    await tester.pump();
+  }
+
   Future<void> expectSongInfoContentVisible(bool visible) async {
     final finder = find.byType(SongDetailContent);
     (visible) ? expect(finder, findsOneWidget) : expect(finder, findsNothing);

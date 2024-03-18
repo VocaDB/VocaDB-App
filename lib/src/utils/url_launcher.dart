@@ -8,13 +8,16 @@ class UrlLauncher {
 
   UrlLauncher(this.host);
 
-  launchSongMoreInfo(int id) {
-    launchUrlString('https://${host}/S/${id}');
-  }
+  launchSongMoreInfo(int id) => 
+    launchUrlString('$host/S/$id');
+  
+  launchArtistMoreInfo(int id) =>
+    launchUrlString('$host/Ar/$id');
+  
 }
 
 
 final urlLauncherProvider = Provider<UrlLauncher>((ref) {
   final flavorConfig = ref.watch(flavorConfigProvider);
-  return UrlLauncher(flavorConfig.apiAuthority);
+  return UrlLauncher('https://${flavorConfig.apiAuthority}');
 });
