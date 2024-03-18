@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vocadb_app/src/constants/app_sizes.dart';
 import 'package:vocadb_app/src/features/songs/domain/song.dart';
 import 'package:vocadb_app/src/features/songs/presentation/song_detail_screen/widgets/song_detail_like_button.dart';
+import 'package:vocadb_app/src/utils/url_launcher.dart';
 
 class SongDetailButtonBar extends StatelessWidget {
   const SongDetailButtonBar(
@@ -52,19 +54,25 @@ class SongDetailButtonBar extends StatelessWidget {
             ],
           ),
         ),
-        TextButton(
-          key: infoBtnKey,
-          onPressed: () => {},
-          style: ButtonStyle(
-            foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-          ),
-          child: Column(
-            children: const [
-              Icon(Icons.info),
-              gapH4,
-              Text('Info'),
-            ],
-          ),
+        Consumer(
+          builder: (context, ref, _) {
+            return TextButton(
+            key: infoBtnKey,
+            onPressed: () {
+              ref.read(urlLauncherProvider).launchMoreInfo('/S/${song.id}');
+            },
+            style: ButtonStyle(
+              foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+            ),
+            child: Column(
+              children: const [
+                Icon(Icons.info),
+                gapH4,
+                Text('Info'),
+              ],
+            ),
+          );
+          },
         ),
       ],
     );
