@@ -16,6 +16,7 @@ import 'package:vocadb_app/src/features/songs/presentation/songs_list/songs_deri
 import 'package:vocadb_app/src/features/songs/presentation/songs_list/songs_related_list_view.dart';
 import 'package:vocadb_app/src/features/users/data/user_repository.dart';
 import 'package:vocadb_app/src/routing/app_router.dart';
+import 'package:vocadb_app/src/utils/share_launcher.dart';
 import 'package:vocadb_app/src/utils/url_launcher.dart';
 
 class SongRobot {
@@ -27,6 +28,7 @@ class SongRobot {
     SongRepository? songRepository,
     AuthRepository? authRepository,
     UrlLauncher? urlLauncher,
+    ShareLauncher? shareLauncher,
     required int songId,
   }) async {
     await tester.pumpWidget(
@@ -38,6 +40,8 @@ class SongRobot {
             authRepositoryProvider.overrideWithValue(authRepository),
           if (urlLauncher != null)
             urlLauncherProvider.overrideWithValue(urlLauncher),
+          if (shareLauncher != null)
+            shareLauncherProvider.overrideWithValue(shareLauncher),
         ],
         child: MaterialApp(
           home: SongDetailScreen(
@@ -199,6 +203,13 @@ class SongRobot {
 
   Future<void> tapMoreInfo() async {
     final finder = find.byKey(SongDetailButtonBar.infoBtnKey);
+    expect(finder, findsOneWidget);
+    await tester.tap(finder);
+    await tester.pump();
+  }
+
+  Future<void> tapShare() async {
+    final finder = find.byKey(SongDetailButtonBar.shareBtnKey);
     expect(finder, findsOneWidget);
     await tester.tap(finder);
     await tester.pump();

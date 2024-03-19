@@ -15,6 +15,7 @@ import 'package:vocadb_app/src/features/songs/data/song_repository.dart';
 import 'package:vocadb_app/src/features/tags/data/tag_repository.dart';
 import 'package:vocadb_app/src/features/users/data/user_repository.dart';
 import 'package:vocadb_app/src/features/users/domain/rated_songs_list_params.dart';
+import 'package:vocadb_app/src/utils/share_launcher.dart';
 import 'package:vocadb_app/src/utils/url_launcher.dart';
 
 class MockAuthRepository extends Mock implements AuthRepository {}
@@ -54,3 +55,5 @@ class MockApiCache extends Mock implements ApiCache {}
 class MockCookieStorage extends Mock implements CookieStorage {}
 
 class MockUrlLauncher extends Mock implements UrlLauncher {}
+
+class MockShareLauncher extends Mock implements ShareLauncher {}

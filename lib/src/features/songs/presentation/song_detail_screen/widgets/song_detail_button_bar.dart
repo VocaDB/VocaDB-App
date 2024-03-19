@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vocadb_app/src/constants/app_sizes.dart';
 import 'package:vocadb_app/src/features/songs/domain/song.dart';
 import 'package:vocadb_app/src/features/songs/presentation/song_detail_screen/widgets/song_detail_like_button.dart';
+import 'package:vocadb_app/src/utils/share_launcher.dart';
 import 'package:vocadb_app/src/utils/url_launcher.dart';
 
 class SongDetailButtonBar extends StatelessWidget {
@@ -32,7 +33,7 @@ class SongDetailButtonBar extends StatelessWidget {
               foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
             ),
             child: const Column(
-              children:  [
+              children: [
                 Icon(Icons.subtitles),
                 gapH4,
                 Text('Lyrics'),
@@ -40,38 +41,40 @@ class SongDetailButtonBar extends StatelessWidget {
             ),
           ),
         ),
-        TextButton(
-          key: shareBtnKey,
-          onPressed: () => {},
-          style: ButtonStyle(
-            foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-          ),
-          child: const Column(
-            children:  [
-              Icon(Icons.share),
-              gapH4,
-              Text('Share'),
-            ],
-          ),
-        ),
-        Consumer(
-          builder: (context, ref, _) {
-            return TextButton(
-            key: infoBtnKey,
-            onPressed: () {
-              ref.read(urlLauncherProvider).launchSongMoreInfo(song.id);
-            },
+        Consumer(builder: (context, ref, _) {
+          return TextButton(
+            key: shareBtnKey,
+            onPressed: () => ref.read(shareLauncherProvider).shareSong(song.id),
             style: ButtonStyle(
               foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
             ),
             child: const Column(
-              children:  [
-                Icon(Icons.info),
+              children: [
+                Icon(Icons.share),
                 gapH4,
-                Text('Info'),
+                Text('Share'),
               ],
             ),
           );
+        }),
+        Consumer(
+          builder: (context, ref, _) {
+            return TextButton(
+              key: infoBtnKey,
+              onPressed: () {
+                ref.read(urlLauncherProvider).launchSongMoreInfo(song.id);
+              },
+              style: ButtonStyle(
+                foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+              ),
+              child: const Column(
+                children: [
+                  Icon(Icons.info),
+                  gapH4,
+                  Text('Info'),
+                ],
+              ),
+            );
           },
         ),
       ],
