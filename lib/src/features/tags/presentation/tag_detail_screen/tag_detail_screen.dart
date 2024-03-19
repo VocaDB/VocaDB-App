@@ -49,7 +49,7 @@ class TagDetailScreen extends ConsumerWidget {
                 ),
                 SliverList(
                   delegate: SliverChildListDelegate([
-                    const TagDetailButtonBar(),
+                    TagDetailButtonBar(tag: tag),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,

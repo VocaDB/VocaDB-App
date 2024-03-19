@@ -17,6 +17,8 @@ class UrlLauncher {
   launchAlbumMoreInfo(int id) =>
     launchUrlString('$host/Al/$id');
   
+  launchTagMoreInfo(int id) =>
+    launchUrlString('$host/T/$id');
 }
 
 

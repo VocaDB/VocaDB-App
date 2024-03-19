@@ -9,6 +9,7 @@ import 'package:vocadb_app/src/features/tags/data/tag_repository.dart';
 import 'package:vocadb_app/src/features/tags/presentation/tag_detail_screen/tag_detail_button_bar.dart';
 import 'package:vocadb_app/src/features/tags/presentation/tag_detail_screen/tag_detail_screen.dart';
 import 'package:vocadb_app/src/features/weblinks/presentation/web_link_group_view.dart';
+import 'package:vocadb_app/src/utils/url_launcher.dart';
 
 class TagRobot {
   final WidgetTester tester;
@@ -21,6 +22,7 @@ class TagRobot {
     SongRepository? songRepository,
     ArtistRepository? artistRepository,
     AlbumRepository? albumRepository,
+    UrlLauncher? urlLauncher
   }) async {
     await tester.pumpWidget(
       ProviderScope(
@@ -33,6 +35,8 @@ class TagRobot {
             artistRepositoryProvider.overrideWithValue(artistRepository),
           if (albumRepository != null)
             albumRepositoryProvider.overrideWithValue(albumRepository),
+          if (urlLauncher != null)
+            urlLauncherProvider.overrideWithValue(urlLauncher),
         ],
         child: MaterialApp(
           home: TagDetailScreen(
@@ -77,6 +81,13 @@ class TagRobot {
   Future<void> expectInfoButtonVisible() async {
     final finder = find.byKey(TagDetailButtonBar.infoBtnKey);
     expect(finder, findsOneWidget);
+  }
+
+  Future<void> tapMoreInfo() async {
+    final finder = find.byKey(TagDetailButtonBar.infoBtnKey);
+    expect(finder, findsOneWidget);
+    await tester.tap(finder);
+    await tester.pump();
   }
 
   Future<void> expectTagNameIs(String name) async {
