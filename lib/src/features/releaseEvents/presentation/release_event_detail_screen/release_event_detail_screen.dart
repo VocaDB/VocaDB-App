@@ -56,7 +56,7 @@ class ReleaseEventDetailScreen extends StatelessWidget {
                     ),
                     SliverList(
                       delegate: SliverChildListDelegate([
-                        const ReleaseEventDetailButtonBar(),
+                        ReleaseEventDetailButtonBar(releaseEvent: releaseEvent,),
                         Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,

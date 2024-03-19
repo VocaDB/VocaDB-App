@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vocadb_app/src/constants/app_sizes.dart';
+import 'package:vocadb_app/src/features/releaseEvents/domain/release_event.dart';
+import 'package:vocadb_app/src/utils/url_launcher.dart';
 
 class ReleaseEventDetailButtonBar extends StatelessWidget {
-  const ReleaseEventDetailButtonBar({super.key});
+  final ReleaseEvent releaseEvent;
+  const ReleaseEventDetailButtonBar({super.key, required this.releaseEvent});
 
   static const addBtnKey = Key('add-btn-key');
   static const shareBtnKey = Key('share-btn-key');
@@ -19,8 +23,8 @@ class ReleaseEventDetailButtonBar extends StatelessWidget {
           style: ButtonStyle(
             foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
           ),
-          child: Column(
-            children: const [
+          child: const Column(
+            children:  [
               Icon(Icons.favorite),
               gapH4,
               Text('Like'),
@@ -33,28 +37,32 @@ class ReleaseEventDetailButtonBar extends StatelessWidget {
           style: ButtonStyle(
             foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
           ),
-          child: Column(
-            children: const [
+          child: const Column(
+            children: [
               Icon(Icons.share),
               gapH4,
               Text('Share'),
             ],
           ),
         ),
-        TextButton(
-          key: infoBtnKey,
-          onPressed: () => {},
-          style: ButtonStyle(
-            foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-          ),
-          child: Column(
-            children: const [
-              Icon(Icons.info),
-              gapH4,
-              Text('Info'),
-            ],
-          ),
-        ),
+        Consumer(builder: (context, ref, _) {
+          return TextButton(
+            key: infoBtnKey,
+            onPressed: () {
+              ref.read(urlLauncherProvider).launchReleaseEventMoreInfo(releaseEvent.id);
+            },
+            style: ButtonStyle(
+              foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+            ),
+            child: const Column(
+              children: [
+                Icon(Icons.info),
+                gapH4,
+                Text('Info'),
+              ],
+            ),
+          );
+        }),
       ],
     );
   }

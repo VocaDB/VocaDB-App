@@ -10,6 +10,7 @@ import 'package:vocadb_app/src/features/releaseEvents/presentation/release_event
 import 'package:vocadb_app/src/features/songs/presentation/songs_list/songs_list_view.dart';
 import 'package:vocadb_app/src/features/tags/presentation/tag_widgets/tag_usage_group_view.dart';
 import 'package:vocadb_app/src/features/weblinks/presentation/web_link_group_view.dart';
+import 'package:vocadb_app/src/utils/url_launcher.dart';
 
 class ReleaseEventRobot {
   final WidgetTester tester;
@@ -18,13 +19,17 @@ class ReleaseEventRobot {
 
   Future<void> pumpReleaseEventDetailScreen({
     ReleaseEventRepository? releaseEventRepository,
+    UrlLauncher? urlLauncher
   }) async {
     await tester.pumpWidget(
       ProviderScope(
         overrides: [
           if (releaseEventRepository != null)
             releaseEventRepositoryProvider
-                .overrideWithValue(releaseEventRepository)
+                .overrideWithValue(releaseEventRepository),
+          if (urlLauncher != null)
+            urlLauncherProvider
+                .overrideWithValue(urlLauncher)
         ],
         child: const MaterialApp(
           home: ReleaseEventDetailScreen(
@@ -89,6 +94,13 @@ class ReleaseEventRobot {
   Future<void> expectInfoButtonVisible() async {
     final finder = find.byKey(ReleaseEventDetailButtonBar.infoBtnKey);
     expect(finder, findsOneWidget);
+  }
+
+  Future<void> tapMoreInfo() async {
+    final finder = find.byKey(ReleaseEventDetailButtonBar.infoBtnKey);
+    expect(finder, findsOneWidget);
+    await tester.tap(finder);
+    await tester.pump();
   }
 
   Future<void> expectTagNameIs(String name) async {

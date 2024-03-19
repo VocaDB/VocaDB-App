@@ -19,6 +19,9 @@ class UrlLauncher {
   
   launchTagMoreInfo(int id) =>
     launchUrlString('$host/T/$id');
+
+  launchReleaseEventMoreInfo(int id) =>
+    launchUrlString('$host/E/$id');
 }
 
 

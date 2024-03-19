@@ -71,4 +71,36 @@ void main() {
     await r.expectAlbumsListVisible(false);
     await r.expectWebLinksVisible(false);
   });
+
+  testWidgets('tap more info on release event detail screen', (tester) async {
+    final r = ReleaseEventRobot(tester);
+    final releaseEventRepository = MockReleaseEventRepository();
+    final urlLauncher = MockUrlLauncher();
+
+    when(() => releaseEventRepository.fetchReleaseEventByID(any()))
+        .thenAnswer((_) => Future.value(kFakeReleaseEventDetail));
+
+    when(() => releaseEventRepository.fetchAlbums(any()))
+        .thenAnswer((_) => Future.value(kFakeAlbumsList));
+
+    when(() => releaseEventRepository.fetchPublishedSongs(any()))
+        .thenAnswer((_) => Future.value(kFakeSongsList));
+
+    await r.pumpReleaseEventDetailScreen(
+      releaseEventRepository: releaseEventRepository,
+      urlLauncher: urlLauncher
+    );
+
+    await tester.pump();
+
+    await r.expectErrorMessageWidgetNotVisible();
+
+    await r.expectAddButtonVisible();
+    await r.expectShareButtonVisible();
+    await r.expectInfoButtonVisible();
+    
+    await r.tapMoreInfo();
+
+    verify(() => urlLauncher.launchReleaseEventMoreInfo(kFakeReleaseEventDetail.id)).called(1);
+  });
 }
