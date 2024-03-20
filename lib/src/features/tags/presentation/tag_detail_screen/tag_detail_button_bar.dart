@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vocadb_app/src/constants/app_sizes.dart';
 import 'package:vocadb_app/src/features/tags/domain/tag.dart';
+import 'package:vocadb_app/src/utils/share_launcher.dart';
 import 'package:vocadb_app/src/utils/url_launcher.dart';
 
 class TagDetailButtonBar extends StatelessWidget {
@@ -18,20 +19,22 @@ class TagDetailButtonBar extends StatelessWidget {
     return ButtonBar(
       alignment: MainAxisAlignment.spaceEvenly,
       children: [
-        TextButton(
-          key: shareBtnKey,
-          onPressed: () => {},
-          style: ButtonStyle(
-            foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-          ),
-          child: const Column(
-            children:  [
-              Icon(Icons.share),
-              gapH4,
-              Text('Share'),
-            ],
-          ),
-        ),
+        Consumer(builder: (context, ref, _) {
+          return TextButton(
+            key: shareBtnKey,
+            onPressed: () => ref.read(shareLauncherProvider).shareTag(tag.id),
+            style: ButtonStyle(
+              foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+            ),
+            child: const Column(
+              children: [
+                Icon(Icons.share),
+                gapH4,
+                Text('Share'),
+              ],
+            ),
+          );
+        }),
         Consumer(builder: (context, ref, _) {
           return TextButton(
             key: infoBtnKey,

@@ -9,6 +9,7 @@ import 'package:vocadb_app/src/features/tags/data/tag_repository.dart';
 import 'package:vocadb_app/src/features/tags/presentation/tag_detail_screen/tag_detail_button_bar.dart';
 import 'package:vocadb_app/src/features/tags/presentation/tag_detail_screen/tag_detail_screen.dart';
 import 'package:vocadb_app/src/features/weblinks/presentation/web_link_group_view.dart';
+import 'package:vocadb_app/src/utils/share_launcher.dart';
 import 'package:vocadb_app/src/utils/url_launcher.dart';
 
 class TagRobot {
@@ -22,7 +23,8 @@ class TagRobot {
     SongRepository? songRepository,
     ArtistRepository? artistRepository,
     AlbumRepository? albumRepository,
-    UrlLauncher? urlLauncher
+    UrlLauncher? urlLauncher,
+    ShareLauncher? shareLauncher,
   }) async {
     await tester.pumpWidget(
       ProviderScope(
@@ -37,6 +39,8 @@ class TagRobot {
             albumRepositoryProvider.overrideWithValue(albumRepository),
           if (urlLauncher != null)
             urlLauncherProvider.overrideWithValue(urlLauncher),
+          if (shareLauncher != null)
+            shareLauncherProvider.overrideWithValue(shareLauncher),
         ],
         child: MaterialApp(
           home: TagDetailScreen(
@@ -85,6 +89,13 @@ class TagRobot {
 
   Future<void> tapMoreInfo() async {
     final finder = find.byKey(TagDetailButtonBar.infoBtnKey);
+    expect(finder, findsOneWidget);
+    await tester.tap(finder);
+    await tester.pump();
+  }
+
+  Future<void> tapShare() async {
+    final finder = find.byKey(TagDetailButtonBar.shareBtnKey);
     expect(finder, findsOneWidget);
     await tester.tap(finder);
     await tester.pump();

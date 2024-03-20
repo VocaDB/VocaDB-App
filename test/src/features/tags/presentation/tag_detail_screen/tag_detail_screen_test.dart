@@ -162,4 +162,49 @@ void main() {
     verify(() => urlLauncher.launchTagMoreInfo(kFakeTagDetail.id)).called(1);
   });
 
+  testWidgets('tap share on tag detail screen', (tester) async {
+    final r = TagRobot(tester);
+
+    final tagRepository = MockTagRepository();
+    final songRepository = MockSongRepository();
+    final artistRepository = MockArtistRepository();
+    final albumRepository = MockAlbumRepository();
+    final shareLauncher = MockShareLauncher();
+
+    when(() => tagRepository.fetchTagID(any(),
+            lang: any(named: 'lang', that: isNotEmpty)))
+        .thenAnswer((_) => Future.value(kFakeTagDetail));
+
+    when(() => songRepository.fetchTopSongsByTagID(any(),
+            lang: any(named: 'lang', that: isNotEmpty)))
+        .thenAnswer((_) => Future.value(kFakeSongsList));
+
+    when(() => artistRepository.fetchTopArtistsByTagID(any(),
+            lang: any(named: 'lang', that: isNotEmpty)))
+        .thenAnswer((_) => Future.value(kFakeArtistList));
+
+    when(() => albumRepository.fetchTopAlbumsByTagID(any(),
+            lang: any(named: 'lang', that: isNotEmpty)))
+        .thenAnswer((_) => Future.value(kFakeAlbumsList));
+
+    await r.pumpTagDetailScreen(
+      tagId: '29',
+      tagRepository: tagRepository,
+      songRepository: songRepository,
+      artistRepository: artistRepository,
+      albumRepository: albumRepository,
+      shareLauncher: shareLauncher,
+    );
+
+    await tester.pump();
+
+    await r.expectErrorMessageWidgetNotVisible();
+
+    await r.expectInfoButtonVisible();
+    await r.expectShareButtonVisible();
+
+    await r.tapShare();
+
+    verify(() => shareLauncher.shareTag(kFakeTagDetail.id)).called(1);
+  });
 }
