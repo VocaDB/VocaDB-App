@@ -103,4 +103,36 @@ void main() {
 
     verify(() => urlLauncher.launchReleaseEventMoreInfo(kFakeReleaseEventDetail.id)).called(1);
   });
+
+  testWidgets('tap share on release event detail screen', (tester) async {
+    final r = ReleaseEventRobot(tester);
+    final releaseEventRepository = MockReleaseEventRepository();
+    final shareLauncher = MockShareLauncher();
+
+    when(() => releaseEventRepository.fetchReleaseEventByID(any()))
+        .thenAnswer((_) => Future.value(kFakeReleaseEventDetail));
+
+    when(() => releaseEventRepository.fetchAlbums(any()))
+        .thenAnswer((_) => Future.value(kFakeAlbumsList));
+
+    when(() => releaseEventRepository.fetchPublishedSongs(any()))
+        .thenAnswer((_) => Future.value(kFakeSongsList));
+
+    await r.pumpReleaseEventDetailScreen(
+      releaseEventRepository: releaseEventRepository,
+      shareLauncher: shareLauncher
+    );
+
+    await tester.pump();
+
+    await r.expectErrorMessageWidgetNotVisible();
+
+    await r.expectAddButtonVisible();
+    await r.expectShareButtonVisible();
+    await r.expectInfoButtonVisible();
+    
+    await r.tapShare();
+
+    verify(() => shareLauncher.shareReleaseEvent(kFakeReleaseEventDetail.id)).called(1);
+  });
 }

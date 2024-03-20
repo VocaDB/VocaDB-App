@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vocadb_app/src/constants/app_sizes.dart';
 import 'package:vocadb_app/src/features/releaseEvents/domain/release_event.dart';
+import 'package:vocadb_app/src/utils/share_launcher.dart';
 import 'package:vocadb_app/src/utils/url_launcher.dart';
 
 class ReleaseEventDetailButtonBar extends StatelessWidget {
@@ -24,32 +25,36 @@ class ReleaseEventDetailButtonBar extends StatelessWidget {
             foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
           ),
           child: const Column(
-            children:  [
+            children: [
               Icon(Icons.favorite),
               gapH4,
               Text('Like'),
             ],
           ),
         ),
-        TextButton(
-          key: shareBtnKey,
-          onPressed: () => {},
-          style: ButtonStyle(
-            foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-          ),
-          child: const Column(
-            children: [
-              Icon(Icons.share),
-              gapH4,
-              Text('Share'),
-            ],
-          ),
-        ),
+        Consumer(builder: (context, ref, _) {
+          return TextButton(
+            key: shareBtnKey,
+            onPressed: () => ref.read(shareLauncherProvider).shareReleaseEvent(releaseEvent.id),
+            style: ButtonStyle(
+              foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+            ),
+            child: const Column(
+              children: [
+                Icon(Icons.share),
+                gapH4,
+                Text('Share'),
+              ],
+            ),
+          );
+        }),
         Consumer(builder: (context, ref, _) {
           return TextButton(
             key: infoBtnKey,
             onPressed: () {
-              ref.read(urlLauncherProvider).launchReleaseEventMoreInfo(releaseEvent.id);
+              ref
+                  .read(urlLauncherProvider)
+                  .launchReleaseEventMoreInfo(releaseEvent.id);
             },
             style: ButtonStyle(
               foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
