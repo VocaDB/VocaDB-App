@@ -5,6 +5,7 @@ import 'package:vocadb_app/src/features/albums/domain/album.dart';
 import 'package:vocadb_app/src/features/albums/domain/album_collection.dart';
 import 'package:vocadb_app/src/features/albums/presentation/album_detail_screen/album_collection_edit_modal.dart';
 import 'package:vocadb_app/src/features/albums/presentation/album_detail_screen/album_detail_controller.dart';
+import 'package:vocadb_app/src/utils/share_launcher.dart';
 import 'package:vocadb_app/src/utils/url_launcher.dart';
 
 class AlbumDetailButtonBar extends StatelessWidget {
@@ -50,20 +51,22 @@ class AlbumDetailButtonBar extends StatelessWidget {
             },
           ),
         ),
-        TextButton(
-          key: shareBtnKey,
-          onPressed: () => {},
-          style: ButtonStyle(
-            foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-          ),
-          child: const Column(
-            children: [
-              Icon(Icons.share),
-              gapH4,
-              Text('Share'),
-            ],
-          ),
-        ),
+        Consumer(builder: (context, ref, _) {
+          return TextButton(
+            key: shareBtnKey,
+            onPressed: () => ref.read(shareLauncherProvider).shareAlbum(album.id),
+            style: ButtonStyle(
+              foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+            ),
+            child: const Column(
+              children: [
+                Icon(Icons.share),
+                gapH4,
+                Text('Share'),
+              ],
+            ),
+          );
+        }),
         Consumer(builder: (context, ref, _) {
           return TextButton(
             key: infoBtnKey,

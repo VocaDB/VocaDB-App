@@ -14,6 +14,7 @@ import 'package:vocadb_app/src/features/authentication/data/auth_repository.dart
 import 'package:vocadb_app/src/features/pvs/presentation/pv_list/pv_group_list.dart';
 import 'package:vocadb_app/src/features/tags/presentation/tag_widgets/tag_usage_group_view.dart';
 import 'package:vocadb_app/src/features/weblinks/presentation/web_link_group_view.dart';
+import 'package:vocadb_app/src/utils/share_launcher.dart';
 import 'package:vocadb_app/src/utils/url_launcher.dart';
 
 class AlbumRobot {
@@ -25,6 +26,7 @@ class AlbumRobot {
     AlbumRepository? albumRepository,
     AuthRepository? authRepository,
     UrlLauncher? urlLauncher,
+    ShareLauncher? shareLauncher,
   }) async {
     await tester.pumpWidget(
       ProviderScope(
@@ -35,6 +37,8 @@ class AlbumRobot {
             authRepositoryProvider.overrideWithValue(authRepository),
           if (urlLauncher != null)
             urlLauncherProvider.overrideWithValue(urlLauncher),
+          if (shareLauncher != null)
+            shareLauncherProvider.overrideWithValue(shareLauncher),
         ],
         child: MaterialApp.router(
           routerConfig: GoRouter(
@@ -147,6 +151,13 @@ class AlbumRobot {
 
   Future<void> tapMoreInfo() async {
     final finder = find.byKey(AlbumDetailButtonBar.infoBtnKey);
+    expect(finder, findsOneWidget);
+    await tester.tap(finder);
+    await tester.pump();
+  }
+
+  Future<void> tapShare() async {
+    final finder = find.byKey(AlbumDetailButtonBar.shareBtnKey);
     expect(finder, findsOneWidget);
     await tester.tap(finder);
     await tester.pump();

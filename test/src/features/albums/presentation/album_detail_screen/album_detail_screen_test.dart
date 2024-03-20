@@ -241,5 +241,38 @@ void main() {
 
     verify(() => urlLauncher.launchAlbumMoreInfo(kFakeAlbumDetailSingleDisc.id)).called(1);
   });
+  
+  testWidgets('tap share on album detail screen', (tester) async {
+    final r = AlbumRobot(tester);
+    final shareLauncher = MockShareLauncher();
+
+    when(() => albumRepository.fetchAlbumID(any()))
+        .thenAnswer((invocation) => Future.value(kFakeAlbumDetailSingleDisc));
+
+    await r.pumpAlbumDetailScreen(
+      albumRepository: albumRepository,
+      authRepository: authRepository,
+      shareLauncher: shareLauncher
+    );
+
+    await r.expectErrorMessageWidgetNotVisible();
+
+    expect(find.widgetWithText(AlbumBasicInfo, 'synthesis'), findsOneWidget);
+    expect(find.widgetWithText(AlbumBasicInfo, 'Tripshots feat. 初音ミク'),
+        findsOneWidget);
+    expect(find.widgetWithText(AlbumBasicInfo, 'Album • 6/11/2009'),
+        findsOneWidget);
+
+    await r.expectAlbumDetailImageVisible();
+
+    // Buttons
+    await r.expectAddButtonVisible();
+    await r.expectShareButtonVisible();
+    await r.expectInfoButtonVisible();
+    
+    await r.tapShare();
+
+    verify(() => shareLauncher.shareAlbum(kFakeAlbumDetailSingleDisc.id)).called(1);
+  });
 
 }
