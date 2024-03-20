@@ -19,7 +19,6 @@ class ArtistDetailScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // final artist = kFakeArtistDetail;
     final value = ref.watch(artistDetailProvider(int.parse(artistId)));
 
     return Scaffold(
