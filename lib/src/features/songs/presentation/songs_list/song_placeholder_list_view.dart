@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vocadb_app/src/features/songs/presentation/song_card/song_card_placeholder.dart';
+import 'package:vocadb_app/src/features/songs/presentation/song_tile/song_tile_placeholder.dart';
 
 class SongPlaceholderListView extends StatelessWidget {
   const SongPlaceholderListView(
@@ -13,6 +14,15 @@ class SongPlaceholderListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
+    if(scrollDirection == Axis.vertical) {
+     return ListView.builder(
+      itemCount: size,
+      scrollDirection: Axis.vertical,
+      itemBuilder: (context, index) => const SongTilePlaceholder(),
+     );
+    }
+
     return SizedBox(
       height: 180,
       child: ListView.builder(

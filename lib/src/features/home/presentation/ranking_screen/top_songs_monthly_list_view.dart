@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vocadb_app/src/common_widgets/async_value_widget.dart';
 import 'package:vocadb_app/src/features/songs/data/song_repository.dart';
 import 'package:vocadb_app/src/features/songs/domain/song.dart';
+import 'package:vocadb_app/src/features/songs/presentation/songs_list/song_placeholder_list_view.dart';
 import 'package:vocadb_app/src/features/songs/presentation/songs_list/songs_list_view.dart';
 
 class TopSongsMonthlyListView extends ConsumerWidget {
@@ -14,6 +15,7 @@ class TopSongsMonthlyListView extends ConsumerWidget {
     final value = ref.watch(songsMonthlyProvider);
     return AsyncValueWidget(
       value: value,
+      loadingWidget: const SongPlaceholderListView(scrollDirection: Axis.vertical,),
       data: (data) => SongListView(
         songs: data,
         displayOrderNumber: true,

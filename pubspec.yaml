@@ -52,6 +52,7 @@ dependencies:
   hive_flutter: 1.1.0
   youtube_player_flutter: 8.1.2
   fluttertoast: 8.1.1
+  shimmer: ^3.0.0
 
 dev_dependencies:
   flutter_test:

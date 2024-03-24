@@ -7,7 +7,7 @@ class CustomNetworkImage extends StatelessWidget {
   final String imageUrl;
 
   /// A placeholder widget to display when image loading.
-  final Widget placeholder;
+  // final Widget placeholder;
 
   /// A widget to display error when fail to load image.
   final Widget errorWidget;
@@ -21,7 +21,7 @@ class CustomNetworkImage extends StatelessWidget {
   const CustomNetworkImage(
     this.imageUrl, {
     super.key,
-    this.placeholder = const Center(child: CircularProgressIndicator()),
+    // this.placeholder,
     this.errorWidget = const Icon(Icons.error),
     this.fit = BoxFit.cover,
     this.width = 140,
@@ -35,7 +35,7 @@ class CustomNetworkImage extends StatelessWidget {
       imageUrl: imageUrl,
       width: width,
       height: height,
-      placeholder: (context, url) => placeholder,
+      placeholder: (context, url) => Container(color: Colors.grey),
       errorWidget: (context, url, error) => errorWidget,
     );
   }
